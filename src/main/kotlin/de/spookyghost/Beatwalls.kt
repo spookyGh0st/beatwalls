@@ -7,7 +7,10 @@ import com.github.ajalt.clikt.parameters.arguments.argument
 import com.github.ajalt.clikt.parameters.arguments.validate
 import com.github.ajalt.clikt.parameters.options.*
 import com.github.ajalt.clikt.parameters.types.file
+import com.google.gson.Gson
+import java.io.BufferedReader
 import java.io.File
+import java.io.FileReader
 
 class Beatwalls : CliktCommand() {
 
@@ -23,7 +26,6 @@ class Beatwalls : CliktCommand() {
 
     val file: File by argument(help = "difficulty File (e.G expertPlus.dat)").file().validate {
        require((it.isFile && !allDirs && it.toString().contains(".dat")) || (file.isDirectory && allDirs)) { "Specify one Difficulty or use -a for a Folder"}
-        //TODO if directory check if it contains difficulty, if it is file check if it is a difficulty
     }
 
     init {
@@ -34,11 +36,21 @@ class Beatwalls : CliktCommand() {
     }
 
     override fun run() {
-        if(allDirs){
-
-
-        }
-
+        val difficulties = arrayListOf<Difficulty>()
+        if(allDirs)
+            TODO("ADD EACH DIRECTORY")
+        else
+            difficulties.add(readDifficulty(file))
 
     }
 }
+
+
+fun readDifficulty(f:File):Difficulty{
+    val reader = BufferedReader(FileReader(f))
+    val json = reader.readText()
+    reader.close()
+    //TODO return the difficulty
+    return Gson().fromJson(json, Difficulty::class.java)
+}
+fun checkName(s:String) = s.contains(".dat") && !s.contains("info")

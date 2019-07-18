@@ -14,17 +14,19 @@ import java.io.FileReader
 
 class Beatwalls : CliktCommand() {
 
-    val keepFiles by option ("--keepFiles", "-k",help = "keeps original files as backups").flag(default = false)
+    private val keepFiles by option ("--keepFiles", "-k",help = "keeps original files as backups").flag(default = false)
 
-    val dryRun by option("--dryRun", "-d",help = "Do not modify filesystem, only log output").flag(default = false)
+    private val dryRun by option("--dryRun", "-d",help = "Do not modify filesystem, only log output").flag(default = false)
 
-    val keepWalls by option("--keepWalls","-w",help = "keeps the original walls instead of deleting them").flag(default = false)
+    private val keepWalls by option("--keepWalls","-w",help = "keeps the original walls instead of deleting them").flag(default = false)
 
-    val quiet by option("--quiet", "-q",help = "Do not print to sdtout").flag(default = false)
+    private val quiet by option("--quiet", "-q",help = "Do not print to sdtout").flag(default = false)
 
-    val allDirs by option("--allDirs", "-a",help = "Run on all subfolders of given directory").flag(default = false)
+    private val yes by option("--yes", "-y",help = "skips confirmation").flag(default = false)
 
-    val file: File by argument(help = "difficulty File (e.G expertPlus.dat)").file().validate {
+    private val allDirs by option("--allDirs", "-a",help = "Run on all subfolders of given directory").flag(default = false)
+
+    private val file: File by argument(help = "difficulty File (e.G expertPlus.dat)").file().validate {
        require((it.isFile && !allDirs && it.toString().contains(".dat")) || (file.isDirectory && allDirs)) { "Specify one Difficulty or use -a for a Folder"}
     }
 
@@ -36,12 +38,32 @@ class Beatwalls : CliktCommand() {
     }
 
     override fun run() {
-        val difficulties = arrayListOf<Difficulty>()
-        if(allDirs)
-            TODO("ADD EACH DIRECTORY")
-        else
-            difficulties.add(readDifficulty(file))
+        val files = arrayListOf<File>()
+        if(allDirs) {
+            //TODO FÜGE ALLE DIFFICULTIES IN DEN UNTERORDNER HINZU
+        }
+        else {
+            files.add(file)
+        }
+        files.forEach {
 
+            val diff = readDifficulty(it)
+
+            //prints stuff if the quiet option is false
+            if(!quiet){
+                println("keep old Files: $keepFiles")
+                println("dry run: $dryRun")
+                println("keep old Walls: $keepWalls")
+                if(!yes) {
+                    println("continue? (y/n)")
+                    if (readLine() != "y") TODO("KILL programm and spit error message")
+                }
+            }
+
+            //clears the wall if the keepwallsflag is false
+            if (!keepWalls) diff._obstacles.clear()
+
+        }
     }
 }
 

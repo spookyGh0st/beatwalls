@@ -4,11 +4,11 @@ import com.google.gson.annotations.SerializedName
 data class Difficulty (
 
     @SerializedName("_version") var _version : String,
-    @SerializedName("_BPMChanges") val _BPMChanges : List<_BPMChanges>,
-    @SerializedName("_bookmarks") val _bookmarks : List<_bookmarks>,
-    @SerializedName("_events") var _events : List<_events>,
-    @SerializedName("_notes") var _notes : List<_notes>,
-    @SerializedName("_obstacles") var _obstacles : List<_obstacles>
+    @SerializedName("_BPMChanges") val _BPMChanges : ArrayList<_BPMChanges>,
+    @SerializedName("_bookmarks") val _bookmarks : ArrayList<_bookmarks>,
+    @SerializedName("_events") var _events : ArrayList<_events>,
+    @SerializedName("_notes") var _notes : ArrayList<_notes>,
+    @SerializedName("_obstacles") var _obstacles : ArrayList<_obstacles>
 )
 
 data class _BPMChanges (

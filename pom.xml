@@ -3,12 +3,12 @@
 
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>de.spookyghost</groupId>
+    <groupId>com.github.spookyghost</groupId>
     <artifactId>beatwalls</artifactId>
     <version>1.0-SNAPSHOT</version>
     <packaging>jar</packaging>
 
-    <name>de.spookyghost beatwalls</name>
+    <name>com.github.spookyghost beatwalls</name>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -102,7 +102,7 @@
                     <archive>
                         <manifest>
                             <addClasspath>true</addClasspath>
-                            <mainClass>de.spookyghost.MainKt</mainClass>
+                            <mainClass>com.github.spookyghost.beatwalls.MainKt</mainClass>
                         </manifest>
                     </archive>
                 </configuration>
@@ -121,7 +121,7 @@
                             <jar>${project.build.directory}/${artifactId}-${version}-shaded.jar</jar>
                             <outfile>${project.build.directory}/Beatwalls.exe</outfile>
                             <classPath>
-                                <mainClass>de.spookyghost.MainKt</mainClass>
+                                <mainClass>com.github.spookyghost.beatwalls.MainKt</mainClass>
                                 <preCp>anything</preCp>
                             </classPath>
                             <jre>

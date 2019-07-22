@@ -1,4 +1,4 @@
-package de.spookyghost
+package com.github.spookyghost.beatwalls
 import com.google.gson.annotations.SerializedName
 
 data class Difficulty (

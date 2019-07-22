@@ -1,4 +1,4 @@
-package de.spookyghost
+package com.github.spookyghost.beatwalls
 
 import com.github.ajalt.clikt.core.CliktCommand
 import com.github.ajalt.clikt.core.context
@@ -68,7 +68,7 @@ class Beatwalls : CliktCommand() {
 }
 
 
-fun readDifficulty(f:File):Difficulty{
+fun readDifficulty(f:File): Difficulty {
     val reader = BufferedReader(FileReader(f))
     val json = reader.readText()
     reader.close()

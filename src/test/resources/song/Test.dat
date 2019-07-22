@@ -1,0 +1,35 @@
+{
+    "_version": "2.0.0",
+    "_BPMChanges": [],
+    "_events": [
+        {
+            "_time": 1,
+            "_type": 2,
+            "_value": 3
+        }
+    ],
+    "_notes": [
+        {
+            "_time": 1,
+            "_lineIndex": 2,
+            "_lineLayer": 3,
+            "_type": 4,
+            "_cutDirection": 5
+        }
+    ],
+    "_obstacles": [
+        {
+            "_time": 1,
+            "_lineIndex": 2,
+            "_type": 3,
+            "_duration": 4,
+            "_width": 5
+        }
+    ],
+    "_bookmarks": [
+        {
+            "_time": 1,
+            "_name": "test"
+        }
+    ]
+}

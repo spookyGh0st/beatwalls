@@ -7,12 +7,17 @@ import com.github.ajalt.clikt.parameters.arguments.argument
 import com.github.ajalt.clikt.parameters.arguments.validate
 import com.github.ajalt.clikt.parameters.options.*
 import com.github.ajalt.clikt.parameters.types.file
+import com.github.ajalt.clikt.parameters.types.int
 import com.google.gson.Gson
 import java.io.BufferedReader
 import java.io.File
 import java.io.FileReader
 
 class Beatwalls : CliktCommand() {
+
+    private val file: File by argument(help = "difficulty File (e.G expertPlus.dat)").file().validate {
+        require((it.isFile && !allDirs && it.toString().contains(".dat")) || (file.isDirectory && allDirs)) { "Specify one Difficulty or use -a for a Folder"}
+    }
 
     private val keepFiles by option ("--keepFiles", "-k",help = "keeps original files as backups").flag(default = false)
 
@@ -26,9 +31,8 @@ class Beatwalls : CliktCommand() {
 
     private val allDirs by option("--allDirs", "-a",help = "Run on all subfolders of given directory").flag(default = false)
 
-    private val file: File by argument(help = "difficulty File (e.G expertPlus.dat)").file().validate {
-       require((it.isFile && !allDirs && it.toString().contains(".dat")) || (file.isDirectory && allDirs)) { "Specify one Difficulty or use -a for a Folder"}
-    }
+    private val spawnDistance by option("--spawnDistance","-s",help="SpawnDistance for timed walls").int().prompt("Spawn Distance: ",default = "2",showDefault = true)
+
 
     init {
         versionOption("1.0 Snapshot")
@@ -38,6 +42,9 @@ class Beatwalls : CliktCommand() {
     }
 
     override fun run() {
+
+        println(spawnDistance)
+
         val files = arrayListOf<File>()
         if(allDirs) {
             //TODO FÜGE ALLE DIFFICULTIES IN DEN UNTERORDNER HINZU

@@ -53,24 +53,34 @@ data class _obstacles (
 
 fun Difficulty.createWalls(bpm:Double, spawnDistance:Int){
     val marks = _bookmarks.filter { it._name.startsWith("/bw") }
-    marks.forEach {
+    marks.forEach { it ->
+
         val tempbpm =_BPMChanges.findLast{ bpmChanges -> bpmChanges._time < it._time }?._BPM ?: bpm
-        val bpmMultiplier = 1.0 / bpm * tempbpm
-        //TODO ADD TO OBSTACLES
-        it.getWalls(bpmMultiplier)
+
+        val bpmMultiplier =  bpm / tempbpm
+
+
+        val struct = it._name.removePrefix("/bw ").substringBefore(' ')
+
+        val parameters= it._name.substringAfter("$struct ").split(" ")
+
+        val list = when(struct.toLowerCase()){
+            "floor" -> Floor(parameters[0].toDouble(), parameters[1].toDouble()).set
+            else -> arrayListOf()
+            //TODO find a way to set default parameters, when no parameters are given
+        }
+
+        val time = it._time
+
+
+        list.forEach {
+            it._duration * bpmMultiplier
+            it._time+=time
+            _obstacles.add(it)
+        }
+
+
     }
 }
 
-fun _bookmarks.getWalls(bpmMultiplier:Double): ArrayList<_obstacles>{
-    val list = arrayListOf<_obstacles>()
-    when(_name){
-       //TODO
-    }
-
-   list.forEach {
-       it._duration *= bpmMultiplier
-       it._time += _time
-   }
-    return list
-}
 

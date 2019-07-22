@@ -6,6 +6,7 @@ import com.github.ajalt.clikt.output.CliktHelpFormatter
 import com.github.ajalt.clikt.parameters.arguments.argument
 import com.github.ajalt.clikt.parameters.arguments.validate
 import com.github.ajalt.clikt.parameters.options.*
+import com.github.ajalt.clikt.parameters.types.double
 import com.github.ajalt.clikt.parameters.types.file
 import com.github.ajalt.clikt.parameters.types.int
 import com.google.gson.Gson
@@ -32,6 +33,8 @@ class Beatwalls : CliktCommand() {
     private val allDirs by option("--allDirs", "-a",help = "Run on all subfolders of given directory").flag(default = false)
 
     private val spawnDistance by option("--spawnDistance","-s",help="SpawnDistance for timed walls").int().prompt("Spawn Distance: ",default = "2",showDefault = true)
+
+    private val bpm by option("--bpm","-b",help = "Beats per minute").double().prompt("BPM: ")
 
 
     init {
@@ -69,6 +72,8 @@ class Beatwalls : CliktCommand() {
 
             //clears the wall if the keepwallsflag is false
             if (!keepWalls) diff._obstacles.clear()
+
+            diff.createWalls(bpm,spawnDistance)
 
         }
     }

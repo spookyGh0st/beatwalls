@@ -49,3 +49,28 @@ data class _obstacles (
     @SerializedName("_duration") var _duration : Double,
     @SerializedName("_width") val _width : Int
 )
+
+
+fun Difficulty.createWalls(bpm:Double, spawnDistance:Int){
+    val marks = _bookmarks.filter { it._name.startsWith("/bw") }
+    marks.forEach {
+        val tempbpm =_BPMChanges.findLast{ bpmChanges -> bpmChanges._time < it._time }?._BPM ?: bpm
+        val bpmMultiplier = 1.0 / bpm * tempbpm
+        //TODO ADD TO OBSTACLES
+        it.getWalls(bpmMultiplier)
+    }
+}
+
+fun _bookmarks.getWalls(bpmMultiplier:Double): ArrayList<_obstacles>{
+    val list = arrayListOf<_obstacles>()
+    when(_name){
+       //TODO
+    }
+
+   list.forEach {
+       it._duration *= bpmMultiplier
+       it._time += _time
+   }
+    return list
+}
+

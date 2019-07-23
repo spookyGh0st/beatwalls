@@ -37,11 +37,11 @@
     "_bookmarks": [
         {
             "_time": 1,
-            "_name": "/bw test 12"
+            "_name": "bw test 12"
         },
         {
             "_time": 3,
-            "_name": "/bw Floor 12 4"
+            "_name": "/bw Floor 12 4 /bw test 12"
         }
     ]
 }

@@ -17,7 +17,7 @@ import java.io.FileReader
 class Beatwalls : CliktCommand() {
 
     private val file: File by argument(help = "difficulty File (e.G expertPlus.dat)").file().validate {
-        require((it.isFile && !allDirs && it.toString().contains(".dat")) || (file.isDirectory && allDirs)) { "Specify one Difficulty or use -a for a Folder"}
+        require((it.isDifficulty()) || it.isMap() ||(file.isDirectory && allDirs)) { "Specify one Difficulty or use -a for a Folder"}
     }
 
     private val keepFiles by option ("--keepFiles", "-k",help = "keeps original files as backups").flag(default = false)
@@ -32,9 +32,14 @@ class Beatwalls : CliktCommand() {
 
     private val allDirs by option("--allDirs", "-a",help = "Run on all subfolders of given directory").flag(default = false)
 
-    private val spawnDistance by option("--spawnDistance","-s",help="SpawnDistance for timed walls").int().prompt("Spawn Distance: ",default = "2",showDefault = true)
+    private val spawnDistance by option("--spawnDistance","-s",help="SpawnDistance for timed walls").int().default(2)
 
-    private val bpm by option("--bpm","-b",help = "Beats per minute").double().prompt("BPM: ")
+    private val bpm:Double
+
+    private val map = Map(file)
+
+    //todo find the spawndistance by decompiling bs under https://bsmg.wiki/modding/extras#dn-spy and check kyles convo
+
 
 
     init {
@@ -42,23 +47,14 @@ class Beatwalls : CliktCommand() {
         context {
             helpFormatter = CliktHelpFormatter(showDefaultValues = true)
         }
+        bpm =map.info._beatsPerMinute
+
     }
 
     override fun run() {
+        //TODO make this working
 
-        println(spawnDistance)
-
-        val files = arrayListOf<File>()
-        if(allDirs) {
-            //TODO FÜGE ALLE DIFFICULTIES IN DEN UNTERORDNER HINZU
-        }
-        else {
-            files.add(file)
-        }
-        files.forEach {
-
-            val diff = readDifficulty(it)
-
+        map.difficultyList.forEach {
             //prints stuff if the quiet option is false
             if(!quiet){
                 println("keep old Files: $keepFiles")
@@ -71,20 +67,12 @@ class Beatwalls : CliktCommand() {
             }
 
             //clears the wall if the keepwallsflag is false
-            if (!keepWalls) diff._obstacles.clear()
+            if (!keepWalls) it._obstacles.clear()
 
-            diff.createWalls(bpm,spawnDistance)
+            it.createWalls(bpm,spawnDistance)
+            println()
 
         }
     }
 }
 
-
-fun readDifficulty(f:File): Difficulty {
-    val reader = BufferedReader(FileReader(f))
-    val json = reader.readText()
-    reader.close()
-    //TODO return the difficulty
-    return Gson().fromJson(json, Difficulty::class.java)
-}
-fun checkName(s:String) = s.contains(".dat") && !s.contains("info")

@@ -1,5 +1,6 @@
 package com.github.spookyghost.beatwalls
 import com.google.gson.annotations.SerializedName
+import java.io.File
 
 data class Difficulty (
 
@@ -52,35 +53,51 @@ data class _obstacles (
 
 
 fun Difficulty.createWalls(bpm:Double, spawnDistance:Int){
-    val marks = _bookmarks.filter { it._name.startsWith("/bw") }
+    val marks = _bookmarks.filter { it._name.contains("/bw") }
     marks.forEach { it ->
 
-        val tempbpm =_BPMChanges.findLast{ bpmChanges -> bpmChanges._time < it._time }?._BPM ?: bpm
+        val tempBpm =_BPMChanges.findLast{ bpmChanges -> bpmChanges._time < it._time }?._BPM ?: bpm
 
-        val bpmMultiplier =  bpm / tempbpm
+        val bpmMultiplier =  bpm / tempBpm
 
-
-        val struct = it._name.removePrefix("/bw ").substringBefore(' ')
-
-        val parameters= it._name.substringAfter("$struct ").split(" ")
-
-        val list = when(struct.toLowerCase()){
-            "floor" -> Floor(parameters[0].toDouble(), parameters[1].toDouble()).set
-            else -> arrayListOf()
-            //TODO find a way to set default parameters, when no parameters are given
-        }
+        val list = arrayListOf<_obstacles>()
 
         val time = it._time
 
+        it.forEachCommand("bw"){
+            println(it)
+
+            val parameter = it.split(" ")
+
+            when (parameter.first().toLowerCase()) {
+                "floor" -> list.floor(parameter[1].toDouble(), parameter[2].toDouble())
+                "fastcathedral" -> list.fastCathedral(spawnDistance)
+                "text" -> list.text(it.removePrefix("text "))
+
+                //TODO make that better, auto set command, find a better way for the options. maybe nullable?
+                //TODO find a way to set default parameters, when no parameters are given
+            }
+        }
 
         list.forEach {
             it._duration * bpmMultiplier
-            it._time+=time
+            it._time = it._time * bpmMultiplier + time
             _obstacles.add(it)
         }
-
 
     }
 }
 
 
+inline fun _bookmarks.forEachCommand(command:String, action: (String)-> Unit) {
+    val regex = """(?<=/$command\s)(\w*)(\s(\w)+)*""".toRegex()
+    regex.findAll(this._name).forEach {
+        action(it.value)
+    }
+}
+
+fun File.isDifficulty() =
+    this.isFile && (this.name == "Easy.dat" || this.name == "Normal.dat" || this.name == "Hard.dat" || this.name == "Expert.dat" || this.name == "ExpertPlus.dat" || this.name == "Test.dat") //TODO remove test.dat
+
+fun File.isMap() =
+    this.isDirectory && this.list()?.contains("info.dat")?:false

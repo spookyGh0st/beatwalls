@@ -1,0 +1,15 @@
+{
+  "Walls": [
+    {
+      "name": "floor",
+      "mirror": false,
+      "walls": [
+        {
+          "startTime":0.0,
+          "StartHeight": 0.0,
+          "defaultDuration" : 0.0
+        }
+      ]
+    }
+  ]
+}

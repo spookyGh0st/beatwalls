@@ -51,10 +51,10 @@ data class _obstacles (
     @SerializedName("_width") val _width : Int
 )
 
+fun Difficulty.containsCommand(string: String) = this._bookmarks.any { it._name.contains("/$string") }
 
 fun Difficulty.createWalls(bpm:Double, spawnDistance:Int){
-    val marks = _bookmarks.filter { it._name.contains("/bw") }
-    marks.forEach { it ->
+    _bookmarks.forEach { it ->
 
         val tempBpm =_BPMChanges.findLast{ bpmChanges -> bpmChanges._time < it._time }?._BPM ?: bpm
 
@@ -62,7 +62,7 @@ fun Difficulty.createWalls(bpm:Double, spawnDistance:Int){
 
         val list = arrayListOf<_obstacles>()
 
-        val time = it._time
+        val offset = it._time
 
         it.forEachCommand("bw"){
             println(it)
@@ -70,9 +70,6 @@ fun Difficulty.createWalls(bpm:Double, spawnDistance:Int){
             val parameter = it.split(" ")
 
             when (parameter.first().toLowerCase()) {
-                "floor" -> list.floor(parameter[1].toDouble(), parameter[2].toDouble())
-                "fastcathedral" -> list.fastCathedral(spawnDistance)
-                "text" -> list.text(it.removePrefix("text "))
 
                 //TODO make that better, auto set command, find a better way for the options. maybe nullable?
                 //TODO find a way to set default parameters, when no parameters are given
@@ -80,17 +77,19 @@ fun Difficulty.createWalls(bpm:Double, spawnDistance:Int){
         }
 
         list.forEach {
-            it._duration * bpmMultiplier
-            it._time = it._time * bpmMultiplier + time
+            it.adjust(bpmMultiplier,offset)
             _obstacles.add(it)
         }
-
     }
 }
 
+fun _obstacles.adjust(bpmMultiplier:Double,offset:Double){
+    this._duration *=bpmMultiplier
+    this._time =this._time*bpmMultiplier + offset
+}
 
 inline fun _bookmarks.forEachCommand(command:String, action: (String)-> Unit) {
-    val regex = """(?<=/$command\s)(\w*)(\s(\w)+)*""".toRegex()
+    val regex = """(?<=/$command\s)(\w*)(\s(\w|\.)+)*""".toRegex()
     regex.findAll(this._name).forEach {
         action(it.value)
     }

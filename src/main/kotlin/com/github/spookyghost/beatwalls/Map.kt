@@ -96,3 +96,5 @@ fun readDifficulty(f:File): Difficulty {
     reader.close()
     return Gson().fromJson(json, Difficulty::class.java)
 }
+
+//TODO ADD MAPPING EXTENSION AUTOMATIC

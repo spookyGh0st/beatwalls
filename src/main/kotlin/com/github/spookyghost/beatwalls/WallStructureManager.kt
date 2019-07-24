@@ -16,7 +16,7 @@ class WallStructureManager(customWallStructures:ArrayList<CustomWallStructure>) 
         }?.getObstacleList(getDefaultParameter(parameters))
 
 
-    /** The default parameter are duration - height - startHeight - lineIndex - width */
+    /** The default parameter are duration - height - startHeight - startRow - width */
     private fun getDefaultParameter(parameters: ArrayList<String>): ArrayList<Double> {
         val doubleArrayList =   arrayListOf<Double>()
         (parameters.subList(1, parameters.lastIndex+1)).forEach {

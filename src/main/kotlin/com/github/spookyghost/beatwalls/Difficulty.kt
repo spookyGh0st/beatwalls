@@ -69,11 +69,6 @@ fun Difficulty.createWalls(bpm:Double, spawnDistance:Int){
 
             val parameter = it.split(" ")
 
-            when (parameter.first().toLowerCase()) {
-
-                //TODO make that better, auto set command, find a better way for the options. maybe nullable?
-                //TODO find a way to set default parameters, when no parameters are given
-            }
         }
 
         list.forEach {
@@ -83,10 +78,15 @@ fun Difficulty.createWalls(bpm:Double, spawnDistance:Int){
     }
 }
 
+
+
 fun _obstacles.adjust(bpmMultiplier:Double,offset:Double){
     this._duration *=bpmMultiplier
     this._time =this._time*bpmMultiplier + offset
 }
+
+
+
 
 inline fun _bookmarks.forEachCommand(command:String, action: (String)-> Unit) {
     val regex = """(?<=/$command\s)(\w*)(\s(\w|\.)+)*""".toRegex()
@@ -95,8 +95,3 @@ inline fun _bookmarks.forEachCommand(command:String, action: (String)-> Unit) {
     }
 }
 
-fun File.isDifficulty() =
-    this.isFile && (this.name == "Easy.dat" || this.name == "Normal.dat" || this.name == "Hard.dat" || this.name == "Expert.dat" || this.name == "ExpertPlus.dat" || this.name == "Test.dat") //TODO remove test.dat
-
-fun File.isMap() =
-    this.isDirectory && this.list()?.contains("info.dat")?:false

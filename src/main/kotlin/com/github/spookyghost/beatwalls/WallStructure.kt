@@ -1,7 +1,11 @@
 package com.github.spookyghost.beatwalls
 
+import com.google.gson.annotations.SerializedName
+
 interface WallStructure {
     val name: String
+
+    val mirror: Boolean
 
     val myObstacleList: ArrayList<MyObstacle>
 
@@ -20,8 +24,13 @@ interface WallStructure {
 
 data class CustomWallStructure(
 
+    @SerializedName("name")
     override val name: String,
-    val mirror: Boolean,
+
+    @SerializedName("mirror")
+    override val mirror: Boolean,
+
+    @SerializedName("myObstacle")
     override val myObstacleList: ArrayList<MyObstacle>
 
     ):WallStructure{
@@ -35,6 +44,8 @@ data class CustomWallStructure(
 
 
 object Floor: WallStructure{
+    override val mirror: Boolean = false
+
     override val myObstacleList: ArrayList<MyObstacle> = arrayListOf()
 
     override fun getObstacleList(parameters: ArrayList<Double>): ArrayList<_obstacles> {
@@ -42,3 +53,5 @@ object Floor: WallStructure{
     }
     override val name: String = "Floor"
 }
+
+

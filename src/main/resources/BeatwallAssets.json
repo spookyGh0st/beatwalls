@@ -3,11 +3,14 @@
     {
       "name": "floor",
       "mirror": false,
-      "walls": [
+      "MyObstacle": [
         {
-          "startTime":0.0,
-          "StartHeight": 0.0,
-          "defaultDuration" : 0.0
+          "duration" : 0.0,
+          "height" : 2.0,
+          "startHeight": 0.0,
+          "startRow": 0.0,
+          "width": 1.0,
+          "startTime": 0.0
         }
       ]
     }

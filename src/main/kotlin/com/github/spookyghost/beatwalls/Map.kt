@@ -1,10 +1,7 @@
 package com.github.spookyghost.beatwalls
 
-import com.google.gson.Gson
 import com.google.gson.annotations.SerializedName
-import java.io.BufferedReader
 import java.io.File
-import java.io.FileReader
 import java.nio.file.Paths
 
 class Map(file:File) {
@@ -83,18 +80,5 @@ data class _difficultyBeatmapSets (
     @SerializedName("_difficultyBeatmaps") val _difficultyBeatmaps : List<_difficultyBeatmaps>
 )
 
-fun readInfo(f:File):Info{
-    val reader = BufferedReader(FileReader(f))
-    val json = reader.readText()
-    reader.close()
-    return Gson().fromJson(json,Info::class.java)
-}
-
-fun readDifficulty(f:File): Difficulty {
-    val reader = BufferedReader(FileReader(f))
-    val json = reader.readText()
-    reader.close()
-    return Gson().fromJson(json, Difficulty::class.java)
-}
 
 //TODO ADD MAPPING EXTENSION AUTOMATIC

@@ -16,7 +16,7 @@ import java.io.BufferedReader
 import java.io.File
 import java.io.FileReader
 
-private val logger = KotlinLogging.logger{}
+val logger = KotlinLogging.logger{}
 
 class Beatwalls : CliktCommand() {
 

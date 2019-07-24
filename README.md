@@ -10,7 +10,7 @@ Download the binary from the [latest release](https://github.com/spookyGh0st/bea
 
 to be added
 
-##Roadmap
+## Roadmap
 
 1.0 Create a working program with some example walls
 

@@ -118,7 +118,7 @@
                         <goals><goal>launch4j</goal></goals>
                         <configuration>
                             <headerType>console</headerType>
-                            <jar>${project.build.directory}/${artifactId}-${version}-shaded.jar</jar>
+                            <jar>${project.build.directory}/${project.artifactId}-${project.version}.jar</jar>
                             <outfile>${project.build.directory}/Beatwalls.exe</outfile>
                             <classPath>
                                 <mainClass>com.github.spookyghost.beatwalls.MainKt</mainClass>

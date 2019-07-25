@@ -5,7 +5,6 @@ class WallStructureManager(customWallStructures:ArrayList<CustomWallStructure>) 
 
     init {
         with(wallStructuresList){
-            add(Floor)
             addAll(customWallStructures)
         }
     }

@@ -4,12 +4,13 @@ import com.google.gson.annotations.SerializedName
 
 
 data class MyObstacle(
-    @SerializedName("duration") var duration: Double = 0.0,
-    @SerializedName("height") var height: Double = 0.0,
-    @SerializedName("startHeight") var startHeight: Double = 0.0,
-    @SerializedName("startRow") var startRow: Double = 0.0,
-    @SerializedName("width") var width :Double = 1.0,
-    @SerializedName("startTime") var startTime:Double = 0.0
+    @SerializedName("duration") var duration : Double,
+    @SerializedName("height") var height : Double,
+    @SerializedName("startHeight") var startHeight : Double,
+    @SerializedName("startRow") var startRow : Double,
+    @SerializedName("width") var width : Double,
+    @SerializedName("startTime") var startTime : Double
+
 )
 
 /**Changes the MyObstacle Type to an _obstacle Type */

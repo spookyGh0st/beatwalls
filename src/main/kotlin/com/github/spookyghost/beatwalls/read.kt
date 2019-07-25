@@ -29,14 +29,8 @@ fun readAssets():ArrayList<CustomWallStructure>{
     val reader = BufferedReader(FileReader(file))
     val json = reader.readText()
     val base = Gson().fromJson(json, Json4Kotlin_Base::class.java)
-    return ArrayList(base.walls)
+    return ArrayList(base.customWallStructure)
     //todo return file
-}
-
-
-fun main(){
-    val w = WallStructureManager(readAssets())
-    println(w.get(arrayListOf("floor")))
 }
 
 
@@ -47,7 +41,3 @@ fun File.isMap() =
     this.isDirectory && this.list()?.contains("info.dat")?:false
 
 
-data class Json4Kotlin_Base (
-
-    @SerializedName("walls") val walls : List<CustomWallStructure>
-)

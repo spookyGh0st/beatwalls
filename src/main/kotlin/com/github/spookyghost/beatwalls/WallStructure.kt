@@ -7,20 +7,25 @@ interface WallStructure {
 
     val mirror: Boolean
 
-    val myObstacleList: ArrayList<MyObstacle>
+    val myObstacle: ArrayList<MyObstacle>
 
 
     fun getObstacleList(parameters: ArrayList<Double>): ArrayList<_obstacles> {
 
         val list = arrayListOf<_obstacles>()
 
-        myObstacleList.forEach {
+        myObstacle.forEach {
             it.adjust(parameters)
             list.add(it.to_obstacle())
         }
         return list
     }
 }
+
+data class Json4Kotlin_Base (
+
+    @SerializedName("customWallStructure") val customWallStructure : List<CustomWallStructure>
+)
 
 data class CustomWallStructure(
 
@@ -31,27 +36,15 @@ data class CustomWallStructure(
     override val mirror: Boolean,
 
     @SerializedName("myObstacle")
-    override val myObstacleList: ArrayList<MyObstacle>
+    override val myObstacle: ArrayList<MyObstacle>
 
     ):WallStructure{
     /** Adds the mirrored obstacle, if mirrow is enabled*/
     init {
         if(mirror){
-            myObstacleList.forEach { myObstacleList.add(it.mirror()) }
+            myObstacle.forEach { myObstacle.add(it.mirror()) }
         }
     }
-}
-
-
-object Floor: WallStructure{
-    override val mirror: Boolean = false
-
-    override val myObstacleList: ArrayList<MyObstacle> = arrayListOf()
-
-    override fun getObstacleList(parameters: ArrayList<Double>): ArrayList<_obstacles> {
-        TODO()
-    }
-    override val name: String = "Floor"
 }
 
 

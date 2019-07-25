@@ -1,6 +1,5 @@
 package com.github.spookyghost.beatwalls
 import com.google.gson.annotations.SerializedName
-import java.io.File
 
 data class Difficulty (
 
@@ -62,14 +61,14 @@ fun Difficulty.createWalls(bpm:Double, spawnDistance:Int){
 
         val list = arrayListOf<_obstacles>()
 
-        val offset = it._time
+        val timeOffset = it._time
 
         it.forEachCommand("bw"){
             list.addAll(WallStructureManager.get(it))
         }
 
         list.forEach {
-            it.adjust(bpmMultiplier,offset)
+            it.adjust(bpmMultiplier,timeOffset, spawnDistance)
             _obstacles.add(it)
         }
     }
@@ -77,9 +76,10 @@ fun Difficulty.createWalls(bpm:Double, spawnDistance:Int){
 
 
 
-fun _obstacles.adjust(bpmMultiplier:Double,offset:Double){
+fun _obstacles.adjust(bpmMultiplier:Double, timeOffset:Double, spawnDistance: Int){
+    if(this._duration < 0) this._time += spawnDistance
     this._duration *=bpmMultiplier
-    this._time =this._time*bpmMultiplier + offset
+    this._time =this._time*bpmMultiplier + timeOffset
 }
 
 

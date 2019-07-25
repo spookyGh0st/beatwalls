@@ -22,7 +22,7 @@ fun readDifficulty(f:File): Difficulty {
 fun readAssets():ArrayList<CustomWallStructure>{
     val file =  Paths.get(System.getProperty("user.dir"),"BeatwallAssets.json").toFile()
     if(!file.exists()) {
-        //todo create temp file
+        writeAssets()
     }
     val reader = BufferedReader(FileReader(file))
     val json = reader.readText()
@@ -32,7 +32,7 @@ fun readAssets():ArrayList<CustomWallStructure>{
 
 
 fun File.isDifficulty() =
-    this.isFile && (this.name == "Easy.dat" || this.name == "Normal.dat" || this.name == "Hard.dat" || this.name == "Expert.dat" || this.name == "ExpertPlus.dat" || this.name == "Test.dat") //TODO remove test.dat
+    this.isFile && (this.name == "Easy.dat" || this.name == "Normal.dat" || this.name == "Hard.dat" || this.name == "Expert.dat" || this.name == "ExpertPlus.dat" )
 
 fun File.isSong() =
     this.isDirectory && this.list()?.contains("info.dat")?:false
@@ -45,5 +45,16 @@ fun writeDifficulty(pair: Pair<Difficulty,File>){
         writer.close()
     }catch (e:Exception){
         logger.error { "Failed to write Difficulty" }
+    }
+}
+
+fun writeAssets(){
+    try {
+        val json = ""
+        val writer = BufferedWriter(FileWriter(Paths.get(System.getProperty("user.dir"),"BeatwallAssets.json").toFile()))
+        writer.write(json)
+        writer.close()
+    }catch (e:Exception){
+        logger.error { "Failed to write Assets" }
     }
 }

@@ -4,14 +4,16 @@ import com.google.gson.annotations.SerializedName
 import java.io.File
 import java.nio.file.Paths
 
-class Map(file:File) {
+class Song(file:File) {
     val info: Info = readInfo(Paths.get(file.toString(),"info.dat").toFile())
-    val difficultyList =  arrayListOf<Difficulty>()
+    var difficultyList =  mapOf<Difficulty,File>()
     init {
         for(i in info._difficultyBeatmapSets){
             for(j in i._difficultyBeatmaps){
                 val diffPath = Paths.get(file.toString(),(j._beatmapFilename))
-                difficultyList.add(readDifficulty(File(diffPath.toUri())))
+                val diffFile = File(diffPath.toUri())
+                val diffPair = Pair(readDifficulty(diffFile),diffFile)
+                difficultyList = difficultyList.plus(diffPair)
             }
         }
     }

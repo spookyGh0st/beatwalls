@@ -65,10 +65,7 @@ fun Difficulty.createWalls(bpm:Double, spawnDistance:Int){
         val offset = it._time
 
         it.forEachCommand("bw"){
-            println(it)
-
-            val parameter = it.split(" ")
-
+            list.addAll(WallStructureManager.get(it))
         }
 
         list.forEach {
@@ -88,10 +85,10 @@ fun _obstacles.adjust(bpmMultiplier:Double,offset:Double){
 
 
 
-inline fun _bookmarks.forEachCommand(command:String, action: (String)-> Unit) {
+inline fun _bookmarks.forEachCommand(command:String, action: (ArrayList<String>)-> Unit) {
     val regex = """(?<=/$command\s)(\w*)(\s(\w|\.)+)*""".toRegex()
     regex.findAll(this._name).forEach {
-        action(it.value)
+        action(ArrayList(it.value.split(" ")))
     }
 }
 

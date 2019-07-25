@@ -1,18 +1,19 @@
 package com.github.spookyghost.beatwalls
 
-class WallStructureManager(customWallStructures:ArrayList<CustomWallStructure>) {
+object WallStructureManager
+{
     private val wallStructuresList = arrayListOf<WallStructure>()
 
-    init {
+    fun loadManager(list:ArrayList<CustomWallStructure>) {
         with(wallStructuresList){
-            addAll(customWallStructures)
+            addAll(list)
         }
     }
 
     fun get(parameters: ArrayList<String>) =
         wallStructuresList.find {
             it.name == parameters.first().toLowerCase()
-        }?.getObstacleList(getDefaultParameter(parameters))
+        }?.getObstacleList(getDefaultParameter(parameters)) ?: arrayListOf()
 
 
     /** The default parameter are duration - height - startHeight - startRow - width */

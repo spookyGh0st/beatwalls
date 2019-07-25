@@ -2,9 +2,7 @@ package com.github.spookyghost.beatwalls
 
 import com.google.gson.Gson
 import com.google.gson.annotations.SerializedName
-import java.io.BufferedReader
-import java.io.File
-import java.io.FileReader
+import java.io.*
 import java.nio.file.Paths
 
 fun readInfo(f: File):Info{
@@ -30,14 +28,22 @@ fun readAssets():ArrayList<CustomWallStructure>{
     val json = reader.readText()
     val base = Gson().fromJson(json, Json4Kotlin_Base::class.java)
     return ArrayList(base.customWallStructure)
-    //todo return file
 }
 
 
 fun File.isDifficulty() =
     this.isFile && (this.name == "Easy.dat" || this.name == "Normal.dat" || this.name == "Hard.dat" || this.name == "Expert.dat" || this.name == "ExpertPlus.dat" || this.name == "Test.dat") //TODO remove test.dat
 
-fun File.isMap() =
+fun File.isSong() =
     this.isDirectory && this.list()?.contains("info.dat")?:false
 
-
+fun writeDifficulty(pair: Pair<Difficulty,File>){
+    try {
+        val text = Gson().toJson(pair.component1())
+        val writer = BufferedWriter(FileWriter(pair.component2()))
+        writer.write(text)
+        writer.close()
+    }catch (e:Exception){
+        logger.error { "Failed to write Difficulty" }
+    }
+}

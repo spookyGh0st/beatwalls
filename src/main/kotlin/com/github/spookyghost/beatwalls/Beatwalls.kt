@@ -9,19 +9,15 @@ import com.github.ajalt.clikt.parameters.options.*
 import com.github.ajalt.clikt.parameters.types.double
 import com.github.ajalt.clikt.parameters.types.file
 import com.github.ajalt.clikt.parameters.types.int
-import com.google.gson.Gson
 import mu.KotlinLogging
-import mu.Marker
-import java.io.BufferedReader
 import java.io.File
-import java.io.FileReader
 
 val logger = KotlinLogging.logger{}
 
 class Beatwalls : CliktCommand() {
 
     private val file: File by argument(help = "difficulty File (e.G expertPlus.dat)").file().validate {
-        require((it.isDifficulty()) || it.isMap() ||(file.isDirectory && allDirs)) { "Specify one Difficulty or use -a for a Folder"}
+        require((it.isDifficulty()) || it.isSong() ||(file.isDirectory && allDirs)) { "Specify one Difficulty or use -a for a Folder"}
     }
 
     private val keepFiles by option ("--keepFiles", "-k",help = "NOT IMPLEMENTED - keeps original files as backups").flag(default = false)
@@ -54,17 +50,18 @@ class Beatwalls : CliktCommand() {
 
     override fun run() {
         var beatsPerMinute = 0.0
-        val difficultyList = arrayListOf<Difficulty>()
+        val difficultyList = mutableMapOf<Difficulty,File>()
 
         try {
+            WallStructureManager.loadManager(readAssets())
             when {
-                file.isMap() -> {
-                    logger.info { "Detected Map. Running the program through all Difficulties which have commands" }
-                    val map = Map(file)
+                file.isSong() -> {
+                    logger.info { "Detected Song. Running the program through all Difficulties which have commands" }
+                    val map = Song(file)
                     beatsPerMinute = bpm?:map.info._beatsPerMinute
                     map.difficultyList.forEach {
-                        if (it.containsCommand("bw"))
-                            difficultyList.add(it)
+                        if (it.component1().containsCommand("bw"))
+                            difficultyList += it.toPair()
                     }
                 }
                 file.isDifficulty() -> {
@@ -73,7 +70,7 @@ class Beatwalls : CliktCommand() {
                         logger.error { "No BPM detected, pls use the -b option" }
                     else
                         beatsPerMinute = bpm as Double
-                    difficultyList.add(readDifficulty(file))
+                    difficultyList += Pair(readDifficulty(file),file)
                 }
                 else -> {
                     TODO()
@@ -88,20 +85,25 @@ class Beatwalls : CliktCommand() {
         difficultyList.forEach {
 
             //prints stuff if the quiet option is false
-            if (!quiet) {
-                println("keep old Files: $keepFiles")
-                println("dry run: $dryRun")
-                println("keep old Walls: $keepWalls")
-                if (!yes) {
-                    println("continue? (y/n)")
-                    if (readLine()?.toLowerCase() ?: "n" != "y") TODO("KILL programm and spit error message")
-                }
-            }
+            printWarnings()
 
             //clears the wall if the keepwallsflag is false
-            if (!keepWalls) it._obstacles.clear()
+            if (!keepWalls) it.component1()._obstacles.clear()
 
-            it.createWalls(beatsPerMinute, spawnDistance)
+            it.component1().createWalls(beatsPerMinute, spawnDistance)
+            if(!dryRun)
+                writeDifficulty(it.toPair())
+        }
+    }
+    fun printWarnings() {
+        if (!quiet) {
+            println("keep old Files: $keepFiles")
+            println("dry run: $dryRun")
+            println("keep old Walls: $keepWalls")
+            if (!yes) {
+                println("continue? (y/n)")
+                if (readLine()?.toLowerCase() ?: "n" != "y") TODO("KILL programm and spit error message")
+            }
         }
     }
 }

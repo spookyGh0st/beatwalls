@@ -56,6 +56,8 @@ fun Difficulty.createWalls(bpm:Double, spawnDistance:Int){
     _bookmarks.forEach { it ->
 
         val tempBpm =_BPMChanges.findLast{ bpmChanges -> bpmChanges._time < it._time }?._BPM ?: bpm
+        println("bookmarktim: ${it._time} last bpm change time: ")
+
 
         val bpmMultiplier =  bpm / tempBpm
 
@@ -63,9 +65,12 @@ fun Difficulty.createWalls(bpm:Double, spawnDistance:Int){
 
         val timeOffset = it._time
 
-        it.forEachCommand("bw"){
+        it.forEachBSCommand("bw"){
+            println(it)
             list.addAll(WallStructureManager.get(it))
         }
+
+        println("tempbpm: $tempBpm bpm: $bpm BMPMultipier: $bpmMultiplier")
 
         list.forEach {
             it.adjust(bpmMultiplier,timeOffset, spawnDistance)
@@ -85,7 +90,7 @@ fun _obstacles.adjust(bpmMultiplier:Double, timeOffset:Double, spawnDistance: In
 
 
 
-inline fun _bookmarks.forEachCommand(command:String, action: (ArrayList<String>)-> Unit) {
+inline fun _bookmarks.forEachBSCommand(command:String, action: (ArrayList<String>)-> Unit) {
     val regex = """(?<=/$command\s)(\w*)(\s(\w|\.)+)*""".toRegex()
     regex.findAll(this._name).forEach {
         action(ArrayList(it.value.split(" ")))

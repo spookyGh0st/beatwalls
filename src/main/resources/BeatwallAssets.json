@@ -5,19 +5,12 @@
       "mirror": false,
       "myObstacle": [
         {
-          "duration" : 0.2,
-          "height" : 2.0,
+          "duration" : 0.0,
+          "height" : 0.0,
           "startHeight": 0.0,
-          "startRow": 0.0,
-          "width": 1.0,
+          "startRow": -2,
+          "width": 4.0,
           "startTime": 0.0
-        },
-        {
-          "duration": 0.125,
-          "height": 2.25,
-          "startHeight": 0.124,
-          "startRow" : 0.5,
-          "startTime": 2.23
         }
       ]
     }

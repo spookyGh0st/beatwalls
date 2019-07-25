@@ -11,12 +11,11 @@ interface WallStructure {
 
 
     fun getObstacleList(parameters: ArrayList<Double>): ArrayList<_obstacles> {
-
         val list = arrayListOf<_obstacles>()
-
         myObstacle.forEach {
-            it.adjust(parameters)
-            list.add(it.to_obstacle())
+            val a = it.copy()
+            a.adjust(parameters)
+            list.add(a.to_obstacle())
         }
         return list
     }

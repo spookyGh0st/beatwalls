@@ -50,7 +50,27 @@ fun writeDifficulty(pair: Pair<Difficulty,File>){
 
 fun writeAssets(){
     try {
-        val json = ""
+        val json = """
+            {
+  "customWallStructure": [
+    {
+      "name": "floor",
+      "mirror": false,
+      "myObstacle": [
+        {
+          "duration" : 0.0,
+          "height" : 0.0,
+          "startHeight": 0.0,
+          "startRow": -2,
+          "width": 4.0,
+          "startTime": 0.0
+        }
+      ]
+    }
+  ]
+}
+
+"""
         val writer = BufferedWriter(FileWriter(Paths.get(System.getProperty("user.dir"),"BeatwallAssets.json").toFile()))
         writer.write(json)
         writer.close()

@@ -47,6 +47,17 @@ data class Info (
     @SerializedName("_difficultyBeatmapSets") val _difficultyBeatmapSets : List<_difficultyBeatmapSets>
 )
 
+data class InfoCustomData(
+
+    @SerializedName("_contributors") val _contributors: List<_contributors>
+//todo
+
+)
+data class _contributors(
+    @SerializedName("_role") val _role: String
+//todo
+)
+
 data class _customData (
 
     @SerializedName("_difficultyLabel") val _difficultyLabel : String,

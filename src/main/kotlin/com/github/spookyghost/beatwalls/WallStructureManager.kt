@@ -23,6 +23,7 @@ object WallStructureManager
             doubleArrayList.add(it.toDoubleOrNull() ?: 0.0)
         }
         while(doubleArrayList.size<5) { doubleArrayList.add(0.0) }
+        println(doubleArrayList)
         return doubleArrayList
     }
 }

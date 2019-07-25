@@ -19,6 +19,7 @@ fun MyObstacle.to_obstacle():_obstacles =
 
 /**overwrites the values if the parameter types are not null */
 fun MyObstacle.adjust(a:ArrayList<Double>){
+    println("duration $duration")
     duration +=  a[0]
     height += a[1]
     startHeight += a[2]
@@ -32,7 +33,7 @@ fun MyObstacle.mirror()=
 
 /**Return the _obstacle value of the startRow*/
 private fun Double.toLineIndex():Int {
-    val i = this -1.5
+    val i = this -2
     return if( i >= 0.0)
         (i* 1000 +1000).toInt()
     else

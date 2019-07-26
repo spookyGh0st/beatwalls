@@ -42,20 +42,21 @@ data class Info (
 
     @SerializedName("_environmentName") val _environmentName : String,
 
-    @SerializedName("_customData") val _customData : _customData,
+    @SerializedName("_customData") val InfoCustomData : InfoCustomData,
 
     @SerializedName("_difficultyBeatmapSets") val _difficultyBeatmapSets : List<_difficultyBeatmapSets>
 )
 
 data class InfoCustomData(
 
-    @SerializedName("_contributors") val _contributors: List<_contributors>
-//todo
-
+    @SerializedName("_contributors") val _contributors: List<_contributors>,
+    @SerializedName("_customEnvironment") val _customEnvironment: String,
+    @SerializedName("_customEnvironmentHash") val _customEnvironmentHash: String
 )
 data class _contributors(
-    @SerializedName("_role") val _role: String
-//todo
+    @SerializedName("_role") val _role: String,
+    @SerializedName("_name") val _name:String,
+    @SerializedName("_iconPath") val _iconPath: String
 )
 
 data class _customData (
@@ -65,12 +66,19 @@ data class _customData (
     @SerializedName("_editorOffset") val _editorOffset : Int,
     @SerializedName("_editorOldOffset") val _editorOldOffset : Int,
 
-    //TODO ADD COLOR
+    @SerializedName("_colorLeft") val _colorLeft: _beatmapColor,
+    @SerializedName("_colorRight") val _colorRight : _beatmapColor,
 
     @SerializedName("_warnings") val _warnings : List<String>,
     @SerializedName("_information") val _information : List<String>,
     @SerializedName("_suggestions") val _suggestions : List<String>,
     @SerializedName("_requirements") val _requirements : List<String>
+)
+
+data class _beatmapColor(
+    @SerializedName("r") val r:Double,
+    @SerializedName("g") val g:Double,
+    @SerializedName("b") val b:Double
 )
 
 
@@ -81,7 +89,7 @@ data class _difficultyBeatmaps (
     @SerializedName("_beatmapFilename") val _beatmapFilename : String,
 
     @SerializedName("_noteJumpMovementSpeed") val _noteJumpMovementSpeed : Double,
-    @SerializedName("_noteJumpStartBeatOffset") val _noteJumpStartBeatOffset : Int,
+    @SerializedName("_noteJumpStartBeatOffset") val _noteJumpStartBeatOffset : Double,
 
     @SerializedName("_customData") val _customData : _customData
 

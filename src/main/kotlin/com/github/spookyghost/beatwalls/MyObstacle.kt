@@ -14,8 +14,10 @@ data class MyObstacle(
 )
 
 /**Changes the MyObstacle Type to an _obstacle Type */
-fun MyObstacle.to_obstacle():_obstacles =
-     _obstacles(startTime, startRow.toLineIndex(),type(height,startHeight),  duration, width.toWidth())
+fun MyObstacle.to_obstacle():_obstacles {
+    val tempWidth = getWidth()
+   return  _obstacles(startTime, startRow.toLineIndex(),type(height,startHeight),  duration, tempWidth)
+}
 
 /**overwrites the values if the parameter types are not null */
 fun MyObstacle.adjust(a:ArrayList<Double>){
@@ -33,7 +35,8 @@ fun MyObstacle.mirror()=
 
 /**Return the _obstacle value of the startRow*/
 private fun Double.toLineIndex():Int {
-    val i = this -2
+    val i = this +2
+    println(i)
     return if( i >= 0.0)
         (i* 1000 +1000).toInt()
     else
@@ -41,11 +44,15 @@ private fun Double.toLineIndex():Int {
 }
 
 /**returns th _obstacle value of the width*/
-private fun Double.toWidth():Int{
-    return if( this >= 0.0)
-        (this* 1000 +1000).toInt()
-    else
-        (this*1000-1000).toInt()
+//TODO until negative width is allowed, this is kind of broken
+private fun MyObstacle.getWidth():Int{
+    return if( width >= 0.0)
+        (width* 1000 +1000).toInt()
+    else{
+        startRow -= width
+        (width*1000+1000).toInt()
+    }
+
 }
 
 

@@ -55,11 +55,8 @@ fun Difficulty.containsCommand(string: String) = this._bookmarks.any { it._name.
 fun Difficulty.createWalls(bpm:Double, spawnDistance:Int){
     _bookmarks.forEach { it ->
 
-        val tempBpm =_BPMChanges.findLast{ bpmChanges -> bpmChanges._time < it._time }?._BPM ?: bpm
+        val tempBpm =_BPMChanges.findLast{ bpmChanges -> bpmChanges._time <= it._time }?._BPM ?: bpm
         println("bookmarktim: ${it._time} last bpm change time: ")
-
-
-        val bpmMultiplier =  bpm / tempBpm
 
         val list = arrayListOf<_obstacles>()
 
@@ -70,10 +67,10 @@ fun Difficulty.createWalls(bpm:Double, spawnDistance:Int){
             list.addAll(WallStructureManager.get(it))
         }
 
-        println("tempbpm: $tempBpm bpm: $bpm BMPMultipier: $bpmMultiplier")
+        println("tempbpm: $tempBpm bpm: $bpm ")
 
         list.forEach {
-            it.adjust(bpmMultiplier,timeOffset, spawnDistance)
+            it.adjust(bpm, tempBpm,timeOffset, spawnDistance)
             _obstacles.add(it)
         }
     }
@@ -81,10 +78,10 @@ fun Difficulty.createWalls(bpm:Double, spawnDistance:Int){
 
 
 
-fun _obstacles.adjust(bpmMultiplier:Double, timeOffset:Double, spawnDistance: Int){
+fun _obstacles.adjust(bpm:Double,newBpm:Double, timeOffset:Double, spawnDistance: Int){
     if(this._duration < 0) this._time += spawnDistance
-    this._duration *=bpmMultiplier
-    this._time =this._time*bpmMultiplier + timeOffset
+    this._duration = this._duration /newBpm*bpm
+    this._time =this._time/newBpm *bpm + timeOffset
 }
 
 

@@ -41,7 +41,6 @@ class Beatwalls : CliktCommand() {
 
 
     init {
-        versionOption("1.0 Snapshot")
         context {
             helpFormatter = CliktHelpFormatter(showDefaultValues = true)
         }
@@ -94,6 +93,8 @@ class Beatwalls : CliktCommand() {
             if(!dryRun)
                 writeDifficulty(it.toPair())
         }
+        println("press enter to exit")
+        readLine()
     }
     fun printWarnings() {
         if (!quiet) {

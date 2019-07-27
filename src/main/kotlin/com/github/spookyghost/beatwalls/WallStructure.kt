@@ -15,8 +15,10 @@ interface WallStructure {
         myObstacle.forEach {
             val a = it.copy()
             a.adjust(parameters)
+            if(mirror) list.add(a.mirror().to_obstacle())
             list.add(a.to_obstacle())
         }
+        println("LIST: $list")
         return list
     }
 }
@@ -33,7 +35,6 @@ object Text:WallStructure{
         myObstacle.clear()
         val list = arrayListOf<_obstacles>()
         val text = pString.subList(1,pString.lastIndex)
-        //todo transform
         println(text)
         myObstacle.forEach { list.add(it.to_obstacle()) }
         return list
@@ -57,12 +58,6 @@ data class CustomWallStructure(
     override val myObstacle: ArrayList<MyObstacle>
 
     ):WallStructure{
-    /** Adds the mirrored obstacle, if mirrow is enabled*/
-    init {
-        if(mirror){
-            myObstacle.forEach { myObstacle.add(it.mirror()) }
-        }
-    }
 }
 
 

@@ -11,12 +11,24 @@ data class MyObstacle(
     @SerializedName("width") var width : Double,
     @SerializedName("startTime") var startTime : Double
 
-)
+){
+    override fun toString(): String {
+        return "duration: $duration height: $height startHeight: $startHeight startRow: $startRow width: $width StartTime: $startTime"
+    }
+}
+
 
 /**Changes the MyObstacle Type to an _obstacle Type */
 fun MyObstacle.to_obstacle():_obstacles {
+    println(this)
+    //first, so it adjust the startRow
     val tempWidth = getWidth()
-   return  _obstacles(startTime, startRow.toLineIndex(),type(height,startHeight),  duration, tempWidth)
+    //other parameters
+    val tempStartTime = startTime
+    val tempLineIndex = startRow.toLineIndex()
+    val tempType = type(height,startHeight)
+    val tempDuration = duration
+   return  _obstacles(tempStartTime,tempLineIndex,tempType,tempDuration,tempWidth)
 }
 
 /**overwrites the values if the parameter types are not null */
@@ -57,7 +69,21 @@ private fun MyObstacle.getWidth():Int{
 
 
 /**returns the type given heigt and startheight */
-private fun type(wallH: Double, startH: Double) = (wallH * 1000 + startH+4001).toInt()
-
+private fun type(wallH: Double, startH: Double):Int {
+    val tWallH:Int = when {
+        wallH>6 -> 4000
+        wallH<0 -> 1000
+        else -> (((1.0/3.0)*wallH)*1000).toInt()
+    }
+    val tStartH:Int = when{
+        startH>=8 -> 999
+        startH<0 -> 0
+        else -> (125*startH).toInt()
+    }
+    return  (tWallH * 1000 + tStartH+4001)
+}
+fun main(){
+    print(type(0.0,0.0))
+}
 
 

@@ -79,7 +79,7 @@ fun Difficulty.createWalls(bpm:Double, spawnDistance:Int){
 
 
 fun _obstacles.adjust(bpm:Double,newBpm:Double, timeOffset:Double, spawnDistance: Int){
-    if(this._duration < 0) this._time += spawnDistance
+    if(this._duration < 0) this._time += spawnDistance //todo broken right now. maybe adjust to BPM?
     this._duration = this._duration /newBpm*bpm
     this._time =this._time/newBpm *bpm + timeOffset
 }

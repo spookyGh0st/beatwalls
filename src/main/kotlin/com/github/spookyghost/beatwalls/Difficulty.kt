@@ -56,18 +56,15 @@ fun Difficulty.createWalls(bpm:Double, spawnDistance:Int){
     _bookmarks.forEach { it ->
 
         val tempBpm =_BPMChanges.findLast{ bpmChanges -> bpmChanges._time <= it._time }?._BPM ?: bpm
-        println("bookmarktim: ${it._time} last bpm change time: ")
 
         val list = arrayListOf<_obstacles>()
 
         val timeOffset = it._time
 
         it.forEachBSCommand("bw"){
-            println(it)
             list.addAll(WallStructureManager.get(it))
         }
 
-        println("tempbpm: $tempBpm bpm: $bpm ")
 
         list.forEach {
             it.adjust(bpm, tempBpm,timeOffset, spawnDistance)
@@ -79,7 +76,6 @@ fun Difficulty.createWalls(bpm:Double, spawnDistance:Int){
 
 
 fun _obstacles.adjust(bpm:Double,newBpm:Double, timeOffset:Double, spawnDistance: Int){
-    if(this._duration < 0) this._time += spawnDistance //todo broken right now. maybe adjust to BPM?
     this._duration = this._duration /newBpm*bpm
     this._time =this._time/newBpm *bpm + timeOffset
 }

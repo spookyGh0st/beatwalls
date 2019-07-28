@@ -1,6 +1,7 @@
 package com.github.spookyghost.beatwalls
 
 import com.google.gson.Gson
+import com.google.gson.GsonBuilder
 import com.google.gson.annotations.SerializedName
 import java.io.*
 import java.nio.file.Paths
@@ -22,13 +23,14 @@ fun readDifficulty(f:File): Difficulty {
 fun readAssets():ArrayList<CustomWallStructure>{
     val file =  Paths.get(System.getProperty("user.dir"),"BeatwallAssets.json").toFile()
     if(!file.exists()) {
-        writeAssets()
+        writeAssets(listOf())
     }
     val reader = BufferedReader(FileReader(file))
     val json = reader.readText()
     val base = Gson().fromJson(json, Json4Kotlin_Base::class.java)
     return ArrayList(base.customWallStructure)
 }
+
 
 
 fun File.isDifficulty() =
@@ -48,33 +50,48 @@ fun writeDifficulty(pair: Pair<Difficulty,File>){
     }
 }
 
-fun writeAssets(){
+fun writeAssets(customWallStructureList:List<CustomWallStructure>){
     try {
-        val json = """
-            {
-  "customWallStructure": [
-    {
-      "name": "floor",
-      "mirror": false,
-      "myObstacle": [
-        {
-          "duration" : 0.0,
-          "height" : 0.0,
-          "startHeight": 0.0,
-          "startRow": -2,
-          "width": 4.0,
-          "startTime": 0.0
+        var list = customWallStructureList
+        if( list.isEmpty()){
+            list+= createAssets()
         }
-      ]
-    }
-  ]
-}
+        val base = Json4Kotlin_Base(list)
 
-"""
+        val gson = GsonBuilder().setPrettyPrinting().create()
+        val json = gson.toJson(base)
         val writer = BufferedWriter(FileWriter(Paths.get(System.getProperty("user.dir"),"BeatwallAssets.json").toFile()))
         writer.write(json)
         writer.close()
     }catch (e:Exception){
         logger.error { "Failed to write Assets" }
     }
+}
+
+fun createAssets():List<CustomWallStructure>{
+    /**one liner*/
+    val list = listOf(
+        CustomWallStructure("Default",false, arrayListOf(MyObstacle(0.0,0.0,0.0,0.0,0.0,0.0))),
+        CustomWallStructure("Floor",false, arrayListOf(MyObstacle(0.0,0.0,0.0,-2.0,4.0,0.0))),
+        CustomWallStructure("Ceiling",false, arrayListOf(MyObstacle(0.0,0.1,3.0,-2.0,4.0,0.0))),
+        CustomWallStructure("Pillar",true, arrayListOf(MyObstacle(0.5,6.0,0.0,7.5,0.5,0.0))),
+        CustomWallStructure("Cathedral",true, arrayListOf(MyObstacle(0.0,6.0,0.0,8.0,1.0,0.0))),
+        CustomWallStructure("SplittedFloor",true, arrayListOf(MyObstacle(0.0,0.0,0.0,0.0,2.0,0.0))),
+        CustomWallStructure("SplittedCeiling",true, arrayListOf(MyObstacle(0.0,0.0,3.0,0.0,2.0,0.0))),
+        CustomWallStructure("fineStairwayUp",true, fineStairwayUp())
+    )
+    return list
+}
+
+fun main(){
+    writeAssets(listOf())
+}
+
+fun fineStairwayUp(): ArrayList<MyObstacle> {
+    val list = arrayListOf<MyObstacle>()
+    val max = 100.0
+    for(i in 0 until max.toInt()){
+        list.add(MyObstacle(1/max,1/max*6.0,i/max*6.0,3.0,1/max*6.0, i/max))
+    }
+    return list
 }

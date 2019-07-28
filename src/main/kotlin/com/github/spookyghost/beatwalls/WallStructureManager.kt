@@ -11,11 +11,9 @@ object WallStructureManager
         }
     }
 
-    fun get(parameters: ArrayList<String>) =
-        wallStructuresList.find {
-            it.name == parameters.first().toLowerCase()
+    fun get(parameters: ArrayList<String>): ArrayList<_obstacles> {
+        return wallStructuresList.find {
+            it.name.toLowerCase() == parameters.first().toLowerCase()
         }?.getObstacleList(parameters) ?: arrayListOf()
-
-
-    /** The default parameter are duration - height - startHeight - startRow - width */
+    }
 }

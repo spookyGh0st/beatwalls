@@ -10,7 +10,6 @@ data class MyObstacle(
     @SerializedName("startRow") var startRow : Double,
     @SerializedName("width") var width : Double,
     @SerializedName("startTime") var startTime : Double
-
 ){
     override fun toString(): String {
         return "duration: $duration height: $height startHeight: $startHeight startRow: $startRow width: $width StartTime: $startTime"
@@ -20,7 +19,6 @@ data class MyObstacle(
 
 /**Changes the MyObstacle Type to an _obstacle Type */
 fun MyObstacle.to_obstacle():_obstacles {
-    println(this)
     //first, so it adjust the startRow
     val tempWidth = getWidth()
     //other parameters
@@ -33,12 +31,19 @@ fun MyObstacle.to_obstacle():_obstacles {
 
 /**overwrites the values if the parameter types are not null */
 fun MyObstacle.adjust(a:ArrayList<Double>){
-    println("duration $duration")
+    //println("Parameters: $a")
+    //println("OLD Obstacle $this")
     duration +=  a[0]
     height += a[1]
     startHeight += a[2]
     startRow += a[3]
     width += a[4]
+    startTime += a[5]
+
+
+    duration *= a[6]
+    startTime *= a[6]
+    //println("NEW Obstacle: $this")
 }
 
 /**returns the mirrored obstacle */
@@ -48,7 +53,6 @@ fun MyObstacle.mirror()=
 /**Return the _obstacle value of the startRow*/
 private fun Double.toLineIndex():Int {
     val i = this +2
-    println(i)
     return if( i >= 0.0)
         (i* 1000 +1000).toInt()
     else
@@ -78,12 +82,9 @@ private fun type(wallH: Double, startH: Double):Int {
     val tStartH:Int = when{
         startH>=8 -> 999
         startH<0 -> 0
-        else -> (125*startH).toInt()
+        else -> (250*startH).toInt()
     }
     return  (tWallH * 1000 + tStartH+4001)
-}
-fun main(){
-    print(type(0.0,0.0))
 }
 
 

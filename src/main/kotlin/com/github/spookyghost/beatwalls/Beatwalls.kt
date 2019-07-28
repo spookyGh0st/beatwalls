@@ -77,7 +77,7 @@ class Beatwalls : CliktCommand() {
             }
 
         }catch (e:Exception){
-            logger.error { "Failed to resolve File" }
+            println("\nFAILED\n")
         }
 
 
@@ -93,10 +93,11 @@ class Beatwalls : CliktCommand() {
             if(!dryRun)
                 writeDifficulty(it.toPair())
         }
+        println("Here comes Text displaying what just happened. \n\n")
         println("press enter to exit")
         readLine()
     }
-    fun printWarnings() {
+    private fun printWarnings() {
         if (!quiet) {
             println("keep old Files: $keepFiles")
             println("dry run: $dryRun")

@@ -14,8 +14,11 @@ class Song(file:File) {
                 val diffFile = File(diffPath.toUri())
                 val diffPair = Pair(readDifficulty(diffFile),diffFile)
                 difficultyList = difficultyList.plus(diffPair)
+
+                if(diffPair.component1().containsCommand("bw" )) j._customData._requirements.add("Mapping Extensions")
             }
         }
+        writeInfo(info, file)
     }
 }
 
@@ -72,7 +75,7 @@ data class _customData (
     @SerializedName("_warnings") val _warnings : List<String>,
     @SerializedName("_information") val _information : List<String>,
     @SerializedName("_suggestions") val _suggestions : List<String>,
-    @SerializedName("_requirements") val _requirements : List<String>
+    @SerializedName("_requirements") val _requirements : ArrayList<String>
 )
 
 data class _beatmapColor(
@@ -101,5 +104,3 @@ data class _difficultyBeatmapSets (
     @SerializedName("_difficultyBeatmaps") val _difficultyBeatmaps : List<_difficultyBeatmaps>
 )
 
-
-//TODO ADD MAPPING EXTENSION AUTOMATIC

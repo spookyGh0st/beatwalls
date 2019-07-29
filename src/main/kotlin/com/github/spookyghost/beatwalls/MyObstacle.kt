@@ -33,16 +33,17 @@ fun MyObstacle.to_obstacle():_obstacles {
 fun MyObstacle.adjust(a:ArrayList<Double>){
     //println("Parameters: $a")
     //println("OLD Obstacle $this")
-    duration +=  a[0]
-    height += a[1]
-    startHeight += a[2]
-    startRow += a[3]
-    width += a[4]
-    startTime += a[5]
+
+    duration +=  a[2]
+    height += a[3]
+    startHeight += a[4]
+    startRow += a[5]
+    width += a[6]
+    startTime += a[7]
 
 
-    duration *= a[6]
-    startTime *= a[6]
+    duration *= a[0]
+    startTime *= a[0]
     //println("NEW Obstacle: $this")
 }
 

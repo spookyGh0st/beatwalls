@@ -76,7 +76,7 @@ private fun MyObstacle.getWidth():Int{
 private fun type(wallH: Double, startH: Double):Int {
     val tWallH:Int = when {
         wallH>6 -> 4000
-        wallH<0 -> 1000
+        wallH<0 -> 0
         else -> (((1.0/3.0)*wallH)*1000).toInt()
     }
     val tStartH:Int = when{

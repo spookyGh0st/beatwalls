@@ -17,13 +17,13 @@ interface WallStructure {
         val list = arrayListOf<_obstacles>()
         myObstacle.forEach {
             val a = it.copy()
-            val timer =defaultParameters[0]
+            var timer =defaultParameters[0]
             do{
                 a.adjust(defaultParameters)
                 if(mirror) list.add(a.mirror().to_obstacle())
                 list.add(a.to_obstacle())
                 defaultParameters[7] += defaultParameters[0]
-                timer -1
+                timer --
             }while(timer>=0)
         }
         return list

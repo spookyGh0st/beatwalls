@@ -24,7 +24,7 @@ interface WallStructure {
                 list.add(a.to_obstacle())
                 defaultParameters[7] += defaultParameters[0]
                 timer -1
-            }while(defaultParameters[0]>=0)
+            }while(timer>=0)
         }
         return list
     }
@@ -72,6 +72,6 @@ private fun getDefaultParameter(parameters: ArrayList<String>): ArrayList<Double
         doubleArrayList.add(it.toDoubleOrNull() ?: 0.0)
     }
     if(doubleArrayList.size<1) doubleArrayList.add(1.0)
-    while(doubleArrayList.size<7) { doubleArrayList.add(0.0) }
+    while(doubleArrayList.size<8) { doubleArrayList.add(0.0) }
     return doubleArrayList
 }

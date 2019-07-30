@@ -26,7 +26,7 @@ fun MyObstacle.to_obstacle():_obstacles {
     val tempLineIndex = startRow.toLineIndex()
     val tempType = type(height,startHeight)
     val tempDuration = duration
-   return  _obstacles(tempStartTime,tempLineIndex,tempType,tempDuration,tempWidth)
+    return  _obstacles(tempStartTime,tempLineIndex,tempType,tempDuration,tempWidth)
 }
 
 /**overwrites the values if the parameter types are not null */

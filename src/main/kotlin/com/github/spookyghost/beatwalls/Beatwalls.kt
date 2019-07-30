@@ -15,6 +15,8 @@ import kotlin.system.exitProcess
 val logger = KotlinLogging.logger{}
 
 class Beatwalls : CliktCommand() {
+    //TODO ADD ICON
+
 
     private val file: File by argument(help = "difficulty File (e.G expertPlus.dat)").file().validate {
         require((it.isDifficulty()) || it.isSong() ) { "Use a SongFolder or DifficultyFile"}

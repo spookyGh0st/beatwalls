@@ -52,7 +52,7 @@ data class _obstacles (
 
 fun Difficulty.containsCommand(string: String) = this._bookmarks.any { it._name.contains("/$string") }
 
-fun Difficulty.createWalls(bpm:Double, spawnDistance:Int){
+fun Difficulty.createWalls(bpm: Double){
     _bookmarks.forEach { it ->
 
         val tempBpm =_BPMChanges.findLast{ bpmChanges -> bpmChanges._time <= it._time }?._BPM ?: bpm
@@ -67,7 +67,7 @@ fun Difficulty.createWalls(bpm:Double, spawnDistance:Int){
 
 
         list.forEach {
-            it.adjust(bpm, tempBpm,timeOffset, spawnDistance)
+            it.adjust(bpm, tempBpm, timeOffset)
             _obstacles.add(it)
         }
     }
@@ -75,7 +75,7 @@ fun Difficulty.createWalls(bpm:Double, spawnDistance:Int){
 
 
 
-fun _obstacles.adjust(bpm:Double,newBpm:Double, timeOffset:Double, spawnDistance: Int){
+fun _obstacles.adjust(bpm: Double, newBpm: Double, timeOffset: Double){
     this._duration = this._duration /newBpm*bpm
     this._time =this._time/newBpm *bpm + timeOffset
 }

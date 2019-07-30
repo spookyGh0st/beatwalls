@@ -8,7 +8,6 @@ import com.github.ajalt.clikt.parameters.arguments.validate
 import com.github.ajalt.clikt.parameters.options.*
 import com.github.ajalt.clikt.parameters.types.double
 import com.github.ajalt.clikt.parameters.types.file
-import com.github.ajalt.clikt.parameters.types.int
 import mu.KotlinLogging
 import java.io.File
 import kotlin.system.exitProcess
@@ -21,7 +20,7 @@ class Beatwalls : CliktCommand() {
         require((it.isDifficulty()) || it.isSong() ) { "Use a SongFolder or DifficultyFile"}
     }
 
-    private val keepFiles by option ("--keepFiles", "-k",help = "keeps original files as backups").flag(default = false)//todo()
+    private val keepFiles by option ("--keepFiles", "-k",help = "keeps original files as backups").flag(default = false)
 
     private val dryRun by option("--dryRun", "-d",help = "Do not modify filesystem, only log output").flag(default = false)
 
@@ -32,8 +31,6 @@ class Beatwalls : CliktCommand() {
     private val yes by option("--yes", "-y",help = "skips confirmation").flag(default = false)
 
     private val bpm by option("--bpm", "-b",help="Beats per minute").double()
-
-    private val spawnDistance by option("--spawnDistance","-s",help="SpawnDistance for timed walls").int().default(2)
 
     init {
         context {
@@ -66,9 +63,6 @@ class Beatwalls : CliktCommand() {
                         beatsPerMinute = bpm as Double
                     difficultyList += Pair(readDifficulty(file),file)
                 }
-                else -> {
-                    TODO()
-                }
             }
 
         }catch (e:Exception){
@@ -92,7 +86,7 @@ class Beatwalls : CliktCommand() {
 
             if (!keepWalls) it.component1()._obstacles.clear()
 
-            it.component1().createWalls(beatsPerMinute, spawnDistance)
+            it.component1().createWalls(beatsPerMinute)
             if(!dryRun)
                 writeDifficulty(it.toPair())
         }

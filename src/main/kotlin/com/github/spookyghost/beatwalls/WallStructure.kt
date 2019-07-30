@@ -62,8 +62,7 @@ data class CustomWallStructure(
     @SerializedName("myObstacle")
     override val myObstacle: ArrayList<MyObstacle>
 
-    ):WallStructure{
-}
+    ):WallStructure
 
 
 private fun getDefaultParameter(parameters: ArrayList<String>): ArrayList<Double> {

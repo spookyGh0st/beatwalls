@@ -80,22 +80,18 @@ fun writeAssets(customWallStructureList:List<CustomWallStructure>){
     }
 }
 
-fun createAssets():List<CustomWallStructure>{
-    /**one liner*/
-    val list = listOf(
-        CustomWallStructure("Default",false, arrayListOf(MyObstacle(1.0,0.0,0.0,0.0,0.0,0.0))),
-        CustomWallStructure("Floor",false, arrayListOf(MyObstacle(1.0,0.0,0.0,-2.0,4.0,0.0))),
-        CustomWallStructure("Ceiling",false, arrayListOf(MyObstacle(1.0,0.1,3.0,-2.0,4.0,0.0))),
-        CustomWallStructure("Pillar",true, arrayListOf(MyObstacle(1.0,6.0,0.0,7.5,0.5,0.0))),
-        CustomWallStructure("Cathedral",true, arrayListOf(MyObstacle(1.0,6.0,0.0,8.0,1.0,0.0))),
-        CustomWallStructure("SplittedFloor",true, arrayListOf(MyObstacle(1.0,0.0,0.0,0.0,2.0,0.0))),
-        CustomWallStructure("SplittedCeiling",true, arrayListOf(MyObstacle(1.0,0.0,3.0,0.0,2.0,0.0))),
-        CustomWallStructure("fineStairwayUp",true, fineStairwayUp()),
-        CustomWallStructure("fineStairwayDown",true, fineStairwayDown())
+fun createAssets():List<CustomWallStructure> = listOf(
+    CustomWallStructure("Default",false, arrayListOf(MyObstacle(1.0,0.0,0.0,0.0,0.0,0.0))),
+    CustomWallStructure("Floor",false, arrayListOf(MyObstacle(1.0,0.0,0.0,-2.0,4.0,0.0))),
+    CustomWallStructure("Ceiling",false, arrayListOf(MyObstacle(1.0,0.1,3.0,-2.0,4.0,0.0))),
+    CustomWallStructure("Pillar",true, arrayListOf(MyObstacle(1.0,6.0,0.0,7.5,0.5,0.0))),
+    CustomWallStructure("Cathedral",true, arrayListOf(MyObstacle(1.0,6.0,0.0,8.0,1.0,0.0))),
+    CustomWallStructure("SplittedFloor",true, arrayListOf(MyObstacle(1.0,0.0,0.0,0.0,2.0,0.0))),
+    CustomWallStructure("SplittedCeiling",true, arrayListOf(MyObstacle(1.0,0.0,3.0,0.0,2.0,0.0))),
+    CustomWallStructure("fineStairwayUp",true, fineStairwayUp()),
+    CustomWallStructure("fineStairwayDown",true, fineStairwayDown())
 
-    )
-    return list
-}
+)
 
 fun fineStairwayUp(): ArrayList<MyObstacle> {
     val list = arrayListOf<MyObstacle>()

@@ -1,6 +1,7 @@
-package com.github.spookyghost.beatwalls
+package structures
 
 import com.google.gson.annotations.SerializedName
+import song._obstacles
 
 interface WallStructure {
     val name: String
@@ -33,7 +34,7 @@ interface WallStructure {
 
 
 
-object Text:WallStructure{
+object Text: WallStructure {
     override val name: String = "text"
     override val mirror: Boolean = false
     override val myObstacle: ArrayList<MyObstacle> = arrayListOf()
@@ -62,7 +63,7 @@ data class CustomWallStructure(
     @SerializedName("myObstacle")
     override val myObstacle: ArrayList<MyObstacle>
 
-    ):WallStructure
+    ): WallStructure
 
 
 private fun getDefaultParameter(parameters: ArrayList<String>): ArrayList<Double> {

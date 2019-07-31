@@ -1,4 +1,6 @@
-package com.github.spookyghost.beatwalls
+package structures
+
+import song._obstacles
 
 object WallStructureManager
 {

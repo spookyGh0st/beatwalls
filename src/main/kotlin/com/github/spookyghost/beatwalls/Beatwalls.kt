@@ -9,6 +9,12 @@ import com.github.ajalt.clikt.parameters.options.*
 import com.github.ajalt.clikt.parameters.types.double
 import com.github.ajalt.clikt.parameters.types.file
 import mu.KotlinLogging
+import reader.*
+import song.Difficulty
+import song.Song
+import song.containsCommand
+import song.createWalls
+import structures.WallStructureManager
 import java.io.File
 import kotlin.system.exitProcess
 
@@ -49,7 +55,7 @@ class Beatwalls : CliktCommand() {
             WallStructureManager.loadManager(readAssets())
             when {
                 file.isSong() -> {
-                    logger.info { "Detected Song. Running the program through all Difficulties which have commands" }
+                    logger.info { "Detected song. Running the program through all Difficulties which have commands" }
                     val map = Song(file)
                     beatsPerMinute = bpm?:map.info._beatsPerMinute
                     map.difficultyList.forEach {
@@ -82,7 +88,7 @@ class Beatwalls : CliktCommand() {
             if(keepFiles){
                 val diff = it.component1().copy()
                 val path = File(it.component2().toString()+".old")
-                writeDifficulty(Pair(diff,path))
+                writeDifficulty(Pair(diff, path))
                 println("Written Backup to $path")
             }
 

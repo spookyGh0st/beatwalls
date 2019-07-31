@@ -1,19 +1,22 @@
-package com.github.spookyghost.beatwalls
+package song
 
+import reader.readDifficulty
 import com.google.gson.annotations.SerializedName
 import java.io.File
 import java.nio.file.Paths
+import reader.readInfo
+import reader.writeInfo
 
 class Song(file:File) {
-    val info: Info = readInfo(Paths.get(file.toString(),"info.dat").toFile())
+    val info: Info = readInfo(Paths.get(file.toString(), "info.dat").toFile())
     var difficultyList =  mapOf<Difficulty,File>()
     init {
         for(i in info._difficultyBeatmapSets){
             for(j in i._difficultyBeatmaps){
                 val diffPath = Paths.get(file.toString(),(j._beatmapFilename))
                 val diffFile = File(diffPath.toUri())
-                val diffPair = Pair(readDifficulty(diffFile),diffFile)
-                difficultyList = difficultyList.plus(diffPair)
+                val diffPair = Pair<Difficulty,File>(readDifficulty(diffFile),diffFile)
+                difficultyList = difficultyList + diffPair
 
                 if(diffPair.component1().containsCommand("bw" )) j._customData._requirements.add("Mapping Extensions")
             }

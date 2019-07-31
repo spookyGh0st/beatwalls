@@ -3,6 +3,7 @@ package com.github.spookyghost.beatwalls
 
 import org.junit.Assert.*
 import org.junit.Test
+import structures.DefaultParameters
 
 class DefaultParametersTest {
 
@@ -63,7 +64,7 @@ class DefaultParametersTest {
     fun testMemException(){
         try {
             val string = "floor -- fsjdka lks li l2 j432"
-             DefaultParameters(string)
+            DefaultParameters(string)
             fail()
         }catch (e:Exception){}
     }

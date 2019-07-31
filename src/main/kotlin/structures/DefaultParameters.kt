@@ -1,4 +1,4 @@
-package com.github.spookyghost.beatwalls
+package structures
 
 class DefaultParameters(string: String)
 {

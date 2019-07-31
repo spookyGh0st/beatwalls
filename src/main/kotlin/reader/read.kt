@@ -1,5 +1,11 @@
-package com.github.spookyghost.beatwalls
+package reader
 
+import song.Difficulty
+import song.Info
+import structures.CustomWallStructure
+import structures.Json4Kotlin_Base
+import structures.MyObstacle
+import com.github.spookyghost.beatwalls.logger
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import java.io.*
@@ -40,7 +46,7 @@ fun File.isSong() =
 
 
 
-fun writeInfo(info: Info,file: File){
+fun writeInfo(info: Info, file: File){
     try {
         val json = Gson().toJson(info)
         val writer = BufferedWriter(FileWriter(file))
@@ -81,15 +87,43 @@ fun writeAssets(customWallStructureList:List<CustomWallStructure>){
 }
 
 fun createAssets():List<CustomWallStructure> = listOf(
-    CustomWallStructure("Default",false, arrayListOf(MyObstacle(1.0, 0.0, 0.0, 0.0, 0.0, 0.0))),
-    CustomWallStructure("Floor",false, arrayListOf(MyObstacle(1.0, 0.0, 0.0, -2.0, 4.0, 0.0))),
-    CustomWallStructure("Ceiling",false, arrayListOf(MyObstacle(1.0, 0.1, 3.0, -2.0, 4.0, 0.0))),
-    CustomWallStructure("Pillar",true, arrayListOf(MyObstacle(1.0, 6.0, 0.0, 7.5, 0.5, 0.0))),
-    CustomWallStructure("Cathedral",true, arrayListOf(MyObstacle(1.0, 6.0, 0.0, 8.0, 1.0, 0.0))),
-    CustomWallStructure("SplittedFloor",true, arrayListOf(MyObstacle(1.0, 0.0, 0.0, 0.0, 2.0, 0.0))),
-    CustomWallStructure("SplittedCeiling",true, arrayListOf(MyObstacle(1.0, 0.0, 3.0, 0.0, 2.0, 0.0))),
-    CustomWallStructure("fineStairwayUp",true, fineStairwayUp()),
-    CustomWallStructure("fineStairwayDown",true, fineStairwayDown())
+    CustomWallStructure(
+        "Default",
+        false,
+        arrayListOf(MyObstacle(1.0, 0.0, 0.0, 0.0, 0.0, 0.0))
+    ),
+    CustomWallStructure(
+        "Floor",
+        false,
+        arrayListOf(MyObstacle(1.0, 0.0, 0.0, -2.0, 4.0, 0.0))
+    ),
+    CustomWallStructure(
+        "Ceiling",
+        false,
+        arrayListOf(MyObstacle(1.0, 0.1, 3.0, -2.0, 4.0, 0.0))
+    ),
+    CustomWallStructure(
+        "Pillar",
+        true,
+        arrayListOf(MyObstacle(1.0, 6.0, 0.0, 7.5, 0.5, 0.0))
+    ),
+    CustomWallStructure(
+        "Cathedral",
+        true,
+        arrayListOf(MyObstacle(1.0, 6.0, 0.0, 8.0, 1.0, 0.0))
+    ),
+    CustomWallStructure(
+        "SplittedFloor",
+        true,
+        arrayListOf(MyObstacle(1.0, 0.0, 0.0, 0.0, 2.0, 0.0))
+    ),
+    CustomWallStructure(
+        "SplittedCeiling",
+        true,
+        arrayListOf(MyObstacle(1.0, 0.0, 3.0, 0.0, 2.0, 0.0))
+    ),
+    CustomWallStructure("fineStairwayUp", true, fineStairwayUp()),
+    CustomWallStructure("fineStairwayDown", true, fineStairwayDown())
 
 )
 
@@ -98,7 +132,16 @@ fun fineStairwayUp(): ArrayList<MyObstacle> {
     val max = 10.0
     val maxH = 5.0
     for(i in 0 until max.toInt()){
-        list.add(MyObstacle(1 / max, 1 / max * maxH, i / max * maxH, 3.0, 1 / max * maxH, i / max))
+        list.add(
+            MyObstacle(
+                1 / max,
+                1 / max * maxH,
+                i / max * maxH,
+                3.0,
+                1 / max * maxH,
+                i / max
+            )
+        )
     }
     return list
 }
@@ -108,7 +151,16 @@ fun fineStairwayDown(): ArrayList<MyObstacle> {
     val max = 10.0
     val maxH = 5.0
     for(i in 0 until max.toInt()){
-        list.add(MyObstacle(1 / max, 1 / max * maxH, maxH - i / max * maxH, 3.0, 1 / max * maxH, i / max))
+        list.add(
+            MyObstacle(
+                1 / max,
+                1 / max * maxH,
+                maxH - i / max * maxH,
+                3.0,
+                1 / max * maxH,
+                i / max
+            )
+        )
     }
     return list
 }

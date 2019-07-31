@@ -19,7 +19,7 @@ ___/bw $name $scale $repeat PARAMETERS___
 
 check out the examples //LINK Document for more examples
 
-Then just drag whole Song folder or a difficulty on the beatwalls.exe File.
+Then just drag whole song folder or a difficulty on the beatwalls.exe File.
 _(or open it in a cli)_
 
 __WARNING__ by default this will delete all previous obstacles. Look at the help page, if you want to keep them

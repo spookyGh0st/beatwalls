@@ -1,6 +1,7 @@
-package com.github.spookyghost.beatwalls
+package structures
 
 import com.google.gson.annotations.SerializedName
+import song._obstacles
 
 
 data class MyObstacle(

@@ -62,11 +62,6 @@
     <build>
         <sourceDirectory>src/main/kotlin</sourceDirectory>
         <testSourceDirectory>src/test/kotlin</testSourceDirectory>
-        <resources>
-            <resource>
-                <directory>src/main/resources</directory>
-            </resource>
-        </resources>
 
         <plugins>
             <plugin>
@@ -134,9 +129,9 @@
                         <goals><goal>launch4j</goal></goals>
                         <configuration>
                             <headerType>console</headerType>
-                            <jar>${project.build.directory}/${project.artifactId}-${project.version}-shaded.jar</jar>
+                            <jar>${project.build.directory}/${project.artifactId}-${project.version}.jar</jar>
                             <outfile>${project.build.directory}/Beatwalls.exe</outfile>
-                            <icon>icon.png</icon>
+                            <icon>src/main/resources/wall_ppJ_icon.ico</icon>
                             <classPath>
                                 <mainClass>com.github.spookyghost.beatwalls.MainKt</mainClass>
                                 <preCp>anything</preCp>

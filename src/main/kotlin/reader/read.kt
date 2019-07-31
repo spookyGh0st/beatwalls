@@ -3,7 +3,7 @@ package reader
 import song.Difficulty
 import song.Info
 import structures.CustomWallStructure
-import structures.Json4Kotlin_Base
+import structures.AssetsBase
 import structures.MyObstacle
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
@@ -31,7 +31,7 @@ fun readAssets():ArrayList<CustomWallStructure>{
     }
     val reader = BufferedReader(FileReader(file))
     val json = reader.readText()
-    val base = Gson().fromJson(json, Json4Kotlin_Base::class.java)
+    val base = Gson().fromJson(json, AssetsBase::class.java)
     return ArrayList(base.customWallStructure)
 }
 
@@ -73,7 +73,7 @@ fun writeAssets(customWallStructureList:List<CustomWallStructure>){
         if( list.isEmpty()){
             list+= createAssets()
         }
-        val base = Json4Kotlin_Base(list)
+        val base = AssetsBase(list)
 
         val gson = GsonBuilder().setPrettyPrinting().create()
         val json = gson.toJson(base)

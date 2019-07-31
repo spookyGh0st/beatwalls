@@ -13,9 +13,10 @@ object WallStructureManager
         }
     }
 
-    fun get(parameters: ArrayList<String>): ArrayList<_obstacles> {
+
+    fun get(parameters: Parameters): ArrayList<_obstacles> {
         return wallStructuresList.find {
-            it.name.toLowerCase() == parameters.first().toLowerCase()
+            it.name.toLowerCase() == parameters.name.toLowerCase()
         }?.getObstacleList(parameters) ?: arrayListOf()
     }
 }

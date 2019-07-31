@@ -10,22 +10,21 @@ interface WallStructure {
 
     val myObstacle: ArrayList<MyObstacle>
 
-    fun getObstacleList(pString: ArrayList<String>): ArrayList<_obstacles> {
-        val parameters = getDefaultParameter(pString)
+    fun getObstacleList(parameters: Parameters): ArrayList<_obstacles> {
         return adjustObstacles(parameters)
     }
-    fun adjustObstacles(defaultParameters: ArrayList<Double>):ArrayList<_obstacles>{
+    fun adjustObstacles(parameters: Parameters):ArrayList<_obstacles>{
         val list = arrayListOf<_obstacles>()
         myObstacle.forEach {
             val a = it.copy()
-            var timer =defaultParameters[0]
+            var repeatCount =parameters.repeatCount
             do{
-                a.adjust(defaultParameters)
+                a.adjustParameters(parameters)
                 if(mirror) list.add(a.mirror().to_obstacle())
                 list.add(a.to_obstacle())
-                defaultParameters[7] += defaultParameters[0]
-                timer --
-            }while(timer>=0)
+                parameters.startTime += parameters.repeatGap
+                repeatCount --
+            }while(repeatCount>=0)
         }
         return list
     }
@@ -38,16 +37,9 @@ object Text: WallStructure {
     override val name: String = "text"
     override val mirror: Boolean = false
     override val myObstacle: ArrayList<MyObstacle> = arrayListOf()
-
-    override fun getObstacleList(pString: ArrayList<String>): ArrayList<_obstacles> {
-        myObstacle.clear()
-        val list = arrayListOf<_obstacles>()
-        myObstacle.forEach { list.add(it.to_obstacle()) }
-        return list
-    }
 }
 
-data class Json4Kotlin_Base (
+data class AssetsBase (
 
     @SerializedName("customWallStructure") val customWallStructure : List<CustomWallStructure>
 )

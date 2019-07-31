@@ -14,6 +14,7 @@ data class Difficulty (
 
 fun Difficulty.containsCommand(string: String) = this._bookmarks.any { it._name.contains("/$string") }
 
+/*
 fun Difficulty.createWalls(bpm: Double){
     _bookmarks.forEach { it ->
 
@@ -34,9 +35,7 @@ fun Difficulty.createWalls(bpm: Double){
         }
     }
 }
-
-
-
+ */
 
 
 

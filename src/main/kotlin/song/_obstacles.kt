@@ -11,7 +11,7 @@ data class _obstacles (
     @SerializedName("_width") val _width : Int
 ){
 
-    fun adjust(bpm: Double, newBpm: Double, timeOffset: Double){
+    fun adjustBPM(bpm: Double, newBpm: Double, timeOffset: Double){
         this._duration = this._duration /newBpm*bpm
         this._time =this._time/newBpm *bpm + timeOffset
     }

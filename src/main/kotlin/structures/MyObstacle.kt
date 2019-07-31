@@ -77,19 +77,19 @@ data class MyObstacle(
     }
 
 
-    fun adjustParameters(defaultParameters: DefaultParameters){
+    fun adjustParameters(parameters: Parameters){
 
         //Adding all the values
-        duration += defaultParameters.duration
-        height += defaultParameters.wallHeight
-        startHeight += defaultParameters.wallStartHeight
-        startRow += defaultParameters.startRow
-        width  += defaultParameters.width
-        startTime += defaultParameters.startTime
+        duration += parameters.duration
+        height += parameters.wallHeight
+        startHeight += parameters.wallStartHeight
+        startRow += parameters.startRow
+        width  += parameters.width
+        startTime += parameters.startTime
 
         //adjusting the scale
-        duration *= defaultParameters.scale
-        startTime *= defaultParameters.scale
+        duration *= parameters.scale
+        startTime *= parameters.scale
     }
 }
 

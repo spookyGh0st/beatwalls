@@ -1,11 +1,12 @@
 package structures
 
-class DefaultParameters(string: String)
+class Parameters(string: String)
 {
     val name:String
     var customParameters = arrayListOf<String>()
     var scale:Double
-    var repeat:Double
+    var repeatCount: Int
+    var repeatGap: Double
     var duration: Double
     var wallHeight:Double
     var wallStartHeight:Double
@@ -30,7 +31,8 @@ class DefaultParameters(string: String)
 
         /**default Parameters */
         scale = getOr1()
-        repeat = getOr0()
+        repeatCount = getOr0().toInt()
+        repeatGap = getOr0()
         duration = getOr0()
         wallHeight = getOr0()
         wallStartHeight = getOr0()

@@ -5,7 +5,6 @@ import song.Info
 import structures.CustomWallStructure
 import structures.Json4Kotlin_Base
 import structures.MyObstacle
-import com.github.spookyghost.beatwalls.logger
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import java.io.*
@@ -53,7 +52,7 @@ fun writeInfo(info: Info, file: File){
         writer.write(json)
         writer.close()
     }catch (e:Exception){
-        logger.error { "Failed to write info.json" }
+        //todo logger.error { "Failed to write info.json" }
     }
 }
 
@@ -64,7 +63,7 @@ fun writeDifficulty(pair: Pair<Difficulty,File>){
         writer.write(text)
         writer.close()
     }catch (e:Exception){
-        logger.error { "Failed to write Difficulty" }
+        //todo logger.error { "Failed to write Difficulty" }
     }
 }
 
@@ -82,7 +81,7 @@ fun writeAssets(customWallStructureList:List<CustomWallStructure>){
         writer.write(json)
         writer.close()
     }catch (e:Exception){
-        logger.error { "Failed to write Assets" }
+        //todo logger.error { "Failed to write Assets" }
     }
 }
 

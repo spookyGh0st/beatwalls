@@ -18,8 +18,7 @@ import structures.WallStructureManager
 import java.io.File
 import kotlin.system.exitProcess
 
-val logger = KotlinLogging.logger{}
-
+private val logger = KotlinLogging.logger {}
 class Beatwalls : CliktCommand() {
     //TODO ADD ICON
 
@@ -33,8 +32,6 @@ class Beatwalls : CliktCommand() {
     private val dryRun by option("--dryRun", "-d",help = "Do not modify filesystem, only log output").flag(default = false)
 
     private val keepWalls by option("--keepWalls","-w",help = "keeps the original walls instead of deleting them").flag(default = false)
-
-    private val quiet by option("--quiet", "-q",help = "NOT IMPLEMENTED - Do not print to sdtout").flag(default = false)
 
     private val yes by option("--yes", "-y",help = "skips confirmation").flag(default = false)
 
@@ -66,7 +63,7 @@ class Beatwalls : CliktCommand() {
                 file.isDifficulty() -> {
                     logger.info{"Detected Difficulty"}
                     if (bpm == null)
-                        logger.error { "No BPM detected, pls use the -b option" }
+                    logger.error { "No BPM detected, pls use the -b option" }
                     else
                         beatsPerMinute = bpm as Double
                     difficultyList += Pair(readDifficulty(file),file)
@@ -74,36 +71,15 @@ class Beatwalls : CliktCommand() {
             }
 
         }catch (e:Exception){
-            println("\nFAILED\n")
+            logger.error { "Failed to read Song. Is it really in the right format?" }
+            exitProcess(-1)
         }
 
 
         difficultyList.forEach {
+            logger.info { "\n\nWorking on File ${it.component2()}\n" }
 
-            //prints stuff if the quiet option is false
-            printWarnings()
-
-            //clears the wall if the keepwallsflag is false
-
-            if(keepFiles){
-                val diff = it.component1().copy()
-                val path = File(it.component2().toString()+".old")
-                writeDifficulty(Pair(diff, path))
-                println("Written Backup to $path")
-            }
-
-            if (!keepWalls) it.component1()._obstacles.clear()
-
-            it.component1().createWalls(beatsPerMinute)
-            if(!dryRun)
-                writeDifficulty(it.toPair())
-        }
-        println("Here comes Text displaying what just happened. \n\n")
-        println("press enter to exit")
-        readLine()
-    }
-    private fun printWarnings() {
-        if (!quiet) {
+            //print Stuf and warnings
             println("keep old Files: $keepFiles")
             println("dry run: $dryRun")
             println("keep old Walls: $keepWalls")
@@ -111,7 +87,32 @@ class Beatwalls : CliktCommand() {
                 println("continue? (y/n)")
                 if (readLine()?.toLowerCase() ?: "n" != "y") exitProcess(0)
             }
+
+
+            //clears the wall if the keepWallsFlag is false
+            if(keepFiles){
+                val bDiff = it.component1().copy()
+                val bPath = File(it.component2().toString()+".old")
+                writeDifficulty(Pair(bDiff, bPath))
+                logger.info { "Written Backup to $bPath" }
+            }
+
+            if (!keepWalls) {
+                it.component1()._obstacles.clear()
+                logger.info { "cleared old Difficulty" }
+            }
+
+            it.component1().createWalls(beatsPerMinute)
+
+            if(!dryRun){
+                writeDifficulty(it.toPair())
+                logger.info { "written new Difficulty" }
+            }
         }
+
+        println("Here comes Text displaying what just happened. \n\n")
+        println("press enter to exit")
+        readLine()
     }
 }
 

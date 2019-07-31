@@ -34,7 +34,7 @@ If you want to finetune the walls you can do so by adjusting the Parameters of t
 
 - startHeight: StartHeight of each wall
 
-- lineOffset: How many blocks a wall will be shifted.  __IMPORTANT:__ 0 is the Center (so original 0 would be -2)
+- startRow: How many blocks a wall will be shifted.  __IMPORTANT:__ 0 is the Center (so original 0 would be -2)
 
 - width: The width of each wall
 

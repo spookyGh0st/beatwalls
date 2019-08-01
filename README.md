@@ -15,7 +15,7 @@ This program works with bookmarks, which are currently only supported by Mediocr
 Then you simply have to add a bookmark with one or more commands on the timing you want your walls to be. 
 one command consists of 
 
-___/bw $name $scale $repeat PARAMETERS___
+___/bw $name $scale $repeatcounCount $repeatGap $PARAMETERS___
 
 check out the examples //LINK Document for more examples
 

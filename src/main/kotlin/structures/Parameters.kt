@@ -22,10 +22,14 @@ class Parameters(string: String)
         if(name == "")
             throw (Exception("Failed to read Name, pls use /bw name"))
 
+        countUp()
+
         /**custom Parameters */
         if(getElement() == "--"){
+            countUp()
             while (getElement() != "--"){
                 customParameters.add(stringArray[counter])
+                countUp()
             }
         }
 
@@ -45,7 +49,7 @@ class Parameters(string: String)
 
     /**handles the counting*/
     companion object Counter{
-        var counter:Int = 0
+        var counter:Int = -1
         fun counterReset(){
             counter = 0
         }
@@ -57,9 +61,9 @@ class Parameters(string: String)
     }
 
     private fun getElement() :String {
-        countUp()
         return stringArray.getOrElse(counter) { "" }
     }
+
     private fun getOrNull(): Double?{
         countUp()
         return stringArray.getOrNull(counter)?.toDoubleOrNull()

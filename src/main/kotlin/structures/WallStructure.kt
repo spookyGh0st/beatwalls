@@ -16,15 +16,13 @@ interface WallStructure {
     fun adjustObstacles(parameters: Parameters):ArrayList<_obstacles>{
         val list = arrayListOf<_obstacles>()
         myObstacle.forEach {
-            val a = it.copy()
-            var repeatCount =parameters.repeatCount
             do{
-                a.adjustParameters(parameters)
-                if(mirror) list.add(a.mirror().to_obstacle())
+                val a = it.adjustParameters(parameters)
                 list.add(a.to_obstacle())
+                if(mirror) list.add(a.mirror().to_obstacle())
                 parameters.startTime += parameters.repeatGap
-                repeatCount --
-            }while(repeatCount>=0)
+                parameters.repeatCount --
+            }while(parameters.repeatCount>=0)
         }
         return list
     }

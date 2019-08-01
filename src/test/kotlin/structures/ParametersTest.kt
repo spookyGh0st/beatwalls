@@ -1,9 +1,8 @@
-package com.github.spookyghost.beatwalls
+package structures
 
 
 import org.junit.Assert.*
 import org.junit.Test
-import structures.Parameters
 
 class ParametersTest {
 

@@ -20,8 +20,8 @@ data class MyObstacle(
     /**Changes the MyObstacle Type to an _obstacle Type */
     fun to_obstacle(): _obstacles {
         //first, so it adjust the startRow
-        val tempWidth = getWidth()
-        val tempLineIndex = getLineIndex()
+        val tempWidth = calculateWidth()
+        val tempLineIndex = calculateLineIndex()
 
         //other parameters
         val tempStartTime = startTime
@@ -39,7 +39,7 @@ data class MyObstacle(
 
     /**returns th _obstacle value of the width*/
     //TODO until negative width is allowed, this is needed. Once negative width is allowed, do this like lineIndex
-    private fun getWidth():Int{
+    private fun calculateWidth():Int{
         return if( width >= 0.0)
             (width* 1000 +1000).toInt()
         else{
@@ -50,7 +50,7 @@ data class MyObstacle(
 
 
     /**Return the _obstacle value of the startRow*/
-    private fun getLineIndex():Int {
+    private fun calculateLineIndex():Int {
         val i = startRow +2
         return if( i >= 0.0)
             (i* 1000 +1000).toInt()
@@ -77,36 +77,40 @@ data class MyObstacle(
     }
 
 
-    fun adjustParameters(parameters: Parameters){
-
+    /**overwrites the values, depending on the given parameters*/
+    fun adjustParameters(parameters: Parameters):MyObstacle{
         //Adding all the values
-        duration += parameters.duration
-        height += parameters.wallHeight
-        startHeight += parameters.wallStartHeight
-        startRow += parameters.startRow
-        width  += parameters.width
-        startTime += parameters.startTime
+        var tempDuration = duration + parameters.duration
+        val tempHeight = height + parameters.wallHeight
+        val tempStartHeight = startHeight + parameters.wallStartHeight
+        val tempStartRow = startRow + parameters.startRow
+        val tempWidth = width + parameters.width
+        var tempStartTime = startTime + parameters.startTime
 
         //adjusting the scale
-        duration *= parameters.scale
-        startTime *= parameters.scale
+        tempDuration *= parameters.scale
+        tempStartTime *= parameters.scale
+
+        return MyObstacle(tempDuration,tempHeight,tempStartHeight,tempStartRow,tempWidth,tempStartTime)
+    }
+
+
+    /**returns the type given heigt and startheight */
+    private fun type(wallH: Double, startH: Double):Int {
+        val tWallH:Int = when {
+            wallH>6 -> 4000
+            wallH<0 -> 0
+            else -> (((1.0/3.0)*wallH)*1000).toInt()
+        }
+        val tStartH:Int = when{
+            startH>=8 -> 999
+            startH<0 -> 0
+            else -> (250*startH).toInt()
+        }
+        return  (tWallH * 1000 + tStartH+4001)
     }
 }
 
 
-/**returns the type given heigt and startheight */
-private fun type(wallH: Double, startH: Double):Int {
-    val tWallH:Int = when {
-        wallH>6 -> 4000
-        wallH<0 -> 0
-        else -> (((1.0/3.0)*wallH)*1000).toInt()
-    }
-    val tStartH:Int = when{
-        startH>=8 -> 999
-        startH<0 -> 0
-        else -> (250*startH).toInt()
-    }
-    return  (tWallH * 1000 + tStartH+4001)
-}
 
 

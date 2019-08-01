@@ -7,8 +7,11 @@ import structures.AssetsBase
 import structures.MyObstacle
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
+import mu.KotlinLogging
 import java.io.*
 import java.nio.file.Paths
+
+private val logger = KotlinLogging.logger {}
 
 fun readInfo(f: File):Info{
     val reader = BufferedReader(FileReader(f))
@@ -32,6 +35,7 @@ fun readAssets():ArrayList<CustomWallStructure>{
     val reader = BufferedReader(FileReader(file))
     val json = reader.readText()
     val base = Gson().fromJson(json, AssetsBase::class.java)
+    reader.close()
     return ArrayList(base.customWallStructure)
 }
 
@@ -48,11 +52,13 @@ fun File.isSong() =
 fun writeInfo(info: Info, file: File){
     try {
         val json = Gson().toJson(info)
+        logger.info { "prepared to write info.json" }
         val writer = BufferedWriter(FileWriter(file))
         writer.write(json)
         writer.close()
     }catch (e:Exception){
-        //todo logger.error { "Failed to write info.json" }
+        logger.error { "Failed to write info.json" }
+        println(e)
     }
 }
 
@@ -63,7 +69,7 @@ fun writeDifficulty(pair: Pair<Difficulty,File>){
         writer.write(text)
         writer.close()
     }catch (e:Exception){
-        //todo logger.error { "Failed to write Difficulty" }
+        logger.error { "Failed to write Difficulty" }
     }
 }
 
@@ -81,7 +87,7 @@ fun writeAssets(customWallStructureList:List<CustomWallStructure>){
         writer.write(json)
         writer.close()
     }catch (e:Exception){
-        //todo logger.error { "Failed to write Assets" }
+        logger.error { "Failed to write Assets" }
     }
 }
 
@@ -94,7 +100,7 @@ fun createAssets():List<CustomWallStructure> = listOf(
     CustomWallStructure(
         "Floor",
         false,
-        arrayListOf(MyObstacle(1.0, 0.0, 0.0, -2.0, 4.0, 0.0))
+        arrayListOf(MyObstacle(1.0, 0.1, 0.0, -2.0, 4.0, 0.0))
     ),
     CustomWallStructure(
         "Ceiling",
@@ -114,21 +120,21 @@ fun createAssets():List<CustomWallStructure> = listOf(
     CustomWallStructure(
         "SplittedFloor",
         true,
-        arrayListOf(MyObstacle(1.0, 0.0, 0.0, 0.0, 2.0, 0.0))
+        arrayListOf(MyObstacle(1.0, 0.1, 0.0, 0.0, 2.0, 0.0))
     ),
     CustomWallStructure(
         "SplittedCeiling",
         true,
-        arrayListOf(MyObstacle(1.0, 0.0, 3.0, 0.0, 2.0, 0.0))
+        arrayListOf(MyObstacle(1.0, 0.1, 3.0, 0.0, 2.0, 0.0))
     ),
-    CustomWallStructure("fineStairwayUp", true, fineStairwayUp()),
-    CustomWallStructure("fineStairwayDown", true, fineStairwayDown())
-
+    CustomWallStructure("fineStairwayUp", true, stairwayUp(30.0)),
+    CustomWallStructure("fineStairwayDown", true, stairwayDown(30.0)),
+    CustomWallStructure("roughStairwayUp",true, stairwayUp(5.0)),
+    CustomWallStructure("roughStairwayDown",true, stairwayDown(5.0))
 )
 
-fun fineStairwayUp(): ArrayList<MyObstacle> {
+fun stairwayUp(max:Double): ArrayList<MyObstacle> {
     val list = arrayListOf<MyObstacle>()
-    val max = 10.0
     val maxH = 5.0
     for(i in 0 until max.toInt()){
         list.add(
@@ -145,9 +151,8 @@ fun fineStairwayUp(): ArrayList<MyObstacle> {
     return list
 }
 
-fun fineStairwayDown(): ArrayList<MyObstacle> {
+fun stairwayDown(max: Double): ArrayList<MyObstacle> {
     val list = arrayListOf<MyObstacle>()
-    val max = 10.0
     val maxH = 5.0
     for(i in 0 until max.toInt()){
         list.add(

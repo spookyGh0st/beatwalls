@@ -79,4 +79,18 @@ class ParametersTest {
             fail()
         }catch (e:Exception){}
     }
+    @Test
+    fun testSimple(){
+        val string = "test 2 3 2.5"
+        val a = Parameters(string)
+        assertTrue(a.customParameters.isEmpty())
+        assertEquals(2.0, a.scale,0.01)
+        assertEquals(3, a.repeatCount)
+        assertEquals(2.5,a.repeatGap,0.01)
+        assertEquals(0.0, a.duration,0.01)
+        assertEquals(0.0, a.wallHeight,0.01)
+        assertEquals(0.0, a.wallStartHeight,0.01)
+        assertEquals(0.0, a.startRow,0.01)
+        assertEquals(0.0, a.width,0.01)
+    }
 }

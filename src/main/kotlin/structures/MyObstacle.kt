@@ -88,7 +88,8 @@ data class MyObstacle(
         var tempStartTime = startTime + parameters.startTime
 
         //adjusting the scale
-        tempDuration *= parameters.scale
+        if(tempDuration>0)
+            tempDuration *= parameters.scale
         tempStartTime *= parameters.scale
 
         return MyObstacle(tempDuration,tempHeight,tempStartHeight,tempStartRow,tempWidth,tempStartTime)

@@ -33,13 +33,4 @@ class MyObstacleTest {
         val actual = obs.adjustParameters(p)
         assertEquals(expected.toString(),actual.toString())
     }
-    @Test
-    fun adjustNormalParameters(){
-        val p = Parameters("test 2")
-        val  expected  = MyObstacle(4.0,1.0,1.0,1.5,0.5,0.4)
-        val  obs  = MyObstacle(2.0,1.0,1.0,1.5,0.5,0.2)
-        val actual = obs.adjustParameters(p)
-        assertEquals(expected.toString(),actual.toString())
-    }
-
 }

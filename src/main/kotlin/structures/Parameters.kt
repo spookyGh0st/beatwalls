@@ -31,6 +31,7 @@ class Parameters(string: String)
                 customParameters.add(stringArray[counter])
                 countUp()
             }
+            countUp()
         }
 
         /**default Parameters */
@@ -65,8 +66,9 @@ class Parameters(string: String)
     }
 
     private fun getOrNull(): Double?{
+        val i =  stringArray.getOrNull(counter)?.toDoubleOrNull()
         countUp()
-        return stringArray.getOrNull(counter)?.toDoubleOrNull()
+        return i
     }
     private fun getOr1():Double{
         return getOrNull()?:1.0
@@ -74,6 +76,9 @@ class Parameters(string: String)
     private  fun getOr0(): Double{
         return getOrNull()?:0.0
     }
+
+    override fun hashCode(): Int =
+        (scale + repeatGap + repeatCount + wallStartHeight +wallHeight +duration +startRow + width).toInt()
 }
 
 

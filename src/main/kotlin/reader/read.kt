@@ -112,12 +112,12 @@ fun createAssets():List<CustomWallStructure> = listOf(
     CustomWallStructure(
         "Pillar",
         true,
-        arrayListOf(MyObstacle(1.0, 6.0, 0.0, 7.5, 0.5, 0.0))
+        arrayListOf(MyObstacle(0.3, 12.0, 0.0, 7.7, 0.3, 0.0))
     ),
     CustomWallStructure(
         "Cathedral",
         true,
-        arrayListOf(MyObstacle(1.0, 6.0, 0.0, 8.0, 1.0, 0.0))
+        arrayListOf(MyObstacle(1.0, 12.0, 0.0, 8.0, 1.0, 0.0))
     ),
     CustomWallStructure(
         "SplittedFloor",
@@ -177,7 +177,7 @@ fun stairwayDown(max: Double): ArrayList<MyObstacle> {
     return list
 }
 
-fun circle(count:Int = 1,radius:Double = 1.9, fineTuning:Int = 10,pDuration:Double = 1.0, helix:Boolean = false):ArrayList<MyObstacle>{
+fun circle(count:Int = 1,radius:Double = 1.9, fineTuning:Int = 30,pDuration:Double = 1.0, helix:Boolean = false):ArrayList<MyObstacle>{
 
     val list = arrayListOf<MyObstacle>()
     val max = 2.0* PI *fineTuning
@@ -197,8 +197,7 @@ fun circle(count:Int = 1,radius:Double = 1.9, fineTuning:Int = 10,pDuration:Doub
     var duration:Double
 
     for(o in 0 until count){
-        val offset = round((o*2.0* PI*fineTuning) /count).toInt()
-        println("max: $max offset: $offset")
+        val offset = round((o*2.0* PI*fineTuning) /count).toInt() //todo borked
         for (i in 0+offset ..offset+round(max).toInt()){
             x = radius * cos(i.toDouble()/fineTuning)
             y = radius * sin(i.toDouble()/fineTuning)
@@ -209,14 +208,13 @@ fun circle(count:Int = 1,radius:Double = 1.9, fineTuning:Int = 10,pDuration:Doub
             startRow = x + (nX - x)
             width = abs(nX -x )
             startHeight = if(y>=0) y else nY
-            height = abs(nY-y)
+            height = abs(nY-y) + 2
 
             duration = if(helix) 1.0/max else pDuration
             startTime = if(helix) i/max else 0.0
             list.add(MyObstacle(duration,height,startHeight,startRow,width,startTime))
         }
     }
-
     return list
 }
 

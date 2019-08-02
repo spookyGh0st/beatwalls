@@ -1,7 +1,9 @@
 package structures
 
 import com.google.gson.annotations.SerializedName
+import mu.KotlinLogging
 import song._obstacles
+private val logger = KotlinLogging.logger {}
 
 interface WallStructure {
     val name: String
@@ -24,6 +26,7 @@ interface WallStructure {
                 parameters.repeatCount --
             }while(parameters.repeatCount>=0)
         }
+        logger.info { "added ${parameters.name}" }
         return list
     }
 }

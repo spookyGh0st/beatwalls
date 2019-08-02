@@ -135,7 +135,7 @@ fun createAssets():List<CustomWallStructure> = listOf(
 
 fun stairwayUp(max:Double): ArrayList<MyObstacle> {
     val list = arrayListOf<MyObstacle>()
-    val maxH = 5.0
+    val maxH = 3.996
     for(i in 0 until max.toInt()){
         list.add(
             MyObstacle(
@@ -153,7 +153,7 @@ fun stairwayUp(max:Double): ArrayList<MyObstacle> {
 
 fun stairwayDown(max: Double): ArrayList<MyObstacle> {
     val list = arrayListOf<MyObstacle>()
-    val maxH = 5.0
+    val maxH = 3.996
     for(i in 0 until max.toInt()){
         list.add(
             MyObstacle(

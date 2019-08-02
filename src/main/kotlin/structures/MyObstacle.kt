@@ -99,17 +99,19 @@ data class MyObstacle(
     /**returns the type given heigt and startheight */
     private fun type(wallH: Double, startH: Double):Int {
         val tWallH:Int = when {
-            wallH>6 -> 4000
+            wallH>12 -> 4000
             wallH<0 -> 0
             else -> (((1.0/3.0)*wallH)*1000).toInt()
         }
         val tStartH:Int = when{
-            startH>=8 -> 999
+            startH>=3.996 -> 999
             startH<0 -> 0
             else -> (250*startH).toInt()
         }
         return  (tWallH * 1000 + tStartH+4001)
     }
+}
+fun main(){
 }
 
 

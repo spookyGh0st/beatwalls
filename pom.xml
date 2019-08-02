@@ -142,7 +142,6 @@
                             <headerType>console</headerType>
                             <jar>${project.build.directory}/${project.artifactId}-${project.version}.jar</jar>
                             <outfile>${project.build.directory}/Beatwalls.exe</outfile>
-                            <icon>src/main/resources/wall_ppJ_icon.ico</icon>
                             <classPath>
                                 <mainClass>com.github.spookyghost.beatwalls.MainKt</mainClass>
                                 <preCp>anything</preCp>

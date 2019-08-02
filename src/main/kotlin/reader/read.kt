@@ -10,6 +10,7 @@ import com.google.gson.GsonBuilder
 import mu.KotlinLogging
 import java.io.*
 import java.nio.file.Paths
+import kotlin.math.*
 
 private val logger = KotlinLogging.logger {}
 
@@ -167,4 +168,67 @@ fun stairwayDown(max: Double): ArrayList<MyObstacle> {
         )
     }
     return list
+}
+
+fun circle():ArrayList<MyObstacle>{
+    val fineTuning = 5
+    var radius =  1.9
+
+    val list = arrayListOf<MyObstacle>()
+    val max = 2.0* PI *fineTuning
+
+
+    var x = 1.0
+    var y = 0.0
+    var pX = 1.0
+    var pY= 0.0
+    var ppX:Double
+    var ppY:Double
+
+    var nX:Double
+    var nY:Double
+    var nnX:Double
+    var nnY:Double
+
+    var width = 0.0
+    var height = 0.0
+    var startRow = 0.0
+    var startHeight = 0.0
+
+    for (i in 1..round(max).toInt()){
+        val j = i.toDouble()/fineTuning
+        ppX = pX
+        ppY = pY
+
+        pX = x
+        pY = y
+
+        x = cos(j )
+        y = sin(j)
+
+        nX = cos((i+1).toDouble()/fineTuning)
+        nY = sin((i+1).toDouble()/fineTuning)
+        nnX =cos((i+2).toDouble()/fineTuning)
+        nnY = sin((i+2).toDouble()/fineTuning)
+
+
+        when{
+            x>0 && y>0 -> {
+                startRow = x
+                width = pX-x
+                startHeight = y
+                height = nY -y
+            }
+            x<0 && y>0 -> {}
+            x<0 && y<0 -> {}
+            x>0 && y<0 -> {}
+        }
+        println("x: %.4f, y: %.4f\tpX: %.4f pY: %.4f".format(x,y,pX,pY))
+
+    }
+    println(round(max))
+    TODO()
+}
+fun main(){
+    circle()
 }

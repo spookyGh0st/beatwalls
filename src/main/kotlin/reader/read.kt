@@ -78,6 +78,7 @@ fun writeAssets(customWallStructureList:List<CustomWallStructure>){
     try {
         val list = customWallStructureList.toMutableList()
         if( list.isEmpty()){
+            logger.info { "Created default Assets" }
             list+= createAssets()
         }
         val base = AssetsBase(list)
@@ -131,7 +132,13 @@ fun createAssets():List<CustomWallStructure> = listOf(
     CustomWallStructure("fineStairwayUp", true, stairwayUp(30.0)),
     CustomWallStructure("fineStairwayDown", true, stairwayDown(30.0)),
     CustomWallStructure("roughStairwayUp",true, stairwayUp(5.0)),
-    CustomWallStructure("roughStairwayDown",true, stairwayDown(5.0))
+    CustomWallStructure("roughStairwayDown",true, stairwayDown(5.0)),
+    CustomWallStructure("Tube",false, circle()),
+    CustomWallStructure("Helix",false, circle(helix = true)),
+    CustomWallStructure("Ring",false, circle(pDuration = 0.1)),
+    CustomWallStructure("Helix2",false, circle(count = 2,helix = true)),
+    CustomWallStructure("Helix3",false, circle(count = 3,helix = true)),
+    CustomWallStructure("Helix4",false, circle(count = 4,helix = true))
 )
 
 fun stairwayUp(max:Double): ArrayList<MyObstacle> {
@@ -170,65 +177,46 @@ fun stairwayDown(max: Double): ArrayList<MyObstacle> {
     return list
 }
 
-fun circle():ArrayList<MyObstacle>{
-    val fineTuning = 5
-    var radius =  1.9
+fun circle(count:Int = 1,radius:Double = 1.9, fineTuning:Int = 10,pDuration:Double = 1.0, helix:Boolean = false):ArrayList<MyObstacle>{
 
     val list = arrayListOf<MyObstacle>()
     val max = 2.0* PI *fineTuning
 
 
-    var x = 1.0
-    var y = 0.0
-    var pX = 1.0
-    var pY= 0.0
-    var ppX:Double
-    var ppY:Double
-
+    var x: Double
+    var y: Double
     var nX:Double
     var nY:Double
-    var nnX:Double
-    var nnY:Double
 
-    var width = 0.0
-    var height = 0.0
-    var startRow = 0.0
-    var startHeight = 0.0
+    var width: Double
+    var height: Double
+    var startRow: Double
+    var startHeight: Double
 
-    for (i in 1..round(max).toInt()){
-        val j = i.toDouble()/fineTuning
-        ppX = pX
-        ppY = pY
+    var startTime:Double
+    var duration:Double
 
-        pX = x
-        pY = y
+    for(o in 0 until count){
+        val offset = round((o*2.0* PI*fineTuning) /count).toInt()
+        println("max: $max offset: $offset")
+        for (i in 0+offset ..offset+round(max).toInt()){
+            x = radius * cos(i.toDouble()/fineTuning)
+            y = radius * sin(i.toDouble()/fineTuning)
 
-        x = cos(j )
-        y = sin(j)
+            nX = radius * cos((i+1).toDouble()/fineTuning)
+            nY = radius * sin((i+1).toDouble()/fineTuning)
 
-        nX = cos((i+1).toDouble()/fineTuning)
-        nY = sin((i+1).toDouble()/fineTuning)
-        nnX =cos((i+2).toDouble()/fineTuning)
-        nnY = sin((i+2).toDouble()/fineTuning)
+            startRow = x + (nX - x)
+            width = abs(nX -x )
+            startHeight = if(y>=0) y else nY
+            height = abs(nY-y)
 
-
-        when{
-            x>0 && y>0 -> {
-                startRow = x
-                width = pX-x
-                startHeight = y
-                height = nY -y
-            }
-            x<0 && y>0 -> {}
-            x<0 && y<0 -> {}
-            x>0 && y<0 -> {}
+            duration = if(helix) 1.0/max else pDuration
+            startTime = if(helix) i/max else 0.0
+            list.add(MyObstacle(duration,height,startHeight,startRow,width,startTime))
         }
-        println("x: %.4f, y: %.4f\tpX: %.4f pY: %.4f".format(x,y,pX,pY))
-
     }
-    println(round(max))
-    TODO()
+
+    return list
 }
-fun main(){
-    circle()
-}
+

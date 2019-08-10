@@ -1,10 +1,10 @@
 package song
 
-import org.junit.Test
-
-import org.junit.Assert.*
+import org.junit.*
+import org.junit.Assert.assertEquals
+import org.junit.Assert.assertTrue
 import structures.Parameters
-import java.lang.reflect.Parameter
+
 
 class _bookmarksTest {
 

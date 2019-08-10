@@ -15,8 +15,24 @@ object WallStructureManager
 
 
     fun get(parameters: Parameters): ArrayList<_obstacles> {
-        return wallStructuresList.find {
-            it.name.toLowerCase() == parameters.name.toLowerCase()
-        }?.getObstacleList(parameters) ?: arrayListOf()
+
+        //all the variables
+        val list = arrayListOf<_obstacles>()
+        val count = parameters.repeatCount
+        val gap = parameters.repeatGap
+
+        //gets repeat right
+        for (i in 0..count) {
+            parameters.startTime = parameters.startTime + gap * i
+
+            //gets the structure with the given name, or just an empty arrayListOf<_obstacles>
+            val structure = wallStructuresList.find {
+                it.name.toLowerCase() == parameters.name.toLowerCase()
+            }?.getObstacleList(parameters) ?: arrayListOf()
+
+            list.addAll(structure)
+        }
+
+        return list
     }
 }

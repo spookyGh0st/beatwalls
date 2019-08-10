@@ -81,12 +81,12 @@ class ParametersTest {
     }
     @Test
     fun testSimple(){
-        val string = "test 2 3 2.5"
+        val string = "test 1 5 0.2"
         val a = Parameters(string)
         assertTrue(a.customParameters.isEmpty())
-        assertEquals(2.0, a.scale,0.01)
-        assertEquals(3, a.repeatCount)
-        assertEquals(2.5,a.repeatGap,0.01)
+        assertEquals(1.0, a.scale,0.01)
+        assertEquals(5, a.repeatCount)
+        assertEquals(0.2,a.repeatGap,0.01)
         assertEquals(0.0, a.duration,0.01)
         assertEquals(0.0, a.wallHeight,0.01)
         assertEquals(0.0, a.wallStartHeight,0.01)

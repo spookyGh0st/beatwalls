@@ -18,13 +18,9 @@ interface WallStructure {
     fun adjustObstacles(parameters: Parameters):ArrayList<_obstacles>{
         val list = arrayListOf<_obstacles>()
         myObstacle.forEach {
-            do{
                 val a = it.adjustParameters(parameters)
                 list.add(a.to_obstacle())
                 if(mirror) list.add(a.mirror().to_obstacle())
-                parameters.startTime += parameters.repeatGap
-                parameters.repeatCount --
-            }while(parameters.repeatCount>=0)
         }
         logger.info { "added ${parameters.name}" }
         return list
@@ -59,12 +55,3 @@ data class CustomWallStructure(
     ): WallStructure
 
 
-private fun getDefaultParameter(parameters: ArrayList<String>): ArrayList<Double> {
-    val doubleArrayList =   arrayListOf<Double>()
-    (parameters.subList(1, parameters.lastIndex+1)).forEach {
-        doubleArrayList.add(it.toDoubleOrNull() ?: 0.0)
-    }
-    if(doubleArrayList.size<1) doubleArrayList.add(1.0)
-    while(doubleArrayList.size<8) { doubleArrayList.add(0.0) }
-    return doubleArrayList
-}

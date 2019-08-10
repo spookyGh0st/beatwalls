@@ -197,18 +197,19 @@ fun circle(count:Int = 1,radius:Double = 1.9, fineTuning:Int = 30,pDuration:Doub
     var duration:Double
 
     for(o in 0 until count){
-        val offset = round((o*2.0* PI*fineTuning) /count).toInt() //todo borked
-        for (i in 0+offset ..offset+round(max).toInt()){
-            x = radius * cos(i.toDouble()/fineTuning)
-            y = radius * sin(i.toDouble()/fineTuning)
+        val offset = round((o*2.0* PI*fineTuning) /count) //todo borked
+        for (i in 0..round(max).toInt()){
+            x = radius * cos((i+offset)/fineTuning)
+            y = radius * sin((i+offset)/fineTuning)
 
-            nX = radius * cos((i+1).toDouble()/fineTuning)
-            nY = radius * sin((i+1).toDouble()/fineTuning)
+            nX = radius * cos(((i+offset)+1)/fineTuning)
+            nY = radius * sin(((i+offset)+1)/fineTuning)
 
             startRow = x + (nX - x)
             width = abs(nX -x )
             startHeight = if(y>=0) y else nY
-            height = abs(nY-y) + 2
+            startHeight+=2
+            height = abs(nY-y)
 
             duration = if(helix) 1.0/max else pDuration
             startTime = if(helix) i/max else 0.0

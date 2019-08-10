@@ -63,6 +63,10 @@ fun createAssets():List<CustomWallStructure> {
     )
     //add helixes
     a.addAll(helix())
+
+    //add randomFloorLines
+    a.addAll(randomFloorLines())
+
     return a
 }
 
@@ -75,27 +79,33 @@ fun helix():ArrayList<CustomWallStructure>{
     return list
 }
 
+fun main(){
+    randomFloorLines()
+}
 fun randomFloorLines():ArrayList<CustomWallStructure>{
     val list = arrayListOf<CustomWallStructure>()
-    var x = 0.0
+    val max = 200
+
+
+    var x: Double
 
     //for each wall amount
     for (i in 1..10){
-        println("\namount: $i")
 
         //for each wall
         for(j in 1..i){
 
-            x = -2.0 + (4.0/i) * (2.0/i) * j //todo fix
-            println("wall $j, x = $x")
-            //for each wall intensity
-            for(n in 0..200){
-                val obsList = arrayListOf<MyObstacle>()
-                obsList.add(MyObstacle(1.0/n,0.05,0.0,x, 0.0,n/200.0))
+            //adjusting the starting x
+            x = ((j/(i+1.0))-0.5)*4.0
 
-                //randomly changes line from -2 to 2 on a chance of 1/4
-                if (Random.nextInt(0,4) == 0){
-                    val nX = Random.nextInt(-200..200) / 100.0
+            //for each wall intensity
+            for(n in 1..max){
+                val obsList = arrayListOf<MyObstacle>()
+                obsList.add(MyObstacle(1.0/n,0.05,0.0,x, 0.0,n.toDouble()/max))
+
+                //randomly changes line from -2 to 2 on a chance of 1/ amount of walls
+                if (Random.nextInt(0,i) == 0){
+                    val nX = Random.nextDouble(-2.0,2.0)
                     val stRow = if(nX>x) x else nX
                     val stWidth = abs(nX-x)
                     val stTime = n/200.0 + 1.0/n

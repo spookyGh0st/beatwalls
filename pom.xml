@@ -5,7 +5,7 @@
 
     <groupId>com.github.spookyghost</groupId>
     <artifactId>beatwalls</artifactId>
-    <version>1.0-SNAPSHOT</version>
+    <version>0.3.0.0</version>
     <packaging>jar</packaging>
 
     <name>com.github.spookyghost beatwalls</name>
@@ -144,12 +144,12 @@
                                 <minVersion>1.6.0</minVersion>
                             </jre>
                             <versionInfo>
-                                <fileVersion>1.0.0.0</fileVersion>
+                                <fileVersion>${project.version}</fileVersion>
                                 <txtFileVersion>${project.version}</txtFileVersion>
                                 <fileDescription>${project.name}</fileDescription>
                                 <copyright>2019 spookycloud.de</copyright>
-                                <productVersion>1.0.0.0</productVersion>
-                                <txtProductVersion>1.0.0.0</txtProductVersion>
+                                <productVersion>${project.version}</productVersion>
+                                <txtProductVersion>${project.version}</txtProductVersion>
                                 <productName>${project.name}</productName>
                                 <companyName>beatwalls.de</companyName>
                                 <internalName>beatwalls</internalName>

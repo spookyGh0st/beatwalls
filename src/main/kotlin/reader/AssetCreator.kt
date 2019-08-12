@@ -4,7 +4,6 @@ import structures.CustomWallStructure
 import structures.MyObstacle
 import kotlin.math.*
 import kotlin.random.Random
-import kotlin.random.nextInt
 
 fun createAssets():List<CustomWallStructure> {
     val a = arrayListOf<CustomWallStructure>()
@@ -154,6 +153,10 @@ fun stairwayDown(max: Double): ArrayList<MyObstacle> {
             )
         )
     }
+    return list
+}
+fun fence(max: Double): ArrayList<MyObstacle> {
+    val list = arrayListOf<MyObstacle>()
     return list
 }
 

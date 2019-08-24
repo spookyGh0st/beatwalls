@@ -10,6 +10,7 @@ object WallStructureManager
         with(wallStructuresList){
             add(Text)
             add(RandomLines)
+            add(RandomNoise)
             addAll(list)
         }
     }

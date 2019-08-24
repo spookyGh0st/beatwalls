@@ -3,7 +3,6 @@ package reader
 import structures.CustomWallStructure
 import structures.MyObstacle
 import kotlin.math.*
-import kotlin.random.Random
 
 fun createAssets():List<CustomWallStructure> {
     val a = arrayListOf<CustomWallStructure>()

@@ -48,6 +48,7 @@ class Beatwalls : CliktCommand() {
     private val difficultyList = mutableMapOf<Difficulty, File>()
 
     init {
+        readAssets()
         context {
             helpFormatter = CliktHelpFormatter(showDefaultValues = true)
         }

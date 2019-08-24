@@ -53,18 +53,40 @@ fun createAssets():List<CustomWallStructure> {
                 "fineStairwayUp",
                 true, stairwayUp(30.0)
             ),
-            CustomWallStructure("fineStairwayDown", true, stairwayDown(30.0)),
-            CustomWallStructure("roughStairwayUp", true, stairwayUp(5.0)),
-            CustomWallStructure("roughStairwayDown", true, stairwayDown(5.0)),
-            CustomWallStructure("Tube", false, circle()),
-            CustomWallStructure("Ring", false, circle(pDuration = 0.05))
+            CustomWallStructure(
+                "fineStairwayDown",
+                true,
+                stairwayDown(30.0)
+            ),
+            CustomWallStructure(
+                "roughStairwayUp",
+                true,
+                stairwayUp(5.0)
+            ),
+            CustomWallStructure(
+                "roughStairwayDown",
+                true,
+                stairwayDown(5.0)
+            ),
+            CustomWallStructure(
+                "Tube",
+                false,
+                circle()
+            ),
+            CustomWallStructure(
+                "Ring",
+                false,
+                circle(pDuration = 0.05)
+            ),
+            CustomWallStructure(
+                "fence",
+                true,
+                fence()
+            )
         )
     )
     //add helixes
     a.addAll(helix())
-
-    //add randomFloorLines
-    a.addAll(randomFloorLines())
 
     return a
 }
@@ -79,45 +101,7 @@ fun helix():ArrayList<CustomWallStructure>{
 }
 
 fun main(){
-    randomFloorLines()
-}
-fun randomFloorLines():ArrayList<CustomWallStructure>{
-    val list = arrayListOf<CustomWallStructure>()
-    val max = 200
 
-
-    var x: Double
-
-    //for each wall amount
-    for (i in 1..10){
-
-        //for each wall
-        for(j in 1..i){
-
-            //adjusting the starting x
-            x = ((j/(i+1.0))-0.5)*4.0
-
-            //for each wall intensity
-            for(n in 1..max){
-                val obsList = arrayListOf<MyObstacle>()
-                obsList.add(MyObstacle(1.0/n,0.05,0.0,x, 0.0,n.toDouble()/max))
-
-                //randomly changes line from -2 to 2 on a chance of 1/ amount of walls
-                if (Random.nextInt(0,i) == 0){
-                    val nX = Random.nextDouble(-2.0,2.0)
-                    val stRow = if(nX>x) x else nX
-                    val stWidth = abs(nX-x)
-                    val stTime = n/200.0 + 1.0/n
-                    obsList.add(MyObstacle(0.0,0.05,0.0,stRow,stWidth,stTime))
-                    x = nX
-                }
-
-                val w = CustomWallStructure("${i}rfl$n",false, obsList)
-                list.add(w)
-            }
-        }
-    }
-    return list
 }
 
 fun stairwayUp(max:Double): ArrayList<MyObstacle> {
@@ -155,8 +139,45 @@ fun stairwayDown(max: Double): ArrayList<MyObstacle> {
     }
     return list
 }
-fun fence(max: Double): ArrayList<MyObstacle> {
+
+fun fence(): ArrayList<MyObstacle> {
     val list = arrayListOf<MyObstacle>()
+    list.addAll(
+        arrayListOf(
+            MyObstacle(
+                1.0,
+                0.005,
+                0.0,
+                3.0,
+                0.005,
+                0.0
+            ),
+            MyObstacle(
+                1.0,
+                0.005,
+                2.0,
+                3.0,
+                0.005,
+                0.0
+            ),
+            MyObstacle(
+                0.005,
+                2.0,
+                0.0,
+                3.0,
+                0.005,
+                0.0
+            ),
+            MyObstacle(
+                0.005,
+                2.0,
+                0.0,
+                3.0,
+                0.005,
+                0.995
+            )
+        )
+    )
     return list
 }
 

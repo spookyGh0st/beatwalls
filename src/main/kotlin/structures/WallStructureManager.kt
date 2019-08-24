@@ -9,6 +9,7 @@ object WallStructureManager
     fun loadManager(list:ArrayList<CustomWallStructure>) {
         with(wallStructuresList){
             add(Text)
+            add(RandomLines)
             addAll(list)
         }
     }

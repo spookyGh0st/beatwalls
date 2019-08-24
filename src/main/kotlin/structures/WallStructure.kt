@@ -34,6 +34,7 @@ interface WallStructure {
 
 
 object RandomLines: WallStructure{
+    //todo TEST
     override val mirror: Boolean = false
     override val name: String = "randomLines"
     override val myObstacleList: ArrayList<MyObstacle> = arrayListOf()

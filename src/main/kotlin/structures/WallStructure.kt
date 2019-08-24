@@ -51,7 +51,7 @@ object RandomLines: WallStructure{
 
             //for each wall intensity
             for(j in 1..intensity){
-                myObstacleList.add(MyObstacle(1.0/j,0.05,0.0,x, 0.0,j.toDouble()/intensity))
+                myObstacleList.add(MyObstacle(1.0/intensity,0.05,0.0,x, 0.0,j.toDouble()/intensity))
 
                 //randomly changes lines, adjusts x when doing so
                 if (Random.nextInt(0,count) == 0){

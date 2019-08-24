@@ -32,6 +32,27 @@ interface WallStructure {
 }
 
 
+object RandomNoise: WallStructure{
+    override val mirror = false
+    override val name = "RandomNoise"
+    override val myObstacleList: ArrayList<MyObstacle> = arrayListOf()
+    override fun getObstacleList(parameters: Parameters): ArrayList<_obstacles> {
+        myObstacleList.clear()
+        val intensity = try { parameters.customParameters[0].toInt() } catch (e:Exception){ 5 }
+        repeat(intensity){
+            val tempO = MyObstacle(
+                duration = 0.001,
+                height = 0.001,
+                startHeight = Random.nextDouble(4.0),
+                startRow = Random.nextDouble(-4.0,4.0),
+                width = 0.0001,
+                startTime = Random.nextDouble()
+            )
+            myObstacleList.add(tempO)
+        }
+        return super.getObstacleList(parameters)
+    }
+}
 
 object RandomLines: WallStructure{
     //todo TEST

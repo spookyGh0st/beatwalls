@@ -8,6 +8,7 @@ commandline tool to add Walls to beatsaber maps using bookmarks
 - Download the binary from the [latest release](https://github.com/spookyGh0st/beatwalls/releases) tab
 
 - This program works with bookmarks, which are currently only supported by Mediocre Mapper. So you need that.
+
 # BACK UP EVERYTHING
 
 ## Usage
@@ -17,7 +18,7 @@ one command consists of
 
 `/bw $name $scale $repeatCount $repeatGap $PARAMETERS`
 
-> check out the [Wiki Page](https://github.com/spookyGh0st/beatwalls/wiki) for some example Usage
+check out the [Wiki Page](https://github.com/spookyGh0st/beatwalls/wiki) for example Usage
 
 - Then just drag whole song folder on the beatwalls.exe. It will automatically create the BeatwallAsset File the first time it is run.
 _(or open it in a cli)_
@@ -40,17 +41,23 @@ If you want to finetune the walls you can do so by adjusting the Parameters of t
 
 ### The BeatwallAsset File
 
-to be added
+The Asset File is the File, where most of the CustomWallStructures are saved! You are invited to look into it, change it and add new structures.
+
+If you create Some cool new structures, please send me, so I can add them to the default asset file!
 
 ### special WallStructures
 
-to be added
+some Special WallStructures have can have options that are not covered by the default Parameters. to use them put them in
+
+`/bw $name -- specialOptions -- $scale $repeatCount ...` 
+
+note that You need to have them at the beginning. They can enable more advanced WallStructures like RandomLines and soon text.
 
 ## Plans
 
 1.0 Create a working program with some decent example files.
 
-later: create a text generator
+later: create a text walls, create a converter from original obstacle to my layout, add more Structures.
 
 
 

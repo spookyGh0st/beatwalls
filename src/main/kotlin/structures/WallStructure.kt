@@ -116,6 +116,7 @@ fun circle(count:Int = 1,radius:Double = 1.9, fineTuning:Int = 10,pOffset:Double
     return list
 }
 
+/** gets very small noise in the area -3 .. 3 */
 object RandomNoise: WallStructure{
     override val mirror = false
     override val name = "RandomNoise"
@@ -138,6 +139,7 @@ object RandomNoise: WallStructure{
     }
 }
 
+/** gets randomLines, default on the floor */ //todo create the same for floor lines
 object RandomLines: WallStructure{
     //todo TEST
     override val mirror: Boolean = false
@@ -173,12 +175,17 @@ object RandomLines: WallStructure{
     }
 }
 
+/** gets text */
 object Text: WallStructure {
-    override val name: String = "text"
-    override val mirror: Boolean = false
-    override val myObstacleList: ArrayList<MyObstacle> = arrayListOf()
+    override val name: String
+        get() = TODO("not implemented") //To change initializer of created properties use File | Settings | File Templates.
+    override val mirror: Boolean
+        get() = TODO("not implemented") //To change initializer of created properties use File | Settings | File Templates.
+    override val myObstacleList: ArrayList<MyObstacle>
+        get() = TODO("not implemented") //To change initializer of created properties use File | Settings | File Templates.
 }
 
+/** the default customwallstructure the asset file uses */
 data class CustomWallStructure(
 
     @SerializedName("name")

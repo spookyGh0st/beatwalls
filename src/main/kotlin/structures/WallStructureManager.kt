@@ -11,6 +11,9 @@ object WallStructureManager
             add(Text)
             add(RandomLines)
             add(RandomNoise)
+            add(Helix)
+            add(FastHelix)
+            add(EmptyHelix)
             addAll(list)
         }
     }

@@ -2,7 +2,6 @@ package reader
 
 import structures.CustomWallStructure
 import structures.MyObstacle
-import kotlin.math.*
 
 fun createAssets():List<CustomWallStructure> {
     val a = arrayListOf<CustomWallStructure>()
@@ -70,12 +69,12 @@ fun createAssets():List<CustomWallStructure> {
             CustomWallStructure(
                 "Tube",
                 false,
-                circle()
+                structures.circle()
             ),
             CustomWallStructure(
                 "Ring",
                 false,
-                circle(pDuration = 0.05)
+                structures.circle(pDuration = 0.05)
             ),
             CustomWallStructure(
                 "fence",
@@ -84,23 +83,8 @@ fun createAssets():List<CustomWallStructure> {
             )
         )
     )
-    //add helixes
-    a.addAll(helix())
 
     return a
-}
-
-fun helix():ArrayList<CustomWallStructure>{
-    val list = arrayListOf<CustomWallStructure>()
-    list.add(CustomWallStructure("Helix", false, circle(helix = true)))
-    for(i in 2..20){
-        list.add(CustomWallStructure("Helix$i",false, circle(count = i,helix = true)))
-    }
-    return list
-}
-
-fun main(){
-
 }
 
 fun stairwayUp(max:Double): ArrayList<MyObstacle> {
@@ -139,6 +123,7 @@ fun stairwayDown(max: Double): ArrayList<MyObstacle> {
     return list
 }
 
+/** default fence */
 fun fence(): ArrayList<MyObstacle> {
     val list = arrayListOf<MyObstacle>()
     list.addAll(
@@ -179,45 +164,3 @@ fun fence(): ArrayList<MyObstacle> {
     )
     return list
 }
-
-fun circle(count:Int = 1,radius:Double = 1.9, fineTuning:Int = 10,pDuration:Double = 1.0, helix:Boolean = false):ArrayList<MyObstacle>{
-
-    val list = arrayListOf<MyObstacle>()
-    val max = 2.0* PI *fineTuning
-
-    var x: Double
-    var y: Double
-    var nX:Double
-    var nY:Double
-
-    var width: Double
-    var height: Double
-    var startRow: Double
-    var startHeight: Double
-
-    var startTime:Double
-    var duration:Double
-
-    for(o in 0 until count){
-        val offset = round((o*2.0* PI *fineTuning) /count) //todo borked
-        for (i in 0..round(max).toInt()){
-            x = radius * cos((i+offset)/fineTuning)
-            y = radius * sin((i+offset)/fineTuning)
-
-            nX = radius * cos(((i+offset)+1)/fineTuning)
-            nY = radius * sin(((i+offset)+1)/fineTuning)
-
-            startRow = x + (nX - x)
-            width = abs(nX -x )
-            startHeight = if(y>=0) y else nY
-            startHeight+=2
-            height = abs(nY-y)
-
-            duration = if(helix) 1.0/max else pDuration
-            startTime = if(helix) i/max else 0.0
-            list.add(MyObstacle(duration,height,startHeight,startRow,width,startTime))
-        }
-    }
-    return list
-}
-

@@ -4,7 +4,7 @@ import com.google.gson.annotations.SerializedName
 import mu.KotlinLogging
 import song._obstacles
 import java.lang.Exception
-import kotlin.math.abs
+import kotlin.math.*
 import kotlin.random.Random
 
 private val logger = KotlinLogging.logger {}
@@ -31,6 +31,90 @@ interface WallStructure {
     }
 }
 
+/** gets helix with fixed duration */
+object Helix: WallStructure{
+    override val name: String = "helix"
+    override val mirror: Boolean = false
+    override val myObstacleList: ArrayList<MyObstacle> = arrayListOf()
+    override fun getObstacleList(parameters: Parameters): ArrayList<_obstacles> {
+        myObstacleList.clear()
+        val amount = parameters.customParameters.getIntOrElse(0,1)
+        val start = parameters.customParameters.getDoubleOrElse(1,0.0)
+        myObstacleList.addAll( circle(pOffset = start, count = amount,helix = true))
+        return super.getObstacleList(parameters)
+    }
+}
+
+/** gets helix with walls with the duration 0*/
+object EmptyHelix: WallStructure{
+    override val name: String = "helix"
+    override val mirror: Boolean = false
+    override val myObstacleList: ArrayList<MyObstacle> = arrayListOf()
+    override fun getObstacleList(parameters: Parameters): ArrayList<_obstacles> {
+        myObstacleList.clear()
+        val amount = parameters.customParameters.getIntOrElse(0,1)
+        val start = parameters.customParameters.getDoubleOrElse(1,0.0)
+        myObstacleList.addAll( circle(pDuration = 0.0,pOffset = start, count = amount,helix = true))
+        return super.getObstacleList(parameters)
+    }
+}
+
+/** gets helix with fast walls */
+object FastHelix: WallStructure{
+    override val name: String = "FastHelix"
+    override val mirror: Boolean = false
+    override val myObstacleList: ArrayList<MyObstacle> = arrayListOf()
+    override fun getObstacleList(parameters: Parameters): ArrayList<_obstacles> {
+        myObstacleList.clear()
+        val amount = parameters.customParameters.getIntOrElse(0,1)
+        val start = parameters.customParameters.getDoubleOrElse(1,0.0)
+        myObstacleList.addAll( circle(pOffset = start,pDuration = -2.0, count = amount,helix = true))
+        myObstacleList.forEach { it.startTime += 2 }
+        return super.getObstacleList(parameters)
+    }
+}
+
+/** A function to get a circle of walls or a helix, probably should have splitted those up */
+fun circle(count:Int = 1,radius:Double = 1.9, fineTuning:Int = 10,pOffset:Double = 0.0, pDuration:Double? = null, helix:Boolean = false):ArrayList<MyObstacle>{
+    val list = arrayListOf<MyObstacle>()
+    val max = 2.0* PI *fineTuning
+
+    var x: Double
+    var y: Double
+    var nX:Double
+    var nY:Double
+
+    var width: Double
+    var height: Double
+    var startRow: Double
+    var startHeight: Double
+
+    var startTime:Double
+    var duration:Double
+
+    for(o in 0 until count){
+        val offset = round((o*2.0* PI *fineTuning) /count) + pOffset
+        for (i in 0..round(max).toInt()){
+            x = radius * cos((i+offset)/fineTuning)
+            y = radius * sin((i+offset)/fineTuning)
+
+            nX = radius * cos(((i+offset)+1)/fineTuning)
+            nY = radius * sin(((i+offset)+1)/fineTuning)
+
+            startRow = x + (nX - x)
+            width = abs(nX -x )
+            startHeight = if(y>=0) y else nY
+            startHeight+=2
+            height = abs(nY-y)
+
+            //sets the duration to, 1: the given duration, 2: if its a helix the duration to the next wall 3: the default for a circle: 0.005
+            duration = pDuration?: if(helix) 1.0/max else pDuration?: 0.005
+            startTime = if(helix) i/max else 0.0
+            list.add(MyObstacle(duration,height,startHeight,startRow,width,startTime))
+        }
+    }
+    return list
+}
 
 object RandomNoise: WallStructure{
     override val mirror = false
@@ -113,3 +197,8 @@ data class AssetsBase (
     @SerializedName("customWallStructure") val customWallStructure : List<CustomWallStructure>
 )
 
+fun ArrayList<String>.getIntOrElse(index: Int, defaultValue: Int):Int =
+    try { this[index].toInt() } catch (e:Exception){ defaultValue }
+
+fun ArrayList<String>.getDoubleOrElse(index: Int, defaultValue: Double): Double =
+    try { this[index].toDouble() } catch (e:Exception){ defaultValue }

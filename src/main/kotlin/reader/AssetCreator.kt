@@ -2,6 +2,10 @@ package reader
 
 import structures.CustomWallStructure
 import structures.MyObstacle
+import kotlin.math.PI
+import kotlin.math.abs
+import kotlin.math.cos
+import kotlin.math.roundToInt
 
 fun createAssets():List<CustomWallStructure> {
     val a = arrayListOf<CustomWallStructure>()
@@ -80,6 +84,11 @@ fun createAssets():List<CustomWallStructure> {
                 "fence",
                 true,
                 fence()
+            ),
+            CustomWallStructure(
+                "sideWave",
+                true,
+                sideWave()
             )
         )
     )
@@ -122,6 +131,32 @@ fun stairwayDown(max: Double): ArrayList<MyObstacle> {
     }
     return list
 }
+
+fun sideWave(): ArrayList<MyObstacle> {
+    val list = arrayListOf<MyObstacle>()
+    val max = 20.0
+    for(i in 0 until (max).roundToInt()){
+        val y = i/max*(2* PI)
+        val nY = (i+1)/max*(2* PI)
+
+        list.add(
+            MyObstacle(
+               duration =  1 / max,
+                height = abs(cos(nY)- cos(y)),
+                startHeight = 1-cos(y),
+                startRow = 3.0,
+                width = 0.5,
+                startTime = i/max
+            )
+        )
+        print("")
+    }
+    return list
+}
+fun main(){
+    sideWave()
+}
+
 
 /** default fence */
 fun fence(): ArrayList<MyObstacle> {

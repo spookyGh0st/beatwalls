@@ -69,7 +69,6 @@ object FastHelix: WallStructure{
         val amount = parameters.customParameters.getIntOrElse(0,1)
         val start = parameters.customParameters.getDoubleOrElse(1,0.0)
         myObstacleList.addAll( circle(pOffset = start,pDuration = -2.0, count = amount,helix = true))
-        parameters.startTime+=2
         return super.getObstacleList(parameters)
     }
 }

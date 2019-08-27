@@ -69,7 +69,7 @@ object FastHelix: WallStructure{
         val amount = parameters.customParameters.getIntOrElse(0,1)
         val start = parameters.customParameters.getDoubleOrElse(1,0.0)
         myObstacleList.addAll( circle(pOffset = start,pDuration = -2.0, count = amount,helix = true))
-        myObstacleList.forEach { it.startTime += 2 }
+        parameters.startTime+=2
         return super.getObstacleList(parameters)
     }
 }
@@ -126,11 +126,32 @@ object RandomNoise: WallStructure{
         val intensity = try { parameters.customParameters[0].toInt() } catch (e:Exception){ 5 }
         repeat(intensity){
             val tempO = MyObstacle(
-                duration = 0.001,
-                height = 0.001,
+                duration = 0.01,
+                height = 0.01,
                 startHeight = Random.nextDouble(4.0),
                 startRow = Random.nextDouble(-4.0,4.0),
-                width = 0.0001,
+                width = 0.01,
+                startTime = Random.nextDouble()
+            )
+            myObstacleList.add(tempO)
+        }
+        return super.getObstacleList(parameters)
+    }
+}
+object BroadRandomNoise: WallStructure{
+    override val mirror = false
+    override val name = "BroadRandomNoise"
+    override val myObstacleList: ArrayList<MyObstacle> = arrayListOf()
+    override fun getObstacleList(parameters: Parameters): ArrayList<_obstacles> {
+        myObstacleList.clear()
+        val intensity = try { parameters.customParameters[0].toInt() } catch (e:Exception){ 5 }
+        repeat(intensity){
+            val tempO = MyObstacle(
+                duration = 0.01,
+                height = 0.01,
+                startHeight = Random.nextDouble(4.0),
+                startRow = Random.nextDouble(-50.0,50.0),
+                width = 0.01,
                 startTime = Random.nextDouble()
             )
             myObstacleList.add(tempO)
@@ -154,19 +175,19 @@ object RandomLines: WallStructure{
         var x:Double
         for(i in 1..count){
             //adjusting the starting x, splitting it evenly among the count
-            x = ((count/(i+1.0))-0.5)*4.0
+            x = Random.nextDouble(-4.0 , 4.0)
 
             //for each wall intensity
             for(j in 1..intensity){
-                myObstacleList.add(MyObstacle(1.0/intensity,0.05,0.0,x, 0.0,j.toDouble()/intensity))
+                myObstacleList.add(MyObstacle(1.0/intensity,0.05,0.0,x, 0.05,j.toDouble()/intensity))
 
                 //randomly changes lines, adjusts x when doing so
-                if (Random.nextInt(0,count) == 0){
-                    val nX = Random.nextDouble(-2.0,2.0)
-                    val stRow = if(nX>x) x else nX
-                    val stWidth = abs(nX-x)
-                    val stTime = j/200.0 + 1.0/j
-                    myObstacleList.add(MyObstacle(0.0,0.05,0.0,stRow,stWidth,stTime))
+                if (Random.nextInt(0, sqrt(count.toDouble()).roundToInt()) == 0){
+                    val nX = Random.nextDouble(-4.0,4.0)
+                    val stRow = if(nX > x) x else nX
+                    val stWidth = nX-x
+                    val stTime = j.toDouble()/intensity + 1.0/intensity
+                    myObstacleList.add(MyObstacle(0.0005,0.05,0.0,stRow,stWidth,stTime))
                     x = nX
                 }
             }
@@ -174,6 +195,56 @@ object RandomLines: WallStructure{
         return super.getObstacleList(parameters)
     }
 }
+
+/** gets random side walls, default on the floor */ //todo create the same for floor lines
+object RandomSideLines: WallStructure{
+    //todo TEST
+    override val mirror: Boolean = true
+    override val name: String = "randomSideLines"
+    override val myObstacleList: ArrayList<MyObstacle> = arrayListOf()
+    override fun getObstacleList(parameters: Parameters): ArrayList<_obstacles> {
+        //getting the variables or the default values
+        val count = try { parameters.customParameters[0].toInt() } catch (e:Exception){ 1 }
+        val intensity = try { parameters.customParameters[1].toInt() } catch (e:Exception){ 4 }
+        myObstacleList.clear()
+
+        var x:Double
+        for(i in 1..count){
+            //adjusting the starting x, splitting it evenly among the count
+            x = Random.nextDouble(0.0 , 4.0)
+
+            //for each wall intensity
+            for(j in 1..intensity){
+                myObstacleList.add(MyObstacle(1.0/intensity,0.05,x,4.0, 0.05,j.toDouble()/intensity))
+
+                //randomly changes lines, adjusts x when doing so
+                if (Random.nextInt(0, sqrt(count.toDouble()).roundToInt()) == 0){
+                    val nX = Random.nextDouble(0.0,4.0)
+                    val stHeight = if(nX > x) x else nX
+                    val height = abs(nX-x)
+                    val stTime = j.toDouble()/intensity + 1.0/intensity
+                    myObstacleList.add(MyObstacle(0.0005,height,stHeight,4.0,0.05,stTime))
+                    x = nX
+                }
+            }
+        }
+        return super.getObstacleList(parameters)
+    }
+}
+object RandomBox: WallStructure{
+    override val mirror = false
+    override val name = "RandomBox"
+    override val myObstacleList: ArrayList<MyObstacle> = arrayListOf()
+    override fun getObstacleList(parameters: Parameters): ArrayList<_obstacles> {
+        val duration = parameters.customParameters.getIntOrElse(0,4)
+        val list = arrayListOf<_obstacles>()
+        list.addAll(RandomLines.getObstacleList(Parameters("RandomLines -- 8 ${duration*2} -- $duration")))
+        list.addAll(RandomLines.getObstacleList(Parameters("RandomLines -- 8 ${duration*2} -- $duration 0 0 0 0 4")))
+        list.addAll(RandomSideLines.getObstacleList(Parameters("RandomSideLines -- 8 ${duration*2} -- $duration")))
+        return list
+    }
+}
+
 
 /** gets text */
 object Text: WallStructure {

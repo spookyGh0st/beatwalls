@@ -1,5 +1,9 @@
 package structures
 
+import mu.KotlinLogging
+
+private val logger = KotlinLogging.logger {}
+
 class Parameters(string: String)
 {
     val name:String
@@ -27,10 +31,12 @@ class Parameters(string: String)
         /**custom Parameters */
         if(getElement() == "--"){
             countUp()
-            while (getElement() != "--"){
-                customParameters.add(stringArray[counter])
-                countUp()
-            }
+            try {
+                while (getElement() != "--"){
+                    customParameters.add(stringArray[counter])
+                    countUp()
+                }
+            }catch (e: Exception){logger.error { "CLOSE YOUR FUCKING CUSTOM OPTION" }}
             countUp()
         }
 

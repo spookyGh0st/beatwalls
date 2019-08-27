@@ -64,14 +64,6 @@ class ParametersTest {
         assertEquals(0.0, a.width,0.01)
     }
     @Test
-    fun testMemException(){
-        try {
-            val string = "floor -- fsjdka lks li l2 j432"
-            Parameters(string)
-            fail()
-        }catch (e:Exception){}
-    }
-    @Test
     fun testNameException(){
         try {
             val string = ""

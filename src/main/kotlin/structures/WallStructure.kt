@@ -47,7 +47,7 @@ object Helix: WallStructure{
 
 /** gets helix with walls with the duration 0*/
 object EmptyHelix: WallStructure{
-    override val name: String = "helix"
+    override val name: String = "EmptyHelix"
     override val mirror: Boolean = false
     override val myObstacleList: ArrayList<MyObstacle> = arrayListOf()
     override fun getObstacleList(parameters: Parameters): ArrayList<_obstacles> {
@@ -103,7 +103,7 @@ fun circle(count:Int = 1,radius:Double = 1.9, fineTuning:Int = 10,pOffset:Double
 
             startRow = x + (nX - x)
             width = abs(nX -x )
-            startHeight = if(y>=0) y else nY
+            startHeight = y
             startHeight+=2
             height = abs(nY-y)
 

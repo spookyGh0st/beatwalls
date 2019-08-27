@@ -8,7 +8,7 @@ object WallStructureManager
 
     fun loadManager(list:ArrayList<CustomWallStructure>) {
         with(wallStructuresList){
-            add(Text)
+            //add(Text)
             add(RandomLines)
             add(RandomNoise)
             add(Helix)
@@ -28,7 +28,6 @@ object WallStructureManager
 
         //gets repeat right
         for (i in 0..count) {
-            parameters.startTime = parameters.startTime + gap * i
 
             //gets the structure with the given name, or just an empty arrayListOf<_obstacles>
             val structure = wallStructuresList.find {
@@ -36,6 +35,7 @@ object WallStructureManager
             }?.getObstacleList(parameters) ?: arrayListOf()
 
             list.addAll(structure)
+            parameters.startTime += gap
         }
 
         return list

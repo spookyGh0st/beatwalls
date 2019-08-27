@@ -37,7 +37,7 @@ class Parameters(string: String)
         /**default Parameters */
         scale = getOr1()
         repeatCount = getOr0().toInt()
-        repeatGap = getOr0()
+        repeatGap = getOr1()
         duration = getOr0()
         wallHeight = getOr0()
         wallStartHeight = getOr0()

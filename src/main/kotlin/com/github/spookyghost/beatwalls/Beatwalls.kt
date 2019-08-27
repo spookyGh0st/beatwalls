@@ -82,6 +82,7 @@ class Beatwalls : CliktCommand() {
 
         } catch (e: Exception) {
             logger.error { "Failed to read Song. Is it really in the right format?" }
+            logger.error { e.message }
             exitProcess(-1)
         }
 

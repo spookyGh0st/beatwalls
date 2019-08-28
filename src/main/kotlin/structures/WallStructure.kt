@@ -155,14 +155,55 @@ object StairWay: WallStructure{
     }
 }
 
+object Spiral:WallStructure{
+    override val name = "Spiral"
+    override val mirror  = true
+    override val myObstacleList: ArrayList<MyObstacle> = arrayListOf()
+    override fun getObstacleList(parameters: Parameters): ArrayList<_obstacles> {
+        val max = 360
+        val list = arrayListOf<_obstacles>()
+        for (i in 0 until max){
+            parameters.customParameters.clear()
+            parameters.customParameters.add("$i")
+            parameters.customParameters.add("2")
+            parameters.startTime = i.toDouble() / max
+            val l = (CyanLine.getObstacleList(parameters))
+            list.addAll(l)
+        }
+        return list
+    }
+}
+
 /** draws a line given a centerpoint, an angle and a radius */
 object CyanLine: WallStructure{
-    override val name = "Line"
+    override val name = "CyanLine"
     override val mirror  = false
     override val myObstacleList: ArrayList<MyObstacle> = arrayListOf()
     override fun getObstacleList(parameters: Parameters): ArrayList<_obstacles> {
+        val degree = parameters.customParameters.getDoubleOrElse(0,0.0)
+        val length = parameters.customParameters.getDoubleOrElse(1,1.0)
+        val cx = parameters.customParameters.getDoubleOrElse(2,0.0)
+        val cy = parameters.customParameters.getDoubleOrElse(3,1.0)
 
-        TODO()
+        val dgr = degree / 360 * (2* PI)
+        val defaultAmount = ((cos(dgr)*sin(dgr)).pow(2)*200 +1).toInt()
+
+        val amount = parameters.customParameters.getIntOrElse(4, defaultAmount)
+
+        val x1 = (cx + cos(dgr))*length
+        val x2 = (cx - cos(dgr))*length
+        val y1 = (cy + sin(dgr))*length
+        val y2 = (cy - sin(dgr))*length
+
+        with(parameters.customParameters){
+            clear()
+            add("$x1")
+            add("$y1")
+            add("$x2")
+            add("$y2")
+            add("$amount")
+        }
+        return Line.getObstacleList(parameters)
     }
 }
 
@@ -188,8 +229,8 @@ object Line: WallStructure{
         }
 
         //setting the solid values
-        val width = abs(x2-x1)/amount
-        val height = abs(y2-y1)/amount
+        val width = (abs(x2-x1)/amount).coerceAtLeast(0.01)
+        val height = (abs(y2-y1)/amount).coerceAtLeast(0.01)
 
         for(i in 0 until amount){
 
@@ -202,9 +243,9 @@ object Line: WallStructure{
                     x1 - (i+1) * width
 
             //adding the obstacle
-            myObstacleList.add(MyObstacle(0.001,height,startHeight,startRow,width,0.0))
+            myObstacleList.add(MyObstacle(0.0001,height,startHeight,startRow,width,0.0))
         }
-        return super.getObstacleList(parameters)
+        return adjustObstacles(parameters)
     }
 }
 

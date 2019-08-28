@@ -20,6 +20,8 @@ object WallStructureManager
             add(EmptyHelix)
             add(StairWay)
             add(Line)
+            add(CyanLine)
+            add(Spiral)
             addAll(list)
         }
     }

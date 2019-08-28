@@ -16,7 +16,9 @@ object WallStructureManager
             add(RandomBox)
             add(Helix)
             add(FastHelix)
+            add(HyperHelix)
             add(EmptyHelix)
+            add(StairWay)
             addAll(list)
         }
     }

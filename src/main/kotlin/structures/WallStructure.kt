@@ -69,6 +69,22 @@ object FastHelix: WallStructure{
         val amount = parameters.customParameters.getIntOrElse(0,1)
         val start = parameters.customParameters.getDoubleOrElse(1,0.0)
         myObstacleList.addAll( circle(pOffset = start,pDuration = -2.0, count = amount,helix = true))
+        parameters.startTime+=2
+        return super.getObstacleList(parameters)
+    }
+}
+
+/** gets helix with Hyper walls */
+object HyperHelix: WallStructure{
+    override val name: String = "HyperHelix"
+    override val mirror: Boolean = false
+    override val myObstacleList: ArrayList<MyObstacle> = arrayListOf()
+    override fun getObstacleList(parameters: Parameters): ArrayList<_obstacles> {
+        myObstacleList.clear()
+        val amount = parameters.customParameters.getIntOrElse(0,1)
+        val start = parameters.customParameters.getDoubleOrElse(1,0.0)
+        myObstacleList.addAll( circle(pOffset = start,pDuration = -4.0, count = amount,helix = true))
+        //parameters.startTime+=2
         return super.getObstacleList(parameters)
     }
 }
@@ -115,7 +131,31 @@ fun circle(count:Int = 1,radius:Double = 1.9, fineTuning:Int = 10,pOffset:Double
     return list
 }
 
-/** gets very small noise in the area -3 .. 3 */
+/** creates normal stairways */
+object StairWay: WallStructure{
+    override val name = "StairWay"
+    override val mirror  = true
+    override val myObstacleList: ArrayList<MyObstacle> = arrayListOf()
+    override fun getObstacleList(parameters: Parameters): ArrayList<_obstacles> {
+        myObstacleList.clear()
+        val amount = parameters.customParameters.getIntOrElse(0,4)
+        val min  = parameters.customParameters.getDoubleOrElse(1,0.0)
+        val max = parameters.customParameters.getDoubleOrElse(2,4.0)
+        for(i in 0 until amount){
+
+            val height = abs(max-min)/amount
+            val startHeight = if(min<=max)
+                min + i* height
+            else
+                min + (amount-i-1)*height
+
+            myObstacleList.add( MyObstacle(1.0/amount,height,startHeight,4.0,0.5,i.toDouble()/amount))
+        }
+        return super.getObstacleList(parameters)
+    }
+}
+
+/** gets very small noise in the area -4 .. 4 */
 object RandomNoise: WallStructure{
     override val mirror = false
     override val name = "RandomNoise"
@@ -137,6 +177,8 @@ object RandomNoise: WallStructure{
         return super.getObstacleList(parameters)
     }
 }
+
+/** gets very small noise in the area -30 .. 30 */
 object BroadRandomNoise: WallStructure{
     override val mirror = false
     override val name = "BroadRandomNoise"
@@ -230,6 +272,8 @@ object RandomSideLines: WallStructure{
         return super.getObstacleList(parameters)
     }
 }
+
+/** gets a random box containing random lines floor, ceiling, side */
 object RandomBox: WallStructure{
     override val mirror = false
     override val name = "RandomBox"
@@ -243,7 +287,6 @@ object RandomBox: WallStructure{
         return list
     }
 }
-
 
 /** gets text */
 object Text: WallStructure {

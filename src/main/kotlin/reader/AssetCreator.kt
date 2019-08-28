@@ -52,25 +52,6 @@ fun createAssets():List<CustomWallStructure> {
                 arrayListOf(MyObstacle(0.05,2.0,0.0,2.0,0.05,0.0))
             ),
             CustomWallStructure(
-                "fineStairwayUp",
-                true, stairwayUp(30.0)
-            ),
-            CustomWallStructure(
-                "fineStairwayDown",
-                true,
-                stairwayDown(30.0)
-            ),
-            CustomWallStructure(
-                "roughStairwayUp",
-                true,
-                stairwayUp(5.0)
-            ),
-            CustomWallStructure(
-                "roughStairwayDown",
-                true,
-                stairwayDown(5.0)
-            ),
-            CustomWallStructure(
                 "Tube",
                 false,
                 structures.circle()
@@ -89,48 +70,17 @@ fun createAssets():List<CustomWallStructure> {
                 "sideWave",
                 true,
                 sideWave()
+            ),
+            CustomWallStructure(
+                "FastSideWalls",
+                true,
+                arrayListOf(MyObstacle(-2.0,4.0,0.0,4.5,0.5,2.0))
             )
         )
     )
-
     return a
 }
 
-fun stairwayUp(max:Double): ArrayList<MyObstacle> {
-    val list = arrayListOf<MyObstacle>()
-    val maxH = 3.996
-    for(i in 0 until max.toInt()){
-        list.add(
-            MyObstacle(
-                1 / max,
-                1 / max * maxH,
-                i / max * maxH,
-                3.0,
-                1 / max * maxH,
-                i / max
-            )
-        )
-    }
-    return list
-}
-
-fun stairwayDown(max: Double): ArrayList<MyObstacle> {
-    val list = arrayListOf<MyObstacle>()
-    val maxH = 3.996
-    for(i in 0 until max.toInt()){
-        list.add(
-            MyObstacle(
-                1 / max,
-                1 / max * maxH,
-                maxH - i / max * maxH,
-                3.0,
-                1 / max * maxH,
-                i / max
-            )
-        )
-    }
-    return list
-}
 
 fun sideWave(): ArrayList<MyObstacle> {
     val list = arrayListOf<MyObstacle>()
@@ -153,10 +103,6 @@ fun sideWave(): ArrayList<MyObstacle> {
     }
     return list
 }
-fun main(){
-    sideWave()
-}
-
 
 /** default fence */
 fun fence(): ArrayList<MyObstacle> {
@@ -167,7 +113,7 @@ fun fence(): ArrayList<MyObstacle> {
                 1.0,
                 0.005,
                 0.0,
-                3.0,
+                4.0,
                 0.005,
                 0.0
             ),
@@ -175,7 +121,7 @@ fun fence(): ArrayList<MyObstacle> {
                 1.0,
                 0.005,
                 2.0,
-                3.0,
+                4.0,
                 0.005,
                 0.0
             ),
@@ -183,7 +129,7 @@ fun fence(): ArrayList<MyObstacle> {
                 0.005,
                 2.0,
                 0.0,
-                3.0,
+                4.0,
                 0.005,
                 0.0
             ),
@@ -191,7 +137,7 @@ fun fence(): ArrayList<MyObstacle> {
                 0.005,
                 2.0,
                 0.0,
-                3.0,
+                4.0,
                 0.005,
                 0.995
             )

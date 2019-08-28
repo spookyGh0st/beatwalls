@@ -12,8 +12,12 @@ data class _obstacles (
 ){
 
     fun adjustBPM(bpm: Double, newBpm: Double, timeOffset: Double){
-        if(this._duration>0)
-            this._duration = this._duration /newBpm*bpm
-        this._time =this._time/newBpm *bpm + timeOffset
+        if(this._duration>0) {
+            this._duration = this._duration / newBpm * bpm
+            this._time = this._time / newBpm * bpm
+            this._time += timeOffset
+        }else{
+            this._time += timeOffset
+        }
     }
 }

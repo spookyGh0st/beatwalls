@@ -295,6 +295,21 @@ object BroadRandomNoise: WallStructure{
     }
 }
 
+object RandomBlocks: WallStructure{
+    override val mirror = false
+    override val name = "RandomBlocks"
+    override val myObstacleList: ArrayList<MyObstacle> = arrayListOf()
+    override fun getObstacleList(parameters: Parameters): ArrayList<_obstacles> {
+        myObstacleList.clear()
+        val duration = parameters.customParameters.getDoubleOrElse(0,4.0)
+        for(i in 0 until duration.toInt()){
+            myObstacleList.add(MyObstacle(Random.nextDouble(0.5), Random.nextDouble(2.0), 0.0,Random.nextDouble(10.0, 20.0), Random.nextDouble(2.0),i.toDouble())    )
+            myObstacleList.add(MyObstacle(Random.nextDouble(0.5), Random.nextDouble(2.0), 0.0,Random.nextDouble(-20.0, -10.0), Random.nextDouble(2.0),i.toDouble())    )
+        }
+        return adjustObstacles(parameters)
+    }
+}
+
 /** gets randomLines, default on the floor */ //todo create the same for floor lines
 object RandomLines: WallStructure{
     //todo TEST

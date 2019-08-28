@@ -14,6 +14,7 @@ object WallStructureManager
             add(BroadRandomNoise)
             add(RandomSideLines)
             add(RandomBox)
+            add(RandomBlocks)
             add(Helix)
             add(FastHelix)
             add(HyperHelix)

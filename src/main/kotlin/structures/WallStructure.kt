@@ -89,47 +89,6 @@ object HyperHelix: WallStructure{
     }
 }
 
-/** A function to get a circle of walls or a helix, probably should have splitted those up */
-fun circle(count:Int = 1,radius:Double = 1.9, fineTuning:Int = 10,pOffset:Double = 0.0, pDuration:Double? = null, helix:Boolean = false):ArrayList<MyObstacle>{
-    val list = arrayListOf<MyObstacle>()
-    val max = 2.0* PI *fineTuning
-
-    var x: Double
-    var y: Double
-    var nX:Double
-    var nY:Double
-
-    var width: Double
-    var height: Double
-    var startRow: Double
-    var startHeight: Double
-
-    var startTime:Double
-    var duration:Double
-
-    for(o in 0 until count){
-        val offset = round((o*2.0* PI *fineTuning) /count) + pOffset
-        for (i in 0..round(max).toInt()){
-            x = radius * cos((i+offset)/fineTuning)
-            y = radius * sin((i+offset)/fineTuning)
-
-            nX = radius * cos(((i+offset)+1)/fineTuning)
-            nY = radius * sin(((i+offset)+1)/fineTuning)
-
-            startRow = x + (nX - x)
-            width = abs(nX -x )
-            startHeight = y
-            startHeight+=2
-            height = abs(nY-y)
-
-            //sets the duration to, 1: the given duration, 2: if its a helix the duration to the next wall 3: the default for a circle: 0.005
-            duration = pDuration?: if(helix) 1.0/max else pDuration?: 0.005
-            startTime = if(helix) i/max else 0.0
-            list.add(MyObstacle(duration,height,startHeight,startRow,width,startTime))
-        }
-    }
-    return list
-}
 
 /** creates normal stairways */
 object StairWay: WallStructure{
@@ -198,16 +157,18 @@ object CyanLine: WallStructure{
         with(parameters.customParameters){
             clear()
             add("$x1")
-            add("$y1")
             add("$x2")
+            add("$y1")
             add("$y2")
+            add("0.0")
+            add("0.0")
             add("$amount")
         }
         return Line.getObstacleList(parameters)
     }
 }
 
-/** Draws a line between 2 coordinates */
+/** linie */
 object Line: WallStructure{
     override val name = "Line"
     override val mirror  = false
@@ -216,35 +177,17 @@ object Line: WallStructure{
         myObstacleList.clear()
 
         //all parameters
-        var x1 = parameters.customParameters.getDoubleOrElse(0,-2.0)
-        var y1  = parameters.customParameters.getDoubleOrElse(1,0.0)
-        var x2 = parameters.customParameters.getDoubleOrElse(2,2.0)
-        var y2 = parameters.customParameters.getDoubleOrElse(3,0.0)
-        val amount = parameters.customParameters.getIntOrElse(4,15)
+        val x1 = parameters.customParameters.getDoubleOrElse(0,-2.0)
+        val x2 = parameters.customParameters.getDoubleOrElse(1,2.0)
+        val y1  = parameters.customParameters.getDoubleOrElse(2,0.0)
+        val y2 = parameters.customParameters.getDoubleOrElse(3,0.0)
+        val z1 = parameters.customParameters.getDoubleOrElse(4,0.0)
+        val z2 = parameters.customParameters.getDoubleOrElse(5,0.0)
 
-        //swap values if y2 < y1  - this functions goes from bottom to top
-        if(y2<y1){
-            x1 = x2.also { x2 = x1 }
-            y1 = y2.also { y2 = y1 }
-        }
+        val amount = parameters.customParameters.getOrNull(6)?.toInt()
 
-        //setting the solid values
-        val width = (abs(x2-x1)/amount).coerceAtLeast(0.01)
-        val height = (abs(y2-y1)/amount).coerceAtLeast(0.01)
+        myObstacleList.addAll(line(x1,x2,y1,y2,z1,z2,amount))
 
-        for(i in 0 until amount){
-
-            //setting the dynamic values
-            val startHeight = y1 + i* height
-            val startRow =
-                if(x2 > x1)
-                    x1 + i * width
-                else
-                    x1 - (i+1) * width
-
-            //adding the obstacle
-            myObstacleList.add(MyObstacle(0.0001,height,startHeight,startRow,width,0.0))
-        }
         return adjustObstacles(parameters)
     }
 }
@@ -295,6 +238,7 @@ object BroadRandomNoise: WallStructure{
     }
 }
 
+/** random blocks to the right and left */
 object RandomBlocks: WallStructure{
     override val mirror = false
     override val name = "RandomBlocks"
@@ -310,7 +254,7 @@ object RandomBlocks: WallStructure{
     }
 }
 
-/** gets randomLines, default on the floor */ //todo create the same for floor lines
+/** gets randomLines, default on the floor */
 object RandomLines: WallStructure{
     //todo TEST
     override val mirror: Boolean = false
@@ -346,7 +290,7 @@ object RandomLines: WallStructure{
     }
 }
 
-/** gets random side walls, default on the floor */ //todo create the same for floor lines
+/** gets random side walls, default on the floor */
 object RandomSideLines: WallStructure{
     //todo TEST
     override val mirror: Boolean = true
@@ -405,6 +349,97 @@ object Text: WallStructure {
         get() = TODO("not implemented") //To change initializer of created properties use File | Settings | File Templates.
     override val myObstacleList: ArrayList<MyObstacle>
         get() = TODO("not implemented") //To change initializer of created properties use File | Settings | File Templates.
+}
+
+/** A function to get a circle of walls or a helix, probably should have splitted those up */
+fun circle(count:Int = 1,radius:Double = 1.9, fineTuning:Int = 10,pOffset:Double = 0.0, pDuration:Double? = null, helix:Boolean = false):ArrayList<MyObstacle>{
+    val list = arrayListOf<MyObstacle>()
+    val max = 2.0* PI *fineTuning
+
+    var x: Double
+    var y: Double
+    var nX:Double
+    var nY:Double
+
+    var width: Double
+    var height: Double
+    var startRow: Double
+    var startHeight: Double
+
+    var startTime:Double
+    var duration:Double
+
+    for(o in 0 until count){
+        val offset = round((o*2.0* PI *fineTuning) /count) + pOffset
+        for (i in 0..round(max).toInt()){
+            x = radius * cos((i+offset)/fineTuning)
+            y = radius * sin((i+offset)/fineTuning)
+
+            nX = radius * cos(((i+offset)+1)/fineTuning)
+            nY = radius * sin(((i+offset)+1)/fineTuning)
+
+            startRow = x + (nX - x)
+            width = abs(nX -x )
+            startHeight = y
+            startHeight+=2
+            height = abs(nY-y)
+
+            //sets the duration to, 1: the given duration, 2: if its a helix the duration to the next wall 3: the default for a circle: 0.005
+            duration = pDuration?: if(helix) 1.0/max else pDuration?: 0.005
+            startTime = if(helix) i/max else 0.0
+            list.add(MyObstacle(duration,height,startHeight,startRow,width,startTime))
+        }
+    }
+    return list
+}
+
+/** Draws a line between 2 coordinates */
+fun line(px1:Double, px2: Double, py1:Double, py2: Double, pz1: Double, pz2: Double, defaultAmount: Int? = null): ArrayList<MyObstacle>{
+
+    //swap values if y2 < y1  - this functions goes from bottom to top
+    var x1 = px1
+    var x2 = px2
+    var y1 = py1
+    var y2 = py2
+    var z1 = pz1
+    var z2 = pz2
+
+    val hyp = sqrt(abs(y2-y1).pow(2) + abs(x2-x1).pow(2)).coerceAtLeast(0.00001)
+    val sin = abs(y2 -y1)/ hyp
+    val cos = abs(x2-x1) / hyp
+
+    val hyp2 = sqrt(abs(y2-y1).pow(2) + abs(z2-z1).pow(2)).coerceAtLeast(0.00001)
+    val sin2 = abs(y2 -y1)/ hyp2
+    val cos2 = abs(z2-z1) / hyp2
+
+    val amount = defaultAmount?: ((sin * cos + sin2 * cos2).pow(2)* 100+1).toInt()
+    val list = arrayListOf<MyObstacle>()
+
+    if(y2<y1){
+        x1 = x2.also { x2 = x1 }
+        y1 = y2.also { y2 = y1 }
+        z1 = z2.also { z2 = z1 }
+    }
+
+    //setting the solid values
+    val width = (abs(x2-x1)/amount).coerceAtLeast(0.01)
+    val height = (abs(y2-y1)/amount).coerceAtLeast(0.01)
+    val duration = (abs(z2-z1)/amount).coerceAtLeast(0.001)
+
+    for(i in 0 until amount){
+        //setting the dynamic values
+        val startHeight = y1 + i* height
+        val startRow =
+            if(x2 > x1)
+                x1 + i * width
+            else
+                x1 - (i+1) * width
+        val startTime = z1 + i*duration
+
+        //adding the obstacle
+        list.add(MyObstacle(duration,height,startHeight,startRow,width,startTime))
+    }
+    return list
 }
 
 /** the default customwallstructure the asset file uses */

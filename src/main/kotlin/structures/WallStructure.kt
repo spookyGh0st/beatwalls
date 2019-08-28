@@ -155,6 +155,59 @@ object StairWay: WallStructure{
     }
 }
 
+/** draws a line given a centerpoint, an angle and a radius */
+object CyanLine: WallStructure{
+    override val name = "Line"
+    override val mirror  = false
+    override val myObstacleList: ArrayList<MyObstacle> = arrayListOf()
+    override fun getObstacleList(parameters: Parameters): ArrayList<_obstacles> {
+
+        TODO()
+    }
+}
+
+/** Draws a line between 2 coordinates */
+object Line: WallStructure{
+    override val name = "Line"
+    override val mirror  = false
+    override val myObstacleList: ArrayList<MyObstacle> = arrayListOf()
+    override fun getObstacleList(parameters: Parameters): ArrayList<_obstacles> {
+        myObstacleList.clear()
+
+        //all parameters
+        var x1 = parameters.customParameters.getDoubleOrElse(0,-2.0)
+        var y1  = parameters.customParameters.getDoubleOrElse(1,0.0)
+        var x2 = parameters.customParameters.getDoubleOrElse(2,2.0)
+        var y2 = parameters.customParameters.getDoubleOrElse(3,0.0)
+        val amount = parameters.customParameters.getIntOrElse(4,15)
+
+        //swap values if y2 < y1  - this functions goes from bottom to top
+        if(y2<y1){
+            x1 = x2.also { x2 = x1 }
+            y1 = y2.also { y2 = y1 }
+        }
+
+        //setting the solid values
+        val width = abs(x2-x1)/amount
+        val height = abs(y2-y1)/amount
+
+        for(i in 0 until amount){
+
+            //setting the dynamic values
+            val startHeight = y1 + i* height
+            val startRow =
+                if(x2 > x1)
+                    x1 + i * width
+                else
+                    x1 - (i+1) * width
+
+            //adding the obstacle
+            myObstacleList.add(MyObstacle(0.001,height,startHeight,startRow,width,0.0))
+        }
+        return super.getObstacleList(parameters)
+    }
+}
+
 /** gets very small noise in the area -4 .. 4 */
 object RandomNoise: WallStructure{
     override val mirror = false

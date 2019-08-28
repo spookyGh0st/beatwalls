@@ -19,6 +19,7 @@ object WallStructureManager
             add(HyperHelix)
             add(EmptyHelix)
             add(StairWay)
+            add(Line)
             addAll(list)
         }
     }

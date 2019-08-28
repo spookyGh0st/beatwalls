@@ -147,7 +147,7 @@ object StairWay: WallStructure{
             val startHeight = if(min<=max)
                 min + i* height
             else
-                min + (amount-i-1)*height
+                min - (i+1)*height
 
             myObstacleList.add( MyObstacle(1.0/amount,height,startHeight,4.0,0.5,i.toDouble()/amount))
         }

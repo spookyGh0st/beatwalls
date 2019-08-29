@@ -153,6 +153,7 @@ object CyanLine: WallStructure{
     override val mirror  = false
     override val myObstacleList: ArrayList<MyObstacle> = arrayListOf()
     override fun getObstacleList(parameters: Parameters): ArrayList<_obstacles> {
+        myObstacleList.clear()
         val degree = parameters.customParameters.getDoubleOrElse(0,0.0)
         val length = parameters.customParameters.getDoubleOrElse(1,1.0)
         val cx = parameters.customParameters.getDoubleOrElse(2,0.0)
@@ -471,23 +472,26 @@ fun line(px1:Double, px2: Double, py1:Double, py2: Double, pz1: Double, pz2: Dou
     }
 
     //setting the solid values
-    val width = (abs(x2-x1)/amount).coerceAtLeast(0.01)
-    val height = (abs(y2-y1)/amount).coerceAtLeast(0.01)
-    val duration = (abs(z2-z1)/amount).coerceAtLeast(0.001)
+    val w = (abs(x2-x1)/amount)
+    val width = w.coerceAtLeast(0.01)
+    val h = (abs(y2-y1)/amount)
+    val height = h.coerceAtLeast(0.01)
+    val d = (abs(z2-z1)/amount)
+    val duration = d.coerceAtLeast(0.001)
 
     for(i in 0 until amount){
         //setting the dynamic values
-        val startHeight = y1 + i* height
+        val startHeight = y1 + i* h
         val startRow =
             if(x2 > x1)
-                x1 + i * width
+                x1 + i * w
             else
-                x1 - (i+1) * width
-        val startTime = z1 + i*duration
+                x1 - (i+1) * w
+        val startTime = z1 + i*d
 
         //adding the obstacle
-        val d = defaultDuration ?: duration
-        list.add(MyObstacle(d,height,startHeight,startRow,width,startTime))
+        val myD = defaultDuration ?: duration
+        list.add(MyObstacle(myD,height,startHeight,startRow,width,startTime))
     }
     return list
 }

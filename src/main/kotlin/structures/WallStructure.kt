@@ -39,6 +39,21 @@ object Helix: WallStructure{
     override fun getObstacleList(parameters: Parameters): ArrayList<_obstacles> {
         myObstacleList.clear()
         val amount = parameters.customParameters.getIntOrElse(0,1)
+        val intensity = parameters.customParameters.getIntOrElse(1,10)
+        val start = parameters.customParameters.getDoubleOrElse(2,0.0)
+        myObstacleList.addAll( circle(pOffset = start,fineTuning = intensity, count = amount,helix = true))
+        return super.getObstacleList(parameters)
+    }
+}
+
+/** gets helix with fixed duration */
+object MirroredHelix: WallStructure{
+    override val name: String = "MirroredHelix"
+    override val mirror: Boolean = true
+    override val myObstacleList: ArrayList<MyObstacle> = arrayListOf()
+    override fun getObstacleList(parameters: Parameters): ArrayList<_obstacles> {
+        myObstacleList.clear()
+        val amount = parameters.customParameters.getIntOrElse(0,1)
         val start = parameters.customParameters.getDoubleOrElse(1,0.0)
         myObstacleList.addAll( circle(pOffset = start, count = amount,helix = true))
         return super.getObstacleList(parameters)
@@ -160,7 +175,7 @@ object CyanLine: WallStructure{
     }
 }
 
-/** linie */
+/** Line */
 object Line: WallStructure{
     override val name = "Line"
     override val mirror  = false
@@ -177,14 +192,15 @@ object Line: WallStructure{
         val z2 = parameters.customParameters.getDoubleOrElse(5,0.0)
 
         val amount = parameters.customParameters.getOrNull(6)?.toInt()
+        val duration = parameters.customParameters.getOrNull(7)?.toDouble()
 
-        myObstacleList.addAll(line(x1,x2,y1,y2,z1,z2,amount))
+        myObstacleList.addAll(line(x1,x2,y1,y2,z1,z2,amount,duration))
 
         return adjustObstacles(parameters)
     }
 }
 
-/** mirroredlinie */
+/** mirroredLine */
 object MirroredLine: WallStructure{
     override val name = "MirroredLine"
     override val mirror  = true
@@ -201,8 +217,9 @@ object MirroredLine: WallStructure{
         val z2 = parameters.customParameters.getDoubleOrElse(5,0.0)
 
         val amount = parameters.customParameters.getOrNull(6)?.toInt()
+        val duration = parameters.customParameters.getOrNull(7)?.toDouble()
 
-        myObstacleList.addAll(line(x1,x2,y1,y2,z1,z2,amount))
+        myObstacleList.addAll(line(x1,x2,y1,y2,z1,z2,amount,duration))
 
         return adjustObstacles(parameters)
     }
@@ -265,6 +282,22 @@ object RandomBlocks: WallStructure{
         for(i in 0 until duration.toInt()){
             myObstacleList.add(MyObstacle(Random.nextDouble(0.5), Random.nextDouble(2.0), 0.0,Random.nextDouble(10.0, 20.0), Random.nextDouble(2.0),i.toDouble())    )
             myObstacleList.add(MyObstacle(Random.nextDouble(0.5), Random.nextDouble(2.0), 0.0,Random.nextDouble(-20.0, -10.0), Random.nextDouble(2.0),i.toDouble())    )
+        }
+        return adjustObstacles(parameters)
+    }
+}
+
+/** random blocks to the right and left */
+object RandomFastBlocks: WallStructure{
+    override val mirror = false
+    override val name = "RandomFastBlocks"
+    override val myObstacleList: ArrayList<MyObstacle> = arrayListOf()
+    override fun getObstacleList(parameters: Parameters): ArrayList<_obstacles> {
+        myObstacleList.clear()
+        val duration = parameters.customParameters.getDoubleOrElse(0,4.0)
+        for(i in 0 until duration.toInt()){
+            myObstacleList.add(MyObstacle(-2.0, Random.nextDouble(2.0), 0.0,Random.nextDouble(10.0, 20.0), Random.nextDouble(2.0),i.toDouble()+2)    )
+            myObstacleList.add(MyObstacle(-2.0, Random.nextDouble(2.0), 0.0,Random.nextDouble(-20.0, -10.0), Random.nextDouble(2.0),i.toDouble()+2)    )
         }
         return adjustObstacles(parameters)
     }
@@ -410,7 +443,7 @@ fun circle(count:Int = 1,radius:Double = 1.9, fineTuning:Int = 10,pOffset:Double
 }
 
 /** Draws a line between 2 coordinates */
-fun line(px1:Double, px2: Double, py1:Double, py2: Double, pz1: Double, pz2: Double, defaultAmount: Int? = null): ArrayList<MyObstacle>{
+fun line(px1:Double, px2: Double, py1:Double, py2: Double, pz1: Double, pz2: Double, defaultAmount: Int? = null, defaultDuration: Double? = null): ArrayList<MyObstacle>{
 
     //swap values if y2 < y1  - this functions goes from bottom to top
     var x1 = px1
@@ -453,7 +486,8 @@ fun line(px1:Double, px2: Double, py1:Double, py2: Double, pz1: Double, pz2: Dou
         val startTime = z1 + i*duration
 
         //adding the obstacle
-        list.add(MyObstacle(duration,height,startHeight,startRow,width,startTime))
+        val d = defaultDuration ?: duration
+        list.add(MyObstacle(d,height,startHeight,startRow,width,startTime))
     }
     return list
 }

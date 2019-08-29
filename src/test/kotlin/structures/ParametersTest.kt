@@ -37,9 +37,9 @@ class ParametersTest {
 
     @Test
     fun testRandomParameters(){
-        val string = "floor -- foo bar -- 1.5 2 1.3 -13 521 -99.9 0"
+        val string = "floor -- 1.5 0.5 -- 1.5 2 1.3 -13 521 -99.9 0"
         val a = Parameters(string)
-        assertEquals(arrayListOf("foo","bar"),a.customParameters)
+        assertEquals(arrayListOf("1.5","0.5"),a.customParameters)
         assertEquals(1.5, a.scale,0.01)
         assertEquals(2, a.repeatCount)
         assertEquals(1.3,a.repeatGap,0.01)

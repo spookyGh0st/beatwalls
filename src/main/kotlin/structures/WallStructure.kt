@@ -104,6 +104,21 @@ object HyperHelix: WallStructure{
     }
 }
 
+/** gets helix with fixed duration */
+object ReverseHelix: WallStructure{
+    override val name: String = "Reversehelix"
+    override val mirror: Boolean = false
+    override val myObstacleList: ArrayList<MyObstacle> = arrayListOf()
+    override fun getObstacleList(parameters: Parameters): ArrayList<_obstacles> {
+        myObstacleList.clear()
+        val amount = parameters.customParameters.getIntOrElse(0,1)
+        val intensity = parameters.customParameters.getIntOrElse(1,10)
+        val start = parameters.customParameters.getDoubleOrElse(2,0.0)
+        myObstacleList.addAll( circle(pOffset = start,fineTuning = intensity, count = amount,helix = true, reverse = true))
+        return super.getObstacleList(parameters)
+    }
+}
+
 /** creates normal stairways */
 object StairWay: WallStructure{
     override val name = "StairWay"
@@ -138,7 +153,7 @@ object Spiral:WallStructure{
         for (i in 0 until max){
             parameters.customParameters.clear()
             parameters.customParameters.add("$i")
-            parameters.customParameters.add("2")
+            parameters.customParameters.add("0.5")
             parameters.startTime = i.toDouble() / max
             val l = (CyanLine.getObstacleList(parameters))
             list.addAll(l)
@@ -157,7 +172,7 @@ object CyanLine: WallStructure{
         val degree = parameters.customParameters.getDoubleOrElse(0,0.0)
         val length = parameters.customParameters.getDoubleOrElse(1,1.0)
         val cx = parameters.customParameters.getDoubleOrElse(2,0.0)
-        val cy = parameters.customParameters.getDoubleOrElse(3,1.0)
+        val cy = parameters.customParameters.getDoubleOrElse(3,2.0)
 
         val dgr = degree / 360 * (2* PI)
         val defaultAmount = ((cos(dgr)*sin(dgr)).pow(2)*200 +1).toInt()
@@ -401,8 +416,9 @@ object Text: WallStructure {
         get() = TODO("not implemented") //To change initializer of created properties use File | Settings | File Templates.
 }
 
+//TODO rewrite circle and helix to allow more flexibily
 /** A function to get a circle of walls or a helix, probably should have splitted those up */
-fun circle(count:Int = 1,radius:Double = 1.9, fineTuning:Int = 10,pOffset:Double = 0.0, pDuration:Double? = null, helix:Boolean = false):ArrayList<MyObstacle>{
+fun circle(count:Int = 1,radius:Double = 1.9, fineTuning:Int = 10,pOffset:Double = 0.0, pDuration:Double? = null, helix:Boolean = false,reverse:Boolean = false):ArrayList<MyObstacle>{
     val list = arrayListOf<MyObstacle>()
     val max = 2.0* PI *fineTuning
 
@@ -419,9 +435,10 @@ fun circle(count:Int = 1,radius:Double = 1.9, fineTuning:Int = 10,pOffset:Double
     var startTime:Double
     var duration:Double
 
-    for(o in 0 until count){
+    for(o in 0 .. count){
         val offset = round((o*2.0* PI *fineTuning) /count) + pOffset
-        for (i in 0..round(max).toInt()){
+        for (j in 0..round(max).toInt()){
+            val i = if(!reverse) j else (max-j).toInt()
             x = radius * cos((i+offset)/fineTuning)
             y = radius * sin((i+offset)/fineTuning)
 
@@ -436,7 +453,7 @@ fun circle(count:Int = 1,radius:Double = 1.9, fineTuning:Int = 10,pOffset:Double
 
             //sets the duration to, 1: the given duration, 2: if its a helix the duration to the next wall 3: the default for a circle: 0.005
             duration = pDuration?: if(helix) 1.0/max else pDuration?: 0.005
-            startTime = if(helix) i/max else 0.0
+            startTime = if(helix) j/max else 0.0
             list.add(MyObstacle(duration,height,startHeight,startRow,width,startTime))
         }
     }

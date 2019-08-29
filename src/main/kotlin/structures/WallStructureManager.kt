@@ -17,6 +17,7 @@ object WallStructureManager
             add(RandomBlocks)
             add(RandomFastBlocks)
             add(Helix)
+            add(ReverseHelix)
             add(MirroredHelix)
             add(FastHelix)
             add(HyperHelix)

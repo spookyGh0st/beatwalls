@@ -89,7 +89,6 @@ object HyperHelix: WallStructure{
     }
 }
 
-
 /** creates normal stairways */
 object StairWay: WallStructure{
     override val name = "StairWay"
@@ -154,17 +153,10 @@ object CyanLine: WallStructure{
         val y1 = (cy + sin(dgr))*length
         val y2 = (cy - sin(dgr))*length
 
-        with(parameters.customParameters){
-            clear()
-            add("$x1")
-            add("$x2")
-            add("$y1")
-            add("$y2")
-            add("0.0")
-            add("0.0")
-            add("$amount")
-        }
-        return Line.getObstacleList(parameters)
+        myObstacleList.addAll(
+            line(x1,x2,y1,y2,0.0,0.0,amount)
+        )
+        return adjustObstacles(parameters)
     }
 }
 
@@ -172,6 +164,30 @@ object CyanLine: WallStructure{
 object Line: WallStructure{
     override val name = "Line"
     override val mirror  = false
+    override val myObstacleList: ArrayList<MyObstacle> = arrayListOf()
+    override fun getObstacleList(parameters: Parameters): ArrayList<_obstacles> {
+        myObstacleList.clear()
+
+        //all parameters
+        val x1 = parameters.customParameters.getDoubleOrElse(0,-2.0)
+        val x2 = parameters.customParameters.getDoubleOrElse(1,2.0)
+        val y1  = parameters.customParameters.getDoubleOrElse(2,0.0)
+        val y2 = parameters.customParameters.getDoubleOrElse(3,0.0)
+        val z1 = parameters.customParameters.getDoubleOrElse(4,0.0)
+        val z2 = parameters.customParameters.getDoubleOrElse(5,0.0)
+
+        val amount = parameters.customParameters.getOrNull(6)?.toInt()
+
+        myObstacleList.addAll(line(x1,x2,y1,y2,z1,z2,amount))
+
+        return adjustObstacles(parameters)
+    }
+}
+
+/** mirroredlinie */
+object MirroredLine: WallStructure{
+    override val name = "MirroredLine"
+    override val mirror  = true
     override val myObstacleList: ArrayList<MyObstacle> = arrayListOf()
     override fun getObstacleList(parameters: Parameters): ArrayList<_obstacles> {
         myObstacleList.clear()

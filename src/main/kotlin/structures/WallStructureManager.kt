@@ -21,6 +21,7 @@ object WallStructureManager
             add(EmptyHelix)
             add(StairWay)
             add(Line)
+            add(MirroredLine)
             add(CyanLine)
             add(Spiral)
             addAll(list)

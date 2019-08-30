@@ -38,10 +38,27 @@ object Helix: WallStructure{
     override val myObstacleList: ArrayList<MyObstacle> = arrayListOf()
     override fun getObstacleList(parameters: Parameters): ArrayList<_obstacles> {
         myObstacleList.clear()
-        val amount = parameters.customParameters.getIntOrElse(0,1)
-        val intensity = parameters.customParameters.getIntOrElse(1,10)
-        val start = parameters.customParameters.getDoubleOrElse(2,0.0)
-        myObstacleList.addAll( circle(pOffset = start,fineTuning = intensity, count = amount,helix = true))
+        val count = parameters.customParameters.getIntOrElse(0,1)
+        val radius = parameters.customParameters.getDoubleOrElse(1,2.0)
+        val fineTuning = parameters.customParameters.getIntOrElse(2,10)
+        val startRotation = parameters.customParameters.getDoubleOrElse(3,0.0)
+        val rotationCount = parameters.customParameters.getDoubleOrElse(4,1.0)
+        val reverse = parameters.customParameters.getBooleanOrElse(5,false)
+        val heightOffset = parameters.customParameters.getDoubleOrElse(6,2.0)
+        val speedChange = parameters.customParameters.getOrNull(7)?.toDouble()
+        val wallDuration = parameters.customParameters.getOrNull(8)?.toDouble()
+        myObstacleList.addAll( circle(
+            count = count,
+            radius = radius,
+            fineTuning = fineTuning,
+            startRotation = startRotation,
+            rotationCount = rotationCount,
+            heightOffset = heightOffset,
+            speedChange = speedChange,
+            wallDuration = wallDuration,
+            helix = true,
+            reverse = reverse
+        ))
         return super.getObstacleList(parameters)
     }
 }
@@ -55,7 +72,7 @@ object MirroredHelix: WallStructure{
         myObstacleList.clear()
         val amount = parameters.customParameters.getIntOrElse(0,1)
         val start = parameters.customParameters.getDoubleOrElse(1,0.0)
-        myObstacleList.addAll( circle(pOffset = start, count = amount,helix = true))
+        myObstacleList.addAll( circle(startRotation = start, count = amount,helix = true))
         return super.getObstacleList(parameters)
     }
 }
@@ -69,7 +86,7 @@ object EmptyHelix: WallStructure{
         myObstacleList.clear()
         val amount = parameters.customParameters.getIntOrElse(0,1)
         val start = parameters.customParameters.getDoubleOrElse(1,0.0)
-        myObstacleList.addAll( circle(pDuration = 0.0,pOffset = start, count = amount,helix = true))
+        myObstacleList.addAll( circle(wallDuration = 0.0,startRotation = start, count = amount,helix = true))
         return super.getObstacleList(parameters)
     }
 }
@@ -83,7 +100,7 @@ object FastHelix: WallStructure{
         myObstacleList.clear()
         val amount = parameters.customParameters.getIntOrElse(0,1)
         val start = parameters.customParameters.getDoubleOrElse(1,0.0)
-        myObstacleList.addAll( circle(pOffset = start,pDuration = -2.0, count = amount,helix = true))
+        myObstacleList.addAll( circle(startRotation = start,wallDuration = -2.0, count = amount,helix = true))
         parameters.startTime+=2
         return super.getObstacleList(parameters)
     }
@@ -98,7 +115,7 @@ object HyperHelix: WallStructure{
         myObstacleList.clear()
         val amount = parameters.customParameters.getIntOrElse(0,1)
         val start = parameters.customParameters.getDoubleOrElse(1,0.0)
-        myObstacleList.addAll( circle(pOffset = start,pDuration = -4.0, count = amount,helix = true))
+        myObstacleList.addAll( circle(startRotation = start,wallDuration = -4.0, count = amount,helix = true))
         //parameters.startTime+=2
         return super.getObstacleList(parameters)
     }
@@ -114,7 +131,7 @@ object ReverseHelix: WallStructure{
         val amount = parameters.customParameters.getIntOrElse(0,1)
         val intensity = parameters.customParameters.getIntOrElse(1,10)
         val start = parameters.customParameters.getDoubleOrElse(2,0.0)
-        myObstacleList.addAll( circle(pOffset = start,fineTuning = intensity, count = amount,helix = true, reverse = true))
+        myObstacleList.addAll( circle(startRotation = start,fineTuning = intensity, count = amount,helix = true, reverse = true))
         return super.getObstacleList(parameters)
     }
 }
@@ -418,9 +435,20 @@ object Text: WallStructure {
 
 //TODO rewrite circle and helix to allow more flexibily
 /** A function to get a circle of walls or a helix, probably should have splitted those up */
-fun circle(count:Int = 1,radius:Double = 1.9, fineTuning:Int = 10,pOffset:Double = 0.0, pDuration:Double? = null, helix:Boolean = false,reverse:Boolean = false):ArrayList<MyObstacle>{
+fun circle(
+    count:Int = 1, //how many spirals
+    radius:Double = 1.9, //how big
+    fineTuning:Int = 10, //how many walls
+    startRotation:Double = 0.0, //startRotation offset
+    rotationCount:Double = 1.0, //how many rotations
+    heightOffset:Double = 2.0, //height of the center
+    speedChange: Double? = null, //speedchange, speed up or slowDown
+    wallDuration:Double? = null, //the default duration
+    helix:Boolean = false, //if its a helix or a circle
+    reverse:Boolean = false //if its reversed
+):ArrayList<MyObstacle>{
     val list = arrayListOf<MyObstacle>()
-    val max = 2.0* PI *fineTuning
+    val max = 2.0* PI *fineTuning*rotationCount
 
     var x: Double
     var y: Double
@@ -432,12 +460,14 @@ fun circle(count:Int = 1,radius:Double = 1.9, fineTuning:Int = 10,pOffset:Double
     var startRow: Double
     var startHeight: Double
 
-    var startTime:Double
+    var startTime: Double
     var duration:Double
 
     for(o in 0 .. count){
-        val offset = round((o*2.0* PI *fineTuning) /count) + pOffset
-        for (j in 0..round(max).toInt()){
+        //the offset controls the starting point
+        val offset = round((o*2.0* PI *fineTuning) /count) + startRotation/360*(2* PI)
+        var lastStartTime = 0.0
+        for (j in 0 until round(max).toInt()){
             val i = if(!reverse) j else (max-j).toInt()
             x = radius * cos((i+offset)/fineTuning)
             y = radius * sin((i+offset)/fineTuning)
@@ -446,14 +476,33 @@ fun circle(count:Int = 1,radius:Double = 1.9, fineTuning:Int = 10,pOffset:Double
             nY = radius * sin(((i+offset)+1)/fineTuning)
 
             startRow = x + (nX - x)
-            width = abs(nX -x )
-            startHeight = y
-            startHeight+=2
-            height = abs(nY-y)
+            width = abs(nX -x ).coerceAtLeast(0.001)
+            startHeight = y + heightOffset
+            height = abs(nY-y).coerceAtLeast(0.001)
 
-            //sets the duration to, 1: the given duration, 2: if its a helix the duration to the next wall 3: the default for a circle: 0.005
-            duration = pDuration?: if(helix) 1.0/max else pDuration?: 0.005
-            startTime = if(helix) j/max else 0.0
+            //sets the duration to, 1: the given duration, 2: if its a helix the duration to the next wall 3: the defaultDuration: 1.0
+
+            duration = wallDuration?: if(helix){
+                if (speedChange==null){
+                    1.0/max
+                }else{
+                    ((j+1)/max).pow(1.0/speedChange) - ((j)/max).pow(1.0/speedChange)
+                }
+            }else{
+                1.0
+            }
+            val temduration =
+                if (speedChange==null){
+                    1.0/max
+                }else{
+                    ((j+1)/max).pow(1.0/speedChange) - ((j)/max).pow(1.0/speedChange)
+                }
+
+            //changes the startTime, and then saves it to lastStartTime
+            startTime = if(helix) lastStartTime+temduration else 0.0
+            lastStartTime = startTime
+
+            //adds the Obstacle
             list.add(MyObstacle(duration,height,startHeight,startRow,width,startTime))
         }
     }
@@ -537,3 +586,8 @@ fun ArrayList<String>.getIntOrElse(index: Int, defaultValue: Int):Int =
 
 fun ArrayList<String>.getDoubleOrElse(index: Int, defaultValue: Double): Double =
     try { this[index].toDouble() } catch (e:Exception){ defaultValue }
+
+fun ArrayList<String>.getBooleanOrElse(index: Int, defaultValue: Boolean): Boolean =
+    try {
+        this[index].toInt() == 1
+    } catch (e:Exception){ defaultValue }

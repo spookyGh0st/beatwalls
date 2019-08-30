@@ -59,7 +59,7 @@ fun createAssets():List<CustomWallStructure> {
             CustomWallStructure(
                 "Ring",
                 false,
-                structures.circle(pDuration = 0.05)
+                structures.circle(wallDuration = 0.05)
             ),
             CustomWallStructure(
                 "fence",

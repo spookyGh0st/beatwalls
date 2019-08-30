@@ -531,7 +531,7 @@ fun line(px1:Double, px2: Double, py1:Double, py2: Double, pz1: Double, pz2: Dou
     val amount = defaultAmount?: ((sin * cos + sin2 * cos2).pow(2)* 100+1).toInt()
     val list = arrayListOf<MyObstacle>()
 
-    if(y2<y1){
+    if(z2<z1){
         x1 = x2.also { x2 = x1 }
         y1 = y2.also { y2 = y1 }
         z1 = z2.also { z2 = z1 }
@@ -547,7 +547,11 @@ fun line(px1:Double, px2: Double, py1:Double, py2: Double, pz1: Double, pz2: Dou
 
     for(i in 0 until amount){
         //setting the dynamic values
-        val startHeight = y1 + i* h
+        val startHeight =
+            if(y2 > y1)
+                y1 + i* h
+            else
+                y1 - (i+1) * h
         val startRow =
             if(x2 > x1)
                 x1 + i * w

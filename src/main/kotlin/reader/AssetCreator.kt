@@ -75,7 +75,18 @@ fun createAssets():List<CustomWallStructure> {
                 "FastSideWalls",
                 true,
                 arrayListOf(MyObstacle(-2.0,4.0,0.0,4.5,0.5,2.0))
+            ),
+            CustomWallStructure(
+                "SideSwitcher1",
+                true,
+                sideSwitcher(0.5)
+            ),
+            CustomWallStructure(
+                "SideSwitcher2",
+                true,
+                sideSwitcher(-0.5)
             )
+
         )
     )
     return a
@@ -140,6 +151,47 @@ fun fence(): ArrayList<MyObstacle> {
                 4.0,
                 0.005,
                 0.995
+            )
+        )
+    )
+    return list
+}
+/** sideSwitcher fence */
+fun sideSwitcher(a:Double): ArrayList<MyObstacle> {
+    val list = arrayListOf<MyObstacle>()
+    list.addAll(
+        arrayListOf(
+            MyObstacle(
+                -3.0,
+                1.0,
+                0.0,
+                2.5-a,
+                0.005,
+                0.0
+            ),
+            MyObstacle(
+                -3.0,
+                1.0,
+                1.0,
+                2.5+a,
+                0.005,
+                0.5
+            ),
+            MyObstacle(
+                -3.0,
+                1.0,
+                3.0,
+                2.5-a,
+                0.005,
+                0.0
+            ),
+            MyObstacle(
+                -3.0,
+                1.0,
+                2.0,
+                2.5+a,
+                0.005,
+                0.5
             )
         )
     )

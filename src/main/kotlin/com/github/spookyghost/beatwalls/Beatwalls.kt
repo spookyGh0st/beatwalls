@@ -156,7 +156,8 @@ class Beatwalls : CliktCommand() {
 
         logger.info { "\nfinished run, written $WallCounter Wall Structures" }
         println("press enter to exit")
-        readLine()
+        if(!yes)
+            readLine()
     }
 }
 

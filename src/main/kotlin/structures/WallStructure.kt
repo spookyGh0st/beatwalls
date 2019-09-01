@@ -575,14 +575,14 @@ data class CustomWallStructure(
     @SerializedName("mirror")
     override val mirror: Boolean,
 
-    @SerializedName("myObstacle")
+    @SerializedName("WallList")
     override val wallList: ArrayList<Wall>
 
     ): WallStructure
 
 data class AssetsBase (
 
-    @SerializedName("customWallStructure") val customWallStructure : List<CustomWallStructure>
+    @SerializedName("WallStructureList") val customWallStructure : List<CustomWallStructure>
 )
 
 fun ArrayList<String>.getIntOrElse(index: Int, defaultValue: Int):Int =

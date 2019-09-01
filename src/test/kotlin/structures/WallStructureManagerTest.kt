@@ -14,7 +14,7 @@ class WallStructureManagerTest {
         myManager = WallStructureManager
         list = arrayListOf(
             CustomWallStructure("floor",false,
-                arrayListOf(MyObstacle(1.0,0.0,0.0,0.0,2.0,0.0))
+                arrayListOf(Wall(1.0,0.0,0.0,0.0,2.0,0.0))
             ))
         myManager.loadManager(list)
     }

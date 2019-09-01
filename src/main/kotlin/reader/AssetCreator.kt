@@ -1,7 +1,7 @@
 package reader
 
 import structures.CustomWallStructure
-import structures.MyObstacle
+import structures.Wall
 import kotlin.math.PI
 import kotlin.math.abs
 import kotlin.math.cos
@@ -14,47 +14,47 @@ fun createAssets():List<CustomWallStructure> {
             CustomWallStructure(
                 "Default",
                 false,
-                arrayListOf(MyObstacle(1.0, 0.0, 0.0, 0.0, 0.0, 0.0))
+                arrayListOf(Wall(1.0, 0.0, 0.0, 0.0, 0.0, 0.0))
             ),
             CustomWallStructure(
                 "MirroredDefault",
                 true,
-                arrayListOf(MyObstacle(1.0, 0.0, 0.0, 0.0, 0.0, 0.0))
+                arrayListOf(Wall(1.0, 0.0, 0.0, 0.0, 0.0, 0.0))
             ),
             CustomWallStructure(
                 "Floor",
                 false,
-                arrayListOf(MyObstacle(1.0, 0.1, 0.0, -2.0, 4.0, 0.0))
+                arrayListOf(Wall(1.0, 0.1, 0.0, -2.0, 4.0, 0.0))
             ),
             CustomWallStructure(
                 "Ceiling",
                 false,
-                arrayListOf(MyObstacle(1.0, 0.1, 4.0, -2.0, 4.0, 0.0))
+                arrayListOf(Wall(1.0, 0.1, 4.0, -2.0, 4.0, 0.0))
             ),
             CustomWallStructure(
                 "Pillar",
                 true,
-                arrayListOf(MyObstacle(0.3, 12.0, 0.0, 7.7, 0.3, 0.0))
+                arrayListOf(Wall(0.3, 12.0, 0.0, 7.7, 0.3, 0.0))
             ),
             CustomWallStructure(
                 "Cathedral",
                 true,
-                arrayListOf(MyObstacle(1.0, 12.0, 0.0, 8.0, 1.0, 0.0))
+                arrayListOf(Wall(1.0, 12.0, 0.0, 8.0, 1.0, 0.0))
             ),
             CustomWallStructure(
                 "SplittedFloor",
                 true,
-                arrayListOf(MyObstacle(1.0, 0.1, 0.0, 0.0, 2.0, 0.0))
+                arrayListOf(Wall(1.0, 0.1, 0.0, 0.0, 2.0, 0.0))
             ),
             CustomWallStructure(
                 "SplittedCeiling",
                 true,
-                arrayListOf(MyObstacle(1.0, 0.1, 4.0, 0.0, 2.0, 0.0))
+                arrayListOf(Wall(1.0, 0.1, 4.0, 0.0, 2.0, 0.0))
             ),
             CustomWallStructure(
                 "smallPillar",
                 true,
-                arrayListOf(MyObstacle(0.05,2.0,0.0,2.0,0.05,0.0))
+                arrayListOf(Wall(0.05,2.0,0.0,2.0,0.05,0.0))
             ),
             CustomWallStructure(
                 "Tube",
@@ -84,7 +84,7 @@ fun createAssets():List<CustomWallStructure> {
             CustomWallStructure(
                 "FastSideWalls",
                 true,
-                arrayListOf(MyObstacle(-2.0,4.0,0.0,4.5,0.5,2.0))
+                arrayListOf(Wall(-2.0,4.0,0.0,4.5,0.5,2.0))
             ),
             CustomWallStructure(
                 "SideSwitcher1",
@@ -106,27 +106,27 @@ fun createAssets():List<CustomWallStructure> {
     return a
 }
 
-fun corner(): ArrayList<MyObstacle> {
-    val list = arrayListOf<MyObstacle>()
+fun corner(): ArrayList<Wall> {
+    val list = arrayListOf<Wall>()
     list.addAll(arrayListOf(
-        MyObstacle(1.0,0.5,0.0,2.0,0.001,0.0),
-        MyObstacle(1.0,0.001,0.0,1.5,0.5,0.0),
-        MyObstacle(1.0,0.5,2.5,2.0,0.001,0.0),
-        MyObstacle(1.0,0.001,3.0,1.5,0.5,0.0)
+        Wall(1.0,0.5,0.0,2.0,0.001,0.0),
+        Wall(1.0,0.001,0.0,1.5,0.5,0.0),
+        Wall(1.0,0.5,2.5,2.0,0.001,0.0),
+        Wall(1.0,0.001,3.0,1.5,0.5,0.0)
     ))
     return list
 }
 
 
-fun sideWave(): ArrayList<MyObstacle> {
-    val list = arrayListOf<MyObstacle>()
+fun sideWave(): ArrayList<Wall> {
+    val list = arrayListOf<Wall>()
     val max = 12.0
     for(i in 0 until (max).roundToInt()){
         val y = i/max*(2* PI)
         val nY = (i+1)/max*(2* PI)
 
         list.add(
-            MyObstacle(
+            Wall(
                duration =  1 / max,
                 height = abs(cos(nY)- cos(y)),
                 startHeight = 1-cos(y),
@@ -138,15 +138,15 @@ fun sideWave(): ArrayList<MyObstacle> {
     }
     return list
 }
-fun reverseSideWave(): ArrayList<MyObstacle> {
-    val list = arrayListOf<MyObstacle>()
+fun reverseSideWave(): ArrayList<Wall> {
+    val list = arrayListOf<Wall>()
     val max = 12.0
     for(i in 0 until (max).roundToInt()){
         val y = i/max*(2* PI)
         val nY = (i+1)/max*(2* PI)
 
         list.add(
-            MyObstacle(
+            Wall(
                duration =  1 / max,
                 height = abs(cos(nY)- cos(y)),
                 startHeight = 3+cos(y),
@@ -160,11 +160,11 @@ fun reverseSideWave(): ArrayList<MyObstacle> {
 }
 
 /** default fence */
-fun fence(): ArrayList<MyObstacle> {
-    val list = arrayListOf<MyObstacle>()
+fun fence(): ArrayList<Wall> {
+    val list = arrayListOf<Wall>()
     list.addAll(
         arrayListOf(
-            MyObstacle(
+            Wall(
                 1.0,
                 0.005,
                 0.0,
@@ -172,7 +172,7 @@ fun fence(): ArrayList<MyObstacle> {
                 0.005,
                 0.0
             ),
-            MyObstacle(
+            Wall(
                 1.0,
                 0.005,
                 2.0,
@@ -180,7 +180,7 @@ fun fence(): ArrayList<MyObstacle> {
                 0.005,
                 0.0
             ),
-            MyObstacle(
+            Wall(
                 0.005,
                 2.0,
                 0.0,
@@ -188,7 +188,7 @@ fun fence(): ArrayList<MyObstacle> {
                 0.005,
                 0.0
             ),
-            MyObstacle(
+            Wall(
                 0.005,
                 2.0,
                 0.0,
@@ -201,11 +201,11 @@ fun fence(): ArrayList<MyObstacle> {
     return list
 }
 /** sideSwitcher fence */
-fun sideSwitcher(a:Double): ArrayList<MyObstacle> {
-    val list = arrayListOf<MyObstacle>()
+fun sideSwitcher(a:Double): ArrayList<Wall> {
+    val list = arrayListOf<Wall>()
     list.addAll(
         arrayListOf(
-            MyObstacle(
+            Wall(
                 -3.0,
                 1.0,
                 0.0,
@@ -213,7 +213,7 @@ fun sideSwitcher(a:Double): ArrayList<MyObstacle> {
                 0.005,
                 0.0
             ),
-            MyObstacle(
+            Wall(
                 -3.0,
                 1.0,
                 1.0,
@@ -221,7 +221,7 @@ fun sideSwitcher(a:Double): ArrayList<MyObstacle> {
                 0.005,
                 0.5
             ),
-            MyObstacle(
+            Wall(
                 -3.0,
                 1.0,
                 3.0,
@@ -229,7 +229,7 @@ fun sideSwitcher(a:Double): ArrayList<MyObstacle> {
                 0.005,
                 0.0
             ),
-            MyObstacle(
+            Wall(
                 -3.0,
                 1.0,
                 2.0,

@@ -4,7 +4,7 @@ import com.google.gson.annotations.SerializedName
 import song._obstacles
 
 
-data class MyObstacle(
+data class Wall(
     @SerializedName("duration") var duration : Double,
     @SerializedName("height") var height : Double,
     @SerializedName("startHeight") var startHeight : Double,
@@ -61,7 +61,7 @@ data class MyObstacle(
 
     /**returns the mirrored obstacle */
     fun mirror()=
-        MyObstacle(duration, height, startHeight, -startRow - width, width, startTime)
+        Wall(duration, height, startHeight, -startRow - width, width, startTime)
 
 
     /**overwrites the values if the parameter types are not null */
@@ -78,7 +78,7 @@ data class MyObstacle(
 
 
     /**overwrites the values, depending on the given parameters*/
-    fun adjustParameters(parameters: Parameters):MyObstacle{
+    fun adjustParameters(parameters: Parameters):Wall{
         //Adding all the values
         var tempDuration = duration + parameters.duration
         val tempHeight = height + parameters.wallHeight
@@ -92,7 +92,7 @@ data class MyObstacle(
             tempDuration *= parameters.scale
         tempStartTime *= parameters.scale
 
-        return MyObstacle(tempDuration,tempHeight,tempStartHeight,tempStartRow,tempWidth,tempStartTime)
+        return Wall(tempDuration,tempHeight,tempStartHeight,tempStartRow,tempWidth,tempStartTime)
     }
 
 

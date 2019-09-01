@@ -13,12 +13,12 @@ commandline tool to add Walls to beatsaber maps using bookmarks very first [show
 
 ## Usage
 
+Please read the [Wiki Page](https://github.com/spookyGh0st/beatwalls/wiki) for a detailed Tutorial on how to use them
+
 - you have to add a bookmark with your chosen commands at the Beat you want your walls to be. 
 one command consists of 
 
 `/bw $name $scale $repeatCount $repeatGap $PARAMETERS`
-
-check out the [Wiki Page](https://github.com/spookyGh0st/beatwalls/wiki) for a detailed Tutorial on how to use them
 
 - Then just drag whole song folder on the beatwalls.exe. It will automatically create the BeatwallAsset File the first time it is run.
 _(or open it in a cli)_

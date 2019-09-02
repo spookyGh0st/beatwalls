@@ -100,6 +100,39 @@ fun createAssets():List<CustomWallStructure> {
                 "Corner",
                 true,
                 corner()
+            ),
+            CustomWallStructure(
+                "A",
+                false,
+                arrayListOf(Wall(
+                    1.0,
+                    2.3,
+                    0.0,
+                    -1.0,
+                    0.66,
+                    0.0
+                ),Wall(
+                    1.0,
+                    2.3,
+                    0.0,
+                    0.33,
+                    0.66,
+                    0.0
+                ),Wall(
+                    1.0,
+                    0.6,
+                    2.3,
+                    -1.0,
+                    2.0,
+                    0.0
+                ),Wall(
+                    1.0,
+                    0.6,
+                    1.0,
+                    -0.3,
+                    0.6,
+                    0.0
+                ))
             )
         )
     )

@@ -11,6 +11,8 @@ import com.github.ajalt.clikt.parameters.types.file
 import mu.KotlinLogging
 import reader.*
 import song.*
+import structures.CustomWallStructure
+import structures.WallStructure
 import structures.WallStructureManager
 import java.io.File
 import kotlin.system.exitProcess
@@ -21,7 +23,7 @@ class Beatwalls : CliktCommand() {
 
 
     private val file: File by argument(help = "difficulty File (e.G expertPlus.dat)").file().validate {
-        require((it.isDifficulty()) || it.isSong()) { "Use a SongFolder or DifficultyFile" }
+        require((it.isDifficulty()) || it.isSong() || it.isOldAsset()) { "Use a SongFolder or DifficultyFile" }
     }
 
     private val keepFiles by option("--keepFiles", "-k", help = "keeps original files as backups").flag(default = false)
@@ -58,7 +60,8 @@ class Beatwalls : CliktCommand() {
     override fun run() {
 
         try {
-            WallStructureManager.loadManager(readAssets())
+            val assetList = readAssets()
+            WallStructureManager.loadManager(assetList)
             //adds all the song
             when {
                 file.isSong() -> {
@@ -78,8 +81,21 @@ class Beatwalls : CliktCommand() {
                         beatsPerMinute = bpm as Double
                     difficultyList += Pair(readDifficulty(file), file)
                 }
+                file.isOldAsset() -> {
+                    logger.info { "DetectedOldAsset" }
+                    try {
+                        val tempObsList = readOldAssets(file)
+                        val tempWallList = ArrayList(tempObsList.map { it.toWall() })
+                        val tempWallStruct = CustomWallStructure(file.name.removeSuffix(".oldAsset"),false,tempWallList)
+                        assetList.add(tempWallStruct)
+                        writeAssets(assetList + tempWallStruct)
+                        logger.info { "Added WallStructure to Asset File" }
+                    }catch (e:Exception){
+                        logger.error { e.message }
+                        logger.error { "Failed to parse oldAssetFile" }
+                    }
+                }
             }
-
         } catch (e: Exception) {
             logger.error { "Failed to read Song. Is it really in the right format?" }
             logger.error { e.message }

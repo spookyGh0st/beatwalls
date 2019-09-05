@@ -581,8 +581,10 @@ data class CustomWallStructure(
     ): WallStructure
 
 data class AssetsBase (
-
     @SerializedName("WallStructureList") val customWallStructure : List<CustomWallStructure>
+)
+data class OldAssetsBase(
+    @SerializedName("ObstacleList") val _obstacles: List<_obstacles>
 )
 
 fun ArrayList<String>.getIntOrElse(index: Int, defaultValue: Int):Int =

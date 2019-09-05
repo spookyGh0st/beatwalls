@@ -5,8 +5,10 @@ import com.google.gson.GsonBuilder
 import mu.KotlinLogging
 import song.Difficulty
 import song.Info
+import song._obstacles
 import structures.AssetsBase
 import structures.CustomWallStructure
+import structures.OldAssetsBase
 import java.io.*
 import java.nio.file.Paths
 
@@ -38,6 +40,14 @@ fun readAssets():ArrayList<CustomWallStructure>{
     return ArrayList(base.customWallStructure)
 }
 
+fun readOldAssets(f:File):ArrayList<_obstacles>{
+    val reader = BufferedReader(FileReader(f))
+    val json = reader.readText()
+    reader.close()
+    val base = Gson().fromJson(json, OldAssetsBase::class.java)
+    return ArrayList(base._obstacles)
+}
+
 
 
 fun File.isDifficulty() =
@@ -46,6 +56,8 @@ fun File.isDifficulty() =
 fun File.isSong() =
     this.isDirectory && this.list()?.contains("info.dat")?:false
 
+fun File.isOldAsset() =
+    this.isFile && this.name.endsWith(".oldAsset")
 
 
 fun writeInfo(info: Info, file: File){

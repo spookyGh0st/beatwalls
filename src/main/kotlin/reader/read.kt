@@ -2,13 +2,12 @@ package reader
 
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
+import com.google.gson.annotations.SerializedName
 import mu.KotlinLogging
 import song.Difficulty
 import song.Info
 import song._obstacles
-import structures.AssetsBase
 import structures.CustomWallStructure
-import structures.OldAssetsBase
 import java.io.*
 import java.nio.file.Paths
 
@@ -44,11 +43,14 @@ fun readOldAssets(f:File):ArrayList<_obstacles>{
     val reader = BufferedReader(FileReader(f))
     val json = reader.readText()
     reader.close()
-    val base = Gson().fromJson(json, OldAssetsBase::class.java)
-    return ArrayList(base._obstacles)
+    val base = Gson().fromJson(json, Array<_obstacles>::class.java)
+    val list = base.map { it }
+    return ArrayList(ArrayList(list))
 }
 
-
+data class AssetsBase (
+    @SerializedName("WallStructureList") val customWallStructure : List<CustomWallStructure>
+)
 
 fun File.isDifficulty() =
     this.isFile && (this.name == "Easy.dat" || this.name == "Normal.dat" || this.name == "Hard.dat" || this.name == "Expert.dat" || this.name == "ExpertPlus.dat" )

@@ -37,12 +37,15 @@ data class _obstacles (
         if(i < 500){
             TODO()
         }
-        TODO()
+        var a = ((i-4001)/1000).toDouble()
+        a = a/1000 / (1.0/3.0) * (4.0/3.0)
+        return a
     }
     private fun getStartHeight(i:Int):Double{
-        val a:Double
         if(i<500) return 0.0
-        TODO()
+        var a = (i % 1000 -1).toDouble()
+        a= a/250 * (4.0/3.0)
+        return a
     }
 
     private fun getLineIndex(i:Int):Double =
@@ -52,5 +55,12 @@ data class _obstacles (
             (i.toDouble() +1000)/1000 - 2.0
 
     private fun getWidth(i:Int):Double =
-        (i.toDouble() -1000 / 1000)
+        (i.toDouble() -1000) / 1000
+}
+
+fun main(){
+    val type= 2304301
+    val sh = type %1000-1
+    val h = (type-4001)/1000
+    println("height: $h, startheight: $sh")
 }

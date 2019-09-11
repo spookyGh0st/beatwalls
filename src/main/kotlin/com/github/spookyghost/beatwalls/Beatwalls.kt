@@ -12,7 +12,6 @@ import mu.KotlinLogging
 import reader.*
 import song.*
 import structures.CustomWallStructure
-import structures.WallStructure
 import structures.WallStructureManager
 import java.io.File
 import kotlin.system.exitProcess
@@ -45,7 +44,7 @@ class Beatwalls : CliktCommand() {
     private val bpm by option("--bpm", "-b", help = "Beats per minute").double()
 
 
-    private var WallCounter = 0
+    private var wallCounter = 0
     private var beatsPerMinute = 0.0
     private val difficultyList = mutableMapOf<Difficulty, File>()
 
@@ -82,13 +81,16 @@ class Beatwalls : CliktCommand() {
                     difficultyList += Pair(readDifficulty(file), file)
                 }
                 file.isOldAsset() -> {
-                    logger.info { "DetectedOldAsset" }
+                    //todo test this please
+                    logger.info { "Detected OldAsset" }
                     try {
                         val tempObsList = readOldAssets(file)
                         val tempWallList = ArrayList(tempObsList.map { it.toWall() })
-                        val tempWallStruct = CustomWallStructure(file.name.removeSuffix(".oldAsset"),false,tempWallList)
+                        val tempWallName =file.name.removeSuffix(".oldAsset")
+                        val tempWallStruct = CustomWallStructure(tempWallName,false,tempWallList)
+                        if(assetList.findLast { it.name==tempWallName }!= null) throw(Exception("Name $tempWallName already in use, please use a different name"))
                         assetList.add(tempWallStruct)
-                        writeAssets(assetList + tempWallStruct)
+                        writeAssets(assetList)
                         logger.info { "Added WallStructure to Asset File" }
                     }catch (e:Exception){
                         logger.error { e.message }
@@ -152,7 +154,7 @@ class Beatwalls : CliktCommand() {
                     //add the for each command to the obstacle list
                     for (command in commandList) {
                         list.addAll(WallStructureManager.get(command))
-                        WallCounter++
+                        wallCounter++
                     }
 
                     //adjust the bpm for each _obstacle
@@ -170,7 +172,7 @@ class Beatwalls : CliktCommand() {
             }
         }
 
-        logger.info { "\nfinished run, written $WallCounter Wall Structures" }
+        logger.info { "\nfinished run, written $wallCounter Wall Structures" }
         println("press enter to exit")
         if(!yes)
             readLine()

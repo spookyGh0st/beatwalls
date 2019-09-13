@@ -1,6 +1,5 @@
 package song
 import com.google.gson.annotations.SerializedName
-import structures.WallStructureManager
 
 data class Difficulty (
 
@@ -25,7 +24,7 @@ fun Difficulty.createWalls(bpm: Double){
         val timeOffset = it._time
 
         it.forEachBSCommand("bw"){
-            list.addAll(WallStructureManager.get(it))
+            list.addAll(WallStructureManager.getWallList(it))
         }
 
 

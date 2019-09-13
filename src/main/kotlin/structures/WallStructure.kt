@@ -1,13 +1,11 @@
 package structures
 
 import com.google.gson.annotations.SerializedName
-import mu.KotlinLogging
 import song._obstacles
 import java.lang.Exception
 import kotlin.math.*
 import kotlin.random.Random
 
-private val logger = KotlinLogging.logger {}
 
 interface WallStructure {
     val name: String
@@ -16,18 +14,8 @@ interface WallStructure {
 
     val wallList: ArrayList<Wall>
 
-    fun getObstacleList(parameters: Parameters): ArrayList<_obstacles> {
-        return adjustObstacles(parameters)
-    }
-    fun adjustObstacles(parameters: Parameters):ArrayList<_obstacles>{
-        val list = arrayListOf<_obstacles>()
-        wallList.forEach {
-                val a = it.adjustParameters(parameters)
-                list.add(a.to_obstacle())
-                if(mirror) list.add(a.mirror().to_obstacle())
-        }
-        logger.info { "added ${parameters.name}" }
-        return list
+    fun getWallList(parameters: Parameters): ArrayList<Wall> {
+        return wallList
     }
 }
 
@@ -36,7 +24,7 @@ object Helix: WallStructure{
     override val name: String = "helix"
     override val mirror: Boolean = false
     override val wallList: ArrayList<Wall> = arrayListOf()
-    override fun getObstacleList(parameters: Parameters): ArrayList<_obstacles> {
+    override fun getWallList(parameters: Parameters): ArrayList<Wall> {
         wallList.clear()
         val count = parameters.customParameters.getIntOrElse(0,1)
         val radius = parameters.customParameters.getDoubleOrElse(1,2.0)
@@ -59,7 +47,7 @@ object Helix: WallStructure{
             helix = true,
             reverse = reverse
         ))
-        return super.getObstacleList(parameters)
+        return wallList
     }
 }
 
@@ -68,12 +56,12 @@ object MirroredHelix: WallStructure{
     override val name: String = "MirroredHelix"
     override val mirror: Boolean = true
     override val wallList: ArrayList<Wall> = arrayListOf()
-    override fun getObstacleList(parameters: Parameters): ArrayList<_obstacles> {
+    override fun getWallList(parameters: Parameters): ArrayList<Wall> {
         wallList.clear()
         val amount = parameters.customParameters.getIntOrElse(0,1)
         val start = parameters.customParameters.getDoubleOrElse(1,0.0)
         wallList.addAll( circle(startRotation = start, count = amount,helix = true))
-        return super.getObstacleList(parameters)
+        return super.getWallList(parameters)
     }
 }
 
@@ -82,12 +70,12 @@ object EmptyHelix: WallStructure{
     override val name: String = "EmptyHelix"
     override val mirror: Boolean = false
     override val wallList: ArrayList<Wall> = arrayListOf()
-    override fun getObstacleList(parameters: Parameters): ArrayList<_obstacles> {
+    override fun getWallList(parameters: Parameters): ArrayList<Wall> {
         wallList.clear()
         val amount = parameters.customParameters.getIntOrElse(0,1)
         val start = parameters.customParameters.getDoubleOrElse(1,0.0)
         wallList.addAll( circle(wallDuration = 0.0,startRotation = start, count = amount,helix = true))
-        return super.getObstacleList(parameters)
+        return super.getWallList(parameters)
     }
 }
 
@@ -96,13 +84,13 @@ object FastHelix: WallStructure{
     override val name: String = "FastHelix"
     override val mirror: Boolean = false
     override val wallList: ArrayList<Wall> = arrayListOf()
-    override fun getObstacleList(parameters: Parameters): ArrayList<_obstacles> {
+    override fun getWallList(parameters: Parameters): ArrayList<Wall> {
         wallList.clear()
         val amount = parameters.customParameters.getIntOrElse(0,1)
         val start = parameters.customParameters.getDoubleOrElse(1,0.0)
         wallList.addAll( circle(startRotation = start,wallDuration = -2.0, count = amount,helix = true))
         parameters.startTime+=2
-        return super.getObstacleList(parameters)
+        return super.getWallList(parameters)
     }
 }
 
@@ -111,13 +99,13 @@ object HyperHelix: WallStructure{
     override val name: String = "HyperHelix"
     override val mirror: Boolean = false
     override val wallList: ArrayList<Wall> = arrayListOf()
-    override fun getObstacleList(parameters: Parameters): ArrayList<_obstacles> {
+    override fun getWallList(parameters: Parameters): ArrayList<Wall> {
         wallList.clear()
         val amount = parameters.customParameters.getIntOrElse(0,1)
         val start = parameters.customParameters.getDoubleOrElse(1,0.0)
         wallList.addAll( circle(startRotation = start,wallDuration = -4.0, count = amount,helix = true))
         //parameters.startTime+=2
-        return super.getObstacleList(parameters)
+        return super.getWallList(parameters)
     }
 }
 
@@ -126,13 +114,13 @@ object ReverseHelix: WallStructure{
     override val name: String = "Reversehelix"
     override val mirror: Boolean = false
     override val wallList: ArrayList<Wall> = arrayListOf()
-    override fun getObstacleList(parameters: Parameters): ArrayList<_obstacles> {
+    override fun getWallList(parameters: Parameters): ArrayList<Wall> {
         wallList.clear()
         val amount = parameters.customParameters.getIntOrElse(0,1)
         val intensity = parameters.customParameters.getIntOrElse(1,10)
         val start = parameters.customParameters.getDoubleOrElse(2,0.0)
         wallList.addAll( circle(startRotation = start,fineTuning = intensity, count = amount,helix = true, reverse = true))
-        return super.getObstacleList(parameters)
+        return super.getWallList(parameters)
     }
 }
 
@@ -141,7 +129,7 @@ object StairWay: WallStructure{
     override val name = "StairWay"
     override val mirror  = true
     override val wallList: ArrayList<Wall> = arrayListOf()
-    override fun getObstacleList(parameters: Parameters): ArrayList<_obstacles> {
+    override fun getWallList(parameters: Parameters): ArrayList<Wall> {
         wallList.clear()
         val amount = parameters.customParameters.getIntOrElse(0,4)
         val min  = parameters.customParameters.getDoubleOrElse(1,0.0)
@@ -156,26 +144,7 @@ object StairWay: WallStructure{
 
             wallList.add( Wall(1.0/amount,height,startHeight,4.0,0.5,i.toDouble()/amount))
         }
-        return super.getObstacleList(parameters)
-    }
-}
-
-object Spiral:WallStructure{
-    override val name = "Spiral"
-    override val mirror  = true
-    override val wallList: ArrayList<Wall> = arrayListOf()
-    override fun getObstacleList(parameters: Parameters): ArrayList<_obstacles> {
-        val max = 360
-        val list = arrayListOf<_obstacles>()
-        for (i in 0 until max){
-            parameters.customParameters.clear()
-            parameters.customParameters.add("$i")
-            parameters.customParameters.add("0.5")
-            parameters.startTime = i.toDouble() / max
-            val l = (CyanLine.getObstacleList(parameters))
-            list.addAll(l)
-        }
-        return list
+        return super.getWallList(parameters)
     }
 }
 
@@ -184,7 +153,7 @@ object CyanLine: WallStructure{
     override val name = "CyanLine"
     override val mirror  = false
     override val wallList: ArrayList<Wall> = arrayListOf()
-    override fun getObstacleList(parameters: Parameters): ArrayList<_obstacles> {
+    override fun getWallList(parameters: Parameters): ArrayList<Wall> {
         wallList.clear()
         val degree = parameters.customParameters.getDoubleOrElse(0,0.0)
         val length = parameters.customParameters.getDoubleOrElse(1,1.0)
@@ -204,7 +173,7 @@ object CyanLine: WallStructure{
         wallList.addAll(
             line(x1,x2,y1,y2,0.0,0.0,amount)
         )
-        return adjustObstacles(parameters)
+        return wallList
     }
 }
 
@@ -213,7 +182,7 @@ object Line: WallStructure{
     override val name = "Line"
     override val mirror  = false
     override val wallList: ArrayList<Wall> = arrayListOf()
-    override fun getObstacleList(parameters: Parameters): ArrayList<_obstacles> {
+    override fun getWallList(parameters: Parameters): ArrayList<Wall> {
         wallList.clear()
 
         //all parameters
@@ -229,7 +198,7 @@ object Line: WallStructure{
 
         wallList.addAll(line(x1,x2,y1,y2,z1,z2,amount,duration))
 
-        return adjustObstacles(parameters)
+        return wallList
     }
 }
 
@@ -238,7 +207,7 @@ object MirroredLine: WallStructure{
     override val name = "MirroredLine"
     override val mirror  = true
     override val wallList: ArrayList<Wall> = arrayListOf()
-    override fun getObstacleList(parameters: Parameters): ArrayList<_obstacles> {
+    override fun getWallList(parameters: Parameters): ArrayList<Wall> {
         wallList.clear()
 
         //all parameters
@@ -254,7 +223,7 @@ object MirroredLine: WallStructure{
 
         wallList.addAll(line(x1,x2,y1,y2,z1,z2,amount,duration))
 
-        return adjustObstacles(parameters)
+        return wallList
     }
 }
 
@@ -263,7 +232,7 @@ object RandomNoise: WallStructure{
     override val mirror = false
     override val name = "RandomNoise"
     override val wallList: ArrayList<Wall> = arrayListOf()
-    override fun getObstacleList(parameters: Parameters): ArrayList<_obstacles> {
+    override fun getWallList(parameters: Parameters): ArrayList<Wall> {
         wallList.clear()
         val intensity = try { parameters.customParameters[0].toInt() } catch (e:Exception){ 5 }
         repeat(intensity){
@@ -277,7 +246,7 @@ object RandomNoise: WallStructure{
             )
             wallList.add(tempO)
         }
-        return super.getObstacleList(parameters)
+        return super.getWallList(parameters)
     }
 }
 
@@ -286,7 +255,7 @@ object BroadRandomNoise: WallStructure{
     override val mirror = false
     override val name = "BroadRandomNoise"
     override val wallList: ArrayList<Wall> = arrayListOf()
-    override fun getObstacleList(parameters: Parameters): ArrayList<_obstacles> {
+    override fun getWallList(parameters: Parameters): ArrayList<Wall> {
         wallList.clear()
         val intensity = try { parameters.customParameters[0].toInt() } catch (e:Exception){ 5 }
         repeat(intensity){
@@ -300,7 +269,7 @@ object BroadRandomNoise: WallStructure{
             )
             wallList.add(tempO)
         }
-        return super.getObstacleList(parameters)
+        return super.getWallList(parameters)
     }
 }
 
@@ -309,14 +278,14 @@ object RandomBlocks: WallStructure{
     override val mirror = false
     override val name = "RandomBlocks"
     override val wallList: ArrayList<Wall> = arrayListOf()
-    override fun getObstacleList(parameters: Parameters): ArrayList<_obstacles> {
+    override fun getWallList(parameters: Parameters): ArrayList<Wall> {
         wallList.clear()
         val duration = parameters.customParameters.getDoubleOrElse(0,4.0)
         for(i in 0 until duration.toInt()){
             wallList.add(Wall(Random.nextDouble(0.5), Random.nextDouble(2.0), 0.0,Random.nextDouble(10.0, 20.0), Random.nextDouble(2.0),i.toDouble())    )
             wallList.add(Wall(Random.nextDouble(0.5), Random.nextDouble(2.0), 0.0,Random.nextDouble(-20.0, -10.0), Random.nextDouble(2.0),i.toDouble())    )
         }
-        return adjustObstacles(parameters)
+        return wallList
     }
 }
 
@@ -325,14 +294,14 @@ object RandomFastBlocks: WallStructure{
     override val mirror = false
     override val name = "RandomFastBlocks"
     override val wallList: ArrayList<Wall> = arrayListOf()
-    override fun getObstacleList(parameters: Parameters): ArrayList<_obstacles> {
+    override fun getWallList(parameters: Parameters): ArrayList<Wall> {
         wallList.clear()
         val duration = parameters.customParameters.getDoubleOrElse(0,4.0)
         for(i in 0 until duration.toInt()){
             wallList.add(Wall(-2.0, Random.nextDouble(2.0), 0.0,Random.nextDouble(10.0, 20.0), Random.nextDouble(2.0),i.toDouble()+2)    )
             wallList.add(Wall(-2.0, Random.nextDouble(2.0), 0.0,Random.nextDouble(-20.0, -10.0), Random.nextDouble(2.0),i.toDouble()+2)    )
         }
-        return adjustObstacles(parameters)
+        return wallList
     }
 }
 
@@ -342,7 +311,7 @@ object RandomLines: WallStructure{
     override val mirror: Boolean = false
     override val name: String = "randomLines"
     override val wallList: ArrayList<Wall> = arrayListOf()
-    override fun getObstacleList(parameters: Parameters): ArrayList<_obstacles> {
+    override fun getWallList(parameters: Parameters): ArrayList<Wall> {
         //getting the variables or the default values
         val count = try { parameters.customParameters[0].toInt() } catch (e:Exception){ 1 }
         val intensity = try { parameters.customParameters[1].toInt() } catch (e:Exception){ 4 }
@@ -368,7 +337,7 @@ object RandomLines: WallStructure{
                 }
             }
         }
-        return super.getObstacleList(parameters)
+        return super.getWallList(parameters)
     }
 }
 
@@ -378,7 +347,7 @@ object RandomSideLines: WallStructure{
     override val mirror: Boolean = true
     override val name: String = "randomSideLines"
     override val wallList: ArrayList<Wall> = arrayListOf()
-    override fun getObstacleList(parameters: Parameters): ArrayList<_obstacles> {
+    override fun getWallList(parameters: Parameters): ArrayList<Wall> {
         //getting the variables or the default values
         val count = try { parameters.customParameters[0].toInt() } catch (e:Exception){ 1 }
         val intensity = try { parameters.customParameters[1].toInt() } catch (e:Exception){ 4 }
@@ -404,37 +373,38 @@ object RandomSideLines: WallStructure{
                 }
             }
         }
-        return super.getObstacleList(parameters)
-    }
-}
-
-/** gets a random box containing random lines floor, ceiling, side */
-object RandomBox: WallStructure{
-    override val mirror = false
-    override val name = "RandomBox"
-    override val wallList: ArrayList<Wall> = arrayListOf()
-    override fun getObstacleList(parameters: Parameters): ArrayList<_obstacles> {
-        val duration = parameters.customParameters.getIntOrElse(0,4)
-        val list = arrayListOf<_obstacles>()
-        list.addAll(RandomLines.getObstacleList(Parameters("RandomLines -- 8 ${duration*2} -- $duration")))
-        list.addAll(RandomLines.getObstacleList(Parameters("RandomLines -- 8 ${duration*2} -- $duration 0 0 0 0 4")))
-        list.addAll(RandomSideLines.getObstacleList(Parameters("RandomSideLines -- 8 ${duration*2} -- $duration")))
-        return list
+        return super.getWallList(parameters)
     }
 }
 
 /** gets text */
 object Text: WallStructure {
-    override val name: String
-        get() = TODO("not implemented") //To change initializer of created properties use File | Settings | File Templates.
-    override val mirror: Boolean
-        get() = TODO("not implemented") //To change initializer of created properties use File | Settings | File Templates.
-    override val wallList: ArrayList<Wall>
-        get() = TODO("not implemented") //To change initializer of created properties use File | Settings | File Templates.
+    override val name: String = "Text"
+    override val mirror: Boolean = false
+    override val wallList: ArrayList<Wall> = arrayListOf()
+    val list = arrayListOf<_obstacles>()
+    override fun getWallList(parameters: Parameters): ArrayList<Wall> {
+        val list = arrayListOf<Wall>()
+        val text= "abcdefghijklmnopqrstuvwxyz"
+        var i = 0
+        for(c in text){
+            val w=WallStructureManager.getWallList(Parameters("$c"))
+            w.forEach { it.startTime +=i }
+            i+=4
+            list.addAll(w)
+        }
+     //   val text = parameters.customParameters.getOrNull(0)?:""
+     //   val start=  -text.length
+     //   for(c in text){
+     //       list.addAll(WallStructureManager.getWallList())
+     //   }
+
+        return list
+    }
 }
 
 //TODO rewrite circle and helix to allow more flexibily
-/** A function to get a circle of walls or a helix, probably should have splitted those up */
+/** A function to getWallList a circle of walls or a helix, probably should have splitted those up */
 fun circle(
     count:Int = 1, //how many spirals
     radius:Double = 1.9, //how big

@@ -153,7 +153,7 @@ class Beatwalls : CliktCommand() {
 
                     //add the for each command to the obstacle list
                     for (command in commandList) {
-                        list.addAll(WallStructureManager.get(command))
+                        list.addAll(WallStructureManager.getObstacleList(command))
                         wallCounter++
                     }
 

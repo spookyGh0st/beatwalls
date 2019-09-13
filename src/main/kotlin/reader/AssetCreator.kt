@@ -2,6 +2,7 @@ package reader
 
 import structures.CustomWallStructure
 import structures.Wall
+import structures.line
 import kotlin.math.PI
 import kotlin.math.abs
 import kotlin.math.cos
@@ -298,10 +299,387 @@ fun createAssets():List<CustomWallStructure> {
                     1.33,
                     0.0
                 ))
+            ),
+            CustomWallStructure(
+                "G",
+                false,
+                arrayListOf(Wall(
+                    1.0,
+                    2.33,
+                    0.33,
+                    0.0,
+                    0.33,
+                    0.0
+                ),Wall(
+                    1.0,
+                    0.33,
+                    2.66,
+                    0.3,
+                    1.3,
+                    0.0
+                ),Wall(
+                    1.0,
+                    0.33,
+                    0.0,
+                    0.33,
+                    1.3,
+                    0.0
+                ),Wall(
+                    1.0,
+                    0.66,
+                    0.33,
+                    1.6,
+                    0.33,
+                    0.0
+                ),Wall(
+                    1.0,
+                    0.33,
+                    1.0,
+                    1.3,
+                    0.330,
+                    0.0
+                )
+                )
+            ),
+            CustomWallStructure(
+                "H",
+                false,
+                arrayListOf(
+                    Wall(
+                        1.00,
+                        3.00,
+                        0.00,
+                        0.00,
+                        0.66,
+                        0.0
+                    ),Wall(
+                        1.00,
+                        0.33,
+                        1.33,
+                        0.66,
+                        0.66,
+                        0.0
+                    ),Wall(
+                        1.00,
+                        3.00,
+                        0.00,
+                        1.33,
+                        0.66,
+                        0.0
+                    )
+                )
+            ),
+            CustomWallStructure(
+                "I",
+                false,
+                arrayListOf(
+                    Wall(
+                        1.00,
+                        3.00,
+                        0.00,
+                        0.66,
+                        0.66,
+                        0.0
+                    )
+                )
+            ),
+            CustomWallStructure(
+                "J",
+                false,
+                arrayListOf(
+                    Wall(
+                        1.00,
+                        2.66,
+                        0.33,
+                        1.33,
+                        0.33,
+                        0.0
+                    ),    Wall(
+                        1.00,
+                        0.33,
+                        2.66,
+                        0.00,
+                        1.66,
+                        0.0
+                    ),    Wall(
+                        1.00,
+                        0.33,
+                        0.00,
+                        0.33,
+                        1.33,
+                        0.00
+                    ),    Wall(
+                        1.00,
+                        0.33,
+                        0.33,
+                        0.0,
+                        0.33,
+                        0.0
+                    )
+                )
+            ),
+            CustomWallStructure(
+                "K",
+                false,
+                drawK()
+
+            ),
+            CustomWallStructure(
+                "L",
+                false,
+                arrayListOf(
+                    Wall(
+                        1.00,
+                        3.00,
+                        0.00,
+                        0.00,
+                        0.33,
+                        0.0
+                    ),    Wall(
+                        1.00,
+                        0.50,
+                        0.00,
+                        0.33,
+                        1.66,
+                        0.0
+                    )
+                )
+            ),
+            CustomWallStructure(
+                "M",
+                false,
+                drawM()
+            ),
+            CustomWallStructure(
+                "N",
+                false,
+                drawN()
+            ),
+            CustomWallStructure(
+                "O",
+                false,
+                arrayListOf(
+                    Wall(
+                        1.00,
+                        2.33,
+                        0.33,
+                        0.00,
+                        0.33,
+                        0.0
+                    ),    Wall(
+                        1.00,
+                        0.33,
+                        0.00,
+                        0.00,
+                        1.33,
+                        0.0
+                    ),    Wall(
+                        1.00,
+                        0.33,
+                        2.66,
+                        0.00,
+                        1.33,
+                        0.0
+                    ),  Wall(
+                        1.00,
+                        2.33,
+                        0.33,
+                        1.66,
+                        0.33,
+                        0.0
+                    )
+                )
+            ),
+            CustomWallStructure(
+                "P",
+                false,
+                arrayListOf(
+                    Wall(
+                        1.00,
+                        3.00,
+                        0.00,
+                        0.00,
+                        0.33,
+                        0.0
+                    ),    Wall(
+                        1.00,
+                        0.33,
+                        1.33,
+                        0.33,
+                        1.00,
+                        0.0
+                    ),    Wall(
+                        1.00,
+                        0.33,
+                        2.66,
+                        0.33,
+                        1.00,
+                        0.0
+                    ),    Wall(
+                        1.0,
+                        1.0,
+                        1.6,
+                        1.33,
+                        0.33,
+                        0.0
+                    )
+                )
+            ),
+            CustomWallStructure(
+                "Q",
+                false,
+                drawQ()
+            ),
+            CustomWallStructure(
+                "R",
+                false,
+                drawR()
+            ),
+            CustomWallStructure(
+                "dot",
+                false,
+                arrayListOf(
+                    Wall(
+                    1.00,
+                    0.00,
+                    0.00,
+                    0.00,
+                    0.00,
+                    0.0
+                ),    Wall(
+                        1.00,
+                        0.00,
+                        0.00,
+                        0.00,
+                        0.00,
+                        0.0
+                    )
+                )
             )
         )
     )
     return a
+}
+fun drawR(): ArrayList<Wall> {
+    val list= arrayListOf<Wall>()
+    list.addAll(
+        line(0.33,2.0,1.33,0.0,0.0,0.0,10,1.0)
+    )
+    list.addAll(
+        arrayListOf(
+            Wall(
+                1.00,
+                3.00,
+                0.00,
+                0.00,
+                0.33,
+                0.0
+            ),
+            Wall(
+                1.00,
+                0.33,
+                2.66,
+                0.33,
+                1.00,
+                0.00
+            ),
+            Wall(
+                1.00,
+                0.33,
+                1.33,
+                0.33,
+                1.00,
+                0.00
+            ),
+            Wall(
+                1.00,
+                1.00,
+                1.66,
+                0.00,
+                0.00,
+                0.00
+            )
+        )
+
+    )
+    return list
+}
+
+fun drawQ(): ArrayList<Wall> {
+    val list= arrayListOf<Wall>()
+    list.addAll(
+        line(1.5,2.0,0.5,0.0,0.0,0.0,10,1.0)
+    )
+    list.addAll(
+        arrayListOf(
+            Wall(
+                1.00,
+                3.00,
+                0.00,
+                0.00,
+                0.33,
+                0.0
+            ),    Wall(
+                1.00,
+                0.33,
+                1.33,
+                0.33,
+                1.00,
+                0.0
+            ),    Wall(
+                1.00,
+                0.33,
+                2.66,
+                0.33,
+                1.00,
+                0.0
+            ),    Wall(
+                1.0,
+                1.0,
+                1.6,
+                1.33,
+                0.33,
+                0.0
+            )
+        )
+
+    )
+    return list
+}
+
+fun drawN(): ArrayList<Wall> {
+    val list= arrayListOf<Wall>()
+    list.addAll(
+        line(0.33,1.66,3.0,0.0,0.0,0.0,4,1.0)
+    )
+    list.add(Wall(1.0,3.0,0.0,0.0,0.33,0.0))
+    list.add(Wall(1.0,3.0,0.0,1.66,0.33,0.0))
+    return list
+}
+
+fun drawM(): ArrayList<Wall> {
+    val list= arrayListOf<Wall>()
+    list.addAll(
+        line(0.33,1.0,3.0,1.0,0.0,0.0,4,1.0)
+    )
+    list.addAll(
+        line(1.00,1.66,1.0,3.0,0.0,0.0,4,1.0)
+    )
+    list.add(Wall(1.0,3.0,0.0,0.0,0.33,0.0))
+    list.add(Wall(1.0,3.0,0.0,1.66,0.33,0.0))
+    return list
+}
+
+fun drawK(): ArrayList<Wall> {
+    val list= arrayListOf<Wall>()
+    list.addAll(
+        line(0.33,2.0,1.5,0.0,0.0,0.0,4,1.0)
+    )
+    list.addAll(
+        line(0.33,2.0,1.5,3.0,0.0,0.0,4,1.0)
+    )
+    list.add(Wall(1.0,3.0,0.0,0.0,0.33,0.0))
+    return list
 }
 
 fun corner(): ArrayList<Wall> {

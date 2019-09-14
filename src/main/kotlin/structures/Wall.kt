@@ -15,7 +15,15 @@ data class Wall(
     @SerializedName("startTime") var startTime : Double
 ){
     override fun toString(): String {
-        return "duration: $duration height: $height startHeight: $startHeight startRow: $startRow width: $width StartTime: $startTime"
+        var text="Wall("
+        text+="\n\t\t\t$duration,"
+        text+="\n\t\t\t$height,"
+        text+="\n\t\t\t$startHeight,"
+        text+="\n\t\t\t$startRow,"
+        text+="\n\t\t\t$width,"
+        text+="\n\t\t\t$startTime"
+        text+="\n\t\t\t)"
+        return text
     }
 
 
@@ -123,10 +131,6 @@ data class Wall(
     }
 
     fun adjustToBPM(baseBPM:Double,newBPM:Double,offset:Double){
-        if(abs(baseBPM-newBPM) > 1){
-            val fsda=abs(baseBPM-newBPM)
-            println(fsda)
-        }
         startTime *= (newBPM / baseBPM)
         startTime += offset
         if(duration > 0)

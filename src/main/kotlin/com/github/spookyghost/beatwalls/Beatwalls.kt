@@ -23,7 +23,7 @@ class Beatwalls : CliktCommand() {
 
 
     private val file: File by argument(help = "difficulty File (e.G expertPlus.dat)").file().validate {
-        require((it.isDifficulty()) || it.isSong() || it.isOldAsset()) { "Use a SongFolder or DifficultyFile" }
+        require((it.isDifficulty()) || it.isSong() || it.isOldAsset() || codeGen) { "Use a SongFolder or DifficultyFile" }
     }
 
     private val keepFiles by option("--keepFiles", "-k", help = "keeps original files as backups").flag(default = false)
@@ -43,6 +43,8 @@ class Beatwalls : CliktCommand() {
     private val yes by option("--yes", "-y", help = "skips confirmation").flag(default = false)
 
     private val bpm by option("--bpm", "-b", help = "Beats per minute").double()
+
+    private val codeGen by option("--codeGen",  help = "generates the code for the Asset File").flag(default = false)
 
 
     private var wallCounter = 0
@@ -64,6 +66,15 @@ class Beatwalls : CliktCommand() {
             WallStructureManager.loadManager(assetList)
             //adds all the song
             when {
+                codeGen -> {
+                    var text="fun createAssets() = arrayListOf(\n"
+                    for(customWall in assetList)
+                        text +="\t$customWall,"
+                    text = text.removeSuffix(",")
+                    text += "\n)"
+                    writeCodeGen(text)
+                    throw Exception("finnished")
+                }
                 file.isSong() -> {
                     logger.info { "Detected song. Running the program through all Difficulties which have commands" }
                     val map = Song(file)

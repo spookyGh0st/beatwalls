@@ -382,7 +382,6 @@ object Text: WallStructure {
     override val name: String = "Text"
     override val mirror: Boolean = false
     override val wallList: ArrayList<Wall> = arrayListOf()
-    val list = arrayListOf<_obstacles>()
     override fun getWallList(parameters: Parameters): ArrayList<Wall> {
         val list = arrayListOf<Wall>()
         val text = parameters.customParameters.getOrNull(0)?:""
@@ -544,7 +543,20 @@ data class CustomWallStructure(
     @SerializedName("WallList")
     override val wallList: ArrayList<Wall>
 
-    ): WallStructure
+    ): WallStructure{
+    override fun toString(): String {
+       var text="\n\tCustomWallStructure(\n"
+        text+="\t\t\"$name\",\n"
+        text+="\t\t$mirror,\n"
+        text+="\t\tarrayListOf("
+        for (wall in wallList){
+            text+="\n\t\t$wall,"
+        }
+        text = text.removeSuffix(",")
+        text+="\n\t))"
+        return text
+    }
+}
 
 fun ArrayList<String>.getIntOrElse(index: Int, defaultValue: Int):Int =
     try { this[index].toInt() } catch (e:Exception){ defaultValue }

@@ -71,7 +71,16 @@ fun writeInfo(info: Info, file: File){
         writer.close()
     }catch (e:Exception){
         logger.error { "Failed to write info.json" }
-        println(e)
+    }
+}
+fun writeCodeGen(text:String){
+    try {
+        val file =  Paths.get(System.getProperty("user.dir"),"codegen.txt").toFile()
+        val writer = BufferedWriter(FileWriter(file))
+        writer.write(text)
+        writer.close()
+    }catch (e:Exception){
+        logger.error { "Failed to write info.json" }
     }
 }
 

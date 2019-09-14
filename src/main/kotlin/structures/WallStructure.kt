@@ -385,20 +385,16 @@ object Text: WallStructure {
     val list = arrayListOf<_obstacles>()
     override fun getWallList(parameters: Parameters): ArrayList<Wall> {
         val list = arrayListOf<Wall>()
-        val text= "abcdefghijklmnopqrstuvwxyz"
-        var i = 0
+        val text = parameters.customParameters.getOrNull(0)?:""
+        val gap = parameters.customParameters.getDoubleOrElse(1,2.5)
+        val midX = parameters.customParameters.getDoubleOrElse(2,0.0)
+        var x=  midX-(text.length-1) * gap / 2 - gap/2
         for(c in text){
-            val w=WallStructureManager.getWallList(Parameters("$c"))
-            w.forEach { it.startTime +=i }
-            i+=4
-            list.addAll(w)
+            val tempList =WallStructureManager.getWallList(Parameters("$c"))
+            tempList.forEach { it.startRow += x }
+            x+=gap
+            list.addAll(tempList)
         }
-     //   val text = parameters.customParameters.getOrNull(0)?:""
-     //   val start=  -text.length
-     //   for(c in text){
-     //       list.addAll(WallStructureManager.getWallList())
-     //   }
-
         return list
     }
 }

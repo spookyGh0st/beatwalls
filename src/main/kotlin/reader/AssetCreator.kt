@@ -606,7 +606,7 @@ fun createAssets():List<CustomWallStructure> {
                 arrayListOf(
                     Wall(
                         1.00,
-                        2.33,
+                        2.66,
                         0.33,
                         0.00,
                         0.33,

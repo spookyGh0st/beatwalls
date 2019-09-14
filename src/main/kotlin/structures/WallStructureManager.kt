@@ -2,7 +2,6 @@ package structures
 
 
 import mu.KotlinLogging
-import song._obstacles
 private val logger = KotlinLogging.logger {}
 
 object WallStructureManager
@@ -32,11 +31,6 @@ object WallStructureManager
         }
     }
 
-    fun getObstacleList(parameters: Parameters):ArrayList<_obstacles>{
-        val list = getWallList(parameters).map { it.to_obstacle() }
-        return ArrayList(list)
-    }
-
 
     fun getWallList(parameters: Parameters): ArrayList<Wall> {
 
@@ -51,21 +45,22 @@ object WallStructureManager
             //gets the structure with the given name, or just an empty arrayListOf<_obstacles>
             val structure = wallStructuresList.findLast {
                 it.name.toLowerCase() == parameters.name.toLowerCase()
-            }?:CustomWallStructure("",false, arrayListOf())
+            }   ?: return list
             val wallList= structure.getWallList(parameters)
-            val adjustedList = wallList.map { it.adjustParameters(parameters) }.toMutableList()
-
-            if (structure.mirror) {
-                val mirroredList = adjustedList.map { it.mirror() }
-                adjustedList += mirroredList
-            }
 
 
-            list.addAll(adjustedList)
+            //adjusts the parameter
+            wallList.forEach { it.adjustParameters(parameters) }
+
+            //adds the mirrored list
+            if (structure.mirror)
+                wallList.addAll(wallList.map { it.mirror() })
+
+            //adds the temp list to our List
+            list.addAll(wallList)
             parameters.startTime += gap
         }
         logger.info { "added ${parameters.name}" }
-
         return list
     }
 }

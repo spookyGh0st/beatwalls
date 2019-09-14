@@ -12,6 +12,7 @@ import mu.KotlinLogging
 import reader.*
 import song.*
 import structures.CustomWallStructure
+import structures.Wall
 import structures.WallStructureManager
 import java.io.File
 import kotlin.system.exitProcess
@@ -143,7 +144,7 @@ class Beatwalls : CliktCommand() {
                         _BPMChanges.findLast { bpmChanges -> bpmChanges._time <= bookmark._time }?._BPM ?: beatsPerMinute
 
                     //create an empty list of _obstacles, we will use
-                    val list = arrayListOf<_obstacles>()
+                    val list = arrayListOf<Wall>()
 
                     //put the offset in a variable
                     val timeOffset = bookmark._time
@@ -153,15 +154,17 @@ class Beatwalls : CliktCommand() {
 
                     //add the for each command to the obstacle list
                     for (command in commandList) {
-                        list.addAll(WallStructureManager.getObstacleList(command))
+                        list.addAll(WallStructureManager.getWallList(command))
                         wallCounter++
                     }
 
                     //adjust the bpm for each _obstacle
-                    for (obstacle in list) {
-                        obstacle.adjustBPM(beatsPerMinute, tempBpm, timeOffset)
-                        _obstacles.add(obstacle)
+                    list.forEach {
+                        it.adjustToBPM(beatsPerMinute,tempBpm,timeOffset)
                     }
+
+                    //converts the list to _obstacle and adds it
+                    _obstacles.addAll(list.map { it.to_obstacle() })
                 }
             }
 

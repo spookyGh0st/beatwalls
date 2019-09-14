@@ -15,7 +15,7 @@ interface WallStructure {
     val wallList: ArrayList<Wall>
 
     fun getWallList(parameters: Parameters): ArrayList<Wall> {
-        return wallList
+        return ArrayList(wallList.map { it.copy() })
     }
 }
 
@@ -486,11 +486,11 @@ fun line(px1:Double, px2: Double, py1:Double, py2: Double, pz1: Double, pz2: Dou
     var z1 = pz1
     var z2 = pz2
 
-    val hyp = sqrt(abs(y2-y1).pow(2) + abs(x2-x1).pow(2)).coerceAtLeast(0.00001)
+    val hyp = sqrt(abs(y2-y1).pow(2) + abs(x2-x1).pow(2))
     val sin = abs(y2 -y1)/ hyp
     val cos = abs(x2-x1) / hyp
 
-    val hyp2 = sqrt(abs(y2-y1).pow(2) + abs(z2-z1).pow(2)).coerceAtLeast(0.00001)
+    val hyp2 = sqrt(abs(y2-y1).pow(2) + abs(z2-z1).pow(2))
     val sin2 = abs(y2 -y1)/ hyp2
     val cos2 = abs(z2-z1) / hyp2
 
@@ -505,11 +505,11 @@ fun line(px1:Double, px2: Double, py1:Double, py2: Double, pz1: Double, pz2: Dou
 
     //setting the solid values
     val w = (abs(x2-x1)/amount)
-    val width = w.coerceAtLeast(0.01)
+    val width = w
     val h = (abs(y2-y1)/amount)
-    val height = h.coerceAtLeast(0.01)
+    val height = h
     val d = (abs(z2-z1)/amount)
-    val duration = d.coerceAtLeast(0.001)
+    val duration = d
 
     for(i in 0 until amount){
         //setting the dynamic values

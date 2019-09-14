@@ -2,6 +2,8 @@ package structures
 
 import com.google.gson.annotations.SerializedName
 import song._obstacles
+import java.time.Duration
+import kotlin.math.abs
 
 
 data class Wall(
@@ -24,9 +26,11 @@ data class Wall(
         val tempLineIndex = calculateLineIndex()
 
         //other parameters
-        val tempStartTime = startTime
-        val tempType = type(height, startHeight)
-        val tempDuration = duration
+        val tempStartTime = startTime.coerceAtLeast(0.001)
+        val tempType = type()
+
+        val tempDuration = calculateDuration()
+
         return _obstacles(
             tempStartTime,
             tempLineIndex,
@@ -36,15 +40,23 @@ data class Wall(
         )
     }
 
+    private fun calculateDuration(): Double{
+        val tempDuration = if (duration<0.0001 && duration>-0.0001) 0.0001 else duration
+        return tempDuration.coerceAtLeast(-3.0)
+    }
 
     /**returns th _obstacle value of the width*/
     //TODO until negative width is allowed, this is needed. Once negative width is allowed, do this like lineIndex
     private fun calculateWidth():Int{
+        //makes sure its not 0 width
+        width = if(width > -0.001 && width < 0.001) 0.001 else width
+
+        //calculate the width
         return if( width >= 0.0)
             (width* 1000 +1000).toInt()
         else{
-            startRow -= width
-            (width*1000+1000).toInt()
+            startRow += width
+            (abs(width)*1000+1000).toInt()
         }
     }
 
@@ -59,45 +71,12 @@ data class Wall(
     }
 
 
-    /**returns the mirrored obstacle */
-    fun mirror()=
-        Wall(duration, height, startHeight, -startRow - width, width, startTime)
-
-
-    /**overwrites the values if the parameter types are not null */
-    fun adjust(a:ArrayList<Double>){
-        duration +=  a[2]
-        height += a[3]
-        startHeight += a[4]
-        startRow += a[5]
-        width += a[6]
-        startTime += a[7]
-        duration *= a[0]
-        startTime *= a[0]
-    }
-
-
-    /**overwrites the values, depending on the given parameters*/
-    fun adjustParameters(parameters: Parameters):Wall{
-        //Adding all the values
-        var tempDuration = duration + parameters.duration
-        val tempHeight = height + parameters.wallHeight
-        val tempStartHeight = startHeight + parameters.wallStartHeight
-        val tempStartRow = startRow + parameters.startRow
-        val tempWidth = width + parameters.width
-        var tempStartTime = startTime + parameters.startTime
-
-        //adjusting the scale
-        if(tempDuration>0)
-            tempDuration *= parameters.scale
-        tempStartTime *= parameters.scale
-
-        return Wall(tempDuration,tempHeight,tempStartHeight,tempStartRow,tempWidth,tempStartTime)
-    }
-
-
     /**returns the type given heigt and startheight */
-    private fun type(wallH: Double, startH: Double):Int {
+    private fun type():Int {
+
+        val wallH= if(height>-0.01 && height<0.01) 0.01 else abs(height)
+
+        val startH = if(height>0)startHeight else startHeight-height
 
         var tWallH:Int = (((1.0/3.0)*(wallH/(4.0/3.0)))*1000).toInt()
         tWallH = when {
@@ -114,6 +93,46 @@ data class Wall(
         }
         return  (tWallH * 1000 + tStartH+4001)
     }
+
+    /**returns the mirrored obstacle */
+    fun mirror()=
+        Wall(duration, height, startHeight, -startRow, -width, startTime)
+
+    /**overwrites the values, depending on the given parameters*/
+    fun adjustParameters(parameters: Parameters){
+        //Adding all the values
+        var tempDuration = duration + parameters.duration
+        val tempHeight = height + parameters.wallHeight
+        val tempStartHeight = startHeight + parameters.wallStartHeight
+        val tempStartRow = startRow + parameters.startRow
+        val tempWidth = width + parameters.width
+        var tempStartTime = startTime + parameters.startTime
+
+        //adjusting the scale
+        if(tempDuration>0)  tempDuration *= parameters.scale
+        tempStartTime *= parameters.scale
+
+        //adjust the values
+        this.duration=tempDuration
+        this.height=tempHeight
+        this.startHeight=tempStartHeight
+        this.startRow=tempStartRow
+        this.width=tempWidth
+        this.startTime=tempStartTime
+
+    }
+
+    fun adjustToBPM(baseBPM:Double,newBPM:Double,offset:Double){
+        if(abs(baseBPM-newBPM) > 1){
+            val fsda=abs(baseBPM-newBPM)
+            println(fsda)
+        }
+        startTime *= (newBPM / baseBPM)
+        startTime += offset
+        if(duration > 0)
+            duration*= (newBPM / baseBPM)
+    }
+
 }
 fun main(){
 }

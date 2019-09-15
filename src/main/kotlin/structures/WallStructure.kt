@@ -1,7 +1,6 @@
 package structures
 
 import com.google.gson.annotations.SerializedName
-import song._obstacles
 import java.lang.Exception
 import kotlin.math.*
 import kotlin.random.Random
@@ -389,7 +388,7 @@ object Text: WallStructure {
         val midX = parameters.customParameters.getDoubleOrElse(2,0.0)
         var x=  midX-(text.length-1) * gap / 2 - gap/2
         for(c in text){
-            val tempList =WallStructureManager.getWallList(Parameters("$c"))
+            val tempList =WallStructureManager.getWallList(Parameters(name = c.toString()))
             tempList.forEach { it.startRow += x }
             x+=gap
             list.addAll(tempList)

@@ -13,7 +13,7 @@ data class _bookmarks (
         val list = arrayListOf<Parameters>()
         regex.findAll(this._name).forEach {
             it.value.removePrefix("/bw ")
-            list.add(Parameters(it.value))
+            list.add(Parameters(commandText = it.value))
         }
         return list
     }

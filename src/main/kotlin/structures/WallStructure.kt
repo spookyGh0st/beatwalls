@@ -141,7 +141,7 @@ object StairWay: WallStructure{
             else
                 min - (i+1)*height
 
-            wallList.add( Wall(1.0/amount,height,startHeight,4.0,0.5,i.toDouble()/amount))
+            wallList.add( Wall(4.0, 1.0/amount, 0.5, height, startHeight, i.toDouble()/amount))
         }
         return super.getWallList(parameters)
     }
@@ -236,11 +236,11 @@ object RandomNoise: WallStructure{
         val intensity = try { parameters.customParameters[0].toInt() } catch (e:Exception){ 5 }
         repeat(intensity){
             val tempO = Wall(
+                startRow = Random.nextDouble(-4.0,4.0),
                 duration = 0.01,
+                width = 0.01,
                 height = 0.01,
                 startHeight = Random.nextDouble(4.0),
-                startRow = Random.nextDouble(-4.0,4.0),
-                width = 0.01,
                 startTime = Random.nextDouble()
             )
             wallList.add(tempO)
@@ -259,11 +259,11 @@ object BroadRandomNoise: WallStructure{
         val intensity = try { parameters.customParameters[0].toInt() } catch (e:Exception){ 5 }
         repeat(intensity){
             val tempO = Wall(
+                startRow = Random.nextDouble(-50.0,50.0),
                 duration = 0.01,
+                width = 0.01,
                 height = 0.01,
                 startHeight = Random.nextDouble(4.0),
-                startRow = Random.nextDouble(-50.0,50.0),
-                width = 0.01,
                 startTime = Random.nextDouble()
             )
             wallList.add(tempO)
@@ -281,8 +281,22 @@ object RandomBlocks: WallStructure{
         wallList.clear()
         val duration = parameters.customParameters.getDoubleOrElse(0,4.0)
         for(i in 0 until duration.toInt()){
-            wallList.add(Wall(Random.nextDouble(0.5), Random.nextDouble(2.0), 0.0,Random.nextDouble(10.0, 20.0), Random.nextDouble(2.0),i.toDouble())    )
-            wallList.add(Wall(Random.nextDouble(0.5), Random.nextDouble(2.0), 0.0,Random.nextDouble(-20.0, -10.0), Random.nextDouble(2.0),i.toDouble())    )
+            wallList.add(Wall(
+                Random.nextDouble(10.0, 20.0),
+                Random.nextDouble(0.5),
+                Random.nextDouble(2.0),
+                Random.nextDouble(2.0),
+                0.0,
+                i.toDouble()
+            )    )
+            wallList.add(Wall(
+                Random.nextDouble(-20.0, -10.0),
+                Random.nextDouble(0.5),
+                Random.nextDouble(2.0),
+                Random.nextDouble(2.0),
+                0.0,
+                i.toDouble()
+            )    )
         }
         return wallList
     }
@@ -297,8 +311,22 @@ object RandomFastBlocks: WallStructure{
         wallList.clear()
         val duration = parameters.customParameters.getDoubleOrElse(0,4.0)
         for(i in 0 until duration.toInt()){
-            wallList.add(Wall(-2.0, Random.nextDouble(2.0), 0.0,Random.nextDouble(10.0, 20.0), Random.nextDouble(2.0),i.toDouble()+2)    )
-            wallList.add(Wall(-2.0, Random.nextDouble(2.0), 0.0,Random.nextDouble(-20.0, -10.0), Random.nextDouble(2.0),i.toDouble()+2)    )
+            wallList.add(Wall(
+                Random.nextDouble(10.0, 20.0),
+                -2.0,
+                Random.nextDouble(2.0),
+                Random.nextDouble(2.0),
+                0.0,
+                i.toDouble()+2
+            )    )
+            wallList.add(Wall(
+                Random.nextDouble(-20.0, -10.0),
+                -2.0,
+                Random.nextDouble(2.0),
+                Random.nextDouble(2.0),
+                0.0,
+                i.toDouble()+2
+            )    )
         }
         return wallList
     }
@@ -323,7 +351,7 @@ object RandomLines: WallStructure{
 
             //for each wall intensity
             for(j in 1..intensity){
-                wallList.add(Wall(1.0/intensity,0.05,0.0,x, 0.05,j.toDouble()/intensity))
+                wallList.add(Wall(x, 1.0/intensity, 0.05, 0.05, 0.0, j.toDouble()/intensity))
 
                 //randomly changes lines, adjusts x when doing so
                 if (Random.nextInt(0, sqrt(count.toDouble()).roundToInt()) == 0){
@@ -331,7 +359,7 @@ object RandomLines: WallStructure{
                     val stRow = if(nX > x) x else nX
                     val stWidth = nX-x
                     val stTime = j.toDouble()/intensity + 1.0/intensity
-                    wallList.add(Wall(0.0005,0.05,0.0,stRow,stWidth,stTime))
+                    wallList.add(Wall(stRow, 0.0005, stWidth, 0.05, 0.0, stTime))
                     x = nX
                 }
             }
@@ -359,7 +387,7 @@ object RandomSideLines: WallStructure{
 
             //for each wall intensity
             for(j in 1..intensity){
-                wallList.add(Wall(1.0/intensity,0.05,x,4.0, 0.05,j.toDouble()/intensity))
+                wallList.add(Wall(4.0, 1.0/intensity, 0.05, 0.05, x, j.toDouble()/intensity))
 
                 //randomly changes lines, adjusts x when doing so
                 if (Random.nextInt(0, sqrt(count.toDouble()).roundToInt()) == 0){
@@ -367,7 +395,7 @@ object RandomSideLines: WallStructure{
                     val stHeight = if(nX > x) x else nX
                     val height = abs(nX-x)
                     val stTime = j.toDouble()/intensity + 1.0/intensity
-                    wallList.add(Wall(0.0005,height,stHeight,4.0,0.05,stTime))
+                    wallList.add(Wall(4.0, 0.0005, 0.05, height, stHeight, stTime))
                     x = nX
                 }
             }
@@ -467,7 +495,7 @@ fun circle(
             lastStartTime = startTime
 
             //adds the Obstacle
-            list.add(Wall(duration,height,startHeight,startRow,width,startTime))
+            list.add(Wall(startRow, duration, width, height, startHeight, startTime))
         }
     }
     return list
@@ -525,7 +553,7 @@ fun line(px1:Double, px2: Double, py1:Double, py2: Double, pz1: Double, pz2: Dou
 
         //adding the obstacle
         val myD = defaultDuration ?: duration
-        list.add(Wall(myD,height,startHeight,startRow,width,startTime))
+        list.add(Wall(startRow, myD, width, height, startHeight, startTime))
     }
     return list
 }

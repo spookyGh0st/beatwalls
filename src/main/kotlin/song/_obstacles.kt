@@ -30,7 +30,7 @@ data class _obstacles (
         val startHeight = getStartHeight(_type)
         val width = getWidth(_width)
 
-        return Wall(duration,height,startHeight,startRow, width,startTime)
+        return Wall(startRow, duration, width, height, startHeight, startTime)
     }
 
     private fun getHeight(i:Int):Double{

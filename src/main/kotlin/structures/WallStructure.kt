@@ -2,8 +2,10 @@ package structures
 
 import com.google.gson.annotations.SerializedName
 import java.lang.Exception
+import javax.crypto.SealedObject
 import kotlin.math.*
 import kotlin.random.Random
+import kotlin.reflect.KClass
 
 
 interface WallStructure {
@@ -404,6 +406,30 @@ object RandomSideLines: WallStructure{
     }
 }
 
+
+/** gets random side walls, default on the floor */
+object Splitter: WallStructure{
+    override var mirror: Boolean = false
+    override val name: String = "randomSideLines"
+    override val wallList: ArrayList<Wall> = arrayListOf()
+    override fun getWallList(parameters: Parameters): ArrayList<Wall> {
+        val list = WallStructureManager.getWallList(parameters.innerParameter?: Parameters())
+        val amount = parameters.customParameters.getIntOrElse(0,4)
+
+        for (wall in list){
+            val tempList = arrayListOf(wall)
+            repeat(amount){
+                for(tempWall in tempList){
+                    tempList.addAll(tempWall.split())
+                    tempList.remove(tempWall)
+                }
+            }
+            list.addAll(tempList)
+        }
+        return list
+    }
+}
+
 /** gets text */
 object Text: WallStructure {
     override val name: String = "Text"
@@ -425,7 +451,7 @@ object Text: WallStructure {
     }
 }
 
-//TODO rewrite circle and helix to allow more flexibily
+
 /** A function to getWallList a circle of walls or a helix, probably should have splitted those up */
 fun circle(
     count:Int = 1, //how many spirals
@@ -595,3 +621,23 @@ fun ArrayList<String>.getBooleanOrElse(index: Int, defaultValue: Boolean): Boole
     try {
         this[index].toInt() == 1
     } catch (e:Exception){ defaultValue }
+
+
+sealed class test{
+    abstract val a:Int
+
+}
+object test1:test() {
+    override val a: Int = 10
+}
+object test2:test() {
+    override val a: Int = 20
+}
+
+fun main(){
+    val a = test::class
+    val b = a.sealedSubclasses
+    val c = b.mapNotNull { it.objectInstance }
+    c.forEach { println(it.a) }
+
+}

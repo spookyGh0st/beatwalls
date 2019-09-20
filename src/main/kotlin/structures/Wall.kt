@@ -135,6 +135,16 @@ data class Wall(
         if(duration > 0)
             duration *= (newBPM / baseBPM)
     }
+    fun split():List<Wall> = when {
+        this.height>this.width -> listOf(
+            Wall(startRow,duration,width,height/2,startHeight,startTime),
+            Wall(startRow,duration,width,height/2,startHeight+ height/2,startTime)
+        )
+        else -> listOf(
+            Wall(startRow,duration,width/2,height/2,startHeight,startTime),
+            Wall(startRow+width/2,duration,width/2,height/2,startHeight,startTime)
+        )
+    }
 
 }
 fun main(){

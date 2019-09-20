@@ -27,6 +27,7 @@ object WallStructureManager
             add(Line)
             add(MirroredLine)
             add(CyanLine)
+            add(Splitter)
             addAll(list)
         }
     }

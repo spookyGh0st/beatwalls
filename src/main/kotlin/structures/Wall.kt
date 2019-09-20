@@ -15,11 +15,11 @@ data class Wall(
 ){
     override fun toString(): String {
         var text="Wall("
+        text+="\n\t\t\t$startRow,"
         text+="\n\t\t\t$duration,"
+        text+="\n\t\t\t$width,"
         text+="\n\t\t\t$height,"
         text+="\n\t\t\t$startHeight,"
-        text+="\n\t\t\t$startRow,"
-        text+="\n\t\t\t$width,"
         text+="\n\t\t\t$startTime"
         text+="\n\t\t\t)"
         return text

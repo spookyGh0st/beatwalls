@@ -2,32 +2,20 @@ package structures
 
 
 import mu.KotlinLogging
+import song.Difficulty
+
 private val logger = KotlinLogging.logger {}
 
 object WallStructureManager
 {
     private val wallStructuresList = arrayListOf<WallStructure>()
 
+    lateinit var difficulty:Difficulty
+
     fun loadManager(list:ArrayList<CustomWallStructure>) {
         with(wallStructuresList){
-            add(Text)
-            add(RandomLines)
-            add(RandomNoise)
-            add(BroadRandomNoise)
-            add(RandomSideLines)
-            add(RandomBlocks)
-            add(RandomFastBlocks)
-            add(Helix)
-            add(ReverseHelix)
-            add(MirroredHelix)
-            add(FastHelix)
-            add(HyperHelix)
-            add(EmptyHelix)
-            add(StairWay)
-            add(Line)
-            add(MirroredLine)
-            add(CyanLine)
-            add(Splitter)
+            val sealedClassList = WallStructure::class.sealedSubclasses
+            addAll( sealedClassList.mapNotNull { it.objectInstance }) //adds all objects to the
             addAll(list)
         }
     }

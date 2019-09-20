@@ -2,24 +2,37 @@ package structures
 
 import org.junit.Assert.*
 import org.junit.Test
-import structures.Parameters
 import kotlin.random.Random
 
 class ParametersTest {
 
     private val defaultName = "test"
-    private val rP = Parameters(
+    private val secondRP = Parameters(
+        name = defaultName,
+        customParameters = arrayListOf("c","d","e"),
+        scale = 11.0,
+        repeatCount = 12,
+        repeatGap = 13.0,
+        startRow = 14.0,
+        duration = 15.0,
+        width = 16.0,
+        wallHeight = 17.0,
+        wallStartHeight = 18.0,
+        startTime = 19.0
+    )
+    private val expected = Parameters(
         name = defaultName,
         customParameters = arrayListOf("a","b"),
-        scale = Random.nextDouble(-50.0, 50.0),
-        repeatCount = Random.nextInt(),
-        repeatGap = Random.nextDouble(-50.0, 50.0),
-        startRow = Random.nextDouble(-50.0, 50.0),
-        duration = Random.nextDouble(-50.0, 50.0),
-        width = Random.nextDouble(-50.0, 50.0),
-        wallHeight = Random.nextDouble(-50.0, 50.0),
-        wallStartHeight = Random.nextDouble(-50.0, 50.0),
-        startTime = Random.nextDouble(-50.0, 50.0)
+        scale = 1.0,
+        repeatCount = 2,
+        repeatGap = 3.0,
+        startRow = 4.0,
+        duration = 5.0,
+        width = 6.0,
+        wallHeight = 7.0,
+        wallStartHeight = 8.0,
+        startTime = 9.0,
+        innerParameter = secondRP
     )
     private val defaultParameters = Parameters(name=defaultName)
     @Test
@@ -27,6 +40,12 @@ class ParametersTest {
         val string = defaultName
         val a = Parameters(commandText=string)
         assertEquals(a,defaultParameters)
+    }
+    @Test
+    fun testInnerParameters(){
+        val string = expected.toString()
+        val actual = Parameters(commandText = string)
+        assertEquals(actual, expected )
     }
 
     @Test
@@ -38,8 +57,8 @@ class ParametersTest {
 
     @Test
     fun testRandomParameters(){
-        val actual = Parameters(commandText = "$rP")
-        assertEquals(rP,actual)
+        val actual = Parameters(commandText = "$expected")
+        assertEquals(expected.toString(),actual.toString())
     }
     @Test
     fun testGibberish(){

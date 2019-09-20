@@ -17,6 +17,7 @@ class Parameters() {
     var wallStartHeight:Double=0.0
     var startTime: Double= 0.0
     private var stringArray = listOf<String>()
+    var innerParameter:Parameters? = null
 
     /** constructor with a string, aka bookmark */
     constructor(commandText: String) : this() {
@@ -37,6 +38,15 @@ class Parameters() {
                 logger.error { "CLOSE YOUR FUCKING CUSTOM OPTION" }
             }
             c.countUp()
+        }
+        if ( stringArray.contains("..")){
+            val subText=stringArray.slice(stringArray.indexOfFirst { it == ".." } +1 until stringArray.indexOfLast { it == ".." })
+            if (stringArray.indexOfFirst { it == ".." } < stringArray.indexOfFirst { it == "--" })
+                throw Exception("the syntax is /bw -- \$specialParameters -- .. \$innerParameters ..")
+            if (subText.isNotEmpty()){
+                innerParameter = Parameters(subText.joinToString( " " ))
+                repeat(subText.size +3 ) { c.countUp() }
+            }
         }
         scale = c.getOr1()
         repeatCount = c.getOr0().toInt()
@@ -60,7 +70,8 @@ class Parameters() {
         width: Double= 0.0,
         wallHeight:Double=0.0,
         wallStartHeight:Double=0.0,
-        startTime: Double= 0.0
+        startTime: Double= 0.0,
+        innerParameter: Parameters? = null
     ): this(){
         this.name=name
         this.customParameters=customParameters
@@ -73,12 +84,13 @@ class Parameters() {
         this.wallHeight=wallHeight
         this.wallStartHeight=wallStartHeight
         this.startTime=startTime
+        this.innerParameter=innerParameter
     }
 
 
 
     override fun hashCode(): Int =
-        (scale + repeatGap + repeatCount + wallStartHeight +wallHeight +duration +startRow + width).toInt()
+        (scale + repeatGap + repeatCount + wallStartHeight +wallHeight +duration +startRow + width ).toInt()
 
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
@@ -97,6 +109,7 @@ class Parameters() {
         if (startRow != other.startRow) return false
         if (width != other.width) return false
         if (startTime != other.startTime) return false
+        if(innerParameter != other.innerParameter) return false
 
         return true
     }
@@ -105,6 +118,8 @@ class Parameters() {
         var text = name
         if(customParameters.isNotEmpty())
             text += """ -- ${customParameters.joinToString(" ")} -- """
+        if(innerParameter!=null)
+            text += """ .. $innerParameter .. """
         text+="$scale $repeatCount $repeatGap $startRow $duration $width $wallHeight $wallStartHeight $startTime"
         return text
     }

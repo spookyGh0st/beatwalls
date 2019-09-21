@@ -47,6 +47,38 @@ object Helix: WallStructure(){
     }
 }
 
+/** gets CeilingHelix with fixed duration */
+object CeilingHelix: WallStructure(){
+    override val name: String = "ceilinghelix"
+    override val mirror: Boolean = false
+    override val wallList: ArrayList<Wall> = arrayListOf()
+    override fun getWallList(parameters: Parameters): ArrayList<Wall> {
+        wallList.clear()
+        val count = 1
+        val radius = 5.0
+        val startRotation = 0.0
+        val rotationCount = 0.5
+        val heightOffset = 0.0
+        val fineTuning = parameters.customParameters.getIntOrElse(0,10)
+        val reverse = parameters.customParameters.getBooleanOrElse(1,false)
+        val speedChange = parameters.customParameters.getOrNull(2)?.toDouble()
+        val wallDuration = parameters.customParameters.getOrNull(3)?.toDouble()
+        wallList.addAll( circle(
+            count = count,
+            radius = radius,
+            fineTuning = fineTuning,
+            startRotation = startRotation,
+            rotationCount = rotationCount,
+            heightOffset = heightOffset,
+            speedChange = speedChange,
+            wallDuration = wallDuration,
+            helix = true,
+            reverse = reverse
+        ))
+        return wallList
+    }
+}
+
 /** creates normal stairways */
 object StairWay: WallStructure() {
     override val name = "StairWay"
@@ -328,31 +360,63 @@ object RandomSideLines: WallStructure() {
     }
 }
 
+/** fucks the Wall up */
+object FuckUp: WallStructure(){
+    override var mirror: Boolean = false
+    override val name: String = "FuckUp"
+    override val wallList: ArrayList<Wall> = arrayListOf()
+    override fun getWallList(parameters: Parameters): ArrayList<Wall> {
+        val amount = parameters.customParameters.getIntOrElse(0, 2)
+        val tempParameters = Parameters(name = "Splitter",customParameters = arrayListOf("$amount"), innerParameter = parameters.innerParameter)
+        val list = WallStructureManager.getWallList(tempParameters)
+        return ArrayList(list.map{ it.fuckUp() })
+    }
+}
 
-/*
-/** gets random side walls, default on the floor */
+/** fucks the Wall up */
+object Grounder: WallStructure(){
+    override var mirror: Boolean = false
+    override val name: String = "Grounder"
+    override val wallList: ArrayList<Wall> = arrayListOf()
+    override fun getWallList(parameters: Parameters): ArrayList<Wall> {
+        val startHeight = parameters.customParameters.getDoubleOrElse(0, 0.0)
+        val list = WallStructureManager.getWallList(parameters.innerParameter?: Parameters())
+        return ArrayList(list.map{ it.ground(startHeight) })
+    }
+}
+
+/** splits the wall into multiple small one */
 object Splitter: WallStructure() {
     override var mirror: Boolean = false
-    override val name: String = "randomSideLines"
+    override val name: String = "splitter"
     override val wallList: ArrayList<Wall> = arrayListOf()
     override fun getWallList(parameters: Parameters): ArrayList<Wall> {
         val list = WallStructureManager.getWallList(parameters.innerParameter?: Parameters())
-        val amount = parameters.customParameters.getIntOrElse(0,4)
+        val amount = parameters.customParameters.getIntOrElse(0,2)
 
+        val tempList = arrayListOf<Wall>()
         for (wall in list){
-            val tempList = arrayListOf(wall)
+            val pTempList= arrayListOf(wall)
             repeat(amount){
-                for(tempWall in tempList){
-                    tempList.addAll(tempWall.split())
-                    tempList.remove(tempWall)
+
+                val addList = arrayListOf<Wall>()
+                val removeList = arrayListOf<Wall>()
+
+                for(tempWall in pTempList){
+                    addList.addAll(tempWall.split())
+                    removeList.add(tempWall)
                 }
+
+                pTempList+=addList
+                pTempList-=removeList
             }
-            list.addAll(tempList)
+            tempList.addAll(pTempList)
         }
+        list.addAll(tempList)
         return list
     }
 }
-*/
+
 /** gets text */
 object Text: WallStructure() {
     override val name: String = "Text"

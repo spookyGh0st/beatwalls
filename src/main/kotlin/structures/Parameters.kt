@@ -41,7 +41,7 @@ class Parameters() {
         }
         if ( stringArray.contains("..")){
             val subText=stringArray.slice(stringArray.indexOfFirst { it == ".." } +1 until stringArray.indexOfLast { it == ".." })
-            if (stringArray.indexOfFirst { it == ".." } < stringArray.indexOfFirst { it == "--" })
+            if (stringArray.indexOfLast { it == ".." } < stringArray.indexOfFirst { it == "--" })
                 throw Exception("the syntax is /bw -- \$specialParameters -- .. \$innerParameters ..")
             if (subText.isNotEmpty()){
                 innerParameter = Parameters(subText.joinToString( " " ))

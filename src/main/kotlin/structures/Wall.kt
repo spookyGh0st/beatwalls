@@ -2,7 +2,9 @@ package structures
 
 import com.google.gson.annotations.SerializedName
 import song._obstacles
+import java.time.Duration
 import kotlin.math.abs
+import kotlin.random.Random
 
 
 data class Wall(
@@ -145,6 +147,13 @@ data class Wall(
             Wall(startRow+width/2,duration,width/2,height/2,startHeight,startTime)
         )
     }
+    fun fuckUp() =
+        Wall(ra(startRow),ra(duration),ra(width),ra(height),ra(startHeight),ra(startTime))
+
+    fun ground(h:Double) =
+        Wall(startRow,duration,width,height+(startHeight-h),h,startTime)
+
+    private fun ra(i:Double) = i+Random.nextDouble(-0.2 ,0.2)
 
 }
 fun main(){

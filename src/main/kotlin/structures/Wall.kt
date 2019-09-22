@@ -132,10 +132,10 @@ data class Wall(
     }
 
     fun adjustToBPM(baseBPM:Double,newBPM:Double,offset:Double){
-        startTime *= (newBPM / baseBPM)
+        startTime *= (baseBPM / newBPM)
         startTime += offset
         if(duration > 0)
-            duration *= (newBPM / baseBPM)
+            duration *= (baseBPM / newBPM)
     }
     fun split():List<Wall> = when {
         this.height>this.width -> listOf(
@@ -152,6 +152,12 @@ data class Wall(
 
     fun ground(h:Double) =
         Wall(startRow,duration,width,height+(startHeight-h),h,startTime)
+
+    fun sky(h:Double) =
+        Wall(startRow,duration,width,(h-startHeight),startHeight,startTime)
+
+    fun extend(a:Double) =
+        Wall(startRow,a-startTime,width,height,startHeight,startTime)
 
     private fun ra(i:Double) = i+Random.nextDouble(-0.2 ,0.2)
 

@@ -384,6 +384,28 @@ object Grounder: WallStructure(){
         return ArrayList(list.map{ it.ground(startHeight) })
     }
 }
+/** Extender Object - when called, extends all walls to a certain beat */
+object Extender: WallStructure() {
+    override val name = "Extender"
+    override val mirror = false
+    override val wallList = arrayListOf<Wall>()
+    override fun getWallList(parameters: Parameters): ArrayList<Wall> {
+        val list = WallStructureManager.getWallList(parameters.innerParameter?: Parameters())
+        val final = parameters.customParameters.getDoubleOrElse(0,1.0)
+        return ArrayList(list.map{ it.extend(final) })
+    }
+}
+/** fucks the Wall up */
+object SkyFitter: WallStructure(){
+    override var mirror: Boolean = false
+    override val name: String = "SkyFitter"
+    override val wallList: ArrayList<Wall> = arrayListOf()
+    override fun getWallList(parameters: Parameters): ArrayList<Wall> {
+        val endHeight = parameters.customParameters.getDoubleOrElse(0, 20.0)
+        val list = WallStructureManager.getWallList(parameters.innerParameter?: Parameters())
+        return ArrayList(list.map{ it.sky(endHeight) })
+    }
+}
 
 /** splits the wall into multiple small one */
 object Splitter: WallStructure() {
@@ -438,6 +460,65 @@ object Text: WallStructure() {
     }
 }
 
+/** LaneShifter Object - when called, creates an array Lines between the 4 given Points */
+object LineShifter: WallStructure() {
+    override val name = "LineShifter"
+    override val mirror = false
+    override val wallList = arrayListOf<Wall>()
+    override fun getWallList(parameters: Parameters): ArrayList<Wall> {
+        val list = arrayListOf<Wall>()
+        val amount = parameters.customParameters.getIntOrElse(0,4)
+        val p1x1 =parameters.customParameters.getDoubleOrElse(1,-4.0)
+        val p1y1 =parameters.customParameters.getDoubleOrElse(2,-4.0)
+        val p1x2 =parameters.customParameters.getDoubleOrElse(3,-4.0)
+        val p1y2 =parameters.customParameters.getDoubleOrElse(4,-4.0)
+        val p2x1 =parameters.customParameters.getDoubleOrElse(5,-4.0)
+        val p2y1 =parameters.customParameters.getDoubleOrElse(6,-4.0)
+        val p2x2 =parameters.customParameters.getDoubleOrElse(7,-4.0)
+        val p2y2 =parameters.customParameters.getDoubleOrElse(8,-4.0)
+        var tempx1 = p1x1
+        var tempx2 = p1x2
+        var tempy1 =p1y1
+        var tempy2 = p1y2
+
+        for (i in 0 until amount){
+            list.addAll(line(tempx1,tempx2,tempy1,tempy2,i.toDouble()/amount,i.toDouble()/amount,null,1.0/amount))
+            tempx1 += (p2x1-p1x1)/amount
+            tempx2 += (p2x2-p1x2)/amount
+            tempy1 += (p2y1-p1y1)/amount
+            tempy2 += (p2y2-p1y2)/amount
+        }
+        return list
+    }
+}
+
+
+object SideWave: WallStructure(){
+    override val name = "SideWave"
+    override val mirror = true
+    override val wallList: ArrayList<Wall> = arrayListOf()
+    override fun getWallList(parameters: Parameters): ArrayList<Wall> {
+        val list = arrayListOf<Wall>()
+        val max = parameters.customParameters.getIntOrElse(0,8)
+        for(i in 0 until (max)){
+            val y = i/max*(2* PI)
+            val nY = (i+1)/max*(2* PI)
+
+            list.add(
+                Wall(
+                    duration =  1 / max.toDouble(),
+                    height = abs(cos(nY)- cos(y)),
+                    startHeight = 1-cos(y),
+                    startRow = 3.0,
+                    width = 0.5,
+                    startTime = i/max.toDouble()
+                )
+            )
+        }
+        return list
+    }
+}
+
 /** the default customWallStructure the asset file uses */
 data class CustomWallStructure(
 
@@ -450,13 +531,13 @@ data class CustomWallStructure(
     @SerializedName("WallList")
     override val wallList: ArrayList<Wall>
 
-    ): WallStructure() {
+): WallStructure() {
     override fun getWallList(parameters: Parameters): ArrayList<Wall> {
         return ArrayList(wallList.map { it.copy() })
     }
 
     override fun toString(): String {
-       var text="\n\tCustomWallStructure(\n"
+        var text="\n\tCustomWallStructure(\n"
         text+="\t\t\"$name\",\n"
         text+="\t\t$mirror,\n"
         text+="\t\tarrayListOf("

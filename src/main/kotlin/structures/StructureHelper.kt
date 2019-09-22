@@ -96,7 +96,7 @@ fun line(px1:Double, px2: Double, py1:Double, py2: Double, pz1: Double= 0.0, pz2
 
 
 
-    val amount = defaultAmount?:((cos(dgr)*sin(dgr)).pow(1.5)*100 +1).toInt()
+    val amount = defaultAmount?:((cos(dgr)*sin(dgr)).pow(1.5)*50 +1).toInt()
 
     val list = arrayListOf<Wall>()
 

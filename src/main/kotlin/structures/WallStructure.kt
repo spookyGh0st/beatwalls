@@ -146,7 +146,7 @@ object Line: WallStructure() {
         val y1  = parameters.customParameters.getDoubleOrElse(2,0.0)
         val y2 = parameters.customParameters.getDoubleOrElse(3,0.0)
         val z1 = parameters.customParameters.getDoubleOrElse(4,0.0)
-        val z2 = parameters.customParameters.getDoubleOrElse(5,0.0)
+        val z2 = parameters.customParameters.getDoubleOrElse(5,1.0)
 
         val amount = parameters.customParameters.getOrNull(6)?.toInt()
         val duration = parameters.customParameters.getOrNull(7)?.toDouble()
@@ -393,6 +393,19 @@ object Extender: WallStructure() {
         val list = WallStructureManager.getWallList(parameters.innerParameter?: Parameters())
         val final = parameters.customParameters.getDoubleOrElse(0,1.0)
         return ArrayList(list.map{ it.extend(final) })
+    }
+}
+
+/** changeDuration Object - when called, makes all the walls hyper Walls */
+object ChangeDuration: WallStructure() {
+    override val name = "changeDuration"
+    override val mirror = false
+    override val wallList = arrayListOf<Wall>()
+    override fun getWallList(parameters: Parameters): ArrayList<Wall> {
+        val list = WallStructureManager.getWallList(parameters.innerParameter?: Parameters())
+        val d = parameters.customParameters.getDoubleOrElse(0,-3.0)
+        list.forEach { it.duration=d }
+        return list
     }
 }
 /** fucks the Wall up */

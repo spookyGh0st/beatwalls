@@ -85,7 +85,7 @@ data class Wall(
 
         val wallH= if(height >-0.01 && height <0.01) 0.01 else abs(height)
 
-        val startH = if(height >0) startHeight else startHeight - height
+        val startH = if(height >0) startHeight else startHeight + height
 
         var tWallH:Int = (((1.0/3.0)*(wallH/(4.0/3.0)))*1000).toInt()
         tWallH = when {

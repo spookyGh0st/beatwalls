@@ -181,6 +181,20 @@ object MirroredLine: WallStructure() {
         return wallList
     }
 }
+/** Curve Object - when called, creates a example curve */
+object Curve: WallStructure() {
+    override val name = "Curve"
+    override val mirror = true
+    override val wallList = arrayListOf<Wall>()
+    override fun getWallList(parameters: Parameters): ArrayList<Wall> {
+        val p0=Point(2,0,0)
+        val p1=Point(3,3,0)
+        val p2=Point(0.0,0.0,0.5)
+        val p3=Point(2,0,1)
+        val amount =parameters.customParameters.getIntOrElse(0,16)
+        return curve(p0,p1, p2, p3, amount)
+    }
+}
 
 /** gets very small noise in the area -4 .. 4 */
 object RandomNoise: WallStructure() {

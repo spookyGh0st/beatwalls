@@ -1,6 +1,8 @@
 package structures
 
+//import com.graphbuilder.curve.*
 import kotlin.math.*
+import kotlin.random.Random
 
 
 /** A function to getWallList a circle of walls or a helix, probably should have splitted those up */
@@ -134,6 +136,118 @@ fun line(px1:Double, px2: Double, py1:Double, py2: Double, pz1: Double= 0.0, pz2
     }
     return list
 }
+
+fun curve(p0: Point,p1: Point,p2: Point,p3:Point,amount: Int):ArrayList<Wall>{
+
+    val list = arrayListOf<Wall>()
+    if(p3.z<p0.z){
+        throw Exception("You have something wrong with you curve")
+    }
+    repeat(amount){
+        val currentPoint = quadraticBezier(p0,p1,p2,p3, it.toDouble()/ amount)
+        val nextPoint = quadraticBezier(p0,p1,p2,p3, (it + 1.0)/ amount)
+        val startRow = currentPoint.x
+        val startHeight = currentPoint.y
+        val startTime = currentPoint.z
+        val width = nextPoint.x - currentPoint.x
+        val height = nextPoint.y - currentPoint.y
+        val duration = nextPoint.z -currentPoint.z
+        list.add(Wall(startRow, duration, width, height, startHeight, startTime))
+    }
+    return list
+}
+fun main(){
+    val a = randomPoint()
+    val b = randomPoint()
+    val c = randomPoint()
+    val d = randomPoint()
+    val list = curve(a,b,c,d,4)
+    println(list)
+}
+fun randomPoint() =
+    Point(Random.nextDouble(-4.0, 4.0), Random.nextDouble(-2.0, 2.0), Random.nextDouble())
+
+fun quadraticBezier( p0:Point, p1:Point, p2:Point, p3:Point, t:Double): Point{
+    val x =(1-t).pow(3)*p0.x +
+            (1-t).pow(2)*3*t*p1.x +
+            (1-t)*3*t*t*p2.x +
+            t*t*t*p3.x
+    val y =(1-t).pow(3)*p0.y +
+            (1-t).pow(2)*3*t*p1.y +
+            (1-t)*3*t*t*p2.y +
+            t*t*t*p3.y
+    val z =(1-t).pow(3)*p0.z +
+            (1-t).pow(2)*3*t*p1.z +
+            (1-t)*3*t*t*p2.z +
+            t*t*t*p3.z
+    return Point(x, y, z)
+}
+
+data class Point(val x:Double, val y:Double, val z:Double) {
+    constructor(x:Int,y:Int,z:Int):this(x.toDouble(),y.toDouble(),z.toDouble())
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (javaClass != other?.javaClass) return false
+
+        other as Point
+
+        if (x != other.x) return false
+        if (y != other.y) return false
+        if (z != other.z) return false
+
+        return true
+    }
+
+    override fun hashCode(): Int {
+        var result = x.hashCode()
+        result = 31 * result + y.hashCode()
+        result = 31 * result + z.hashCode()
+        return result
+    }
+
+    override fun toString(): String {
+        return "Point(x=$x, y=$y, z=$z)"
+    }
+}
+
+
+//object CurveTest {
+//
+//    @JvmStatic
+//    fun main(args: Array<String>) {
+//        val cp = ControlPath()
+//        cp.addPoint(getPoint(.0,.0))
+//        cp.addPoint(getPoint(10.0, 10.0))
+//        cp.addPoint(getPoint(20.0, 10.0))
+//        cp.addPoint(getPoint(30.0, 0.0))
+//
+//        cp.addCurve(BezierCurve(cp, GroupIterator("0:n-1", cp.numPoints())))
+//
+//        val dimension = 2
+//        val mp = MultiPath(dimension)
+//        mp.flatness = 0.10 // default flatness is 1.0
+//
+//        for (i in 0 until cp.numCurves())
+//            cp.getCurve(i).appendTo(mp)
+//        println("mp.numpoints: ${mp.numPoints}")
+//
+//        for (i in 0 until mp.numPoints) {
+//            val p = mp.get(i)
+//            println(p[0].toString() + ", " + p[1])
+//        }
+//    }
+//}
+//fun getPoint(x:Double, y:Double) = getPoint(doubleArrayOf(x,y))
+//fun getPoint(arr: DoubleArray) : Point = object : Point {
+//    override fun getLocation() = arr
+//    override fun setLocation(p: DoubleArray?) {
+//        arr.indices.forEach {
+//            arr[it]= p?.get(it)?: 0.0
+//        }
+//    }
+//}
+
+
 
 
 fun ArrayList<String>.getIntOrElse(index: Int, defaultValue: Int):Int =

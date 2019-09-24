@@ -1,6 +1,76 @@
 {
   "WallStructureList": [
     {
+      "name": "pew",
+      "mirror": true,
+       "WallList": [
+         {
+          "duration": -3.0,
+          "height": 0.0,
+          "startHeight": 1.5,
+          "startRow": 1.0,
+          "width": 0.0,
+          "startTime": 0.0
+        },{
+          "duration": -3.0,
+          "height": 0.0,
+          "startHeight": 2.5,
+          "startRow": 1.0,
+          "width": 0.0,
+          "startTime": 0.0
+        },{
+          "duration": -3.0,
+          "height": 0.0,
+          "startHeight": 2.0,
+          "startRow": 1.0,
+          "width": 0.0,
+          "startTime": 0.0
+        }
+      ]
+    },
+    {
+      "name": "pewpew",
+      "mirror": true,
+      "WallList": [
+        {
+          "duration": -3.0,
+          "height": 0.0,
+          "startHeight": 1.0,
+          "startRow": 1.0,
+          "width": 0.0,
+          "startTime": 0.0
+        },{
+          "duration": -3.0,
+          "height": 0.0,
+          "startHeight": 3.0,
+          "startRow": 1.0,
+          "width": 0.0,
+          "startTime": 0.0
+        },    {
+          "duration": -3.0,
+          "height": 0.0,
+          "startHeight": 1.5,
+          "startRow": 1.0,
+          "width": 0.0,
+          "startTime": 0.5
+        },{
+          "duration": -3.0,
+          "height": 0.0,
+          "startHeight": 2.5,
+          "startRow": 1.0,
+          "width": 0.0,
+          "startTime": 0.5
+        },{
+          "duration": -3.0,
+          "height": 0.0,
+          "startHeight": 2.0,
+          "startRow": 1.0,
+          "width": 0.0,
+          "startTime": 0.5
+        }
+      ]
+    },
+    {
       "name": "Default",
       "mirror": false,
       "WallList": [
@@ -10,6 +80,154 @@
           "startHeight": 0.0,
           "startRow": 0.0,
           "width": 0.0,
+          "startTime": 0.0
+        }
+      ]
+    },   {
+      "name": "side1",
+      "mirror": false,
+      "WallList": [
+        {
+          "duration": 1.0,
+          "height": 3.0,
+          "startHeight": 0.0,
+          "startRow": -3.0,
+          "width": 0.0,
+          "startTime": 0.0
+        }
+      ]
+    },   {
+      "name": "side2",
+      "mirror": false,
+      "WallList": [
+        {
+          "duration": 1.0,
+          "height": 3.0,
+          "startHeight": 0.0,
+          "startRow": 3.0,
+          "width": 0.0,
+          "startTime": 0.0
+        }
+      ]
+    },   {
+      "name": "side3",
+      "mirror": false,
+      "WallList": [
+        {
+          "duration": 1.0,
+          "height": 0.0,
+          "startHeight": 3.0,
+          "startRow": -3.0,
+          "width": 6.0,
+          "startTime": 0.0
+        }
+      ]
+    }, {
+      "name": "fastGate",
+      "mirror": false,
+      "WallList": [
+        {
+          "duration": -2.0,
+          "height": 2.5,
+          "startHeight": 0.0,
+          "startRow": -3.0,
+          "width": 0.5,
+          "startTime": 0.0
+        },{
+          "duration": -2.0,
+          "height": 2.5,
+          "startHeight": 0.0,
+          "startRow": 3.0,
+          "width": -0.5,
+          "startTime": 0.0
+        },{
+          "duration": -2.0,
+          "height": 0.5,
+          "startHeight": 2.5,
+          "startRow": -3.0,
+          "width": 6.0,
+          "startTime": 0.0
+        }
+      ]
+    }, {
+      "name": "FastPow",
+      "mirror": false,
+      "WallList": [
+        {
+          "duration": -2.0,
+          "height": 2.5,
+          "startHeight": 0.0,
+          "startRow": -3.0,
+          "width": -17,
+          "startTime": 0.0
+        },{
+          "duration": -2.0,
+          "height": 2.5,
+          "startHeight": 0.0,
+          "startRow": 3.0,
+          "width": 17,
+          "startTime": 0.0
+        },{
+          "duration": -2.0,
+          "height": 20,
+          "startHeight": 2.5,
+          "startRow": -20.0,
+          "width": 40.0,
+          "startTime": 0.0
+        }
+      ]
+    },{
+      "name": "fastCathedral",
+      "mirror": true,
+      "WallList": [
+        {
+          "duration": -2.0,
+          "height": 10,
+          "startHeight": 0.0,
+          "startRow": 8,
+          "width": 0.5,
+          "startTime": 0.0
+        },{
+          "duration": -2.0,
+          "height": 5,
+          "startHeight": 5.0,
+          "startRow": 0.0,
+          "width": 8,
+          "startTime": 0.0
+        }, {
+          "duration": -2.0,
+          "height": 5,
+          "startHeight": 0.0,
+          "startRow": 6.0,
+          "width": 0.5,
+          "startTime": 0.0
+        }, {
+          "duration": -2.0,
+          "height": 0.0,
+          "startHeight": 2.0,
+          "startRow": 6.5,
+          "width": 1.5,
+          "startTime": 0.0
+        }, {
+          "duration": -2.0,
+          "height": 0.0,
+          "startHeight": 1.0,
+          "startRow": 6.5,
+          "width": 1.5,
+          "startTime": 0.0
+        }, {
+          "duration": -2.0,
+          "height": 0.0,
+          "startHeight": 0.0,
+          "startRow": 6.5,
+          "width": 1.5,
+          "startTime": 0.0
+        }, {
+          "duration": -2.0,
+          "height": 0.0,
+          "startHeight": 3.0,
+          "startRow": 6.5,
+          "width": 1.5,
           "startTime": 0.0
         }
       ]
@@ -95,6 +313,44 @@
           "startRow": 0.0,
           "width": 2.0,
           "startTime": 0.0
+        }
+      ]
+    },
+    {
+      "name": "WallSwapper",
+      "mirror": true,
+      "WallList": [
+        {
+          "duration": 0.5,
+          "height": 1.0,
+          "startHeight": 0.0,
+          "startRow": 2.0,
+          "width": 0.0,
+          "startTime": 0.0
+        },
+        {
+          "duration": 0.5,
+          "height": 1.0,
+          "startHeight": 3.0,
+          "startRow": 2.0,
+          "width": 0.0,
+          "startTime": 0.0
+        },
+        {
+          "duration": 0.5,
+          "height": 1.0,
+          "startHeight": 1.0,
+          "startRow": 2.0,
+          "width": 0.0,
+          "startTime": 0.5
+        },
+        {
+          "duration": 0.5,
+          "height": 1.0,
+          "startHeight": 2.0,
+          "startRow": 2.0,
+          "width": 0.0,
+          "startTime": 0.5
         }
       ]
     },
@@ -2397,11 +2653,39 @@
       ]
     },
     {
+      "name": "SideWalls",
+      "mirror": true,
+      "WallList": [
+        {
+          "duration": 1.0,
+          "height": 4.0,
+          "startHeight": 0.0,
+          "startRow": 4.5,
+          "width": 0.5,
+          "startTime": 2.0
+        }
+      ]
+    },
+    {
       "name": "FastSideWalls",
       "mirror": true,
       "WallList": [
         {
           "duration": -2.0,
+          "height": 4.0,
+          "startHeight": 0.0,
+          "startRow": 4.5,
+          "width": 0.5,
+          "startTime": 2.0
+        }
+      ]
+    },
+    {
+      "name": "HyperSideWalls",
+      "mirror": true,
+      "WallList": [
+        {
+          "duration": -3.0,
           "height": 4.0,
           "startHeight": 0.0,
           "startRow": 4.5,
@@ -2445,6 +2729,27 @@
           "startRow": 3.0,
           "width": 0.005,
           "startTime": 0.5
+        }
+      ]
+    },{
+      "name": "halfSideSwitcher",
+      "mirror": true,
+      "WallList": [
+        {
+          "duration": -3.0,
+          "height": 1.0,
+          "startHeight": 0.0,
+          "startRow": 2.0,
+          "width": 0.005,
+          "startTime": 0.0
+        },
+        {
+          "duration": -3.0,
+          "height": 1.0,
+          "startHeight": 3.0,
+          "startRow": 2.0,
+          "width": 0.005,
+          "startTime": 0.0
         }
       ]
     },

@@ -55,14 +55,14 @@ object CeilingHelix: WallStructure(){
     override fun getWallList(parameters: Parameters): ArrayList<Wall> {
         wallList.clear()
         val count = 1
-        val radius = 5.0
         val startRotation = 0.0
         val rotationCount = 0.5
         val heightOffset = 0.0
         val fineTuning = parameters.customParameters.getIntOrElse(0,10)
         val reverse = parameters.customParameters.getBooleanOrElse(1,false)
-        val speedChange = parameters.customParameters.getOrNull(2)?.toDouble()
-        val wallDuration = parameters.customParameters.getOrNull(3)?.toDouble()
+        val radius = parameters.customParameters.getDoubleOrElse(2,5.0)
+        val speedChange = parameters.customParameters.getOrNull(3)?.toDouble()
+        val wallDuration = parameters.customParameters.getOrNull(4)?.toDouble()
         wallList.addAll( circle(
             count = count,
             radius = radius,
@@ -184,14 +184,60 @@ object MirroredLine: WallStructure() {
 /** Curve Object - when called, creates a example curve */
 object Curve: WallStructure() {
     override val name = "Curve"
+    override val mirror = false
+    override val wallList = arrayListOf<Wall>()
+    override fun getWallList(parameters: Parameters): ArrayList<Wall> {
+        var p0:Point
+        var p1:Point
+        var p2:Point
+        var p3:Point
+        val amount =parameters.customParameters.getIntOrElse(0,8)
+        val syntax = "The Syntax is /bw curve -- \$amount p1 \$x \$y\$z p2 \$x \$y\$z p3 \$x \$y\$z p4 \$x \$y\$z -- notice how p0-p3 must be hardcoded"
+        if (parameters.customParameters.getOrNull(1) != "p1") throw Exception(syntax)
+        if (parameters.customParameters.getOrNull(5) != "p2") throw Exception(syntax)
+        if (parameters.customParameters.getOrNull(9) != "p3") throw Exception(syntax)
+        if (parameters.customParameters.getOrNull(13) != "p4") throw Exception(syntax)
+        with(parameters.customParameters){
+            try {
+                p0= Point(get(2).toDouble(),get(3).toDouble(),get(4).toDouble())
+                p1= Point(get(6).toDouble(),get(7).toDouble(),get(8).toDouble())
+                p2= Point(get(10).toDouble(),get(11).toDouble(),get(12).toDouble())
+                p3= Point(get(14).toDouble(),get(15).toDouble(),get(16).toDouble())
+            }catch (e:Exception){
+                println("Something is wrong with your curve, skipping")
+                return arrayListOf()
+            }
+        }
+        return curve(p0,p1, p2, p3, amount)
+    }
+}
+/** MirroredCurve Object - when called, creates a mirrored Curve */
+object MirroredCurve: WallStructure() {
+    override val name = "MirroredCurve"
     override val mirror = true
     override val wallList = arrayListOf<Wall>()
     override fun getWallList(parameters: Parameters): ArrayList<Wall> {
-        val p0=Point(2,0,0)
-        val p1=Point(3,3,0)
-        val p2=Point(0.0,0.0,0.5)
-        val p3=Point(2,0,1)
-        val amount =parameters.customParameters.getIntOrElse(0,16)
+        var p0:Point
+        var p1:Point
+        var p2:Point
+        var p3:Point
+        val amount =parameters.customParameters.getIntOrElse(0,8)
+        val syntax = "The Syntax is /bw curve -- \$amount p1 \$x \$y\$z p2 \$x \$y\$z p3 \$x \$y\$z p4 \$x \$y\$z -- while your options were ${parameters.customParameters} notice how p0-p3 must be hardcoded"
+        if (parameters.customParameters.getOrNull(1) != "p1") throw Exception(syntax)
+        if (parameters.customParameters.getOrNull(5) != "p2") throw Exception(syntax)
+        if (parameters.customParameters.getOrNull(9) != "p3") throw Exception(syntax)
+        if (parameters.customParameters.getOrNull(13) != "p4") throw Exception(syntax)
+        with(parameters.customParameters){
+            try {
+                p0= Point(get(2).toDouble(),get(3).toDouble(),get(4).toDouble())
+                p1= Point(get(6).toDouble(),get(7).toDouble(),get(8).toDouble())
+                p2= Point(get(10).toDouble(),get(11).toDouble(),get(12).toDouble())
+                p3= Point(get(14).toDouble(),get(15).toDouble(),get(16).toDouble())
+            }catch (e:Exception){
+                println("Something is wrong with your curve, skipping")
+                return arrayListOf()
+            }
+        }
         return curve(p0,p1, p2, p3, amount)
     }
 }
@@ -287,7 +333,7 @@ object RandomFastBlocks: WallStructure() {
                 Random.nextDouble(2.0),
                 Random.nextDouble(2.0),
                 0.0,
-                i.toDouble()+2
+                i.toDouble()
             )    )
             wallList.add(Wall(
                 Random.nextDouble(-20.0, -10.0),
@@ -295,7 +341,7 @@ object RandomFastBlocks: WallStructure() {
                 Random.nextDouble(2.0),
                 Random.nextDouble(2.0),
                 0.0,
-                i.toDouble()+2
+                i.toDouble()
             )    )
         }
         return wallList

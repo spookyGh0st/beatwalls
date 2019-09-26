@@ -1,6 +1,6 @@
 # beatwalls
 
-commandline tool to add Walls to beatsaber maps using bookmarks. [showcase](https://streamable.com/5obrr)
+commandline tool to add Walls to beatsaber maps using bookmarks. [showcase](https://streamable.com/felde)
 
 ## Installation
 - have java installed

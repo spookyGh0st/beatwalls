@@ -164,6 +164,25 @@ fun main(){
     val list = curve(a,b,c,d,4)
     println(list)
 }
+fun getBoxList(wallAmountPerWall: Int): ArrayList<Wall> {
+    val allWalls= arrayListOf<Wall>()
+    for ( i in 0 until wallAmountPerWall*2){
+        val startX = 8 * i.toDouble() / (wallAmountPerWall) /2 - 4
+        //bottom
+        allWalls.add(Wall(startX,1.0/wallAmountPerWall,4.0/wallAmountPerWall,0.0 ,0.0,0.0))
+        //top
+        allWalls.add(Wall(startX,1.0/wallAmountPerWall,4.0/wallAmountPerWall,4.0/wallAmountPerWall,4.0 ,0.0))
+    }
+    for ( i in 0 until wallAmountPerWall){
+        val startY = 4 * i.toDouble() / (wallAmountPerWall)
+        //left
+        allWalls.add(Wall(4.0,1.0/wallAmountPerWall,4.0/wallAmountPerWall,4.0/wallAmountPerWall,startY ,0.0))
+        //right
+        allWalls.add(Wall(-4.0,1.0/wallAmountPerWall,-4.0/wallAmountPerWall,4.0/wallAmountPerWall,startY ,0.0))
+    }
+    return allWalls
+
+}
 fun randomPoint() =
     Point(Random.nextDouble(-4.0, 4.0), Random.nextDouble(-2.0, 2.0), Random.nextDouble())
 

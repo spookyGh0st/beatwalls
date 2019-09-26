@@ -2752,6 +2752,19 @@
           "startTime": 0.0
         }
       ]
+    },{
+      "name": "fastBlock",
+      "mirror": true,
+      "WallList": [
+        {
+          "duration": -2.0,
+          "height": 2.0,
+          "startHeight": 0.0,
+          "startRow": 4.0,
+          "width": 2.0,
+          "startTime": 0.0
+        }
+      ]
     },
     {
       "name": "SideSwitcher2",

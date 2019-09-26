@@ -47,6 +47,7 @@ object Helix: WallStructure(){
     }
 }
 
+
 /** gets CeilingHelix with fixed duration */
 object CeilingHelix: WallStructure(){
     override val name: String = "ceilinghelix"
@@ -239,6 +240,58 @@ object MirroredCurve: WallStructure() {
             }
         }
         return curve(p0,p1, p2, p3, amount)
+    }
+}
+
+/** RandomBox Object - when called, creates a random box with the given amount per tick and the given ticks per beat */
+object RandomBox: WallStructure() {
+    override val name = "RandomBox"
+    override val mirror = false
+    override val wallList = arrayListOf<Wall>()
+    override fun getWallList(parameters: Parameters): ArrayList<Wall> {
+        val list = arrayListOf<Wall>()
+        val amountPerTick = parameters.customParameters.getIntOrElse(0,4)
+        val amountOfTicks = parameters.customParameters.getIntOrElse(1,4)
+        val wallAmountPerWall = parameters.customParameters.getIntOrElse(2,8)
+
+        val allWalls: ArrayList<Wall> = getBoxList(wallAmountPerWall)
+
+        for(start in 0 until amountOfTicks){
+            val tempList = ArrayList(allWalls.map { it.copy() })
+            repeat(amountPerTick){
+                val w = tempList.random()
+                w.startTime = start.toDouble()/amountOfTicks
+                list.add(w)
+                tempList.remove(w)
+            }
+        }
+        return list
+    }
+}/** RandomBoxLine Object - when called, creates a random box with the given amount per tick and the given ticks per beat */
+object RandomBoxLine: WallStructure() {
+    override val name = "RandomBoxLine"
+    override val mirror = false
+    override val wallList = arrayListOf<Wall>()
+    override fun getWallList(parameters: Parameters): ArrayList<Wall> {
+        val list = arrayListOf<Wall>()
+        val amountPerTick = parameters.customParameters.getIntOrElse(0,8)
+        val amountOfTicks = parameters.customParameters.getIntOrElse(1,4)
+        val wallAmountPerWall = parameters.customParameters.getIntOrElse(2,32)
+
+        val allWalls: ArrayList<Wall> = getBoxList(wallAmountPerWall)
+
+        for(start in 0 until amountOfTicks){
+            val tempList = ArrayList(allWalls.map { it.copy() })
+            repeat(amountPerTick){
+                val w = tempList.random()
+                w.startTime = start.toDouble()/amountOfTicks
+                w.height = 0.0
+                w.width = 0.0
+                list.add(w)
+                tempList.remove(w)
+            }
+        }
+        return list
     }
 }
 
@@ -442,6 +495,17 @@ object Grounder: WallStructure(){
         val startHeight = parameters.customParameters.getDoubleOrElse(0, 0.0)
         val list = WallStructureManager.getWallList(parameters.innerParameter?: Parameters())
         return ArrayList(list.map{ it.ground(startHeight) })
+    }
+}
+
+/** Mirror Object - when called, creates a Mirror */
+object Mirror: WallStructure() {
+    override val name = "Mirror"
+    override val mirror = false
+    override val wallList = arrayListOf<Wall>()
+    override fun getWallList(parameters: Parameters): ArrayList<Wall> {
+        val list = WallStructureManager.getWallList(parameters.innerParameter?: Parameters())
+        return ArrayList(list.map { it.mirror() })
     }
 }
 /** Extender Object - when called, extends all walls to a certain beat */

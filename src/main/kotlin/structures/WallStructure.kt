@@ -1,5 +1,6 @@
 package structures
 
+import com.google.gson.annotations.SerializedName
 import kotlin.reflect.KProperty
 
 sealed class WallStructure():CommandParser() {
@@ -26,7 +27,7 @@ sealed class WallStructure():CommandParser() {
     }
 
 
-    val wallList = arrayListOf<Wall>()
+    open val wallList = arrayListOf<Wall>()
 
 
 }
@@ -40,6 +41,14 @@ class TestStructure:WallStructure(){
         add(Wall(0.0,1.0,0.0,0.0,0.0,0.0))
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
+}
+class CustomWallStructure(
+): WallStructure(){
+
+    override fun getWalls() {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
 }
 fun main(){
     val a = TestStructure()

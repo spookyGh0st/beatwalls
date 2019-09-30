@@ -2,12 +2,11 @@ package structures
 
 import org.junit.Assert.*
 import org.junit.Test
-import kotlin.random.Random
 
-class ParametersTest {
+class OldParametersTest {
 
     private val defaultName = "test"
-    private val secondRP = Parameters(
+    private val secondRP = OldParameters(
         name = defaultName,
         customParameters = arrayListOf("c","d","e"),
         scale = 11.0,
@@ -20,7 +19,7 @@ class ParametersTest {
         wallStartHeight = 18.0,
         startTime = 19.0
     )
-    private val expected = Parameters(
+    private val expected = OldParameters(
         name = defaultName,
         customParameters = arrayListOf("a","b"),
         scale = 1.0,
@@ -34,50 +33,50 @@ class ParametersTest {
         startTime = 9.0,
         innerParameter = secondRP
     )
-    private val defaultParameters = Parameters(name=defaultName)
+    private val defaultParameters = OldParameters(name=defaultName)
     @Test
     fun testEmptyParameters(){
         val string = defaultName
-        val a = Parameters(commandText=string)
+        val a = OldParameters(commandText=string)
         assertEquals(a,defaultParameters)
     }
     @Test
     fun testInnerParameters(){
         val string = expected.toString()
-        val actual = Parameters(commandText = string)
+        val actual = OldParameters(commandText = string)
         assertEquals(actual, expected )
     }
 
     @Test
     fun testCustomParameters(){
         val string = "$defaultName -- foo bar --"
-        val a = Parameters(string)
+        val a = OldParameters(string)
         assertEquals(arrayListOf("foo","bar"),a.customParameters)
     }
 
     @Test
     fun testRandomParameters(){
-        val actual = Parameters(commandText = "$expected")
+        val actual = OldParameters(commandText = "$expected")
         assertEquals(expected.toString(),actual.toString())
     }
     @Test
     fun testGibberish(){
         val string = "$defaultName fsjdka lks li l2 j432"
-        val a = Parameters(string)
+        val a = OldParameters(string)
         assertEquals(defaultParameters,a)
     }
     @Test
     fun testNameException(){
         try {
             val string = ""
-            Parameters(string)
+            OldParameters(string)
             fail()
         }catch (e:Exception){}
     }
     @Test
     fun testSimple(){
         val string = "test 1 5 0.2"
-        val a = Parameters(string)
+        val a = OldParameters(string)
         assertTrue(a.customParameters.isEmpty())
         assertEquals(1.0, a.scale,0.01)
         assertEquals(5, a.repeatCount)

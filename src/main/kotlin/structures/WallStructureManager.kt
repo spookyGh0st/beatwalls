@@ -8,38 +8,38 @@ private val logger = KotlinLogging.logger {}
 
 object WallStructureManager
 {
-    private val wallStructuresList = arrayListOf<WallStructure>()
+    private val wallStructuresList = arrayListOf<OldWallStructure>()
 
     lateinit var difficulty:Difficulty
 
-    fun loadManager(list:ArrayList<CustomWallStructure>) {
+    fun loadManager(list:ArrayList<CustomOldWallStructure>) {
         with(wallStructuresList){
-            val sealedClassList = WallStructure::class.sealedSubclasses
+            val sealedClassList = OldWallStructure::class.sealedSubclasses
             addAll( sealedClassList.mapNotNull { it.objectInstance }) //adds all objects to the
             addAll(list)
         }
     }
 
 
-    fun getWallList(parameters: Parameters): ArrayList<Wall> {
+    fun getWallList(oldParameters: OldParameters): ArrayList<Wall> {
 
         //all the variables
         val list = arrayListOf<Wall>()
-        val count = parameters.repeatCount
-        val gap = parameters.repeatGap
+        val count = oldParameters.repeatCount
+        val gap = oldParameters.repeatGap
 
         //gets repeat right
         for (i in 0..count) {
 
             //gets the structure with the given name, or just an empty arrayListOf<_obstacles>
             val structure = wallStructuresList.findLast {
-                it.name.toLowerCase() == parameters.name.toLowerCase()
+                it.name.toLowerCase() == oldParameters.name.toLowerCase()
             }   ?: return list
-            val wallList= structure.getWallList(parameters)
+            val wallList= structure.getWallList(oldParameters)
 
 
             //adjusts the parameter
-            wallList.forEach { it.adjustParameters(parameters) }
+            wallList.forEach { it.adjustParameters(oldParameters) }
 
             //adds the mirrored list
             if (structure.mirror)
@@ -47,9 +47,9 @@ object WallStructureManager
 
             //adds the temp list to our List
             list.addAll(wallList)
-            parameters.startTime += gap
+            oldParameters.startTime += gap
         }
-        logger.info { "added ${parameters.name}" }
+        logger.info { "added ${oldParameters.name}" }
         return list
     }
 }

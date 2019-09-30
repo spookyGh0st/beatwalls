@@ -1,6 +1,6 @@
 package reader
 
-import structures.CustomWallStructure
+import structures.CustomOldWallStructure
 import structures.Wall
 /*
 import structures.line
@@ -12,7 +12,7 @@ import kotlin.math.roundToInt
 
 fun createAssets() = arrayListOf(
 
-    CustomWallStructure(
+    CustomOldWallStructure(
         "Default",
         false,
         arrayListOf(
@@ -25,7 +25,7 @@ fun createAssets() = arrayListOf(
                 0.0
             )
         )),
-    CustomWallStructure(
+    CustomOldWallStructure(
         "MirroredDefault",
         true,
         arrayListOf(
@@ -38,7 +38,7 @@ fun createAssets() = arrayListOf(
                 0.0
             )
         )),
-    CustomWallStructure(
+    CustomOldWallStructure(
         "Floor",
         false,
         arrayListOf(
@@ -51,7 +51,7 @@ fun createAssets() = arrayListOf(
                 0.0
             )
         )),
-    CustomWallStructure(
+    CustomOldWallStructure(
         "Ceiling",
         false,
         arrayListOf(
@@ -64,7 +64,7 @@ fun createAssets() = arrayListOf(
                 0.0
             )
         )),
-    CustomWallStructure(
+    CustomOldWallStructure(
         "Pillar",
         true,
         arrayListOf(
@@ -77,7 +77,7 @@ fun createAssets() = arrayListOf(
                 0.0
             )
         )),
-    CustomWallStructure(
+    CustomOldWallStructure(
         "HighWalls",
         true,
         arrayListOf(
@@ -90,7 +90,7 @@ fun createAssets() = arrayListOf(
                 0.0
             )
         )),
-    CustomWallStructure(
+    CustomOldWallStructure(
         "SplittedFloor",
         true,
         arrayListOf(
@@ -103,7 +103,7 @@ fun createAssets() = arrayListOf(
                 0.0
             )
         )),
-    CustomWallStructure(
+    CustomOldWallStructure(
         "SplittedCeiling",
         true,
         arrayListOf(
@@ -116,7 +116,7 @@ fun createAssets() = arrayListOf(
                 0.0
             )
         )),
-    CustomWallStructure(
+    CustomOldWallStructure(
         "smallPillar",
         true,
         arrayListOf(
@@ -129,7 +129,7 @@ fun createAssets() = arrayListOf(
                 0.0
             )
         )),
-    CustomWallStructure(
+    CustomOldWallStructure(
         "Tube",
         false,
         arrayListOf(
@@ -1142,7 +1142,7 @@ fun createAssets() = arrayListOf(
                 0.0
             )
         )),
-    CustomWallStructure(
+    CustomOldWallStructure(
         "Ring",
         false,
         arrayListOf(
@@ -2155,7 +2155,7 @@ fun createAssets() = arrayListOf(
                 0.0
             )
         )),
-    CustomWallStructure(
+    CustomOldWallStructure(
         "fence",
         true,
         arrayListOf(
@@ -2192,7 +2192,7 @@ fun createAssets() = arrayListOf(
                 0.995
             )
         )),
-    CustomWallStructure(
+    CustomOldWallStructure(
         "sideWave",
         true,
         arrayListOf(
@@ -2293,7 +2293,7 @@ fun createAssets() = arrayListOf(
                 0.9166666666666666
             )
         )),
-    CustomWallStructure(
+    CustomOldWallStructure(
         "reverseSideWave",
         true,
         arrayListOf(
@@ -2394,7 +2394,7 @@ fun createAssets() = arrayListOf(
                 0.9166666666666666
             )
         )),
-    CustomWallStructure(
+    CustomOldWallStructure(
         "FastSideWalls",
         true,
         arrayListOf(
@@ -2407,7 +2407,7 @@ fun createAssets() = arrayListOf(
                 2.0
             )
         )),
-    CustomWallStructure(
+    CustomOldWallStructure(
         "SideSwitcher1",
         true,
         arrayListOf(
@@ -2444,7 +2444,7 @@ fun createAssets() = arrayListOf(
                 0.5
             )
         )),
-    CustomWallStructure(
+    CustomOldWallStructure(
         "SideSwitcher2",
         true,
         arrayListOf(
@@ -2481,7 +2481,7 @@ fun createAssets() = arrayListOf(
                 0.5
             )
         )),
-    CustomWallStructure(
+    CustomOldWallStructure(
         "Corner",
         true,
         arrayListOf(
@@ -2518,7 +2518,7 @@ fun createAssets() = arrayListOf(
                 0.0
             )
         )),
-    CustomWallStructure(
+    CustomOldWallStructure(
         "A",
         false,
         arrayListOf(
@@ -2555,7 +2555,7 @@ fun createAssets() = arrayListOf(
                 0.0
             )
         )),
-    CustomWallStructure(
+    CustomOldWallStructure(
         "B",
         false,
         arrayListOf(
@@ -2608,7 +2608,7 @@ fun createAssets() = arrayListOf(
                 0.0
             )
         )),
-    CustomWallStructure(
+    CustomOldWallStructure(
         "C",
         false,
         arrayListOf(
@@ -2637,7 +2637,7 @@ fun createAssets() = arrayListOf(
                 0.0
             )
         )),
-    CustomWallStructure(
+    CustomOldWallStructure(
         "D",
         false,
         arrayListOf(
@@ -2674,7 +2674,7 @@ fun createAssets() = arrayListOf(
                 0.0
             )
         )),
-    CustomWallStructure(
+    CustomOldWallStructure(
         "E",
         false,
         arrayListOf(
@@ -2711,7 +2711,7 @@ fun createAssets() = arrayListOf(
                 0.0
             )
         )),
-    CustomWallStructure(
+    CustomOldWallStructure(
         "F",
         false,
         arrayListOf(
@@ -2740,7 +2740,7 @@ fun createAssets() = arrayListOf(
                 0.0
             )
         )),
-    CustomWallStructure(
+    CustomOldWallStructure(
         "G",
         false,
         arrayListOf(
@@ -2785,7 +2785,7 @@ fun createAssets() = arrayListOf(
                 0.0
             )
         )),
-    CustomWallStructure(
+    CustomOldWallStructure(
         "H",
         false,
         arrayListOf(
@@ -2814,7 +2814,7 @@ fun createAssets() = arrayListOf(
                 0.0
             )
         )),
-    CustomWallStructure(
+    CustomOldWallStructure(
         "I",
         false,
         arrayListOf(
@@ -2827,7 +2827,7 @@ fun createAssets() = arrayListOf(
                 0.0
             )
         )),
-    CustomWallStructure(
+    CustomOldWallStructure(
         "J",
         false,
         arrayListOf(
@@ -2864,7 +2864,7 @@ fun createAssets() = arrayListOf(
                 0.0
             )
         )),
-    CustomWallStructure(
+    CustomOldWallStructure(
         "K",
         false,
         arrayListOf(
@@ -2941,7 +2941,7 @@ fun createAssets() = arrayListOf(
                 0.0
             )
         )),
-    CustomWallStructure(
+    CustomOldWallStructure(
         "L",
         false,
         arrayListOf(
@@ -2962,7 +2962,7 @@ fun createAssets() = arrayListOf(
                 0.0
             )
         )),
-    CustomWallStructure(
+    CustomOldWallStructure(
         "M",
         false,
         arrayListOf(
@@ -3047,7 +3047,7 @@ fun createAssets() = arrayListOf(
                 0.0
             )
         )),
-    CustomWallStructure(
+    CustomOldWallStructure(
         "N",
         false,
         arrayListOf(
@@ -3100,7 +3100,7 @@ fun createAssets() = arrayListOf(
                 0.0
             )
         )),
-    CustomWallStructure(
+    CustomOldWallStructure(
         "O",
         false,
         arrayListOf(
@@ -3137,7 +3137,7 @@ fun createAssets() = arrayListOf(
                 0.0
             )
         )),
-    CustomWallStructure(
+    CustomOldWallStructure(
         "P",
         false,
         arrayListOf(
@@ -3174,7 +3174,7 @@ fun createAssets() = arrayListOf(
                 0.0
             )
         )),
-    CustomWallStructure(
+    CustomOldWallStructure(
         "Q",
         false,
         arrayListOf(
@@ -3243,7 +3243,7 @@ fun createAssets() = arrayListOf(
                 0.0
             )
         )),
-    CustomWallStructure(
+    CustomOldWallStructure(
         "R",
         false,
         arrayListOf(
@@ -3320,7 +3320,7 @@ fun createAssets() = arrayListOf(
                 0.0
             )
         )),
-    CustomWallStructure(
+    CustomOldWallStructure(
         "S",
         false,
         arrayListOf(
@@ -3365,7 +3365,7 @@ fun createAssets() = arrayListOf(
                 0.0
             )
         )),
-    CustomWallStructure(
+    CustomOldWallStructure(
         "T",
         false,
         arrayListOf(
@@ -3386,7 +3386,7 @@ fun createAssets() = arrayListOf(
                 0.0
             )
         )),
-    CustomWallStructure(
+    CustomOldWallStructure(
         "U",
         false,
         arrayListOf(
@@ -3415,7 +3415,7 @@ fun createAssets() = arrayListOf(
                 0.0
             )
         )),
-    CustomWallStructure(
+    CustomOldWallStructure(
         "V",
         false,
         arrayListOf(
@@ -3500,7 +3500,7 @@ fun createAssets() = arrayListOf(
                 0.0
             )
         )),
-    CustomWallStructure(
+    CustomOldWallStructure(
         "W",
         false,
         arrayListOf(
@@ -3665,7 +3665,7 @@ fun createAssets() = arrayListOf(
                 0.0
             )
         )),
-    CustomWallStructure(
+    CustomOldWallStructure(
         "X",
         false,
         arrayListOf(
@@ -3798,7 +3798,7 @@ fun createAssets() = arrayListOf(
                 0.0
             )
         )),
-    CustomWallStructure(
+    CustomOldWallStructure(
         "Y",
         false,
         arrayListOf(
@@ -3907,7 +3907,7 @@ fun createAssets() = arrayListOf(
                 0.0
             )
         )),
-    CustomWallStructure(
+    CustomOldWallStructure(
         "Z",
         false,
         arrayListOf(
@@ -3992,7 +3992,7 @@ fun createAssets() = arrayListOf(
                 0.0
             )
         )),
-    CustomWallStructure(
+    CustomOldWallStructure(
         "smallA",
         false,
         arrayListOf(
@@ -4029,7 +4029,7 @@ fun createAssets() = arrayListOf(
                 0.0
             )
         )),
-    CustomWallStructure(
+    CustomOldWallStructure(
         "heart",
         false,
         arrayListOf(

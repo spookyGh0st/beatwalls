@@ -1,19 +1,19 @@
 package song
 
 import com.google.gson.annotations.SerializedName
-import structures.Parameters
+import structures.OldParameters
 
 data class _bookmarks (
 
     @SerializedName("_time") val _time : Double,
     @SerializedName("_name") val _name : String
 ){
-    fun getCommandList(commandName:String):ArrayList<Parameters>{
+    fun getCommandList(commandName:String):ArrayList<OldParameters>{
         val regex = """(?<=$commandName\s)(\w*)(\s(\w|\.|-)+)*""".toRegex()
-        val list = arrayListOf<Parameters>()
+        val list = arrayListOf<OldParameters>()
         regex.findAll(this._name).forEach {
             it.value.removePrefix("/bw ")
-            list.add(Parameters(commandText = it.value))
+            list.add(OldParameters(commandText = it.value))
         }
         return list
     }

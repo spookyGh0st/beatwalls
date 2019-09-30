@@ -11,7 +11,7 @@ import com.github.ajalt.clikt.parameters.types.file
 import mu.KotlinLogging
 import reader.*
 import song.*
-import structures.CustomWallStructure
+import structures.CustomOldWallStructure
 import structures.Wall
 import structures.WallStructureManager
 import java.io.File
@@ -99,7 +99,7 @@ class Beatwalls : CliktCommand() {
                         val tempObsList = readOldAssets(file)
                         val tempWallList = ArrayList(tempObsList.map { it.toWall() })
                         val tempWallName =file.name.removeSuffix(".oldAsset")
-                        val tempWallStruct = CustomWallStructure(tempWallName,false,tempWallList)
+                        val tempWallStruct = CustomOldWallStructure(tempWallName,false,tempWallList)
                         if(assetList.findLast { it.name==tempWallName }!= null) throw(Exception("Name $tempWallName already in use, please use a different name"))
                         assetList.add(tempWallStruct)
                         writeAssets(assetList)

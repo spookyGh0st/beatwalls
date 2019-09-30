@@ -2,7 +2,6 @@ package structures
 
 import com.google.gson.annotations.SerializedName
 import song._obstacles
-import java.time.Duration
 import kotlin.math.abs
 import kotlin.random.Random
 
@@ -108,18 +107,18 @@ data class Wall(
         Wall(-startRow, duration, -width, height, startHeight, startTime)
 
     /**overwrites the values, depending on the given parameters*/
-    fun adjustParameters(parameters: Parameters){
+    fun adjustParameters(oldParameters: OldParameters){
         //Adding all the values
-        var tempDuration = duration + parameters.duration
-        val tempHeight = height + parameters.wallHeight
-        val tempStartHeight = startHeight + parameters.wallStartHeight
-        val tempStartRow = startRow + parameters.startRow
-        val tempWidth = width + parameters.width
-        var tempStartTime = startTime + parameters.startTime
+        var tempDuration = duration + oldParameters.duration
+        val tempHeight = height + oldParameters.wallHeight
+        val tempStartHeight = startHeight + oldParameters.wallStartHeight
+        val tempStartRow = startRow + oldParameters.startRow
+        val tempWidth = width + oldParameters.width
+        var tempStartTime = startTime + oldParameters.startTime
 
         //adjusting the scale
-        if(tempDuration>0)  tempDuration *= parameters.scale
-        tempStartTime *= parameters.scale
+        if(tempDuration>0)  tempDuration *= oldParameters.scale
+        tempStartTime *= oldParameters.scale
 
         //adjust the values
         this.duration =tempDuration

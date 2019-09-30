@@ -2,28 +2,35 @@ package structures
 
 import kotlin.reflect.KProperty
 
-sealed class WallStructure(){
+sealed class WallStructure() {
 
     /**saves the name of the class directly to the name property */
-    open val name = this::class.simpleName?: String()
-    val wallList = arrayListOf<Wall>()
+    open val name = this::class.simpleName ?: String()
+
     abstract fun getWalls()
 
-    private fun remove(wall: Wall) {
+    fun remove(wall: Wall) {
         wallList.remove(wall)
     }
-    private fun remove(wall: Collection<Wall>) {
+
+    fun remove(wall: Collection<Wall>) {
         wallList.removeAll(wall)
     }
-    private fun add(wall: Wall) {
+
+    fun add(wall: Wall) {
         wallList.add(wall)
     }
-    private fun add(wall: Collection<Wall>) {
+
+    fun add(wall: Collection<Wall>) {
         wallList.addAll(wall)
     }
 
+
+    val wallList = arrayListOf<Wall>()
+
+
     /** Options are used to set the Parameters */
-    val options = arrayListOf<String>()
+    val options = arrayListOf<kotlin.String>()
 
     /** a Flag, can be true of false */
     inner class Boolean(private val default:kotlin.Boolean= false) {
@@ -36,7 +43,7 @@ sealed class WallStructure(){
         }
     }
 
-    /** Options hold value of different type */
+    /** Options hold value of Type Int */
     inner class Int(private val default: kotlin.Int?= null){
         operator fun getValue(thisRef: WallStructure, property: KProperty<*>): kotlin.Int?{
             val ref = getOptionList(property.name)
@@ -52,7 +59,7 @@ sealed class WallStructure(){
             return null
         }
     }
-    /** Options hold value of different type */
+    /** Options hold value of Type Double */
     inner class Double(private val default: kotlin.Double?= null){
         operator fun getValue(thisRef: WallStructure, property: KProperty<*>): kotlin.Double?{
             val ref = getOptionList(property.name)
@@ -68,10 +75,25 @@ sealed class WallStructure(){
             return default
         }
     }
-
+    /** Options hold value of Type Double */
+    inner class String(private val default: kotlin.String?= null){
+        operator fun getValue(thisRef: WallStructure, property: KProperty<*>): kotlin.String?{
+            val ref = getOptionList(property.name)
+            if(options.none{ ref.contains(it)})
+                return default
+            else
+                for (r in ref){
+                    val index = options.indexOf(r)
+                    val result = options.getOrNull(index+1)
+                    if(result !=null && result.startsWith('\'') && result.endsWith('\''))
+                        return result.removeSurrounding("'")
+                }
+            return default
+        }
+    }
     /** gets the String list of --sfa -s for the sfa */
-    fun getOptionList(string: String): ArrayList<String>{
-        val ref = arrayListOf<String>()
+    fun getOptionList(string: kotlin.String): ArrayList<kotlin.String>{
+        val ref = arrayListOf<kotlin.String>()
         ref.add(string.toLowerCase().prependIndent("--"))
         ref.add(string
             .toLowerCase()
@@ -83,19 +105,23 @@ sealed class WallStructure(){
 }
 
 
-
 class TestStructure:WallStructure(){
     val mirror by Boolean(true)
     val amount by Int(12)
+    val text by String("abc")
     override fun getWalls() {
+        add(Wall(0.0,1.0,0.0,0.0,0.0,0.0))
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 }
 fun main(){
     val a = TestStructure()
-    a.options.addAll(listOf("bla","-m","--amount","123"))
+    a.options.addAll(listOf("bla","-m","--amount","123","hallowelt","--tet","'123'"))
     println(a.mirror)
     println(a.amount)
-
+    println(a.text)
+    val b = a.wallList
+    b.add(Wall(0.0,1.0,0.0,0.0,0.0,0.0))
+    println(a.wallList.size)
 }
 

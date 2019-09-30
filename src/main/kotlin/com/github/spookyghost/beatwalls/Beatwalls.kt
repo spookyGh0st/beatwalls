@@ -13,7 +13,7 @@ import reader.*
 import song.*
 import structures.CustomOldWallStructure
 import structures.Wall
-import structures.WallStructureManager
+import structures.OldWallStructureManager
 import java.io.File
 import kotlin.system.exitProcess
 
@@ -63,7 +63,7 @@ class Beatwalls : CliktCommand() {
 
         try {
             val assetList = readAssets()
-            WallStructureManager.loadManager(assetList)
+            OldWallStructureManager.loadManager(assetList)
             //adds all the song
             when {
                 codeGen -> {
@@ -165,7 +165,7 @@ class Beatwalls : CliktCommand() {
 
                     //add the for each command to the obstacle list
                     for (command in commandList) {
-                        list.addAll(WallStructureManager.getWallList(command))
+                        list.addAll(OldWallStructureManager.getWallList(command))
                         wallCounter++
                     }
 

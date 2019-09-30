@@ -481,7 +481,7 @@ object FuckUp: OldWallStructure(){
     override fun getWallList(oldParameters: OldParameters): ArrayList<Wall> {
         val amount = oldParameters.customParameters.getIntOrElse(0, 2)
         val tempParameters = OldParameters(name = "Splitter",customParameters = arrayListOf("$amount"), innerParameter = oldParameters.innerParameter)
-        val list = WallStructureManager.getWallList(tempParameters)
+        val list = OldWallStructureManager.getWallList(tempParameters)
         return ArrayList(list.map{ it.fuckUp() })
     }
 }
@@ -493,7 +493,7 @@ object Grounder: OldWallStructure(){
     override val wallList: ArrayList<Wall> = arrayListOf()
     override fun getWallList(oldParameters: OldParameters): ArrayList<Wall> {
         val startHeight = oldParameters.customParameters.getDoubleOrElse(0, 0.0)
-        val list = WallStructureManager.getWallList(oldParameters.innerParameter?: OldParameters())
+        val list = OldWallStructureManager.getWallList(oldParameters.innerParameter?: OldParameters())
         return ArrayList(list.map{ it.ground(startHeight) })
     }
 }
@@ -504,7 +504,7 @@ object Mirror: OldWallStructure() {
     override val mirror = false
     override val wallList = arrayListOf<Wall>()
     override fun getWallList(oldParameters: OldParameters): ArrayList<Wall> {
-        val list = WallStructureManager.getWallList(oldParameters.innerParameter?: OldParameters())
+        val list = OldWallStructureManager.getWallList(oldParameters.innerParameter?: OldParameters())
         return ArrayList(list.map { it.mirror() })
     }
 }
@@ -514,7 +514,7 @@ object Extender: OldWallStructure() {
     override val mirror = false
     override val wallList = arrayListOf<Wall>()
     override fun getWallList(oldParameters: OldParameters): ArrayList<Wall> {
-        val list = WallStructureManager.getWallList(oldParameters.innerParameter?: OldParameters())
+        val list = OldWallStructureManager.getWallList(oldParameters.innerParameter?: OldParameters())
         val final = oldParameters.customParameters.getDoubleOrElse(0,1.0)
         return ArrayList(list.map{ it.extend(final) })
     }
@@ -526,7 +526,7 @@ object ChangeDuration: OldWallStructure() {
     override val mirror = false
     override val wallList = arrayListOf<Wall>()
     override fun getWallList(oldParameters: OldParameters): ArrayList<Wall> {
-        val list = WallStructureManager.getWallList(oldParameters.innerParameter?: OldParameters())
+        val list = OldWallStructureManager.getWallList(oldParameters.innerParameter?: OldParameters())
         val d = oldParameters.customParameters.getDoubleOrElse(0,-3.0)
         list.forEach { it.duration=d }
         return list
@@ -539,7 +539,7 @@ object SkyFitter: OldWallStructure(){
     override val wallList: ArrayList<Wall> = arrayListOf()
     override fun getWallList(oldParameters: OldParameters): ArrayList<Wall> {
         val endHeight = oldParameters.customParameters.getDoubleOrElse(0, 20.0)
-        val list = WallStructureManager.getWallList(oldParameters.innerParameter?: OldParameters())
+        val list = OldWallStructureManager.getWallList(oldParameters.innerParameter?: OldParameters())
         return ArrayList(list.map{ it.sky(endHeight) })
     }
 }
@@ -550,7 +550,7 @@ object Splitter: OldWallStructure() {
     override val name: String = "splitter"
     override val wallList: ArrayList<Wall> = arrayListOf()
     override fun getWallList(oldParameters: OldParameters): ArrayList<Wall> {
-        val list = WallStructureManager.getWallList(oldParameters.innerParameter?: OldParameters())
+        val list = OldWallStructureManager.getWallList(oldParameters.innerParameter?: OldParameters())
         val amount = oldParameters.customParameters.getIntOrElse(0,2)
 
         val tempList = arrayListOf<Wall>()
@@ -588,7 +588,7 @@ object Text: OldWallStructure() {
         val midX = oldParameters.customParameters.getDoubleOrElse(2,0.0)
         var x=  midX-(text.length-1) * gap / 2 - gap/2
         for(c in text){
-            val tempList =WallStructureManager.getWallList(OldParameters(name = c.toString()))
+            val tempList =OldWallStructureManager.getWallList(OldParameters(name = c.toString()))
             tempList.forEach { it.startRow += x }
             x+=gap
             list.addAll(tempList)

@@ -1,9 +1,8 @@
-package structures
+package parameter
 
 import com.google.gson.annotations.SerializedName
-import java.io.File
 
-class Parameter :CommandParser() {
+class Parameter : CommandParser() {
     val beat by Double(0.0)
     val fast by Boolean()
     val hyper by Boolean()

@@ -2,7 +2,7 @@ package assetFile
 
 import com.google.gson.annotations.SerializedName
 import structures.CustomWallStructure
-import structures.Parameter
+import parameter.Parameter
 
 /** A Combination of a WallList and A CommandList */
 data class MixedStructure(

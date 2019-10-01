@@ -1,5 +1,6 @@
-package structures
+package parameter
 
+import structures.WallStructure
 import kotlin.reflect.KProperty
 
 abstract class CommandParser{

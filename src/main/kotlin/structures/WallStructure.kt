@@ -1,9 +1,9 @@
 package structures
 
-import com.google.gson.annotations.SerializedName
-import kotlin.reflect.KProperty
+import parameter.CommandParser
 
-sealed class WallStructure():CommandParser() {
+@Suppress("unused")
+sealed class WallStructure(): CommandParser() {
 
     /**saves the name of the class directly to the name property */
     open val name = this::class.simpleName ?: String()

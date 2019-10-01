@@ -1,56 +1,96 @@
 package assetFile
 
 import com.google.gson.Gson
-import com.google.gson.GsonBuilder
 import mu.KotlinLogging
-import java.io.*
+import song.Song
+import java.io.BufferedReader
+import java.io.File
+import java.io.FileReader
 import java.nio.file.Paths
 import kotlin.system.exitProcess
 
-private val logger = KotlinLogging.logger {}
 
+@Suppress("unused", "MemberVisibilityCanBePrivate")
 object AssetController{
+    private val logger = KotlinLogging.logger {}
     private val file: File = Paths.get(File("").absoluteFile.path, "Asset.json").toFile()
-    fun readAssetFile(): AssetFile {
-        try {
+    private val asset = readAssetFile()
 
+//    ____        _     _ _        _____                 _   _
+//   |  _ \ _   _| |__ | (_) ___  |  ___|   _ _ __   ___| |_(_) ___  _ __  ___
+//   | |_) | | | | '_ \| | |/ __| | |_ | | | | '_ \ / __| __| |/ _ \| '_ \/ __|
+//   |  __/| |_| | |_) | | | (__  |  _|| |_| | | | | (__| |_| | (_) | | | \__ \
+//   |_|    \__,_|_.__/|_|_|\___| |_|   \__,_|_| |_|\___|\__|_|\___/|_| |_|___/
+
+    /** Adds a Song to the Asset File */
+    fun addSong() {
+        asset.addSong()
+        asset.save()
+    }
+
+    /** changes the Song */
+    fun changeSong() {
+        if(asset.songList.isEmpty())
+            addSong()
+        asset.changeSong()
+        asset.save()
+    }
+
+    fun currentSong():Song{
+        val str = asset.currentSong?.SongPath
+        //Adds a Song if none exist
+        if(str == null){
+            asset.changeSong()
+            return currentSong()
+        }
+        return try {
+            Song(File(str))
+        }catch (e:Exception){
+            errorExit(e) { "Failed to read the current Song, check the syntax of $str"}
+            currentSong()
+        }
+    }
+
+//    ____       _            _         _____                 _   _
+//   |  _ \ _ __(_)_   ____ _| |_ ___  |  ___|   _ _ __   ___| |_(_) ___  _ __  ___
+//   | |_) | '__| \ \ / / _` | __/ _ \ | |_ | | | | '_ \ / __| __| |/ _ \| '_ \/ __|
+//   |  __/| |  | |\ V / (_| | ||  __/ |  _|| |_| | | | | (__| |_| | (_) | | | \__ \
+//   |_|   |_|  |_| \_/ \__,_|\__\___| |_|   \__,_|_| |_|\___|\__|_|\___/|_| |_|___/
+
+    /** reads in the Asset File */
+    private fun readAssetFile(): AssetFile {
+        return try {
             if(!file.exists()) {
                 logger.info { "AssetFile not found, trying to create Default File" }
-                writeAssetFile()
+                writeDefaultAssetFile()
             }
             val reader = BufferedReader(FileReader(file))
             val json = reader.readText()
             val asset = Gson().fromJson(json, AssetFile::class.java)
             reader.close()
-            return asset!!
+            asset!!
         }catch (e:Exception){
-            logger.error { "Failed to Readfile" }
-            logger.error { e.message }
-            println("Press Enter to Exit")
-            readLine()
-            exitProcess(1)
+            errorExit(e) { "Failed to Read AssetFile, something is wrong with it" }
+            readAssetFile()
         }
     }
 
-    fun writeAssetFile(){
-        try {
-            val gson = GsonBuilder().setPrettyPrinting().create()
-            val json = gson.toJson(AssetFile())
-            val writer = BufferedWriter(FileWriter(file))
-            writer.write(json)
-            writer.close()
-            if (!file.exists())
-                throw FileNotFoundException()
-            logger.info { "Created default AssetFile at ${file.absolutePath}" }
-        }catch (e:Exception){
-            logger.error { "Failed to write Assets" }
+    /** Creates a new Asset File */
+    private fun writeDefaultAssetFile(){
+        val f = AssetFile()
+        f.addSong()
+        f.changeSong()
+        f.save()
+    }
+
+    fun errorExit(e:Exception? = null, msg: () -> Any){
+        println(msg.invoke())
+        if(e != null){
+            logger.info { "See Error Log below" }
             logger.error { e.message }
         }
-
+        println("\nPress Enter to Exit")
+        readLine()
+        exitProcess(1)
     }
 }
-fun main() {
-    val a = AssetController.readAssetFile()
-    println(a.version)
-}
-

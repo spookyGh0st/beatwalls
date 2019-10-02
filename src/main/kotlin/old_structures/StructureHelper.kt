@@ -1,4 +1,4 @@
-package structures
+package old_structures
 
 //import com.graphbuilder.curve.*
 import kotlin.math.*

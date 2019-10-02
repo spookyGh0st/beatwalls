@@ -1,7 +1,7 @@
 package song
 
 import com.google.gson.annotations.SerializedName
-import structures.Wall
+import old_structures.Wall
 
 data class _obstacles (
 

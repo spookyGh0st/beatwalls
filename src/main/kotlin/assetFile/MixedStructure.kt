@@ -1,7 +1,7 @@
 package assetFile
 
 import com.google.gson.annotations.SerializedName
-import structures.CustomWallStructure
+import old_structures.CustomWallStructure
 import parameter.Parameter
 
 /** A Combination of a WallList and A CommandList */

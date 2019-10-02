@@ -1,4 +1,4 @@
-package structures
+package old_structures
 
 import com.google.gson.annotations.SerializedName
 import kotlin.math.*

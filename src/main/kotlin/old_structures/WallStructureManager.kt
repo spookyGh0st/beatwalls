@@ -1,6 +1,4 @@
-package structures
-
-import reader.readAssets
+package old_structures
 
 object WallStructureManager {
     val allWallStructure = arrayListOf<WallStructure>()

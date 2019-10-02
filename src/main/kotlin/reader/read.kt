@@ -7,7 +7,7 @@ import mu.KotlinLogging
 import song.Difficulty
 import song.Info
 import song._obstacles
-import structures.CustomOldWallStructure
+import old_structures.CustomOldWallStructure
 import java.io.*
 import java.nio.file.Paths
 

@@ -1,7 +1,7 @@
 package song
 
 import com.google.gson.annotations.SerializedName
-import structures.OldParameters
+import old_structures.OldParameters
 
 data class _bookmarks (
 

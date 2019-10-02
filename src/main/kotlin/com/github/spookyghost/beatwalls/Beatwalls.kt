@@ -11,9 +11,9 @@ import com.github.ajalt.clikt.parameters.types.file
 import mu.KotlinLogging
 import reader.*
 import song.*
-import structures.CustomOldWallStructure
-import structures.Wall
-import structures.OldWallStructureManager
+import old_structures.CustomOldWallStructure
+import old_structures.Wall
+import old_structures.OldWallStructureManager
 import java.io.File
 import kotlin.system.exitProcess
 

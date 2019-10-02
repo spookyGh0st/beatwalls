@@ -1,4 +1,4 @@
-package old_structures
+package structure
 
 import parameter.CommandParser
 
@@ -33,12 +33,12 @@ sealed class WallStructure(): CommandParser() {
 }
 
 
-class TestStructure:WallStructure(){
+class TestStructure: WallStructure(){
     val mirror by Boolean(true)
     val amount by Int(12)
     val text by String("abc")
     override fun getWalls() {
-        add(Wall(0.0,1.0,0.0,0.0,0.0,0.0))
+        add(Wall(0.0, 1.0, 0.0, 0.0, 0.0, 0.0))
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 }
@@ -57,7 +57,7 @@ fun main(){
     println(a.amount)
     println(a.text)
     val b = a.wallList
-    b.add(Wall(0.0,1.0,0.0,0.0,0.0,0.0))
+    b.add(Wall(0.0, 1.0, 0.0, 0.0, 0.0, 0.0))
     println(a.wallList.size)
 }
 

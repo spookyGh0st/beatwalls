@@ -3,6 +3,7 @@ package old_structures
 
 import mu.KotlinLogging
 import song.Difficulty
+import structure.Wall
 
 private val logger = KotlinLogging.logger {}
 

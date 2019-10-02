@@ -12,7 +12,7 @@ import mu.KotlinLogging
 import reader.*
 import song.*
 import old_structures.CustomOldWallStructure
-import old_structures.Wall
+import structure.Wall
 import old_structures.OldWallStructureManager
 import java.io.File
 import kotlin.system.exitProcess

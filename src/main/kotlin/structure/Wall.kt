@@ -1,6 +1,7 @@
-package old_structures
+package structure
 
 import com.google.gson.annotations.SerializedName
+import old_structures.OldParameters
 import song._obstacles
 import kotlin.math.abs
 import kotlin.random.Random
@@ -138,25 +139,25 @@ data class Wall(
     }
     fun split():List<Wall> = when {
         this.height>this.width -> listOf(
-            Wall(startRow,duration,width,height/2,startHeight,startTime),
-            Wall(startRow,duration,width,height/2,startHeight+ height/2,startTime)
+            Wall(startRow, duration, width, height / 2, startHeight, startTime),
+            Wall(startRow, duration, width, height / 2, startHeight + height / 2, startTime)
         )
         else -> listOf(
-            Wall(startRow,duration,width/2,height/2,startHeight,startTime),
-            Wall(startRow+width/2,duration,width/2,height/2,startHeight,startTime)
+            Wall(startRow, duration, width / 2, height / 2, startHeight, startTime),
+            Wall(startRow + width / 2, duration, width / 2, height / 2, startHeight, startTime)
         )
     }
     fun fuckUp() =
-        Wall(ra(startRow),ra(duration),ra(width),ra(height),ra(startHeight),ra(startTime))
+        Wall(ra(startRow), ra(duration), ra(width), ra(height), ra(startHeight), ra(startTime))
 
     fun ground(h:Double) =
-        Wall(startRow,duration,width,height+(startHeight-h),h,startTime)
+        Wall(startRow, duration, width, height + (startHeight - h), h, startTime)
 
     fun sky(h:Double) =
-        Wall(startRow,duration,width,(h-startHeight),startHeight,startTime)
+        Wall(startRow, duration, width, (h - startHeight), startHeight, startTime)
 
     fun extend(a:Double) =
-        Wall(startRow,a-startTime,width,height,startHeight,startTime)
+        Wall(startRow, a - startTime, width, height, startHeight, startTime)
 
     private fun ra(i:Double) = i+Random.nextDouble(-0.2 ,0.2)
 

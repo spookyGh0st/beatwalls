@@ -1,4 +1,4 @@
-package old_structures
+package structure
 
 //import com.graphbuilder.curve.*
 import kotlin.math.*
@@ -137,15 +137,15 @@ fun line(px1:Double, px2: Double, py1:Double, py2: Double, pz1: Double= 0.0, pz2
     return list
 }
 
-fun curve(p0: Point,p1: Point,p2: Point,p3:Point,amount: Int):ArrayList<Wall>{
+fun curve(p0: Point, p1: Point, p2: Point, p3: Point, amount: Int):ArrayList<Wall>{
 
     val list = arrayListOf<Wall>()
     if(p3.z<p0.z){
         throw Exception("You have something wrong with you curve")
     }
     repeat(amount){
-        val currentPoint = quadraticBezier(p0,p1,p2,p3, it.toDouble()/ amount)
-        val nextPoint = quadraticBezier(p0,p1,p2,p3, (it + 1.0)/ amount)
+        val currentPoint = quadraticBezier(p0, p1, p2, p3, it.toDouble() / amount)
+        val nextPoint = quadraticBezier(p0, p1, p2, p3, (it + 1.0) / amount)
         val startRow = currentPoint.x
         val startHeight = currentPoint.y
         val startTime = currentPoint.z
@@ -161,7 +161,7 @@ fun main(){
     val b = randomPoint()
     val c = randomPoint()
     val d = randomPoint()
-    val list = curve(a,b,c,d,4)
+    val list = curve(a, b, c, d, 4)
     println(list)
 }
 fun getBoxList(wallAmountPerWall: Int): ArrayList<Wall> {
@@ -169,16 +169,43 @@ fun getBoxList(wallAmountPerWall: Int): ArrayList<Wall> {
     for ( i in 0 until wallAmountPerWall*2){
         val startX = 8 * i.toDouble() / (wallAmountPerWall) /2 - 4
         //bottom
-        allWalls.add(Wall(startX,1.0/wallAmountPerWall,4.0/wallAmountPerWall,0.0 ,0.0,0.0))
+        allWalls.add(Wall(startX, 1.0 / wallAmountPerWall, 4.0 / wallAmountPerWall, 0.0, 0.0, 0.0))
         //top
-        allWalls.add(Wall(startX,1.0/wallAmountPerWall,4.0/wallAmountPerWall,4.0/wallAmountPerWall,4.0 ,0.0))
+        allWalls.add(
+            Wall(
+                startX,
+                1.0 / wallAmountPerWall,
+                4.0 / wallAmountPerWall,
+                4.0 / wallAmountPerWall,
+                4.0,
+                0.0
+            )
+        )
     }
     for ( i in 0 until wallAmountPerWall){
         val startY = 4 * i.toDouble() / (wallAmountPerWall)
         //left
-        allWalls.add(Wall(4.0,1.0/wallAmountPerWall,4.0/wallAmountPerWall,4.0/wallAmountPerWall,startY ,0.0))
+        allWalls.add(
+            Wall(
+                4.0,
+                1.0 / wallAmountPerWall,
+                4.0 / wallAmountPerWall,
+                4.0 / wallAmountPerWall,
+                startY,
+                0.0
+            )
+        )
         //right
-        allWalls.add(Wall(-4.0,1.0/wallAmountPerWall,-4.0/wallAmountPerWall,4.0/wallAmountPerWall,startY ,0.0))
+        allWalls.add(
+            Wall(
+                -4.0,
+                1.0 / wallAmountPerWall,
+                -4.0 / wallAmountPerWall,
+                4.0 / wallAmountPerWall,
+                startY,
+                0.0
+            )
+        )
     }
     return allWalls
 
@@ -186,7 +213,7 @@ fun getBoxList(wallAmountPerWall: Int): ArrayList<Wall> {
 fun randomPoint() =
     Point(Random.nextDouble(-4.0, 4.0), Random.nextDouble(-2.0, 2.0), Random.nextDouble())
 
-fun quadraticBezier( p0:Point, p1:Point, p2:Point, p3:Point, t:Double): Point{
+fun quadraticBezier(p0: Point, p1: Point, p2: Point, p3: Point, t:Double): Point {
     val x =(1-t).pow(3)*p0.x +
             (1-t).pow(2)*3*t*p1.x +
             (1-t)*3*t*t*p2.x +

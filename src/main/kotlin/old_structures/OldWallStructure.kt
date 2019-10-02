@@ -1,6 +1,7 @@
 package old_structures
 
 import com.google.gson.annotations.SerializedName
+import structure.*
 import kotlin.math.*
 import kotlin.random.Random
 
@@ -31,18 +32,20 @@ object Helix: OldWallStructure(){
         val heightOffset = oldParameters.customParameters.getDoubleOrElse(6,2.0)
         val speedChange = oldParameters.customParameters.getOrNull(7)?.toDouble()
         val wallDuration = oldParameters.customParameters.getOrNull(8)?.toDouble()
-        wallList.addAll( circle(
-            count = count,
-            radius = radius,
-            fineTuning = fineTuning,
-            startRotation = startRotation,
-            rotationCount = rotationCount,
-            heightOffset = heightOffset,
-            speedChange = speedChange,
-            wallDuration = wallDuration,
-            helix = true,
-            reverse = reverse
-        ))
+        wallList.addAll(
+            circle(
+                count = count,
+                radius = radius,
+                fineTuning = fineTuning,
+                startRotation = startRotation,
+                rotationCount = rotationCount,
+                heightOffset = heightOffset,
+                speedChange = speedChange,
+                wallDuration = wallDuration,
+                helix = true,
+                reverse = reverse
+            )
+        )
         return wallList
     }
 }
@@ -64,18 +67,20 @@ object CeilingHelix: OldWallStructure(){
         val radius = oldParameters.customParameters.getDoubleOrElse(2,5.0)
         val speedChange = oldParameters.customParameters.getOrNull(3)?.toDouble()
         val wallDuration = oldParameters.customParameters.getOrNull(4)?.toDouble()
-        wallList.addAll( circle(
-            count = count,
-            radius = radius,
-            fineTuning = fineTuning,
-            startRotation = startRotation,
-            rotationCount = rotationCount,
-            heightOffset = heightOffset,
-            speedChange = speedChange,
-            wallDuration = wallDuration,
-            helix = true,
-            reverse = reverse
-        ))
+        wallList.addAll(
+            circle(
+                count = count,
+                radius = radius,
+                fineTuning = fineTuning,
+                startRotation = startRotation,
+                rotationCount = rotationCount,
+                heightOffset = heightOffset,
+                speedChange = speedChange,
+                wallDuration = wallDuration,
+                helix = true,
+                reverse = reverse
+            )
+        )
         return wallList
     }
 }
@@ -98,7 +103,7 @@ object StairWay: OldWallStructure() {
             else
                 min - (i+1)*height
 
-            list.add( Wall(4.0, 1.0/amount, 0.5, height, startHeight, i.toDouble()/amount))
+            list.add(Wall(4.0, 1.0 / amount, 0.5, height, startHeight, i.toDouble() / amount))
         }
         return list
     }
@@ -127,7 +132,7 @@ object CyanLine: OldWallStructure() {
         val y2 = (cy - sin(dgr))*length
 
         wallList.addAll(
-            line(x1,x2,y1,y2,0.0,0.0,amount)
+            line(x1, x2, y1, y2, 0.0, 0.0, amount)
         )
         return wallList
     }
@@ -152,7 +157,7 @@ object Line: OldWallStructure() {
         val amount = oldParameters.customParameters.getOrNull(6)?.toInt()
         val duration = oldParameters.customParameters.getOrNull(7)?.toDouble()
 
-        wallList.addAll(line(x1,x2,y1,y2,z1,z2,amount,duration))
+        wallList.addAll(line(x1, x2, y1, y2, z1, z2, amount, duration))
 
         return wallList
     }
@@ -177,7 +182,7 @@ object MirroredLine: OldWallStructure() {
         val amount = oldParameters.customParameters.getOrNull(6)?.toInt()
         val duration = oldParameters.customParameters.getOrNull(7)?.toDouble()
 
-        wallList.addAll(line(x1,x2,y1,y2,z1,z2,amount,duration))
+        wallList.addAll(line(x1, x2, y1, y2, z1, z2, amount, duration))
 
         return wallList
     }
@@ -188,10 +193,10 @@ object Curve: OldWallStructure() {
     override val mirror = false
     override val wallList = arrayListOf<Wall>()
     override fun getWallList(oldParameters: OldParameters): ArrayList<Wall> {
-        var p0:Point
-        var p1:Point
-        var p2:Point
-        var p3:Point
+        var p0: Point
+        var p1: Point
+        var p2: Point
+        var p3: Point
         val amount =oldParameters.customParameters.getIntOrElse(0,8)
         val syntax = "The Syntax is /bw curve -- \$amount p1 \$x \$y\$z p2 \$x \$y\$z p3 \$x \$y\$z p4 \$x \$y\$z -- notice how p0-p3 must be hardcoded"
         if (oldParameters.customParameters.getOrNull(1) != "p1") throw Exception(syntax)
@@ -200,16 +205,16 @@ object Curve: OldWallStructure() {
         if (oldParameters.customParameters.getOrNull(13) != "p4") throw Exception(syntax)
         with(oldParameters.customParameters){
             try {
-                p0= Point(get(2).toDouble(),get(3).toDouble(),get(4).toDouble())
-                p1= Point(get(6).toDouble(),get(7).toDouble(),get(8).toDouble())
-                p2= Point(get(10).toDouble(),get(11).toDouble(),get(12).toDouble())
-                p3= Point(get(14).toDouble(),get(15).toDouble(),get(16).toDouble())
+                p0= Point(get(2).toDouble(), get(3).toDouble(), get(4).toDouble())
+                p1= Point(get(6).toDouble(), get(7).toDouble(), get(8).toDouble())
+                p2= Point(get(10).toDouble(), get(11).toDouble(), get(12).toDouble())
+                p3= Point(get(14).toDouble(), get(15).toDouble(), get(16).toDouble())
             }catch (e:Exception){
                 println("Something is wrong with your curve, skipping")
                 return arrayListOf()
             }
         }
-        return curve(p0,p1, p2, p3, amount)
+        return curve(p0, p1, p2, p3, amount)
     }
 }
 /** MirroredCurve Object - when called, creates a mirrored Curve */
@@ -218,10 +223,10 @@ object MirroredCurve: OldWallStructure() {
     override val mirror = true
     override val wallList = arrayListOf<Wall>()
     override fun getWallList(oldParameters: OldParameters): ArrayList<Wall> {
-        var p0:Point
-        var p1:Point
-        var p2:Point
-        var p3:Point
+        var p0: Point
+        var p1: Point
+        var p2: Point
+        var p3: Point
         val amount =oldParameters.customParameters.getIntOrElse(0,8)
         val syntax = "The Syntax is /bw curve -- \$amount p1 \$x \$y\$z p2 \$x \$y\$z p3 \$x \$y\$z p4 \$x \$y\$z -- while your options were ${oldParameters.customParameters} notice how p0-p3 must be hardcoded"
         if (oldParameters.customParameters.getOrNull(1) != "p1") throw Exception(syntax)
@@ -230,16 +235,16 @@ object MirroredCurve: OldWallStructure() {
         if (oldParameters.customParameters.getOrNull(13) != "p4") throw Exception(syntax)
         with(oldParameters.customParameters){
             try {
-                p0= Point(get(2).toDouble(),get(3).toDouble(),get(4).toDouble())
-                p1= Point(get(6).toDouble(),get(7).toDouble(),get(8).toDouble())
-                p2= Point(get(10).toDouble(),get(11).toDouble(),get(12).toDouble())
-                p3= Point(get(14).toDouble(),get(15).toDouble(),get(16).toDouble())
+                p0= Point(get(2).toDouble(), get(3).toDouble(), get(4).toDouble())
+                p1= Point(get(6).toDouble(), get(7).toDouble(), get(8).toDouble())
+                p2= Point(get(10).toDouble(), get(11).toDouble(), get(12).toDouble())
+                p3= Point(get(14).toDouble(), get(15).toDouble(), get(16).toDouble())
             }catch (e:Exception){
                 println("Something is wrong with your curve, skipping")
                 return arrayListOf()
             }
         }
-        return curve(p0,p1, p2, p3, amount)
+        return curve(p0, p1, p2, p3, amount)
     }
 }
 
@@ -305,7 +310,7 @@ object RandomNoise: OldWallStructure() {
         val intensity = try { oldParameters.customParameters[0].toInt() } catch (e:Exception){ 5 }
         repeat(intensity){
             val tempO = Wall(
-                startRow = Random.nextDouble(-4.0,4.0),
+                startRow = Random.nextDouble(-4.0, 4.0),
                 duration = 0.01,
                 width = 0.01,
                 height = 0.01,
@@ -328,7 +333,7 @@ object BroadRandomNoise: OldWallStructure() {
         val intensity = try { oldParameters.customParameters[0].toInt() } catch (e:Exception){ 5 }
         repeat(intensity){
             val tempO = Wall(
-                startRow = Random.nextDouble(-50.0,50.0),
+                startRow = Random.nextDouble(-50.0, 50.0),
                 duration = 0.01,
                 width = 0.01,
                 height = 0.01,
@@ -350,22 +355,26 @@ object RandomBlocks: OldWallStructure() {
         wallList.clear()
         val duration = oldParameters.customParameters.getDoubleOrElse(0,4.0)
         for(i in 0 until duration.toInt()){
-            wallList.add(Wall(
-                Random.nextDouble(10.0, 20.0),
-                Random.nextDouble(0.5),
-                Random.nextDouble(2.0),
-                Random.nextDouble(2.0),
-                0.0,
-                i.toDouble()
-            )    )
-            wallList.add(Wall(
-                Random.nextDouble(-20.0, -10.0),
-                Random.nextDouble(0.5),
-                Random.nextDouble(2.0),
-                Random.nextDouble(2.0),
-                0.0,
-                i.toDouble()
-            )    )
+            wallList.add(
+                Wall(
+                    Random.nextDouble(10.0, 20.0),
+                    Random.nextDouble(0.5),
+                    Random.nextDouble(2.0),
+                    Random.nextDouble(2.0),
+                    0.0,
+                    i.toDouble()
+                )
+            )
+            wallList.add(
+                Wall(
+                    Random.nextDouble(-20.0, -10.0),
+                    Random.nextDouble(0.5),
+                    Random.nextDouble(2.0),
+                    Random.nextDouble(2.0),
+                    0.0,
+                    i.toDouble()
+                )
+            )
         }
         return wallList
     }
@@ -380,22 +389,26 @@ object RandomFastBlocks: OldWallStructure() {
         wallList.clear()
         val duration = oldParameters.customParameters.getDoubleOrElse(0,4.0)
         for(i in 0 until duration.toInt()){
-            wallList.add(Wall(
-                Random.nextDouble(10.0, 20.0),
-                -2.0,
-                Random.nextDouble(2.0),
-                Random.nextDouble(2.0),
-                0.0,
-                i.toDouble()
-            )    )
-            wallList.add(Wall(
-                Random.nextDouble(-20.0, -10.0),
-                -2.0,
-                Random.nextDouble(2.0),
-                Random.nextDouble(2.0),
-                0.0,
-                i.toDouble()
-            )    )
+            wallList.add(
+                Wall(
+                    Random.nextDouble(10.0, 20.0),
+                    -2.0,
+                    Random.nextDouble(2.0),
+                    Random.nextDouble(2.0),
+                    0.0,
+                    i.toDouble()
+                )
+            )
+            wallList.add(
+                Wall(
+                    Random.nextDouble(-20.0, -10.0),
+                    -2.0,
+                    Random.nextDouble(2.0),
+                    Random.nextDouble(2.0),
+                    0.0,
+                    i.toDouble()
+                )
+            )
         }
         return wallList
     }
@@ -420,7 +433,7 @@ object RandomLines: OldWallStructure() {
 
             //for each wall intensity
             for(j in 1..intensity){
-                wallList.add(Wall(x, 1.0/intensity, 0.05, 0.05, 0.0, j.toDouble()/intensity))
+                wallList.add(Wall(x, 1.0 / intensity, 0.05, 0.05, 0.0, j.toDouble() / intensity))
 
                 //randomly changes lines, adjusts x when doing so
                 if (Random.nextInt(0, sqrt(count.toDouble()).roundToInt()) == 0){
@@ -456,7 +469,7 @@ object RandomSideLines: OldWallStructure() {
 
             //for each wall intensity
             for(j in 1..intensity){
-                wallList.add(Wall(4.0, 1.0/intensity, 0.05, 0.05, x, j.toDouble()/intensity))
+                wallList.add(Wall(4.0, 1.0 / intensity, 0.05, 0.05, x, j.toDouble() / intensity))
 
                 //randomly changes lines, adjusts x when doing so
                 if (Random.nextInt(0, sqrt(count.toDouble()).roundToInt()) == 0){
@@ -619,7 +632,18 @@ object LineShifter: OldWallStructure() {
         var tempy2 = p1y2
 
         for (i in 0 until amount){
-            list.addAll(line(tempx1,tempx2,tempy1,tempy2,i.toDouble()/amount,i.toDouble()/amount,null,1.0/amount))
+            list.addAll(
+                line(
+                    tempx1,
+                    tempx2,
+                    tempy1,
+                    tempy2,
+                    i.toDouble() / amount,
+                    i.toDouble() / amount,
+                    null,
+                    1.0 / amount
+                )
+            )
             tempx1 += (p2x1-p1x1)/amount
             tempx2 += (p2x2-p1x2)/amount
             tempy1 += (p2y1-p1y1)/amount
@@ -643,12 +667,12 @@ object SideWave: OldWallStructure(){
 
             list.add(
                 Wall(
-                    duration =  1 / max.toDouble(),
-                    height = abs(cos(nY)- cos(y)),
-                    startHeight = 1-cos(y),
+                    duration = 1 / max.toDouble(),
+                    height = abs(cos(nY) - cos(y)),
+                    startHeight = 1 - cos(y),
                     startRow = 3.0,
                     width = 0.5,
-                    startTime = i/max.toDouble()
+                    startTime = i / max.toDouble()
                 )
             )
         }

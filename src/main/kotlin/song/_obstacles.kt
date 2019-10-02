@@ -1,7 +1,7 @@
 package song
 
 import com.google.gson.annotations.SerializedName
-import old_structures.Wall
+import structure.Wall
 
 data class _obstacles (
 
@@ -22,7 +22,7 @@ data class _obstacles (
         }
     }
 
-    fun toWall():Wall{
+    fun toWall(): Wall {
         val startTime = this._time
         val duration = this._duration
         val startRow =  getLineIndex(_lineIndex)

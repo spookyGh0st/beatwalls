@@ -1,9 +1,9 @@
 package reader
 
 import old_structures.CustomOldWallStructure
-import old_structures.Wall
+import structure.Wall
 /*
-import old_structures.line
+import structure.line
 import kotlin.math.PI
 import kotlin.math.abs
 import kotlin.math.cos

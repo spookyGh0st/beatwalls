@@ -156,14 +156,7 @@ fun curve(p0: Point, p1: Point, p2: Point, p3: Point, amount: Int):ArrayList<Wal
     }
     return list
 }
-fun main(){
-    val a = randomPoint()
-    val b = randomPoint()
-    val c = randomPoint()
-    val d = randomPoint()
-    val list = curve(a, b, c, d, 4)
-    println(list)
-}
+
 fun getBoxList(wallAmountPerWall: Int): ArrayList<Wall> {
     val allWalls= arrayListOf<Wall>()
     for ( i in 0 until wallAmountPerWall*2){
@@ -255,46 +248,6 @@ data class Point(val x:Double, val y:Double, val z:Double) {
         return "Point(x=$x, y=$y, z=$z)"
     }
 }
-
-
-//object CurveTest {
-//
-//    @JvmStatic
-//    fun main(args: Array<String>) {
-//        val cp = ControlPath()
-//        cp.addPoint(getPoint(.0,.0))
-//        cp.addPoint(getPoint(10.0, 10.0))
-//        cp.addPoint(getPoint(20.0, 10.0))
-//        cp.addPoint(getPoint(30.0, 0.0))
-//
-//        cp.addCurve(BezierCurve(cp, GroupIterator("0:n-1", cp.numPoints())))
-//
-//        val dimension = 2
-//        val mp = MultiPath(dimension)
-//        mp.flatness = 0.10 // default flatness is 1.0
-//
-//        for (i in 0 until cp.numCurves())
-//            cp.getCurve(i).appendTo(mp)
-//        println("mp.numpoints: ${mp.numPoints}")
-//
-//        for (i in 0 until mp.numPoints) {
-//            val p = mp.get(i)
-//            println(p[0].toString() + ", " + p[1])
-//        }
-//    }
-//}
-//fun getPoint(x:Double, y:Double) = getPoint(doubleArrayOf(x,y))
-//fun getPoint(arr: DoubleArray) : Point = object : Point {
-//    override fun getLocation() = arr
-//    override fun setLocation(p: DoubleArray?) {
-//        arr.indices.forEach {
-//            arr[it]= p?.get(it)?: 0.0
-//        }
-//    }
-//}
-
-
-
 
 fun ArrayList<String>.getIntOrElse(index: Int, defaultValue: Int):Int =
     try { this[index].toInt() } catch (e:Exception){ defaultValue }

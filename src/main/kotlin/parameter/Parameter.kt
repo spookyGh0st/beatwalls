@@ -13,6 +13,8 @@ class Parameter() : CommandParser() {
     val extender by Double(1.0)
     val structureList by WallStructureList()
 
+    //TODO ALLOW SETTER
+
     constructor(c:Command):this(){
         options.addAll(c.command.split(" "))
     }

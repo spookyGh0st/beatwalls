@@ -162,9 +162,3 @@ data class Wall(
     private fun ra(i:Double) = i+Random.nextDouble(-0.2 ,0.2)
 
 }
-fun main(){
-}
-
-
-
-

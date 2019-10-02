@@ -1,63 +1,87 @@
 package structure
 
+import com.google.gson.annotations.SerializedName
 import parameter.CommandParser
 
 @Suppress("unused")
-sealed class WallStructure(): CommandParser() {
+sealed class WallStructure: CommandParser() {
+/**
+
+  ___                            _              _
+ |_ _|_ __ ___  _ __   ___  _ __| |_ __ _ _ __ | |_
+  | || '_ ` _ \| '_ \ / _ \| '__| __/ _` | '_ \| __|
+  | || | | | | | |_) | (_) | |  | || (_| | | | | |_
+ |___|_| |_| |_| .__/ \___/|_|   \__\__,_|_| |_|\__|
+               |_|
+
+* ALL DATA CLASSES WILL HOLD FIXED WALLS AND WONT RESET ON SETUP. THE REST DOES
+* So if you want to create Special WallStructure, add them on the bottom
+* */
 
     /**saves the name of the class directly to the name property */
-    open val name = this::class.simpleName ?: String()
+    protected open var name = this::class.simpleName ?: ""
+    protected open var wallList = arrayListOf<Wall>()
 
-    abstract fun getWalls()
+    /** USE THIS TO CHANGE WALLS */
+    protected open fun run() {}
 
-    fun remove(wall: Wall) {
+    protected fun remove(wall: Wall) {
         wallList.remove(wall)
     }
 
-    fun remove(wall: Collection<Wall>) {
+    protected fun remove(wall: Collection<Wall>) {
         wallList.removeAll(wall)
     }
 
-    fun add(wall: Wall) {
+    protected fun add(wall: Wall) {
         wallList.add(wall)
     }
 
-    fun add(wall: Collection<Wall>) {
+    protected fun add(wall: Collection<Wall>) {
         wallList.addAll(wall)
     }
 
+    /** clears the walls to ensure the list if fresh! and runs it*/
+    fun wallList(array:Array<kotlin.String>): List<Wall>{
+        if(!this::class.isData){
+            wallList.clear()
+            options.clear()
+            options.addAll(array)
+            run()
+        }
+        return  cloneWalls()
+    }
 
-    open val wallList = arrayListOf<Wall>()
-
-
+    private fun cloneWalls(): List<Wall> {
+        return wallList.map { it.copy() }
+    }
 }
 
+/** CustomWallStructure, used to safe static Walls */
+data class CustomWallStructure(
+    @SerializedName("Name")
+    override var name:kotlin.String,
+    @SerializedName("Wall List")
+    override var wallList: ArrayList<Wall>
+): WallStructure()
+
+/**
+ ____  ____  _____ ____ ___    _    _      __        ___    _     _     ____ _____ ____  _   _  ____ _____ _   _ ____  _____ ____
+/ ___||  _ \| ____/ ___|_ _|  / \  | |     \ \      / / \  | |   | |   / ___|_   _|  _ \| | | |/ ___|_   _| | | |  _ \| ____/ ___|
+\___ \| |_) |  _|| |    | |  / _ \ | |      \ \ /\ / / _ \ | |   | |   \___ \ | | | |_) | | | | |     | | | | | | |_) |  _| \___ \
+___) |  __/| |__| |___ | | / ___ \| |___    \ V  V / ___ \| |___| |___ ___) || | |  _ <| |_| | |___  | | | |_| |  _ <| |___ ___) |
+|____/|_|   |_____\____|___/_/   \_\_____|    \_/\_/_/   \_\_____|_____|____/ |_| |_| \_\\___/ \____| |_|  \___/|_| \_\_____|____/
+*/
 
 class TestStructure: WallStructure(){
     val mirror by Boolean(true)
     val amount by Int(12)
     val text by String("abc")
-    override fun getWalls() {
+    override fun run() {
         add(Wall(0.0, 1.0, 0.0, 0.0, 0.0, 0.0))
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 }
-class CustomWallStructure(
-): WallStructure(){
 
-    override fun getWalls() {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
-
-}
 fun main(){
-    val a = TestStructure()
-    a.options.addAll(listOf("bla","-m","--amount","123","hallowelt","--tet","'123'"))
-    println(a.mirror)
-    println(a.amount)
-    println(a.text)
-    val b = a.wallList
-    b.add(Wall(0.0, 1.0, 0.0, 0.0, 0.0, 0.0))
-    println(a.wallList.size)
 }
 

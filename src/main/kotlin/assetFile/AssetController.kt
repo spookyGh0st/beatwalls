@@ -3,6 +3,7 @@ package assetFile
 import com.google.gson.Gson
 import mu.KotlinLogging
 import song.Song
+import structure.CustomWallStructure
 import java.io.BufferedReader
 import java.io.File
 import java.io.FileReader
@@ -50,6 +51,12 @@ object AssetController{
             currentSong()
         }
     }
+
+    fun customWallStructures() =
+        asset.currentSong!!.customWallStructure
+
+    fun mixedWallStructures() =
+        asset.currentSong!!.mixedWallStructure
 
 //    ____       _            _         _____                 _   _
 //   |  _ \ _ __(_)_   ____ _| |_ ___  |  ___|   _ _ __   ___| |_(_) ___  _ __  ___

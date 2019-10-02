@@ -9,34 +9,7 @@ data class Difficulty (
     @SerializedName("_events") var _events : ArrayList<_events>,
     @SerializedName("_notes") var _notes : ArrayList<_notes>,
     @SerializedName("_obstacles") var _obstacles : ArrayList<_obstacles>
-)
-
-fun Difficulty.containsCommand(string: String) = this._bookmarks.any { it._name.contains("/$string") }
-
-/*
-fun Difficulty.createWalls(bpm: Double){
-    _bookmarks.forEach { it ->
-
-        val tempBpm =_BPMChanges.findLast{ bpmChanges -> bpmChanges._time <= it._time }?._BPM ?: bpm
-
-        val list = arrayListOf<_obstacles>()
-
-        val timeOffset = it._time
-
-        it.forEachBSCommand("bw"){
-            list.addAll(WallStructureManager.getWallList(it))
-        }
-
-
-        list.forEach {
-            it.adjust(bpm, tempBpm, timeOffset)
-            _obstacles.add(it)
-        }
-    }
+){
+    fun containsCommand(string: String) = this._bookmarks.any { it._name.contains("/$string") }
 }
- */
-
-
-
-
 

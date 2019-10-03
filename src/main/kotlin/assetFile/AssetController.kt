@@ -1,14 +1,13 @@
 package assetFile
 
+import com.github.spookyghost.beatwalls.errorExit
 import com.google.gson.Gson
 import mu.KotlinLogging
 import song.Song
-import structure.CustomWallStructure
 import java.io.BufferedReader
 import java.io.File
 import java.io.FileReader
 import java.nio.file.Paths
-import kotlin.system.exitProcess
 
 
 @Suppress("unused", "MemberVisibilityCanBePrivate")
@@ -23,20 +22,8 @@ object AssetController{
 //   |  __/| |_| | |_) | | | (__  |  _|| |_| | | | | (__| |_| | (_) | | | \__ \
 //   |_|    \__,_|_.__/|_|_|\___| |_|   \__,_|_| |_|\___|\__|_|\___/|_| |_|___/
 
-    /** Adds a Song to the Asset File */
-    fun addSong() {
-        asset.addSong()
-        asset.save()
-    }
 
     /** changes the Song */
-    fun changeSong() {
-        if(asset.songList.isEmpty())
-            addSong()
-        asset.changeSong()
-        asset.save()
-    }
-
     fun currentSong():Song{
         val str = asset.currentSong?.SongPath
         //Adds a Song if none exist
@@ -51,12 +38,21 @@ object AssetController{
             currentSong()
         }
     }
+    fun changeSong(){
+        asset.changeSong()
+        asset.save()
+    }
+    fun changeDirectory()  {
+        asset.changeDirectory()
+        asset.scanDirectory()
+        asset.save()
+    }
 
     fun customWallStructures() =
-        asset.currentSong!!.customWallStructure
+        asset.customWallStructure
 
     fun mixedWallStructures() =
-        asset.currentSong!!.mixedWallStructure
+        asset.mixedWallStructure
 
 //    ____       _            _         _____                 _   _
 //   |  _ \ _ __(_)_   ____ _| |_ ___  |  ___|   _ _ __   ___| |_(_) ___  _ __  ___
@@ -66,7 +62,7 @@ object AssetController{
 
     /** reads in the Asset File */
     private fun readAssetFile(): AssetFile {
-        return try {
+        try {
             if(!file.exists()) {
                 logger.info { "AssetFile not found, trying to create Default File" }
                 writeDefaultAssetFile()
@@ -75,29 +71,24 @@ object AssetController{
             val json = reader.readText()
             val asset = Gson().fromJson(json, AssetFile::class.java)
             reader.close()
-            asset!!
+            asset.scanDirectory()
+            asset.save()
+            return asset
         }catch (e:Exception){
             errorExit(e) { "Failed to Read AssetFile, something is wrong with it" }
-            readAssetFile()
+            return readAssetFile()
         }
     }
 
     /** Creates a new Asset File */
     private fun writeDefaultAssetFile(){
         val f = AssetFile()
-        f.addSong()
+        f.changeDirectory()
+        f.scanDirectory()
         f.changeSong()
+        f.customWallStructure.addAll(defaultWallStructure())
         f.save()
     }
 
-    fun errorExit(e:Exception? = null, msg: () -> Any){
-        println(msg.invoke())
-        if(e != null){
-            logger.info { "See Error Log below" }
-            logger.error { e.message }
-        }
-        println("\nPress Enter to Exit")
-        readLine()
-        exitProcess(1)
-    }
 }
+

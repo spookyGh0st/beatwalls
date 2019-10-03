@@ -1,16 +1,14 @@
 package assetFile
 
+import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
-import structure.CustomWallStructure
 
 /**Song Class the File saves */
 data class SavedSongData(
+    @Expose
     @SerializedName("Song Path")
     val SongPath: String,
+    @Expose
     @SerializedName("NJS Offset")
-    val njsOffset: Double,
-    @SerializedName("Wall Structure List")
-    val customWallStructure: List<CustomWallStructure> = arrayListOf(),
-    @SerializedName("Mixed Structure List")
-    val mixedWallStructure: List<MixedStructure> = arrayListOf()
+    val njsOffset: Double
 )

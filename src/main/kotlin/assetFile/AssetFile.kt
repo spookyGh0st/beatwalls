@@ -1,9 +1,12 @@
 package assetFile
 
+import com.github.spookyghost.beatwalls.errorExit
 import com.google.gson.GsonBuilder
+import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
 import mu.KotlinLogging
 import reader.isSong
+import structure.CustomWallStructure
 import java.io.BufferedWriter
 import java.io.File
 import java.io.FileNotFoundException
@@ -15,12 +18,25 @@ import kotlin.system.exitProcess
 
 class AssetFile(
     @SerializedName("Version")
+    @Expose
     val version: Double = 1.0,
     @SerializedName("Active Song")
+    @Expose
     var songPath: String ="",
+    @SerializedName("Directory")
+    @Expose
+    var directory: String = "C:\\Program Files (x86)\\Steam\\steamapps\\common\\Beat Saber\\Beat Saber_Data\\CustomWIPLevels\"",
     @SerializedName("SongList")
-    val songList: ArrayList<SavedSongData> = arrayListOf()
+    @Expose
+    val songList: ArrayList<SavedSongData> = arrayListOf(),
+    @SerializedName("Mixed Structure List")
+    @Expose
+    val mixedWallStructure: ArrayList<MixedStructure> = arrayListOf(),
+    @SerializedName("Wall Structure List")
+    @Expose
+    val customWallStructure: ArrayList<CustomWallStructure> = arrayListOf()
 ) {
+
     /** Storing the songPath everytime this is set */
     var currentSong:SavedSongData?
         get() {
@@ -38,14 +54,19 @@ class AssetFile(
 //   |  __/| |_| | |_) | | | (__  |  _|| |_| | | | | (__| |_| | (_) | | | \__ \
 //   |_|    \__,_|_.__/|_|_|\___| |_|   \__,_|_| |_|\___|\__|_|\___/|_| |_|___/
 
-    /** Adding a new Song to the List */
-    fun addSong(){
-        val p = readSongPath().absolutePath
-        val n = getNJSOffset()
-        if(songList.any {it.SongPath == p})
-            logger.warn { "Song is already in the Songlist, skipping.." }
-        else
-            songList.add(SavedSongData(p,n))
+
+
+
+    /** adds the directory to the file */
+    fun changeDirectory(){
+        println("Please enter the Path to the directory, leave blank to default to default CustomWIP Levels")
+        val input = readLine()?:"C:\\Program Files (x86)\\Steam\\steamapps\\common\\Beat Saber\\Beat Saber_Data\\CustomWIPLevels\""
+        val file = File(input.removeSuffix("\"").removePrefix("\""))
+        when {
+            file.isDirectory && file.walk().mapNotNull { it.isSong() }.toList().isNotEmpty() -> this.directory = file.absolutePath
+            else -> errorExit { "Failed to read Directory ${file.absolutePath}. Is it really a directory?" }
+        }
+        save()
     }
 
     /** Asks to change the Song */
@@ -53,7 +74,6 @@ class AssetFile(
         currentSong = if(songList.size==1){
             songList.first()
         }else{
-            printSongList()
             pickSong()
         }
     }
@@ -62,7 +82,7 @@ class AssetFile(
     fun save(){
         val file: File = Paths.get(File("").absoluteFile.path, "Asset.json").toFile()
         try {
-            val gson = GsonBuilder().setPrettyPrinting().create()
+            val gson = GsonBuilder().excludeFieldsWithoutExposeAnnotation().setPrettyPrinting().create()
             val json = gson.toJson(this)
             val writer = BufferedWriter(FileWriter(file))
             writer.write(json)
@@ -82,6 +102,25 @@ class AssetFile(
 //   | |_) | '__| \ \ / / _` | __/ _ \ | |_ | | | | '_ \ / __| __| |/ _ \| '_ \/ __|
 //   |  __/| |  | |\ V / (_| | ||  __/ |  _|| |_| | | | | (__| |_| | (_) | | | \__ \
 //   |_|   |_|  |_| \_/ \__,_|\__\___| |_|   \__,_|_| |_|\___|\__|_|\___/|_| |_|___/
+
+
+    /** Adding a new Song to the List */
+    private fun addSong(file: File) {
+        val p = file.absolutePath
+        if(!songList.any {it.SongPath == p}){
+            val folderName = file.name
+            logger.info { "adding $folderName to the Songlist" }
+            val n = getNJSOffset()
+            songList.add(SavedSongData(p,n))
+        }
+    }
+
+    fun scanDirectory() {
+        File(directory)
+            .walk()
+            .filter { it.isSong() }
+            .forEach { addSong(it) }
+    }
 
     /** prints the Songs with Indixes */
     private fun printSongList(){
@@ -126,16 +165,24 @@ class AssetFile(
 
     /** Picks a Song and is mean if you try to be funny */
     private fun pickSong():SavedSongData{
+        printSongList()
+        println("\nPlease pick the Song you want to use\n")
         print("index: ")
         val index = readLine()?.toIntOrNull()
         val song =  songList.getOrNull(index = index?:-1)
         if(song == null)
-            println("""██╗   ██╗ ██████╗ ██╗   ██╗     █████╗ ██████╗ ███████╗     ██████╗  █████╗ ██╗   ██╗
-╚██╗ ██╔╝██╔═══██╗██║   ██║    ██╔══██╗██╔══██╗██╔════╝    ██╔════╝ ██╔══██╗╚██╗ ██╔╝
- ╚████╔╝ ██║   ██║██║   ██║    ███████║██████╔╝█████╗      ██║  ███╗███████║ ╚████╔╝ 
-  ╚██╔╝  ██║   ██║██║   ██║    ██╔══██║██╔══██╗██╔══╝      ██║   ██║██╔══██║  ╚██╔╝  
-   ██║   ╚██████╔╝╚██████╔╝    ██║  ██║██║  ██║███████╗    ╚██████╔╝██║  ██║   ██║   
-   ╚═╝    ╚═════╝  ╚═════╝     ╚═╝  ╚═╝╚═╝  ╚═╝╚══════╝     ╚═════╝ ╚═╝  ╚═╝   ╚═╝   
+            println("""
+ .----.     .----.   __.....__                                                                 _..._      _..._                  
+  \    \   /    /.-''         '.                 .-.          .-               _.._          .'     '.  .'     '..-.          .- 
+   '   '. /'   //     .-''"'-.  `. .-,.--. .-,.--.\ \        / /             .' .._|        .   .-.   ..   .-.   .\ \        / / 
+   |    |'    //     /________\   \|  .-. ||  .-. |\ \      / /              | '            |  '   '  ||  '   '  | \ \      / /  
+   |    ||    ||                  || |  | || |  | | \ \    / /             __| |__  _    _  |  |   |  ||  |   |  |  \ \    / /   
+   '.   `'   .'\    .-------------'| |  | || |  | |  \ \  / /             |__   __|| '  / | |  |   |  ||  |   |  |   \ \  / /    
+    \        /  \    '-.____...---.| |  '- | |  '-    \ `  /                 | |  .' | .' | |  |   |  ||  |   |  |    \ `  /     
+     \      /    `.             .' | |     | |         \  /                  | |  /  | /  | |  |   |  ||  |   |  |     \  /      
+      '----'       `''-...... -'   | |     | |         / /                   | | |   `'.  | |  |   |  ||  |   |  |     / /       
+                                   |_|     |_|     |`-' /                    | | '   .'|  '/|  |   |  ||  |   |  | |`-' /        
+                                                    '..'                     |_|  `-'  `--' '--'   '--''--'   '--'  '..'         
         """.trimIndent())
         return song?:pickSong()
 

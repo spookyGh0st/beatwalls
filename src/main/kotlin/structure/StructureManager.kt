@@ -1,14 +1,15 @@
 package structure
 
 import assetFile.AssetController
+import com.github.ajalt.clikt.core.CliktCommand
 import com.github.ajalt.clikt.core.subcommands
 import parameter.Command
 import parameter.Parameter
 
 object StructureManager {
-    private val allWallStructure = allDefaultWalls()
+    val allWallStructure = allDefaultWalls()
     private fun allDefaultWalls(): List<WallStructure> {
-        val specialWalls = WallStructure::class.sealedSubclasses
+        val specialWalls = SpecialWallStructure::class.sealedSubclasses
             .mapNotNull { it.objectInstance }
 
         val customWalls =
@@ -27,13 +28,20 @@ object StructureManager {
     }
 
     fun walls(c:Command): List<Wall> {
-        val arr = c.command.split(" ")
+        val arr = ArrayList(c.command.split(" "))
         val struct = findStructure(arr)
         var p = Parameter()
-        struct.forEach {
-            p = p.subcommands(it)
-        }
-        TODO()
+
+        /** ads the subcommands to the special wallstructures */
+        struct
+            .filterIsInstance<SpecialWallStructure>()
+            .forEach {  p = p.subcommands(it)   }
+
+        /** removes the normal wallStructures from the args */
+        struct
+            .filterIsInstance<CustomWallStructure>()
+            .forEach { arr.remove(it.name.toLowerCase()) }
+
         p.main(arr)
         val tempWalls = struct.flatMap { it.walls() }
         return p.parseWalls(tempWalls)
@@ -42,6 +50,8 @@ object StructureManager {
 }
 
 fun main(){
-    val command = Command(0.0,"/bw -fh floor")
+
+
+    val command = Command(0.0,"-fh floor")
     println(StructureManager.walls(command))
 }

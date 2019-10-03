@@ -20,6 +20,7 @@ data class _bookmarks (
 }
 
 inline fun _bookmarks.forEachBSCommand(command:String, action: (ArrayList<String>)-> Unit) {
+    TODO("DONT REMOVE /BW")
     val regex = """(?<=/$command\s)(\w*)(\s(\w|\.|-)+)*""".toRegex()
     regex.findAll(this._name).forEach {
         action(ArrayList(it.value.split(" ")))

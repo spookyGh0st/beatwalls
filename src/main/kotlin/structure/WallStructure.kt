@@ -1,10 +1,11 @@
 package structure
 
+import com.github.ajalt.clikt.core.CliktCommand
+import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
-import parameter.CommandParser
 
 @Suppress("unused")
-sealed class WallStructure: CommandParser() {
+sealed class WallStructure : CliktCommand {
 /**
 
   ___                            _              _
@@ -18,12 +19,13 @@ sealed class WallStructure: CommandParser() {
 * So if you want to create Special WallStructure, add them on the bottom
 * */
 
-    /**saves the name of the class directly to the name property */
-    protected open var name = this::class.simpleName ?: ""
-    protected open var wallList = arrayListOf<Wall>()
+    constructor() : super()
+    constructor(name: String) : super(name = name)
 
-    /** USE THIS TO CHANGE WALLS */
-    protected open fun run() {}
+
+    /**saves the name of the class directly to the name property */
+    open var name: String = this::class.simpleName ?: ""
+    open var wallList: ArrayList<Wall> = arrayListOf()
 
     protected fun remove(wall: Wall) {
         wallList.remove(wall)
@@ -41,29 +43,24 @@ sealed class WallStructure: CommandParser() {
         wallList.addAll(wall)
     }
 
-    /** clears the walls to ensure the list if fresh! and runs it*/
-    fun wallList(array:Array<kotlin.String>): List<Wall>{
-        if(!this::class.isData){
-            wallList.clear()
-            options.clear()
-            options.addAll(array)
-            run()
-        }
-        return  cloneWalls()
-    }
-
-    private fun cloneWalls(): List<Wall> {
+    fun walls(): List<Wall> {
         return wallList.map { it.copy() }
     }
 }
 
 /** CustomWallStructure, used to safe static Walls */
+
 data class CustomWallStructure(
     @SerializedName("Name")
-    override var name:kotlin.String,
+    @Expose
+    override var name: String,
     @SerializedName("Wall List")
+    @Expose
     override var wallList: ArrayList<Wall>
-): WallStructure()
+): WallStructure(name) {
+    override fun run() {
+    }
+}
 
 /**
  ____  ____  _____ ____ ___    _    _      __        ___    _     _     ____ _____ ____  _   _  ____ _____ _   _ ____  _____ ____
@@ -73,10 +70,11 @@ ___) |  __/| |__| |___ | | / ___ \| |___    \ V  V / ___ \| |___| |___ ___) || |
 |____/|_|   |_____\____|___/_/   \_\_____|    \_/\_/_/   \_\_____|_____|____/ |_| |_| \_\\___/ \____| |_|  \___/|_| \_\_____|____/
 */
 
-class TestStructure: WallStructure(){
-    val mirror by Boolean(true)
-    val amount by Int(12)
-    val text by String("abc")
+object SampleStructure: WallStructure(){
+    override fun run(){
+    }
+}
+object TestStructure: WallStructure(){
     override fun run() {
         add(Wall(0.0, 1.0, 0.0, 0.0, 0.0, 0.0))
     }

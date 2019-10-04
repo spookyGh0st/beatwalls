@@ -3,7 +3,17 @@ package com.github.spookyghost.beatwalls
 import mu.KotlinLogging
 import kotlin.system.exitProcess
 
-fun main(args: Array<String>) = Beatwalls().main(args)
+fun main(args: Array<String>) {
+
+    try {
+        BeatWalls().main(args)
+        println("Succesfull")
+        readLine()
+
+    } catch (e: Exception) {
+        errorExit(e) { "Something failed" }
+    }
+}
 
 private val logger = KotlinLogging.logger {}
 

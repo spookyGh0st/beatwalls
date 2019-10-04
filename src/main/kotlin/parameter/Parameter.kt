@@ -13,6 +13,8 @@ class Parameter: CliktCommand(name = "/bw") {
 
     val time by option("-t").flag()
 
+    val save by option().double()
+
     val fast by option("-f").flag()
     val hyper by option("-h").flag()
     val mirror by option("-m").flag()

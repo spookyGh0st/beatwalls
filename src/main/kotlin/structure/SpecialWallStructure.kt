@@ -48,6 +48,6 @@ object TestStructure: SpecialWallStructure(){
     }
 }
 
-fun main(){
-}
+
+
 

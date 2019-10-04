@@ -1,17 +1,20 @@
 package structure
 
 import assetFile.AssetController
-import com.github.ajalt.clikt.core.CliktCommand
 import com.github.ajalt.clikt.core.subcommands
 import parameter.Command
 import parameter.Parameter
 import song.Difficulty
-import song._BPMChanges
 
+@Suppress("RedundantEmptyInitializerBlock")
 object StructureManager {
     private val allWallStructure = allDefaultWalls()
     private val bpm = AssetController.getBPM()
-    private fun allDefaultWalls(): List<WallStructure> {
+
+    init {
+        //allWallStructure.addAll(AssetController.mixedWallStructures().map { it.toCustomWallStructure() })
+    }
+    private fun allDefaultWalls(): ArrayList<WallStructure> {
         val specialWalls = SpecialWallStructure::class.sealedSubclasses
             .mapNotNull { it.objectInstance }
 
@@ -19,7 +22,7 @@ object StructureManager {
             AssetController.customWallStructures()
 
         val list = specialWalls + customWalls // + mWallCommandStruct
-        return  list
+        return  ArrayList(list)
     }
 
     private fun findStructure(c: List<String>): List<WallStructure> {
@@ -30,8 +33,8 @@ object StructureManager {
         }
     }
 
-    fun walls(c:Command, d:Difficulty): List<Wall> {
-        val arr = ArrayList(c.command.split(" "))
+    fun walls(c:Command, d:Difficulty?): List<Wall> {
+        val arr = ArrayList(c.command.split(" ").filter { it.isNotEmpty() })
         val struct = findStructure(arr)
         var p = Parameter()
 
@@ -45,12 +48,12 @@ object StructureManager {
             .filterIsInstance<CustomWallStructure>()
             .forEach { arr.remove(it.name.toLowerCase()) }
 
-        p.main(arr)
+        p.parse(arr)
         var tempWalls = struct.flatMap { it.walls() }
 
         /** bpm change */
         val tempBpm =
-            d._BPMChanges.findLast { bpmChanges -> bpmChanges._time <= c.beatStartTime }?._BPM ?: bpm
+            d?._BPMChanges?.findLast { bpmChanges -> bpmChanges._time <= c.beatStartTime }?._BPM ?: bpm
 
         /** before bpm change*/
         with (p){
@@ -73,12 +76,6 @@ object StructureManager {
         /** after bpm change */
         return tempWalls
     }
-
-    private fun List<Wall>.adjustBefore(p: Parameter): List<Wall> {
-        return this
-        //todo
-    }
-
 
     private fun List<Wall>.mapIf(b:Boolean, refactor: (Wall) -> Wall): List<Wall>{
         return if(b)

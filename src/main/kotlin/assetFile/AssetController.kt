@@ -59,6 +59,8 @@ object AssetController{
     fun getBPM() =
         currentSong().info._beatsPerMinute
 
+    fun save() = asset.save()
+
 //    ____       _            _         _____                 _   _
 //   |  _ \ _ __(_)_   ____ _| |_ ___  |  ___|   _ _ __   ___| |_(_) ___  _ __  ___
 //   | |_) | '__| \ \ / / _` | __/ _ \ | |_ | | | | '_ \ / __| __| |/ _ \| '_ \/ __|

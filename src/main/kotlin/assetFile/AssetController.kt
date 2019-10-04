@@ -38,6 +38,8 @@ object AssetController{
             currentSong()
         }
     }
+
+    fun njsOffset() = asset.currentSong?.njsOffset?:2.0
     fun changeSong(){
         asset.changeSong()
         asset.save()
@@ -53,6 +55,9 @@ object AssetController{
 
     fun mixedWallStructures() =
         asset.mixedWallStructure
+
+    fun getBPM() =
+        currentSong().info._beatsPerMinute
 
 //    ____       _            _         _____                 _   _
 //   |  _ \ _ __(_)_   ____ _| |_ ___  |  ___|   _ _ __   ___| |_(_) ___  _ __  ___

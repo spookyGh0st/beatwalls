@@ -1,5 +1,6 @@
 package structure
 
+import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
 import old_structures.OldParameters
 import song._obstacles
@@ -8,11 +9,17 @@ import kotlin.random.Random
 
 
 data class Wall(
+    @Expose
     @SerializedName("startRow") var startRow: Double,
+    @Expose
     @SerializedName("duration") var duration: Double,
+    @Expose
     @SerializedName("width") var width: Double,
+    @Expose
     @SerializedName("height") var height: Double,
+    @Expose
     @SerializedName("startHeight") var startHeight: Double,
+    @Expose
     @SerializedName("startTime") var startTime: Double
 ){
     override fun toString(): String {
@@ -131,11 +138,14 @@ data class Wall(
 
     }
 
-    fun adjustToBPM(baseBPM:Double,newBPM:Double,offset:Double){
-        startTime *= (baseBPM / newBPM)
-        startTime += offset
-        if(duration > 0)
-            duration *= (baseBPM / newBPM)
+    fun adjustToBPM(baseBPM:Double,newBPM:Double,offset:Double): Wall {
+        var tempStartTime = startTime* (baseBPM / newBPM)
+        tempStartTime += offset
+        val tempDuration = if(duration > 0)
+            duration * (baseBPM / newBPM)
+        else
+            duration
+        return this.copy(startTime = tempStartTime, duration = tempDuration)
     }
     fun split():List<Wall> = when {
         this.height>this.width -> listOf(
@@ -160,5 +170,27 @@ data class Wall(
         Wall(startRow, a - startTime, width, height, startHeight, startTime)
 
     private fun ra(i:Double) = i+Random.nextDouble(-0.2 ,0.2)
-
+    fun fast() = this.copy(duration= -2.0)
+    fun hyper() = this.copy(duration = -3.0)
+    fun mVertical(sh:Double = 2.0) = this.copy(startHeight = 2*sh-startHeight, height = -height)
+    fun scale(s:Double) = this.copy(
+        duration= if(duration>0) duration*s else duration,
+        startTime = startTime*s)
+    fun verticalScale(s:Double) = this.copy(
+        startRow= startRow*s,
+        height = height*s,
+        startTime = startHeight*s
+    )
+    fun extendX(a:Double) = this.copy(
+        width = a-startRow
+    )
+    fun extendY(a:Double) = this.copy(
+        height = a-startHeight
+        )
+    fun extendZ(a: Double) = this.copy(
+        duration = a - startTime
+    )
+    fun time(a:Double) = this.copy(
+        startTime = startTime+a
+    )
 }

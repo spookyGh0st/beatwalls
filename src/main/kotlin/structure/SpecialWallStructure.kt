@@ -1,6 +1,10 @@
 package structure
 
 import com.github.ajalt.clikt.core.CliktCommand
+import com.github.ajalt.clikt.parameters.options.default
+import com.github.ajalt.clikt.parameters.options.option
+import com.github.ajalt.clikt.parameters.types.double
+import com.github.ajalt.clikt.parameters.types.int
 
 /**
 ____  ____  _____ ____ ___    _    _      __        ___    _     _     ____ _____ ____  _   _  ____ _____ _   _ ____  _____ ____
@@ -36,8 +40,11 @@ object SampleStructure: SpecialWallStructure(){
     }
 }
 object TestStructure: SpecialWallStructure(){
+    val a by option().int().default(1)
     override fun run() {
-        add(Wall(0.0, 1.0, 0.0, 0.0, 0.0, 0.0))
+        repeat(a){
+            add(Wall(0.0, 1.0, 0.0, 0.0, 0.0, 0.0))
+        }
     }
 }
 

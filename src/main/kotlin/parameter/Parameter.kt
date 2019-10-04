@@ -1,18 +1,18 @@
 package parameter
 
 import com.github.ajalt.clikt.core.CliktCommand
-import com.github.ajalt.clikt.core.subcommands
 import com.github.ajalt.clikt.parameters.options.default
 import com.github.ajalt.clikt.parameters.options.flag
 import com.github.ajalt.clikt.parameters.options.option
 import com.github.ajalt.clikt.parameters.types.double
-import structure.StructureManager
 import structure.Wall
-import kotlin.Exception
 
 
 class Parameter: CliktCommand(name = "/bw") {
     val beat by option().double().default(0.0)
+
+    val time by option("-t").flag()
+
     val fast by option("-f").flag()
     val hyper by option("-h").flag()
     val mirror by option("-m").flag()
@@ -25,7 +25,6 @@ class Parameter: CliktCommand(name = "/bw") {
     val extendZ by option().double()
 
     fun parseWalls(list: List<Wall>): List<Wall> {
-        //todo
         return list
     }
     override fun run() {    }

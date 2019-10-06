@@ -18,7 +18,6 @@ class BeatWalls: CliktCommand(){
 
     override fun run() {
         if(c) AssetController.changeSong()
-        if(d) AssetController.changeDirectory()
         val song = AssetController.currentSong()
         val difficultyList =song.difficultyList
         //with each difficulty, add all walls
@@ -36,6 +35,8 @@ class BeatWalls: CliktCommand(){
                     //converts the list to _obstacle and adds it
                     _obstacles.addAll(walls.map { it.to_obstacle() })
                 }
+
+                /** TODO make this better */
                 for (bookmark in _bookmarks) {
                     val walls = bookmark
                         .toCommandList("/bw-save")
@@ -45,7 +46,7 @@ class BeatWalls: CliktCommand(){
                         val offset =  if(command.command.contains("-t")) AssetController.njsOffset() else 0.0
                         val list = ArrayList(_obstacles
                             .filter {
-                                it._time in (command.beatStartTime+offset-1.0)..(command.beatStartTime+duration+offset+1.0)
+                                it._time in (command.beatStartTime+offset)..(command.beatStartTime+duration+offset)
                             }
                             .map { it.toWall() }
                         )

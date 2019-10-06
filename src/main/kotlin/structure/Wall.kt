@@ -112,7 +112,14 @@ data class Wall(
 
     /**returns the mirrored obstacle */
     fun mirror()=
-        Wall(-startRow, duration, -width, height, startHeight, startTime)
+        Wall(
+            startRow = -startRow,
+            duration = duration,
+            width = -width,
+            height = height,
+            startHeight = startHeight,
+            startTime = startTime
+        )
 
     /**overwrites the values, depending on the given parameters*/
     fun adjustParameters(oldParameters: OldParameters){
@@ -179,7 +186,7 @@ data class Wall(
     fun verticalScale(s:Double) = this.copy(
         startRow= startRow*s,
         height = height*s,
-        startTime = startHeight*s
+        startHeight= startHeight*s
     )
     fun extendX(a:Double) = this.copy(
         width = a-startRow

@@ -20,15 +20,9 @@ class AssetFile(
     @SerializedName("Version")
     @Expose
     val version: Double = 1.0,
-    @SerializedName("Active Song")
+    @SerializedName("Current Song")
     @Expose
-    var songPath: String ="",
-    @SerializedName("Directory")
-    @Expose
-    var directory: String = "C:\\Program Files (x86)\\Steam\\steamapps\\common\\Beat Saber\\Beat Saber_Data\\CustomWIPLevels\"",
-    @SerializedName("SongList")
-    @Expose
-    val songList: ArrayList<SavedSongData> = arrayListOf(),
+    var currentSong:SavedSongData = SavedSongData("",0.0),
     @SerializedName("Mixed Structure List")
     @Expose
     val mixedWallStructure: ArrayList<MixedStructure> = arrayListOf(),
@@ -36,14 +30,6 @@ class AssetFile(
     @Expose
     val customWallStructure: ArrayList<CustomWallStructure> = arrayListOf()
 ) {
-
-    /** Storing the songPath everytime this is set */
-    var currentSong:SavedSongData?
-        get() {
-            return songList.find { it.SongPath == songPath }
-        }set(value) {
-        songPath= value?.SongPath ?: ""
-    }
     @Transient
     private val logger = KotlinLogging.logger {}
 
@@ -54,31 +40,14 @@ class AssetFile(
 //   |  __/| |_| | |_) | | | (__  |  _|| |_| | | | | (__| |_| | (_) | | | \__ \
 //   |_|    \__,_|_.__/|_|_|\___| |_|   \__,_|_| |_|\___|\__|_|\___/|_| |_|___/
 
-
-
-
-    /** adds the directory to the file */
-    fun changeDirectory(){
-        println("Please enter the Path to the directory, leave blank to default to default CustomWIP Levels")
-        val input = readLine()?:"C:\\Program Files (x86)\\Steam\\steamapps\\common\\Beat Saber\\Beat Saber_Data\\CustomWIPLevels\""
-        val file = File(input.removeSuffix("\"").removePrefix("\""))
-        when {
-            file.isDirectory && file.walk().mapNotNull { it.isSong() }.toList().isNotEmpty() -> this.directory = file.absolutePath
-            else -> errorExit { "Failed to read Directory ${file.absolutePath}. Is it really a directory?" }
-        }
-        save()
+    /** Adding a new Song to the List */
+    fun changeSong() {
+        val path = readSongPath()
+        val njsOffset = getNJSOffset()
+        val p = path.absolutePath
+        currentSong = SavedSongData(p,njsOffset)
     }
 
-    /** Asks to change the Song */
-    fun changeSong(){
-        currentSong = if(songList.size==1){
-            songList.first()
-        }else{
-            pickSong()
-        }
-    }
-
-    /** Saves the AssetFile to its Default Location */
     fun save(){
         val file: File = Paths.get(File("").absoluteFile.path, "Asset.json").toFile()
         try {
@@ -88,12 +57,10 @@ class AssetFile(
             writer.write(json)
             writer.close()
             if (!file.exists())
-                throw FileNotFoundException()
+                throw Exception("File not found")
             logger.info { "saved AssetFile at ${file.absolutePath}" }
         }catch (e:Exception){
-            logger.error { "Failed to save Assets" }
-            logger.error { e.message }
-            exitProcess(1)
+            errorExit(e) {"Failed to save Assets"}
         }
     }
 
@@ -103,33 +70,6 @@ class AssetFile(
 //   |  __/| |  | |\ V / (_| | ||  __/ |  _|| |_| | | | | (__| |_| | (_) | | | \__ \
 //   |_|   |_|  |_| \_/ \__,_|\__\___| |_|   \__,_|_| |_|\___|\__|_|\___/|_| |_|___/
 
-
-    /** Adding a new Song to the List */
-    private fun addSong(file: File) {
-        val p = file.absolutePath
-        if(!songList.any {it.SongPath == p}){
-            val folderName = file.name
-            logger.info { "adding $folderName to the Songlist" }
-            val n = getNJSOffset()
-            songList.add(SavedSongData(p,n))
-        }
-    }
-
-    fun scanDirectory() {
-        File(directory)
-            .walk()
-            .filter { it.isSong() }
-            .forEach { addSong(it) }
-    }
-
-    /** prints the Songs with Indixes */
-    private fun printSongList(){
-        println("\nSaved Songs:")
-        for((index, s) in songList.withIndex()){
-            println("\t$index: ${s.SongPath}")
-        }
-        println()
-    }
 
     /** Asking for NJS */
     private fun getNJSOffset(): Double {
@@ -161,31 +101,6 @@ class AssetFile(
             logger.error { e.message }
             readSongPath()
         }
-    }
-
-    /** Picks a Song and is mean if you try to be funny */
-    private fun pickSong():SavedSongData{
-        printSongList()
-        println("\nPlease pick the Song you want to use\n")
-        print("index: ")
-        val index = readLine()?.toIntOrNull()
-        val song =  songList.getOrNull(index = index?:-1)
-        if(song == null)
-            println("""
- .----.     .----.   __.....__                                                                 _..._      _..._                  
-  \    \   /    /.-''         '.                 .-.          .-               _.._          .'     '.  .'     '..-.          .- 
-   '   '. /'   //     .-''"'-.  `. .-,.--. .-,.--.\ \        / /             .' .._|        .   .-.   ..   .-.   .\ \        / / 
-   |    |'    //     /________\   \|  .-. ||  .-. |\ \      / /              | '            |  '   '  ||  '   '  | \ \      / /  
-   |    ||    ||                  || |  | || |  | | \ \    / /             __| |__  _    _  |  |   |  ||  |   |  |  \ \    / /   
-   '.   `'   .'\    .-------------'| |  | || |  | |  \ \  / /             |__   __|| '  / | |  |   |  ||  |   |  |   \ \  / /    
-    \        /  \    '-.____...---.| |  '- | |  '-    \ `  /                 | |  .' | .' | |  |   |  ||  |   |  |    \ `  /     
-     \      /    `.             .' | |     | |         \  /                  | |  /  | /  | |  |   |  ||  |   |  |     \  /      
-      '----'       `''-...... -'   | |     | |         / /                   | | |   `'.  | |  |   |  ||  |   |  |     / /       
-                                   |_|     |_|     |`-' /                    | | '   .'|  '/|  |   |  ||  |   |  | |`-' /        
-                                                    '..'                     |_|  `-'  `--' '--'   '--''--'   '--'  '..'         
-        """.trimIndent())
-        return song?:pickSong()
-
     }
 }
 

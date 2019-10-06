@@ -25,12 +25,8 @@ object AssetController{
 
     /** changes the Song */
     fun currentSong():Song{
-        val str = asset.currentSong?.SongPath
+        val str = asset.currentSong.SongPath
         //Adds a Song if none exist
-        if(str == null){
-            asset.changeSong()
-            return currentSong()
-        }
         return try {
             Song(File(str))
         }catch (e:Exception){
@@ -39,14 +35,9 @@ object AssetController{
         }
     }
 
-    fun njsOffset() = asset.currentSong?.njsOffset?:2.0
+    fun njsOffset() = asset.currentSong.njsOffset
     fun changeSong(){
         asset.changeSong()
-        asset.save()
-    }
-    fun changeDirectory()  {
-        asset.changeDirectory()
-        asset.scanDirectory()
         asset.save()
     }
 
@@ -78,8 +69,6 @@ object AssetController{
             val json = reader.readText()
             val asset = Gson().fromJson(json, AssetFile::class.java)
             reader.close()
-            asset.scanDirectory()
-            asset.save()
             return asset
         }catch (e:Exception){
             errorExit(e) { "Failed to Read AssetFile, something is wrong with it" }
@@ -90,8 +79,6 @@ object AssetController{
     /** Creates a new Asset File */
     private fun writeDefaultAssetFile(){
         val f = AssetFile()
-        f.changeDirectory()
-        f.scanDirectory()
         f.changeSong()
         f.customWallStructure.addAll(defaultWallStructure())
         f.save()

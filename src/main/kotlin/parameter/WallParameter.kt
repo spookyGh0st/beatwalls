@@ -8,7 +8,7 @@ import com.github.ajalt.clikt.parameters.types.double
 import structure.Wall
 
 
-class Parameter: CliktCommand(name = "/bw") {
+class WallParameter: CliktCommand(name = "/bw") {
     val beat by option().double().default(0.0)
 
     val time by option("-t").flag()

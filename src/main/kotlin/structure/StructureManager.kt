@@ -3,7 +3,7 @@ package structure
 import assetFile.AssetController
 import com.github.ajalt.clikt.core.subcommands
 import parameter.Command
-import parameter.Parameter
+import parameter.WallParameter
 import song.Difficulty
 
 @Suppress("RedundantEmptyInitializerBlock")
@@ -36,7 +36,7 @@ object StructureManager {
     fun walls(c:Command, d:Difficulty?): List<Wall> {
         val arr = ArrayList(c.command.split(" ").filter { it.isNotEmpty() })
         val struct = findStructure(arr)
-        var p = Parameter()
+        var p = WallParameter()
 
         /** ads the subcommands to the special wallstructures */
         struct

@@ -110,16 +110,6 @@ data class Wall(
         return  (tWallH * 1000 + tStartH+4001)
     }
 
-    /**returns the mirrored obstacle */
-    fun mirror()=
-        Wall(
-            startRow = -startRow,
-            duration = duration,
-            width = -width,
-            height = height,
-            startHeight = startHeight,
-            startTime = startTime
-        )
 
     /**overwrites the values, depending on the given parameters*/
     fun adjustParameters(oldParameters: OldParameters){
@@ -179,7 +169,27 @@ data class Wall(
     private fun ra(i:Double) = i+Random.nextDouble(-0.2 ,0.2)
     fun fast() = this.copy(duration= -2.0)
     fun hyper() = this.copy(duration = -3.0)
-    fun mVertical(sh:Double = 2.0) = this.copy(startHeight = 2*sh-startHeight, height = -height)
+
+    /**returns the mirrored obstacle */
+    fun mirror(d:Boolean): List<Wall> {
+        val a =  mutableListOf(this.copy(startRow = -startRow, width = -width))
+        if (d) a.add(this.copy())
+        return a
+    }
+    fun verticalMirror(sh:Double = 2.0,d: Boolean): MutableList<Wall> {
+        val a = mutableListOf<Wall>()
+        a.add(this.copy(startHeight = 2 * sh - startHeight, height = -height))
+        if (d) a.add(this.copy())
+        return a
+    }
+    fun pointMirror(sh: Double = 2.0,d:Boolean): MutableList<Wall> {
+        val a = mutableListOf<Wall>()
+        a.addAll(this.mirror(false).flatMap { it.verticalMirror(d =false) })
+        if (d) a.add(this.copy())
+        return a
+    }
+
+
     fun scale(s:Double) = this.copy(
         duration= if(duration>0) duration*s else duration,
         startTime = startTime*s)
@@ -193,7 +203,7 @@ data class Wall(
     )
     fun extendY(a:Double) = this.copy(
         height = a-startHeight
-        )
+    )
     fun extendZ(a: Double) = this.copy(
         duration = a - startTime
     )
@@ -201,3 +211,4 @@ data class Wall(
         startTime = startTime+a
     )
 }
+

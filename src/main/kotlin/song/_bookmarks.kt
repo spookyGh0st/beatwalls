@@ -10,9 +10,10 @@ data class _bookmarks (
     @SerializedName("_name") val _name : String
 ){
     fun getCommandList(commandName:String): ArrayList<String> {
-        val regex = """(?<=$commandName)(\s(\w|\.|-)+)*""".toRegex()
+        val regex = """(?<=/$commandName )(.*)(?=\s/)""".toRegex()
         val list = arrayListOf<String>()
-        regex.findAll(this._name).forEach {
+        val string = this._name + " /"
+        regex.findAll(string).forEach {
             val b = it.value
             val txt = it.value.removePrefix(commandName).removePrefix(" ")
             list.add(txt)

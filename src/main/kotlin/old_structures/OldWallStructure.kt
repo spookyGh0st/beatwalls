@@ -518,7 +518,7 @@ object Mirror: OldWallStructure() {
     override val wallList = arrayListOf<Wall>()
     override fun getWallList(oldParameters: OldParameters): ArrayList<Wall> {
         val list = OldWallStructureManager.getWallList(oldParameters.innerParameter?: OldParameters())
-        return ArrayList(list.map { it.mirror() })
+        return arrayListOf<Wall>()
     }
 }
 /** Extender Object - when called, extends all walls to a certain beat */

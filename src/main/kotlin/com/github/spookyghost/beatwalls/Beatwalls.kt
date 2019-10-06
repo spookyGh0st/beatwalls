@@ -8,7 +8,6 @@ import mu.KotlinLogging
 import reader.writeDifficulty
 import structure.CustomWallStructure
 import structure.StructureManager
-import structure.Wall
 
 class BeatWalls: CliktCommand(){
     private val logger = KotlinLogging.logger {}
@@ -29,7 +28,7 @@ class BeatWalls: CliktCommand(){
                 for (bookmark in _bookmarks) {
                     //gets all the walls
                     val walls = bookmark
-                        .toCommandList("/bw")
+                        .toCommandList("bw")
                         .flatMap { StructureManager.walls(it,this) }
 
                     //converts the list to _obstacle and adds it
@@ -39,7 +38,7 @@ class BeatWalls: CliktCommand(){
                 /** TODO make this better */
                 for (bookmark in _bookmarks) {
                     val walls = bookmark
-                        .toCommandList("/bw-save")
+                        .toCommandList("bw-save")
                     for(command in walls){
                         val name = command.command.split(" ").filterNot { it.isEmpty() }[0]
                         val duration = command.command.split(" ").filterNot { it.isEmpty() }.getOrNull(1)?.toDoubleOrNull()?:1.0

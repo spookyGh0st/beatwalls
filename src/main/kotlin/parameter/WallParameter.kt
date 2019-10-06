@@ -5,6 +5,7 @@ import com.github.ajalt.clikt.parameters.options.default
 import com.github.ajalt.clikt.parameters.options.flag
 import com.github.ajalt.clikt.parameters.options.option
 import com.github.ajalt.clikt.parameters.types.double
+import com.github.ajalt.clikt.parameters.types.int
 import structure.Wall
 
 
@@ -13,19 +14,23 @@ class WallParameter: CliktCommand(name = "/bw") {
 
     val time by option("-t").flag()
 
-    val save by option().double()
-
     val fast by option("-f").flag()
     val hyper by option("-h").flag()
+
+    val duplicate by option("-d").flag()
     val mirror by option("-m").flag()
-    val mVertical by option("-V").flag()
-    val mHorizontal by option("-H").flag()
+    val verticalMirror by option("-V").flag()
+    val pointMirror by option("-p").flag()
+
     val scale by option("-s").double().default(1.0)
-    val verticalScale by option("-v").double().default(1.0)
+    val verticalScale by option("-S").double().default(1.0)
+
     val extendX by option().double()
     val extendY by option().double()
     val extendZ by option().double()
 
+    val split by option().int()
+    val fuckUp by option().int()
     fun parseWalls(list: List<Wall>): List<Wall> {
         return list
     }

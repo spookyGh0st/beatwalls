@@ -44,7 +44,7 @@ object OldWallStructureManager
 
             //adds the mirrored list
             if (structure.mirror)
-                wallList.addAll(wallList.map { it.mirror() })
+                //wallList.addAll(wallList.map { it.mirror() })
 
             //adds the temp list to our List
             list.addAll(wallList)

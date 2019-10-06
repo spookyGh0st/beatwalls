@@ -60,13 +60,16 @@ object StructureManager {
             tempWalls =tempWalls
                 .mapIf(fast) {it.fast()}
                 .mapIf(hyper){ it.hyper() }
-                .mapIf(mirror) {it.mirror()}
-                .mapIf(mVertical) {it.mVertical()}
+                .flatMapIf(mirror) {it.mirror(duplicate)}
+                .flatMapIf(verticalMirror) {it.verticalMirror(d=duplicate)}
+                .flatMapIf(pointMirror) {it.pointMirror(d=duplicate)}
                 .map{ it.scale(scale)}
                 .map{it.verticalScale(verticalScale)}
                 .mapIf(extendX != null){it.extendX(extendX!!)}
                 .mapIf(extendY != null){it.extendY(extendY!!)}
                 .mapIf(extendZ != null){it.extendZ(extendZ!!)}
+                    //fuckUp
+                .mapIf(fuckUp!=null){ it.fuckUp() }
                     //bpm change
                 .map { it.adjustToBPM(bpm, tempBpm, c.beatStartTime)    }
                 .mapIf(time) { it.time(AssetController.njsOffset())}
@@ -82,6 +85,11 @@ object StructureManager {
             this.map { refactor(it) }
         else
             this
-
+    }
+    private fun List<Wall>.flatMapIf(b:Boolean, refactor: (Wall) -> List<Wall>): List<Wall>{
+        return if(b)
+            this.flatMap { refactor(it) }
+        else
+            this
     }
 }

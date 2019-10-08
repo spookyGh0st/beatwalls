@@ -60,11 +60,14 @@ object StructureManager {
             tempWalls =tempWalls
                 .mapIf(fast) {it.fast()}
                 .mapIf(hyper){ it.hyper() }
-                .flatMapIf(mirror) {it.mirror(duplicate)}
-                .flatMapIf(verticalMirror) {it.verticalMirror(d=duplicate)}
-                .flatMapIf(pointMirror) {it.pointMirror(d=duplicate)}
+                .flatMapIf(mirror) {it.mirror(noDuplicate)}
+                .flatMapIf(verticalMirror) {it.verticalMirror(d=noDuplicate)}
+                .flatMapIf(pointMirror) {it.pointMirror(d=noDuplicate)}
+                    // repeat and scale
+                .flatMapIf(repeat!= null) {it.repeat(repeat!!,repeatGap)}
                 .map{ it.scale(scale)}
                 .map{it.verticalScale(verticalScale)}
+                    // extend
                 .mapIf(extendX != null){it.extendX(extendX!!)}
                 .mapIf(extendY != null){it.extendY(extendY!!)}
                 .mapIf(extendZ != null){it.extendZ(extendZ!!)}

@@ -210,5 +210,13 @@ data class Wall(
     fun time(a:Double) = this.copy(
         startTime = startTime+a
     )
+    fun repeat(a: Int, o: Double = 1.0): MutableList<Wall> {
+        val list = mutableListOf<Wall>()
+        for (i in 0 until a){
+            list.add(this.copy(startTime= this.startTime + a*o))
+        }
+        return list
+    }
+
 }
 

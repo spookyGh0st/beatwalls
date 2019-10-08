@@ -144,16 +144,6 @@ data class Wall(
             duration
         return this.copy(startTime = tempStartTime, duration = tempDuration)
     }
-    fun split():List<Wall> = when {
-        this.height>this.width -> listOf(
-            Wall(startRow, duration, width, height / 2, startHeight, startTime),
-            Wall(startRow, duration, width, height / 2, startHeight + height / 2, startTime)
-        )
-        else -> listOf(
-            Wall(startRow, duration, width / 2, height / 2, startHeight, startTime),
-            Wall(startRow + width / 2, duration, width / 2, height / 2, startHeight, startTime)
-        )
-    }
     fun fuckUp() =
         Wall(ra(startRow), ra(duration), ra(width), ra(height), ra(startHeight), ra(startTime))
 
@@ -217,6 +207,15 @@ data class Wall(
         }
         return list
     }
-
+    fun split(a: Int): MutableList<Wall> {
+        val list = mutableListOf<Wall>()
+        for (i in 0 until a){
+            if (this.height>this.width)
+                list.add(this.copy(startHeight = startHeight+height* i / a,height = 1.0/a))
+            else
+                list.add(this.copy(startRow = startRow + width * i / a,width = 1.0/a))
+        }
+        return list
+    }
 }
 

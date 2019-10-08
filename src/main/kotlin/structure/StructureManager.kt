@@ -60,6 +60,7 @@ object StructureManager {
             tempWalls =tempWalls
                 .mapIf(fast) {it.fast()}
                 .mapIf(hyper){ it.hyper() }
+                .flatMapIf(split!=null) {it.split(split!!)}
                 .flatMapIf(mirror) {it.mirror(noDuplicate)}
                 .flatMapIf(verticalMirror) {it.verticalMirror(d=noDuplicate)}
                 .flatMapIf(pointMirror) {it.pointMirror(d=noDuplicate)}

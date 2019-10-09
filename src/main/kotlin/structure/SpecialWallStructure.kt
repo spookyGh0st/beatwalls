@@ -4,12 +4,10 @@ import com.github.ajalt.clikt.core.CliktCommand
 import com.github.ajalt.clikt.parameters.options.default
 import com.github.ajalt.clikt.parameters.options.flag
 import com.github.ajalt.clikt.parameters.options.option
+import com.github.ajalt.clikt.parameters.options.triple
 import com.github.ajalt.clikt.parameters.types.double
 import com.github.ajalt.clikt.parameters.types.int
-import kotlin.math.PI
-import kotlin.math.cos
-import kotlin.math.pow
-import kotlin.math.sin
+import kotlin.math.*
 
 /**
 ____  ____  _____ ____ ___    _    _      __        ___    _     _     ____ _____ ____  _   _  ____ _____ _   _ ____  _____ ____
@@ -119,9 +117,6 @@ object CyanLine: SpecialWallStructure() {
     override fun run() {
 
         val dgr = degree / 360 * (2* PI)
-        val defaultAmount = ((cos(dgr) * sin(dgr)).pow(2)*200 +1).toInt()
-
-
         val x1 = (centerX + cos(dgr))*length
         val x2 = (centerX - cos(dgr))*length
         val y1 = (centerY + sin(dgr))*length
@@ -133,19 +128,57 @@ object CyanLine: SpecialWallStructure() {
     }
 }
 
-object SampleStructure: SpecialWallStructure(){
-    override fun run(){
-    }
-}
-object TestStructure: SpecialWallStructure(){
-    val a by option().int().default(1)
+/** creates normal stairways */
+object StairWay: SpecialWallStructure() {
+    /**
+     * amount of walls created in stucture. default 4
+     */
+    val amount by option("-a").int().default(4)
+    /**
+     * the start height. default 0.0
+     */
+    val min  by option().double().default(0.0)
+    /**
+     * the end height. default 4.0
+     */
+    private val max by option().double().default(4.0)
+
+    /**
+     * the width of each wall. default 1.0
+     */
+    private val width by option("-w").double().default(1.0)
+
+    /**
+     * the startx of each wall. default 4.0
+     */
+    private val x by option("-x").double().default(4.0)
     override fun run() {
-        repeat(a){
-            add(Wall(0.0, 1.0, 0.0, 0.0, 0.0, 0.0))
+        for(i in 0 until amount){
+            val height = abs(max-min) /amount
+            val startHeight = if(min<=max)
+                min + i* height
+            else
+                min - (i+1)*height
+            add(Wall(4.0, 1.0 / amount, width, height, startHeight, i.toDouble() / amount))
         }
     }
 }
-
-
-
+/** Line */
+object Line:SpecialWallStructure() {
+    /**
+     * startPoint,  x,y,z (startRow,startHeight,startTime)
+     */
+    val p1 by option("-s").double().triple().default(Triple(0.0,0.0,0.0))
+    /**
+     * endPoint,  x,y,z (startRow,startHeight,startTime)
+     */
+    val p2 by option("-s").double().triple().default(Triple(0.0,0.0,0.0))
+    /**
+     * amount, amount of walls created
+     */
+    val amount by option("-a").int().default(4)
+    override fun run() {
+        wallList.addAll(line(p1,p2,amount))
+    }
+}
 

@@ -81,7 +81,7 @@ fun circle(
 }
 
 /** Draws a line between 2 coordinates */
-fun line(px1:Double, px2: Double, py1:Double, py2: Double, pz1: Double= 0.0, pz2: Double=0.0, defaultAmount: Int? = null, defaultDuration: Double? = null): ArrayList<Wall>{
+fun line(px1:Double, py1:Double, pz1: Double= 0.0, px2: Double, py2: Double, pz2: Double=0.0, defaultAmount: Int? = null, defaultDuration: Double? = null): ArrayList<Wall>{
 
     //swap values if y2 < y1  - this functions goes from bottom to top
     var x1 = px1
@@ -135,6 +135,12 @@ fun line(px1:Double, px2: Double, py1:Double, py2: Double, pz1: Double= 0.0, pz2
         list.add(Wall(startRow, myD, width, height, startHeight, startTime))
     }
     return list
+}
+fun line(p0:Point, p1: Point): ArrayList<Wall> {
+    return line(p0.x,p0.y,p0.z,p1.x,p1.y,p1.z)
+}
+fun line(p0:Triple<Double,Double,Double>, p1: Triple<Double,Double,Double>,amount: Int?): ArrayList<Wall> {
+    return line(p0.first,p0.second,p0.third,p1.first,p1.first,p1.first,amount)
 }
 
 fun curve(p0: Point, p1: Point, p2: Point, p3: Point, amount: Int):ArrayList<Wall>{

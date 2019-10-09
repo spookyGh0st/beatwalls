@@ -91,6 +91,7 @@ fun writeDifficulty(pair: Pair<Difficulty,File>){
         val writer = BufferedWriter(FileWriter(pair.component2()))
         writer.write(text)
         writer.close()
+        logger.info { "written difficulty file to ${pair.second}" }
     }catch (e:Exception){
         logger.error { "Failed to write Difficulty" }
     }

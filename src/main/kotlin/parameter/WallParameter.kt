@@ -39,7 +39,7 @@ class WallParameter: CliktCommand(name = "/bw") {
     /**
      * Set This option, to duplicate to not duplicate the Wall when using mirror
      */
-    val noDuplicate by option("-d").flag(default = false)
+    val noDuplicate by option("-d").flag(default = true)
     /**
      * mirrors the wallStructure to the other Side
      */

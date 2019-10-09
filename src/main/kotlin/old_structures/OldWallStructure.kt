@@ -575,7 +575,7 @@ object Splitter: OldWallStructure() {
                 val removeList = arrayListOf<Wall>()
 
                 for(tempWall in pTempList){
-                    addList.addAll(tempWall.split())
+                    //addList.addAll(tempWall.split())
                     removeList.add(tempWall)
                 }
 

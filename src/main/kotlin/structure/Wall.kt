@@ -203,7 +203,7 @@ data class Wall(
     fun repeat(a: Int, o: Double = 1.0): MutableList<Wall> {
         val list = mutableListOf<Wall>()
         for (i in 0 until a){
-            list.add(this.copy(startTime= this.startTime + a*o))
+            list.add(this.copy(startTime= this.startTime + i*o))
         }
         return list
     }

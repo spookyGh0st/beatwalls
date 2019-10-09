@@ -2,12 +2,14 @@ package structure
 
 import assetFile.AssetController
 import com.github.ajalt.clikt.core.subcommands
+import mu.KotlinLogging
 import parameter.Command
 import parameter.WallParameter
 import song.Difficulty
 
 @Suppress("RedundantEmptyInitializerBlock")
 object StructureManager {
+    private val logger = KotlinLogging.logger {}
     private val allWallStructure = allDefaultWalls()
     private val bpm = AssetController.getBPM()
 
@@ -78,6 +80,9 @@ object StructureManager {
                 .map { it.adjustToBPM(bpm, tempBpm, c.beatStartTime)    }
                 .mapIf(time) { it.time(AssetController.njsOffset())}
         }
+
+        logger.info { p }
+        logger.info { "added $struct to Difficulty"}
 
 
         /** after bpm change */

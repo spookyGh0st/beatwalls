@@ -1,10 +1,7 @@
 package structure
 
 import com.github.ajalt.clikt.core.CliktCommand
-import com.github.ajalt.clikt.parameters.options.default
-import com.github.ajalt.clikt.parameters.options.flag
-import com.github.ajalt.clikt.parameters.options.option
-import com.github.ajalt.clikt.parameters.options.triple
+import com.github.ajalt.clikt.parameters.options.*
 import com.github.ajalt.clikt.parameters.types.double
 import com.github.ajalt.clikt.parameters.types.int
 import kotlin.math.*
@@ -168,17 +165,85 @@ object Line:SpecialWallStructure() {
     /**
      * startPoint,  x,y,z (startRow,startHeight,startTime)
      */
-    val p1 by option("-s").double().triple().default(Triple(0.0,0.0,0.0))
+    val startPoint by option("-s").double().triple().default(Triple(0.0,0.0,0.0))
     /**
      * endPoint,  x,y,z (startRow,startHeight,startTime)
      */
-    val p2 by option("-s").double().triple().default(Triple(0.0,0.0,0.0))
+    val endPoint by option("-e").double().triple().default(Triple(0.0,0.0,0.0))
     /**
      * amount, amount of walls created
      */
     val amount by option("-a").int().default(4)
     override fun run() {
-        wallList.addAll(line(p1,p2,amount))
+        add(line(startPoint,endPoint,amount))
     }
 }
 
+
+/** Curve Object - when called, creates a example curve */
+object Curve: SpecialWallStructure() {
+    /**
+     * startPoint,  x,y,z (startRow,startHeight,startTime)
+     */
+    val startPoint by option("-s").double().triple().required()
+    /**
+     * endPoint,  x,y,z (startRow,startHeight,startTime)
+     */
+    val endPoint by option("-e").double().triple().required()
+    /**
+     * amount, amount of walls created
+     */
+    val amount by option("-a").int().default(4)
+    /**
+     * firstHandler1, use this to contoll the angle. this is also a point x,y,z (startRow,startHeight,startTime)
+     */
+    val firstHandler by option("-f").double().triple().required()
+    /**
+     * secondHandler, use this to contoll the angle
+     */
+    val secondHandler by option("-s").double().triple().required()
+
+    override fun run() {
+        add(curve(startPoint.toPoint(), firstHandler.toPoint(), secondHandler.toPoint() , endPoint.toPoint(), amount))
+    }
+}
+
+/** RandomBox Object - when called, creates a random box with the given amount per tick and the given ticks per beat */
+object RandomBox: SpecialWallStructure() {
+    val list = arrayListOf<Wall>()
+    /**
+     * how many walls are created per wall
+     */
+    val wallsPerTick by option("-w").int().default(4)
+    /**
+     * how many ticks there are
+     */
+    val tickAmount by option("-t").int().default(4)
+    /**
+     * the intensity, how many walls pew side
+     */
+    val intensity by option("-i").int().default(8)
+
+    /**
+     * if you want to create lines or normal walls
+     */
+    val line by option("-l").flag()
+    override fun run() {
+
+        val allWalls: ArrayList<Wall> = getBoxList(intensity)
+
+        for (start in 0 until tickAmount) {
+            val tempList = ArrayList(allWalls.map { it.copy() })
+            repeat(wallsPerTick) {
+                val w = tempList.random()
+                w.startTime = start.toDouble() / tickAmount
+                if (line){
+                    w.height = 0.0
+                    w.width = 0.0
+                }
+                add(w)
+                tempList.remove(w)
+            }
+        }
+    }
+}

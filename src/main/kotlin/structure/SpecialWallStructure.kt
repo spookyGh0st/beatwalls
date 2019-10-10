@@ -4,7 +4,9 @@ import com.github.ajalt.clikt.core.CliktCommand
 import com.github.ajalt.clikt.parameters.options.*
 import com.github.ajalt.clikt.parameters.types.double
 import com.github.ajalt.clikt.parameters.types.int
+import parameter.Command
 import kotlin.math.*
+import kotlin.random.Random
 
 /**
 ____  ____  _____ ____ ___    _    _      __        ___    _     _     ____ _____ ____  _   _  ____ _____ _   _ ____  _____ ____
@@ -212,20 +214,20 @@ object Curve: SpecialWallStructure() {
 object RandomBox: SpecialWallStructure() {
     val list = arrayListOf<Wall>()
     /**
-     * how many walls are created per wall
+     * how many walls are created per wall. default: 4
      */
     val wallsPerTick by option("-w").int().default(4)
     /**
-     * how many ticks there are
+     * how many ticks there are. default: 4
      */
     val tickAmount by option("-t").int().default(4)
     /**
-     * the intensity, how many walls pew side
+     * the intensity, how many walls pew side. default: 8
      */
     val intensity by option("-i").int().default(8)
 
     /**
-     * if you want to create lines or normal walls
+     * if you want to create lines or normal walls. default: false
      */
     val line by option("-l").flag()
     override fun run() {
@@ -244,6 +246,103 @@ object RandomBox: SpecialWallStructure() {
                 add(w)
                 tempList.remove(w)
             }
+        }
+    }
+}
+
+/** gets very small noise in the area -4 .. 4 */
+object RandomNoise: SpecialWallStructure() {
+    /**
+     * how many walls per beat. default: 8
+     */
+    val intensity by option("-i").int().default(8)
+
+    /**
+     * the width, default 12
+     */
+    val width by option("-w").int().default(12)
+
+    /**
+     * no obstruct, dont obstruct the player
+     */
+    val noObstruct by option("-n").flag()
+    override fun run() {
+        repeat(intensity){
+            val halfWidth = width/2
+            val startRow =
+                if(noObstruct)
+                    if(Random.nextBoolean())
+                        Random.nextDouble(1.0- halfWidth, -3.0)
+                    else
+                        Random.nextDouble(3.0, 1.0+ halfWidth)
+                else
+                    Random.nextDouble(1-width/2.0,1+ width/2.0)
+
+
+            val startHeight =  if(noObstruct)
+                Random.nextDouble(3.0,5.3)
+            else
+                Random.nextDouble(5.3)
+
+            val tempO = Wall(
+                startRow =startRow,
+                duration = 0.0,
+                width = 0.0,
+                height = 0.0,
+                startHeight = startHeight,
+                startTime = Random.nextDouble()
+            )
+            add(tempO)
+        }
+    }
+}
+object SideWave: SpecialWallStructure(){
+    /**
+     * how many walls will be created. default: 8.0
+     */
+    val amount by option().int().default(8)
+    override fun run() {
+        for(i in 0 until (amount)){
+            val y = i/amount*(2* PI)
+            val nY = (i+1)/amount*(2* PI)
+
+                add(
+                Wall(
+                    duration = 1 / amount.toDouble(),
+                    height = abs(cos(nY) - cos(y)),
+                    startHeight = 1 - cos(y),
+                    startRow = 3.0,
+                    width = 0.5,
+                    startTime = i / amount.toDouble()
+                )
+            )
+        }
+    }
+}
+
+/**
+ * writes default text from the custom WallStructures. Currently only A-Z supported
+ */
+object Text: SpecialWallStructure() {
+    /**
+     * the input text. no spaces or numbers. just A-Z
+     */
+    val text by option("-t").default("")
+    /**
+     * the gap between the letters. default 2.5
+     */
+    val gap by option("-g").double().default(2.5)
+    /**
+     * the center of the word, default 0.0
+     */
+    val center by option("-c").double().default(0.0)
+    override fun run() {
+        var x=  center-(text.length-1) * gap / 2 - gap/2
+        for(c in text){
+            val tempList =StructureManager.walls(Command(0.0,c.toString()),null)
+            tempList.forEach { it.startRow += x }
+            x+=gap
+            add(tempList)
         }
     }
 }

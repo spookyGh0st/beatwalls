@@ -1,6 +1,5 @@
 package reader
 
-import assetFile.createAssets
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import com.google.gson.annotations.SerializedName
@@ -103,7 +102,6 @@ fun writeAssets(customWallStructureList:List<CustomOldWallStructure>){
         val list = customWallStructureList.toMutableList()
         if( list.isEmpty()){
             logger.info { "Created default Assets" }
-            list+= createAssets()
         }
         val base = AssetsBase(list)
 

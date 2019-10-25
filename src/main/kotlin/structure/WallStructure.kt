@@ -1,36 +1,87 @@
 package structure
 
-import com.google.gson.annotations.Expose
-import com.google.gson.annotations.SerializedName
+import com.google.gson.*
+import mu.KotlinLogging
+import java.lang.reflect.Type
 
-@Suppress("unused")
-interface WallStructure {
-/**
 
-  ___                            _              _
- |_ _|_ __ ___  _ __   ___  _ __| |_ __ _ _ __ | |_
-  | || '_ ` _ \| '_ \ / _ \| '__| __/ _` | '_ \| __|
-  | || | | | | | |_) | (_) | |  | || (_| | | | | |_
- |___|_| |_| |_| .__/ \___/|_|   \__\__,_|_| |_|\__|
-               |_|
+private val logger = KotlinLogging.logger {}
 
-* The data Class CustomWallStructures will hold only fixed Values given by the AssetFile. You are looking for the SpecialWallStructure File
-* */
-    val name: String
-    val wallList: ArrayList<Wall>
 
-    fun walls(): List<Wall> {
-        return wallList.map { it.copy() }
+
+abstract class WallStructure(
+    var beat: Double = 0.0,
+    val mirror: Boolean = false,
+    val walls: ArrayList<Wall> = arrayListOf()
+) {
+    init {
+        beat = adjustBeat()
+    }
+    open fun run(){}
+    private fun adjustBeat()  = beat++
+}
+
+class CustomWallStructure: WallStructure()
+
+class Test(beat: Double): WallStructure(beat = beat)
+
+//    ____             _
+//   / __ )____  _____(_)___  ____ _
+//  / __  / __ \/ ___/ / __ \/ __ `/
+// / /_/ / /_/ / /  / / / / / /_/ /
+///_____/\____/_/  /_/_/ /_/\__, /
+//                         /____/
+
+fun serializeStructure(s: String):WallStructure{
+    val gson = GsonBuilder()
+        .setPrettyPrinting()
+        .registerTypeAdapter(WallStructure::class.java, InterfaceAdapter<WallStructure>())
+        .create()
+    return gson.fromJson(s,WallStructure::class.java)
+}
+fun deserializeStructure(s : WallStructure) : String{
+    val gson = GsonBuilder()
+        .setPrettyPrinting()
+        .registerTypeAdapter(WallStructure::class.java, InterfaceAdapter<WallStructure>())
+        .create()
+    return gson.toJson(s, WallStructure::class.java)
+
+}
+
+internal class InterfaceAdapter<T : Any> : JsonSerializer<T>, JsonDeserializer<T> {
+    override fun serialize(`object`: T, interfaceType: Type, context: JsonSerializationContext): JsonElement {
+        val wrapper = JsonObject()
+        wrapper.addProperty("type", `object`.javaClass.getName())
+        wrapper.add("data", context.serialize(`object`))
+        return wrapper
+    }
+
+    @Throws(JsonParseException::class)
+    override fun deserialize(elem: JsonElement, interfaceType: Type, context: JsonDeserializationContext): T {
+        val wrapper = elem as JsonObject
+        val typeName = get(wrapper, "type")
+        val data = get(wrapper, "data")
+        val actualType = typeForName(typeName)
+        return context.deserialize(data, actualType)
+    }
+
+    private fun typeForName(typeElem: JsonElement): Type {
+        try {
+            return Class.forName(typeElem.asString)
+        } catch (e: ClassNotFoundException) {
+            throw JsonParseException(e)
+        }
+
+    }
+
+    private operator fun get(wrapper: JsonObject, memberName: String): JsonElement {
+        return wrapper.get(memberName)
+            ?: throw JsonParseException("no '$memberName' member found in what was expected to be an interface wrapper")
     }
 }
 
-/** CustomWallStructure, used to safe static Walls */
-
-data class CustomWallStructure(
-    @SerializedName("Name")
-    @Expose
-    override val name:String,
-    @SerializedName("Wall List")
-    @Expose
-    override var wallList: ArrayList<Wall>
-) :WallStructure
+fun main(){
+    val a = CustomWallStructure()
+    val b = deserializeStructure(a)
+    println(b)
+}

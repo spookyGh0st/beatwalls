@@ -5,48 +5,23 @@ import com.google.gson.GsonBuilder
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
 import mu.KotlinLogging
-import reader.isSong
-import structure.CustomWallStructure
 import java.io.BufferedWriter
 import java.io.File
-import java.io.FileNotFoundException
 import java.io.FileWriter
 import java.nio.file.Paths
-import kotlin.system.exitProcess
 
 
 
 class AssetFile(
     @SerializedName("Version")
-    @Expose
     val version: Double = 1.0,
-    @SerializedName("Current Song")
-    @Expose
-    var currentSong:SavedSongData = SavedSongData("",0.0),
-    @SerializedName("Mixed Structure List")
-    @Expose
-    val mixedWallStructure: ArrayList<MixedStructure> = arrayListOf(),
-    @SerializedName("Wall Structure List")
-    @Expose
-    val customWallStructure: ArrayList<CustomWallStructure> = arrayListOf()
+    @SerializedName("last Song")
+    var currentSong:String,
+    @SerializedName("Saved Structures")
+    val customWallStructure: ArrayList<SavedWallStructure> = arrayListOf()
 ) {
     @Transient
     private val logger = KotlinLogging.logger {}
-
-
-//    ____        _     _ _        _____                 _   _
-//   |  _ \ _   _| |__ | (_) ___  |  ___|   _ _ __   ___| |_(_) ___  _ __  ___
-//   | |_) | | | | '_ \| | |/ __| | |_ | | | | '_ \ / __| __| |/ _ \| '_ \/ __|
-//   |  __/| |_| | |_) | | | (__  |  _|| |_| | | | | (__| |_| | (_) | | | \__ \
-//   |_|    \__,_|_.__/|_|_|\___| |_|   \__,_|_| |_|\___|\__|_|\___/|_| |_|___/
-
-    /** Adding a new Song to the List */
-    fun changeSong() {
-        val path = readSongPath()
-        val njsOffset = getNJSOffset()
-        val p = path.absolutePath
-        currentSong = SavedSongData(p,njsOffset)
-    }
 
     fun save(){
         val file: File = Paths.get(File("").absoluteFile.path, "Asset.json").toFile()
@@ -82,24 +57,6 @@ class AssetFile(
         }catch (e:Exception){
             logger.error { "Something went wrong, try again" }
             getNJSOffset()
-        }
-    }
-
-    /** Asking for a Path */
-    private fun readSongPath(): File {
-        println("Please Enter the Path of the Song you want to work on")
-        val str = readLine()
-        return try {
-            val songP = str!!.removePrefix("\"").removeSuffix("\"")
-            val f = File(songP).absoluteFile
-            if(!f.isSong()){
-                throw FileNotFoundException("File is not a Song")
-            }
-            f
-        }catch (e:Exception){
-            logger.error { "Failed to Read Song" }
-            logger.error { e.message }
-            readSongPath()
         }
     }
 }

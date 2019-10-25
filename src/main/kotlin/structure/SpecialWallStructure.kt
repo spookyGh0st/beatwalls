@@ -182,33 +182,34 @@ object Line:SpecialWallStructure() {
 }
 
 
-/** Curve Object - when called, creates a example curve */
-object Curve: SpecialWallStructure() {
-    /**
-     * startPoint,  x,y,z (startRow,startHeight,startTime)
-     */
-    val startPoint by option("-s").double().triple().required()
-    /**
-     * endPoint,  x,y,z (startRow,startHeight,startTime)
-     */
-    val endPoint by option("-e").double().triple().required()
-    /**
-     * amount, amount of walls created
-     */
-    val amount by option("-a").int().default(4)
-    /**
-     * firstHandler1, use this to contoll the angle. this is also a point x,y,z (startRow,startHeight,startTime)
-     */
-    val firstHandler by option("-f").double().triple().required()
-    /**
-     * secondHandler, use this to contoll the angle
-     */
-    val secondHandler by option("-s").double().triple().required()
-
-    override fun run() {
-        add(curve(startPoint.toPoint(), firstHandler.toPoint(), secondHandler.toPoint() , endPoint.toPoint(), amount))
-    }
-}
+///** Curve Object - when called, creates a example curve */
+//object Curve: SpecialWallStructure() {
+//    /**
+//     * startPoint,  x,y,z (startRow,startHeight,startTime)
+//     */
+//    val startPoint by option("-s").double().triple().default(Triple(0.0,0.0,0.0))
+//    /**
+//     * endPoint,  x,y,z (startRow,startHeight,startTime)
+//     */
+//    val endPoint by option("-e").double().triple().default(Triple(0.0,0.0,0.0))
+//    /**
+//     * amount, amount of walls created
+//     */
+//    val amount by option("-a").int().default(4)
+//    /**
+//     * firstHandler1, use this to contoll the angle. this is also a point x,y,z (startRow,startHeight,startTime)
+//     */
+//    val firstHandler by option("-f").double().triple().default(Triple(0.0,0.0,0.0))
+//    /**
+//     * secondHandler, use this to contoll the angle
+//     */
+//    val secondHandler by option("-s").double().triple().default(Triple(0.0,0.0,0.0))
+//
+//    override fun run() {
+//        add(curve(startPoint.toPoint(), firstHandler.toPoint(), secondHandler.toPoint() , endPoint.toPoint(), amount))
+//
+//    }
+//}
 
 /** RandomBox Object - when called, creates a random box with the given amount per tick and the given ticks per beat */
 object RandomBox: SpecialWallStructure() {
@@ -255,44 +256,61 @@ object RandomNoise: SpecialWallStructure() {
     /**
      * how many walls per beat. default: 8
      */
-    val intensity by option("-i").int().default(8)
+    val interval by option("-i").int().default(8)
 
     /**
-     * the width, default 12
+     * how many walls per intervall tick. default: 2
      */
-    val width by option("-w").int().default(12)
+    val amount by option("-a").int().default(2)
 
     /**
-     * no obstruct, dont obstruct the player
+     * the width of the whole structure, default 12
      */
-    val noObstruct by option("-n").flag()
+    val width by option("-w").double().default(12.0)
+
+    /**
+     * obstruct, obstruct the player space
+     */
+    val obstruct by option("-o").flag(default = false)
+
+    /**
+     * the size of each wall. default: 0.0
+     */
+    val size by option("-s").double().default(0.001)
     override fun run() {
-        repeat(intensity){
-            val halfWidth = width/2
-            val startRow =
-                if(noObstruct)
-                    if(Random.nextBoolean())
-                        Random.nextDouble(1.0- halfWidth, -3.0)
+        println(width)
+        for(i in 0 until interval){
+            repeat(amount) {
+
+                val halfWidth = width / 2
+                val startRow =
+                    if (!obstruct)
+                        if (Random.nextBoolean())
+                            - Random.nextDouble(2.0, 0.0 + halfWidth)
+                        else
+                            Random.nextDouble(2.0, 0.0 + halfWidth)
                     else
-                        Random.nextDouble(3.0, 1.0+ halfWidth)
+                        Random.nextDouble(-halfWidth, halfWidth)
+
+
+                val startHeight = if (!obstruct)
+                    Random.nextDouble(3.0, 5.3)
                 else
-                    Random.nextDouble(1-width/2.0,1+ width/2.0)
+                    Random.nextDouble(5.3)
 
+                val tempwidth = Random.nextDouble(-size / 2, size / 2)
+                val height = Random.nextDouble(-size / 2, size / 2)
 
-            val startHeight =  if(noObstruct)
-                Random.nextDouble(3.0,5.3)
-            else
-                Random.nextDouble(5.3)
-
-            val tempO = Wall(
-                startRow =startRow,
-                duration = 0.0,
-                width = 0.0,
-                height = 0.0,
-                startHeight = startHeight,
-                startTime = Random.nextDouble()
-            )
-            add(tempO)
+                val tempO = Wall(
+                    startRow = startRow,
+                    duration = 0.0,
+                    width = tempwidth,
+                    height = height,
+                    startHeight = startHeight,
+                    startTime = i.toDouble()/ interval
+                )
+                add(tempO)
+            }
         }
     }
 }

@@ -94,6 +94,7 @@ fun writeDifficulty(pair: Pair<Difficulty,File>){
         logger.info { "written difficulty file to ${pair.second}" }
     }catch (e:Exception){
         logger.error { "Failed to write Difficulty" }
+        logger.error { e.message }
     }
 }
 

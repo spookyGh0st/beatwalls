@@ -1,6 +1,8 @@
 package com.github.spookyghost.beatwalls
 
 import assetFile.SongAsset
+import assetFile.findSongAsset
+import assetFile.readAssetFile
 import com.github.ajalt.clikt.core.CliktCommand
 import com.github.ajalt.clikt.parameters.arguments.argument
 import com.github.ajalt.clikt.parameters.types.file
@@ -12,8 +14,8 @@ class BeatWalls: CliktCommand() {
 
 
     override fun run() {
-        val d = SongAsset(song.absolutePath)
-        d.create()
+        val assetFile = readAssetFile()
+        val a = findSongAsset(song, assetFile)
 
 //        val song = AssetController.currentSong()
 //        val difficultyList =song.difficultyList
@@ -37,13 +39,13 @@ class BeatWalls: CliktCommand() {
 //                for (bookmark in _bookmarks) {
 //                    val walls = bookmark
 //                        .toCommandList("bw-save")
-//                    for(command in walls){
-//                        val name = command.command.split(" ").filterNot { it.isEmpty() }[0]
-//                        val duration = command.command.split(" ").filterNot { it.isEmpty() }.getOrNull(1)?.toDoubleOrNull()?:1.0
-//                        val offset =  if(command.command.contains("-t")) AssetController.njsOffset() else 0.0
+//                    for(structureList in walls){
+//                        val name = structureList.structureList.split(" ").filterNot { it.isEmpty() }[0]
+//                        val duration = structureList.structureList.split(" ").filterNot { it.isEmpty() }.getOrNull(1)?.toDoubleOrNull()?:1.0
+//                        val offset =  if(structureList.structureList.contains("-t")) AssetController.njsOffset() else 0.0
 //                        val list = ArrayList(_obstacles
 //                            .filter {
-//                                it._time in (command.beatStartTime+offset)..(command.beatStartTime+duration+offset)
+//                                it._time in (structureList.beatStartTime+offset)..(structureList.beatStartTime+duration+offset)
 //                            }
 //                            .map { it.toWall() }
 //                        )

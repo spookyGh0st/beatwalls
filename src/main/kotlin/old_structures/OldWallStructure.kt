@@ -680,7 +680,7 @@ object SideWave: OldWallStructure(){
     }
 }
 
-/** the default customWallStructure the asset file uses */
+/** the default savedStructures the asset file uses */
 data class CustomOldWallStructure(
 
     @SerializedName("name")

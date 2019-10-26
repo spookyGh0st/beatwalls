@@ -2,6 +2,7 @@ package assetFile
 
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
+import structure.CustomWallStructure
 import structure.Wall
 import structure.WallStructure
 
@@ -10,11 +11,14 @@ data class SavedWallStructure(
     @Expose
     @SerializedName("Name") val name : String,
     @Expose
-    @SerializedName("Wall List") val customWallStructure: List<Wall>,
+    @SerializedName("Wall List") val wallList: List<Wall> = listOf(),
     @Expose
-    @SerializedName("Structure List List") val command: List<WallStructure>
+    @SerializedName("Structure List") val structureList: List<WallStructure> = listOf()
 ){
-    fun toCustomWallStructure(): WallStructure{
-        TODO()
+    fun toCustomWallStructure(): CustomWallStructure{
+        val w = CustomWallStructure(name)
+        w.add(wallList)
+        w.add(structureList.flatMap { it.walls() })
+        return w
     }
 }

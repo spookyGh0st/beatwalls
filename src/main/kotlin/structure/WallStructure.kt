@@ -9,21 +9,35 @@ private val logger = KotlinLogging.logger {}
 
 
 
-abstract class WallStructure(
-    var beat: Double = 0.0,
-    val mirror: Boolean = false,
-    val walls: ArrayList<Wall> = arrayListOf()
+sealed class WallStructure(
 ) {
+    var beat: Double = 0.0
+    var mirror: Boolean = false
+    var time: Boolean = false
+    private val walls: ArrayList<Wall> = arrayListOf()
     init {
         beat = adjustBeat()
     }
-    open fun run(){}
+
+    fun walls(): ArrayList<Wall> {
+        run()
+        return walls
+    }
+    protected open fun run(){}
     private fun adjustBeat()  = beat++
+    fun add(w:Wall){
+        walls.add(w)
+    }
+    fun add(w:Collection<Wall>){
+        walls.addAll(w)
+    }
 }
 
-class CustomWallStructure: WallStructure()
+data class CustomWallStructure(val name:String): WallStructure()
 
-class Test(beat: Double): WallStructure(beat = beat)
+data class TestWallStructure(val test:Boolean = false): WallStructure(){
+
+}
 
 //    ____             _
 //   / __ )____  _____(_)___  ____ _
@@ -81,7 +95,4 @@ internal class InterfaceAdapter<T : Any> : JsonSerializer<T>, JsonDeserializer<T
 }
 
 fun main(){
-    val a = CustomWallStructure()
-    val b = deserializeStructure(a)
-    println(b)
 }

@@ -27,18 +27,6 @@ fun readDifficulty(f:File): Difficulty {
     return Gson().fromJson(json, Difficulty::class.java)
 }
 
-fun readAssets():ArrayList<CustomOldWallStructure>{
-    val file =  Paths.get(System.getProperty("user.dir"),"BeatwallAssets.json").toFile()
-    if(!file.exists()) {
-        writeAssets(listOf())
-    }
-    val reader = BufferedReader(FileReader(file))
-    val json = reader.readText()
-    val base = Gson().fromJson(json, AssetsBase::class.java)
-    reader.close()
-    return ArrayList(base.customWallStructure)
-}
-
 fun readOldAssets(f:File):ArrayList<_obstacles>{
     val reader = BufferedReader(FileReader(f))
     val json = reader.readText()

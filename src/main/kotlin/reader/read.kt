@@ -72,13 +72,13 @@ fun writeCodeGen(text:String){
     }
 }
 
-fun writeDifficulty(pair: Pair<Difficulty,File>){
+fun writeDifficulty(diff:Difficulty,file: File){
     try {
-        val text = Gson().toJson(pair.component1())
-        val writer = BufferedWriter(FileWriter(pair.component2()))
+        val text = Gson().toJson(diff)
+        val writer = BufferedWriter(FileWriter(file))
         writer.write(text)
         writer.close()
-        logger.info { "written difficulty file to ${pair.second}" }
+        logger.info { "written difficulty file to $file" }
     }catch (e:Exception){
         logger.error { "Failed to write Difficulty" }
         logger.error { e.message }

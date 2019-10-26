@@ -2,7 +2,10 @@ package assetFile
 
 import com.github.spookyghost.beatwalls.errorExit
 import mu.KotlinLogging
-import reader.isSong
+import reader.isDifficulty
+import song.Difficulty
+import structure.EmptyWallStructure
+import structure.Save
 import structure.WallStructure
 import java.io.File
 import java.nio.file.Paths
@@ -13,20 +16,121 @@ import kotlin.reflect.full.memberProperties
 
 private val logger = KotlinLogging.logger {}
 
-class SongAsset(val njsOffset:Double = 2.0, val path:String = "", val list: ArrayList<WallStructure> = arrayListOf())
+class DifficultyAsset(val bpm: Double, val njsOffset:Double, val path:String, val list: ArrayList<WallStructure> ){
 
-private fun defaultSongAssetString(path: String,njsOffset: Double)=
+    /**
+     * saves the Structure to the AssetFile
+     */
+    fun saveStructures(a:AssetFile){
+       val savingList = list.filterIsInstance<Save>()
+        list.removeAll(savingList)
+        for(saving in savingList){
+            val selectedStructures = list.filter {
+                it.beat >= saving.beat && it.beat <= saving.beat + saving.duration
+            }.map { it.copy() }
+            selectedStructures.forEach { it.beat-=saving.beat }
+            val savedWallStructure = SavedWallStructure(saving.name,structureList = selectedStructures)
+            if (a.savedStructures.find { it.name == saving.name } != null){
+                logger.info { "${saving.name} already exist, skipping" }
+            }
+            else{
+                a.savedStructures.add(savedWallStructure)
+            }
+        }
+    }
+
+    fun createWalls(difficulty: Difficulty){
+        val walls = list.flatMap { it.walls() }
+        walls.forEach { it.adjustToBPM(bpm, difficulty) }
+    }
+}
+
+
+/**
+ * gets the given Songasset
+ */
+fun findDifficultyAsset(file: File): File {
+    try {
+        if (file.isDifficulty()) {
+            // gets the SongAssetFile
+            val path = file.absolutePath
+            val f = File(System.getProperty("java.class.path"))
+            val dir = f.absoluteFile.parentFile
+            val tPath = dir.toString()
+            File(tPath, "DifficultyAssets").mkdirs()
+            val songAssetFile = Paths.get(tPath, "DifficultyAssets", "${Paths.get(path).fileName}.txt").toFile()
+
+            //checks if its already exist
+            if (!songAssetFile.exists()) {
+                val njs = askForDouble("NJS offset",2.0)
+                val bpm = askForDouble("BPM",0.0)
+                songAssetFile.writeText(defaultSongAssetString(path, njs, bpm))
+                if (!songAssetFile.exists())
+                    errorExit { "Failed to write Default File" }
+            }
+            return songAssetFile
+        } else
+            return file
+    }catch (e:Exception){
+        errorExit(e) { "Failed to read in the SongAssetFile" }
+        TODO()
+    }
+}
+
+/** Asking for NJS */
+private fun askForDouble(name:String, default: Double): Double {
+    return try {
+        println("Enter the $name for the File (default: $default)")
+        val njsInput = readLine()?:"$default"
+        val njs = njsInput.toDoubleOrNull()?:default
+        logger.info { "Set the NJS Offset to $njs" }
+        njs
+    }catch (e:Exception){
+        logger.error { "Something went wrong, try again" }
+        askForDouble(name, default)
+    }
+}
+
+/**
+ * reads in a String and returns the corresponging SongAssetFile
+ */
+fun readDifficultyAsset(s:String, assetFile: AssetFile):DifficultyAsset{
+    // creates the list of key-Value
+    val lines = parseAssetString(s)
+
+    assertVersion(lines)
+
+    val path = lines.pop("path")
+    val njsOffset = lines.pop("njsOffset").toDouble()
+    val bpm = lines.pop("bpm").toDouble()
+    val structures = lines.readStructures(assetFile)
+
+
+    val list  =  DifficultyAsset(bpm = bpm, path = path, njsOffset = njsOffset,list = structures)
+    logger.info { "Read DifficultyAsset Succesfull with ${structures.size} structures" }
+    return list
+}
+
+
+private fun defaultSongAssetString(path: String,njsOffset: Double, bpm: Double)=
     """
-# This is an example File of a SongAsset. Use this to orchestate Walls.
+# This is an example File of a DifficultyAsset. Use this to orchestate Walls.
 # Lines starting with an # are Comments and will get ignored
 
 # Mandatory Fields:
+
 # version, must be 1.0 currently
 version: 1.0
+
 # path of the Song
 path: $path
+
+# bpm of the Song
+bpm: $bpm
+
 # njs you want to work with (used for timing)
 njsOffset: $njsOffset
+
 
 # Commands, Specify the Walls you want to create
 # Syntax Beat(check mm for  that):Name
@@ -37,68 +141,6 @@ njsOffset: $njsOffset
 2.0:Helix
     amount:2
     """.trimIndent()
-
-/**
- * gets the given Songasset
- */
-fun findSongAsset(file:File, assetFile: AssetFile): SongAsset {
-    try {
-        if (file.isSong()) {
-            // gets the SongAssetFile
-            val path = file.absolutePath
-            val f = File(System.getProperty("java.class.path"))
-            val dir = f.absoluteFile.parentFile
-            val tPath = dir.toString()
-            File(tPath, "SongAssets").mkdirs()
-            val songAssetFile = Paths.get(tPath, "SongAssets", "${Paths.get(path).fileName}.txt").toFile()
-
-            //checks if its already exist
-            if (!songAssetFile.exists()) {
-                val njs = getNJSOffset()
-                songAssetFile.writeText(defaultSongAssetString(path, njs))
-                if (!songAssetFile.exists())
-                    errorExit { "Failed to write Default File" }
-            }
-            return readSongAsset(songAssetFile.readText(), assetFile)
-        } else
-            return readSongAsset(file.readText(), assetFile = assetFile)
-    }catch (e:Exception){
-        errorExit(e) { "Failed to read in the SongAssetFile" }
-        TODO()
-    }
-}
-
-/** Asking for NJS */
-private fun getNJSOffset(): Double {
-    return try {
-        println("Enter the NJS Offset for the File (usually 2)")
-        val njsInput = readLine()?:"2"
-        val njs = njsInput.toDoubleOrNull()?:2.0
-        logger.info { "Set the NJS Offset to $njs" }
-        njs
-    }catch (e:Exception){
-        logger.error { "Something went wrong, try again" }
-        getNJSOffset()
-    }
-}
-
-/**
- * reads in a String and returns the corresponging SongAssetFile
- */
-private fun readSongAsset(s:String, assetFile: AssetFile):SongAsset{
-    // creates the list of key-Value
-    val lines = parseAssetString(s)
-
-    assertVersion(lines)
-
-    val path = lines.pop("path")
-    val njsOffset = lines.pop("njsOffset").toDouble()
-    val structures = lines.readStructures(assetFile)
-
-    return SongAsset(path = path, njsOffset = njsOffset,list = structures)
-}
-
-
 
 
 //   ____  ____   __   ____  ____  ____
@@ -125,14 +167,13 @@ private fun MutableList<Pair<String,String>>.readStructures(assetFile: AssetFile
             val structName = this[i].value().toLowerCase()
             val beat = this[i].key().toDouble()
             val struct: WallStructure
-
             // sets the struct
             struct = when (structName) {
                 in customStructsNames -> customStructs.find { it.name.toLowerCase() == structName }!!.copy()
                 in specialStructsNames -> specialStructs.find { it.simpleName!!.toLowerCase() == structName }!!.createInstance()
                 else -> {
-                    errorExit { "Cant find the Structure $structName" }
-                    TODO()
+                    logger.info { "structure $structName not found" }
+                    EmptyWallStructure
                 }
             }
             //and the beat
@@ -150,6 +191,9 @@ private fun MutableList<Pair<String,String>>.readStructures(assetFile: AssetFile
  * fills the given structure with the option, if it exist
  */
 private fun readWallStructOptions(wallStructure: WallStructure, option: Pair<String, String>){
+    if (wallStructure is EmptyWallStructure){
+        return
+    }
     val properties = wallStructure::class.memberProperties.toMutableList()
     val property = properties.find { it.name.toLowerCase() ==option.key().toLowerCase() }
     val value:Any?
@@ -206,7 +250,7 @@ private fun MutableList<Pair<String,String>>.pop(key:String): String {
         this.remove(tempLine)
         tempLine.value()
     }else{
-        errorExit { "Cant find the value to $key, do you have it in your SongAsset?" }
+        errorExit { "Cant find the value to $key, do you have it in your DifficultyAsset?" }
         ""
     }
 }

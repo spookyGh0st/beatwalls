@@ -1,12 +1,20 @@
 package com.github.spookyghost.beatwalls
 
+import assetFile.AssetFile
+import assetFile.readAssetFile
 import mu.KotlinLogging
+import java.io.File
 import kotlin.system.exitProcess
 
 fun main(args: Array<String>) {
 
     try {
-        BeatWalls().main(args)
+        val myArgs: Array<String> = if (args.isEmpty() && File(readAssetFile().currentSong).exists())
+            arrayOf(readAssetFile().currentSong)
+        else
+            args
+
+        BeatWalls().main(myArgs)
         println("Succesfull")
         readLine()
 

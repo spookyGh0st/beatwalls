@@ -3,6 +3,7 @@ package structure
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
 import old_structures.OldParameters
+import song.Difficulty
 import song._obstacles
 import kotlin.math.abs
 import kotlin.random.Random
@@ -22,18 +23,6 @@ data class Wall(
     @Expose
     @SerializedName("startTime") var startTime: Double
 ){
-    override fun toString(): String {
-        var text="Wall("
-        text+="\n\t\t\t$startRow,"
-        text+="\n\t\t\t$duration,"
-        text+="\n\t\t\t$width,"
-        text+="\n\t\t\t$height,"
-        text+="\n\t\t\t$startHeight,"
-        text+="\n\t\t\t$startTime"
-        text+="\n\t\t\t)"
-        return text
-    }
-
 
     /**Changes the MyObstacle Type to an _obstacle Type */
     fun to_obstacle(): _obstacles {
@@ -135,14 +124,8 @@ data class Wall(
 
     }
 
-    fun adjustToBPM(baseBPM:Double,newBPM:Double,offset:Double): Wall {
-        var tempStartTime = startTime* (baseBPM / newBPM)
-        tempStartTime += offset
-        val tempDuration = if(duration > 0)
-            duration * (baseBPM / newBPM)
-        else
-            duration
-        return this.copy(startTime = tempStartTime, duration = tempDuration)
+    fun adjustToBPM(baseBPM:Double,difficulty: Difficulty): Wall {
+        TODO()
     }
     fun fuckUp() =
         Wall(ra(startRow), ra(duration), ra(width), ra(height), ra(startHeight), ra(startTime))

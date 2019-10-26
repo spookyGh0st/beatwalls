@@ -1,12 +1,16 @@
 package com.github.spookyghost.beatwalls
 
-import assetFile.SongAsset
-import assetFile.findSongAsset
+import assetFile.findDifficultyAsset
 import assetFile.readAssetFile
+import assetFile.readDifficultyAsset
+import assetFile.writeAssetFile
 import com.github.ajalt.clikt.core.CliktCommand
 import com.github.ajalt.clikt.parameters.arguments.argument
 import com.github.ajalt.clikt.parameters.types.file
 import mu.KotlinLogging
+import reader.readDifficulty
+import reader.writeDifficulty
+import java.io.File
 
 class BeatWalls: CliktCommand() {
     private val logger = KotlinLogging.logger {}
@@ -15,7 +19,20 @@ class BeatWalls: CliktCommand() {
 
     override fun run() {
         val assetFile = readAssetFile()
-        val a = findSongAsset(song, assetFile)
+
+        val difficultyAssetFile = findDifficultyAsset(song)
+        assetFile.currentSong = difficultyAssetFile.absolutePath
+        val difficultyAssetText = difficultyAssetFile.readText()
+
+        val songAsset = readDifficultyAsset(difficultyAssetText,assetFile)
+        songAsset.saveStructures(assetFile)
+
+        val diffFile = File(songAsset.path)
+        val difficulty = readDifficulty(diffFile)
+        songAsset.createWalls(difficulty)
+        writeDifficulty(difficulty,diffFile)
+
+        writeAssetFile(assetFile)
 
 //        val song = AssetController.currentSong()
 //        val difficultyList =song.difficultyList

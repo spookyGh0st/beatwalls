@@ -26,7 +26,7 @@ fun readAssetFile(): AssetFile {
     val file = File(dir,"BeatWallAsset.json")
     if(!file.exists()){
         val s1 = SavedWallStructure("Floor", listOf(Wall(-1.0,1.0,2.0,0.0,0.0,0.0)))
-        val s2 = SavedWallStructure("Floor", listOf(Wall(-1.0,1.0,2.0,0.0,4.0,0.0)))
+        val s2 = SavedWallStructure("Ceiling", listOf(Wall(-1.0,1.0,2.0,0.0,4.0,0.0)))
 
         val default = AssetFile(1.0,"", arrayListOf(s1,s2))
         val json = GsonBuilder().setPrettyPrinting().create().toJson(default)

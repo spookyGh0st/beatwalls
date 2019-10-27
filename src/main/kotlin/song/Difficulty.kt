@@ -11,15 +11,4 @@ data class Difficulty (
     @SerializedName("_obstacles") var _obstacles : ArrayList<_obstacles>
 ){
     fun containsCommand(string: String) = this._bookmarks.any { it._name.contains("/$string") }
-    fun getTime(beat:Double, bpm:Double){
-        var a = 0.0
-        var i =0
-        while (a< beat){
-            _BPMChanges[i]
-        }
-    }
-    fun getBeat(beat:Double, bpm:Double){
-
-    }
 }
-

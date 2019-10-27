@@ -26,9 +26,13 @@ class BeatWalls: CliktCommand() {
 
         val songAsset = readDifficultyAsset(difficultyAssetText,assetFile)
         songAsset.saveStructures(assetFile)
+        println(songAsset.path)
 
         val diffFile = File(songAsset.path)
         val difficulty = readDifficulty(diffFile)
+
+        difficulty._obstacles.clear()
+
         songAsset.createWalls(difficulty)
         writeDifficulty(difficulty,diffFile)
 

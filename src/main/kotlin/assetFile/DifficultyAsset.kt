@@ -22,12 +22,12 @@ class DifficultyAsset(val bpm: Double, val njsOffset:Double, val path:String, va
      * saves the Structure to the AssetFile
      */
     fun saveStructures(a:AssetFile){
-       val savingList = list.filterIsInstance<Save>()
+        val savingList = list.filterIsInstance<Save>()
         list.removeAll(savingList)
         for(saving in savingList){
             val selectedStructures = list.filter {
                 it.beat >= saving.beat && it.beat <= saving.beat + saving.duration
-            }.map { it.copy() }
+            }.map { it.deepCopy() }
             selectedStructures.forEach { it.beat-=saving.beat }
             val savedWallStructure = SavedWallStructure(saving.name,structureList = selectedStructures)
             if (a.savedStructures.find { it.name == saving.name } != null){
@@ -40,8 +40,18 @@ class DifficultyAsset(val bpm: Double, val njsOffset:Double, val path:String, va
     }
 
     fun createWalls(difficulty: Difficulty){
-        val walls = list.flatMap { it.walls() }
-        walls.forEach { it.adjustToBPM(bpm, difficulty) }
+        for(w in list){
+            val walls = w.walls()
+            walls.forEach { it.startTime+=w.beat }
+            walls.forEach { it.adjustToBPM(bpm, difficulty) }
+
+            // adds the njsOffset if time is true
+            if(w.time)
+                walls.forEach { it.startTime+=njsOffset }
+
+            val obstacles = walls.map { it.to_obstacle() }
+            difficulty._obstacles.addAll(obstacles)
+        }
     }
 }
 
@@ -58,7 +68,8 @@ fun findDifficultyAsset(file: File): File {
             val dir = f.absoluteFile.parentFile
             val tPath = dir.toString()
             File(tPath, "DifficultyAssets").mkdirs()
-            val songAssetFile = Paths.get(tPath, "DifficultyAssets", "${Paths.get(path).fileName}.txt").toFile()
+            val name = Paths.get(path).parent.fileName
+            val songAssetFile = Paths.get(tPath, "DifficultyAssets", "$name.txt").toFile()
 
             //checks if its already exist
             if (!songAssetFile.exists()) {
@@ -135,11 +146,10 @@ njsOffset: $njsOffset
 # Commands, Specify the Walls you want to create
 # Syntax Beat(check mm for  that):Name
 # Example Wall, remove
-1.0:Floor
-    mirror:true
-    time:true
-2.0:Helix
-    amount:2
+10.0: Floor
+    time: true
+20.0: RandomNoise
+    amount: 10
     """.trimIndent()
 
 
@@ -169,7 +179,7 @@ private fun MutableList<Pair<String,String>>.readStructures(assetFile: AssetFile
             val struct: WallStructure
             // sets the struct
             struct = when (structName) {
-                in customStructsNames -> customStructs.find { it.name.toLowerCase() == structName }!!.copy()
+                in customStructsNames -> customStructs.find { it.name.toLowerCase() == structName }!!.deepCopy()
                 in specialStructsNames -> specialStructs.find { it.simpleName!!.toLowerCase() == structName }!!.createInstance()
                 else -> {
                     logger.info { "structure $structName not found" }
@@ -222,15 +232,14 @@ private fun readWallStructOptions(wallStructure: WallStructure, option: Pair<Str
  */
 private fun parseAssetString(s:String): MutableList<Pair<String, String>> =
     s
-    .lines()
-    .asSequence()
-    .filterNot { it.startsWith("#") || it.isEmpty() }
-    .map { it.replace("\\s".toRegex(), "") }
-    .map { it.replace("\\t".toRegex(), "") }
-    .map { it.toLowerCase() }
-    .map { it.split(":") }
-    .map { it[0] to it[1] }
-    .toMutableList()
+        .lines()
+        .asSequence()
+        .filterNot { it.startsWith("#") || it.isEmpty() }
+        .map { it.replace("\\t".toRegex(), "") }
+        .map { it.split(":") }
+        .map { it.map { l -> l.trim() } }
+        .map { it[0].toLowerCase() to it.minus(it[0]).joinToString(":") }
+        .toMutableList()
 
 /**
  * exit, when the version is wrong

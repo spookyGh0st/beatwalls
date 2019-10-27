@@ -4,8 +4,11 @@ import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
 import old_structures.OldParameters
 import song.Difficulty
+import song._BPMChanges
 import song._obstacles
+import java.io.Serializable
 import kotlin.math.abs
+import kotlin.math.ceil
 import kotlin.random.Random
 
 
@@ -22,7 +25,7 @@ data class Wall(
     @SerializedName("startHeight") var startHeight: Double,
     @Expose
     @SerializedName("startTime") var startTime: Double
-){
+):Serializable{
 
     /**Changes the MyObstacle Type to an _obstacle Type */
     fun to_obstacle(): _obstacles {
@@ -54,7 +57,7 @@ data class Wall(
     //TODO until negative width is allowed, this is needed. Once negative width is allowed, do this like lineIndex
     private fun calculateWidth():Int{
         //makes sure its not 0 width
-        width = if(width > -0.001 && width < 0.001) 0.001 else width
+        width = if(width > -0.01 && width < 0.01) 0.01 else width
 
         //calculate the width
         return if( width >= 0.0)
@@ -99,33 +102,11 @@ data class Wall(
         return  (tWallH * 1000 + tStartH+4001)
     }
 
+    fun adjustToBPM(baseBPM:Double,difficulty: Difficulty){
+        startTime = getTime(startTime,baseBPM,difficulty._BPMChanges)
+        if(duration>0)
+            duration * multiplier(startTime,baseBPM,difficulty._BPMChanges)
 
-    /**overwrites the values, depending on the given parameters*/
-    fun adjustParameters(oldParameters: OldParameters){
-        //Adding all the values
-        var tempDuration = duration + oldParameters.duration
-        val tempHeight = height + oldParameters.wallHeight
-        val tempStartHeight = startHeight + oldParameters.wallStartHeight
-        val tempStartRow = startRow + oldParameters.startRow
-        val tempWidth = width + oldParameters.width
-        var tempStartTime = startTime + oldParameters.startTime
-
-        //adjusting the scale
-        if(tempDuration>0)  tempDuration *= oldParameters.scale
-        tempStartTime *= oldParameters.scale
-
-        //adjust the values
-        this.duration =tempDuration
-        this.height =tempHeight
-        this.startHeight =tempStartHeight
-        this.startRow =tempStartRow
-        this.width =tempWidth
-        this.startTime=tempStartTime
-
-    }
-
-    fun adjustToBPM(baseBPM:Double,difficulty: Difficulty): Wall {
-        TODO()
     }
     fun fuckUp() =
         Wall(ra(startRow), ra(duration), ra(width), ra(height), ra(startHeight), ra(startTime))
@@ -144,10 +125,9 @@ data class Wall(
     fun hyper() = this.copy(duration = -3.0)
 
     /**returns the mirrored obstacle */
-    fun mirror(d:Boolean): List<Wall> {
-        val a =  mutableListOf(this.copy(startRow = -startRow, width = -width))
-        if (d) a.add(this.copy())
-        return a
+    fun mirror() {
+        this.startRow = -startRow
+        width = -width
     }
     fun verticalMirror(sh:Double = 2.0,d: Boolean): MutableList<Wall> {
         val a = mutableListOf<Wall>()
@@ -156,10 +136,7 @@ data class Wall(
         return a
     }
     fun pointMirror(sh: Double = 2.0,d:Boolean): MutableList<Wall> {
-        val a = mutableListOf<Wall>()
-        a.addAll(this.mirror(false).flatMap { it.verticalMirror(d =false) })
-        if (d) a.add(this.copy())
-        return a
+        TODO()
     }
 
 
@@ -202,3 +179,33 @@ data class Wall(
     }
 }
 
+private fun getTime(beat:Double, baseBpm: Double, _BPMChanges: ArrayList<_BPMChanges>): Double {
+    val lastChange = lastChange(beat, baseBpm, _BPMChanges)
+    val offset = lastChange?.first?._time?:0.0
+    val time = beat- (lastChange?.second ?: 0.0) * multiplier(beat, baseBpm, _BPMChanges)
+    return offset + time
+}
+private fun multiplier(beat:Double, baseBpm: Double, _BPMChanges: ArrayList<_BPMChanges>): Double {
+    return (lastChange(beat, baseBpm, _BPMChanges)?.first?._BPM?:baseBpm) / baseBpm
+}
+private fun lastChange(beat:Double, baseBpm: Double, _BPMChanges: ArrayList<_BPMChanges>): Pair<_BPMChanges, Double>? {
+    val l = _BPMChanges.map { it to getBPMchangeBeat(baseBpm,_BPMChanges,it) }
+    return l.sortedBy { it.second }.findLast {it.second < beat}
+
+}
+
+
+private fun getBPMchangeBeat(baseBpm:Double, _BPMChanges: ArrayList<_BPMChanges>, bpmChange: _BPMChanges): Double {
+    var index = 0
+    var beat = 0.0
+    val tempList = arrayListOf<_BPMChanges>()
+    tempList.addAll(_BPMChanges)
+    tempList.add(0, _BPMChanges(baseBpm,0.0,4,4))
+    while(tempList [index] != bpmChange) {
+        val trueDuration = (tempList[index+1]._time - tempList[index]._time) * (tempList[index]._BPM/baseBpm)
+        beat += (trueDuration)
+        beat = ceil(beat)
+        index++
+    }
+    return beat
+}

@@ -40,7 +40,6 @@ object OldWallStructureManager
 
 
             //adjusts the parameter
-            wallList.forEach { it.adjustParameters(oldParameters) }
 
             //adds the mirrored list
             if (structure.mirror)

@@ -20,7 +20,7 @@ class AssetFile(
     val savedStructures: ArrayList<SavedWallStructure> = arrayListOf()
 )
 
-fun readAssetFile(): AssetFile {
+private fun readAssetFile(): AssetFile {
     //val fil = File("A:\\Files\\projects\\beatwalls\\target\\BeatWallAsset.json")
    //return serializeAsset(fil.readText())
 
@@ -41,7 +41,8 @@ fun readAssetFile(): AssetFile {
     return serializeAsset(json)
 }
 
-fun writeAssetFile(a:AssetFile){
+//todo make private -> DifficultyAsset add Structure Type -> add Define Structrue -> add lists
+private fun writeAssetFile(a:AssetFile){
     val f = File(System.getProperty("java.class.path"))
     val dir = f.absoluteFile.parentFile
     val file = File(dir,"BeatWallAsset.json")
@@ -104,6 +105,10 @@ internal class InterfaceAdapter<T : Any> : JsonSerializer<T>, JsonDeserializer<T
         return wrapper.get(memberName)
             ?: throw JsonParseException("no '$memberName' member found in what was expected to be an interface wrapper")
     }
+}
+object AssetFileAPI {
+    val assetFile = readAssetFile()
+    fun writeAssetFile() = writeAssetFile(assetFile)
 }
 
 fun main(){

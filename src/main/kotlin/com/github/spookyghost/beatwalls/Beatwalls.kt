@@ -1,9 +1,6 @@
 package com.github.spookyghost.beatwalls
 
-import assetFile.findDifficultyAsset
-import assetFile.readAssetFile
-import assetFile.readDifficultyAsset
-import assetFile.writeAssetFile
+import assetFile.*
 import com.github.ajalt.clikt.core.CliktCommand
 import com.github.ajalt.clikt.parameters.arguments.argument
 import com.github.ajalt.clikt.parameters.types.file
@@ -18,13 +15,13 @@ class BeatWalls: CliktCommand() {
 
 
     override fun run() {
-        val assetFile = readAssetFile()
+        val assetFile = AssetFileAPI.assetFile
 
         val difficultyAssetFile = findDifficultyAsset(song)
         assetFile.currentSong = difficultyAssetFile.absolutePath
         val difficultyAssetText = difficultyAssetFile.readText()
 
-        val songAsset = readDifficultyAsset(difficultyAssetText,assetFile)
+        val songAsset = readDifficultyAsset(difficultyAssetText)
 
         val diffFile = File(songAsset.path)
         val difficulty = readDifficulty(diffFile)

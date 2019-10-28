@@ -1,17 +1,15 @@
 package com.github.spookyghost.beatwalls
 
-import assetFile.AssetFile
-import assetFile.readAssetFile
+import assetFile.AssetFileAPI
 import mu.KotlinLogging
 import java.io.File
-import java.lang.IndexOutOfBoundsException
 import kotlin.system.exitProcess
 
 fun main(args: Array<String>) {
 
     try {
-        val myArgs: Array<String> = if (args.isEmpty() && File(readAssetFile().currentSong).exists())
-            arrayOf(readAssetFile().currentSong)
+        val myArgs: Array<String> = if (args.isEmpty() && File(AssetFileAPI.assetFile.currentSong).exists())
+            arrayOf(AssetFileAPI.assetFile.currentSong)
         else
             args
 

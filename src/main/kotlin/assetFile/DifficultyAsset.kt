@@ -4,10 +4,7 @@ import com.github.spookyghost.beatwalls.errorExit
 import mu.KotlinLogging
 import reader.isDifficulty
 import song.Difficulty
-import structure.EmptyWallStructure
-import structure.Point
-import structure.Save
-import structure.WallStructure
+import structure.*
 import java.io.File
 import java.nio.file.Paths
 import kotlin.reflect.KMutableProperty
@@ -19,7 +16,6 @@ import kotlin.reflect.full.withNullability
 private val logger = KotlinLogging.logger {}
 
 class DifficultyAsset(val bpm: Double, val njsOffset:Double, val path:String, val list: ArrayList<WallStructure> ){
-
     /**
      * saves the Structure to the AssetFile
      */
@@ -32,7 +28,10 @@ class DifficultyAsset(val bpm: Double, val njsOffset:Double, val path:String, va
                 .filter { it.beat >= saving.beat && it.beat <= saving.beat + saving.duration}
                 .map { it.deepCopy() }
 
-            selectedStructures.forEach { it.beat-=saving.beat }
+            selectedStructures.forEach {
+                if(it !is CustomWallStructure)
+                    it.walls().clear()
+                it.beat-=saving.beat }
 
             val selectedWalls =d._obstacles
                 .map { it.toWall() }
@@ -55,13 +54,17 @@ class DifficultyAsset(val bpm: Double, val njsOffset:Double, val path:String, va
             }
 
             a.savedStructures.add(savedWallStructure)
-            writeAssetFile(a)
+            AssetFileAPI.writeAssetFile()
             logger.info { "created ${saving.name} with ${savedWallStructure.wallList.size + savedWallStructure.structureList.flatMap { it.walls() }.size} walls" }
         }
     }
 
+
     fun createWalls(difficulty: Difficulty){
         for(w in list){
+            if (w is Save || w is Define)
+                continue
+
             val walls = w.walls()
             walls.forEach { it.startTime+=w.beat }
             walls.forEach { it.adjustToBPM(bpm, difficulty) }
@@ -128,7 +131,7 @@ private fun askForDouble(name:String, default: Double): Double {
 /**
  * reads in a String and returns the corresponging SongAssetFile
  */
-fun readDifficultyAsset(s:String, assetFile: AssetFile):DifficultyAsset{
+fun readDifficultyAsset(s: String):DifficultyAsset{
     // creates the list of key-Value
     val lines = parseAssetString(s)
 
@@ -137,7 +140,7 @@ fun readDifficultyAsset(s:String, assetFile: AssetFile):DifficultyAsset{
     val path = lines.pop("path")
     val njsOffset = lines.pop("njsOffset").toDouble()
     val bpm = lines.pop("bpm").toDouble()
-    val structures = lines.readStructures(assetFile)
+    val structures = lines.readStructures()
 
 
     val list  =  DifficultyAsset(bpm = bpm, path = path, njsOffset = njsOffset,list = structures)
@@ -187,38 +190,43 @@ njsOffset: $njsOffset
 /**
  * reads the Structures from the list
  */
-private fun MutableList<Pair<String,String>>.readStructures(assetFile: AssetFile): ArrayList<WallStructure>{
+private fun MutableList<Pair<String,String>>.readStructures(): ArrayList<WallStructure>{
     val list = arrayListOf<WallStructure>()
-
-    val customStructs = assetFile.savedStructures.map { it.toCustomWallStructure() }
-    val customStructsNames = customStructs.map { it.name.toLowerCase() }
-    val specialStructs = WallStructure::class.sealedSubclasses
-    val specialStructsNames = specialStructs.map { it.simpleName?.toLowerCase()?:""}
 
     for (i in 0 until this.size){
         if (this[i].key().toDoubleOrNull() != null){
             val structName = this[i].value().toLowerCase()
             val beat = this[i].key().toDouble()
-            val struct: WallStructure
+            val struct: WallStructure = findStructure(structName)
 
-            // sets the struct
-            struct = when (structName) {
-                in customStructsNames -> customStructs.find { it.name.toLowerCase() == structName }!!.deepCopy()
-                in specialStructsNames -> specialStructs.find { it.simpleName!!.toLowerCase() == structName }!!.createInstance()
-                else -> {
-                    logger.info { "structure $structName not found" }
-                    EmptyWallStructure
-                }
-            }
-            //and the beat
+            //sets the beat
             struct.beat = beat
             list.add(struct)
         }else{
             readWallStructOptions(list.last(),this[i])
-
         }
     }
     return list
+}
+
+fun findStructure(structName: String): WallStructure {
+    val assetFile = AssetFileAPI.assetFile
+    val customStructs = assetFile.savedStructures.map { it.toCustomWallStructure() }
+    val customStructsNames = customStructs.map { it.name.toLowerCase() }
+    val specialStructs = WallStructure::class.sealedSubclasses
+    val specialStructsNames = specialStructs.map { it.simpleName?.toLowerCase()?:""}
+    val struct: WallStructure
+
+    // sets the struct
+    struct = when (structName) {
+        in customStructsNames -> customStructs.find { it.name.toLowerCase() == structName }!!.deepCopy()
+        in specialStructsNames -> specialStructs.find { it.simpleName!!.toLowerCase() == structName }!!.createInstance()
+        else -> {
+            logger.info { "structure $structName not found" }
+            EmptyWallStructure
+        }
+    }
+    return struct
 }
 
 /**
@@ -244,6 +252,7 @@ private fun readWallStructOptions(wallStructure: WallStructure, option: Pair<Str
             Double::class.createType() -> toDouble()
             String::class.createType() -> toString()
             Point::class.createType() -> toPoint()
+            WallStructure::class.createType() -> toWallStructure()
             else -> null
         }
     }
@@ -312,6 +321,14 @@ private fun String.toPoint(): Point {
         y = values.getOrNull(1)?:0.0,
         z = values.getOrNull(2)?:0.0
     )
+}
+
+/**
+ * String to WallStructure
+ */
+private fun String.toWallStructure(): WallStructure{
+    return findStructure(this)
+
 }
 
 

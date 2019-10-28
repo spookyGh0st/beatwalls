@@ -209,13 +209,30 @@ class Curve:WallStructure(){
 }
 
 /**
- * Saves All WallStructures between
+ * Saves All WallStructures between the beat and the given name to the BeatWallAsset. Replacs given WallStructue with the given name
  */
 class Save:WallStructure(){
-    var name: String = ""
+    /**
+     * the name you want your structure to be saved in
+     */
+    var name: String = "myStructure"
+    /**
+     * the duration in between you want to look for walls
+     */
     var duration: Double = 1.0
     override fun run() {
     }
+}
+
+/**
+ * Defines a WallStructure. You can provide multiple internal structures. Does not get saved to BeatWallAsset.json
+ */
+class Define: WallStructure() {
+    /**
+     * The name of Different Structures
+     */
+    var structure = listOf<WallStructure>()
+
 }
 
 fun main (){

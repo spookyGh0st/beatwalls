@@ -4,6 +4,7 @@ import assetFile.AssetFile
 import assetFile.readAssetFile
 import mu.KotlinLogging
 import java.io.File
+import java.lang.IndexOutOfBoundsException
 import kotlin.system.exitProcess
 
 fun main(args: Array<String>) {
@@ -18,7 +19,7 @@ fun main(args: Array<String>) {
         println("Succesfull")
         readLine()
 
-    } catch (e: Exception) {
+    } catch (e: IndexOutOfBoundsException ) {
         errorExit(e) { "Something failed" }
     }
 }

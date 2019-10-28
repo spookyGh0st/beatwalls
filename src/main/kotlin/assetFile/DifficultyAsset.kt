@@ -5,6 +5,7 @@ import mu.KotlinLogging
 import reader.isDifficulty
 import song.Difficulty
 import structure.EmptyWallStructure
+import structure.Point
 import structure.Save
 import structure.WallStructure
 import java.io.File
@@ -13,6 +14,7 @@ import kotlin.reflect.KMutableProperty
 import kotlin.reflect.full.createInstance
 import kotlin.reflect.full.createType
 import kotlin.reflect.full.memberProperties
+import kotlin.reflect.full.withNullability
 
 private val logger = KotlinLogging.logger {}
 
@@ -21,21 +23,40 @@ class DifficultyAsset(val bpm: Double, val njsOffset:Double, val path:String, va
     /**
      * saves the Structure to the AssetFile
      */
-    fun saveStructures(a:AssetFile){
+    fun saveStructures(a:AssetFile, d:Difficulty){
         val savingList = list.filterIsInstance<Save>()
         list.removeAll(savingList)
         for(saving in savingList){
-            val selectedStructures = list.filter {
-                it.beat >= saving.beat && it.beat <= saving.beat + saving.duration
-            }.map { it.deepCopy() }
+
+            val selectedStructures = list
+                .filter { it.beat >= saving.beat && it.beat <= saving.beat + saving.duration}
+                .map { it.deepCopy() }
+
             selectedStructures.forEach { it.beat-=saving.beat }
-            val savedWallStructure = SavedWallStructure(saving.name,structureList = selectedStructures)
-            if (a.savedStructures.find { it.name == saving.name } != null){
-                logger.info { "${saving.name} already exist, skipping" }
+
+            val selectedWalls =d._obstacles
+                .map { it.toWall() }
+                .filter { it.startTime >= saving.beat && it.startTime <= saving.beat + saving.duration}
+                .map { it.copy() }
+
+            selectedWalls.forEach { it.startTime -= saving.beat }
+
+
+            val savedWallStructure = SavedWallStructure(
+                name = saving.name,
+                wallList = selectedWalls,
+                structureList = selectedStructures
+            )
+
+            val sameStructure = a.savedStructures.find { it.name == saving.name }
+            if (sameStructure!= null){
+                logger.info { "${saving.name} already exist, replacing" }
+                a.savedStructures.remove(sameStructure)
             }
-            else{
-                a.savedStructures.add(savedWallStructure)
-            }
+
+            a.savedStructures.add(savedWallStructure)
+            writeAssetFile(a)
+            logger.info { "created ${saving.name} with ${savedWallStructure.wallList.size + savedWallStructure.structureList.flatMap { it.walls() }.size} walls" }
         }
     }
 
@@ -70,6 +91,7 @@ fun findDifficultyAsset(file: File): File {
             File(tPath, "DifficultyAssets").mkdirs()
             val name = Paths.get(path).parent.fileName
             val songAssetFile = Paths.get(tPath, "DifficultyAssets", "$name.txt").toFile()
+            logger.info { "Working on $songAssetFile" }
 
             //checks if its already exist
             if (!songAssetFile.exists()) {
@@ -78,6 +100,7 @@ fun findDifficultyAsset(file: File): File {
                 songAssetFile.writeText(defaultSongAssetString(path, njs, bpm))
                 if (!songAssetFile.exists())
                     errorExit { "Failed to write Default File" }
+                errorExit { "created Default SongAssetFile at $songAssetFile" }
             }
             return songAssetFile
         } else
@@ -177,6 +200,7 @@ private fun MutableList<Pair<String,String>>.readStructures(assetFile: AssetFile
             val structName = this[i].value().toLowerCase()
             val beat = this[i].key().toDouble()
             val struct: WallStructure
+
             // sets the struct
             struct = when (structName) {
                 in customStructsNames -> customStructs.find { it.name.toLowerCase() == structName }!!.deepCopy()
@@ -210,14 +234,16 @@ private fun readWallStructOptions(wallStructure: WallStructure, option: Pair<Str
     if (property == null) {
         errorExit { "The WallStructure $wallStructure does not have the property ${option.key()}" }
     }
-    val type = property?.returnType
+    val type = property?.returnType?.withNullability(false)
 
     with (option.value()){
         value = when (type) {
             Boolean::class.createType() -> toBoolean()
             Int::class.createType() -> toInt()
             Double::class.createType() -> toDouble()
+            Double::class.createType() -> toDouble()
             String::class.createType() -> toString()
+            Point::class.createType() -> toPoint()
             else -> null
         }
     }
@@ -272,6 +298,20 @@ private fun Pair<String,String>.value(): String {
 }
 private fun Pair<String,String>.key(): String {
     return this.component1()
+}
+
+/**
+ * String to Point
+ */
+private fun String.toPoint(): Point {
+    val values = this.split(",")
+        .map { it.trim() }
+        .map { it.toDoubleOrNull() }
+    return Point(
+        x = values.getOrNull(0)?:0.0,
+        y = values.getOrNull(1)?:0.0,
+        z = values.getOrNull(2)?:0.0
+    )
 }
 
 

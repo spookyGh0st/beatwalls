@@ -41,7 +41,7 @@ data class AssetsBase (
 )
 
 fun File.isDifficulty() =
-    this.isFile && (this.name == "Easy.dat" || this.name == "Normal.dat" || this.name == "Hard.dat" || this.name == "Expert.dat" || this.name == "ExpertPlus.dat" )
+    this.isFile && (this.name == "EasyStandard.dat" || this.name == "NormalStandard.dat" || this.name == "HardStandard.dat" || this.name == "ExpertStandard.dat" || this.name == "ExpertPlusStandard.dat" )
 
 fun File.isSong() =
     this.isDirectory && this.list()?.contains("info.dat")?:false

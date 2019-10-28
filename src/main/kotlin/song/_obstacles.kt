@@ -1,7 +1,10 @@
 package song
 
 import com.google.gson.annotations.SerializedName
+import mu.KotlinLogging
 import structure.Wall
+
+private val logger = KotlinLogging.logger {}
 
 data class _obstacles (
 
@@ -30,15 +33,20 @@ data class _obstacles (
         val startHeight = getStartHeight(_type)
         val width = getWidth(_width)
 
+        //todo Translate Starttime to Beat
         return Wall(startRow, duration, width, height, startHeight, startTime)
     }
 
     private fun getHeight(i:Int):Double{
-        if(i < 500){
-            TODO()
+        var a = 0.0
+        when {
+            i < 1000 -> logger.warn { "Normal Walls are currently not supported, skipping" }
+            i < 4000 -> a = (i - 1000 )/4.0*3
+            else -> {
+                a = ((i-4001)/1000).toDouble()
+                a = a/1000 / (1.0/3.0) * (4.0/3.0)
+            }
         }
-        var a = ((i-4001)/1000).toDouble()
-        a = a/1000 / (1.0/3.0) * (4.0/3.0)
         return a
     }
     private fun getStartHeight(i:Int):Double{

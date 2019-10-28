@@ -1,6 +1,7 @@
 package structure
 
 //import com.graphbuilder.curve.*
+import java.io.Serializable
 import kotlin.math.*
 import kotlin.random.Random
 
@@ -228,7 +229,7 @@ fun quadraticBezier(p0: Point, p1: Point, p2: Point, p3: Point, t:Double): struc
     return Point(x, y, z)
 }
 
-data class Point(val x:Double, val y:Double, val z:Double) {
+data class Point(val x:Double, val y:Double, val z:Double):Serializable {
     constructor(x:Int,y:Int,z:Int):this(x.toDouble(),y.toDouble(),z.toDouble())
     override fun equals(other: Any?): Boolean {
         if (this === other) return true

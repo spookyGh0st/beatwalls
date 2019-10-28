@@ -2,7 +2,6 @@ package structure
 
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
-import old_structures.OldParameters
 import song.Difficulty
 import song._BPMChanges
 import song._obstacles
@@ -126,17 +125,16 @@ data class Wall(
 
     /**returns the mirrored obstacle */
     fun mirror() {
-        this.startRow = -startRow
+        startRow = -startRow
         width = -width
     }
-    fun verticalMirror(sh:Double = 2.0,d: Boolean): MutableList<Wall> {
-        val a = mutableListOf<Wall>()
-        a.add(this.copy(startHeight = 2 * sh - startHeight, height = -height))
-        if (d) a.add(this.copy())
-        return a
+    fun verticalMirror() {
+        startHeight = 2 + (2-startHeight)
+        height = -height
     }
-    fun pointMirror(sh: Double = 2.0,d:Boolean): MutableList<Wall> {
-        TODO()
+    fun pointMirror() {
+        mirror()
+        verticalMirror()
     }
 
 

@@ -22,3 +22,7 @@ data class SavedWallStructure(
         return w
     }
 }
+
+fun main(){
+    val sW = SavedWallStructure("spiral")
+}

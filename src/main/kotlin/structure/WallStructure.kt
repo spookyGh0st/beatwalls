@@ -25,36 +25,101 @@ sealed class WallStructure:Serializable
     var beat: Double = 0.0
 
     /**
-     * mirrors the Wall to the otherSide, duplicates by default, look at doNotDuplicate
+     * mirrors the Wall:
+     *  0 -> dont mirror,
+     *  1-> mirror to the other side,
+     *  2-> mirror to the other side and duplicate,
+     *  3-> mirror horizontal on y=2
+     *  4-> mirror horizontal and duplicate
+     *  5-> mirror on the center of x=0, y=2
+     *  6-> mirror on the center and duplicate
+     *  7-> mirror horizontal and on the other side and duplicate all 4
+     *  8-> mirror on the center and on the other side and duplicate all 4
      */
-    var mirror: Boolean = false
-
-    /**
-     * do not duplicate when mirroring
-     */
-    var doNotDuplicate: Boolean = false
+    var mirror: Int = 0
 
     /**
      * times the Wall by adding the njsOffset
      */
     var time: Boolean = false
 
+    /**
+     * changes the Duration to the given value
+     */
+    var changeDuration: Double? = null
+
+    /**
+     * how often you want to repeat the Structure
+     */
+    var repeat: Int = 1
+
+    /**
+     * The Gap between each Repeat
+     */
+    var repeatGap: Int = 1
+
+    /**
+     * shifts each repeat in x
+     */
+    var repeatShiftX: Double = 0.0
+
+
+    /**
+     * shifts each repeated Structure in y
+     */
+    var repeatShiftY: Double = 0.0
+
     fun walls(): ArrayList<Wall> {
+        repeat()
         run()
+        adjustValues()
         mirror()
         return walls
     }
 
     private fun mirror(){
-        if(!mirror){
-            return
+        var otherWalls: ArrayList<Wall> = arrayListOf()
+         when(mirror){
+             1->walls.forEach { it.mirror() }
+             2-> {otherWalls = copyWalls();walls.forEach { it.mirror() }}
+             3->walls.forEach {it.verticalMirror()}
+             4-> {otherWalls = copyWalls();walls.forEach { it.verticalMirror() }}
+             5->walls.forEach {it.pointMirror()}
+             6-> {otherWalls = copyWalls();walls.forEach { it.pointMirror() }}
+             7-> {otherWalls = copyWalls()
+                 walls.forEach { it.verticalMirror() }
+                 walls.addAll(otherWalls)
+                 otherWalls =copyWalls()
+                 walls.forEach { it.mirror()}}
+             8-> {otherWalls =copyWalls()
+                 walls.forEach { it.pointMirror() }
+                 walls.addAll(otherWalls)
+                 otherWalls = copyWalls()
+                 walls.forEach { it.mirror()}}
         }
-        val tempList = if (!doNotDuplicate)
-            walls.map { it.copy() }
-        else
-            emptyList()
-        walls.forEach { it.mirror() }
-        walls.addAll(tempList)
+        walls.addAll(otherWalls)
+    }
+
+    private fun repeat(){
+        val tempWalls  = arrayListOf<Wall>()
+        for (i in 1 until repeat){
+            val temp = this.deepCopy()
+            temp.run()
+            temp.walls.forEach {
+                it.startTime+=repeatGap*i
+                it.startRow += repeatShiftX*i
+                it.startHeight += repeatShiftY*i
+            }
+            tempWalls.addAll(temp.walls)
+        }
+        add(tempWalls)
+    }
+
+    private fun copyWalls() :ArrayList<Wall> = ArrayList((walls.map { it.copy() }))
+
+    private fun adjustValues(){
+        if (changeDuration!=null)
+            walls.forEach { it.duration = changeDuration as Double }
     }
 
 
@@ -114,6 +179,32 @@ class RandomNoise:WallStructure(){
             )
             add(w)
         }
+    }
+}
+
+class Curve:WallStructure(){
+    /**
+     * the start Point of the Curve
+     */
+    var sp: Point = Point(0,0,0)
+    /**
+     * The EndPoint of the Curve
+     */
+    var ep: Point = Point(0,0,0)
+    /**
+     * the first Controllpoint
+     */
+    var cp1: Point = sp.copy()
+    /**
+     * second ControlPoint
+     */
+    var cp2: Point = ep.copy()
+    /**
+     * amount of Walls
+     */
+    var amount: Int = 8
+    override fun run() {
+        add(curve(sp,cp1,cp2,ep,amount))
     }
 }
 

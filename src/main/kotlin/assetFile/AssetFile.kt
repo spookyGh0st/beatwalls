@@ -21,6 +21,9 @@ class AssetFile(
 )
 
 fun readAssetFile(): AssetFile {
+    //val fil = File("A:\\Files\\projects\\beatwalls\\target\\BeatWallAsset.json")
+   //return serializeAsset(fil.readText())
+
     val f = File(System.getProperty("java.class.path"))
     val dir = f.absoluteFile.parentFile
     val file = File(dir,"BeatWallAsset.json")

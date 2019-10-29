@@ -1,3 +1,5 @@
+@file:Suppress("unused")
+
 package structure
 
 import mu.KotlinLogging
@@ -131,6 +133,46 @@ sealed class WallStructure:Serializable
         walls.addAll(w)
     }
     fun deepCopy():WallStructure = deepCopyBySer(this)
+
+    /**
+     * generated Funktions
+     */
+
+    override fun toString(): String {
+        return "WallStructure(walls=$walls, beat=$beat, mirror=$mirror, time=$time, changeDuration=$changeDuration, repeat=$repeat, repeatGap=$repeatGap, repeatShiftX=$repeatShiftX, repeatShiftY=$repeatShiftY)"
+    }
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (javaClass != other?.javaClass) return false
+
+        other as WallStructure
+
+        if (walls != other.walls) return false
+        if (beat != other.beat) return false
+        if (mirror != other.mirror) return false
+        if (time != other.time) return false
+        if (changeDuration != other.changeDuration) return false
+        if (repeat != other.repeat) return false
+        if (repeatGap != other.repeatGap) return false
+        if (repeatShiftX != other.repeatShiftX) return false
+        if (repeatShiftY != other.repeatShiftY) return false
+
+        return true
+    }
+
+    override fun hashCode(): Int {
+        var result = walls.hashCode()
+        result = 31 * result + beat.hashCode()
+        result = 31 * result + mirror
+        result = 31 * result + time.hashCode()
+        result = 31 * result + (changeDuration?.hashCode() ?: 0)
+        result = 31 * result + repeat
+        result = 31 * result + repeatGap
+        result = 31 * result + repeatShiftX.hashCode()
+        result = 31 * result + repeatShiftY.hashCode()
+        return result
+    }
 }
 
 /**
@@ -182,6 +224,9 @@ class RandomNoise:WallStructure(){
     }
 }
 
+/**
+ * A BezierCurve with 4 ControlPoints
+ */
 class Curve:WallStructure(){
     /**
      * the start Point of the Curve
@@ -229,10 +274,12 @@ class Save:WallStructure(){
  */
 class Define: WallStructure() {
     /**
-     * The name of Different Structures
+     * The name of Different Structures. Separated by comma (example: structures: Floor, Ceiling)
+     * You can also define Parameters of the first Structure
+     * These get loaded in Order, So if your reference defined Structures, those must be listed before that
+     * The Beat Value gets every time, so it should be 0 most of the time
      */
-    var structure = listOf<WallStructure>()
-
+    var structures = listOf<WallStructure>()
 }
 
 fun main (){

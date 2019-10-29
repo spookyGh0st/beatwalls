@@ -175,6 +175,30 @@ data class Wall(
         }
         return list
     }
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (other !is Wall) return false
+
+        if (startRow != other.startRow) return false
+        if (duration != other.duration) return false
+        if (width != other.width) return false
+        if (height != other.height) return false
+        if (startHeight != other.startHeight) return false
+        if (startTime != other.startTime) return false
+
+        return true
+    }
+
+    override fun hashCode(): Int {
+        var result = startRow.hashCode()
+        result = 31 * result + duration.hashCode()
+        result = 31 * result + width.hashCode()
+        result = 31 * result + height.hashCode()
+        result = 31 * result + startHeight.hashCode()
+        result = 31 * result + startTime.hashCode()
+        return result
+    }
 }
 
 private fun getTime(beat:Double, baseBpm: Double, _BPMChanges: ArrayList<_BPMChanges>): Double {

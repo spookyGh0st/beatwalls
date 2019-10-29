@@ -4,14 +4,12 @@ import com.github.spookyghost.beatwalls.errorExit
 import mu.KotlinLogging
 import reader.isDifficulty
 import song.Difficulty
-import structure.*
+import structure.CustomWallStructure
+import structure.Define
+import structure.Save
+import structure.WallStructure
 import java.io.File
 import java.nio.file.Paths
-import kotlin.reflect.KMutableProperty
-import kotlin.reflect.full.createInstance
-import kotlin.reflect.full.createType
-import kotlin.reflect.full.memberProperties
-import kotlin.reflect.full.withNullability
 
 private val logger = KotlinLogging.logger {}
 
@@ -77,6 +75,33 @@ class DifficultyAsset(val bpm: Double, val njsOffset:Double, val path:String, va
             difficulty._obstacles.addAll(obstacles)
         }
     }
+
+    @Override
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (javaClass != other?.javaClass) return false
+
+        other as DifficultyAsset
+
+        if (bpm != other.bpm) return false
+        if (njsOffset != other.njsOffset) return false
+        if (path != other.path) return false
+        if (list != other.list) return false
+
+        return true
+    }
+
+    override fun hashCode(): Int {
+        var result = bpm.hashCode()
+        result = 31 * result + njsOffset.hashCode()
+        result = 31 * result + path.hashCode()
+        result = 31 * result + list.hashCode()
+        return result
+    }
+
+    override fun toString(): String {
+        return "DifficultyAsset(bpm=$bpm, njsOffset=$njsOffset, path='$path', list=$list)"
+    }
 }
 
 
@@ -128,25 +153,6 @@ private fun askForDouble(name:String, default: Double): Double {
     }
 }
 
-/**
- * reads in a String and returns the corresponging SongAssetFile
- */
-fun readDifficultyAsset(s: String):DifficultyAsset{
-    // creates the list of key-Value
-    val lines = parseAssetString(s)
-
-    assertVersion(lines)
-
-    val path = lines.pop("path")
-    val njsOffset = lines.pop("njsOffset").toDouble()
-    val bpm = lines.pop("bpm").toDouble()
-    val structures = lines.readStructures()
-
-
-    val list  =  DifficultyAsset(bpm = bpm, path = path, njsOffset = njsOffset,list = structures)
-    logger.info { "Read DifficultyAsset Succesfull with ${structures.size} structures" }
-    return list
-}
 
 
 private fun defaultSongAssetString(path: String,njsOffset: Double, bpm: Double)=
@@ -177,159 +183,5 @@ njsOffset: $njsOffset
 20.0: RandomNoise
     amount: 10
     """.trimIndent()
-
-
-//   ____  ____   __   ____  ____  ____
-//  (  _ \(  __) / _\ (    \(  __)(  _ \
-//   )   / ) _) /    \ ) D ( ) _)  )   /
-//  (__\_)(____)\_/\_/(____/(____)(__\_)
-//
-// I basically wrote a new script language.
-// Below is what needed to go automatically set all the values for all the parameters.
-
-/**
- * reads the Structures from the list
- */
-private fun MutableList<Pair<String,String>>.readStructures(): ArrayList<WallStructure>{
-    val list = arrayListOf<WallStructure>()
-
-    for (i in 0 until this.size){
-        if (this[i].key().toDoubleOrNull() != null){
-            val structName = this[i].value().toLowerCase()
-            val beat = this[i].key().toDouble()
-            val struct: WallStructure = findStructure(structName)
-
-            //sets the beat
-            struct.beat = beat
-            list.add(struct)
-        }else{
-            readWallStructOptions(list.last(),this[i])
-        }
-    }
-    return list
-}
-
-fun findStructure(structName: String): WallStructure {
-    val assetFile = AssetFileAPI.assetFile
-    val customStructs = assetFile.savedStructures.map { it.toCustomWallStructure() }
-    val customStructsNames = customStructs.map { it.name.toLowerCase() }
-    val specialStructs = WallStructure::class.sealedSubclasses
-    val specialStructsNames = specialStructs.map { it.simpleName?.toLowerCase()?:""}
-    val struct: WallStructure
-
-    // sets the struct
-    struct = when (structName) {
-        in customStructsNames -> customStructs.find { it.name.toLowerCase() == structName }!!.deepCopy()
-        in specialStructsNames -> specialStructs.find { it.simpleName!!.toLowerCase() == structName }!!.createInstance()
-        else -> {
-            logger.info { "structure $structName not found" }
-            EmptyWallStructure
-        }
-    }
-    return struct
-}
-
-/**
- * fills the given structure with the option, if it exist
- */
-private fun readWallStructOptions(wallStructure: WallStructure, option: Pair<String, String>){
-    if (wallStructure is EmptyWallStructure){
-        return
-    }
-    val properties = wallStructure::class.memberProperties.toMutableList()
-    val property = properties.find { it.name.toLowerCase() ==option.key().toLowerCase() }
-    val value:Any?
-    if (property == null) {
-        errorExit { "The WallStructure $wallStructure does not have the property ${option.key()}" }
-    }
-    val type = property?.returnType?.withNullability(false)
-
-    with (option.value()){
-        value = when (type) {
-            Boolean::class.createType() -> toBoolean()
-            Int::class.createType() -> toInt()
-            Double::class.createType() -> toDouble()
-            Double::class.createType() -> toDouble()
-            String::class.createType() -> toString()
-            Point::class.createType() -> toPoint()
-            WallStructure::class.createType() -> toWallStructure()
-            else -> null
-        }
-    }
-
-    if (property is KMutableProperty<*> ){
-        property.setter.call(wallStructure,value)
-    }
-}
-
-/**
- * creates the list of key-value Pairs
- */
-private fun parseAssetString(s:String): MutableList<Pair<String, String>> =
-    s
-        .lines()
-        .asSequence()
-        .filterNot { it.startsWith("#") || it.isEmpty() }
-        .map { it.replace("\\t".toRegex(), "") }
-        .map { it.split(":") }
-        .map { it.map { l -> l.trim() } }
-        .map { it[0].toLowerCase() to it.minus(it[0]).joinToString(":") }
-        .toMutableList()
-
-/**
- * exit, when the version is wrong
- */
-private fun assertVersion(lines:MutableList<Pair<String,String>>){
-    if(lines.pop("version")  != "1.0"){
-        errorExit { "Wrong Version, current Version is 1.0" }
-    }
-}
-
-/**
- * gets the value to the given key and removes it from the list
- */
-private fun MutableList<Pair<String,String>>.pop(key:String): String {
-    val tempLine =  this.find { it.key() == key.toLowerCase()}
-    return if (tempLine != null) {
-        this.remove(tempLine)
-        tempLine.value()
-    }else{
-        errorExit { "Cant find the value to $key, do you have it in your DifficultyAsset?" }
-        ""
-    }
-}
-
-/**
- * different name for componen1/component2
- */
-private fun Pair<String,String>.value(): String {
-    return this.component2()
-}
-private fun Pair<String,String>.key(): String {
-    return this.component1()
-}
-
-/**
- * String to Point
- */
-private fun String.toPoint(): Point {
-    val values = this.split(",")
-        .map { it.trim() }
-        .map { it.toDoubleOrNull() }
-    return Point(
-        x = values.getOrNull(0)?:0.0,
-        y = values.getOrNull(1)?:0.0,
-        z = values.getOrNull(2)?:0.0
-    )
-}
-
-/**
- * String to WallStructure
- */
-private fun String.toWallStructure(): WallStructure{
-    return findStructure(this)
-
-}
-
 
 

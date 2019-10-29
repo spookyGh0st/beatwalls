@@ -1,28 +1,31 @@
 package com.github.spookyghost.beatwalls
 
-import assetFile.AssetFileAPI
 import mu.KotlinLogging
-import java.io.File
 import kotlin.system.exitProcess
 
+
 fun main(args: Array<String>) {
-
-    try {
-        val myArgs: Array<String> = if (args.isEmpty() && File(AssetFileAPI.assetFile().currentSong).exists())
-            arrayOf(AssetFileAPI.assetFile().currentSong)
-        else
-            args
-
-        BeatWalls().main(myArgs)
-        println("Succesfull")
-        readLine()
-
-    } catch (e: IndexOutOfBoundsException ) {
-        errorExit(e) { "Something failed" }
+    if(args.isNotEmpty()){
+        initConfig(args[0])
+        exit{"finished Setup"}
+    }
+    else{
+        val path = readPath()
+        if(path.isEmpty())
+            errorExit() { "No File stored, setup this program by dragging a Song into it" }
+        run(path)
+        exit { "Finished Run" }
     }
 }
 
 private val logger = KotlinLogging.logger {}
+
+fun exit(msg: () -> Any){
+    println(msg.invoke())
+    println("\nPress Enter to Exit")
+    readLine()
+    exitProcess(0)
+}
 
 fun errorExit(e:Exception? = null, msg: () -> Any){
     println(msg.invoke())
@@ -34,3 +37,5 @@ fun errorExit(e:Exception? = null, msg: () -> Any){
     readLine()
     exitProcess(1)
 }
+
+

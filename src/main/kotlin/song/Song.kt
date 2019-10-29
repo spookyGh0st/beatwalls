@@ -1,36 +1,6 @@
 package song
 
-import reader.readDifficulty
 import com.google.gson.annotations.SerializedName
-import mu.KotlinLogging
-import java.io.File
-import java.nio.file.Paths
-import reader.readInfo
-import reader.writeInfo
-
-private val logger = KotlinLogging.logger {}
-class Song(file:File, njsOffset:Double=2.0) {
-    val info: Info = readInfo(Paths.get(file.toString(), "info.dat").toFile())
-    var difficultyList =  mapOf<Difficulty,File>()
-    init {
-        for(i in info._difficultyBeatmapSets){
-            for(j in i._difficultyBeatmaps){
-                val diffPath = Paths.get(file.toString(),(j._beatmapFilename))
-                val diffFile = File(diffPath.toUri())
-                val diffPair = Pair<Difficulty,File>(readDifficulty(diffFile),diffFile)
-                difficultyList = difficultyList + diffPair
-
-                if(diffPair.component1().containsCommand("bw" ) && !j._customData._requirements.contains("Mapping Extensions")){
-                    logger.info { "Added Mapping Extensions Requirements to $diffFile" }
-                    j._customData._requirements.add("Mapping Extensions")
-                    writeInfo(info, Paths.get(file.toString(), "info.dat").toFile())
-                }
-            }
-        }
-    }
-}
-
-
 
 data class Info (
 

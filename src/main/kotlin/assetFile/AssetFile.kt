@@ -107,8 +107,9 @@ internal class InterfaceAdapter<T : Any> : JsonSerializer<T>, JsonDeserializer<T
     }
 }
 object AssetFileAPI {
-    val assetFile = readAssetFile()
-    fun writeAssetFile() = writeAssetFile(assetFile)
+    var assetFile:AssetFile? = null
+    fun assetFile() = assetFile?:readAssetFile()
+    fun writeAssetFile() = writeAssetFile(assetFile?:readAssetFile())
 }
 
 fun main(){

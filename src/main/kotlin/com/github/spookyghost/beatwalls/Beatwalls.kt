@@ -15,7 +15,7 @@ class BeatWalls: CliktCommand() {
 
 
     override fun run() {
-        val assetFile = AssetFileAPI.assetFile
+        val assetFile = AssetFileAPI.assetFile()
 
         val difficultyAssetFile = findDifficultyAsset(song)
         assetFile.currentSong = difficultyAssetFile.absolutePath

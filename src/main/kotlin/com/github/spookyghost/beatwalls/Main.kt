@@ -8,8 +8,8 @@ import kotlin.system.exitProcess
 fun main(args: Array<String>) {
 
     try {
-        val myArgs: Array<String> = if (args.isEmpty() && File(AssetFileAPI.assetFile.currentSong).exists())
-            arrayOf(AssetFileAPI.assetFile.currentSong)
+        val myArgs: Array<String> = if (args.isEmpty() && File(AssetFileAPI.assetFile().currentSong).exists())
+            arrayOf(AssetFileAPI.assetFile().currentSong)
         else
             args
 

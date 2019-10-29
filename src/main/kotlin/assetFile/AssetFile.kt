@@ -41,7 +41,6 @@ private fun readAssetFile(): AssetFile {
     return serializeAsset(json)
 }
 
-//todo make private -> DifficultyAsset add Structure Type -> add Define Structrue -> add lists
 private fun writeAssetFile(a:AssetFile){
     val f = File(System.getProperty("java.class.path"))
     val dir = f.absoluteFile.parentFile

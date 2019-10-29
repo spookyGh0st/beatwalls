@@ -86,7 +86,6 @@ fun findStructure(name: String): WallStructure {
  * fills the given structure with the option, if it exist
  */
 fun readWallStructOptions(wallStructure: WallStructure, option: Pair<String, String>){
-    //todo SpecialCase for Define
     if (wallStructure is EmptyWallStructure){
         return
     }

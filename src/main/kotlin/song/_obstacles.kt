@@ -41,7 +41,7 @@ data class _obstacles (
         var a = 0.0
         when {
             i < 1000 -> logger.warn { "Normal Walls are currently not supported, skipping" }
-            i < 4000 -> a = (i - 1000 )/4.0*3
+            i < 4000 -> a = (i - 1000 )/4.0*3 //todo fix
             else -> {
                 a = ((i-4001)/1000).toDouble()
                 a = a/1000 / (1.0/3.0) * (4.0/3.0)

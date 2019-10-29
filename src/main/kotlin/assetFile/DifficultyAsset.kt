@@ -135,7 +135,7 @@ fun findDifficultyAsset(file: File): File {
             return file
     }catch (e:Exception){
         errorExit(e) { "Failed to read in the SongAssetFile" }
-        TODO()
+        return file
     }
 }
 

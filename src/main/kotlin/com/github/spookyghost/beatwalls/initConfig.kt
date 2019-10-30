@@ -17,13 +17,15 @@ fun initConfig(songPath:String){
     val name = pickDifficulty(info).replace(".dat",".bw")
 
     val path = File(songPath,name)
-    path.writeText(defaultSongAssetString())
+    if(path.exists()){
+        logger.info { "File already exist, not creating Default file" }
+    }else
+        path.writeText(defaultSongAssetString())
+
     val hjd = pickHjd()
 
     val bpm = info._beatsPerMinute
     val offset = info._songTimeOffset
-
-    println(path)
 
     savePath(path)
     saveHjsDuration(hjd)

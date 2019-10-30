@@ -6,7 +6,7 @@ import kotlin.math.*
 import kotlin.random.Random
 
 
-/** A function to getWallList a circle of walls or a helix, probably should have splitted those up */
+/** A function to getSpookyWallList a circle of walls or a helix, probably should have splitted those up */
 fun circle(
     count:Int = 1, //how many spirals
     radius:Double = 1.9, //how big
@@ -18,8 +18,8 @@ fun circle(
     wallDuration:Double? = null, //the default duration
     helix:Boolean = false, //if its a helix or a circle
     reverse:Boolean = false //if its reversed
-):ArrayList<Wall>{
-    val list = arrayListOf<Wall>()
+):ArrayList<SpookyWall>{
+    val list = arrayListOf<SpookyWall>()
     val max = 2.0* PI *fineTuning*rotationCount
 
     var x: Double
@@ -75,14 +75,14 @@ fun circle(
             lastStartTime = startTime
 
             //adds the Obstacle
-            list.add(Wall(startRow, duration, width, height, startHeight, startTime))
+            list.add(SpookyWall(startRow, duration, width, height, startHeight, startTime))
         }
     }
     return list
 }
 
 /** Draws a line between 2 coordinates */
-fun line(px1:Double, py1:Double, pz1: Double= 0.0, px2: Double, py2: Double, pz2: Double=0.0, defaultAmount: Int? = null, defaultDuration: Double? = null): ArrayList<Wall>{
+fun line(px1:Double, py1:Double, pz1: Double= 0.0, px2: Double, py2: Double, pz2: Double=0.0, defaultAmount: Int? = null, defaultDuration: Double? = null): ArrayList<SpookyWall>{
 
     //swap values if y2 < y1  - this functions goes from bottom to top
     var x1 = px1
@@ -101,7 +101,7 @@ fun line(px1:Double, py1:Double, pz1: Double= 0.0, px2: Double, py2: Double, pz2
 
     val amount = defaultAmount?:((cos(dgr)*sin(dgr)).pow(1.5)*50 +1).toInt()
 
-    val list = arrayListOf<Wall>()
+    val list = arrayListOf<SpookyWall>()
 
     if(z2<z1){
         x1 = x2.also { x2 = x1 }
@@ -133,20 +133,20 @@ fun line(px1:Double, py1:Double, pz1: Double= 0.0, px2: Double, py2: Double, pz2
 
         //adding the obstacle
         val myD = defaultDuration ?: duration
-        list.add(Wall(startRow, myD, width, height, startHeight, startTime))
+        list.add(SpookyWall(startRow, myD, width, height, startHeight, startTime))
     }
     return list
 }
-fun line(p0:Point, p1: Point): ArrayList<Wall> {
+fun line(p0:Point, p1: Point): ArrayList<SpookyWall> {
     return line(p0.x,p0.y,p0.z,p1.x,p1.y,p1.z)
 }
-fun line(p0:Triple<Double,Double,Double>, p1: Triple<Double,Double,Double>,amount: Int?): ArrayList<Wall> {
+fun line(p0:Triple<Double,Double,Double>, p1: Triple<Double,Double,Double>,amount: Int?): ArrayList<SpookyWall> {
     return line(p0.first,p0.second,p0.third,p1.first,p1.first,p1.first,amount)
 }
 
-fun curve(startPoint: Point,p1: Point,p2: Point, endPoint: Point, amount: Int):ArrayList<Wall>{
+fun curve(startPoint: Point,p1: Point,p2: Point, endPoint: Point, amount: Int):ArrayList<SpookyWall>{
 
-    val list = arrayListOf<Wall>()
+    val list = arrayListOf<SpookyWall>()
     if(endPoint.z<startPoint.z){
         throw Exception("You have something wrong with you curve")
     }
@@ -159,20 +159,20 @@ fun curve(startPoint: Point,p1: Point,p2: Point, endPoint: Point, amount: Int):A
         val width = nextPoint.x - currentPoint.x
         val height = nextPoint.y - currentPoint.y
         val duration = nextPoint.z -currentPoint.z
-        list.add(Wall(startRow, duration, width, height, startHeight, startTime))
+        list.add(SpookyWall(startRow, duration, width, height, startHeight, startTime))
     }
     return list
 }
 
-fun getBoxList(wallAmountPerWall: Int): ArrayList<Wall> {
-    val allWalls= arrayListOf<Wall>()
+fun getBoxList(wallAmountPerWall: Int): ArrayList<SpookyWall> {
+    val allWalls= arrayListOf<SpookyWall>()
     for ( i in 0 until wallAmountPerWall*2){
         val startX = 8 * i.toDouble() / (wallAmountPerWall) /2 - 4
         //bottom
-        allWalls.add(Wall(startX, 1.0 / wallAmountPerWall, 4.0 / wallAmountPerWall, 0.0, 0.0, 0.0))
+        allWalls.add(SpookyWall(startX, 1.0 / wallAmountPerWall, 4.0 / wallAmountPerWall, 0.0, 0.0, 0.0))
         //top
         allWalls.add(
-            Wall(
+            SpookyWall(
                 startX,
                 1.0 / wallAmountPerWall,
                 4.0 / wallAmountPerWall,
@@ -186,7 +186,7 @@ fun getBoxList(wallAmountPerWall: Int): ArrayList<Wall> {
         val startY = 4 * i.toDouble() / (wallAmountPerWall)
         //left
         allWalls.add(
-            Wall(
+            SpookyWall(
                 4.0,
                 1.0 / wallAmountPerWall,
                 4.0 / wallAmountPerWall,
@@ -197,7 +197,7 @@ fun getBoxList(wallAmountPerWall: Int): ArrayList<Wall> {
         )
         //right
         allWalls.add(
-            Wall(
+            SpookyWall(
                 -4.0,
                 1.0 / wallAmountPerWall,
                 -4.0 / wallAmountPerWall,

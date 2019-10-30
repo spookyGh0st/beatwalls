@@ -60,7 +60,7 @@ private fun defaultSongAssetString() =
 
 # Commands, Specify the Walls you want to create
 # Syntax Beat(check mm for  that):Name
-# Example Wall, remove
+# Example SpookyWall, remove
 10: Curve
     mirror: 8
     changeDuration: -3

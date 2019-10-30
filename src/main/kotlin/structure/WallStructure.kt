@@ -20,14 +20,14 @@ sealed class WallStructure:Serializable
     /**
      * saved Walls
      */
-    private var walls: ArrayList<Wall> = arrayListOf()
+    private var spookyWalls: ArrayList<SpookyWall> = arrayListOf()
     /**
      * the Beat, dont change that, it will get overwritten anyway
      */
     var beat: Double = 0.0
 
     /**
-     * mirrors the Wall:
+     * mirrors the SpookyWall:
      *  0 -> dont mirror,
      *  1-> mirror to the other side,
      *  2-> mirror to the other side and duplicate,
@@ -41,7 +41,7 @@ sealed class WallStructure:Serializable
     var mirror: Int = 0
 
     /**
-     * times the Wall by adding the njsOffset
+     * times the SpookyWall by adding the njsOffset
      */
     var time: Boolean = false
 
@@ -71,66 +71,66 @@ sealed class WallStructure:Serializable
      */
     var repeatShiftY: Double = 0.0
 
-    fun walls(): ArrayList<Wall> {
+    fun walls(): ArrayList<SpookyWall> {
         repeat()
         run()
         adjustValues()
         mirror()
-        return walls
+        return spookyWalls
     }
 
     private fun mirror(){
-        var otherWalls: ArrayList<Wall> = arrayListOf()
+        var otherSpookyWalls: ArrayList<SpookyWall> = arrayListOf()
          when(mirror){
-             1->walls.forEach { it.mirror() }
-             2-> {otherWalls = copyWalls();walls.forEach { it.mirror() }}
-             3->walls.forEach {it.verticalMirror()}
-             4-> {otherWalls = copyWalls();walls.forEach { it.verticalMirror() }}
-             5->walls.forEach {it.pointMirror()}
-             6-> {otherWalls = copyWalls();walls.forEach { it.pointMirror() }}
-             7-> {otherWalls = copyWalls()
-                 walls.forEach { it.verticalMirror() }
-                 walls.addAll(otherWalls)
-                 otherWalls =copyWalls()
-                 walls.forEach { it.mirror()}}
-             8-> {otherWalls =copyWalls()
-                 walls.forEach { it.pointMirror() }
-                 walls.addAll(otherWalls)
-                 otherWalls = copyWalls()
-                 walls.forEach { it.mirror()}}
+             1->spookyWalls.forEach { it.mirror() }
+             2-> {otherSpookyWalls = copyWalls();spookyWalls.forEach { it.mirror() }}
+             3->spookyWalls.forEach {it.verticalMirror()}
+             4-> {otherSpookyWalls = copyWalls();spookyWalls.forEach { it.verticalMirror() }}
+             5->spookyWalls.forEach {it.pointMirror()}
+             6-> {otherSpookyWalls = copyWalls();spookyWalls.forEach { it.pointMirror() }}
+             7-> {otherSpookyWalls = copyWalls()
+                 spookyWalls.forEach { it.verticalMirror() }
+                 spookyWalls.addAll(otherSpookyWalls)
+                 otherSpookyWalls =copyWalls()
+                 spookyWalls.forEach { it.mirror()}}
+             8-> {otherSpookyWalls =copyWalls()
+                 spookyWalls.forEach { it.pointMirror() }
+                 spookyWalls.addAll(otherSpookyWalls)
+                 otherSpookyWalls = copyWalls()
+                 spookyWalls.forEach { it.mirror()}}
         }
-        walls.addAll(otherWalls)
+        spookyWalls.addAll(otherSpookyWalls)
     }
 
     private fun repeat(){
-        val tempWalls  = arrayListOf<Wall>()
+        val tempWalls  = arrayListOf<SpookyWall>()
         for (i in 1 until repeat){
             val temp = this.deepCopy()
             temp.run()
-            temp.walls.forEach {
+            temp.spookyWalls.forEach {
                 it.startTime+=repeatGap*i
                 it.startRow += repeatShiftX*i
                 it.startHeight += repeatShiftY*i
             }
-            tempWalls.addAll(temp.walls)
+            tempWalls.addAll(temp.spookyWalls)
         }
         add(tempWalls)
     }
 
-    private fun copyWalls() :ArrayList<Wall> = ArrayList((walls.map { it.copy() }))
+    private fun copyWalls() :ArrayList<SpookyWall> = ArrayList((spookyWalls.map { it.copy() }))
 
     private fun adjustValues(){
         if (changeDuration!=null)
-            walls.forEach { it.duration = changeDuration as Double }
+            spookyWalls.forEach { it.duration = changeDuration as Double }
     }
 
 
     protected open fun run(){}
-    fun add(w:Wall){
-        walls.add(w)
+    fun add(w:SpookyWall){
+        spookyWalls.add(w)
     }
-    fun add(w:Collection<Wall>){
-        walls.addAll(w)
+    fun add(w:Collection<SpookyWall>){
+        spookyWalls.addAll(w)
     }
     fun deepCopy():WallStructure = deepCopyBySer(this)
 
@@ -139,7 +139,7 @@ sealed class WallStructure:Serializable
      */
 
     override fun toString(): String {
-        return "WallStructure(walls=$walls, beat=$beat, mirror=$mirror, time=$time, changeDuration=$changeDuration, repeat=$repeat, repeatGap=$repeatGap, repeatShiftX=$repeatShiftX, repeatShiftY=$repeatShiftY)"
+        return "WallStructure(spookyWalls=$spookyWalls, beat=$beat, mirror=$mirror, time=$time, changeDuration=$changeDuration, repeat=$repeat, repeatGap=$repeatGap, repeatShiftX=$repeatShiftX, repeatShiftY=$repeatShiftY)"
     }
 
     override fun equals(other: Any?): Boolean {
@@ -148,7 +148,7 @@ sealed class WallStructure:Serializable
 
         other as WallStructure
 
-        if (walls != other.walls) return false
+        if (spookyWalls != other.spookyWalls) return false
         if (beat != other.beat) return false
         if (mirror != other.mirror) return false
         if (time != other.time) return false
@@ -162,7 +162,7 @@ sealed class WallStructure:Serializable
     }
 
     override fun hashCode(): Int {
-        var result = walls.hashCode()
+        var result = spookyWalls.hashCode()
         result = 31 * result + beat.hashCode()
         result = 31 * result + mirror
         result = 31 * result + time.hashCode()
@@ -211,7 +211,7 @@ class RandomNoise:WallStructure(){
     var amount: Int  = 10
     override fun run() {
         repeat(amount){
-            val w = Wall(
+            val w = SpookyWall(
                 startRow = Random.nextDouble(-6.0,6.0),
                 duration = 0.0,
                 width = 0.0,
@@ -223,6 +223,7 @@ class RandomNoise:WallStructure(){
         }
     }
 }
+
 
 /**
  * A BezierCurve with 4 ControlPoints
@@ -292,7 +293,7 @@ class Define: WallStructure() {
 
 fun main (){
     val w = CustomWallStructure("test1")
-    w.walls().add(Wall(1.1,1.1,1.1,1.1,1.1,1.1))
+    w.walls().add(SpookyWall(1.1,1.1,1.1,1.1,1.1,1.1))
     val w2 = w.deepCopy()
     w.walls().forEach { it.startRow+=2 }
     println(w.walls().first().startRow)

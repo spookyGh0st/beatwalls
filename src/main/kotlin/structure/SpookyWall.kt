@@ -11,7 +11,7 @@ import kotlin.math.ceil
 import kotlin.random.Random
 
 
-data class Wall(
+data class SpookyWall(
     @Expose
     @SerializedName("startRow") var startRow: Double,
     @Expose
@@ -108,16 +108,16 @@ data class Wall(
 
     }
     fun fuckUp() =
-        Wall(ra(startRow), ra(duration), ra(width), ra(height), ra(startHeight), ra(startTime))
+        SpookyWall(ra(startRow), ra(duration), ra(width), ra(height), ra(startHeight), ra(startTime))
 
     fun ground(h:Double) =
-        Wall(startRow, duration, width, height + (startHeight - h), h, startTime)
+        SpookyWall(startRow, duration, width, height + (startHeight - h), h, startTime)
 
     fun sky(h:Double) =
-        Wall(startRow, duration, width, (h - startHeight), startHeight, startTime)
+        SpookyWall(startRow, duration, width, (h - startHeight), startHeight, startTime)
 
     fun extend(a:Double) =
-        Wall(startRow, a - startTime, width, height, startHeight, startTime)
+        SpookyWall(startRow, a - startTime, width, height, startHeight, startTime)
 
     private fun ra(i:Double) = i+Random.nextDouble(-0.2 ,0.2)
     fun fast() = this.copy(duration= -2.0)
@@ -158,15 +158,15 @@ data class Wall(
     fun time(a:Double) = this.copy(
         startTime = startTime+a
     )
-    fun repeat(a: Int, o: Double = 1.0): MutableList<Wall> {
-        val list = mutableListOf<Wall>()
+    fun repeat(a: Int, o: Double = 1.0): MutableList<SpookyWall> {
+        val list = mutableListOf<SpookyWall>()
         for (i in 0 until a){
             list.add(this.copy(startTime= this.startTime + i*o))
         }
         return list
     }
-    fun split(a: Int): MutableList<Wall> {
-        val list = mutableListOf<Wall>()
+    fun split(a: Int): MutableList<SpookyWall> {
+        val list = mutableListOf<SpookyWall>()
         for (i in 0 until a){
             if (this.height>this.width)
                 list.add(this.copy(startHeight = startHeight+height* i / a,height = 1.0/a))
@@ -178,7 +178,7 @@ data class Wall(
 
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
-        if (other !is Wall) return false
+        if (other !is SpookyWall) return false
 
         if (startRow != other.startRow) return false
         if (duration != other.duration) return false

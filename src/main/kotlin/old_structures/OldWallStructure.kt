@@ -11,18 +11,18 @@ sealed class OldWallStructure  {
 
     abstract val mirror: Boolean
 
-    abstract val wallList: ArrayList<Wall>
+    abstract val spookyWallList: ArrayList<SpookyWall>
 
-    abstract fun getWallList(oldParameters: OldParameters): ArrayList<Wall>
+    abstract fun getWallList(oldParameters: OldParameters): ArrayList<SpookyWall>
 }
 
 /** gets helix with fixed duration */
 object Helix: OldWallStructure(){
     override val name: String = "helix"
     override val mirror: Boolean = false
-    override val wallList: ArrayList<Wall> = arrayListOf()
-    override fun getWallList(oldParameters: OldParameters): ArrayList<Wall> {
-        wallList.clear()
+    override val spookyWallList: ArrayList<SpookyWall> = arrayListOf()
+    override fun getWallList(oldParameters: OldParameters): ArrayList<SpookyWall> {
+        spookyWallList.clear()
         val count = oldParameters.customParameters.getIntOrElse(0,1)
         val radius = oldParameters.customParameters.getDoubleOrElse(1,2.0)
         val fineTuning = oldParameters.customParameters.getIntOrElse(2,10)
@@ -32,7 +32,7 @@ object Helix: OldWallStructure(){
         val heightOffset = oldParameters.customParameters.getDoubleOrElse(6,2.0)
         val speedChange = oldParameters.customParameters.getOrNull(7)?.toDouble()
         val wallDuration = oldParameters.customParameters.getOrNull(8)?.toDouble()
-        wallList.addAll(
+        spookyWallList.addAll(
             circle(
                 count = count,
                 radius = radius,
@@ -46,7 +46,7 @@ object Helix: OldWallStructure(){
                 reverse = reverse
             )
         )
-        return wallList
+        return spookyWallList
     }
 }
 
@@ -55,9 +55,9 @@ object Helix: OldWallStructure(){
 object CeilingHelix: OldWallStructure(){
     override val name: String = "ceilinghelix"
     override val mirror: Boolean = false
-    override val wallList: ArrayList<Wall> = arrayListOf()
-    override fun getWallList(oldParameters: OldParameters): ArrayList<Wall> {
-        wallList.clear()
+    override val spookyWallList: ArrayList<SpookyWall> = arrayListOf()
+    override fun getWallList(oldParameters: OldParameters): ArrayList<SpookyWall> {
+        spookyWallList.clear()
         val count = 1
         val startRotation = 0.0
         val rotationCount = 0.5
@@ -67,7 +67,7 @@ object CeilingHelix: OldWallStructure(){
         val radius = oldParameters.customParameters.getDoubleOrElse(2,5.0)
         val speedChange = oldParameters.customParameters.getOrNull(3)?.toDouble()
         val wallDuration = oldParameters.customParameters.getOrNull(4)?.toDouble()
-        wallList.addAll(
+        spookyWallList.addAll(
             circle(
                 count = count,
                 radius = radius,
@@ -81,7 +81,7 @@ object CeilingHelix: OldWallStructure(){
                 reverse = reverse
             )
         )
-        return wallList
+        return spookyWallList
     }
 }
 
@@ -89,9 +89,9 @@ object CeilingHelix: OldWallStructure(){
 object StairWay: OldWallStructure() {
     override val name = "StairWay"
     override val mirror  = true
-    override val wallList: ArrayList<Wall> = arrayListOf()
-    override fun getWallList(oldParameters: OldParameters): ArrayList<Wall> {
-        val list = arrayListOf<Wall>()
+    override val spookyWallList: ArrayList<SpookyWall> = arrayListOf()
+    override fun getWallList(oldParameters: OldParameters): ArrayList<SpookyWall> {
+        val list = arrayListOf<SpookyWall>()
         val amount = oldParameters.customParameters.getIntOrElse(0,4)
         val min  = oldParameters.customParameters.getDoubleOrElse(1,0.0)
         val max = oldParameters.customParameters.getDoubleOrElse(2,4.0)
@@ -103,7 +103,7 @@ object StairWay: OldWallStructure() {
             else
                 min - (i+1)*height
 
-            list.add(Wall(4.0, 1.0 / amount, 0.5, height, startHeight, i.toDouble() / amount))
+            list.add(SpookyWall(4.0, 1.0 / amount, 0.5, height, startHeight, i.toDouble() / amount))
         }
         return list
     }
@@ -113,9 +113,9 @@ object StairWay: OldWallStructure() {
 object CyanLine: OldWallStructure() {
     override val name = "CyanLine"
     override val mirror  = false
-    override val wallList: ArrayList<Wall> = arrayListOf()
-    override fun getWallList(oldParameters: OldParameters): ArrayList<Wall> {
-        wallList.clear()
+    override val spookyWallList: ArrayList<SpookyWall> = arrayListOf()
+    override fun getWallList(oldParameters: OldParameters): ArrayList<SpookyWall> {
+        spookyWallList.clear()
         val degree = oldParameters.customParameters.getDoubleOrElse(0,0.0)
         val length = oldParameters.customParameters.getDoubleOrElse(1,1.0)
         val cx = oldParameters.customParameters.getDoubleOrElse(2,0.0)
@@ -131,10 +131,10 @@ object CyanLine: OldWallStructure() {
         val y1 = (cy + sin(dgr))*length
         val y2 = (cy - sin(dgr))*length
 
-        wallList.addAll(
+        spookyWallList.addAll(
             line(x1, x2, y1, y2, 0.0, 0.0, amount)
         )
-        return wallList
+        return spookyWallList
     }
 }
 
@@ -142,9 +142,9 @@ object CyanLine: OldWallStructure() {
 object Line: OldWallStructure() {
     override val name = "Line"
     override val mirror  = false
-    override val wallList: ArrayList<Wall> = arrayListOf()
-    override fun getWallList(oldParameters: OldParameters): ArrayList<Wall> {
-        wallList.clear()
+    override val spookyWallList: ArrayList<SpookyWall> = arrayListOf()
+    override fun getWallList(oldParameters: OldParameters): ArrayList<SpookyWall> {
+        spookyWallList.clear()
 
         //all parameters
         val x1 = oldParameters.customParameters.getDoubleOrElse(0,-2.0)
@@ -157,9 +157,9 @@ object Line: OldWallStructure() {
         val amount = oldParameters.customParameters.getOrNull(6)?.toInt()
         val duration = oldParameters.customParameters.getOrNull(7)?.toDouble()
 
-        wallList.addAll(line(x1, x2, y1, y2, z1, z2, amount, duration))
+        spookyWallList.addAll(line(x1, x2, y1, y2, z1, z2, amount, duration))
 
-        return wallList
+        return spookyWallList
     }
 }
 
@@ -167,9 +167,9 @@ object Line: OldWallStructure() {
 object MirroredLine: OldWallStructure() {
     override val name = "MirroredLine"
     override val mirror  = true
-    override val wallList: ArrayList<Wall> = arrayListOf()
-    override fun getWallList(oldParameters: OldParameters): ArrayList<Wall> {
-        wallList.clear()
+    override val spookyWallList: ArrayList<SpookyWall> = arrayListOf()
+    override fun getWallList(oldParameters: OldParameters): ArrayList<SpookyWall> {
+        spookyWallList.clear()
 
         //all parameters
         val x1 = oldParameters.customParameters.getDoubleOrElse(0,-2.0)
@@ -182,17 +182,17 @@ object MirroredLine: OldWallStructure() {
         val amount = oldParameters.customParameters.getOrNull(6)?.toInt()
         val duration = oldParameters.customParameters.getOrNull(7)?.toDouble()
 
-        wallList.addAll(line(x1, x2, y1, y2, z1, z2, amount, duration))
+        spookyWallList.addAll(line(x1, x2, y1, y2, z1, z2, amount, duration))
 
-        return wallList
+        return spookyWallList
     }
 }
 /** Curve Object - when called, creates a example curve */
 object Curve: OldWallStructure() {
     override val name = "Curve"
     override val mirror = false
-    override val wallList = arrayListOf<Wall>()
-    override fun getWallList(oldParameters: OldParameters): ArrayList<Wall> {
+    override val spookyWallList = arrayListOf<SpookyWall>()
+    override fun getWallList(oldParameters: OldParameters): ArrayList<SpookyWall> {
         var p0: Point
         var p1: Point
         var p2: Point
@@ -221,8 +221,8 @@ object Curve: OldWallStructure() {
 object MirroredCurve: OldWallStructure() {
     override val name = "MirroredCurve"
     override val mirror = true
-    override val wallList = arrayListOf<Wall>()
-    override fun getWallList(oldParameters: OldParameters): ArrayList<Wall> {
+    override val spookyWallList = arrayListOf<SpookyWall>()
+    override fun getWallList(oldParameters: OldParameters): ArrayList<SpookyWall> {
         var p0: Point
         var p1: Point
         var p2: Point
@@ -252,17 +252,17 @@ object MirroredCurve: OldWallStructure() {
 object RandomBox: OldWallStructure() {
     override val name = "RandomBox"
     override val mirror = false
-    override val wallList = arrayListOf<Wall>()
-    override fun getWallList(oldParameters: OldParameters): ArrayList<Wall> {
-        val list = arrayListOf<Wall>()
+    override val spookyWallList = arrayListOf<SpookyWall>()
+    override fun getWallList(oldParameters: OldParameters): ArrayList<SpookyWall> {
+        val list = arrayListOf<SpookyWall>()
         val amountPerTick = oldParameters.customParameters.getIntOrElse(0,4)
         val amountOfTicks = oldParameters.customParameters.getIntOrElse(1,4)
         val wallAmountPerWall = oldParameters.customParameters.getIntOrElse(2,8)
 
-        val allWalls: ArrayList<Wall> = getBoxList(wallAmountPerWall)
+        val allSpookyWalls: ArrayList<SpookyWall> = getBoxList(wallAmountPerWall)
 
         for(start in 0 until amountOfTicks){
-            val tempList = ArrayList(allWalls.map { it.copy() })
+            val tempList = ArrayList(allSpookyWalls.map { it.copy() })
             repeat(amountPerTick){
                 val w = tempList.random()
                 w.startTime = start.toDouble()/amountOfTicks
@@ -276,17 +276,17 @@ object RandomBox: OldWallStructure() {
 object RandomBoxLine: OldWallStructure() {
     override val name = "RandomBoxLine"
     override val mirror = false
-    override val wallList = arrayListOf<Wall>()
-    override fun getWallList(oldParameters: OldParameters): ArrayList<Wall> {
-        val list = arrayListOf<Wall>()
+    override val spookyWallList = arrayListOf<SpookyWall>()
+    override fun getWallList(oldParameters: OldParameters): ArrayList<SpookyWall> {
+        val list = arrayListOf<SpookyWall>()
         val amountPerTick = oldParameters.customParameters.getIntOrElse(0,8)
         val amountOfTicks = oldParameters.customParameters.getIntOrElse(1,4)
         val wallAmountPerWall = oldParameters.customParameters.getIntOrElse(2,32)
 
-        val allWalls: ArrayList<Wall> = getBoxList(wallAmountPerWall)
+        val allSpookyWalls: ArrayList<SpookyWall> = getBoxList(wallAmountPerWall)
 
         for(start in 0 until amountOfTicks){
-            val tempList = ArrayList(allWalls.map { it.copy() })
+            val tempList = ArrayList(allSpookyWalls.map { it.copy() })
             repeat(amountPerTick){
                 val w = tempList.random()
                 w.startTime = start.toDouble()/amountOfTicks
@@ -304,12 +304,12 @@ object RandomBoxLine: OldWallStructure() {
 object RandomNoise: OldWallStructure() {
     override val mirror = false
     override val name = "RandomNoise"
-    override val wallList: ArrayList<Wall> = arrayListOf()
-    override fun getWallList(oldParameters: OldParameters): ArrayList<Wall> {
-        wallList.clear()
+    override val spookyWallList: ArrayList<SpookyWall> = arrayListOf()
+    override fun getWallList(oldParameters: OldParameters): ArrayList<SpookyWall> {
+        spookyWallList.clear()
         val intensity = try { oldParameters.customParameters[0].toInt() } catch (e:Exception){ 5 }
         repeat(intensity){
-            val tempO = Wall(
+            val tempO = SpookyWall(
                 startRow = Random.nextDouble(-4.0, 4.0),
                 duration = 0.01,
                 width = 0.01,
@@ -317,9 +317,9 @@ object RandomNoise: OldWallStructure() {
                 startHeight = Random.nextDouble(4.0),
                 startTime = Random.nextDouble()
             )
-            wallList.add(tempO)
+            spookyWallList.add(tempO)
         }
-        return wallList
+        return spookyWallList
     }
 }
 
@@ -327,12 +327,12 @@ object RandomNoise: OldWallStructure() {
 object BroadRandomNoise: OldWallStructure() {
     override val mirror = false
     override val name = "BroadRandomNoise"
-    override val wallList: ArrayList<Wall> = arrayListOf()
-    override fun getWallList(oldParameters: OldParameters): ArrayList<Wall> {
-        wallList.clear()
+    override val spookyWallList: ArrayList<SpookyWall> = arrayListOf()
+    override fun getWallList(oldParameters: OldParameters): ArrayList<SpookyWall> {
+        spookyWallList.clear()
         val intensity = try { oldParameters.customParameters[0].toInt() } catch (e:Exception){ 5 }
         repeat(intensity){
-            val tempO = Wall(
+            val tempO = SpookyWall(
                 startRow = Random.nextDouble(-50.0, 50.0),
                 duration = 0.01,
                 width = 0.01,
@@ -340,9 +340,9 @@ object BroadRandomNoise: OldWallStructure() {
                 startHeight = Random.nextDouble(4.0),
                 startTime = Random.nextDouble()
             )
-            wallList.add(tempO)
+            spookyWallList.add(tempO)
         }
-        return wallList
+        return spookyWallList
     }
 }
 
@@ -350,13 +350,13 @@ object BroadRandomNoise: OldWallStructure() {
 object RandomBlocks: OldWallStructure() {
     override val mirror = false
     override val name = "RandomBlocks"
-    override val wallList: ArrayList<Wall> = arrayListOf()
-    override fun getWallList(oldParameters: OldParameters): ArrayList<Wall> {
-        wallList.clear()
+    override val spookyWallList: ArrayList<SpookyWall> = arrayListOf()
+    override fun getWallList(oldParameters: OldParameters): ArrayList<SpookyWall> {
+        spookyWallList.clear()
         val duration = oldParameters.customParameters.getDoubleOrElse(0,4.0)
         for(i in 0 until duration.toInt()){
-            wallList.add(
-                Wall(
+            spookyWallList.add(
+                SpookyWall(
                     Random.nextDouble(10.0, 20.0),
                     Random.nextDouble(0.5),
                     Random.nextDouble(2.0),
@@ -365,8 +365,8 @@ object RandomBlocks: OldWallStructure() {
                     i.toDouble()
                 )
             )
-            wallList.add(
-                Wall(
+            spookyWallList.add(
+                SpookyWall(
                     Random.nextDouble(-20.0, -10.0),
                     Random.nextDouble(0.5),
                     Random.nextDouble(2.0),
@@ -376,7 +376,7 @@ object RandomBlocks: OldWallStructure() {
                 )
             )
         }
-        return wallList
+        return spookyWallList
     }
 }
 
@@ -384,13 +384,13 @@ object RandomBlocks: OldWallStructure() {
 object RandomFastBlocks: OldWallStructure() {
     override val mirror = false
     override val name = "RandomFastBlocks"
-    override val wallList: ArrayList<Wall> = arrayListOf()
-    override fun getWallList(oldParameters: OldParameters): ArrayList<Wall> {
-        wallList.clear()
+    override val spookyWallList: ArrayList<SpookyWall> = arrayListOf()
+    override fun getWallList(oldParameters: OldParameters): ArrayList<SpookyWall> {
+        spookyWallList.clear()
         val duration = oldParameters.customParameters.getDoubleOrElse(0,4.0)
         for(i in 0 until duration.toInt()){
-            wallList.add(
-                Wall(
+            spookyWallList.add(
+                SpookyWall(
                     Random.nextDouble(10.0, 20.0),
                     -2.0,
                     Random.nextDouble(2.0),
@@ -399,8 +399,8 @@ object RandomFastBlocks: OldWallStructure() {
                     i.toDouble()
                 )
             )
-            wallList.add(
-                Wall(
+            spookyWallList.add(
+                SpookyWall(
                     Random.nextDouble(-20.0, -10.0),
                     -2.0,
                     Random.nextDouble(2.0),
@@ -410,7 +410,7 @@ object RandomFastBlocks: OldWallStructure() {
                 )
             )
         }
-        return wallList
+        return spookyWallList
     }
 }
 
@@ -419,12 +419,12 @@ object RandomLines: OldWallStructure() {
     //todo TEST
     override val mirror: Boolean = false
     override val name: String = "randomLines"
-    override val wallList: ArrayList<Wall> = arrayListOf()
-    override fun getWallList(oldParameters: OldParameters): ArrayList<Wall> {
+    override val spookyWallList: ArrayList<SpookyWall> = arrayListOf()
+    override fun getWallList(oldParameters: OldParameters): ArrayList<SpookyWall> {
         //getting the variables or the default values
         val count = try { oldParameters.customParameters[0].toInt() } catch (e:Exception){ 1 }
         val intensity = try { oldParameters.customParameters[1].toInt() } catch (e:Exception){ 4 }
-        wallList.clear()
+        spookyWallList.clear()
 
         var x:Double
         for(i in 1..count){
@@ -433,7 +433,7 @@ object RandomLines: OldWallStructure() {
 
             //for each wall intensity
             for(j in 1..intensity){
-                wallList.add(Wall(x, 1.0 / intensity, 0.05, 0.05, 0.0, j.toDouble() / intensity))
+                spookyWallList.add(SpookyWall(x, 1.0 / intensity, 0.05, 0.05, 0.0, j.toDouble() / intensity))
 
                 //randomly changes lines, adjusts x when doing so
                 if (Random.nextInt(0, sqrt(count.toDouble()).roundToInt()) == 0){
@@ -441,12 +441,12 @@ object RandomLines: OldWallStructure() {
                     val stRow = if(nX > x) x else nX
                     val stWidth = nX-x
                     val stTime = j.toDouble()/intensity + 1.0/intensity
-                    wallList.add(Wall(stRow, 0.0005, stWidth, 0.05, 0.0, stTime))
+                    spookyWallList.add(SpookyWall(stRow, 0.0005, stWidth, 0.05, 0.0, stTime))
                     x = nX
                 }
             }
         }
-        return wallList
+        return spookyWallList
     }
 }
 
@@ -455,12 +455,12 @@ object RandomSideLines: OldWallStructure() {
     //todo TEST
     override val mirror: Boolean = true
     override val name: String = "randomSideLines"
-    override val wallList: ArrayList<Wall> = arrayListOf()
-    override fun getWallList(oldParameters: OldParameters): ArrayList<Wall> {
+    override val spookyWallList: ArrayList<SpookyWall> = arrayListOf()
+    override fun getWallList(oldParameters: OldParameters): ArrayList<SpookyWall> {
         //getting the variables or the default values
         val count = try { oldParameters.customParameters[0].toInt() } catch (e:Exception){ 1 }
         val intensity = try { oldParameters.customParameters[1].toInt() } catch (e:Exception){ 4 }
-        wallList.clear()
+        spookyWallList.clear()
 
         var x:Double
         for(i in 1..count){
@@ -469,7 +469,7 @@ object RandomSideLines: OldWallStructure() {
 
             //for each wall intensity
             for(j in 1..intensity){
-                wallList.add(Wall(4.0, 1.0 / intensity, 0.05, 0.05, x, j.toDouble() / intensity))
+                spookyWallList.add(SpookyWall(4.0, 1.0 / intensity, 0.05, 0.05, x, j.toDouble() / intensity))
 
                 //randomly changes lines, adjusts x when doing so
                 if (Random.nextInt(0, sqrt(count.toDouble()).roundToInt()) == 0){
@@ -477,12 +477,12 @@ object RandomSideLines: OldWallStructure() {
                     val stHeight = if(nX > x) x else nX
                     val height = abs(nX-x)
                     val stTime = j.toDouble()/intensity + 1.0/intensity
-                    wallList.add(Wall(4.0, 0.0005, 0.05, height, stHeight, stTime))
+                    spookyWallList.add(SpookyWall(4.0, 0.0005, 0.05, height, stHeight, stTime))
                     x = nX
                 }
             }
         }
-        return wallList
+        return spookyWallList
     }
 }
 
@@ -490,9 +490,9 @@ object RandomSideLines: OldWallStructure() {
 object Text: OldWallStructure() {
     override val name: String = "Text"
     override val mirror: Boolean = false
-    override val wallList: ArrayList<Wall> = arrayListOf()
-    override fun getWallList(oldParameters: OldParameters): ArrayList<Wall> {
-        val list = arrayListOf<Wall>()
+    override val spookyWallList: ArrayList<SpookyWall> = arrayListOf()
+    override fun getWallList(oldParameters: OldParameters): ArrayList<SpookyWall> {
+        val list = arrayListOf<SpookyWall>()
         val text = oldParameters.customParameters.getOrNull(0)?:""
         val gap = oldParameters.customParameters.getDoubleOrElse(1,2.5)
         val midX = oldParameters.customParameters.getDoubleOrElse(2,0.0)
@@ -511,9 +511,9 @@ object Text: OldWallStructure() {
 object LineShifter: OldWallStructure() {
     override val name = "LineShifter"
     override val mirror = false
-    override val wallList = arrayListOf<Wall>()
-    override fun getWallList(oldParameters: OldParameters): ArrayList<Wall> {
-        val list = arrayListOf<Wall>()
+    override val spookyWallList = arrayListOf<SpookyWall>()
+    override fun getWallList(oldParameters: OldParameters): ArrayList<SpookyWall> {
+        val list = arrayListOf<SpookyWall>()
         val amount = oldParameters.customParameters.getIntOrElse(0,4)
         val p1x1 =oldParameters.customParameters.getDoubleOrElse(1,-4.0)
         val p1y1 =oldParameters.customParameters.getDoubleOrElse(2,-4.0)
@@ -554,16 +554,16 @@ object LineShifter: OldWallStructure() {
 object SideWave: OldWallStructure(){
     override val name = "SideWave"
     override val mirror = true
-    override val wallList: ArrayList<Wall> = arrayListOf()
-    override fun getWallList(oldParameters: OldParameters): ArrayList<Wall> {
-        val list = arrayListOf<Wall>()
+    override val spookyWallList: ArrayList<SpookyWall> = arrayListOf()
+    override fun getWallList(oldParameters: OldParameters): ArrayList<SpookyWall> {
+        val list = arrayListOf<SpookyWall>()
         val max = oldParameters.customParameters.getIntOrElse(0,8)
         for(i in 0 until (max)){
             val y = i/max*(2* PI)
             val nY = (i+1)/max*(2* PI)
 
             list.add(
-                Wall(
+                SpookyWall(
                     duration = 1 / max.toDouble(),
                     height = abs(cos(nY) - cos(y)),
                     startHeight = 1 - cos(y),
@@ -587,11 +587,11 @@ data class CustomOldWallStructure(
     override val mirror: Boolean,
 
     @SerializedName("WallList")
-    override val wallList: ArrayList<Wall>
+    override val spookyWallList: ArrayList<SpookyWall>
 
 ): OldWallStructure() {
-    override fun getWallList(oldParameters: OldParameters): ArrayList<Wall> {
-        return ArrayList(wallList.map { it.copy() })
+    override fun getWallList(oldParameters: OldParameters): ArrayList<SpookyWall> {
+        return ArrayList(spookyWallList.map { it.copy() })
     }
 
     override fun toString(): String {
@@ -599,7 +599,7 @@ data class CustomOldWallStructure(
         text+="\t\t\"$name\",\n"
         text+="\t\t$mirror,\n"
         text+="\t\tarrayListOf("
-        for (wall in wallList){
+        for (wall in spookyWallList){
             text+="\n\t\t$wall,"
         }
         text = text.removeSuffix(",")

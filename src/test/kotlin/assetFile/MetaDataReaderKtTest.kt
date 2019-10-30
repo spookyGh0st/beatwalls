@@ -2,13 +2,6 @@ package assetFile
 
 import org.junit.Test
 
-import org.junit.Assert.*
-import org.junit.Before
-import structure.Wall
-import structure.CustomWallStructure
-import structure.Define
-import structure.RandomNoise
-
 
 class MetaDataReaderKtTest {
     //todo
@@ -27,15 +20,15 @@ class MetaDataReaderKtTest {
 
     //# Commands, Specify the Walls you want to create
     //# Syntax Beat(check mm for  that):Name
-    //# Example Wall, remove
+    //# Example SpookyWall, remove
     //10.0: Floor
     //20.0: Ceiling
     //""".trimIndent()
 
     //@Before
     //fun prepAssetFile(){
-    //    val s1 = SavedWallStructure("Floor", listOf(Wall(-1.0,1.0,2.0,0.0,0.0,0.0)))
-    //    val s2 = SavedWallStructure("Ceiling", listOf(Wall(-1.0,1.0,2.0,0.0,4.0,0.0)))
+    //    val s1 = SavedWallStructure("Floor", listOf(SpookyWall(-1.0,1.0,2.0,0.0,0.0,0.0)))
+    //    val s2 = SavedWallStructure("Ceiling", listOf(SpookyWall(-1.0,1.0,2.0,0.0,4.0,0.0)))
     //    AssetFileAPI.assetFile =  AssetFile(1.0,"", arrayListOf(s1,s2))
     //}
 
@@ -78,7 +71,7 @@ class MetaDataReaderKtTest {
     //        "amount" to "5"
     //    )
     //    val w1 = CustomWallStructure("Floor")
-    //    w1.walls().add(Wall(-1.0,1.0,2.0,0.0,0.0,0.0))
+    //    w1.walls().add(SpookyWall(-1.0,1.0,2.0,0.0,0.0,0.0))
     //    w1.mirror = 5
     //    w1.time = true
 

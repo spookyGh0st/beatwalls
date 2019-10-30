@@ -2,7 +2,7 @@ package song
 
 import com.google.gson.annotations.SerializedName
 import mu.KotlinLogging
-import structure.Wall
+import structure.SpookyWall
 
 private val logger = KotlinLogging.logger {}
 
@@ -25,7 +25,7 @@ data class _obstacles (
         }
     }
 
-    fun toWall(): Wall {
+    fun toWall(): SpookyWall {
         val startTime = this._time
         val duration = this._duration
         val startRow =  getLineIndex(_lineIndex)
@@ -34,7 +34,7 @@ data class _obstacles (
         val width = getWidth(_width)
 
         //todo Translate Starttime to Beat
-        return Wall(startRow, duration, width, height, startHeight, startTime)
+        return SpookyWall(startRow, duration, width, height, startHeight, startTime)
     }
 
     private fun getHeight(i:Int):Double{

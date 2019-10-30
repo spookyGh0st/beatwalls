@@ -1,12 +1,11 @@
 package com.github.spookyghost.beatwalls
 
-import assetFile.*
-import reader.readDifficulty
-import reader.writeDifficulty
-import java.io.File
 
-fun run(path: String) {
-    println(path)
+fun run() {
+    println(readPath().absolutePath)
+    println("bpm: ${readBpm()}")
+    println("hjd: ${readHjsDuration()}")
+    println("offset: ${readOffset()}")
     /*
     val assetFile = AssetFileAPI.assetFile()
 

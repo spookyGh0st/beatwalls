@@ -1,5 +1,6 @@
 package com.github.spookyghost.beatwalls
 
+import java.io.File
 import java.util.prefs.Preferences
 
 // Preference key
@@ -8,36 +9,29 @@ private const val bpm = ""
 private const val hjsDuration = ""
 private const val offset = ""
 
-fun savePath(path: String) {
-    val prefs = Preferences.userNodeForPackage(String::class.java)
-    prefs.put(com.github.spookyghost.beatwalls.path, path)
-}
-fun readPath(): String {
-    val prefs = Preferences.userNodeForPackage(String::class.java)
-    return prefs.get(path, "")
-}
+val prefs: Preferences = Preferences.userNodeForPackage(Main::class.java)
 
-fun saveBpm(bpm: String) {
-    val prefs = Preferences.userNodeForPackage(String::class.java)
-    prefs.put(com.github.spookyghost.beatwalls.bpm, bpm)
+fun savePath(path: File) {
+    prefs.put("path", path.absolutePath)
 }
-fun readBpm(): String {
-    val prefs = Preferences.userNodeForPackage(String::class.java)
-    return prefs.get(bpm, "")
+fun readPath(): File {
+    return File(prefs.get("path", path))
 }
-fun saveHjsDuration(hjsDuration: String) {
-    val prefs = Preferences.userNodeForPackage(String::class.java)
-    prefs.put(com.github.spookyghost.beatwalls.hjsDuration, hjsDuration)
+fun saveBpm(bpm: Double) {
+    prefs.put("bpm", bpm.toString())
 }
-fun readHjsDuration(): String {
-    val prefs = Preferences.userNodeForPackage(String::class.java)
-    return prefs.get(hjsDuration, "")
+fun readBpm(): Double {
+    return prefs.get("bpm", bpm).toDouble()
 }
-fun saveOffset(offset: String) {
-    val prefs = Preferences.userNodeForPackage(String::class.java)
-    prefs.put(com.github.spookyghost.beatwalls.offset, offset)
+fun saveHjsDuration(hjsDuration: Double) {
+    prefs.put("hjsDuration", hjsDuration.toString())
 }
-fun readOffset(): String {
-    val prefs = Preferences.userNodeForPackage(String::class.java)
-    return prefs.get(offset, "")
+fun readHjsDuration(): Double {
+    return prefs.get("hjsDuration", hjsDuration).toDouble()
+}
+fun saveOffset(offset: Double) {
+    prefs.put("offset", offset.toString())
+}
+fun readOffset(): Double {
+    return prefs.get("offset", offset).toDouble()
 }

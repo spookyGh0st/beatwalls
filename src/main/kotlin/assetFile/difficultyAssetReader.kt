@@ -63,16 +63,12 @@ fun readStructures(mutableList: MutableList<Pair<String, String>>): ArrayList<Wa
 
 fun findStructure(name: String): WallStructure {
     val structName = name.toLowerCase()
-    val assetFile = AssetFileAPI.assetFile()
-    val customStructs = assetFile.savedStructures.map { it.toCustomWallStructure() }
-    val customStructsNames = customStructs.map { it.name.toLowerCase() }
     val specialStructs = WallStructure::class.sealedSubclasses
     val specialStructsNames = specialStructs.map { it.simpleName?.toLowerCase()?:""}
     val struct: WallStructure
 
     // sets the struct
     struct = when (structName) {
-        in customStructsNames -> customStructs.find { it.name.toLowerCase() == structName }!!.deepCopy()
         in specialStructsNames -> specialStructs.find { it.simpleName!!.toLowerCase() == structName }!!.createInstance()
         else -> {
             logger.info { "structure $structName not found" }

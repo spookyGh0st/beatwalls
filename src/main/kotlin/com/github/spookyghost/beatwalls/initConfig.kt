@@ -14,12 +14,21 @@ fun initConfig(songPath:String){
         errorExit { "Please drag in the Whole Folder for the initial Config" }
     val infoJson = File(file,"info.dat").readText()
     val info = Gson().fromJson(infoJson, Info::class.java)
-    val difficulty = pickDifficulty(info)
+    val name = pickDifficulty(info).replace(".dat",".bw")
+
+    val path = File(songPath,name)
+    path.writeText(defaultSongAssetString())
     val hjd = pickHjd()
 
     val bpm = info._beatsPerMinute
     val offset = info._songTimeOffset
 
+    println(path)
+
+    savePath(path)
+    saveHjsDuration(hjd)
+    saveBpm(bpm)
+    saveOffset(offset)
 }
 
 fun pickDifficulty(info: Info): String {
@@ -42,3 +51,22 @@ fun pickHjd(): Double {
     return readLine()?.toDoubleOrNull() ?: pickHjd()
 }
 
+private fun defaultSongAssetString() =
+    """
+# This is an example File of a DifficultyAsset. Use this to orchestate Walls.
+# Lines starting with an # are Comments and will get ignored
+
+# Commands, Specify the Walls you want to create
+# Syntax Beat(check mm for  that):Name
+# Example Wall, remove
+10: Curve
+    mirror: 8
+    changeDuration: -3
+    sp: 0,0,0
+    cp1: 2,0,0
+    cp2: 2,0,1
+    ep: 0,0,0
+20.0: RandomNoise
+    amount: 10
+    time: true
+    """.trimIndent()

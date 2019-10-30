@@ -17,11 +17,10 @@ class DifficultyAsset(val bpm: Double, val njsOffset:Double, val path:String, va
     /**
      * saves the Structure to the AssetFile
      */
-    fun saveStructures(a:AssetFile, d:Difficulty){
+    fun saveStructures(a:Any, d:Difficulty){ //todo
         val savingList = list.filterIsInstance<Save>()
         list.removeAll(savingList)
         for(saving in savingList){
-
             val selectedStructures = list
                 .filter { it.beat >= saving.beat && it.beat <= saving.beat + saving.duration}
                 .map { it.deepCopy() }
@@ -45,14 +44,15 @@ class DifficultyAsset(val bpm: Double, val njsOffset:Double, val path:String, va
                 structureList = selectedStructures
             )
 
-            val sameStructure = a.savedStructures.find { it.name == saving.name }
-            if (sameStructure!= null){
-                logger.info { "${saving.name} already exist, replacing" }
-                a.savedStructures.remove(sameStructure)
-            }
+            //todo
+           // val sameStructure = a.savedStructures.find { it.name == saving.name }
+           // if (sameStructure!= null){
+           //     logger.info { "${saving.name} already exist, replacing" }
+           //     a.savedStructures.remove(sameStructure)
+           // }
 
-            a.savedStructures.add(savedWallStructure)
-            AssetFileAPI.writeAssetFile()
+           // a.savedStructures.add(savedWallStructure)
+           // AssetFileAPI.writeAssetFile()
             logger.info { "created ${saving.name} with ${savedWallStructure.wallList.size + savedWallStructure.structureList.flatMap { it.walls() }.size} walls" }
         }
     }

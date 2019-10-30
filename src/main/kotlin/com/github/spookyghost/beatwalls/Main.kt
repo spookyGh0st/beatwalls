@@ -11,13 +11,13 @@ fun main(args: Array<String>) {
     }
     else{
         val path = readPath()
-        if(path.isEmpty())
-            errorExit() { "No File stored, setup this program by dragging a Song into it" }
-        run(path)
+        if(!path.canRead())
+            errorExit { "cant read $path, setup this program by dragging a Song into it" }
+        run()
         exit { "Finished Run" }
     }
 }
-
+class Main
 private val logger = KotlinLogging.logger {}
 
 fun exit(msg: () -> Any){

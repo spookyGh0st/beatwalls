@@ -1,27 +1,21 @@
 package com.github.spookyghost.beatwalls
 
+import assetFile.parseAsset
+import assetFile.readAsset
+import song.readDifficulty
+import song.writeDifficulty
 
 fun run() {
-    println(readPath().absolutePath)
-    println("bpm: ${readBpm()}")
-    println("hjd: ${readHjsDuration()}")
-    println("offset: ${readOffset()}")
-    /*
-    val assetFile = AssetFileAPI.assetFile()
-
-    val difficultyAssetFile = findDifficultyAsset(song)
-    assetFile.currentSong = difficultyAssetFile.absolutePath
-    val difficultyAssetText = difficultyAssetFile.readText()
-
-    val songAsset = readDifficultyAsset(difficultyAssetText)
-
-    val diffFile = File(songAsset.path)
-    val difficulty = readDifficulty(diffFile)
-
-    songAsset.saveStructures(assetFile,difficulty)
-    difficulty._obstacles.clear()
-
-    songAsset.createWalls(difficulty)
-    writeDifficulty(difficulty,diffFile)
-     */
+    // reads in the Difficulty
+    val diff = readDifficulty()
+    // reads in the Asset
+    val asset = readAsset()
+    // the text of the File we work on
+    val diffAssetText = readPath().readText()
+    // the parsed list of the file
+    val list = parseAsset(diffAssetText)
+    // created the Walls in the diff
+    diff.createWalls(list,asset)
+    // writes the diff
+    writeDifficulty(diff)
 }

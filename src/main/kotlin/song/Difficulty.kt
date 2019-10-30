@@ -1,5 +1,16 @@
 package song
+import assetFile.MetaData
+import com.github.spookyghost.beatwalls.errorExit
+import com.github.spookyghost.beatwalls.readPath
+import com.google.gson.Gson
 import com.google.gson.annotations.SerializedName
+import mu.KotlinLogging
+import structure.Define
+import structure.Save
+import structure.WallStructure
+import java.io.File
+
+private val logger = KotlinLogging.logger {}
 
 data class Difficulty (
 
@@ -10,5 +21,58 @@ data class Difficulty (
     @SerializedName("_notes") var _notes : ArrayList<_notes>,
     @SerializedName("_obstacles") var _obstacles : ArrayList<_obstacles>
 ){
-    fun containsCommand(string: String) = this._bookmarks.any { it._name.contains("/$string") }
+    fun createWalls(list: ArrayList<WallStructure>, metaData: MetaData){
+        for(w in list){
+            if (w is Save || w is Define)
+                continue
+
+            val walls = w.walls()
+            walls.forEach { it.startTime+=w.beat }
+            walls.forEach { it.adjustToBPM(metaData.bpm, this) }
+            walls.forEach { it.startTime+=metaData.offset }
+
+            // adds the njsOffset if time is true
+            if(w.time)
+                walls.forEach { it.startTime+=metaData.hjd }
+
+            val obstacles = walls.map { it.to_obstacle() }
+           this._obstacles.addAll(obstacles)
+        }
+    }
+}
+
+fun writeDifficulty(diff: Difficulty){
+    try {
+        val file = getDifficultyFile()
+        val json = Gson().toJson(diff)
+        file.writeText(json)
+        logger.info { "written difficulty file to $file" }
+    }catch (e:Exception){
+        errorExit(e) { "Failed to write difficulty" }
+    }
+}
+/**
+ * reads the Difficulty
+ */
+fun readDifficulty(): Difficulty {
+    val json = getDifficultyFile().readText()
+    return try {
+        Gson().fromJson(json, Difficulty::class.java)
+    }catch (e:Exception){
+        errorExit(e) { "Failed to read in the Difficulty. Was there a change in the version or something?" }
+        Gson().fromJson(json, Difficulty::class.java)
+    }
+}
+
+/**
+ * retrieves the Difficulty file
+ */
+fun getDifficultyFile(): File = try {
+    val file = readPath()
+    val name = file.nameWithoutExtension + ".dat"
+    val directory = file.parentFile
+    File(directory,name)
+}catch (e:Exception){
+    errorExit(e) { "Failed to read in the AssetFile" }
+    File("")
 }

@@ -274,12 +274,20 @@ class Save:WallStructure(){
  */
 class Define: WallStructure() {
     /**
+     * the name the structure gets saved to
+     */
+    var name: String = "customStructure"
+    /**
      * The name of Different Structures. Separated by comma (example: structures: Floor, Ceiling)
      * You can also define Parameters of the first Structure
      * These get loaded in Order, So if your reference defined Structures, those must be listed before that
      * The Beat Value gets every time, so it should be 0 most of the time
      */
-    var structures = listOf<WallStructure>()
+    var structures: List<WallStructure> = listOf()
+
+    override fun run() {
+        add(structures.flatMap { it.walls() })
+    }
 }
 
 fun main (){

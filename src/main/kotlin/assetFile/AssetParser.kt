@@ -22,53 +22,46 @@ private val logger = KotlinLogging.logger {}
 /**
  * reads in a String and returns the corresponding SongAssetFile
  */
-fun readDifficultyAsset(s: String):DifficultyAsset{
+fun parseAsset(s: String): ArrayList<WallStructure> {
     // creates the list of key-Value
     val lines = parseAssetString(s)
-
-    assertVersion(lines)
-
-    val path = lines.pop("path")
-    val njsOffset = lines.pop("njsOffset").toDouble()
-    val bpm = lines.pop("bpm").toDouble()
-    val structures = readStructures(lines)
-
-
-    val list  =  DifficultyAsset(bpm = bpm, path = path, njsOffset = njsOffset,list = structures)
+    val structures = parseStructures(lines)
     logger.info { "Read DifficultyAsset Succesfull with ${structures.size} structures" }
-    return list
+    return structures
 }
 
 /**
  * reads the Structures from the list
  */
-fun readStructures(mutableList: MutableList<Pair<String, String>>): ArrayList<WallStructure>{
+fun parseStructures(mutableList: MutableList<Pair<String, String>>): ArrayList<WallStructure>{
     val list = arrayListOf<WallStructure>()
 
     for (i in 0 until mutableList.size){
+        val definedStructures = list.filterIsInstance<Define>()
         if (mutableList[i].key().toDoubleOrNull() != null){
             val structName = mutableList[i].value().toLowerCase()
             val beat = mutableList[i].key().toDouble()
-            val struct: WallStructure = findStructure(structName)
-
+            val struct: WallStructure = findStructure(structName, definedStructures)
             //sets the beat
             struct.beat = beat
             list.add(struct)
         }else{
-            readWallStructOptions(list.last(), mutableList[i])
+            readWallStructOptions(list.last(), mutableList[i], definedStructures)
         }
     }
     return list
 }
 
-fun findStructure(name: String): WallStructure {
+fun findStructure(name: String, definedStructure: List<Define>): WallStructure {
     val structName = name.toLowerCase()
     val specialStructs = WallStructure::class.sealedSubclasses
     val specialStructsNames = specialStructs.map { it.simpleName?.toLowerCase()?:""}
-    val struct: WallStructure
 
+    val definedStructureNames = definedStructure.map { it.name }
+    val struct: WallStructure
     // sets the struct
     struct = when (structName) {
+        in definedStructureNames -> definedStructure.find { it.name.toLowerCase() == structName }!!.deepCopy()
         in specialStructsNames -> specialStructs.find { it.simpleName!!.toLowerCase() == structName }!!.createInstance()
         else -> {
             logger.info { "structure $structName not found" }
@@ -81,7 +74,7 @@ fun findStructure(name: String): WallStructure {
 /**
  * fills the given structure with the option, if it exist
  */
-fun readWallStructOptions(wallStructure: WallStructure, option: Pair<String, String>){
+fun readWallStructOptions(wallStructure: WallStructure, option: Pair<String, String>, definedStructure: List<Define>){
     if (wallStructure is EmptyWallStructure){
         return
     }
@@ -89,11 +82,16 @@ fun readWallStructOptions(wallStructure: WallStructure, option: Pair<String, Str
     val property = findProperty(wallStructure,option.key())
 
     if (property != null) {
-        fillProperty(wallStructure, property, option.value())
+        fillProperty(
+            wallStructure = wallStructure,
+            property = property,
+            value = option.value(),
+            definedStructure = definedStructure
+        )
     }else{
         if( wallStructure is Define) {
             if(wallStructure.structures.firstOrNull() != null){
-                readWallStructOptions(wallStructure.structures.first(), option)
+                readWallStructOptions(wallStructure.structures.first(), option, definedStructure)
             }
         }else{
             errorExit { "The WallStructure $wallStructure does not have the property ${option.key()}" }
@@ -106,7 +104,7 @@ fun findProperty(wallStructure: WallStructure, key:String): KProperty1<out WallS
 
 }
 
-fun fillProperty(wallStructure: WallStructure, property: KProperty1<out WallStructure, Any?>, value: String ){
+fun fillProperty(wallStructure: WallStructure, property: KProperty1<out WallStructure, Any?>, value: String , definedStructure: List<Define>){
     val valueType:Any?
     val type = property.returnType.withNullability(false)
 
@@ -118,8 +116,8 @@ fun fillProperty(wallStructure: WallStructure, property: KProperty1<out WallStru
             Double::class.createType() -> toDouble()
             String::class.createType() -> toString()
             Point::class.createType() -> toPoint()
-            WallStructure::class.createType() -> toWallStructure()
-            getWallListType() -> toWallStructureList()
+            WallStructure::class.createType() -> toWallStructure(definedStructure)
+            getWallListType() -> toWallStructureList(definedStructure)
             else -> null
         }
     }
@@ -150,29 +148,6 @@ fun parseAssetString(s:String): MutableList<Pair<String, String>> =
         .toMutableList()
 
 /**
- * exit, when the version is wrong
- */
-fun assertVersion(lines:MutableList<Pair<String,String>>){
-    if(lines.pop("version")  != "1.0"){
-        errorExit { "Wrong Version, current Version is 1.0" }
-    }
-}
-
-/**
- * gets the value to the given key and removes it from the list
- */
-fun MutableList<Pair<String,String>>.pop(key:String): String {
-    val tempLine =  this.find { it.key() == key.toLowerCase()}
-    return if (tempLine != null) {
-        this.remove(tempLine)
-        tempLine.value()
-    }else{
-        errorExit { "Cant find the value to $key, do you have it in your DifficultyAsset?" }
-        ""
-    }
-}
-
-/**
  * different name for componen1/component2
  */
 fun Pair<String,String>.value(): String {
@@ -199,18 +174,18 @@ private fun String.toPoint(): Point {
 /**
  * String to WallStructure
  */
-private fun String.toWallStructure(): WallStructure {
-    return findStructure(this)
+private fun String.toWallStructure(definedStructure: List<Define>): WallStructure {
+    return findStructure(this, definedStructure)
 }
 
 /**
  * String to List<WallStructure>
  */
-private fun String.toWallStructureList(): List<WallStructure>{
+private fun String.toWallStructureList(definedStructure: List<Define>): List<WallStructure>{
     return this
         .split(",")
         .map { it.trim() }
-        .map { findStructure(it) }
+        .map { findStructure(it, definedStructure) }
 }
 
 

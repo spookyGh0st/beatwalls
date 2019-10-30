@@ -10,7 +10,7 @@ import structure.Define
 import structure.RandomNoise
 
 
-class DifficultyAssetReaderKtTest {
+class MetaDataReaderKtTest {
     //todo
     //private val simpleLines ="""
     //# version, must be 1.0 currently

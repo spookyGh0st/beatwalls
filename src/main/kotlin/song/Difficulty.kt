@@ -23,9 +23,13 @@ data class Difficulty (
     @SerializedName("_obstacles") var _obstacles : ArrayList<_obstacles>
 ){
     fun createWalls(list: ArrayList<WallStructure>, metaData: MetaData){
+        this._obstacles.clear()
         for(w in list){
-            if (w is Save || w is Define)
+            if (w is Save )
                 continue
+            if (w is Define && !w.isTopLevel){
+                continue
+            }
 
             val walls = w.walls()
             walls.forEach { it.startTime+=w.beat }

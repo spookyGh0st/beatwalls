@@ -22,20 +22,18 @@ private val logger = KotlinLogging.logger {}
 
 fun exit(msg: () -> Any){
     println(msg.invoke())
-    println("\nPress Enter to Exit")
+    println("\nPress Enter to Restart, close the window to exit")
     readLine()
-    exitProcess(0)
+    main(arrayOf())
 }
 
 fun errorExit(e:Exception? = null, msg: () -> Any){
-    println(msg.invoke())
+    logger.error { msg.invoke() }
     if(e != null){
         logger.info { "See Error Log below" }
         logger.error { e.message }
     }
-    println("\nPress Enter to Exit")
-    readLine()
-    exitProcess(1)
+    exit {""}
 }
 
 

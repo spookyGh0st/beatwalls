@@ -2,8 +2,8 @@ package com.github.spookyghost.beatwalls
 
 import com.google.gson.Gson
 import mu.KotlinLogging
-import reader.isSong
 import song.Info
+import song.isSong
 import java.io.File
 
 private val logger = KotlinLogging.logger {}

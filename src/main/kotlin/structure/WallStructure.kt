@@ -318,8 +318,17 @@ class Define: WallStructure() {
      */
     var structures: List<WallStructure> = listOf()
 
+    /**
+     * dont touch
+     */
+    var isTopLevel = false
+
     override fun run() {
-        add(structures.flatMap { it.walls() })
+        for(w in structures){
+            val l = w.walls()
+            l.forEach { it.startTime+=w.beat }
+            add(l)
+        }
     }
 }
 

@@ -42,8 +42,14 @@ fun parseStructures(mutableList: MutableList<Pair<String, String>>): ArrayList<W
             val structName = mutableList[i].value().toLowerCase()
             val beat = mutableList[i].key().toDouble()
             val struct: WallStructure = findStructure(structName, definedStructures)
-            //sets the beat
+
             struct.beat = beat
+
+            //hacky
+            if (struct is Define && structName != "define"){
+                struct.isTopLevel = true
+            }
+
             logger.info { "adding $structName" }
             list.add(struct)
         }else{
@@ -51,6 +57,9 @@ fun parseStructures(mutableList: MutableList<Pair<String, String>>): ArrayList<W
         }
     }
     return list
+}
+
+fun adjustStruct(struct:WallStructure,beat:Double){
 }
 
 fun findStructure(name: String, definedStructure: List<Define>): WallStructure {
@@ -142,11 +151,13 @@ fun parseAssetString(s:String): MutableList<Pair<String, String>> =
     s
         .lines()
         .asSequence()
+        .map { it.trim() }
         .filterNot { it.startsWith("#") || it.isEmpty() }
         .map { it.replace("\\t".toRegex(), "") }
         .map { it.split(":") }
         .map { it.map { l -> l.trim() } }
         .map { it[0].toLowerCase() to it.minus(it[0]).joinToString(":") }
+        .filterNot{ it.first.isEmpty() || it.second.isEmpty()}
         .toMutableList()
 
 /**

@@ -1,6 +1,7 @@
 package song
 
 import com.google.gson.annotations.SerializedName
+import java.io.File
 
 data class Info (
 
@@ -82,3 +83,5 @@ data class _difficultyBeatmapSets (
     @SerializedName("_difficultyBeatmaps") val _difficultyBeatmaps : List<_difficultyBeatmaps>
 )
 
+fun File.isSong() =
+    this.isDirectory && this.list()?.contains("info.dat")?:false

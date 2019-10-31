@@ -44,6 +44,7 @@ fun parseStructures(mutableList: MutableList<Pair<String, String>>): ArrayList<W
             val struct: WallStructure = findStructure(structName, definedStructures)
             //sets the beat
             struct.beat = beat
+            logger.info { "adding $structName" }
             list.add(struct)
         }else{
             readWallStructOptions(list.last(), mutableList[i], definedStructures)
@@ -59,6 +60,7 @@ fun findStructure(name: String, definedStructure: List<Define>): WallStructure {
 
     val definedStructureNames = definedStructure.map { it.name.toLowerCase() }
     val struct: WallStructure
+
     // sets the struct
     struct = when (structName) {
         in definedStructureNames -> definedStructure.find { it.name.toLowerCase() == structName }!!.deepCopy()

@@ -52,9 +52,7 @@ fun writeDifficulty(diff: Difficulty){
         errorExit(e) { "Failed to write difficulty" }
     }
 }
-/**
- * reads the Difficulty
- */
+
 fun readDifficulty(): Difficulty {
     val json = getDifficultyFile().readText()
     return try {
@@ -65,9 +63,6 @@ fun readDifficulty(): Difficulty {
     }
 }
 
-/**
- * retrieves the Difficulty file
- */
 fun getDifficultyFile(): File = try {
     val file = readPath()
     val name = file.nameWithoutExtension + ".dat"

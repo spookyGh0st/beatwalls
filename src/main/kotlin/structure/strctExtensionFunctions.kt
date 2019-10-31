@@ -45,9 +45,13 @@ fun WallStructure.mirror(){
             spookyWalls.forEach { it.mirror()}}
     }
     spookyWalls.addAll(otherSpookyWalls)
+    //todo change the mirror 8 to allow helix
+    //todo add a mirror to mirror in between tho Structure
+    //todo add a reverse mirror
 }
 
 fun WallStructure.repeat(){
+    //todo add repeatPath
     val tempWalls  = arrayListOf<SpookyWall>()
     for (i in 1 until repeat){
         val temp = this.deepCopy()
@@ -113,6 +117,9 @@ fun WallStructure.adjust(){
                 it.duration *= scale as Double
         }
     }
+
+    //todo fit to
+    //todo reverse
 }
 
 /**

@@ -23,7 +23,8 @@ data class Difficulty (
     @SerializedName("_obstacles") var _obstacles : ArrayList<_obstacles>
 ){
     fun createWalls(list: ArrayList<WallStructure>, metaData: MetaData){
-        this._obstacles.clear()
+        this._obstacles.removeAll(getOldObstacle())
+        val tempObst = mutableListOf<_obstacles>()
         for(w in list){
             if (w is Save )
                 continue
@@ -41,8 +42,30 @@ data class Difficulty (
                 walls.forEach { it.startTime+=metaData.hjd }
 
             val obstacles = walls.map { it.to_obstacle() }
-           this._obstacles.addAll(obstacles)
+            this._obstacles.addAll(obstacles)
+            tempObst.addAll(obstacles)
         }
+        writeOldObstacle(tempObst.toTypedArray())
+    }
+}
+
+fun getOldObstacle(): Array<_obstacles>{
+    val file = readOldObstacleFile()
+    return try {
+        val json = file.readText()
+        Gson().fromJson(json,Array<_obstacles>::class.java)!!
+    }catch (e:Exception){
+        arrayOf()
+    }
+}
+
+fun writeOldObstacle(l:Array<_obstacles>){
+    val file = readOldObstacleFile()
+    try {
+        val json = Gson().toJson(l)
+        file.writeText(json)
+    }catch (e:Exception){
+        errorExit(e) { "Failed to write Old Obstacles" }
     }
 }
 
@@ -75,4 +98,15 @@ fun getDifficultyFile(): File = try {
 }catch (e:Exception){
     errorExit(e) { "Failed to read in the AssetFile" }
     File("")
+}
+
+fun readOldObstacleFile(): File = try {
+    val file = readPath()
+    val name = file.nameWithoutExtension + ".oldObst"
+    val directory = file.parentFile
+    File(directory,name)
+}catch (e:Exception){
+    errorExit(e) { "Failed to read in the oldObst" }
+    File("")
+
 }

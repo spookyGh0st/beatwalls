@@ -104,6 +104,9 @@ sealed class WallStructure:Serializable
      */
     var scale: Double? = null
 
+    //todo fit to
+    //todo reverse
+
     //    ____  __________  _________  ______
     //   / __ \/ ____/ __ \/ ____/   |/_  __/
     //  / /_/ / __/ / /_/ / __/ / /| | / /
@@ -129,6 +132,8 @@ sealed class WallStructure:Serializable
      * shifts each repeated Structure in y
      */
     var repeatShiftY: Double = 0.0
+
+    //todo add repeatPath
 
     open fun run(){}
 
@@ -354,3 +359,6 @@ class Wall: WallStructure() {
         ))
     }
 }
+
+//todo add text
+//todo add more random stuff

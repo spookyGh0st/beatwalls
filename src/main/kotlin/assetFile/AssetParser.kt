@@ -38,6 +38,7 @@ fun parseStructures(mutableList: MutableList<Pair<String, String>>): ArrayList<W
 
     for (i in 0 until mutableList.size){
         val definedStructures = list.filterIsInstance<Define>()
+        //todo change regarding define
         if (mutableList[i].key().toDoubleOrNull() != null){
             val structName = mutableList[i].value().toLowerCase()
             val beat = mutableList[i].key().toDouble()
@@ -57,9 +58,6 @@ fun parseStructures(mutableList: MutableList<Pair<String, String>>): ArrayList<W
         }
     }
     return list
-}
-
-fun adjustStruct(struct:WallStructure,beat:Double){
 }
 
 fun findStructure(name: String, definedStructure: List<Define>): WallStructure {

@@ -145,6 +145,7 @@ fun line(p0:Triple<Double,Double,Double>, p1: Triple<Double,Double,Double>,amoun
 }
 
 fun curve(startPoint: Point,p1: Point,p2: Point, endPoint: Point, amount: Int):ArrayList<SpookyWall>{
+    //todo change the Creation of Wall (no negative duration)
 
     val list = arrayListOf<SpookyWall>()
     if(endPoint.z<startPoint.z){
@@ -213,7 +214,7 @@ fun getBoxList(wallAmountPerWall: Int): ArrayList<SpookyWall> {
 fun randomPoint() =
     Point(Random.nextDouble(-4.0, 4.0), Random.nextDouble(-2.0, 2.0), Random.nextDouble())
 
-fun quadraticBezier(p0: Point, p1: Point, p2: Point, p3: Point, t:Double): structure.Point {
+fun quadraticBezier(p0: Point, p1: Point, p2: Point, p3: Point, t:Double): Point {
     val x =(1-t).pow(3)*p0.x +
             (1-t).pow(2)*3*t*p1.x +
             (1-t)*3*t*t*p2.x +

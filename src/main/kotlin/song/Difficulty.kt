@@ -8,6 +8,7 @@ import mu.KotlinLogging
 import structure.Define
 import structure.Save
 import structure.WallStructure
+import structure.walls
 import java.io.File
 
 private val logger = KotlinLogging.logger {}

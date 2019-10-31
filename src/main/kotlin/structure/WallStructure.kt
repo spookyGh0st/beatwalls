@@ -1,9 +1,11 @@
-@file:Suppress("unused")
+@file:Suppress("unused", "MemberVisibilityCanBePrivate")
 
 package structure
 
 import mu.KotlinLogging
 import java.io.*
+import kotlin.math.max
+import kotlin.math.min
 import kotlin.random.Random
 
 
@@ -18,13 +20,19 @@ private val logger = KotlinLogging.logger {}
 sealed class WallStructure:Serializable
 {
     /**
-     * saved Walls
+     * dont touch
      */
-    private var spookyWalls: ArrayList<SpookyWall> = arrayListOf()
+    internal var spookyWalls: ArrayList<SpookyWall> = arrayListOf()
     /**
-     * the Beat, dont change that, it will get overwritten anyway
+     * dont touch
      */
     var beat: Double = 0.0
+
+    //    ____  ___    _   ______  ____  __  ___   _____________  ______________
+    //   / __ \/   |  / | / / __ \/ __ \/  |/  /  / ___/_  __/ / / / ____/ ____/
+    //  / /_/ / /| | /  |/ / / / / / / / /|_/ /   \__ \ / / / / / / /_  / /_
+    // / _, _/ ___ |/ /|  / /_/ / /_/ / /  / /   ___/ // / / /_/ / __/ / __/
+    ///_/ |_/_/  |_/_/ |_/_____/\____/_/  /_/   /____//_/  \____/_/   /_/
 
     /**
      * mirrors the SpookyWall:
@@ -45,10 +53,62 @@ sealed class WallStructure:Serializable
      */
     var time: Boolean = false
 
-    /**
-     * changes the Duration to the given value
-     */
+    //    ___    ____      ____  _____________
+    //   /   |  / __ \    / / / / / ___/_  __/
+    //  / /| | / / / /_  / / / / /\__ \ / /
+    // / ___ |/ /_/ / /_/ / /_/ /___/ // /
+    ///_/  |_/_____/\____/\____//____//_/
+
+    //changing the Values
+    var changeStartTime: Double? = null
+
     var changeDuration: Double? = null
+
+    var changeHeight: Double? = null
+
+    var changeStartHeight: Double? = null
+
+    var changeStartRow: Double? = null
+
+    var changeWidth: Double? = null
+
+    // scaling the Values
+    var scaleStartTime: Double? = null
+
+    var scaleDuration: Double? = null
+
+    var scaleHeight: Double? = null
+
+    var scaleStartHeight: Double? = null
+
+    var scaleStartRow: Double? = null
+
+    var scaleWidth: Double? = null
+
+    // adding to the Values
+    var addStartTime: Double? = null
+
+    var addDuration: Double? = null
+
+    var addHeight: Double? = null
+
+    var addStartHeight: Double? = null
+
+    var addStartRow: Double? = null
+
+    var addWidth: Double? = null
+
+    /**
+     * scales the Duration and startTime,
+     * does not scale the duration of negative walls
+     */
+    var scale: Double? = null
+
+    //    ____  __________  _________  ______
+    //   / __ \/ ____/ __ \/ ____/   |/_  __/
+    //  / /_/ / __/ / /_/ / __/ / /| | / /
+    // / _, _/ /___/ ____/ /___/ ___ |/ /
+    ///_/ |_/_____/_/   /_____/_/  |_/_/
 
     /**
      * how often you want to repeat the Structure
@@ -65,82 +125,12 @@ sealed class WallStructure:Serializable
      */
     var repeatShiftX: Double = 0.0
 
-
     /**
      * shifts each repeated Structure in y
      */
     var repeatShiftY: Double = 0.0
 
-    fun walls(): ArrayList<SpookyWall> {
-        repeat()
-        run()
-        adjustValues()
-        mirror()
-        return spookyWalls
-    }
-
-    private fun mirror(){
-        var otherSpookyWalls: ArrayList<SpookyWall> = arrayListOf()
-         when(mirror){
-             1->spookyWalls.forEach { it.mirror() }
-             2-> {otherSpookyWalls = copyWalls();spookyWalls.forEach { it.mirror() }}
-             3->spookyWalls.forEach {it.verticalMirror()}
-             4-> {otherSpookyWalls = copyWalls();spookyWalls.forEach { it.verticalMirror() }}
-             5->spookyWalls.forEach {it.pointMirror()}
-             6-> {otherSpookyWalls = copyWalls();spookyWalls.forEach { it.pointMirror() }}
-             7-> {otherSpookyWalls = copyWalls()
-                 spookyWalls.forEach { it.verticalMirror() }
-                 spookyWalls.addAll(otherSpookyWalls)
-                 otherSpookyWalls =copyWalls()
-                 spookyWalls.forEach { it.mirror()}}
-             8-> {otherSpookyWalls =copyWalls()
-                 spookyWalls.forEach { it.pointMirror() }
-                 spookyWalls.addAll(otherSpookyWalls)
-                 otherSpookyWalls = copyWalls()
-                 spookyWalls.forEach { it.mirror()}}
-        }
-        spookyWalls.addAll(otherSpookyWalls)
-    }
-
-    private fun repeat(){
-        val tempWalls  = arrayListOf<SpookyWall>()
-        for (i in 1 until repeat){
-            val temp = this.deepCopy()
-            temp.run()
-            temp.spookyWalls.forEach {
-                it.startTime+=repeatGap*i
-                it.startRow += repeatShiftX*i
-                it.startHeight += repeatShiftY*i
-            }
-            tempWalls.addAll(temp.spookyWalls)
-        }
-        add(tempWalls)
-    }
-
-    private fun copyWalls() :ArrayList<SpookyWall> = ArrayList((spookyWalls.map { it.copy() }))
-
-    private fun adjustValues(){
-        if (changeDuration!=null)
-            spookyWalls.forEach { it.duration = changeDuration as Double }
-    }
-
-
-    protected open fun run(){}
-    fun add(w:SpookyWall){
-        spookyWalls.add(w)
-    }
-    fun add(w:Collection<SpookyWall>){
-        spookyWalls.addAll(w)
-    }
-    fun deepCopy():WallStructure = deepCopyBySer(this)
-
-    /**
-     * generated Funktions
-     */
-
-    override fun toString(): String {
-        return "WallStructure(spookyWalls=$spookyWalls, beat=$beat, mirror=$mirror, time=$time, changeDuration=$changeDuration, repeat=$repeat, repeatGap=$repeatGap, repeatShiftX=$repeatShiftX, repeatShiftY=$repeatShiftY)"
-    }
+    open fun run(){}
 
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
@@ -152,7 +142,25 @@ sealed class WallStructure:Serializable
         if (beat != other.beat) return false
         if (mirror != other.mirror) return false
         if (time != other.time) return false
+        if (changeStartTime != other.changeStartTime) return false
         if (changeDuration != other.changeDuration) return false
+        if (changeHeight != other.changeHeight) return false
+        if (changeStartHeight != other.changeStartHeight) return false
+        if (changeStartRow != other.changeStartRow) return false
+        if (changeWidth != other.changeWidth) return false
+        if (scaleStartTime != other.scaleStartTime) return false
+        if (scaleDuration != other.scaleDuration) return false
+        if (scaleHeight != other.scaleHeight) return false
+        if (scaleStartHeight != other.scaleStartHeight) return false
+        if (scaleStartRow != other.scaleStartRow) return false
+        if (scaleWidth != other.scaleWidth) return false
+        if (addStartTime != other.addStartTime) return false
+        if (addDuration != other.addDuration) return false
+        if (addHeight != other.addHeight) return false
+        if (addStartHeight != other.addStartHeight) return false
+        if (addStartRow != other.addStartRow) return false
+        if (addWidth != other.addWidth) return false
+        if (scale != other.scale) return false
         if (repeat != other.repeat) return false
         if (repeatGap != other.repeatGap) return false
         if (repeatShiftX != other.repeatShiftX) return false
@@ -166,7 +174,25 @@ sealed class WallStructure:Serializable
         result = 31 * result + beat.hashCode()
         result = 31 * result + mirror
         result = 31 * result + time.hashCode()
+        result = 31 * result + (changeStartTime?.hashCode() ?: 0)
         result = 31 * result + (changeDuration?.hashCode() ?: 0)
+        result = 31 * result + (changeHeight?.hashCode() ?: 0)
+        result = 31 * result + (changeStartHeight?.hashCode() ?: 0)
+        result = 31 * result + (changeStartRow?.hashCode() ?: 0)
+        result = 31 * result + (changeWidth?.hashCode() ?: 0)
+        result = 31 * result + (scaleStartTime?.hashCode() ?: 0)
+        result = 31 * result + (scaleDuration?.hashCode() ?: 0)
+        result = 31 * result + (scaleHeight?.hashCode() ?: 0)
+        result = 31 * result + (scaleStartHeight?.hashCode() ?: 0)
+        result = 31 * result + (scaleStartRow?.hashCode() ?: 0)
+        result = 31 * result + (scaleWidth?.hashCode() ?: 0)
+        result = 31 * result + (addStartTime?.hashCode() ?: 0)
+        result = 31 * result + (addDuration?.hashCode() ?: 0)
+        result = 31 * result + (addHeight?.hashCode() ?: 0)
+        result = 31 * result + (addStartHeight?.hashCode() ?: 0)
+        result = 31 * result + (addStartRow?.hashCode() ?: 0)
+        result = 31 * result + (addWidth?.hashCode() ?: 0)
+        result = 31 * result + (scale?.hashCode() ?: 0)
         result = 31 * result + repeat
         result = 31 * result + repeatGap
         result = 31 * result + repeatShiftX.hashCode()
@@ -175,25 +201,11 @@ sealed class WallStructure:Serializable
     }
 }
 
-/**
- * workaround for deep copy
- */
-private fun <T : Serializable> deepCopyBySer(obj: T): T {
-    val baos = ByteArrayOutputStream()
-    val oos  = ObjectOutputStream(baos)
-    oos.writeObject(obj)
-    oos.close()
-    val bais = ByteArrayInputStream(baos.toByteArray())
-    val ois  = ObjectInputStream(bais)
-    @Suppress("unchecked_cast")
-    return ois.readObject() as T
-}
+
 
 class CustomWallStructure(val name:String): WallStructure()
 
-object EmptyWallStructure:WallStructure(){
-}
-
+object EmptyWallStructure:WallStructure()
 
 //   _____                 _       __   _       __      _________ __                  __
 //  / ___/____  ___  _____(_)___ _/ /  | |     / /___ _/ / / ___// /________  _______/ /___  __________  _____
@@ -204,26 +216,46 @@ object EmptyWallStructure:WallStructure(){
 
 class TestWallStructure(val test:Boolean = false): WallStructure()
 
+/**
+ * Random Noise (small mini cubes)
+ */
 class RandomNoise:WallStructure(){
     /**
      * the amount of the created Walls
      */
     var amount: Int  = 10
+
+    /**
+     * controls one corner of the Area
+     */
+    var sp = Point(-6,0,0)
+
+    /**
+     * controls the other corner of the Area
+     */
+    var ep = Point(6,5,1)
+
+
     override fun run() {
+        val sx = min(sp.x,ep.x)
+        val ex = max(sp.x,ep.x)
+        val sy = min(sp.y,ep.y)
+        val ey = max(sp.y,ep.y)
+        val sz = min(sp.z,ep.z)
+        val ez = max(sp.z,ep.z)
         repeat(amount){
             val w = SpookyWall(
-                startRow = Random.nextDouble(-6.0,6.0),
+                startRow = Random.nextDouble(sx,ex),
                 duration = 0.0,
                 width = 0.0,
                 height = 0.0,
-                startHeight = Random.nextDouble(5.0),
-                startTime = it.toDouble()/amount
+                startHeight = Random.nextDouble(sy,ey),
+                startTime = sz + (it.toDouble()/amount * (ez-sz))
             )
             add(w)
         }
     }
 }
-
 
 /**
  * A BezierCurve with 4 ControlPoints
@@ -291,11 +323,25 @@ class Define: WallStructure() {
     }
 }
 
-fun main (){
-    val w = CustomWallStructure("test1")
-    w.walls().add(SpookyWall(1.1,1.1,1.1,1.1,1.1,1.1))
-    val w2 = w.deepCopy()
-    w.walls().forEach { it.startRow+=2 }
-    println(w.walls().first().startRow)
-    println(w2.walls().first().startRow)
+/**
+ * Defines a Single Wall
+ */
+class Wall: WallStructure() {
+    var startTime = 0.0
+    var duration = 1.0
+    var startHeight = 0.0
+    var height = 0.0
+    var startRow = 0.0
+    var width = 0.0
+
+    override fun run() {
+        add(SpookyWall(
+            startRow = startRow,
+            duration = duration,
+            width = width,
+            height = height,
+            startHeight = startHeight,
+            startTime = startTime
+        ))
+    }
 }

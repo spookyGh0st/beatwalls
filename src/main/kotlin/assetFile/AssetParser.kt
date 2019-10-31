@@ -57,7 +57,7 @@ fun findStructure(name: String, definedStructure: List<Define>): WallStructure {
     val specialStructs = WallStructure::class.sealedSubclasses
     val specialStructsNames = specialStructs.map { it.simpleName?.toLowerCase()?:""}
 
-    val definedStructureNames = definedStructure.map { it.name }
+    val definedStructureNames = definedStructure.map { it.name.toLowerCase() }
     val struct: WallStructure
     // sets the struct
     struct = when (structName) {

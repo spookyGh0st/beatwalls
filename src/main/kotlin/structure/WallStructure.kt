@@ -104,8 +104,12 @@ sealed class WallStructure:Serializable
      */
     var scale: Double? = null
 
+    /**
+     * reverses the WallStructure
+     */
+    var reverse: Boolean? = null
+
     //todo fit to
-    //todo reverse
 
     //    ____  __________  _________  ______
     //   / __ \/ ____/ __ \/ ____/   |/_  __/

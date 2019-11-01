@@ -20,13 +20,14 @@ class AssetParserKtTest : TestCase() {
         val mutList = mutableListOf(
             "Define" to "hallo",
             "beat" to "4.5",
+            "0.0" to "hallo",
             "10" to "Wall"
 
         )
         val list = parseStructures(mutList)
         assertTrue(list.first() is Define)
         list.first() as Define
-        assertEquals(list.first().beat, 4.5)
+        assertEquals((list.first() as Define).structures.first().beat, 4.5)
         assertTrue(list[1] is Wall)
     }
 
@@ -66,9 +67,8 @@ class AssetParserKtTest : TestCase() {
         fillProperty(newWall, newProperty!!,"finewall,wall",propList)
         assertTrue(newWall.structures.first() is Define)
         val w = newWall.structures.first() as Define
-        assertTrue(w.structures.first() is Wall)
-        assertTrue(w.structures.first() == newWall.structures[1])
-        assertFalse(w.structures.first() === newWall.structures[1])
+        val first = w.structures.first() as Define
+        assertTrue(first.structures.first() is Wall)
     }
 
     fun testGetWallListType() {

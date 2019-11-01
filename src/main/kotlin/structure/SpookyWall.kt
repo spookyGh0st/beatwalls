@@ -205,7 +205,7 @@ data class SpookyWall(
 private fun getTime(beat:Double, baseBpm: Double, _BPMChanges: ArrayList<_BPMChanges>): Double {
     val lastChange = lastChange(beat, baseBpm, _BPMChanges)
     val offset = lastChange?.first?._time?:0.0
-    val time = beat- (lastChange?.second ?: 0.0) * multiplier(beat, baseBpm, _BPMChanges)
+    val time = (beat- (lastChange?.second ?: 0.0)) * multiplier(beat, baseBpm, _BPMChanges)
     return offset + time
 }
 private fun multiplier(beat:Double, baseBpm: Double, _BPMChanges: ArrayList<_BPMChanges>): Double {
@@ -213,7 +213,7 @@ private fun multiplier(beat:Double, baseBpm: Double, _BPMChanges: ArrayList<_BPM
 }
 private fun lastChange(beat:Double, baseBpm: Double, _BPMChanges: ArrayList<_BPMChanges>): Pair<_BPMChanges, Double>? {
     val l = _BPMChanges.map { it to getBPMchangeBeat(baseBpm,_BPMChanges,it) }
-    return l.sortedBy { it.second }.findLast {it.second < beat}
+    return l.sortedBy { it.second }.findLast {it.second <= beat}
 
 }
 

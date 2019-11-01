@@ -117,6 +117,11 @@ fun WallStructure.adjust(){
         }
     }
 
+    if(reverse!=null){
+        val last = spookyWalls.maxBy { spookyWall -> spookyWall.startTime+(spookyWall.duration.takeIf { it > 0 }?:0.0) }?.startTime?:0.0
+        spookyWalls.forEach { spookyWall -> spookyWall.startTime = last-(spookyWall.startTime+(spookyWall.duration.takeIf { it >0  }?:0.0)) }
+    }
+
     //todo fit to
     //todo reverse
 }

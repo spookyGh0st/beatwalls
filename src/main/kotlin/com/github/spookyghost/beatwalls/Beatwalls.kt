@@ -2,11 +2,11 @@ package com.github.spookyghost.beatwalls
 
 import assetFile.parseAsset
 import assetFile.readAsset
-import song.readDifficulty
-import song.writeDifficulty
+import difficulty.readDifficulty
+import difficulty.writeDifficulty
 
 fun run() {
-    // reads in the Difficulty
+    // reads in the difficulty
     val diff = readDifficulty()
     // reads in the Asset
     val asset = readAsset()

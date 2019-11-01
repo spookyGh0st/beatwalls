@@ -121,17 +121,17 @@ sealed class WallStructure:Serializable
     /**
      * The Gap between each Repeat
      */
-    var repeatGap: Int = 1
+    var repeatAddZ: Double = 1.0
 
     /**
      * shifts each repeat in x
      */
-    var repeatShiftX: Double = 0.0
+    var repeatAddX: Double = 0.0
 
     /**
      * shifts each repeated Structure in y
      */
-    var repeatShiftY: Double = 0.0
+    var repeatAddY: Double = 0.0
 
     //todo add repeatPath
 
@@ -167,9 +167,9 @@ sealed class WallStructure:Serializable
         if (addWidth != other.addWidth) return false
         if (scale != other.scale) return false
         if (repeat != other.repeat) return false
-        if (repeatGap != other.repeatGap) return false
-        if (repeatShiftX != other.repeatShiftX) return false
-        if (repeatShiftY != other.repeatShiftY) return false
+        if (repeatAddZ != other.repeatAddZ) return false
+        if (repeatAddX != other.repeatAddX) return false
+        if (repeatAddY != other.repeatAddY) return false
 
         return true
     }
@@ -199,9 +199,9 @@ sealed class WallStructure:Serializable
         result = 31 * result + (addWidth?.hashCode() ?: 0)
         result = 31 * result + (scale?.hashCode() ?: 0)
         result = 31 * result + repeat
-        result = 31 * result + repeatGap
-        result = 31 * result + repeatShiftX.hashCode()
-        result = 31 * result + repeatShiftY.hashCode()
+        result = 31 * result + repeatAddZ.hashCode()
+        result = 31 * result + repeatAddX.hashCode()
+        result = 31 * result + repeatAddY.hashCode()
         return result
     }
 }

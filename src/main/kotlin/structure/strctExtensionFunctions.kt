@@ -5,9 +5,9 @@ import java.io.*
 /** this is for getting the acutal Walls */
 fun WallStructure.walls(): ArrayList<SpookyWall> {
     //order is important, dont question it
-    repeat()
     run()
     adjust()
+    repeat()
     mirror()
     return spookyWalls
 }
@@ -54,14 +54,13 @@ fun WallStructure.repeat(){
     //todo add repeatPath
     val tempWalls  = arrayListOf<SpookyWall>()
     for (i in 1 until repeat){
-        val temp = this.deepCopy()
-        temp.run()
-        temp.spookyWalls.forEach {
-            it.startTime+=repeatGap*i
-            it.startRow += repeatShiftX*i
-            it.startHeight += repeatShiftY*i
+        val temp = this.copyWalls()
+        temp.forEach {
+            it.startTime+=repeatAddZ*i
+            it.startRow += repeatAddX*i
+            it.startHeight += repeatAddY*i
         }
-        tempWalls.addAll(temp.spookyWalls)
+        tempWalls.addAll(temp)
     }
     add(tempWalls)
 }

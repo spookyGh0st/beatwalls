@@ -14,7 +14,7 @@ Please read the [Wiki Page](https://github.com/spookyGh0st/beatwalls/wiki) for a
 
 Drag a Song Folder into the .exe to launch the configuration setup. 
 After it run successful You will find a created Default File in your Folder of the selected Song.
-This File defines the walls for the selected Difficulty.
+This File defines the walls for the selected difficulty.
 To create the Walls just run the .exe. To select a different File just drag in the Folder again.
 
 ### ***WARNING*** 

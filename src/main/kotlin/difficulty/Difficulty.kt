@@ -1,4 +1,4 @@
-package song
+package difficulty
 import assetFile.MetaData
 import com.github.spookyghost.beatwalls.errorExit
 import com.github.spookyghost.beatwalls.readPath
@@ -15,12 +15,11 @@ private val logger = KotlinLogging.logger {}
 
 data class Difficulty (
 
-    @SerializedName("_version") var _version : String,
-    @SerializedName("_BPMChanges") val _BPMChanges : ArrayList<_BPMChanges>,
-    @SerializedName("_bookmarks") val _bookmarks : ArrayList<_bookmarks>,
-    @SerializedName("_events") var _events : ArrayList<_events>,
-    @SerializedName("_notes") var _notes : ArrayList<_notes>,
-    @SerializedName("_obstacles") var _obstacles : ArrayList<_obstacles>
+    @SerializedName("_version") val _version : String,
+    @SerializedName("_events") val _events : ArrayList<_events>,
+    @SerializedName("_notes") val _notes : ArrayList<_notes>,
+    @SerializedName("_obstacles") val _obstacles : ArrayList<_obstacles>,
+    @SerializedName("_customData") val _customData : _customData
 ){
     fun createWalls(list: ArrayList<WallStructure>, metaData: MetaData){
         this._obstacles.removeAll(getOldObstacle())
@@ -85,7 +84,7 @@ fun readDifficulty(): Difficulty {
     return try {
         Gson().fromJson(json, Difficulty::class.java)
     }catch (e:Exception){
-        errorExit(e) { "Failed to read in the Difficulty. Was there a change in the version or something?" }
+        errorExit(e) { "Failed to read in the  Was there a change in the version or something?" }
         Gson().fromJson(json, Difficulty::class.java)
     }
 }

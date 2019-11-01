@@ -2,9 +2,10 @@ package structure
 
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
-import song.Difficulty
-import song._BPMChanges
-import song._obstacles
+import difficulty.Difficulty
+import difficulty._BPMChanges
+import difficulty._customData
+import difficulty._obstacles
 import java.io.Serializable
 import kotlin.math.abs
 import kotlin.math.ceil
@@ -102,9 +103,9 @@ data class SpookyWall(
     }
 
     fun adjustToBPM(baseBPM:Double,difficulty: Difficulty){
-        startTime = getTime(startTime,baseBPM,difficulty._BPMChanges)
+        startTime = getTime(startTime,baseBPM,difficulty._customData._BPMChanges)
         if(duration>0)
-            duration * multiplier(startTime,baseBPM,difficulty._BPMChanges)
+            duration * multiplier(startTime,baseBPM,difficulty._customData._BPMChanges)
 
     }
     fun fuckUp() =
@@ -222,7 +223,7 @@ private fun getBPMchangeBeat(baseBpm:Double, _BPMChanges: ArrayList<_BPMChanges>
     var beat = 0.0
     val tempList = arrayListOf<_BPMChanges>()
     tempList.addAll(_BPMChanges)
-    tempList.add(0, _BPMChanges(baseBpm,0.0,4,4))
+    tempList.add(0, _BPMChanges(baseBpm, 0.0, 4, 4))
     while(tempList [index] != bpmChange) {
         val trueDuration = (tempList[index+1]._time - tempList[index]._time) * (tempList[index]._BPM/baseBpm)
         beat += (trueDuration)

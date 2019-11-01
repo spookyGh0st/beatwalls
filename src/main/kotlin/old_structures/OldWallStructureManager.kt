@@ -2,7 +2,7 @@ package old_structures
 
 
 import mu.KotlinLogging
-import song.Difficulty
+import difficulty.Difficulty
 import structure.SpookyWall
 
 private val logger = KotlinLogging.logger {}
@@ -11,7 +11,7 @@ object OldWallStructureManager
 {
     private val wallStructuresList = arrayListOf<OldWallStructure>()
 
-    lateinit var difficulty:Difficulty
+    lateinit var difficulty: Difficulty
 
     fun loadManager(list:ArrayList<CustomOldWallStructure>) {
         with(wallStructuresList){

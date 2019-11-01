@@ -1,4 +1,4 @@
-package song
+package difficulty
 
 import com.google.gson.annotations.SerializedName
 

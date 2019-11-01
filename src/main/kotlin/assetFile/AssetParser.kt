@@ -39,7 +39,17 @@ fun parseStructures(mutableList: MutableList<Pair<String, String>>): ArrayList<W
     for (i in 0 until mutableList.size){
         val definedStructures = list.filterIsInstance<Define>()
         //todo change regarding define
-        if (mutableList[i].key().toDoubleOrNull() != null){
+        val key = mutableList[i].key().toLowerCase()
+        val value = mutableList[i].value()
+        if(key == "define"){
+            val struct = Define()
+            struct.name=value.toLowerCase()
+            list.add(struct)
+            logger.info { "defined Structure ${struct.name}" }
+        }
+        if (key.toDoubleOrNull() != null){
+            if(value.toLowerCase() == "define")
+                errorExit { "Old Defined Structure detected. New one is define: \$name" }
             val structName = mutableList[i].value().toLowerCase()
             val beat = mutableList[i].key().toDouble()
             val struct: WallStructure = findStructure(structName, definedStructures)
@@ -47,10 +57,9 @@ fun parseStructures(mutableList: MutableList<Pair<String, String>>): ArrayList<W
             struct.beat = beat
 
             //hacky
-            if (struct is Define && structName != "define"){
+            if (struct is Define ){
                 struct.isTopLevel = true
             }
-
             logger.info { "adding $structName" }
             list.add(struct)
         }else{

@@ -198,11 +198,11 @@ object Curve: OldWallStructure() {
         var p2: Point
         var p3: Point
         val amount =oldParameters.customParameters.getIntOrElse(0,8)
-        val syntax = "The Syntax is /bw curve -- \$amount startPoint \$x \$y\$z endPoint \$x \$y\$z p3 \$x \$y\$z p4 \$x \$y\$z -- notice how p0-p3 must be hardcoded"
+        val syntax = "The Syntax is /bw curve -- \$amount startPoint \$x \$y\$z endPoint \$x \$y\$z p2 \$x \$y\$z p3 \$x \$y\$z -- notice how p0-p2 must be hardcoded"
         if (oldParameters.customParameters.getOrNull(1) != "startPoint") throw Exception(syntax)
         if (oldParameters.customParameters.getOrNull(5) != "endPoint") throw Exception(syntax)
-        if (oldParameters.customParameters.getOrNull(9) != "p3") throw Exception(syntax)
-        if (oldParameters.customParameters.getOrNull(13) != "p4") throw Exception(syntax)
+        if (oldParameters.customParameters.getOrNull(9) != "p2") throw Exception(syntax)
+        if (oldParameters.customParameters.getOrNull(13) != "p3") throw Exception(syntax)
         with(oldParameters.customParameters){
             try {
                 p0= Point(get(2).toDouble(), get(3).toDouble(), get(4).toDouble())
@@ -228,11 +228,11 @@ object MirroredCurve: OldWallStructure() {
         var p2: Point
         var p3: Point
         val amount =oldParameters.customParameters.getIntOrElse(0,8)
-        val syntax = "The Syntax is /bw curve -- \$amount startPoint \$x \$y\$z endPoint \$x \$y\$z p3 \$x \$y\$z p4 \$x \$y\$z -- while your options were ${oldParameters.customParameters} notice how p0-p3 must be hardcoded"
+        val syntax = "The Syntax is /bw curve -- \$amount startPoint \$x \$y\$z endPoint \$x \$y\$z p2 \$x \$y\$z p3 \$x \$y\$z -- while your options were ${oldParameters.customParameters} notice how p0-p2 must be hardcoded"
         if (oldParameters.customParameters.getOrNull(1) != "startPoint") throw Exception(syntax)
         if (oldParameters.customParameters.getOrNull(5) != "endPoint") throw Exception(syntax)
-        if (oldParameters.customParameters.getOrNull(9) != "p3") throw Exception(syntax)
-        if (oldParameters.customParameters.getOrNull(13) != "p4") throw Exception(syntax)
+        if (oldParameters.customParameters.getOrNull(9) != "p2") throw Exception(syntax)
+        if (oldParameters.customParameters.getOrNull(13) != "p3") throw Exception(syntax)
         with(oldParameters.customParameters){
             try {
                 p0= Point(get(2).toDouble(), get(3).toDouble(), get(4).toDouble())

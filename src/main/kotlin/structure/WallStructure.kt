@@ -269,25 +269,25 @@ class Curve:WallStructure(){
     /**
      * the start Point of the Curve
      */
-    var sp: Point = Point(0,0,0)
+    var p1: Point = Point(0,0,0)
+    /**
+     * the first Controllpoint, defaults to the startPoint
+     */
+    var p2: Point? = null
+    /**
+     * second ControlPoint, defaults to the end point
+     */
+    var p3: Point? = null
     /**
      * The EndPoint of the Curve
      */
-    var ep: Point = Point(0,0,0)
-    /**
-     * the first Controllpoint
-     */
-    var cp1: Point = sp.copy()
-    /**
-     * second ControlPoint
-     */
-    var cp2: Point = ep.copy()
+    var p4: Point = Point(0,0,0)
     /**
      * amount of Walls
      */
     var amount: Int = 8
     override fun run() {
-        add(curve(sp,cp1,cp2,ep,amount))
+        add(curve(p1, p2?:p1,p3?: p4, p4,amount))
     }
 }
 

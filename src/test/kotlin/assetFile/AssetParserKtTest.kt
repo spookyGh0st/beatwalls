@@ -1,15 +1,34 @@
 package assetFile
 
 import junit.framework.TestCase
+import org.junit.Test
 import structure.Define
 import structure.Wall
 import kotlin.test.assertNotEquals
+import java.util.concurrent.TimeoutException
+import org.junit.internal.runners.statements.FailOnTimeout
+import org.junit.rules.Timeout
+import org.junit.Rule
+
+
 
 class AssetParserKtTest : TestCase() {
 
     fun testParseAsset() {}
 
-    fun testParseStructures() {}
+    fun testParseStructures() {
+        val mutList = mutableListOf(
+            "Define" to "hallo",
+            "beat" to "4.5",
+            "10" to "Wall"
+
+        )
+        val list = parseStructures(mutList)
+        assertTrue(list.first() is Define)
+        list.first() as Define
+        assertEquals(list.first().beat, 4.5)
+        assertTrue(list[1] is Wall)
+    }
 
     fun testFindStructure() {}
 
@@ -84,3 +103,4 @@ class AssetParserKtTest : TestCase() {
         assertEquals(expected, actual)
     }
 }
+

@@ -64,10 +64,10 @@ private fun defaultSongAssetString() =
 10: Curve
     mirror: 8
     changeDuration: -3
-    sp: 0,0,0
-    cp1: 2,0,0
-    cp2: 2,0,1
-    ep: 0,0,0
+    p1: 0,0,0
+    p2: 2,0,0
+    p3: 2,0,1
+    p4: 0,0,0
 20.0: RandomNoise
     amount: 10
     time: true

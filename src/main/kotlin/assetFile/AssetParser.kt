@@ -36,16 +36,19 @@ fun parseAsset(s: String): ArrayList<WallStructure> {
 fun parseStructures(mutableList: MutableList<Pair<String, String>>): ArrayList<WallStructure>{
     val list = arrayListOf<WallStructure>()
 
+    var lastStruct: WallStructure = EmptyWallStructure
+    val definedStructures = mutableListOf<Define>()
+
     for (i in 0 until mutableList.size){
-        val definedStructures = list.filterIsInstance<Define>()
         //todo change regarding define
         val key = mutableList[i].key().toLowerCase()
         val value = mutableList[i].value()
         if(key == "define"){
             val struct = Define()
             struct.name=value.toLowerCase()
-            list.add(struct)
+            definedStructures.add(struct)
             logger.info { "defined Structure ${struct.name}" }
+            lastStruct = struct
         }
         if (key.toDoubleOrNull() != null){
             if(value.toLowerCase() == "define")
@@ -62,8 +65,9 @@ fun parseStructures(mutableList: MutableList<Pair<String, String>>): ArrayList<W
             }
             logger.info { "adding $structName" }
             list.add(struct)
+            lastStruct = struct
         }else{
-            readWallStructOptions(list.last(), mutableList[i], definedStructures)
+            readWallStructOptions(lastStruct, mutableList[i], definedStructures)
         }
     }
     return list
@@ -79,14 +83,25 @@ fun findStructure(name: String, definedStructure: List<Define>): WallStructure {
 
     // sets the struct
     struct = when (structName) {
-        in definedStructureNames -> definedStructure.find { it.name.toLowerCase() == structName }!!.deepCopy()
-        in specialStructsNames -> specialStructs.find { it.simpleName!!.toLowerCase() == structName }!!.createInstance()
+        in definedStructureNames -> findDefinedStruct(structName,definedStructure)
+        in specialStructsNames -> findSpecialStruct(structName,specialStructs)
         else -> {
             logger.info { "structure $structName not found" }
             EmptyWallStructure
         }
     }
     return struct
+}
+
+fun findDefinedStruct(structName: String, definedStructure: List<Define>): Define {
+    val found = definedStructure.find { it.name.toLowerCase() == structName }!!.deepCopy()
+    val def = Define()
+    def.structures = listOf(found)
+    return def
+}
+
+fun findSpecialStruct(structName: String,specialStructs: List<KClass<out WallStructure>>): WallStructure {
+    return specialStructs.find { it.simpleName!!.toLowerCase() == structName }!!.createInstance()
 }
 
 /**

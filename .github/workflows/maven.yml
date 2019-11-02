@@ -16,6 +16,8 @@ jobs:
         java-version: 1.8
     - name: Build with Maven
       run: mvn -B package --file pom.xml
+    - name: create Documentation with maven
+      run: mvn -B site --file pom.xml
     - name: Create Release
       id: create_release
       uses: actions/create-release@master
@@ -36,4 +38,10 @@ jobs:
         asset_path: /home/runner/work/beatwalls/beatwalls/target/Beatwalls.exe
         asset_name: beatwalls.exe
         asset_content_type: application/exe
+    - name: GitHub Pages Deploy
+      uses: maxheld83/ghpages@v0.2.1
+      env:
+        BUILD_DIR: /home/runner/work/beatwalls/beatwalls/target/dokka
+      secrets:
+        - GH_PAT
 

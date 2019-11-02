@@ -6,7 +6,6 @@ import com.google.gson.Gson
 import com.google.gson.annotations.SerializedName
 import mu.KotlinLogging
 import structure.Define
-import structure.Save
 import structure.WallStructure
 import structure.walls
 import java.io.File
@@ -25,8 +24,6 @@ data class Difficulty (
         this._obstacles.removeAll(getOldObstacle())
         val tempObst = mutableListOf<_obstacles>()
         for(w in list){
-            if (w is Save )
-                continue
             if (w is Define && !w.isTopLevel){
                 continue
             }

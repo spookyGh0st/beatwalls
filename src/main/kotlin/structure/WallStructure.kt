@@ -225,9 +225,9 @@ sealed class WallStructure:Serializable
 }
 
 
-
-class CustomWallStructure(val name:String): WallStructure()
-
+/**
+ * dont touch
+ */
 object EmptyWallStructure:WallStructure()
 
 //   _____                 _       __   _       __      _________ __                  __
@@ -236,8 +236,6 @@ object EmptyWallStructure:WallStructure()
 // ___/ / /_/ /  __/ /__/ / /_/ / /    | |/ |/ / /_/ / / /___/ / /_/ /  / /_/ / /__/ /_/ /_/ / /  /  __(__  )
 ///____/ .___/\___/\___/_/\__,_/_/     |__/|__/\__,_/_/_//____/\__/_/   \__,_/\___/\__/\__,_/_/   \___/____/
 //    /_/
-
-class TestWallStructure(val test:Boolean = false): WallStructure()
 
 /**
  * Random Noise (small mini cubes)
@@ -281,7 +279,7 @@ class RandomNoise:WallStructure(){
 }
 
 /**
- * A BezierCurve with 4 ControlPoints
+ * Draw a curve of Walls
  */
 class Curve:WallStructure(){
     /**
@@ -310,23 +308,7 @@ class Curve:WallStructure(){
 }
 
 /**
- * Saves All WallStructures between the beat and the given name to the BeatWallAsset. Replacs given WallStructue with the given name
- */
-class Save:WallStructure(){
-    /**
-     * the name you want your structure to be saved in
-     */
-    var name: String = "myStructure"
-    /**
-     * the duration in between you want to look for walls
-     */
-    var duration: Double = 1.0
-    override fun run() {
-    }
-}
-
-/**
- * Defines a WallStructure. You can provide multiple internal structures. Does not get saved to BeatWallAsset.json
+ * Define your own WallStructure from existing WallStructures.
  */
 class Define: WallStructure() {
     /**
@@ -356,7 +338,7 @@ class Define: WallStructure() {
 }
 
 /**
- * Defines a Single Wall
+ * create a single Wall
  */
 class Wall: WallStructure() {
     var startTime = 0.0

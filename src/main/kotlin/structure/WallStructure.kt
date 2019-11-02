@@ -98,6 +98,20 @@ sealed class WallStructure:Serializable
 
     var addWidth: Double? = null
 
+    // fits the height, adjust the correspongig value, that all wall have the same, given value
+    // (for example startheight 0 -> sets startheight to 0 and adjust the height, that the max height is the same
+    var fitStartTime: Double? = null
+
+    var fitDuration: Double? = null
+
+    var fitHeight: Double? = null
+
+    var fitStartHeight: Double? = null
+
+    var fitStartRow: Double? = null
+
+    var fitWidth: Double? = null
+
     /**
      * scales the Duration and startTime,
      * does not scale the duration of negative walls

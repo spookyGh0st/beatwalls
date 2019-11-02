@@ -108,6 +108,38 @@ fun WallStructure.adjust(){
     if (addWidth!=null)
         spookyWalls.forEach { it.width += addWidth as Double }
 
+    //fit
+    if (fitDuration!=null)
+        if (fitHeight!=null)
+            spookyWalls.forEach {
+                it.startTime = (it.startTime+(it.duration.takeIf { i -> i > 0 }?:0.0)) - fitDuration as Double
+                it.duration = fitDuration as Double
+            }
+    if (fitStartTime!=null)
+        spookyWalls.forEach {
+            it.duration = (it.startTime+(it.duration.takeIf { i -> i > 0 }?:0.0)) - fitStartTime as Double
+            it.startTime = fitStartTime as Double
+        }
+    if (fitHeight!=null)
+        spookyWalls.forEach {
+            it.startHeight = (it.startHeight+(it.height.takeIf { i -> i > 0 }?:0.0)) - fitHeight as Double
+            it.height = fitHeight as Double
+        }
+    if (fitStartHeight!=null)
+        spookyWalls.forEach {
+            it.height = (it.startHeight+(it.height.takeIf { i -> i > 0 }?:0.0)) - fitStartHeight as Double
+            it.startHeight = fitStartHeight as Double
+            }
+    if (fitStartRow!=null)
+        spookyWalls.forEach {
+            it.width = (it.startRow+(it.width.takeIf { i -> i > 0 }?:0.0)) - fitStartRow as Double
+            it.startRow = fitStartRow as Double
+        }
+    if (fitWidth!=null)
+        spookyWalls.forEach {
+            it.startRow = (it.startRow+(it.width.takeIf { i -> i > 0 }?:0.0)) - fitWidth as Double
+            it.width = fitWidth as Double
+        }
     //extra
     if(scale!=null){
         spookyWalls.forEach {

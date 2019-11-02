@@ -42,3 +42,5 @@ jobs:
       uses: maxheld83/ghpages@v0.2.1
       env:
         BUILD_DIR: /home/runner/work/beatwalls/beatwalls/target/dokka
+        GH_PAT: ${{ secrets.GH_PAT }}
+

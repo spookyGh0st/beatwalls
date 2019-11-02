@@ -67,14 +67,14 @@ These are parameters for our created WallStructure. You can find all available p
 - amount: 10 -> create 10 small structs
 - time: true -> times the wall, so they appear with the beat
 
-### repeat
+### Repeat
 
-The repeat Option allow s you to repeat the walls of the Structure. 
+The repeat parameter allows you to repeat the walls of the Structure. 
 
 `repeat: 10` says, that this structure will be created 10 times.
 There are also some more advanced features you can read about in the documentation linked at the end.
 
-### defining you own Structures
+### Defining you own structures
 
 The Wallstructure Define is a special one for advanced uses. You can use this to to reuse complex structures without having to write them all down. They must be written in the order they are used.
 

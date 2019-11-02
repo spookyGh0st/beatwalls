@@ -22,6 +22,7 @@ data class Difficulty (
 ){
     fun createWalls(list: ArrayList<WallStructure>, metaData: MetaData){
         this._obstacles.removeAll(getOldObstacle())
+
         val tempObst = mutableListOf<_obstacles>()
         for(w in list){
             if (w is Define && !w.isTopLevel){
@@ -31,7 +32,8 @@ data class Difficulty (
             val walls = w.walls()
             walls.forEach { it.startTime+=w.beat }
             walls.forEach { it.adjustToBPM(metaData.bpm, this) }
-            walls.forEach { it.startTime+=metaData.offset }
+            val offset = metaData.bpm / 60000 * metaData.offset
+            walls.forEach { it.startTime+=offset }
 
             // adds the njsOffset if time is true
             if(w.time)

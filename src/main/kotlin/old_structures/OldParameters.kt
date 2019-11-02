@@ -1,10 +1,10 @@
-package structures
+package old_structures
 
 import mu.KotlinLogging
 
 private val logger = KotlinLogging.logger {}
 
-class Parameters() {
+class OldParameters() {
     var name:String=""
     var customParameters: ArrayList<String> = arrayListOf()
     var scale:Double = 1.0
@@ -17,7 +17,7 @@ class Parameters() {
     var wallStartHeight:Double=0.0
     var startTime: Double= 0.0
     private var stringArray = listOf<String>()
-    var innerParameter:Parameters? = null
+    var innerParameter:OldParameters? = null
 
     /** constructor with a string, aka bookmark */
     constructor(commandText: String) : this() {
@@ -44,7 +44,7 @@ class Parameters() {
             if (stringArray.indexOfLast { it == ".." } < stringArray.indexOfFirst { it == "--" })
                 throw Exception("the syntax is /bw -- \$specialParameters -- .. \$innerParameters ..")
             if (subText.isNotEmpty()){
-                innerParameter = Parameters(subText.joinToString( " " ))
+                innerParameter = OldParameters(subText.joinToString( " " ))
                 repeat(subText.size +3 ) { c.countUp() }
             }
         }
@@ -71,7 +71,7 @@ class Parameters() {
         wallHeight:Double=0.0,
         wallStartHeight:Double=0.0,
         startTime: Double= 0.0,
-        innerParameter: Parameters? = null
+        innerParameter: OldParameters? = null
     ): this(){
         this.name=name
         this.customParameters=customParameters
@@ -96,7 +96,7 @@ class Parameters() {
         if (this === other) return true
         if (javaClass != other?.javaClass) return false
 
-        other as Parameters
+        other as OldParameters
 
         if (name != other.name) return false
         if (customParameters != other.customParameters) return false

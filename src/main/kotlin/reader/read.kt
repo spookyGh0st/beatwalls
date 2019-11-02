@@ -1,5 +1,6 @@
 package reader
 
+import assetFile.createAssets
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import com.google.gson.annotations.SerializedName
@@ -7,7 +8,7 @@ import mu.KotlinLogging
 import song.Difficulty
 import song.Info
 import song._obstacles
-import structures.CustomWallStructure
+import old_structures.CustomOldWallStructure
 import java.io.*
 import java.nio.file.Paths
 
@@ -27,7 +28,7 @@ fun readDifficulty(f:File): Difficulty {
     return Gson().fromJson(json, Difficulty::class.java)
 }
 
-fun readAssets():ArrayList<CustomWallStructure>{
+fun readAssets():ArrayList<CustomOldWallStructure>{
     val file =  Paths.get(System.getProperty("user.dir"),"BeatwallAssets.json").toFile()
     if(!file.exists()) {
         writeAssets(listOf())
@@ -49,7 +50,7 @@ fun readOldAssets(f:File):ArrayList<_obstacles>{
 }
 
 data class AssetsBase (
-    @SerializedName("WallStructureList") val customWallStructure : List<CustomWallStructure>
+    @SerializedName("WallStructureList") val customWallStructure : List<CustomOldWallStructure>
 )
 
 fun File.isDifficulty() =
@@ -90,12 +91,14 @@ fun writeDifficulty(pair: Pair<Difficulty,File>){
         val writer = BufferedWriter(FileWriter(pair.component2()))
         writer.write(text)
         writer.close()
+        logger.info { "written difficulty file to ${pair.second}" }
     }catch (e:Exception){
         logger.error { "Failed to write Difficulty" }
+        logger.error { e.message }
     }
 }
 
-fun writeAssets(customWallStructureList:List<CustomWallStructure>){
+fun writeAssets(customWallStructureList:List<CustomOldWallStructure>){
     try {
         val list = customWallStructureList.toMutableList()
         if( list.isEmpty()){

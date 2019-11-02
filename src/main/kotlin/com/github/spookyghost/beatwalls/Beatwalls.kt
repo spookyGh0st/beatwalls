@@ -1,195 +1,63 @@
 package com.github.spookyghost.beatwalls
 
+import assetFile.AssetController
 import com.github.ajalt.clikt.core.CliktCommand
-import com.github.ajalt.clikt.core.context
-import com.github.ajalt.clikt.output.CliktHelpFormatter
-import com.github.ajalt.clikt.parameters.arguments.argument
-import com.github.ajalt.clikt.parameters.arguments.validate
-import com.github.ajalt.clikt.parameters.options.*
-import com.github.ajalt.clikt.parameters.types.double
-import com.github.ajalt.clikt.parameters.types.file
+import com.github.ajalt.clikt.parameters.options.flag
+import com.github.ajalt.clikt.parameters.options.option
 import mu.KotlinLogging
-import reader.*
-import song.*
-import structures.CustomWallStructure
-import structures.Wall
-import structures.WallStructureManager
-import java.io.File
-import kotlin.system.exitProcess
+import reader.writeDifficulty
+import structure.CustomWallStructure
+import structure.StructureManager
 
-private val logger = KotlinLogging.logger {}
-class Beatwalls : CliktCommand() {
-    //TODO ADD ICON
+class BeatWalls: CliktCommand(){
+    private val logger = KotlinLogging.logger {}
+    val c by option().flag()
+    val d by option().flag()
 
-
-    private val file: File by argument(help = "difficulty File (e.G expertPlus.dat)").file().validate {
-        require((it.isDifficulty()) || it.isSong() || it.isOldAsset() || codeGen) { "Use a SongFolder or DifficultyFile" }
-    }
-
-    private val keepFiles by option("--keepFiles", "-k", help = "keeps original files as backups").flag(default = false)
-
-    private val dryRun by option(
-        "--dryRun",
-        "-d",
-        help = "Do not modify filesystem, only log output"
-    ).flag(default = false)
-
-    private val keepWalls by option(
-        "--keepWalls",
-        "-w",
-        help = "keeps the original walls instead of deleting them"
-    ).flag(default = false)
-
-    private val yes by option("--yes", "-y", help = "skips confirmation").flag(default = false)
-
-    private val bpm by option("--bpm", "-b", help = "Beats per minute").double()
-
-    private val codeGen by option("--codeGen",  help = "generates the code for the Asset File").flag(default = false)
-
-
-    private var wallCounter = 0
-    private var beatsPerMinute = 0.0
-    private val difficultyList = mutableMapOf<Difficulty, File>()
-
-    init {
-        readAssets()
-        context {
-            helpFormatter = CliktHelpFormatter(showDefaultValues = true)
-        }
-
-    }
 
     override fun run() {
-
-        try {
-            val assetList = readAssets()
-            WallStructureManager.loadManager(assetList)
-            //adds all the song
-            when {
-                codeGen -> {
-                    var text="fun createAssets() = arrayListOf(\n"
-                    for(customWall in assetList)
-                        text +="\t$customWall,"
-                    text = text.removeSuffix(",")
-                    text += "\n)"
-                    writeCodeGen(text)
-                    throw Exception("finnished")
-                }
-                file.isSong() -> {
-                    logger.info { "Detected song. Running the program through all Difficulties which have commands" }
-                    val map = Song(file)
-                    beatsPerMinute = bpm ?: map.info._beatsPerMinute
-                    map.difficultyList.forEach {
-                        if (it.component1().containsCommand("bw"))
-                            difficultyList += it.toPair()
-                    }
-                }
-                file.isDifficulty() -> {
-                    logger.info { "Detected Difficulty" }
-                    if (bpm == null)
-                        logger.error { "No BPM detected, pls use the -b option" }
-                    else
-                        beatsPerMinute = bpm as Double
-                    difficultyList += Pair(readDifficulty(file), file)
-                }
-                file.isOldAsset() -> {
-                    //todo test this please
-                    logger.info { "Detected OldAsset" }
-                    try {
-                        val tempObsList = readOldAssets(file)
-                        val tempWallList = ArrayList(tempObsList.map { it.toWall() })
-                        val tempWallName =file.name.removeSuffix(".oldAsset")
-                        val tempWallStruct = CustomWallStructure(tempWallName,false,tempWallList)
-                        if(assetList.findLast { it.name==tempWallName }!= null) throw(Exception("Name $tempWallName already in use, please use a different name"))
-                        assetList.add(tempWallStruct)
-                        writeAssets(assetList)
-                        logger.info { "Added WallStructure to Asset File" }
-                    }catch (e:Exception){
-                        logger.error { e.message }
-                        logger.error { "Failed to parse oldAssetFile" }
-                    }
-                }
-            }
-        } catch (e: Exception) {
-            logger.error { "Failed to read Song. Is it really in the right format?" }
-            logger.error { e.message }
-            exitProcess(-1)
-        }
-
-
-        for (difficulty in difficultyList) {
-            logger.info { "\n\nWorking on File ${difficulty.component2()}\n" }
-
-            //print Stuf and warnings
-            println("keep old Files: $keepFiles")
-            println("dry run: $dryRun")
-            println("keep old Walls: $keepWalls")
-            if (!yes) {
-                println("continue? (y/n)")
-                if (readLine()?.toLowerCase() ?: "n" != "y") exitProcess(0)
-            }
-
-
-            //clears the wall if the keepFileFlag is false
-            if (keepFiles) {
-                val bDiff = difficulty.component1().copy()
-                val bPath = File(difficulty.component2().toString() + ".old")
-                writeDifficulty(Pair(bDiff, bPath))
-                logger.info { "Written Backup to $bPath" }
-            }
-
-
-            //deletes the previous walls, if the keepWallsFlag is false
-            if (!keepWalls) {
-                difficulty.component1()._obstacles.clear()
-                logger.info { "cleared old Difficulty" }
-            }
-
-
-            //with each difficulty, add all walls
+        if(c) AssetController.changeSong()
+        val song = AssetController.currentSong()
+        val difficultyList =song.difficultyList
+        //with each difficulty, add all walls
+        for(difficulty in difficultyList) {
             with(difficulty.component1()) {
+                //todo clears the obstacles
+                _obstacles.clear()
+
                 for (bookmark in _bookmarks) {
-
-                    //find the right bpm
-                    val tempBpm =
-                        _BPMChanges.findLast { bpmChanges -> bpmChanges._time <= bookmark._time }?._BPM ?: beatsPerMinute
-
-                    //create an empty list of _obstacles, we will use
-                    val list = arrayListOf<Wall>()
-
-                    //put the offset in a variable
-                    val timeOffset = bookmark._time
-
-                    //implement the commandList
-                    val commandList = bookmark.getCommandList("/bw")
-
-                    //add the for each command to the obstacle list
-                    for (command in commandList) {
-                        list.addAll(WallStructureManager.getWallList(command))
-                        wallCounter++
-                    }
-
-                    //adjust the bpm for each _obstacle
-                    list.forEach {
-                        it.adjustToBPM(beatsPerMinute,tempBpm,timeOffset)
-                    }
+                    //gets all the walls
+                    val walls = bookmark
+                        .toCommandList("bw")
+                        .flatMap { StructureManager.walls(it,this) }
 
                     //converts the list to _obstacle and adds it
-                    _obstacles.addAll(list.map { it.to_obstacle() })
+                    _obstacles.addAll(walls.map { it.to_obstacle() })
+                }
+
+                /** TODO make this better */
+                for (bookmark in _bookmarks) {
+                    val walls = bookmark
+                        .toCommandList("bw-save")
+                    for(command in walls){
+                        val name = command.command.split(" ").filterNot { it.isEmpty() }[0]
+                        val duration = command.command.split(" ").filterNot { it.isEmpty() }.getOrNull(1)?.toDoubleOrNull()?:1.0
+                        val offset =  if(command.command.contains("-t")) AssetController.njsOffset() else 0.0
+                        val list = ArrayList(_obstacles
+                            .filter {
+                                it._time in (command.beatStartTime+offset)..(command.beatStartTime+duration+offset)
+                            }
+                            .map { it.toWall() }
+                        )
+                        val struct =CustomWallStructure(name,list)
+                        println(struct.wallList.size)
+                        if(struct.wallList.isNotEmpty())
+                        AssetController.customWallStructures().add(struct)
+                        AssetController.save()
+                    }
                 }
             }
-
-            //writes the difficulty
-            if (!dryRun) {
-                writeDifficulty(difficulty.toPair())
-                logger.info { "written new Difficulty" }
-            }
+            writeDifficulty(difficulty.toPair())
         }
-
-        logger.info { "\nfinished run, written $wallCounter Wall Structures" }
-        println("press enter to exit")
-        if(!yes)
-            readLine()
     }
 }
-

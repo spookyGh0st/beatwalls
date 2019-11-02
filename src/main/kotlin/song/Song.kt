@@ -9,7 +9,7 @@ import reader.readInfo
 import reader.writeInfo
 
 private val logger = KotlinLogging.logger {}
-class Song(file:File) {
+class Song(file:File, njsOffset:Double=2.0) {
     val info: Info = readInfo(Paths.get(file.toString(), "info.dat").toFile())
     var difficultyList =  mapOf<Difficulty,File>()
     init {
@@ -20,7 +20,7 @@ class Song(file:File) {
                 val diffPair = Pair<Difficulty,File>(readDifficulty(diffFile),diffFile)
                 difficultyList = difficultyList + diffPair
 
-                if(diffPair.component1().containsCommand("bw" ) && !j._customData._requirements.contains("Mapping Extension")){
+                if(diffPair.component1().containsCommand("bw" ) && !j._customData._requirements.contains("Mapping Extensions")){
                     logger.info { "Added Mapping Extensions Requirements to $diffFile" }
                     j._customData._requirements.add("Mapping Extensions")
                     writeInfo(info, Paths.get(file.toString(), "info.dat").toFile())

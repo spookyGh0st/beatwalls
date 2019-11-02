@@ -61,14 +61,15 @@ private fun defaultSongAssetString() =
 # Commands, Specify the Walls you want to create
 # Syntax Beat(check mm for  that):Name
 # Example SpookyWall, remove
-10: Curve
-    mirror: 8
-    changeDuration: -3
-    p1: 0,0,0
-    p2: 2,0,0
-    p3: 2,0,1
-    p4: 0,0,0
-20.0: RandomNoise
+# start of the intro
+10.0: RandomNoise
     amount: 10
+    time: true
+    repeat: 10
+    
+# start of the first chorus
+20: Helix
+    count: 3
+    repeat: 10
     time: true
     """.trimIndent()

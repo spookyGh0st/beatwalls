@@ -1,5 +1,6 @@
 package structure
 
+import com.github.spookyghost.beatwalls.errorExit
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
 import difficulty.Difficulty
@@ -7,6 +8,7 @@ import difficulty._BPMChanges
 import difficulty._customData
 import difficulty._obstacles
 import java.io.Serializable
+import java.lang.Exception
 import kotlin.math.abs
 import kotlin.math.ceil
 import kotlin.random.Random
@@ -103,10 +105,13 @@ data class SpookyWall(
     }
 
     fun adjustToBPM(baseBPM:Double,difficulty: Difficulty){
-        startTime = getTime(startTime,baseBPM,difficulty._customData._BPMChanges)
-        if(duration>0)
-            duration * multiplier(startTime,baseBPM,difficulty._customData._BPMChanges)
-
+        try {
+            startTime = getTime(startTime,baseBPM,difficulty._customData._BPMChanges)
+            if(duration>0)
+                duration * multiplier(startTime,baseBPM,difficulty._customData._BPMChanges)
+        }catch (e:Exception){
+            errorExit(e) { "Please update you Song json to the latest standards"}
+        }
     }
     fun fuckUp() =
         SpookyWall(ra(startRow), ra(duration), ra(width), ra(height), ra(startHeight), ra(startTime))

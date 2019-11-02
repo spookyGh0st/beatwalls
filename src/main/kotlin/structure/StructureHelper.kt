@@ -14,6 +14,7 @@ fun circle(
     startRotation:Double = 0.0, //startRotation offset
     rotationCount:Double = 1.0, //how many rotations
     heightOffset:Double = 2.0, //height of the center
+    startRowOffset: Double = 0.0,
     speedChange: Double? = null, //speedChange, speed up or slowDown
     wallDuration:Double? = null, //the default duration
     helix:Boolean = false, //if its a helix or a circle
@@ -47,7 +48,7 @@ fun circle(
             nX = radius * cos(((i+offset)+1)/fineTuning)
             nY = radius * sin(((i+offset)+1)/fineTuning)
 
-            startRow = x + (nX - x)
+            startRow = x + (nX - x) + startRowOffset
             width = abs(nX -x ).coerceAtLeast(0.001)
             startHeight = y + heightOffset
             height = abs(nY-y).coerceAtLeast(0.001)
@@ -83,7 +84,6 @@ fun circle(
 
 /** Draws a line between 2 coordinates */
 fun line(px1:Double, py1:Double, pz1: Double= 0.0, px2: Double, py2: Double, pz2: Double=0.0, defaultAmount: Int? = null, defaultDuration: Double? = null): ArrayList<SpookyWall>{
-
     //swap values if y2 < y1  - this functions goes from bottom to top
     var x1 = px1
     var x2 = px2
@@ -145,21 +145,16 @@ fun line(p0:Triple<Double,Double,Double>, p1: Triple<Double,Double,Double>,amoun
 }
 
 fun curve(startPoint: Point,p1: Point,p2: Point, endPoint: Point, amount: Int):ArrayList<SpookyWall>{
-    //todo change the Creation of Wall (no negative duration)
-
     val list = arrayListOf<SpookyWall>()
-    if(endPoint.z<startPoint.z){
-        throw Exception("You have something wrong with you curve")
-    }
     repeat(amount){
         val currentPoint = quadraticBezier(startPoint, p1, p2, endPoint, it.toDouble() / amount)
         val nextPoint = quadraticBezier(startPoint, p1, p2, endPoint, (it + 1.0) / amount)
         val startRow = currentPoint.x
         val startHeight = currentPoint.y
-        val startTime = currentPoint.z
+        val startTime = min(currentPoint.z, nextPoint.z)
         val width = nextPoint.x - currentPoint.x
         val height = nextPoint.y - currentPoint.y
-        val duration = nextPoint.z -currentPoint.z
+        val duration = abs(nextPoint.z -currentPoint.z)
         list.add(SpookyWall(startRow, duration, width, height, startHeight, startTime))
     }
     return list

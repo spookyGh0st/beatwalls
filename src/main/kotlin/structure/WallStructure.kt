@@ -279,7 +279,7 @@ class RandomNoise:WallStructure(){
 }
 
 /**
- * Draw a curve of Walls
+ * Draw a curve of Walls. This uses BezierCurve. You can imagine it like a line between point 1 and point 4, that gets pulled upon by the controlpoints. Maybe this link can help (the dots are the Points) https://www.desmos.com/calculator/cahqdxeshd
  */
 class Curve:WallStructure(){
     /**
@@ -360,5 +360,42 @@ class Wall: WallStructure() {
     }
 }
 
-//todo add text
-//todo add more random stuff
+/**
+ * spinning time! make walls spin around the player
+ */
+class Helix: WallStructure() {
+    /**
+     * how many spirals will be created
+     */
+    var count = 2
+    /**
+     * The radius of the Helix
+     */
+    var radius = 2.0
+    /**
+     * does not reflect the actual amount of walls, instead is more of an multiplier (will be changed with version 1.0)
+     */
+    var amount = 10
+    /**
+     * the start in degree
+     */
+    var startRotation = 0.0
+    /**
+     * describes, how many "Spins" the helix has
+     */
+    var rotationAmount = 1.0
+    /**
+     * Point of the center, defaults to 0,2,0
+     */
+    var center = Point(0,2,0)
+
+    /**
+     * speeds up/slows down the helix.
+     */
+    @Deprecated("Will be removed in 1.0")
+    var speedChange = 1.0
+    override fun run() {
+        add(circle(count = count, fineTuning = amount, heightOffset = center.y, radius = radius,startRotation = startRotation,rotationCount = rotationAmount,speedChange = speedChange,helix = true))
+    }
+}
+

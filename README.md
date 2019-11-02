@@ -4,9 +4,9 @@ commandline tool to add Walls to beatsaber maps using bookmarks. [showcase](http
 
 ## Installation
 
-- Download the binary from the [latest release](https://github.com/spookyGh0st/beatwalls/releases) tab
+- have java installed
 
-- This program works with bookmarks, which are currently only supported by Mediocre Mapper or json editing. So you need that.
+- Download the binary from the [latest release](https://github.com/spookyGh0st/beatwalls/releases) tab
 
 ## Introduction
 

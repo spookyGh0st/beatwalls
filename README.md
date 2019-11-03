@@ -1,6 +1,7 @@
 # beatwalls
 
-Commandline tool to add Walls to beatsaber maps using bookmarks. [showcase](https://streamable.com/felde)
+Commandline tool to add Walls to beatsaber maps using bookmarks. [showcase](https://streamable.com/felde),
+ [docs](https://spookygh0st.github.io/beatwalls/structure/-wall-structure/index.html)
 
 ## Installation
 
@@ -16,6 +17,7 @@ The goal of the Beatwalls Program is to make working with mapping extension wall
 
 A WallStructure is a collection of Walls. Bundling them together allows one to scale, repeat and edit them all at once to fit the Song, without having to manually edit each Wall. Combine multiple Wallstructures, to create amazing scenery for your Map.
 
+
 ### A Wall
 
 To make working with Walls easier, I introduce to you a new [standard](https://xkcd.com/927) of Values, which define a wall. It defines 1 = one line Index and the center = 0. Everything else scales accordingly.
@@ -26,7 +28,7 @@ To make working with Walls easier, I introduce to you a new [standard](https://x
 
 Drag a Song Folder into the .exe to launch the configuration setup. 
 It will create a .bw File in your song folder. Open this in any text editor. Recommended is Visual Studio Code.
-This File defines the walls for the selected difficulty, like a cookbook. Here is an example:
+This File defines the created Wallstructures for the selected difficulty, like a cookbook. Here is an example:
 
 ```yaml
 # start of the intro
@@ -56,13 +58,15 @@ This is our first Wallstructure. It consists of 2 parts:
 
 So just with that line we will create a default RandomNoise structure on beat 10.
 
+The program provides a set of predefined Wallstructures you can build on. The are limited in numbers at the moment, but very flexible. Also I plan to update the program to add more in the future. Lets move on to the next lines
+
 ```yaml
 amount: 10
 time: true
 repeat: 10
 ```
 
-These are parameters for our created WallStructure. You can find all available parameters in the documentation linked at the end.
+These are properties for our created WallStructure. You can find all available parameters in the documentation linked at the end.
 
 - amount: 10 -> create 10 small structs
 - time: true -> times the wall, so they appear with the beat
@@ -72,7 +76,11 @@ These are parameters for our created WallStructure. You can find all available p
 The repeat parameter allows you to repeat the walls of the Structure. 
 
 `repeat: 10` says, that this structure will be created 10 times.
-There are also some more advanced features you can read about in the documentation linked at the end.
+Each time it will be shifted be the amounts in 
+
+- repeatAddX(default: 0)
+- repeatAddY(default: 0) 
+- repeatAddZ (default: 1)
 
 ### Defining you own structures
 
@@ -111,27 +119,55 @@ now you can create a tunel at time 10 with
 
 
 
+
+### Point
+
+Some structures use Points as properties. These are simply 3-dimensional Points in space. With
+
+- x= startRow (line index)
+- y= startHeight 
+- z= startTime, relative to the structure
+
+to create a Point use
+
+```$x,$y,$z```
+
+a normal curve might look like this:
+
+```yaml
+30: curve
+    amount:16
+    p1:0,0,0
+    p2:2,0,0.33
+    p3:2,0,0.66
+    p4:2,4,1
+```
+## Documentation
+
+The documentation for this program is automatically updated when i update the program. However it can be dawning to read at first. 
+
+Open this link in a different browser window:
+--> [docs](https://spookygh0st.github.io/beatwalls/structure/-wall-structure/index.html) <--
+
+All Wallstructures have a set of default-properties. These are the one defined under Properties, like addDuration, scale, time or mirror.
+
+If you scroll down to the bottom of the page, you will find the Inheritors. These are the actual Wallstructures you can create (at the point of writting this curve, define, helix, randomNoise and wall).
+
+Each of the Structures have their own properties that configure how the walls are created. Lets click on the in my opinion most interesting one, the Curve:
+You can see that it has 5 properties: amount, p1, p2, p3 and p4. with descriptions on what they do.
+
 ### Execution
 
-Now to create the walls, save and execute beatwalls.exe. 
-It will automatically delete old Wallstructures created by the program, so you dont need to worry about overriding those.
+After the initial config, all Wallstructures are only defined in the .bw file. To create them, just execute the exe again (without dragging in a folder).
 
-this is what will be created: [video](https://streamable.com/s/md58n)
+This will delete all walls created buy the previous runs and create the new ones according to your .bw file
+
+this is what will be created by the first example: [video](https://streamable.com/s/md58n)
 
 To select a different Song just drag in the Folder again.
 
-To find out all currently possible options and structures, head to this link:
-The properties are available to all structures. The Inheritors are all available Structures. To learn more about it, just click on it.
-
---> [docs](https://spookygh0st.github.io/beatwalls/structure/-wall-structure/index.html) <--
-
-
-
 ## other stuff
 
-Please message me on discord (spookyGhost) about any feedback or any wallstructures you would like to see added.
+Please ping me on discord (spookyGhost) about any feedback or any wallstructures you would like to see added.
 
 Windows will probably annoy you that this program is dangerous. If you dont want this, build from source or buy me a certificate
-
-
-

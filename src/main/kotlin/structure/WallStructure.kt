@@ -399,3 +399,45 @@ class Helix: WallStructure() {
     }
 }
 
+
+/**
+ * Draws a wall of line between the 2 provided Points
+ */
+class Line: WallStructure(){
+    /**
+     * how many walls will be created. When left empty, will figure out a decent amount depending on the angle
+     */
+    var amount: Int? = null
+    /**
+     * The startPoint
+     */
+    var start = Point(0,0,0)
+    /**
+     * the End Point
+     */
+    var end = Point(0,0,1)
+    override fun run() {
+        add(line(start,end,amount))
+        super.run()
+    }
+}
+
+/**
+ * Creates a continues line with up to 100 Points
+ */
+class ContinuesCurve : WallStructure(){
+    /**
+     * The duration of each wall
+     */
+    var duration: Double = -3.0
+    /**
+     * The amount of Walls per beat
+     */
+    var amountPerBeat: Int = 8
+
+    var p1 = Point(0,0,0)
+    var c1 = Point(9,0,0)
+    override fun run() {
+        TODO()
+    }
+}

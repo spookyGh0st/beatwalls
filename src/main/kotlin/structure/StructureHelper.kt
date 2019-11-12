@@ -137,8 +137,8 @@ fun line(px1:Double, py1:Double, pz1: Double= 0.0, px2: Double, py2: Double, pz2
     }
     return list
 }
-fun line(p0:Point, p1: Point): ArrayList<SpookyWall> {
-    return line(p0.x,p0.y,p0.z,p1.x,p1.y,p1.z)
+fun line(p0:Point, p1: Point, amount: Int?): ArrayList<SpookyWall> {
+    return line(p0.x,p0.y,p0.z,p1.x,p1.y,p1.z,amount)
 }
 fun line(p0:Triple<Double,Double,Double>, p1: Triple<Double,Double,Double>,amount: Int?): ArrayList<SpookyWall> {
     return line(p0.first,p0.second,p0.third,p1.first,p1.first,p1.first,amount)
@@ -227,6 +227,9 @@ fun quadraticBezier(p0: Point, p1: Point, p2: Point, p3: Point, t:Double): Point
 
 data class Point(val x:Double, val y:Double, val z:Double):Serializable {
     constructor(x:Int,y:Int,z:Int):this(x.toDouble(),y.toDouble(),z.toDouble())
+    fun mirrored(other: Point): Point {
+        return Point(this.x-(other.x-this.x),this.y-(other.y-this.y),this.z-(other.z-this.z))
+    }
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (javaClass != other?.javaClass) return false

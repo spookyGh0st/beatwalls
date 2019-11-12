@@ -57,19 +57,58 @@ private fun defaultSongAssetString() =
     """
 # This is an example File of a DifficultyAsset. Use this to orchestate Walls.
 # Lines starting with an # are Comments and will get ignored
-
 # Commands, Specify the Walls you want to create
 # Syntax Beat(check mm for  that):Name
-# Example SpookyWall, remove
-# start of the intro
-10.0: RandomNoise
-    amount: 10
-    time: true
+# simple wallstructures
+10: Helix
+    amount: 5
+    changeDuration: -3
+    repeat: 10
+20.0: RandomNoise
+    amount: 5
     repeat: 10
     
-# start of the first chorus
-20: Helix
-    count: 3
-    repeat: 10
-    time: true
+# defining a wallstructures for multiple use
+define: upDownCurve
+    # what structure we are basing of
+    structures: curve
+    
+    # the 4 controlPoints we are basing of. These are Points in 3d-space. 
+    # Imagine a line between p1 and p4. The other 2 Points,  p2 and p3 are "pulling" on it
+    p1: 0,4,0
+    p2: 2,4,0.33
+    p3: 3,2,0.66
+    p4: 2,0,1
+    
+    # fit the startRow to 5. All Walls in the curve will get stretched in width until they reach that startRow
+    fitStartRow: 10
+    # same for startHeight. All walls will get stretched in height until they reach that startheight
+    fitStartHeight: 5
+    # mirrors the whole structure to the left side
+    mirror: 2
+    
+30: upDownCurve
+    # we repeat our structure 5 times, but only every second beat
+    repeat: 5
+    repeatAddZ: 2
+    
+31: upDownCurve
+    # we reverse the structure, the rest is same as 30
+    reverse: true
+    repeat: 5
+    repeatAddZ: 2
+    
+# like in 30/31 but mirrored horizontally and with hyper walls
+40: upDownCurve
+    mirror: 3
+    changeDuration: -3
+    repeat: 5
+    repeatAddZ: 2
+    
+41: upDownCurve
+    mirror: 3
+    changeDuration: -3
+    reverse: true
+    repeat: 5
+    repeatAddZ: 2
     """.trimIndent()

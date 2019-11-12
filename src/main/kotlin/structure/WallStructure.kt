@@ -2,8 +2,10 @@
 
 package structure
 
+import assetFile.findProperty
+import assetFile.readProperty
 import mu.KotlinLogging
-import java.io.*
+import java.io.Serializable
 import kotlin.math.max
 import kotlin.math.min
 import kotlin.random.Random
@@ -398,4 +400,219 @@ class Helix: WallStructure() {
         add(circle(count = count, fineTuning = amount, heightOffset = center.y, radius = radius,startRotation = startRotation,rotationCount = rotationAmount,speedChange = speedChange,helix = true))
     }
 }
+
+
+/**
+ * Draws a wall of line between the 2 provided Points
+ */
+class Line: WallStructure(){
+    /**
+     * how many walls will be created. When left empty, will figure out a decent amount depending on the angle
+     */
+    var amount: Int? = null
+    /**
+     * The startPoint
+     */
+    var start = Point(0,0,0)
+    /**
+     * the End Point
+     */
+    var end = Point(0,0,1)
+    override fun run() {
+        add(line(start,end,amount))
+        super.run()
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//                                               _                _      ____               _
+//   __ _    ___   _ __     ___   _ __    __ _  | |_    ___    __| |    / ___|   ___     __| |   ___
+//  / _` |  / _ \ | '_ \   / _ \ | '__|  / _` | | __|  / _ \  / _` |   | |      / _ \   / _` |  / _ \
+// | (_| | |  __/ | | | | |  __/ | |    | (_| | | |_  |  __/ | (_| |   | |___  | (_) | | (_| | |  __/
+//  \__, |  \___| |_| |_|  \___| |_|     \__,_|  \__|  \___|  \__,_|    \____|  \___/   \__,_|  \___|
+//  |___/
+
+/**
+ * Creates a continues line with up to 100 Points
+ */
+class ContinuesCurve : WallStructure(){
+    /**
+     * dont touch
+     */
+    val creationAmount = 10
+    /**
+     * The duration of each wall
+     */
+    var duration: Double = -3.0
+    /**
+     * The amount of Walls per beat
+     */
+    var amountPerBeat: Int = 8
+
+    /**
+     * The 0 Point. use this to set an exact Point the wall will go through
+     */
+    var p0: Point? = null
+
+    /**
+     * The ControllPoint for the 0 Point. Use this to guide the curve to his direction
+     */
+    var c0: Point? = null
+
+    /**
+     * The 1 Point. use this to set an exact Point the wall will go through
+     */
+    var p1: Point? = null
+
+    /**
+     * The ControllPoint for the 1 Point. Use this to guide the curve to his direction
+     */
+    var c1: Point? = null
+
+    /**
+     * The 2 Point. use this to set an exact Point the wall will go through
+     */
+    var p2: Point? = null
+
+    /**
+     * The ControllPoint for the 2 Point. Use this to guide the curve to his direction
+     */
+    var c2: Point? = null
+
+    /**
+     * The 3 Point. use this to set an exact Point the wall will go through
+     */
+    var p3: Point? = null
+
+    /**
+     * The ControllPoint for the 3 Point. Use this to guide the curve to his direction
+     */
+    var c3: Point? = null
+
+    /**
+     * The 4 Point. use this to set an exact Point the wall will go through
+     */
+    var p4: Point? = null
+
+    /**
+     * The ControllPoint for the 4 Point. Use this to guide the curve to his direction
+     */
+    var c4: Point? = null
+
+    /**
+     * The 5 Point. use this to set an exact Point the wall will go through
+     */
+    var p5: Point? = null
+
+    /**
+     * The ControllPoint for the 5 Point. Use this to guide the curve to his direction
+     */
+    var c5: Point? = null
+
+    /**
+     * The 6 Point. use this to set an exact Point the wall will go through
+     */
+    var p6: Point? = null
+
+    /**
+     * The ControllPoint for the 6 Point. Use this to guide the curve to his direction
+     */
+    var c6: Point? = null
+
+    /**
+     * The 7 Point. use this to set an exact Point the wall will go through
+     */
+    var p7: Point? = null
+
+    /**
+     * The ControllPoint for the 7 Point. Use this to guide the curve to his direction
+     */
+    var c7: Point? = null
+
+    /**
+     * The 8 Point. use this to set an exact Point the wall will go through
+     */
+    var p8: Point? = null
+
+    /**
+     * The ControllPoint for the 8 Point. Use this to guide the curve to his direction
+     */
+    var c8: Point? = null
+
+    /**
+     * The 9 Point. use this to set an exact Point the wall will go through
+     */
+    var p9: Point? = null
+
+    /**
+     * The ControllPoint for the 9 Point. Use this to guide the curve to his direction
+     */
+    var c9: Point? = null
+
+    override fun run() {
+        for(i in 1 until creationAmount){
+            val point = readPoint("p$i")
+            val controlPoint = readPoint("c$i")
+            val nextPoint = readPoint("p${i +1}")
+            val nextControlPoint = readPoint("c${i+1}")
+            if(point!=null && nextPoint!=null && controlPoint!=null && nextControlPoint!= null) {
+                val tempP1 = point
+                val tempP2 = controlPoint.copy(z = point.z + 0.3333 * (nextPoint.z - point.z))
+                val tempP3 = try {
+                    nextPoint.mirrored(
+                        nextControlPoint.copy(
+                            z = nextPoint.z + 0.3333 * (readPoint("p${i + 2}")?.z
+                                ?: (nextPoint.z + (nextPoint.z - point.z))) - nextPoint.z
+                        )
+                    )
+                } catch (e: Exception) {
+                    nextPoint.mirrored(nextControlPoint.copy(z = nextPoint.z + 0.3333 * (nextPoint.z - point.z)))
+                }
+                val tempP4 = nextPoint
+                val amount = ((tempP4.z - tempP1.z) * amountPerBeat).toInt()
+                add(curve(tempP1, tempP2, tempP3, tempP4, amount))
+            }
+        }
+    }
+}
+
+fun WallStructure.readPoint(name:String): Point? =
+    readProperty(findProperty(this,name)) as Point?
+
+fun ContinuesCurve.generateProperties(): String {
+    var s = ""
+    for(it in 1 .. creationAmount){
+        s+="""
+            
+            
+            /**
+            * The $it Point. use this to set an exact Point the wall will go through
+            */
+            var p$it: Point? = null
+            
+            /** 
+            * The ControllPoint for the $it Point. Use this to guide the curve to his direction
+            */
+            var c$it: Point? = null
+        """.trimIndent()
+    }
+    return s
+}
+
 

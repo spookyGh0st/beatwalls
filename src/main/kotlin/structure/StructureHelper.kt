@@ -227,6 +227,9 @@ fun quadraticBezier(p0: Point, p1: Point, p2: Point, p3: Point, t:Double): Point
 
 data class Point(val x:Double, val y:Double, val z:Double):Serializable {
     constructor(x:Int,y:Int,z:Int):this(x.toDouble(),y.toDouble(),z.toDouble())
+    fun mirrored(other: Point): Point {
+        return Point(this.x-(other.x-this.x),this.y-(other.y-this.y),this.z-(other.z-this.z))
+    }
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (javaClass != other?.javaClass) return false

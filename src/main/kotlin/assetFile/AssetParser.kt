@@ -94,7 +94,7 @@ fun findStructure(name: String, definedStructure: List<Define>): WallStructure {
 }
 
 fun findDefinedStruct(structName: String, definedStructure: List<Define>): Define {
-    val found = definedStructure.find { it.name.toLowerCase() == structName }!!.deepCopy()
+    val found = definedStructure.findLast { it.name.toLowerCase() == structName }!!.deepCopy()
     val def = Define()
     def.structures = listOf(found)
     return def

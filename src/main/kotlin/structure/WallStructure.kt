@@ -49,9 +49,9 @@ sealed class WallStructure:Serializable
     var mirror: Int = 0
 
     /**
-     * times the SpookyWall by adding the njsOffset
+     * times the SpookyWall by adding the njsOffset, default: true
      */
-    var time: Boolean = false
+    var time: Boolean = true
 
     //    ___    ____      ____  _____________
     //   /   |  / __ \    / / / / / ___/_  __/

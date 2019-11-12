@@ -1,15 +1,9 @@
 package assetFile
 
 import junit.framework.TestCase
-import org.junit.Test
 import structure.Define
 import structure.Wall
 import kotlin.test.assertNotEquals
-import java.util.concurrent.TimeoutException
-import org.junit.internal.runners.statements.FailOnTimeout
-import org.junit.rules.Timeout
-import org.junit.Rule
-
 
 
 class AssetParserKtTest : TestCase() {
@@ -41,12 +35,12 @@ class AssetParserKtTest : TestCase() {
         val wall = Wall()
         wall.startTime = 0.0
         var property = findProperty(wall,"startTime")
-        fillProperty(wall,property!! ,"1.0", listOf() )
+        fillProperty(property!!, "1.0", listOf(),wall)
         assertEquals(wall.startTime,1.0)
         assertNotEquals(wall.duration, 0.0)
         property = findProperty(wall, "amount")
         try {
-            fillProperty(wall,property!!,"randomStuff", listOf())
+            fillProperty(property!!, "randomStuff", listOf(),wall)
         } catch (e:Exception ){
             return
         }
@@ -56,15 +50,15 @@ class AssetParserKtTest : TestCase() {
         val wall = Define()
         wall.structures = listOf()
         val property = findProperty(wall, "structures")
-        fillProperty(wall,property!!, "wall", listOf())
+        fillProperty(property!!, "wall", listOf(),wall)
         val nameProperty = findProperty(wall, "name")
-        fillProperty(wall,nameProperty!!, "fineWall", listOf())
+        fillProperty(nameProperty!!, "fineWall", listOf(),wall)
         assertFalse(wall.structures.isEmpty())
         assertEquals(wall.name, "fineWall")
         val propList =listOf(wall)
         val newWall = Define()
         val newProperty = findProperty(newWall, "structures")
-        fillProperty(newWall, newProperty!!,"finewall,wall",propList)
+        fillProperty(newProperty!!, "finewall,wall", propList,newWall)
         assertTrue(newWall.structures.first() is Define)
         val w = newWall.structures.first() as Define
         val first = w.structures.first() as Define

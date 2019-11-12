@@ -137,7 +137,12 @@ fun findProperty(wallStructure: WallStructure, key:String): KProperty1<out WallS
 
 }
 
-fun fillProperty(wallStructure: WallStructure, property: KProperty1<out WallStructure, Any?>, value: String , definedStructure: List<Define>){
+fun fillProperty(
+    property: KProperty1<out WallStructure, Any?>,
+    value: String,
+    definedStructure: List<Define>,
+    wallStructure: WallStructure
+){
     val valueType:Any?
     val type = property.returnType.withNullability(false)
 
@@ -155,9 +160,21 @@ fun fillProperty(wallStructure: WallStructure, property: KProperty1<out WallStru
         }
     }
 
+    wallStructure.writeProperty(property,valueType)
+}
+
+fun<E> E.writeProperty(property: KProperty1<out E, Any?>?, value : Any?){
     if (property is KMutableProperty<*>){
-        property.setter.call(wallStructure,valueType)
+        return property.setter.call(this,value)
     }
+    throw(Exception())
+}
+
+fun<E> readProperty(property: KProperty1<out E, Any?>?): Any? {
+    if (property is KMutableProperty<*>){
+        return property.getter.call()
+    }
+    throw(Exception())
 }
 
 fun getWallListType(): KType {

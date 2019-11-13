@@ -109,6 +109,7 @@ fun WallStructure.adjust(){
         spookyWalls.forEach { it.width += addWidth as Double }
 
     //fit
+    //todo fix, there fucks with negative width
     if (fitDuration!=null)
         if (fitHeight!=null)
             spookyWalls.forEach {

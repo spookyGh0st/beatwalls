@@ -218,6 +218,7 @@ private fun multiplier(beat:Double, baseBpm: Double, _BPMChanges: ArrayList<_BPM
 }
 private fun lastChange(beat:Double, baseBpm: Double, _BPMChanges: ArrayList<_BPMChanges>): Pair<_BPMChanges, Double>? {
     val l = _BPMChanges.map { it to getBPMchangeBeat(baseBpm,_BPMChanges,it) }
+    //todo fix, only change bpm, and not beat when =
     return l.sortedBy { it.second }.findLast {it.second <= beat}
 
 }

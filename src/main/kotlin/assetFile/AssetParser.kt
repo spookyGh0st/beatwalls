@@ -170,9 +170,9 @@ fun<E> E.writeProperty(property: KProperty1<out E, Any?>?, value : Any?){
     throw(Exception())
 }
 
-fun<E> readProperty(property: KProperty1<out E, Any?>?): Any? {
+fun<E> E.readProperty(property: KProperty1<out E, Any?>?): Any? {
     if (property is KMutableProperty<*>){
-        return property.getter.call()
+        return property.getter.call(this)
     }
     throw(Exception())
 }

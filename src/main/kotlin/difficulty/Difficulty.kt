@@ -6,9 +6,11 @@ import com.google.gson.Gson
 import com.google.gson.annotations.SerializedName
 import mu.KotlinLogging
 import structure.Define
+import structure.SpookyWall
 import structure.WallStructure
 import structure.walls
 import java.io.File
+import kotlin.math.ceil
 
 private val logger = KotlinLogging.logger {}
 
@@ -19,31 +21,43 @@ data class Difficulty (
     @SerializedName("_notes") val _notes : ArrayList<_notes>,
     @SerializedName("_obstacles") val _obstacles : ArrayList<_obstacles>,
     @SerializedName("_customData") val _customData : _customData
-){
-    fun createWalls(list: ArrayList<WallStructure>, metaData: MetaData){
+) {
+    lateinit var metaData:MetaData
+    var baseBpm: Double = 0.0
+    fun createWalls(list: ArrayList<WallStructure>, metaData: MetaData) {
+        this.metaData = metaData
+        baseBpm = metaData.bpm
         this._obstacles.removeAll(getOldObstacle())
 
         val tempObst = mutableListOf<_obstacles>()
-        for(w in list){
-            if (w is Define && !w.isTopLevel){
+        for (w in list) {
+            if (w is Define && !w.isTopLevel) {
                 continue
             }
 
-            val walls = w.walls()
-            walls.forEach { it.startTime+=w.beat }
-            walls.forEach { it.adjustToBPM(metaData.bpm, this) }
-            val offset = metaData.bpm / 60000 * metaData.offset
-            walls.forEach { it.startTime+=offset }
-
-            // adds the njsOffset if time is true
-            if(w.time)
-                walls.forEach { it.startTime+=metaData.hjd }
-
-            val obstacles = walls.map { it.to_obstacle() }
+            val obstacles = adjustWalls(w)
             this._obstacles.addAll(obstacles)
             tempObst.addAll(obstacles)
         }
         writeOldObstacle(tempObst.toTypedArray())
+    }
+
+    fun adjustWalls(w: WallStructure): List<_obstacles> {
+        val walls = w.walls()
+        walls.forEach { it.startTime += w.beat }
+        walls.forEach {
+            it.startTime = getTime(it.startTime)
+            if (it.duration > 0)
+                it.duration * multiplier(it.startTime)
+        }
+        val offset = metaData.bpm / 60000 * metaData.offset
+        walls.forEach { it.startTime += offset }
+
+        // adds the njsOffset if time is true
+        if (w.time)
+            walls.forEach { it.startTime += metaData.hjd }
+        val obstacles = walls.map { it.to_obstacle() }
+        return obstacles
     }
 }
 
@@ -107,4 +121,34 @@ fun readOldObstacleFile(): File = try {
     errorExit(e) { "Failed to read in the oldObst" }
     File("")
 
+}
+fun Difficulty.getTime(beat:Double): Double {
+    val lastChange = lastChange(beat)
+    val offset = lastChange?.first?._time?:0.0
+    val time = (beat- (lastChange?.second ?: 0.0)) * multiplier(beat)
+    return offset + time
+}
+fun Difficulty.multiplier(beat:Double): Double {
+    return (lastChange(beat)?.first?._BPM?:baseBpm) / baseBpm
+}
+private fun Difficulty.lastChange(beat:Double): Pair<_BPMChanges, Double>? {
+    TODO()
+    //todo fix, only change bpm, and not beat when =
+    //return l.sortedBy { it.second }.findLast {it.second <= beat}
+}
+
+
+private fun getBPMchangeBeat(baseBpm:Double, _BPMChanges: ArrayList<_BPMChanges>, bpmChange: _BPMChanges): Double {
+    var index = 0
+    var beat = 0.0
+    val tempList = arrayListOf<_BPMChanges>()
+    tempList.addAll(_BPMChanges)
+    tempList.add(0, _BPMChanges(baseBpm, 0.0, 4, 4))
+    while(tempList [index] != bpmChange) {
+        val trueDuration = (tempList[index+1]._time - tempList[index]._time) * (tempList[index]._BPM/baseBpm)
+        beat += (trueDuration)
+        beat = ceil(beat)
+        index++
+    }
+    return beat
 }

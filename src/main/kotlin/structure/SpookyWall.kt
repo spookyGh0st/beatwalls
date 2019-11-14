@@ -1,16 +1,10 @@
 package structure
 
-import com.github.spookyghost.beatwalls.errorExit
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
-import difficulty.Difficulty
-import difficulty._BPMChanges
-import difficulty._customData
 import difficulty._obstacles
 import java.io.Serializable
-import java.lang.Exception
 import kotlin.math.abs
-import kotlin.math.ceil
 import kotlin.random.Random
 
 
@@ -104,15 +98,6 @@ data class SpookyWall(
         return  (tWallH * 1000 + tStartH+4001)
     }
 
-    fun adjustToBPM(baseBPM:Double,difficulty: Difficulty){
-        try {
-            startTime = getTime(startTime,baseBPM,difficulty._customData._BPMChanges)
-            if(duration>0)
-                duration * multiplier(startTime,baseBPM,difficulty._customData._BPMChanges)
-        }catch (e:Exception){
-            errorExit(e) { "Please update you Song json to the latest standards"}
-        }
-    }
     fun fuckUp() =
         SpookyWall(ra(startRow), ra(duration), ra(width), ra(height), ra(startHeight), ra(startTime))
 
@@ -207,34 +192,3 @@ data class SpookyWall(
     }
 }
 
-private fun getTime(beat:Double, baseBpm: Double, _BPMChanges: ArrayList<_BPMChanges>): Double {
-    val lastChange = lastChange(beat, baseBpm, _BPMChanges)
-    val offset = lastChange?.first?._time?:0.0
-    val time = (beat- (lastChange?.second ?: 0.0)) * multiplier(beat, baseBpm, _BPMChanges)
-    return offset + time
-}
-private fun multiplier(beat:Double, baseBpm: Double, _BPMChanges: ArrayList<_BPMChanges>): Double {
-    return (lastChange(beat, baseBpm, _BPMChanges)?.first?._BPM?:baseBpm) / baseBpm
-}
-private fun lastChange(beat:Double, baseBpm: Double, _BPMChanges: ArrayList<_BPMChanges>): Pair<_BPMChanges, Double>? {
-    val l = _BPMChanges.map { it to getBPMchangeBeat(baseBpm,_BPMChanges,it) }
-    //todo fix, only change bpm, and not beat when =
-    return l.sortedBy { it.second }.findLast {it.second <= beat}
-
-}
-
-
-private fun getBPMchangeBeat(baseBpm:Double, _BPMChanges: ArrayList<_BPMChanges>, bpmChange: _BPMChanges): Double {
-    var index = 0
-    var beat = 0.0
-    val tempList = arrayListOf<_BPMChanges>()
-    tempList.addAll(_BPMChanges)
-    tempList.add(0, _BPMChanges(baseBpm, 0.0, 4, 4))
-    while(tempList [index] != bpmChange) {
-        val trueDuration = (tempList[index+1]._time - tempList[index]._time) * (tempList[index]._BPM/baseBpm)
-        beat += (trueDuration)
-        beat = ceil(beat)
-        index++
-    }
-    return beat
-}

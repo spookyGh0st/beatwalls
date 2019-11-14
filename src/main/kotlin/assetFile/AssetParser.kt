@@ -86,7 +86,7 @@ fun findStructure(name: String, definedStructure: List<Define>): WallStructure {
         in definedStructureNames -> findDefinedStruct(structName,definedStructure)
         in specialStructsNames -> findSpecialStruct(structName,specialStructs)
         else -> {
-            logger.info { "structure $structName not found" }
+            logger.warn { "structure $structName not found" }
             EmptyWallStructure
         }
     }

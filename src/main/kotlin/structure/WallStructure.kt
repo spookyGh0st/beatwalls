@@ -64,7 +64,7 @@ sealed class WallStructure:Serializable
     //changing the Values
     var changeStartTime: Double? = null
 
-    var changeDuration: Double? = null
+    open var changeDuration: Double? = null
 
     var changeHeight: Double? = null
 
@@ -251,21 +251,22 @@ class RandomNoise:WallStructure(){
     /**
      * controls one corner of the Area
      */
-    var sp = Point(-6,0,0)
+    var p1 = Point(-6,0,0)
 
     /**
      * controls the other corner of the Area
      */
-    var ep = Point(6,5,1)
+    var p2 = Point(6,5,1)
 
 
     override fun run() {
-        val sx = min(sp.x,ep.x)
-        val ex = max(sp.x,ep.x)
-        val sy = min(sp.y,ep.y)
-        val ey = max(sp.y,ep.y)
-        val sz = min(sp.z,ep.z)
-        val ez = max(sp.z,ep.z)
+        // todo make sure its not 0 range
+        val sx = min(p1.x,p2.x)
+        val ex = max(p1.x,p2.x)
+        val sy = min(p1.y,p2.y)
+        val ey = max(p1.y,p2.y)
+        val sz = min(p1.z,p2.z)
+        val ez = max(p1.z,p2.z)
         repeat(amount){
             val w = SpookyWall(
                 startRow = Random.nextDouble(sx,ex),
@@ -333,7 +334,7 @@ class Define: WallStructure() {
     override fun run() {
         for(w in structures){
             val l = w.walls()
-            l.forEach { it.startTime+=w.beat }
+            l.forEach { it.startTime+=(w.beat) }
             add(l)
         }
     }
@@ -401,6 +402,28 @@ class Helix: WallStructure() {
     }
 }
 
+/**
+ * loops throuh the given wallstructures and increments their values
+ */
+class Loop: WallStructure(){
+    /**
+     * The name of Different Structures. Separated by comma (example: structures: Floor, Ceiling)
+     * You can also define Parameters of the first Structure
+     * These get loaded in Order, So if your reference defined Structures, those must be listed before that
+     * The Beat Value gets every time, so it should be 0 most of the time
+     */
+    var structures: List<WallStructure> = listOf()
+
+    /**
+     * how often to loop through it
+     */
+    var amount: Int = 8
+
+    override fun run() {
+        TODO()
+    }
+}
+
 
 /**
  * Draws a wall of line between the 2 provided Points
@@ -413,15 +436,86 @@ class Line: WallStructure(){
     /**
      * The startPoint
      */
-    var start = Point(0,0,0)
+    var p1 = Point(0,0,0)
     /**
      * the End Point
      */
-    var end = Point(0,0,1)
+    var p2 = Point(0,0,1)
     override fun run() {
-        add(line(start,end,amount))
+        add(line(p1,p2,amount))
         super.run()
     }
+}
+
+/**
+ * place random blocks around the player
+ */
+class RandomBlocks: WallStructure(){
+    var duration = 4
+    var amount= 8
+    var wallDuration = 1.0
+    override fun run() {
+        repeat(amount){
+            add(createBlock(it.toDouble()/amount*duration,wallDuration))
+        }
+    }
+    private fun createBlock(st:Double ,d:Double): SpookyWall {
+         val sr = Random.nextDouble(-20.0,20.0)
+        val w = sr* Random.nextDouble()
+        val sh = Random.nextDouble(5.0)
+        val h = sr* Random.nextDouble(0.2)
+        return SpookyWall(sr,d,w,h,sh,st)
+
+
+    }
+}
+
+/**
+ * random curves in a given block-radius
+ */
+class RandomCurve: WallStructure(){
+    /**
+     * dont touch
+     */
+    private var randomSideChooser = Random.nextBoolean()
+    /**
+     * first Point that crontrols in which section walls are created
+     */
+    var p1: Point = if(randomSideChooser) Point(1,0,0) else Point(-1,0,0)
+
+    /**
+     * second Point that crontrols in which section walls are created
+     */
+    var p2: Point = if(randomSideChooser) Point(4,0,1) else Point(-4,4,1)
+    /**
+     * the amount of Walls per beat
+     */
+    var amount: Int = 8
+
+    override var changeDuration: Double? = -3.0
+
+    override fun run() {
+        var tp3 = randomTimedPoint(-0.33)
+        var tp4 = randomTimedPoint(0.0)
+        for(i in p1.z.toInt() until p2.z.toInt()){
+            val tp1=tp4.copy()
+            val tp2 = tp4.mirrored(tp3)
+            tp3 = randomTimedPoint(i+0.66)
+            tp4 = randomTimedPoint(i+1.0)
+            add(curve(tp1,tp2,tp3,tp4,amount))
+        }
+    }
+
+    private fun randomTimedPoint(z:Double): Point {
+        val minx = min(p1.x,p2.x)
+        val maxX = max(p1.x,p2.x).coerceAtLeast(minx+0.1)
+        val minY = min(p1.y,p2.y)
+        val maxY = max(p1.y,p2.y).coerceAtLeast(minY+0.1)
+        val x = Random.nextDouble(minx,maxX)
+        val y = Random.nextDouble(minY,maxY)
+        return Point(x,y,z)
+    }
+
 }
 
 
@@ -463,7 +557,7 @@ class ContinuesCurve : WallStructure(){
     /**
      * The amount of Walls per beat
      */
-    var amountPerBeat: Int = 8
+    var amount: Int = 8
 
     /**
      * The 1 Point. use this to set an exact Point the wall will go through
@@ -797,7 +891,7 @@ class ContinuesCurve : WallStructure(){
                 val tempP2 = controlPoint.copy(z = point.z + (1/3.0) * (nextPoint.z - point.z))
                 val tempP3 = calcP3(point, nextPoint, nextControlPoint, nextNextPoint)
                 val tempP4 = nextPoint
-                val amount = ((tempP4.z - tempP1.z) * amountPerBeat).toInt()
+                val amount = ((tempP4.z - tempP1.z) * amount).toInt()
                 add(curve(tempP1, tempP2, tempP3, tempP4, amount))
             }
         }
@@ -805,6 +899,7 @@ class ContinuesCurve : WallStructure(){
 }
 
 fun calcP3(point: Point, nextPoint: Point, nextControlPoint:Point, nextNextPoint: Point?): Point {
+    //todo something is still not right
     val defaultOffset = point.z + (nextPoint.z-point.z)
     val nextControlPointZ = nextPoint.z + (1/3.0) * ((nextNextPoint?.z ?: defaultOffset) - nextPoint.z)
     val nextCp = nextControlPoint.copy(z = nextControlPointZ)

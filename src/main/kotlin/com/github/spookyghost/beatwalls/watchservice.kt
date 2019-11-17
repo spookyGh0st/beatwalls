@@ -2,6 +2,7 @@ package com.github.spookyghost.beatwalls
 
 import kotlinx.coroutines.*
 import kotlinx.coroutines.channels.*
+import mu.KotlinLogging
 import java.io.File
 import java.nio.file.*
 import java.nio.file.WatchKey
@@ -11,23 +12,23 @@ import java.nio.file.SimpleFileVisitor
 import java.nio.file.Files
 import java.nio.file.StandardWatchEventKinds.*
 
-
+private val logger = KotlinLogging.logger {}
 // stolen from here: https://github.com/vishna/watchservice-ktx/blob/master/src/main/kotlin/dev/vishna/watchservice/watchservice.kt
 
-suspend fun main(){
-    val file  = File(System.getProperty("user.dir"),"test.txt")
-    file.writeText("test")
-
-    val watchChannel = file.asWatchChannel()
-    watchChannel.consumeEach { event ->
-        event.run { println("detectedChange") }
-        // do something with event
+@ExperimentalCoroutinesApi
+suspend fun runOnChange(f: () -> Unit?){
+    logger.info("Keep this window open. it will run again if it detects changes")
+    val watchChannel = readPath().asWatchChannel()
+    println(watchChannel.scope)
+    watchChannel.consumeEach {
+        if (it.kind == KWatchEvent.Kind.Modified){
+            println("detected change, running...")
+            f()
+            delay(1000)
+        }
     }
-
-// once you no longer need this channel, make sure you close it
     watchChannel.close()
 }
-
 
 /**
  * Watches directory. If file is supplied it will use parent directory. If it's an intent to watch just file,

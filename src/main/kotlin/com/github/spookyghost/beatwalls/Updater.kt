@@ -4,8 +4,12 @@ import com.google.gson.Gson
 import com.google.gson.annotations.SerializedName
 import mu.KotlinLogging
 import java.io.File
+import java.io.FileOutputStream
 import java.net.URL
 import java.net.UnknownHostException
+import java.nio.channels.Channels
+import kotlin.system.exitProcess
+
 
 const val currentVersion = "v0.7.5"
 private val logger = KotlinLogging.logger {}
@@ -18,8 +22,11 @@ fun update(){
     if(latestVersion == currentVersion)
         return
 
+    // download the latest version from the github release page
+    downloadUpdate(latestVersion)
+
     // builds the update script
-    val s = buildUpdater(latestVersion)
+    val s = buildUpdater()
 
     //executes the update script
     executeUpdater(s)
@@ -41,26 +48,37 @@ data class GithubApi (
     @SerializedName("tag_name") val tag_name : String
 )
 
-fun buildUpdater(version: String): File {
+fun downloadUpdate(version: String) {
+    val website = URL("https://github.com/spookyGh0st/beatwalls/releases/download/$version/beatwalls.exe")
+    val file = File("beatwalls.exe.temp")
+    try {
+        logger.info { "Downloading latest version" }
+        val rbc = Channels.newChannel(website.openStream())
+        val fos = FileOutputStream("beatwalls.exe.temp")
+        fos.channel.transferFrom(rbc, 0, java.lang.Long.MAX_VALUE)
+        file.setExecutable(true)
+        if(!file.canExecute()) throw Exception()
+    }catch (e:Exception){
+        errorExit { "Failed to download the latest version. Please download it manually" }
+    }
+}
+
+fun buildUpdater(): File {
     val os = System.getProperty("os.name")
-    val link = "https://github.com/spookyGh0st/beatwalls/releases/download/$version/beatwalls.exe"
     val text = when (os) {
         "Linux" -> """
             sleep 2
             rm beatwalls.exe
-            wget $link
-            echo "downloaded latest version"
-        """.trimIndent()
-
+            mv beatwals.exe.temp beatwalls.exe
+            ./beatwalls.exe
+        """.trimIndent() //todo download jar
         "Windows" -> """
         Start-Sleep -s 2
-        Remove-Item beatwalls.exe
-        Import-Module BitsTransfer
-        Start-BitsTransfer -Source $link -Destination beatwalls.exe
+        del beatwalls.exe
+        ren beatwalls.exe.temp beatwalls.exe
         .\beatwalls.exe
         """.trimIndent()
-
-        else -> TODO()
+        else -> "".also {  errorExit { "Only" } }
     }
     val file = when(os){
         "Linux" -> File("bwUpdater.sh")
@@ -73,8 +91,12 @@ fun buildUpdater(version: String): File {
 }
 
 fun executeUpdater(file: File){
-    TODO()
+    try {
+        Runtime.getRuntime().exec("./${file}")
+        exitProcess(0)
+    }catch (e:Exception){
+        errorExit { "Failed to launch updater. Please download the latest version manually" }
+    }
 }
-fun main(){
-    buildUpdater(getLatestVersion())
-}
+
+

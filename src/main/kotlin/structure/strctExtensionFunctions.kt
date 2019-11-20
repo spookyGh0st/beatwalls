@@ -1,6 +1,7 @@
 package structure
 
 import java.io.*
+import kotlin.math.pow
 
 /** this is for getting the acutal Walls */
 fun WallStructure.walls(): ArrayList<SpookyWall> {
@@ -148,6 +149,25 @@ fun WallStructure.adjust(){
             if (it.duration > 0)
                 it.duration *= scale as Double
         }
+    }
+
+    if(speeder != null){
+        val maxZ = spookyWalls.maxBy { it.trueMaxPoint.z }?.trueMaxPoint?.z ?: 0.0
+        spookyWalls.forEach { wall ->
+            wall.startTime = wall.startTime.pow(speeder!!)
+            if (wall.duration > 0)
+                wall.duration = wall.duration.pow(speeder!!)
+        }
+
+        val newMaxZ =spookyWalls.maxBy { it.trueMaxPoint.z }?.trueMaxPoint?.z ?: 0.0
+        val mult = 1/(newMaxZ)*maxZ
+        spookyWalls.forEach {
+            it.startTime *= mult
+            if(it.duration > 0)
+                it.duration *= mult
+        }
+        println()
+
     }
 
     if(reverse!=null){

@@ -154,9 +154,8 @@ fun fillProperty(
     with (value){
         valueType = when (type) {
             Boolean::class.createType() -> toBoolean()
-            Int::class.createType() -> toInt()
-            Double::class.createType() -> toDouble()
-            Double::class.createType() -> toDouble()
+            Int::class.createType() -> toIntOrNull()
+            Double::class.createType() -> toDoubleOrNull()
             String::class.createType() -> toString()
             Point::class.createType() -> toPoint()
             WallStructure::class.createType() -> toWallStructure(definedStructure)

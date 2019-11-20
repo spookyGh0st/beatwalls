@@ -5,6 +5,8 @@ import com.google.gson.annotations.SerializedName
 import difficulty._obstacles
 import java.io.Serializable
 import kotlin.math.abs
+import kotlin.math.max
+import kotlin.math.min
 import kotlin.random.Random
 
 
@@ -22,7 +24,10 @@ data class SpookyWall(
     @Expose
     @SerializedName("startTime") var startTime: Double
 ):Serializable{
-
+    val trueMaxPoint
+        get() = Point(max(startTime,startTime+duration), max(startRow, startRow +width), max(startTime,startTime+duration))
+    val trueLowestPoint
+        get() =  Point(min(startTime,startTime+duration), min(startRow, startRow +width), startTime)
     /**Changes the MyObstacle Type to an _obstacle Type */
     fun to_obstacle(): _obstacles {
         //first, so it adjust the startRow

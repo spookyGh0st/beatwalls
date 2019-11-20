@@ -113,6 +113,18 @@ sealed class WallStructure:Serializable
      */
     var reverse: Boolean? = Default.reverse
 
+
+    /**
+     * speeds up the wallstructure over time. the duration of the whole structure. Remains. \n
+     *
+     * value 0-1 start is slower, speed up over time, \n
+     *
+     * 1-100 start is faster, slow down over time \n
+     *
+     * The closer the value is to 1, the more stale it gets.
+     */
+    var speeder: Double? = Default.speeder
+
     /**
      * how often you want to repeat the Structure
      */
@@ -132,7 +144,6 @@ sealed class WallStructure:Serializable
      * shifts each repeated Structure in y
      */
     var repeatAddY: Double = Default.repeatAddY
-
 
     companion object Default{
         var mirror: Int = 0
@@ -191,6 +202,8 @@ sealed class WallStructure:Serializable
 
         var reverse: Boolean? = null
 
+        var speeder: Double? = null
+
         var repeat: Int = 1
 
         var repeatAddZ: Double = 1.0
@@ -198,6 +211,7 @@ sealed class WallStructure:Serializable
         var repeatAddX: Double = 0.0
 
         var repeatAddY: Double = 0.0
+
     }
 
     open fun run(){}

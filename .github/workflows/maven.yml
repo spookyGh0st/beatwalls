@@ -10,8 +10,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@master
-    - name: Prepare files
-      run: sed -i 's/CyanIsAFurry/${{ github.ref }}/g' src/main/kotlin/com/github/spookyghost/beatwalls/Updater.kt
+    - uses: olegtarasov/get-tag@j1
+      id: tagName
+      name: Prepare files
+      run: sed -i 's/CyanIsAFurry/${{ GITHUB_TAG_NAME }}/g' src/main/kotlin/com/github/spookyghost/beatwalls/Updater.kt
     - name: Set up JDK 1.8
       uses: actions/setup-java@master
       with:

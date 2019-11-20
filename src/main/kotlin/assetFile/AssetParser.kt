@@ -36,7 +36,7 @@ fun parseAsset(s: String): ArrayList<WallStructure> {
 fun parseStructures(mutableList: MutableList<Pair<String, String>>): ArrayList<WallStructure>{
     val list = arrayListOf<WallStructure>()
 
-    var lastStruct: WallStructure = EmptyWallStructure
+    var lastStruct: Any = EmptyWallStructure
     val definedStructures = mutableListOf<Define>()
 
     for (i in 0 until mutableList.size){
@@ -55,36 +55,41 @@ fun parseStructures(mutableList: MutableList<Pair<String, String>>): ArrayList<W
                 errorExit { "Old Defined Structure detected. New one is define: \$name" }
             val structName = mutableList[i].value().toLowerCase()
             val beat = mutableList[i].key().toDouble()
-            val struct: WallStructure = findStructure(structName, definedStructures)
-
-            struct.beat = beat
+            val struct: Any = findStructure(structName, definedStructures)
 
             //hacky
             if (struct is Define ){
                 struct.isTopLevel = true
             }
+
+            if(struct is WallStructure){
+                struct.beat = beat
+                list.add(struct)
+            }
+
             logger.info { "adding $structName" }
-            list.add(struct)
             lastStruct = struct
         }else{
             readWallStructOptions(lastStruct, mutableList[i], definedStructures)
         }
     }
-    return list
+    val l =list.filterNot { it is EmptyWallStructure }
+    return ArrayList(l)
 }
 
-fun findStructure(name: String, definedStructure: List<Define>): WallStructure {
+fun findStructure(name: String, definedStructure: List<Define>): Any {
     val structName = name.toLowerCase()
     val specialStructs = WallStructure::class.sealedSubclasses
     val specialStructsNames = specialStructs.map { it.simpleName?.toLowerCase()?:""}
 
     val definedStructureNames = definedStructure.map { it.name.toLowerCase() }
-    val struct: WallStructure
+    val struct: Any
 
     // sets the struct
     struct = when (structName) {
         in definedStructureNames -> findDefinedStruct(structName,definedStructure)
         in specialStructsNames -> findSpecialStruct(structName,specialStructs)
+        "default" -> WallStructure.Default
         else -> {
             logger.warn { "structure $structName not found" }
             EmptyWallStructure
@@ -107,41 +112,41 @@ fun findSpecialStruct(structName: String,specialStructs: List<KClass<out WallStr
 /**
  * fills the given structure with the option, if it exist
  */
-fun readWallStructOptions(wallStructure: WallStructure, option: Pair<String, String>, definedStructure: List<Define>){
-    if (wallStructure is EmptyWallStructure){
+fun readWallStructOptions(lastObject: Any, option: Pair<String, String>, definedStructure: List<Define>){
+    if (lastObject is EmptyWallStructure){
         return
     }
 
-    val property = findProperty(wallStructure,option.key())
+    val property = findProperty(lastObject,option.key())
 
     if (property != null) {
         fillProperty(
-            wallStructure = wallStructure,
+            lastObject = lastObject,
             property = property,
             value = option.value(),
             definedStructure = definedStructure
         )
     }else{
-        if( wallStructure is Define) {
-            if(wallStructure.structures.firstOrNull() != null){
-                readWallStructOptions(wallStructure.structures.first(), option, definedStructure)
+        if( lastObject is Define) {
+            if(lastObject.structures.firstOrNull() != null){
+                readWallStructOptions(lastObject.structures.first(), option, definedStructure)
             }
         }else{
-            errorExit { "The WallStructure $wallStructure does not have the property ${option.key()}" }
+            errorExit { "The WallStructure $lastObject does not have the property ${option.key()}" }
         }
     }
 }
-fun findProperty(wallStructure: WallStructure, key:String): KProperty1<out WallStructure, Any?>? {
-    val properties = wallStructure::class.memberProperties.toMutableList()
+fun findProperty(lastObject: Any, key:String): KProperty1<out Any, Any?>? {
+    val properties = lastObject::class.memberProperties.toMutableList()
     return  properties.find { it.name.toLowerCase() ==key.toLowerCase() }
 
 }
 
 fun fillProperty(
-    property: KProperty1<out WallStructure, Any?>,
+    property: KProperty1<out Any, Any?>,
     value: String,
     definedStructure: List<Define>,
-    wallStructure: WallStructure
+    lastObject: Any
 ){
     val valueType:Any?
     val type = property.returnType.withNullability(false)
@@ -160,7 +165,7 @@ fun fillProperty(
         }
     }
 
-    wallStructure.writeProperty(property,valueType)
+    lastObject.writeProperty(property,valueType)
 }
 
 fun<E> E.writeProperty(property: KProperty1<out E, Any?>?, value : Any?){
@@ -227,7 +232,11 @@ private fun String.toPoint(): Point {
  * String to WallStructure
  */
 private fun String.toWallStructure(definedStructure: List<Define>): WallStructure {
-    return findStructure(this, definedStructure)
+    val a =  findStructure(this, definedStructure)
+    return if (a is WallStructure)
+        a
+    else
+        EmptyWallStructure
 }
 
 /**
@@ -237,7 +246,7 @@ private fun String.toWallStructureList(definedStructure: List<Define>): List<Wal
     return this
         .split(",")
         .map { it.trim() }
-        .map { findStructure(it, definedStructure) }
+        .map { val a = findStructure(it, definedStructure); if(a is WallStructure) a else EmptyWallStructure}
 }
 
 

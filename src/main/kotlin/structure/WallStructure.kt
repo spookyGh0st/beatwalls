@@ -48,112 +48,157 @@ sealed class WallStructure:Serializable
      *  7-> mirror horizontal and on the other side and duplicate all 4
      *  8-> mirror on the center and on the other side and duplicate all 4
      */
-    var mirror: Int = 0
+    var mirror: Int = Default.mirror
 
     /**
      * times the SpookyWall by adding the njsOffset, default: true
      */
-    var time: Boolean = true
+    var time: Boolean = Default.time
 
-    //    ___    ____      ____  _____________
-    //   /   |  / __ \    / / / / / ___/_  __/
-    //  / /| | / / / /_  / / / / /\__ \ / /
-    // / ___ |/ /_/ / /_/ / /_/ /___/ // /
-    ///_/  |_/_____/\____/\____//____//_/
+    var changeStartTime: Double? = Default.changeStartTime
 
-    //changing the Values
-    var changeStartTime: Double? = null
+    var changeDuration: Double? = Default.changeDuration
 
-    open var changeDuration: Double? = null
+    var changeHeight: Double? = Default.changeHeight
 
-    var changeHeight: Double? = null
+    var changeStartHeight: Double? = Default.changeStartHeight
 
-    var changeStartHeight: Double? = null
+    var changeStartRow: Double? = Default.changeStartRow
 
-    var changeStartRow: Double? = null
+    var changeWidth: Double? = Default.changeWidth
 
-    var changeWidth: Double? = null
+    var scaleStartTime: Double? = Default.scaleStartTime
 
-    // scaling the Values
-    var scaleStartTime: Double? = null
+    var scaleDuration: Double? = Default.scaleDuration
 
-    var scaleDuration: Double? = null
+    var scaleHeight: Double? = Default.scaleHeight
 
-    var scaleHeight: Double? = null
+    var scaleStartHeight: Double? = Default.scaleStartHeight
 
-    var scaleStartHeight: Double? = null
+    var scaleStartRow: Double? = Default.scaleStartRow
 
-    var scaleStartRow: Double? = null
+    var scaleWidth: Double? = Default.scaleWidth
 
-    var scaleWidth: Double? = null
+    var addStartTime: Double? = Default.addStartTime
 
-    // adding to the Values
-    var addStartTime: Double? = null
+    var addDuration: Double? = Default.addDuration
 
-    var addDuration: Double? = null
+    var addHeight: Double? = Default.addHeight
 
-    var addHeight: Double? = null
+    var addStartHeight: Double? = Default.addStartHeight
 
-    var addStartHeight: Double? = null
+    var addStartRow: Double? = Default.addStartRow
 
-    var addStartRow: Double? = null
+    var addWidth: Double? = Default.addWidth
 
-    var addWidth: Double? = null
+    var fitStartTime: Double? = Default.fitStartTime
 
-    // fits the height, adjust the correspongig value, that all wall have the same, given value
-    // (for example startheight 0 -> sets startheight to 0 and adjust the height, that the max height is the same
-    var fitStartTime: Double? = null
+    var fitDuration: Double? = Default.fitDuration
 
-    var fitDuration: Double? = null
+    var fitHeight: Double? = Default.fitHeight
 
-    var fitHeight: Double? = null
+    var fitStartHeight: Double? = Default.fitStartHeight
 
-    var fitStartHeight: Double? = null
+    var fitStartRow: Double? = Default.fitStartRow
 
-    var fitStartRow: Double? = null
-
-    var fitWidth: Double? = null
+    var fitWidth: Double? = Default.fitWidth
 
     /**
-     * scales the Duration and startTime,
-     * does not scale the duration of negative walls
+     * scales the Duration and startTime, (duration only for positive duration)
      */
-    var scale: Double? = null
+    var scale: Double? = Default.scale
 
     /**
      * reverses the WallStructure
      */
-    var reverse: Boolean? = null
-
-    //todo fit to
-
-    //    ____  __________  _________  ______
-    //   / __ \/ ____/ __ \/ ____/   |/_  __/
-    //  / /_/ / __/ / /_/ / __/ / /| | / /
-    // / _, _/ /___/ ____/ /___/ ___ |/ /
-    ///_/ |_/_____/_/   /_____/_/  |_/_/
+    var reverse: Boolean? = Default.reverse
 
     /**
      * how often you want to repeat the Structure
      */
-    var repeat: Int = 1
+    var repeat: Int = Default.repeat
 
     /**
      * The Gap between each Repeat
      */
-    var repeatAddZ: Double = 1.0
+    var repeatAddZ: Double = Default.repeatAddZ
 
     /**
      * shifts each repeat in x
      */
-    var repeatAddX: Double = 0.0
+    var repeatAddX: Double = Default.repeatAddX
 
     /**
      * shifts each repeated Structure in y
      */
-    var repeatAddY: Double = 0.0
+    var repeatAddY: Double = Default.repeatAddY
 
-    //todo add repeatPath
+
+    companion object Default{
+        var mirror: Int = 0
+
+        var time: Boolean = true
+
+        var changeStartTime: Double? = null
+
+        var changeDuration: Double? = null
+
+        var changeHeight: Double? = null
+
+        var changeStartHeight: Double? = null
+
+        var changeStartRow: Double? = null
+
+        var changeWidth: Double? = null
+
+        var scaleStartTime: Double? = null
+
+        var scaleDuration: Double? = null
+
+        var scaleHeight: Double? = null
+
+        var scaleStartHeight: Double? = null
+
+        var scaleStartRow: Double? = null
+
+        var scaleWidth: Double? = null
+
+        var addStartTime: Double? = null
+
+        var addDuration: Double? = null
+
+        var addHeight: Double? = null
+
+        var addStartHeight: Double? = null
+
+        var addStartRow: Double? = null
+
+        var addWidth: Double? = null
+
+        var fitStartTime: Double? = null
+
+        var fitDuration: Double? = null
+
+        var fitHeight: Double? = null
+
+        var fitStartHeight: Double? = null
+
+        var fitStartRow: Double? = null
+
+        var fitWidth: Double? = null
+
+        var scale: Double? = null
+
+        var reverse: Boolean? = null
+
+        var repeat: Int = 1
+
+        var repeatAddZ: Double = 1.0
+
+        var repeatAddX: Double = 0.0
+
+        var repeatAddY: Double = 0.0
+    }
 
     open fun run(){}
 
@@ -430,6 +475,7 @@ class Helix: WallStructure() {
     @Deprecated("Will be removed in 1.0")
     var speedChange = 1.0
     override fun run() {
+        @Suppress("DEPRECATION") //todo remove speedChange
         add(circle(count = count, fineTuning = amount, heightOffset = center.y, radius = radius,startRotation = startRotation,rotationCount = rotationAmount,speedChange = speedChange,helix = true))
     }
 }
@@ -523,8 +569,6 @@ class RandomCurve: WallStructure(){
      * the amount of Walls per beat
      */
     var amount: Int = 8
-
-    override var changeDuration: Double? = -3.0
 
     override fun run() {
         var tp3 = randomTimedPoint(-0.33)

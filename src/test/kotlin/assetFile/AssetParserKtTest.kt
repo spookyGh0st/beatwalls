@@ -12,6 +12,8 @@ class AssetParserKtTest : TestCase() {
 
     fun testParseStructures() {
         val mutList = mutableListOf(
+            "0.0" to "default",
+            "changeDuration" to "-3",
             "Define" to "hallo",
             "beat" to "4.5",
             "0.0" to "hallo",
@@ -23,6 +25,8 @@ class AssetParserKtTest : TestCase() {
         list.first() as Define
         assertEquals((list.first() as Define).structures.first().beat, 4.5)
         assertTrue(list[1] is Wall)
+        list[1] as Wall
+        assertEquals(list[1].changeDuration, -3.0)
     }
 
     fun testFindStructure() {}

@@ -11,7 +11,7 @@ import java.nio.channels.Channels
 import kotlin.system.exitProcess
 
 
-const val currentVersion = "v0.7.5"
+const val currentVersion = "CyanIsAFurry"
 private val logger = KotlinLogging.logger {}
 
 fun update(){
@@ -30,6 +30,12 @@ fun update(){
 
     //executes the update script
     executeUpdater(s)
+}
+
+fun deleteUpdater(){
+    val f = File("bwUpdater.bat")
+    if(f.exists())
+        f.deleteOnExit()
 }
 
 fun getLatestVersion(): String {
@@ -67,22 +73,22 @@ fun buildUpdater(): File {
     val os = System.getProperty("os.name")
     val text = when (os) {
         "Linux" -> """
-            sleep 2
+            sleep 1
             rm beatwalls.exe
             mv beatwals.exe.temp beatwalls.exe
             ./beatwalls.exe
         """.trimIndent() //todo download jar
-        "Windows" -> """
-        Start-Sleep -s 2
-        del beatwalls.exe
+        "Windows 10" -> """
+        @ping -n 1 localhost> nul
+        del /Q beatwalls.exe
         ren beatwalls.exe.temp beatwalls.exe
         .\beatwalls.exe
         """.trimIndent()
-        else -> "".also {  errorExit { "Only" } }
+        else -> "".also {  errorExit { "Only Windows 10 or linux updater are supported at the moment. Pleas download the latest version manually" } }
     }
     val file = when(os){
         "Linux" -> File("bwUpdater.sh")
-        "Windows" -> File("bwUpdater.ps1")
+        "Windows 10" -> File("bwUpdater.bat")
         else -> TODO()
     }
     file.writeText(text)
@@ -92,11 +98,18 @@ fun buildUpdater(): File {
 
 fun executeUpdater(file: File){
     try {
-        Runtime.getRuntime().exec("./${file}")
+        val os = System.getProperty("os.name")
+        if(os == "Linux")
+            Runtime.getRuntime().exec("./${file}")
+        if(os == "Windows 10")
+            Runtime.getRuntime().exec("cmd /c start \"\" $file")
         exitProcess(0)
     }catch (e:Exception){
         errorExit { "Failed to launch updater. Please download the latest version manually" }
     }
+}
+fun main(){
+    println(System.getProperty("os.name"))
 }
 
 

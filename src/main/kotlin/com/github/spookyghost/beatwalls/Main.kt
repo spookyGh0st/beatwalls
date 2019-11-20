@@ -14,6 +14,9 @@ suspend fun main(args: Array<String>) {
     val path = readPath()
     if(!path.canRead())
         errorExit { "cant read $path, setup this program by dragging a Song into it" }
+
+    update()
+    run()
     runOnChange { run() }
 }
 

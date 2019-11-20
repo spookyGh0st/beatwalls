@@ -19,7 +19,7 @@ fun update(){
     val latestVersion = getLatestVersion()
 
     // breaks if up to date
-    if(latestVersion == currentVersion)
+    if(latestVersion == currentVersion || currentVersion == "CyanIsAFurry")
         return
 
     // download the latest version from the github release page
@@ -107,9 +107,6 @@ fun executeUpdater(file: File){
     }catch (e:Exception){
         errorExit { "Failed to launch updater. Please download the latest version manually" }
     }
-}
-fun main(){
-    println(System.getProperty("os.name"))
 }
 
 

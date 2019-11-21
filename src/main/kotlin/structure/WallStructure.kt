@@ -109,10 +109,19 @@ sealed class WallStructure:Serializable
     var scale: Double? = Default.scale
 
     /**
-     * reverses the WallStructure
+     * reverses the WallStructure on the Starttime/duration
      */
     var reverse: Boolean? = Default.reverse
 
+    /**
+     * basically mirrors the Wallstructure in itself on the x-Achsis if set to true
+     */
+    var reverseX: Boolean = Default.reverseX
+
+    /**
+     * basically mirrors the Wallstructure in itself on the x-Achsis if set to true
+     */
+    var reverseY: Boolean = Default.reverseY
 
     /**
      * speeds up the wallstructure over time. the duration of the whole structure. Remains. \n
@@ -201,6 +210,10 @@ sealed class WallStructure:Serializable
         var scale: Double? = null
 
         var reverse: Boolean? = null
+
+        var reverseX: Boolean = false
+
+        var reverseY: Boolean = false
 
         var speeder: Double? = null
 

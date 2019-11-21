@@ -40,7 +40,6 @@ fun parseStructures(mutableList: MutableList<Pair<String, String>>): ArrayList<W
     val definedStructures = mutableListOf<Define>()
 
     for (i in 0 until mutableList.size){
-        //todo change regarding define
         val key = mutableList[i].key().toLowerCase()
         val value = mutableList[i].value()
         if(key == "define"){

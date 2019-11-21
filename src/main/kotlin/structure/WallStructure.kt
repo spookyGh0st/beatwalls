@@ -319,13 +319,12 @@ class RandomNoise:WallStructure(){
 
 
     override fun run() {
-        // todo make sure its not 0 range
         val sx = min(p1.x,p2.x)
-        val ex = max(p1.x,p2.x)
+        val ex = max(p1.x,p2.x).coerceAtLeast(sx+0.0000001)
         val sy = min(p1.y,p2.y)
-        val ey = max(p1.y,p2.y)
+        val ey = max(p1.y,p2.y).coerceAtLeast(sy+0.0000001)
         val sz = min(p1.z,p2.z)
-        val ez = max(p1.z,p2.z)
+        val ez = max(p1.z,p2.z).coerceAtLeast(sz+0.0000001)
         repeat(amount){
             val w = SpookyWall(
                 startRow = Random.nextDouble(sx,ex),
@@ -483,14 +482,8 @@ class Helix: WallStructure() {
      */
     var center = Point(0,2,0)
 
-    /**
-     * speeds up/slows down the helix.
-     */
-    @Deprecated("Will be removed in 1.0")
-    var speedChange = 1.0
     override fun run() {
-        @Suppress("DEPRECATION") //todo remove speedChange
-        add(circle(count = count, fineTuning = amount, heightOffset = center.y, radius = radius,startRotation = startRotation,rotationCount = rotationAmount,speedChange = speedChange,helix = true))
+        add(circle(count = count, fineTuning = amount, heightOffset = center.y, radius = radius,startRotation = startRotation,rotationCount = rotationAmount,helix = true))
     }
 }
 

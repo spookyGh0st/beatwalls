@@ -15,6 +15,9 @@ const val currentVersion = "CyanIsAFurry"
 private val logger = KotlinLogging.logger {}
 
 fun update(){
+    //delete the updater
+    deleteUpdater()
+
     //retrieves the latest version
     val latestVersion = getLatestVersion()
 
@@ -89,7 +92,7 @@ fun buildUpdater(): File {
     val file = when(os){
         "Linux" -> File("bwUpdater.sh")
         "Windows 10" -> File("bwUpdater.bat")
-        else -> TODO()
+        else ->File("").also{ errorExit { "Only Windows 10 or linux updater are supported at the moment. Pleas download the latest version manually" }}
     }
     file.writeText(text)
     file.setExecutable(true)

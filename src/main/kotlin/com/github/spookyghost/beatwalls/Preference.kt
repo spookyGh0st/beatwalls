@@ -9,6 +9,7 @@ private const val bpm = ""
 private const val hjsDuration = ""
 private const val offset = ""
 
+class Main
 val prefs: Preferences = Preferences.userNodeForPackage(Main::class.java)
 
 fun savePath(path: File) {

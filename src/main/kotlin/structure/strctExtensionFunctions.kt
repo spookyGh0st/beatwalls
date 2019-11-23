@@ -166,13 +166,53 @@ fun WallStructure.adjust(){
         }
     }
 
-    if(reverse!=null){
+    if(reverse){
         val last = spookyWalls.maxBy { spookyWall -> spookyWall.startTime+(spookyWall.duration.takeIf { it > 0 }?:0.0) }?.startTime?:0.0
         spookyWalls.forEach { spookyWall -> spookyWall.startTime = last-(spookyWall.startTime+(spookyWall.duration.takeIf { it >0  }?:0.0)) }
     }
 
-    TODO("reversex and reversey")
+    if(reverseX){
+        val min = spookyWalls.minXOrZero()
+        val max = spookyWalls.maxXOrZero()
+        val center = min + ((max-min )/ 2)
+        spookyWalls.forEach {
+            it.startRow = center + (center - it.startRow)
+            it.width *= -1
+        }
+    }
+
+    if(reverseY){
+        val min = spookyWalls.minYOrZero()
+        val max = spookyWalls.maxYOrZero()
+        val center = min + ((max-min )/ 2)
+        spookyWalls.forEach {
+            it.startHeight = center + (center - it.startHeight)
+            it.height *= -1
+        }
+        println()
+    }
 }
+
+private fun ArrayList<SpookyWall>.maxX() =
+    this.maxBy { spookyWall -> spookyWall.trueMaxPoint.x }?.trueMaxPoint?.x
+
+private fun ArrayList<SpookyWall>.minX() =
+    this.minBy { spookyWall -> spookyWall.trueLowestPoint.x }?.trueLowestPoint?.x
+
+private fun ArrayList<SpookyWall>.maxY() =
+    this.maxBy { spookyWall -> spookyWall.trueMaxPoint.y }?.trueMaxPoint?.y
+
+private fun ArrayList<SpookyWall>.minY() =
+    this.minBy { spookyWall -> spookyWall.trueLowestPoint.y }?.trueLowestPoint?.y
+
+private fun ArrayList<SpookyWall>.maxXOrZero() =
+    this.maxX()?: 0.0
+private fun ArrayList<SpookyWall>.minXOrZero() =
+    this.minX()?: 0.0
+private fun ArrayList<SpookyWall>.maxYOrZero() =
+    this.maxY()?: 0.0
+private fun ArrayList<SpookyWall>.minYOrZero() =
+    this.minY()?: 0.0
 
 /**
  * workaround for deep copy

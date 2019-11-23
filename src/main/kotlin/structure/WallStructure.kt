@@ -111,7 +111,7 @@ sealed class WallStructure:Serializable
     /**
      * reverses the WallStructure on the Starttime/duration
      */
-    var reverse: Boolean? = Default.reverse
+    var reverse: Boolean = Default.reverse
 
     /**
      * basically mirrors the Wallstructure in itself on the x-Achsis if set to true
@@ -209,7 +209,7 @@ sealed class WallStructure:Serializable
 
         var scale: Double? = null
 
-        var reverse: Boolean? = null
+        var reverse: Boolean = false
 
         var reverseX: Boolean = false
 

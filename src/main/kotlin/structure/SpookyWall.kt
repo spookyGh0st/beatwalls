@@ -25,9 +25,9 @@ data class SpookyWall(
     @SerializedName("startTime") var startTime: Double
 ):Serializable{
     val trueMaxPoint
-        get() = Point(max(startTime,startTime+duration), max(startRow, startRow +width), max(startTime,startTime+duration))
+        get() = Point(max(startRow, startRow +width),max(startHeight, startHeight+height), max(startTime,startTime+duration))
     val trueLowestPoint
-        get() =  Point(min(startTime,startTime+duration), min(startRow, startRow +width), startTime)
+        get() =  Point(min(startRow, startRow +width),min(startHeight, startHeight+height), startTime)
     /**Changes the MyObstacle Type to an _obstacle Type */
     fun to_obstacle(): _obstacles {
         //first, so it adjust the startRow

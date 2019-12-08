@@ -172,28 +172,35 @@ fun WallStructure.adjust(){
     }
 
     if(reverseX){
-        val min = spookyWalls.minXOrZero()
-        val max = spookyWalls.maxXOrZero()
-        val center = min + ((max-min )/ 2)
-        spookyWalls.forEach {
-            it.startRow = center + (center - it.startRow)
-            it.width *= -1
-        }
+        spookyWalls.reverseX()
     }
 
     if(reverseY){
-        val min = spookyWalls.minYOrZero()
-        val max = spookyWalls.maxYOrZero()
-        val center = min + ((max-min )/ 2)
-        spookyWalls.forEach {
-            it.startHeight = center + (center - it.startHeight)
-            it.height *= -1
-        }
-        println()
+        spookyWalls.reverseY()
     }
 }
 
-private fun ArrayList<SpookyWall>.maxX() =
+fun ArrayList<SpookyWall>.reverseX(){
+    val min = this.minXOrZero()
+    val max = this.maxXOrZero()
+    val center = min + ((max-min )/ 2)
+    this.forEach {
+        it.startRow = center + (center - it.startRow)
+        it.width *= -1
+    }
+}
+
+fun ArrayList<SpookyWall>.reverseY() {
+    val min = this.minYOrZero()
+    val max = this.maxYOrZero()
+    val center = min + ((max - min) / 2)
+    this.forEach {
+        it.startHeight = center + (center - it.startHeight)
+        it.height *= -1
+    }
+}
+
+    private fun ArrayList<SpookyWall>.maxX() =
     this.maxBy { spookyWall -> spookyWall.trueMaxPoint.x }?.trueMaxPoint?.x
 
 private fun ArrayList<SpookyWall>.minX() =

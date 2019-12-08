@@ -48,6 +48,7 @@ sealed class WallStructure:Serializable
      *  7-> mirror horizontal and on the other side and duplicate all 4
      *  8-> mirror on the center and on the other side and duplicate all 4
      */
+    //todo mirror 6 and than mirror that
     var mirror: Int = Default.mirror
 
     /**

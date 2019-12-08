@@ -14,7 +14,10 @@ fun initConfig(songPath:String){
         errorExit { "Please drag in the Whole Folder for the initial Config" }
     val infoJson = File(file,"info.dat").readText()
     val info = Gson().fromJson(infoJson, Info::class.java)
-    val name = pickDifficulty(info).replace(".dat",".bw")
+    val diff = pickDifficulty(info)
+    val diffName = diff.first
+    val diffOffset = diff.second
+    val name = diffName.replace(".dat",".bw")
 
     val path = File(songPath,name)
     if(path.exists()){
@@ -25,7 +28,7 @@ fun initConfig(songPath:String){
     val hjd = pickHjd()
 
     val bpm = info._beatsPerMinute
-    val offset = info._songTimeOffset
+    val offset = info._songTimeOffset+diffOffset
 
     savePath(path)
     saveHjsDuration(hjd)
@@ -33,12 +36,11 @@ fun initConfig(songPath:String){
     saveOffset(offset)
 }
 
-fun pickDifficulty(info: Info): String {
+fun pickDifficulty(info: Info): Pair<String, Int> {
     val diffSet = info._difficultyBeatmapSets.map { it._beatmapCharacteristicName to it._difficultyBeatmaps }
-    val names = diffSet.flatMap { it.second.map {  l -> l._beatmapFilename } }
-    println()
+    val names = diffSet.flatMap { it.second.map {  l -> l._beatmapFilename to l._customData._editorOffset} }
     for ((index, it) in names.withIndex()) {
-        println("$index -> $it")
+        println("$index -> ${it.first}")
     }
     print("\nEnter the Number of the Difficult you want to work with:\ninput: ")
     val index = readLine()?.toIntOrNull()

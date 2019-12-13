@@ -38,6 +38,7 @@ sealed class WallStructure:Serializable
 
     /**
      * mirrors the SpookyWall:
+     *
      *  0 -> dont mirror,
      *  1-> mirror to the other side,
      *  2-> mirror to the other side and duplicate,
@@ -56,56 +57,129 @@ sealed class WallStructure:Serializable
      */
     var time: Boolean = Default.time
 
+    /**
+     * change The StartTime of all Walls in the structure to the given Value. Default: null
+     */
     var changeStartTime: Double? = Default.changeStartTime
 
+    /**
+     * change The Duration of all Walls in the structure to the given Value. Default: null
+     */
     var changeDuration: Double? = Default.changeDuration
 
+    /**
+     * change The Height of all Walls in the structure to the given Value. Default: null
+     */
     var changeHeight: Double? = Default.changeHeight
 
+    /**
+     * change The StartHeight of all Walls in the structure to the given Value. Default: null
+     */
     var changeStartHeight: Double? = Default.changeStartHeight
 
+    /**
+     * change The StartRow of all Walls in the structure to the given Value. Default: null
+     */
     var changeStartRow: Double? = Default.changeStartRow
 
+    /**
+     * change the Width of all Walls in the structure to the given Value. Default: null
+     */
     var changeWidth: Double? = Default.changeWidth
 
+    /**
+     * multiplies the StartTime of all Walls in the structure by the given Value. Default: null (does nothing)
+     */
     var scaleStartTime: Double? = Default.scaleStartTime
 
+    /**
+     * multiplies the Duration of all Walls in the structure by the given Value. Default: null (does nothing)
+     */
     var scaleDuration: Double? = Default.scaleDuration
 
+    /**
+     * multiplies the Height of all Walls in the structure by the given Value. Default: null (does nothing)
+     */
     var scaleHeight: Double? = Default.scaleHeight
 
+    /**
+     * multiplies the StartHeight of all Walls in the structure by the given Value. Default: null (does nothing)
+     */
     var scaleStartHeight: Double? = Default.scaleStartHeight
 
+    /**
+     * multiplies the StartRow of all Walls in the structure by the given Value. Default: null (does nothing)
+     */
     var scaleStartRow: Double? = Default.scaleStartRow
 
+    /**
+     * multiplies the Width of all Walls in the structure by the given Value. Default: null (does nothing)
+     */
     var scaleWidth: Double? = Default.scaleWidth
 
+    /**
+     * adds the given Value. Default: null (does nothing)
+     */
     var addStartTime: Double? = Default.addStartTime
 
+    /**
+     * adds the given Value. Default: null (does nothing)
+     */
     var addDuration: Double? = Default.addDuration
 
+    /**
+     * adds the given Value. Default: null (does nothing)
+     */
     var addHeight: Double? = Default.addHeight
 
+    /**
+     * adds the given Value. Default: null (does nothing)
+     */
     var addStartHeight: Double? = Default.addStartHeight
 
+    /**
+     * adds the given Value. Default: null (does nothing)
+     */
     var addStartRow: Double? = Default.addStartRow
 
+    /**
+     * adds the given Value. Default: null (does nothing)
+     */
     var addWidth: Double? = Default.addWidth
 
+    /**
+     * increases or decreases the duration of all walls until they have the the specific startTime. default: null (does nothing)
+     */
     var fitStartTime: Double? = Default.fitStartTime
 
+    /**
+     * increases or decreases the StartTime of all walls until they have the the specific duration. default: null (does nothing)
+     */
     var fitDuration: Double? = Default.fitDuration
 
+    /**
+     * increases or decreases the StartHeight of all walls until they have the the specific Height. default: null (does nothing)
+     */
     var fitHeight: Double? = Default.fitHeight
 
+    /**
+     * increases or decreases the height of all walls until they have the the specific startHeight. default: null (does nothing)
+     */
     var fitStartHeight: Double? = Default.fitStartHeight
 
+    /**
+     * increases or decreases the width of all walls until they have the the specific startTime. default: null (does nothing)
+     */
     var fitStartRow: Double? = Default.fitStartRow
 
+    /**
+     * increases or decreases the StartRow of all walls until they have the the specific Width. default: null (does nothing)
+     */
     var fitWidth: Double? = Default.fitWidth
 
     /**
-     * scales the Duration and startTime, (duration only for positive duration)
+     * scales the Duration and startTime, (duration only for positive duration).
+     * This is useful for making a structure, that is one beat long longer or shorter
      */
     var scale: Double? = Default.scale
 
@@ -570,7 +644,7 @@ class RandomBlocks: WallStructure(){
 }
 
 /**
- * random curves in a given block-radius
+ * random curves in a given cubic. Always starts at p1 and ends at p2.
  */
 class RandomCurve: WallStructure(){
     /**
@@ -578,12 +652,12 @@ class RandomCurve: WallStructure(){
      */
     private var randomSideChooser = Random.nextBoolean()
     /**
-     * first Point that crontrols in which section walls are created
+     * first Point that controls the cubic, in which section walls are created. defaults to a random side
      */
     var p1: Point = if(randomSideChooser) Point(1,0,0) else Point(-1,0,0)
 
     /**
-     * second Point that crontrols in which section walls are created
+     * second Point that crontrols in which section walls are created. z must be higher than p1
      */
     var p2: Point = if(randomSideChooser) Point(4,0,1) else Point(-4,4,1)
     /**
@@ -592,13 +666,23 @@ class RandomCurve: WallStructure(){
     var amount: Int = 8
 
     override fun run() {
-        var tp3 = randomTimedPoint(-0.33)
+        val mult : Double
+        if((p2.z-p1.z) < 1){
+            mult = 1 / (p2.z-p1.z)
+            p2  = p2.copy(z=p1.z+1)
+        }else{
+            mult = 1.0
+        }
+        var tp3 = randomTimedPoint(-0.33*mult)
         var tp4 = p1
         for(i in p1.z.toInt() until p2.z.toInt()){
             val tp1=tp4.copy()
             val tp2 = tp4.mirrored(tp3)
-            tp3 = randomTimedPoint(i+0.66)
-            tp4 = randomTimedPoint(i+1.0)
+            tp3 = randomTimedPoint(i+0.66*mult)
+            tp4 = if(i == p2.z.toInt())
+                p2
+            else
+                randomTimedPoint(i+1.0 * mult)
             add(curve(tp1,tp2,tp3,tp4,amount))
         }
     }
@@ -640,7 +724,7 @@ class RandomCurve: WallStructure(){
 //  |___/
 
 /**
- * Creates a continues line with up to 31 Points
+ * Creates a continues line with up to 31 Points.
  */
 class ContinuesCurve : WallStructure(){
     /**

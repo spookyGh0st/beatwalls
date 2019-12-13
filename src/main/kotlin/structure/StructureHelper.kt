@@ -230,6 +230,9 @@ data class Point(val x:Double, val y:Double, val z:Double):Serializable {
     fun mirrored(other: Point): Point {
         return Point(this.x-(other.x-this.x),this.y-(other.y-this.y),this.z-(other.z-this.z))
     }
+    fun mirroredNoZ(other: Point): Point {
+        return Point(this.x-(other.x-this.x),this.y-(other.y-this.y),other.z)
+    }
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (javaClass != other?.javaClass) return false

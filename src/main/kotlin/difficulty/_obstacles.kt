@@ -3,6 +3,8 @@ package difficulty
 import com.google.gson.annotations.SerializedName
 import mu.KotlinLogging
 import structure.SpookyWall
+import java.text.DecimalFormat
+import kotlin.math.abs
 
 private val logger = KotlinLogging.logger {}
 
@@ -64,11 +66,25 @@ data class _obstacles (
 
     private fun getWidth(i:Int):Double =
         (i.toDouble() -1000) / 1000
-}
 
-fun main(){
-    val type= 2304301
-    val sh = type %1000-1
-    val h = (type-4001)/1000
-    println("height: $h, startheight: $sh")
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (javaClass != other?.javaClass) return false
+        other as _obstacles
+        if (abs(_time - other._time) < 0.001) return false
+        if (abs(_lineIndex - other._lineIndex)< 0.001) return false
+        if (abs(_type - other._type) < 10) return false
+        if (abs(_duration - other._duration) < 0.001) return false
+        if (abs(_width - other._width) < 0.001) return false
+        return true
+    }
+
+    override fun hashCode(): Int {
+        var result = _time.hashCode()
+        result = 31 * result + _lineIndex
+        result = 31 * result + _type
+        result = 31 * result + _duration.hashCode()
+        result = 31 * result + _width
+        return result
+    }
 }

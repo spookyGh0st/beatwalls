@@ -2,6 +2,7 @@ package com.github.spookyghost.beatwalls
 
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import mu.KotlinLogging
+import java.io.File
 import kotlin.system.exitProcess
 
 
@@ -21,10 +22,21 @@ fun checkPath(){
 }
 
 fun checkOptions(args: Array<String>){
-    if(args.isNotEmpty()){
-        initConfig(args[0])
+    val file =args.find { File(it).exists() }
+    if(file!= null){
+        initConfig(file)
         logger.info { "finished Setup, open the file at ${readPath()} now."}
     }
+    if(args.contains("--clearAll"))
+        GlobalConfig.clearAll = true
+    if (args.contains("--deleteAllPrevious"))
+        GlobalConfig.deleteAllPrevious = true
+}
+
+object GlobalConfig{
+    var clearAll: Boolean = false
+    var deleteAllPrevious: Boolean = false
+    var file: File  = readPath()
 }
 
 private val logger = KotlinLogging.logger {}

@@ -1,5 +1,6 @@
 package difficulty
 import assetFile.MetaData
+import com.github.spookyghost.beatwalls.GlobalConfig
 import com.google.gson.annotations.SerializedName
 import structure.Define
 import structure.WallStructure
@@ -15,7 +16,7 @@ data class Difficulty (
     fun createWalls(list: ArrayList<WallStructure>, metaData: MetaData) {
 
         //removes the old Obstacles
-        this._obstacles.removeAll(getOldObstacle())
+        removeOldWalls()
 
         // saves the old obstacles in a list
         val oldObstacles = mutableListOf<_obstacles>()
@@ -27,7 +28,8 @@ data class Difficulty (
             val obstacles = BpmAdjuster(this,metaData).generate(w)
 
             // adds the obstacle to the diff
-            this._obstacles.addAll(obstacles)
+            if(!GlobalConfig.clearAll)
+                this._obstacles.addAll(obstacles)
 
             // adds the obstacles to the OldObstacles
             oldObstacles.addAll(obstacles)
@@ -35,6 +37,14 @@ data class Difficulty (
 
         // writes the old obstacles
         writeOldObstacle(oldObstacles.toTypedArray())
+    }
+
+    private fun removeOldWalls(){
+        if(GlobalConfig.deleteAllPrevious)
+            this._obstacles.clear()
+        else{
+            this._obstacles.removeAll(getOldObstacle())
+        }
     }
 }
 

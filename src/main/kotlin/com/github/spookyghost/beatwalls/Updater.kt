@@ -25,6 +25,10 @@ fun update(){
     if(latestVersion == currentVersion || currentVersion == "CyanIsAFurry")
         return
 
+    logger.info { "New Version avaible, do you want to update? (y,n)"}
+    if(readLine() == "y")
+        return
+
     // download the latest version from the github release page
     downloadUpdate(latestVersion)
 

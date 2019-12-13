@@ -165,6 +165,10 @@ This will delete all walls created buy the previous runs and create the new ones
 this is what will be created by the first example: [video](https://streamable.com/s/md58n)
 
 To select a different Song just drag in the Folder again.
+There are also cl options for more advanced user
+
+``--clearAll`` -> deletes all previous from bw created Walls without creating no walls
+``--deleteAllPrevious`` ->  deletes all Walls in the difficulty, and not just the one created by beatwalls.
 
 ## other stuff
 

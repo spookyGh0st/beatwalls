@@ -66,25 +66,4 @@ data class _obstacles (
 
     private fun getWidth(i:Int):Double =
         (i.toDouble() -1000) / 1000
-
-    override fun equals(other: Any?): Boolean {
-        if (this === other) return true
-        if (javaClass != other?.javaClass) return false
-        other as _obstacles
-        if (abs(_time - other._time) < 0.001) return false
-        if (abs(_lineIndex - other._lineIndex)< 0.001) return false
-        if (abs(_type - other._type) < 10) return false
-        if (abs(_duration - other._duration) < 0.001) return false
-        if (abs(_width - other._width) < 0.001) return false
-        return true
-    }
-
-    override fun hashCode(): Int {
-        var result = _time.hashCode()
-        result = 31 * result + _lineIndex
-        result = 31 * result + _type
-        result = 31 * result + _duration.hashCode()
-        result = 31 * result + _width
-        return result
-    }
 }

@@ -142,6 +142,27 @@ a normal curve might look like this:
     p3:2,0,0.66
     p4:2,4,1
 ```
+
+### Default
+
+you want to have a whole section of structures hyperWall or make them all 1 height taller.
+Everything you define under a default. Will be have the default value of the thing you define.
+
+````yaml
+15.0: default 
+    changeDuration: -3
+    
+10: line  
+    p1: 0,0,0
+    p2: 3,3,1
+    
+0: default 
+    changeDuration: null
+````
+
+this sets the changedurationparameter to -3 to default, draws the
+note that default still has a beat attached to it. It does not matter at all. only the location in the file matters.
+
 ## Documentation
 
 The documentation for this program is automatically updated when i update the program. However it can be dawning to read at first. 

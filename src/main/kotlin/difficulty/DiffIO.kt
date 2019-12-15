@@ -3,8 +3,13 @@ package difficulty
 import com.github.spookyghost.beatwalls.errorExit
 import com.github.spookyghost.beatwalls.readPath
 import com.google.gson.Gson
+import com.google.gson.GsonBuilder
+import com.google.gson.JsonPrimitive
+import com.google.gson.JsonSerializer
 import mu.KotlinLogging
 import java.io.File
+import java.math.BigDecimal
+
 
 private val logger = KotlinLogging.logger {}
 
@@ -12,11 +17,24 @@ fun writeDifficulty(diff: Difficulty){
     try {
         val file = getDifficultyFile()
         val json = Gson().toJson(diff)
+        //todo remove scientific notations
+        //todo adjust for mm return values
+        //https://stackoverflow.com/questions/11119094/switch-off-scientific-notation-in-gson-double-serialization#18892735
         file.writeText(json)
         logger.info { "written difficulty file to $file" }
     }catch (e:Exception){
         errorExit(e) { "Failed to write difficulty" }
     }
+}
+
+fun difficultyGson(): Gson {
+    val gsonBuilder = GsonBuilder()
+    gsonBuilder.registerTypeAdapter(Double::class.java,
+        JsonSerializer<Double?> { src, _, _ ->
+            val value = BigDecimal.valueOf(src!!)
+            JsonPrimitive(value)
+        })
+    return gsonBuilder.create()
 }
 
 fun readDifficulty(): Difficulty {

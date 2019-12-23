@@ -1,5 +1,6 @@
 package structure
 
+import com.github.spookyghost.beatwalls.readHjsDuration
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
 import difficulty._obstacles
@@ -35,7 +36,7 @@ data class SpookyWall(
         val tempLineIndex = calculateLineIndex()
 
         //other parameters
-        val tempStartTime = startTime.coerceAtLeast(0.001)
+        val tempStartTime = startTime.coerceAtLeast(0.001).toFloat()
         val tempType = type()
 
         val tempDuration = calculateDuration()
@@ -49,9 +50,9 @@ data class SpookyWall(
         )
     }
 
-    private fun calculateDuration(): Double{
+    private fun calculateDuration(): Float {
         val tempDuration = if (duration <0.0001 && duration >-0.0001) 0.0001 else duration
-        return tempDuration.coerceAtLeast(-3.0)
+        return tempDuration.coerceAtLeast(-1.5* readHjsDuration()).toFloat()
     }
 
     /**returns th _obstacle value of the width*/
@@ -131,45 +132,6 @@ data class SpookyWall(
     fun pointMirror() {
         mirror()
         verticalMirror()
-    }
-
-
-    fun scale(s:Double) = this.copy(
-        duration= if(duration>0) duration*s else duration,
-        startTime = startTime*s)
-    fun verticalScale(s:Double) = this.copy(
-        startRow= startRow*s,
-        height = height*s,
-        startHeight= startHeight*s
-    )
-    fun extendX(a:Double) = this.copy(
-        width = a-startRow
-    )
-    fun extendY(a:Double) = this.copy(
-        height = a-startHeight
-    )
-    fun extendZ(a: Double) = this.copy(
-        duration = a - startTime
-    )
-    fun time(a:Double) = this.copy(
-        startTime = startTime+a
-    )
-    fun repeat(a: Int, o: Double = 1.0): MutableList<SpookyWall> {
-        val list = mutableListOf<SpookyWall>()
-        for (i in 0 until a){
-            list.add(this.copy(startTime= this.startTime + i*o))
-        }
-        return list
-    }
-    fun split(a: Int): MutableList<SpookyWall> {
-        val list = mutableListOf<SpookyWall>()
-        for (i in 0 until a){
-            if (this.height>this.width)
-                list.add(this.copy(startHeight = startHeight+height* i / a,height = 1.0/a))
-            else
-                list.add(this.copy(startRow = startRow + width * i / a,width = 1.0/a))
-        }
-        return list
     }
 
     override fun equals(other: Any?): Boolean {

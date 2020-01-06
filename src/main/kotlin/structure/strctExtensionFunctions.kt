@@ -58,6 +58,13 @@ fun WallStructure.repeat(){
             it.startTime+=repeatAddZ*i
             it.startRow += repeatAddX*i
             it.startHeight += repeatAddY*i
+
+            it.startTime+=repeatAddStartTime*i
+            it.startHeight+=repeatAddStartHeight*i
+            it.startRow+=repeatAddStartRow*i
+            it.width+=repeatAddWidth*i
+            it.duration+=repeatAddDuration*i
+            it.height+=repeatAddHeight*i
         }
         tempWalls.addAll(temp)
     }

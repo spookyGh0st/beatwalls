@@ -229,6 +229,35 @@ sealed class WallStructure:Serializable
      */
     var repeatAddY: Double = Default.repeatAddY
 
+    /**
+     * adds this value to the Duration to each repeated Structure
+     */
+    var repeatAddDuration: Double = Default.repeatAddDuration
+
+    /**
+     * adds this value to the Height to each repeated Structure
+     */
+    var repeatAddHeight: Double = Default.repeatAddHeight
+
+    /**
+     * adds this value to the Width to each repeated Structure
+     */
+    var repeatAddWidth: Double = Default.repeatAddWidth
+
+    /**
+     * adds this value to the StartRow to each repeated Structure
+     */
+    var repeatAddStartRow: Double = Default.repeatAddStartRow
+
+    /**
+     * adds this value to the StartHeight to each repeated Structure
+     */
+    var repeatAddStartHeight: Double = Default.repeatAddStartHeight
+    /**
+     * adds this value to the StartTime to each repeated Structure
+     */
+    var repeatAddStartTime: Double = Default.repeatAddStartTime
+
     companion object Default{
         var mirror: Int = 0
 
@@ -292,6 +321,8 @@ sealed class WallStructure:Serializable
 
         var speeder: Double? = null
 
+        //todo remove repeat and build loop
+
         var repeat: Int = 1
 
         var repeatAddZ: Double = 1.0
@@ -299,6 +330,18 @@ sealed class WallStructure:Serializable
         var repeatAddX: Double = 0.0
 
         var repeatAddY: Double = 0.0
+
+        var repeatAddWidth: Double = 0.0
+
+        var repeatAddStartRow: Double = 0.0
+
+        var repeatAddStartHeight: Double = 0.0
+
+        var repeatAddHeight: Double = 0.0
+
+        var repeatAddStartTime: Double = 0.0
+
+        var repeatAddDuration: Double = 0.0
 
     }
 

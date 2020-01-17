@@ -1,8 +1,13 @@
 package assetFile
 
 import junit.framework.TestCase
+import structure.Curve
 import structure.Define
+import structure.Point
 import structure.Wall
+import kotlin.reflect.KType
+import kotlin.reflect.full.withNullability
+import kotlin.reflect.jvm.javaType
 import kotlin.test.assertNotEquals
 
 
@@ -18,7 +23,6 @@ class AssetParserKtTest : TestCase() {
             "beat" to "4.5",
             "0.0" to "hallo",
             "10" to "Wall"
-
         )
         val list = parseStructures(mutList)
         assertTrue(list.first() is Define)
@@ -50,6 +54,33 @@ class AssetParserKtTest : TestCase() {
         }
         throw Exception()
     }
+
+    fun testRandomProperty() {
+        val w = Wall()
+        val p = findProperty(w,"testRandom")
+
+        fillProperty(p!!, "1.0", listOf(),w)
+        val actual = w.testRandom.invoke()
+        assertEquals(actual,1.0)
+        assertNotEquals(actual, 0.0)
+
+        fillProperty(p, "random(0,1)", listOf(),w)
+        assertNotEquals(w.testRandom.invoke(),w.testRandom.invoke())
+        repeat(100){
+            assert ( w.testRandom.invoke() in 0.0..1.0)
+        }
+    }
+
+    fun testPointProperty() {
+        val w = Curve()
+        val p = findProperty(w,"p1")
+        fillProperty(p!!, "1,2,3", listOf(),w)
+        val actual = w.p1
+        val expected = Point(1,2,3)
+        assertEquals(actual,expected)
+        assertNotEquals(actual, Point(0,2,3))
+    }
+
     fun testDefineWallFillProperty() {
         val wall = Define()
         wall.structures = listOf()
@@ -93,7 +124,6 @@ class AssetParserKtTest : TestCase() {
         val expected = "test"
         val actual = Pair("hallo","test").value()
         assertEquals(expected, actual)
-
     }
     fun testKey() {
         val expected = "hallo"

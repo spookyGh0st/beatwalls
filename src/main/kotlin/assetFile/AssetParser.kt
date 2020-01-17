@@ -3,6 +3,7 @@ package assetFile
 import com.github.spookyghost.beatwalls.errorExit
 import mu.KotlinLogging
 import structure.*
+import kotlin.random.Random
 import kotlin.reflect.*
 import kotlin.reflect.full.createInstance
 import kotlin.reflect.full.createType
@@ -148,19 +149,19 @@ fun fillProperty(
     lastObject: Any
 ){
     val valueType:Any?
-    val type = property.returnType.withNullability(false)
+    val type = property.returnType.withNullability(false).toString()
 
-    with (value){
-        valueType = when (type) {
-            Boolean::class.createType() -> toBoolean()
-            Int::class.createType() -> toIntOrNull()
-            Double::class.createType() -> toDoubleOrNull()
-            String::class.createType() -> toString()
-            Point::class.createType() -> toPoint()
-            WallStructure::class.createType() -> toWallStructure(definedStructure)
-            getWallListType() -> toWallStructureList(definedStructure)
-            else -> null
-        }
+
+    valueType = when (type) {
+        "kotlin.Boolean" -> value.toBoolean()
+        "kotlin.Int"-> value.toIntOrNull()
+        "kotlin.Double"-> value.toDoubleOrNull()
+        "() -> kotlin.Double" -> value.toDoubleFunc()
+        "kotlin.String"-> value
+        "structure.Point"-> value.toPoint()
+        "structure.WallStructure"-> value.toWallStructure(definedStructure)
+        "kotlin.collections.List<structure.WallStructure>" -> value.toWallStructureList(definedStructure)
+        else -> null
     }
 
     lastObject.writeProperty(property,valueType)
@@ -233,9 +234,39 @@ private fun String.toWallStructure(definedStructure: List<Define>): WallStructur
     val a =  findStructure(this, definedStructure)
     return if (a is WallStructure)
         a
-    else
+    else {
+        errorExit { "The Wallstructure $this does not exist" }
         EmptyWallStructure
+    }
 }
+
+private fun String.toDoubleFunc(): Function<Double?> {
+    val s = this.toLowerCase()
+    when {
+        s.toDoubleOrNull() != null -> return { this.toDouble() }
+        s == "null" -> return { null }
+        s.startsWith("random") -> {
+            // gets the numbers random(12,23)
+            val constrains = s
+                .substringAfter("random")
+                .removeSurrounding("(",")")
+                .split(",")
+                .map { it.toDoubleOrNull() }
+            if (constrains.contains(null))
+                errorExit { "Failed to parse the random values fo $s syntax is random(min, max), random(max) or random()" }
+            when (constrains.size) {
+                0 -> return { Random.nextDouble() }
+                1 -> return { Random.nextDouble(constrains[0]!! )}
+                else -> return { Random.nextDouble(constrains[0]!!, constrains[1]!!)}
+            }
+        }
+        else -> {
+            errorExit { "Failed to parse the value $s" }
+            return { null }
+        }
+    }
+}
+
 
 /**
  * String to List<WallStructure>
@@ -246,6 +277,4 @@ private fun String.toWallStructureList(definedStructure: List<Define>): List<Wal
         .map { it.trim() }
         .map { val a = findStructure(it, definedStructure); if(a is WallStructure) a else EmptyWallStructure}
 }
-
-
 

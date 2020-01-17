@@ -52,6 +52,8 @@ sealed class WallStructure:Serializable
     //todo mirror 6 and than mirror that
     var mirror: Int = Default.mirror
 
+    var testRandom: () -> Double = { Random.nextDouble()}
+
     /**
      * times the SpookyWall by adding the njsOffset, default: true
      */

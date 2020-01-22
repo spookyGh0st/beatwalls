@@ -13,8 +13,9 @@ class BpmAdjusterTest {
         val c = _customData(1, arrayListOf(
             _BPMChanges(120.0, 3.0,4,4),
             _BPMChanges(130.0, 5.0,4,4),
-            _BPMChanges(80.0, 6.6153841018676758,4,4),
-            _BPMChanges(120.0,8.1153841018676758,4,4
+            _BPMChanges(80.0, 6.615384101867676,4,4),
+            _BPMChanges(
+                120.0, 8.115384101867676,4,4
             )
         ), arrayListOf())
 

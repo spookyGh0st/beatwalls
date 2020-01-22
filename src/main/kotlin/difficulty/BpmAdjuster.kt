@@ -14,8 +14,8 @@ class BpmAdjuster(diff:Difficulty, private val meta: MetaData) {
         var beat = 0.0
         changes.forEach {
             val c = l.last().first
-            val traversedBeats = (it._time-c._time) * c.multiplier()
-            beat += ceil(traversedBeats)
+            val traversedBeats = (it._time-c._time) / baseBpm * c._BPM
+            beat += ceil(traversedBeats )
             l.add(it to beat)
         }
         l.sortedBy { it.second }
@@ -47,20 +47,16 @@ class BpmAdjuster(diff:Difficulty, private val meta: MetaData) {
         val c = lastChange(this.startTime).first
         this.startTime = findTime(this.startTime)
         if (this.duration > 0)
-            this.duration * c.multiplier()
+            this.duration / baseBpm *c._BPM
     }
 
     fun findTime(time:Double): Double {
         val lastChangePair = lastChange(time)
         val change = lastChangePair.first
         val beat = lastChangePair.second
-        return change._time + (time-beat) * change.multiplier()
+        return change._time + (time-beat) /baseBpm * change._BPM
     }
 
     private fun lastChange(beat: Double) =
          changes.last { it.second <= beat }
-
-
-    private fun _BPMChanges.multiplier() =
-        baseBpm / this._BPM
 }

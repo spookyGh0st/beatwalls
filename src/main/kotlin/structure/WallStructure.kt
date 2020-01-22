@@ -53,8 +53,6 @@ sealed class WallStructure:Serializable
     //todo mirror 6 and than mirror that
     var mirror: Int = Default.mirror
 
-    var testRandom: () -> Double = { Random.nextDouble()}
-
     /**
      * times the SpookyWall by adding the njsOffset, default: true
      */
@@ -63,122 +61,122 @@ sealed class WallStructure:Serializable
     /**
      * change The StartTime of all Walls in the structure to the given Value. Default: null
      */
-    var changeStartTime: Double? = Default.changeStartTime
+    var changeStartTime: (() -> Double)? = Default.changeStartTime
 
     /**
      * change The Duration of all Walls in the structure to the given Value. Default: null
      */
-    var changeDuration: Double? = Default.changeDuration
+    var changeDuration: (() -> Double)? = Default.changeDuration
 
     /**
      * change The Height of all Walls in the structure to the given Value. Default: null
      */
-    var changeHeight: Double? = Default.changeHeight
+    var changeHeight: (() -> Double)? = Default.changeHeight
 
     /**
      * change The StartHeight of all Walls in the structure to the given Value. Default: null
      */
-    var changeStartHeight: Double? = Default.changeStartHeight
+    var changeStartHeight: (() -> Double)? = Default.changeStartHeight
 
     /**
      * change The StartRow of all Walls in the structure to the given Value. Default: null
      */
-    var changeStartRow: Double? = Default.changeStartRow
+    var changeStartRow: (() -> Double)? = Default.changeStartRow
 
     /**
      * change the Width of all Walls in the structure to the given Value. Default: null
      */
-    var changeWidth: Double? = Default.changeWidth
+    var changeWidth: (() -> Double)? = Default.changeWidth
 
     /**
      * multiplies the StartTime of all Walls in the structure by the given Value. Default: null (does nothing)
      */
-    var scaleStartTime: Double? = Default.scaleStartTime
+    var scaleStartTime: (() -> Double)? = Default.scaleStartTime
 
     /**
      * multiplies the Duration of all Walls in the structure by the given Value. Default: null (does nothing)
      */
-    var scaleDuration: Double? = Default.scaleDuration
+    var scaleDuration: (() -> Double)? = Default.scaleDuration
 
     /**
      * multiplies the Height of all Walls in the structure by the given Value. Default: null (does nothing)
      */
-    var scaleHeight: Double? = Default.scaleHeight
+    var scaleHeight: (() -> Double)? = Default.scaleHeight
 
     /**
      * multiplies the StartHeight of all Walls in the structure by the given Value. Default: null (does nothing)
      */
-    var scaleStartHeight: Double? = Default.scaleStartHeight
+    var scaleStartHeight: (() -> Double)? = Default.scaleStartHeight
 
     /**
      * multiplies the StartRow of all Walls in the structure by the given Value. Default: null (does nothing)
      */
-    var scaleStartRow: Double? = Default.scaleStartRow
+    var scaleStartRow: (() -> Double)? = Default.scaleStartRow
 
     /**
      * multiplies the Width of all Walls in the structure by the given Value. Default: null (does nothing)
      */
-    var scaleWidth: Double? = Default.scaleWidth
+    var scaleWidth: (() -> Double)? = Default.scaleWidth
 
     /**
      * adds the given Value. Default: null (does nothing)
      */
-    var addStartTime: Double? = Default.addStartTime
+    var addStartTime: (() -> Double)? = Default.addStartTime
 
     /**
      * adds the given Value. Default: null (does nothing)
      */
-    var addDuration: Double? = Default.addDuration
+    var addDuration: (() -> Double)? = Default.addDuration
 
     /**
      * adds the given Value. Default: null (does nothing)
      */
-    var addHeight: Double? = Default.addHeight
+    var addHeight: (() -> Double)? = Default.addHeight
 
     /**
      * adds the given Value. Default: null (does nothing)
      */
-    var addStartHeight: Double? = Default.addStartHeight
+    var addStartHeight: (() -> Double)? = Default.addStartHeight
 
     /**
      * adds the given Value. Default: null (does nothing)
      */
-    var addStartRow: Double? = Default.addStartRow
+    var addStartRow: (() -> Double)? = Default.addStartRow
 
     /**
      * adds the given Value. Default: null (does nothing)
      */
-    var addWidth: Double? = Default.addWidth
+    var addWidth: (() -> Double)? = Default.addWidth
 
     /**
      * increases or decreases the duration of all walls until they have the the specific startTime. default: null (does nothing)
      */
-    var fitStartTime: Double? = Default.fitStartTime
+    var fitStartTime: (() -> Double)? = Default.fitStartTime
 
     /**
      * increases or decreases the StartTime of all walls until they have the the specific duration. default: null (does nothing)
      */
-    var fitDuration: Double? = Default.fitDuration
+    var fitDuration: (() -> Double)? = Default.fitDuration
 
     /**
      * increases or decreases the StartHeight of all walls until they have the the specific Height. default: null (does nothing)
      */
-    var fitHeight: Double? = Default.fitHeight
+    var fitHeight: (() -> Double)? = Default.fitHeight
 
     /**
      * increases or decreases the height of all walls until they have the the specific startHeight. default: null (does nothing)
      */
-    var fitStartHeight: Double? = Default.fitStartHeight
+    var fitStartHeight: (() -> Double)? = Default.fitStartHeight
 
     /**
      * increases or decreases the width of all walls until they have the the specific startTime. default: null (does nothing)
      */
-    var fitStartRow: Double? = Default.fitStartRow
+    var fitStartRow: (() -> Double)? = Default.fitStartRow
 
     /**
      * increases or decreases the StartRow of all walls until they have the the specific Width. default: null (does nothing)
      */
-    var fitWidth: Double? = Default.fitWidth
+    var fitWidth: (() -> Double)? = Default.fitWidth
 
     /**
      * scales the Duration and startTime, (duration only for positive duration).
@@ -266,53 +264,53 @@ sealed class WallStructure:Serializable
 
         var time: Boolean = true
 
-        var changeStartTime: Double? = null
+        var changeStartTime: (() -> Double)? = null
 
-        var changeDuration: Double? = null
+        var changeDuration: (() -> Double)? = null
 
-        var changeHeight: Double? = null
+        var changeHeight: (() -> Double)? = null
 
-        var changeStartHeight: Double? = null
+        var changeStartHeight: (() -> Double)? = null
 
-        var changeStartRow: Double? = null
+        var changeStartRow: (() -> Double)? = null
 
-        var changeWidth: Double? = null
+        var changeWidth: (() -> Double)? = null
 
-        var scaleStartTime: Double? = null
+        var scaleStartTime: (() -> Double)? = null
 
-        var scaleDuration: Double? = null
+        var scaleDuration: (() -> Double)? = null
 
-        var scaleHeight: Double? = null
+        var scaleHeight: (() -> Double)? = null
 
-        var scaleStartHeight: Double? = null
+        var scaleStartHeight: (() -> Double)? = null
 
-        var scaleStartRow: Double? = null
+        var scaleStartRow: (() -> Double)? = null
 
-        var scaleWidth: Double? = null
+        var scaleWidth: (() -> Double)? = null
 
-        var addStartTime: Double? = null
+        var addStartTime: (() -> Double)? = null
 
-        var addDuration: Double? = null
+        var addDuration: (() -> Double)? = null
 
-        var addHeight: Double? = null
+        var addHeight: (() -> Double)? = null
 
-        var addStartHeight: Double? = null
+        var addStartHeight: (() -> Double)? = null
 
-        var addStartRow: Double? = null
+        var addStartRow: (() -> Double)? = null
 
-        var addWidth: Double? = null
+        var addWidth: (() -> Double)? = null
 
-        var fitStartTime: Double? = null
+        var fitStartTime: (() -> Double)? = null
 
-        var fitDuration: Double? = null
+        var fitDuration: (() -> Double)? = null
 
-        var fitHeight: Double? = null
+        var fitHeight: (() -> Double)? = null
 
-        var fitStartHeight: Double? = null
+        var fitStartHeight: (() -> Double)? = null
 
-        var fitStartRow: Double? = null
+        var fitStartRow: (() -> Double)? = null
 
-        var fitWidth: Double? = null
+        var fitWidth: (() -> Double)? = null
 
         var scale: Double? = null
 

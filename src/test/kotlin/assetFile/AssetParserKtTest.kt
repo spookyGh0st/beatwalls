@@ -30,7 +30,7 @@ class AssetParserKtTest : TestCase() {
         assertEquals((list.first() as Define).structures.first().beat, 4.5)
         assertTrue(list[1] is Wall)
         list[1] as Wall
-        assertEquals(list[1].changeDuration, -3.0)
+        assertEquals(list[1].changeDuration?.invoke(), -3.0)
     }
 
     fun testFindStructure() {}
@@ -57,17 +57,22 @@ class AssetParserKtTest : TestCase() {
 
     fun testRandomProperty() {
         val w = Wall()
-        val p = findProperty(w,"testRandom")
+        val p = findProperty(w,"changeDuration")
 
         fillProperty(p!!, "1.0", listOf(),w)
-        val actual = w.testRandom.invoke()
+        val actual = w.changeDuration!!.invoke()
         assertEquals(actual,1.0)
         assertNotEquals(actual, 0.0)
 
         fillProperty(p, "random(0,1)", listOf(),w)
-        assertNotEquals(w.testRandom.invoke(),w.testRandom.invoke())
+        assertNotEquals(w.changeDuration!!.invoke(),w.changeDuration!!.invoke())
         repeat(100){
-            assert ( w.testRandom.invoke() in 0.0..1.0)
+            assert ( w.changeDuration!!.invoke() in 0.0..1.0)
+        }
+        fillProperty(p, "random(-2,-1)", listOf(),w)
+        assertNotEquals(w.changeDuration!!.invoke(),w.changeDuration!!.invoke())
+        repeat(100){
+            assert ( w.changeDuration!!.invoke() in -2.0..-1.0)
         }
     }
 

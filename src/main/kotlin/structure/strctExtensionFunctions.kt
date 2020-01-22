@@ -73,79 +73,61 @@ fun WallStructure.repeat(){
 
 fun WallStructure.adjust(){
     //change
-    if (changeDuration!=null)
-        spookyWalls.forEach { it.duration = changeDuration as Double }
-    if (changeStartTime!=null)
-        spookyWalls.forEach { it.startTime = changeStartTime as Double }
-    if (changeHeight!=null)
-        spookyWalls.forEach { it.height = changeHeight as Double }
-    if (changeStartHeight!=null)
-        spookyWalls.forEach { it.startHeight = changeStartHeight as Double }
-    if (changeStartRow!=null)
-        spookyWalls.forEach { it.startRow = changeStartRow as Double }
-    if (changeWidth!=null)
-        spookyWalls.forEach { it.width = changeWidth as Double }
+    spookyWalls.forEach { it.duration = changeDuration?.invoke()?:it.duration }
+    spookyWalls.forEach { it.startTime = changeStartTime?.invoke()?:it.startTime }
+    spookyWalls.forEach { it.height = changeHeight?.invoke()?:it.height }
+    spookyWalls.forEach { it.startHeight = changeStartHeight?.invoke()?:it.startHeight}
+    spookyWalls.forEach { it.startRow = changeStartRow?.invoke()?:it.startRow}
+    spookyWalls.forEach { it.width = changeWidth?.invoke()?:it.width }
 
     //scale
-    if (scaleDuration!=null)
-        spookyWalls.forEach { it.duration *= scaleDuration as Double }
-    if (scaleStartTime!=null)
-        spookyWalls.forEach { it.startTime *= scaleStartTime as Double }
-    if (scaleHeight!=null)
-        spookyWalls.forEach { it.height *= scaleHeight as Double }
-    if (scaleStartHeight!=null)
-        spookyWalls.forEach { it.startHeight *= scaleStartHeight as Double }
-    if (scaleStartRow!=null)
-        spookyWalls.forEach { it.startRow *= scaleStartRow as Double }
-    if (scaleWidth!=null)
-        spookyWalls.forEach { it.width *= scaleWidth as Double }
+    spookyWalls.forEach { it.duration *= scaleDuration?.invoke()?:1.0 }
+    spookyWalls.forEach { it.startTime *= scaleStartTime?.invoke()?:1.0 }
+    spookyWalls.forEach { it.height *= scaleHeight?.invoke()?:1.0 }
+    spookyWalls.forEach { it.startHeight *= scaleStartHeight?.invoke()?:1.0 }
+    spookyWalls.forEach { it.startRow *= scaleStartRow?.invoke()?:1.0 }
+    spookyWalls.forEach { it.width *= scaleWidth?.invoke()?:1.0 }
 
     //add
-    if (addDuration!=null)
-        spookyWalls.forEach { it.duration += addDuration as Double }
-    if (addStartTime!=null)
-        spookyWalls.forEach { it.startTime += addStartTime as Double }
-    if (addHeight!=null)
-        spookyWalls.forEach { it.height += addHeight as Double }
-    if (addStartHeight!=null)
-        spookyWalls.forEach { it.startHeight += addStartHeight as Double }
-    if (addStartRow!=null)
-        spookyWalls.forEach { it.startRow += addStartRow as Double }
-    if (addWidth!=null)
-        spookyWalls.forEach { it.width += addWidth as Double }
+    spookyWalls.forEach { it.duration += addDuration?.invoke()?:0.0 }
+    spookyWalls.forEach { it.startTime += addStartTime?.invoke()?:0.0 }
+    spookyWalls.forEach { it.height += addHeight?.invoke()?:0.0 }
+    spookyWalls.forEach { it.startHeight += addStartHeight?.invoke()?:0.0 }
+    spookyWalls.forEach { it.startRow += addStartRow?.invoke()?:0.0 }
+    spookyWalls.forEach { it.width += addWidth?.invoke()?:0.0 }
 
     //fit
     //todo fix, there fucks with negative width
     if (fitDuration!=null)
         if (fitHeight!=null)
             spookyWalls.forEach {
-                it.startTime = (it.startTime+(it.duration.takeIf { i -> i > 0 }?:0.0)) - fitDuration as Double
-                it.duration = fitDuration as Double
+                it.startTime = (it.startTime+(it.duration.takeIf { i -> i > 0 }?:0.0)) - fitDuration!!.invoke()
+                it.duration = fitDuration!!.invoke()
             }
     if (fitStartTime!=null)
         spookyWalls.forEach {
-            it.duration = (it.startTime+(it.duration.takeIf { i -> i > 0 }?:0.0)) - fitStartTime as Double
-            it.startTime = fitStartTime as Double
+            it.duration = (it.startTime+(it.duration.takeIf { i -> i > 0 }?:0.0)) - fitStartTime!!.invoke()
+            it.startTime = fitStartTime!!.invoke()
         }
     if (fitHeight!=null)
         spookyWalls.forEach {
-            it.startHeight = (it.startHeight+(it.height.takeIf { i -> i > 0 }?:0.0)) - fitHeight as Double
-            it.height = fitHeight as Double
+            it.startHeight = (it.startHeight+(it.height.takeIf { i -> i > 0 }?:0.0)) - fitHeight!!.invoke()
+            it.height = fitHeight!!.invoke()
         }
     if (fitStartHeight!=null)
         spookyWalls.forEach {
-            it.height = (it.startHeight+(it.height.takeIf { i -> i > 0 }?:0.0)) - fitStartHeight as Double
-            it.startHeight = fitStartHeight as Double
+            it.height = (it.startHeight+(it.height.takeIf { i -> i > 0 }?:0.0)) - fitStartHeight!!.invoke()
+            it.startHeight = fitStartHeight!!.invoke()
             }
     if (fitStartRow!=null)
         spookyWalls.forEach {
-            it.width = (it.startRow+(it.width.takeIf { i -> i > 0 }?:0.0)) - fitStartRow as Double
-            it.startRow = fitStartRow as Double
+            it.width = (it.startRow+(it.width.takeIf { i -> i > 0 }?:0.0)) - fitStartRow!!.invoke()
+            it.startRow = fitStartRow!!.invoke()
         }
     if (fitWidth!=null)
         spookyWalls.forEach {
-            it.startRow = (it.startRow+(it.width.takeIf { i -> i > 0 }?:0.0)) - fitWidth as Double
-            it.width = fitWidth as Double
+            it.startRow = (it.startRow+(it.width.takeIf { i -> i > 0 }?:0.0)) - fitWidth!!.invoke()
+            it.width = fitWidth!!.invoke()
         }
     //extra
     if(scale!=null){

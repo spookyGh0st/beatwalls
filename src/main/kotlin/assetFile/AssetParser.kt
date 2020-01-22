@@ -240,11 +240,11 @@ private fun String.toWallStructure(definedStructure: List<Define>): WallStructur
     }
 }
 
-private fun String.toDoubleFunc(): Function<Double?> {
+private fun String.toDoubleFunc(): Function<Double>? {
     val s = this.toLowerCase()
     when {
         s.toDoubleOrNull() != null -> return { this.toDouble() }
-        s == "null" -> return { null }
+        s == "null" -> return null
         s.startsWith("random") -> {
             // gets the numbers random(12,23)
             val constrains = s
@@ -262,7 +262,7 @@ private fun String.toDoubleFunc(): Function<Double?> {
         }
         else -> {
             errorExit { "Failed to parse the value $s" }
-            return { null }
+            return null
         }
     }
 }

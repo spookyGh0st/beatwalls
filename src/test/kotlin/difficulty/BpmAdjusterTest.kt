@@ -36,8 +36,8 @@ class BpmAdjusterTest {
         assertEquals(expected, actual,0.0)
     }
     @Test
-    fun `beat 6 should be  _time 5,92`() {
-        val expected = 5.923076923076923
+    fun `beat 6 should be  _time 6,0833`() {
+        val expected = 6.083333333333333
         val actual = bpmAdjuster.findTime(6.0)
         assertEquals(expected, actual,0.0)
     }

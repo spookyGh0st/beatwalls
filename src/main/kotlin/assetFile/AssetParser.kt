@@ -249,15 +249,29 @@ private fun String.toDoubleFunc(): Function<Double>? {
             // gets the numbers random(12,23)
             val constrains = s
                 .substringAfter("random")
-                .removeSurrounding("(",")")
+                .removeSurrounding("(", ")")
                 .split(",")
                 .map { it.toDoubleOrNull() }
             if (constrains.contains(null))
                 errorExit { "Failed to parse the random values fo $s syntax is random(min, max), random(max) or random()" }
-            when (constrains.size) {
-                0 -> return { Random.nextDouble() }
-                1 -> return { Random.nextDouble(constrains[0]!! )}
-                else -> return { Random.nextDouble(constrains[0]!!, constrains[1]!!)}
+            when {
+                constrains.isEmpty() -> return { Random.nextDouble() }
+                constrains.size == 1 -> {
+                    if (constrains[0] ?: 0.0 > 0.0)
+                        return { Random.nextDouble(constrains[0]!!) }
+                    errorExit { "Failed to parse the random values fo $s syntax is random(min, max), random(max) or random()" }
+                    return null
+                }
+                constrains.size == 2 -> {
+                    if (constrains[0] != null && constrains[1] != null && constrains[1]!! > constrains[0]!! && constrains[0] != constrains[1])
+                        return { Random.nextDouble(constrains[0]!!, constrains[1]!!) }
+                    errorExit { "Failed to parse the random values fo $s syntax is random(min, max), random(max) or random()" }
+                    return null
+                }
+                else -> {
+                    errorExit { "Failed to parse the random values fo $s syntax is random(min, max), random(max) or random()" }
+                    return null
+                }
             }
         }
         else -> {
@@ -277,4 +291,3 @@ private fun String.toWallStructureList(definedStructure: List<Define>): List<Wal
         .map { it.trim() }
         .map { val a = findStructure(it, definedStructure); if(a is WallStructure) a else EmptyWallStructure}
 }
-

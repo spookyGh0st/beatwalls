@@ -9,7 +9,6 @@ import java.io.Serializable
 import kotlin.math.max
 import kotlin.math.min
 import kotlin.random.Random
-import kotlin.reflect.full.withNullability
 
 
 private val logger = KotlinLogging.logger {}
@@ -59,122 +58,122 @@ sealed class WallStructure:Serializable
     var time: Boolean = Default.time
 
     /**
-     * change The StartTime of all Walls in the structure to the given Value. Default: null
+     * change The StartTime of all Walls in the structure to the given Value. Random possible with random(min,max). Default: null
      */
     var changeStartTime: (() -> Double)? = Default.changeStartTime
 
     /**
-     * change The Duration of all Walls in the structure to the given Value. Default: null
+     * change The Duration of all Walls in the structure to the given Value. Random possible with random(min,max). Default: null
      */
     var changeDuration: (() -> Double)? = Default.changeDuration
 
     /**
-     * change The Height of all Walls in the structure to the given Value. Default: null
+     * change The Height of all Walls in the structure to the given Value. Random possible with random(min,max). Default: null
      */
     var changeHeight: (() -> Double)? = Default.changeHeight
 
     /**
-     * change The StartHeight of all Walls in the structure to the given Value. Default: null
+     * change The StartHeight of all Walls in the structure to the given Value. Random possible with random(min,max). Default: null
      */
     var changeStartHeight: (() -> Double)? = Default.changeStartHeight
 
     /**
-     * change The StartRow of all Walls in the structure to the given Value. Default: null
+     * change The StartRow of all Walls in the structure to the given Value. Random possible with random(min,max). Default: null
      */
     var changeStartRow: (() -> Double)? = Default.changeStartRow
 
     /**
-     * change the Width of all Walls in the structure to the given Value. Default: null
+     * change the Width of all Walls in the structure to the given Value. Random possible with random(min,max). Default: null
      */
     var changeWidth: (() -> Double)? = Default.changeWidth
 
     /**
-     * multiplies the StartTime of all Walls in the structure by the given Value. Default: null (does nothing)
+     * multiplies the StartTime of all Walls in the structure by the given Value. Random possible with random(min,max). Default: null (does nothing)
      */
     var scaleStartTime: (() -> Double)? = Default.scaleStartTime
 
     /**
-     * multiplies the Duration of all Walls in the structure by the given Value. Default: null (does nothing)
+     * multiplies the Duration of all Walls in the structure by the given Value. Random possible with random(min,max). Default: null (does nothing)
      */
     var scaleDuration: (() -> Double)? = Default.scaleDuration
 
     /**
-     * multiplies the Height of all Walls in the structure by the given Value. Default: null (does nothing)
+     * multiplies the Height of all Walls in the structure by the given Value. Random possible with random(min,max). Default: null (does nothing)
      */
     var scaleHeight: (() -> Double)? = Default.scaleHeight
 
     /**
-     * multiplies the StartHeight of all Walls in the structure by the given Value. Default: null (does nothing)
+     * multiplies the StartHeight of all Walls in the structure by the given Value. Random possible with random(min,max). Default: null (does nothing)
      */
     var scaleStartHeight: (() -> Double)? = Default.scaleStartHeight
 
     /**
-     * multiplies the StartRow of all Walls in the structure by the given Value. Default: null (does nothing)
+     * multiplies the StartRow of all Walls in the structure by the given Value. Random possible with random(min,max). Default: null (does nothing)
      */
     var scaleStartRow: (() -> Double)? = Default.scaleStartRow
 
     /**
-     * multiplies the Width of all Walls in the structure by the given Value. Default: null (does nothing)
+     * multiplies the Width of all Walls in the structure by the given Value. Random possible with random(min,max). Default: null (does nothing)
      */
     var scaleWidth: (() -> Double)? = Default.scaleWidth
 
     /**
-     * adds the given Value. Default: null (does nothing)
+     * adds the given Value. Random possible with random(min,max). Default: null (does nothing)
      */
     var addStartTime: (() -> Double)? = Default.addStartTime
 
     /**
-     * adds the given Value. Default: null (does nothing)
+     * adds the given Value. Random possible with random(min,max). Default: null (does nothing)
      */
     var addDuration: (() -> Double)? = Default.addDuration
 
     /**
-     * adds the given Value. Default: null (does nothing)
+     * adds the given Value. Random possible with random(min,max). Default: null (does nothing)
      */
     var addHeight: (() -> Double)? = Default.addHeight
 
     /**
-     * adds the given Value. Default: null (does nothing)
+     * adds the given Value. Random possible with random(min,max). Default: null (does nothing)
      */
     var addStartHeight: (() -> Double)? = Default.addStartHeight
 
     /**
-     * adds the given Value. Default: null (does nothing)
+     * adds the given Value. Random possible with random(min,max). Default: null (does nothing)
      */
     var addStartRow: (() -> Double)? = Default.addStartRow
 
     /**
-     * adds the given Value. Default: null (does nothing)
+     * adds the given Value. Random possible with random(min,max). Default: null (does nothing)
      */
     var addWidth: (() -> Double)? = Default.addWidth
 
     /**
-     * increases or decreases the duration of all walls until they have the the specific startTime. default: null (does nothing)
+     * increases or decreases the duration of all walls until they have the the specific startTime. Random possible with random(min,max). default: null (does nothing)
      */
     var fitStartTime: (() -> Double)? = Default.fitStartTime
 
     /**
-     * increases or decreases the StartTime of all walls until they have the the specific duration. default: null (does nothing)
+     * increases or decreases the StartTime of all walls until they have the the specific duration. Random possible with random(min,max). default: null (does nothing)
      */
     var fitDuration: (() -> Double)? = Default.fitDuration
 
     /**
-     * increases or decreases the StartHeight of all walls until they have the the specific Height. default: null (does nothing)
+     * increases or decreases the StartHeight of all walls until they have the the specific Height. Random possible with random(min,max). default: null (does nothing)
      */
     var fitHeight: (() -> Double)? = Default.fitHeight
 
     /**
-     * increases or decreases the height of all walls until they have the the specific startHeight. default: null (does nothing)
+     * increases or decreases the height of all walls until they have the the specific startHeight. Random possible with random(min,max). default: null (does nothing)
      */
     var fitStartHeight: (() -> Double)? = Default.fitStartHeight
 
     /**
-     * increases or decreases the width of all walls until they have the the specific startTime. default: null (does nothing)
+     * increases or decreases the width of all walls until they have the the specific startTime. Random possible with random(min,max). default: null (does nothing)
      */
     var fitStartRow: (() -> Double)? = Default.fitStartRow
 
     /**
-     * increases or decreases the StartRow of all walls until they have the the specific Width. default: null (does nothing)
+     * increases or decreases the StartRow of all walls until they have the the specific Width. Random possible with random(min,max). default: null (does nothing)
      */
     var fitWidth: (() -> Double)? = Default.fitWidth
 
@@ -1534,6 +1533,7 @@ fun calcP3(point: Point, nextPoint: Point, nextControlPoint:Point, nextNextPoint
 fun WallStructure.readPoint(name:String): Point? =
     this.readProperty(findProperty(this,name)) as Point?
 
+@Suppress("DEPRECATION")
 fun ContinuesCurve.generateProperties(): String {
     var s = ""
     for(it in 1 .. creationAmount){
@@ -1553,8 +1553,3 @@ fun ContinuesCurve.generateProperties(): String {
     }
     return s
 }
-
-fun main(){
-    val c = { Random.nextDouble() }
-}
-

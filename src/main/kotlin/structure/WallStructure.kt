@@ -258,7 +258,12 @@ sealed class WallStructure:Serializable
      */
     var repeatAddStartTime: Double = Default.repeatAddStartTime
 
-    companion object Default{
+    /**
+     * some Wallstructures use Random walls. This is the seed for them
+     */
+    var seed: Int = Default.seed ?: Random.nextInt()
+
+    companion object Default {
         var mirror: Int = 0
 
         var time: Boolean = true
@@ -342,6 +347,8 @@ sealed class WallStructure:Serializable
         var repeatAddStartTime: Double = 0.0
 
         var repeatAddDuration: Double = 0.0
+
+        var seed: Int? = null
 
     }
 
@@ -434,9 +441,9 @@ object EmptyWallStructure:WallStructure()
  */
 class RandomNoise:WallStructure(){
     /**
-     * the amount of the created Walls
+     * the amount of the created Walls, if no value is given creates 8x the beatcount
      */
-    var amount: Int  = 10
+    var amount: Int? = null
 
     /**
      * controls one corner of the Area
@@ -450,20 +457,23 @@ class RandomNoise:WallStructure(){
 
 
     override fun run() {
-        val sx = min(p1.x,p2.x)
-        val ex = max(p1.x,p2.x).coerceAtLeast(sx+0.0000001)
-        val sy = min(p1.y,p2.y)
-        val ey = max(p1.y,p2.y).coerceAtLeast(sy+0.0000001)
-        val sz = min(p1.z,p2.z)
-        val ez = max(p1.z,p2.z).coerceAtLeast(sz+0.0000001)
-        repeat(amount){
+        val sx = min(p1.x, p2.x)
+        val ex = max(p1.x, p2.x).coerceAtLeast(sx + 0.0000001)
+        val sy = min(p1.y, p2.y)
+        val ey = max(p1.y, p2.y).coerceAtLeast(sy + 0.0000001)
+        val sz = min(p1.z, p2.z)
+        val ez = max(p1.z, p2.z).coerceAtLeast(sz + 0.0000001)
+        val r = Random(seed)
+        amount = amount ?: (8 * (ez - sz)).toInt()
+        repeat(amount!!) {
+
             val w = SpookyWall(
-                startRow = Random.nextDouble(sx,ex),
+                startRow = r.nextDouble(sx, ex),
                 duration = 0.0,
                 width = 0.0,
                 height = 0.0,
-                startHeight = Random.nextDouble(sy,ey),
-                startTime = sz + (it.toDouble()/amount * (ez-sz))
+                startHeight = r.nextDouble(sy, ey),
+                startTime = sz + (it.toDouble() / amount!! * (ez - sz))
             )
             add(w)
         }
@@ -676,11 +686,12 @@ class RandomBlocks: WallStructure(){
         }
     }
     private fun createBlock(st:Double ,d:Double): SpookyWall {
-         val sr = Random.nextDouble(-20.0,20.0)
-        val w = sr* Random.nextDouble()
-        val sh = Random.nextDouble(5.0)
-        val h = sr* Random.nextDouble(0.2)
-        return SpookyWall(sr,d,w,h,sh,st)
+        val r = Random(seed)
+        val sr = r.nextDouble(-20.0, 20.0)
+        val w = sr * r.nextDouble()
+        val sh = r.nextDouble(5.0)
+        val h = sr * r.nextDouble(0.2)
+        return SpookyWall(sr, d, w, h, sh, st)
 
 
     }
@@ -709,35 +720,36 @@ class RandomCurve: WallStructure(){
     var amount: Int = 8
 
     override fun run() {
-        val mult : Double
+        val r = Random(seed)
+        val mult: Double
         if((p2.z-p1.z) < 1){
             mult = 1 / (p2.z-p1.z)
             p2  = p2.copy(z=p1.z+1)
         }else{
             mult = 1.0
         }
-        var tp3 = randomTimedPoint(-0.33*mult)
+        var tp3 = randomTimedPoint(r, -0.33 * mult)
         var tp4 = p1
-        for(i in p1.z.toInt() until p2.z.toInt()){
-            val tp1=tp4.copy()
+        for(i in p1.z.toInt() until p2.z.toInt()) {
+            val tp1 = tp4.copy()
             val tp2 = tp4.mirrored(tp3)
-            tp3 = randomTimedPoint(i+0.66*mult)
-            tp4 = if(i == p2.z.toInt())
-                p2
+            tp3 = randomTimedPoint(r, i + 0.66 * mult)
+            tp4 = if (i + 1 == p2.z.toInt())
+                p2.copy(z = p2.z + 1)
             else
-                randomTimedPoint(i+1.0 * mult)
-            add(curve(tp1,tp2,tp3,tp4,amount))
+                randomTimedPoint(r, i + 1.0 * mult)
+            add(curve(tp1, tp2, tp3, tp4, amount))
         }
     }
 
-    private fun randomTimedPoint(z:Double): Point {
-        val minx = min(p1.x,p2.x)
-        val maxX = max(p1.x,p2.x).coerceAtLeast(minx+0.1)
-        val minY = min(p1.y,p2.y)
-        val maxY = max(p1.y,p2.y).coerceAtLeast(minY+0.1)
-        val x = Random.nextDouble(minx,maxX)
-        val y = Random.nextDouble(minY,maxY)
-        return Point(x,y,z)
+    private fun randomTimedPoint(r: Random, z: Double): Point {
+        val minx = min(p1.x, p2.x)
+        val maxX = max(p1.x, p2.x).coerceAtLeast(minx + 0.1)
+        val minY = min(p1.y, p2.y)
+        val maxY = max(p1.y, p2.y).coerceAtLeast(minY + 0.1)
+        val x = r.nextDouble(minx, maxX)
+        val y = r.nextDouble(minY, maxY)
+        return Point(x, y, z)
     }
 }
 

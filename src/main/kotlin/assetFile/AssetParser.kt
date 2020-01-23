@@ -20,6 +20,9 @@ import kotlin.reflect.full.withNullability
 
 private val logger = KotlinLogging.logger {}
 
+//global variables
+var RandomSeed = Random(Random.nextInt())
+
 /**
  * reads in a String and returns the corresponding SongAssetFile
  */
@@ -40,37 +43,46 @@ fun parseStructures(mutableList: MutableList<Pair<String, String>>): ArrayList<W
     var lastStruct: Any = EmptyWallStructure
     val definedStructures = mutableListOf<Define>()
 
-    for (i in 0 until mutableList.size){
+    for (i in 0 until mutableList.size) {
         val key = mutableList[i].key().toLowerCase()
         val value = mutableList[i].value()
-        if(key == "define"){
-            val struct = Define()
-            struct.name=value.toLowerCase()
-            definedStructures.add(struct)
-            logger.info { "defined Structure ${struct.name}" }
-            lastStruct = struct
-        }
-        if (key.toDoubleOrNull() != null){
-            if(value.toLowerCase() == "define")
-                errorExit { "Old Defined Structure detected. New one is define: \$name" }
-            val structName = mutableList[i].value().toLowerCase()
-            val beat = mutableList[i].key().toDouble()
-            val struct: Any = findStructure(structName, definedStructures)
-
-            //hacky
-            if (struct is Define ){
-                struct.isTopLevel = true
+        //hacky
+        when {
+            key == "define" -> {
+                val struct = Define()
+                struct.name = value.toLowerCase()
+                definedStructures.add(struct)
+                logger.info { "defined Structure ${struct.name}" }
+                lastStruct = struct
             }
-
-            if(struct is WallStructure){
-                struct.beat = beat
-                list.add(struct)
+            key == "randomseed" -> {
+                val v = value.toIntOrNull()
+                if (v != null)
+                    RandomSeed = Random(v)
             }
+            key.toDoubleOrNull() != null -> {
+                if (value.toLowerCase() == "define")
+                    errorExit { "Old Defined Structure detected. New one is define: \$name" }
+                val structName = mutableList[i].value().toLowerCase()
+                val beat = mutableList[i].key().toDouble()
+                val struct: Any = findStructure(structName, definedStructures)
 
-            logger.info { "adding $structName" }
-            lastStruct = struct
-        }else{
-            readWallStructOptions(lastStruct, mutableList[i], definedStructures)
+                //hacky
+                if (struct is Define) {
+                    struct.isTopLevel = true
+                }
+
+                if (struct is WallStructure) {
+                    struct.beat = beat
+                    list.add(struct)
+                }
+
+                logger.info { "adding $structName" }
+                lastStruct = struct
+            }
+            else -> {
+                readWallStructOptions(lastStruct, mutableList[i], definedStructures)
+            }
         }
     }
     val l =list.filterNot { it is EmptyWallStructure }
@@ -91,7 +103,7 @@ fun findStructure(name: String, definedStructure: List<Define>): Any {
         in specialStructsNames -> findSpecialStruct(structName,specialStructs)
         "default" -> WallStructure.Default
         else -> {
-            logger.warn { "structure $structName not found" }
+            errorExit { "structure $structName not found" }
             EmptyWallStructure
         }
     }
@@ -251,25 +263,23 @@ private fun String.toDoubleFunc(): Function<Double>? {
                 .substringAfter("random")
                 .removeSurrounding("(", ")")
                 .split(",")
-                .map { it.toDoubleOrNull() }
-            if (constrains.contains(null))
-                errorExit { "Failed to parse the random values fo $s syntax is random(min, max), random(max) or random()" }
+                .mapNotNull { it.toDoubleOrNull() }
             when {
                 constrains.isEmpty() -> return { Random.nextDouble() }
                 constrains.size == 1 -> {
-                    if (constrains[0] ?: 0.0 > 0.0)
-                        return { Random.nextDouble(constrains[0]!!) }
+                    if (constrains[0] > 0.0)
+                        return { RandomSeed.nextDouble(constrains[0]) }
                     errorExit { "Failed to parse the random values fo $s syntax is random(min, max), random(max) or random()" }
                     return null
                 }
                 constrains.size == 2 -> {
-                    if (constrains[0] != null && constrains[1] != null && constrains[1]!! > constrains[0]!! && constrains[0] != constrains[1])
-                        return { Random.nextDouble(constrains[0]!!, constrains[1]!!) }
+                    if (constrains[1] > constrains[0] && constrains[0] != constrains[1])
+                        return { RandomSeed.nextDouble(constrains[0], constrains[1]) }
                     errorExit { "Failed to parse the random values fo $s syntax is random(min, max), random(max) or random()" }
                     return null
                 }
                 else -> {
-                    errorExit { "Failed to parse the random values fo $s syntax is random(min, max), random(max) or random()" }
+                    errorExit { "Failed to parse the random values fo $s syntax is random(min,max,seed), random(min, max), random(max) or random()" }
                     return null
                 }
             }

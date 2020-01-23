@@ -1,10 +1,9 @@
 package assetFile
 
 import junit.framework.TestCase
-import structure.Curve
-import structure.Define
-import structure.Point
-import structure.Wall
+import structure.*
+import kotlin.random.Random
+import kotlin.random.asJavaRandom
 import kotlin.reflect.KType
 import kotlin.reflect.full.withNullability
 import kotlin.reflect.jvm.javaType
@@ -22,7 +21,8 @@ class AssetParserKtTest : TestCase() {
             "Define" to "hallo",
             "beat" to "4.5",
             "0.0" to "hallo",
-            "10" to "Wall"
+            "10" to "Wall",
+            "randomSeed" to "10"
         )
         val list = parseStructures(mutList)
         assertTrue(list.first() is Define)
@@ -30,7 +30,10 @@ class AssetParserKtTest : TestCase() {
         assertEquals((list.first() as Define).structures.first().beat, 4.5)
         assertTrue(list[1] is Wall)
         list[1] as Wall
-        assertEquals(list[1].changeDuration?.invoke(), -3.0)
+        val r = Random(10)
+        repeat(10) {
+            assertEquals(RandomSeed.nextDouble(), r.nextDouble())
+        }
     }
 
     fun testFindStructure() {}
@@ -64,15 +67,21 @@ class AssetParserKtTest : TestCase() {
         assertEquals(actual,1.0)
         assertNotEquals(actual, 0.0)
 
-        fillProperty(p, "random(0,1)", listOf(),w)
-        assertNotEquals(w.changeDuration!!.invoke(),w.changeDuration!!.invoke())
-        repeat(100){
-            assert ( w.changeDuration!!.invoke() in 0.0..1.0)
+        fillProperty(p, "random(0,1)", listOf(), w)
+        assertNotEquals(w.changeDuration!!(), w.changeDuration!!())
+        repeat(100) {
+            assert(w.changeDuration!!.invoke() in 0.0..1.0)
         }
-        fillProperty(p, "random(-2,-1)", listOf(),w)
-        assertNotEquals(w.changeDuration!!.invoke(),w.changeDuration!!.invoke())
-        repeat(100){
-            assert ( w.changeDuration!!.invoke() in -2.0..-1.0)
+        fillProperty(p, "random(-2,-1)", listOf(), w)
+        assertNotEquals(w.changeDuration!!.invoke(), w.changeDuration!!.invoke())
+        repeat(100) {
+            assert(w.changeDuration!!.invoke() in -2.0..-1.0)
+        }
+        RandomSeed = Random(10)
+        val r = Random(10)
+        fillProperty(p, "random(0,1)", listOf(), w)
+        repeat(100) {
+            assertEquals(w.changeDuration!!(), r.nextDouble(0.0, 1.0))
         }
     }
 

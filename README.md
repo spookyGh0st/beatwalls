@@ -193,6 +193,13 @@ There are also cl options for more advanced user
 
 ## other stuff
 
-Please ping me on discord (spookyGhost) about any feedback or any wallstructures you would like to see added.
+some values allow the use of random. You can set the seed for this by using 
+```yaml
+randomSeed: 10
+```
+this will sed the seed for every random Call **below** that line to the given seed. 
+this can be done multiple times.
+
+Please ping me on discord (spookyGhost) about any feedback or any wallstructures you would like to see added. Or submit a pull request yourself
 
 Windows will probably annoy you that this program is dangerous. If you dont want this, build from source or buy me a certificate

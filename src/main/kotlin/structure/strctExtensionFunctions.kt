@@ -1,7 +1,9 @@
 package structure
 
+import mu.KotlinLogging
 import java.io.*
 import kotlin.math.pow
+private val logger = KotlinLogging.logger {}
 
 /** this is for getting the acutal Walls */
 fun WallStructure.walls(): ArrayList<SpookyWall> {
@@ -10,6 +12,7 @@ fun WallStructure.walls(): ArrayList<SpookyWall> {
     adjust()
     repeat()
     mirror()
+    logger.info { "Added ${this::class.simpleName?:"undefined Structure"} with ${spookyWalls.size} walls on beat $beat." }
     return spookyWalls
 }
 

@@ -563,6 +563,8 @@ class Define: WallStructure() {
     var isTopLevel = false
 
     override fun run() {
+        if (structures.isEmpty())
+            logger.warn { "The structureList of $name is empty, check if you have a typo " }
         for(w in structures){
             val l = w.walls()
             l.forEach { it.startTime+=(w.beat) }

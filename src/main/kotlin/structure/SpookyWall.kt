@@ -30,7 +30,7 @@ data class SpookyWall(
     val trueLowestPoint
         get() =  Point(min(startRow, startRow +width),min(startHeight, startHeight+height), startTime)
     /**Changes the MyObstacle Type to an _obstacle Type */
-    fun to_obstacle(): _obstacles {
+    fun to_obstacle(hjd: Double): _obstacles {
         //first, so it adjust the startRow
         val tempWidth = calculateWidth()
         val tempLineIndex = calculateLineIndex()
@@ -39,7 +39,7 @@ data class SpookyWall(
         val tempStartTime = startTime.coerceAtLeast(0.001).toFloat()
         val tempType = type()
 
-        val tempDuration = calculateDuration()
+        val tempDuration = calculateDuration(hjd)
 
         return _obstacles(
             tempStartTime,
@@ -50,9 +50,9 @@ data class SpookyWall(
         )
     }
 
-    private fun calculateDuration(): Float {
-        val tempDuration = if (duration <0.0001 && duration >-0.0001) 0.0001 else duration
-        return tempDuration.coerceAtLeast(-1.5* readHjsDuration()).toFloat()
+    private fun calculateDuration(hjd: Double): Float {
+        val tempDuration = if (duration < 0.0001 && duration > -0.0001) 0.0001 else duration
+        return tempDuration.coerceAtLeast(-1.5 * hjd).toFloat()
     }
 
     /**returns th _obstacle value of the width*/

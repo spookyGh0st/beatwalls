@@ -35,7 +35,7 @@ class BpmAdjuster(diff:Difficulty, private val meta: MetaData) {
             walls.forEach { it.startTime += meta.hjd }
 
         // creates Obstacles
-        return walls.map { it.to_obstacle() }
+        return walls.map { it.to_obstacle(meta.hjd) }
     }
 
     private fun SpookyWall.addOffset(){

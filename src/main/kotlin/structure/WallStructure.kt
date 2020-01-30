@@ -513,6 +513,7 @@ class FurryGrid : WallStructure() {
     var p1: Point = Point(-4, 0, 0)
 
     override fun run() {
+        logger.info { "Im a furry and im using a furryGrid" }
         var x = p1.x
         var y = p1.y
         var z = p1.z

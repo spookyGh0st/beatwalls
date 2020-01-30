@@ -8,6 +8,7 @@ import mu.KotlinLogging
 import java.io.Serializable
 import kotlin.math.max
 import kotlin.math.min
+import kotlin.math.roundToInt
 import kotlin.random.Random
 
 
@@ -455,27 +456,172 @@ class RandomNoise:WallStructure(){
      */
     var p2 = Point(6,5,1)
 
-
     override fun run() {
-        val sx = min(p1.x, p2.x)
-        val ex = max(p1.x, p2.x).coerceAtLeast(sx + 0.0000001)
-        val sy = min(p1.y, p2.y)
-        val ey = max(p1.y, p2.y).coerceAtLeast(sy + 0.0000001)
-        val sz = min(p1.z, p2.z)
-        val ez = max(p1.z, p2.z).coerceAtLeast(sz + 0.0000001)
+        val c = CuboidConstrains(p1, p2)
         val r = Random(seed)
-        amount = amount ?: (8 * (ez - sz)).toInt()
+        amount = amount ?: (8 * (c.ez - c.sz)).roundToInt()
         repeat(amount!!) {
 
             val w = SpookyWall(
-                startRow = r.nextDouble(sx, ex),
+                startRow = r.nextDouble(c.sx, c.ex),
                 duration = 0.0,
                 width = 0.0,
                 height = 0.0,
-                startHeight = r.nextDouble(sy, ey),
-                startTime = sz + (it.toDouble() / amount!! * (ez - sz))
+                startHeight = r.nextDouble(c.sy, c.ey),
+                startTime = c.sz + (it.toDouble() / amount!! * (c.ez - c.sz))
             )
             add(w)
+        }
+    }
+}
+
+class FurryGrid : WallStructure() {
+    /**
+     * the X-Size of one panel in the grid
+     */
+    var panelX = 1.0
+    /**
+     * the Y-Size of one panel in the grid
+     */
+    var panelY = 0.0
+    /**
+     * the Z-Size of one panel in the grid
+     */
+    var panelZ = 1.0
+
+    /**
+     * the X-Size of the whole grid, aka how often it will repeat in the X-direction
+     */
+    var gridX = 8
+    /**
+     * the Y-Size of the whole grid, aka how often it will repeat in the Y-direction
+     */
+    var gridY = 1
+    /**
+     * the Z-Size of the whole grid aka how often it will repeat in the Z-direction
+     */
+    var gridZ = 8
+
+    /**
+     * TODO mode NOT IMPLEMENTED YET
+     */
+    var mode = 0
+
+    /**
+     * the start Point of the grid
+     */
+    var p1: Point = Point(-4, 0, 0)
+
+    override fun run() {
+        var x = p1.x
+        var y = p1.y
+        var z = p1.z
+        repeat(gridX) {
+            repeat(gridY) {
+                repeat(gridZ) {
+                    add(
+                        SpookyWall(
+                            startRow = x,
+                            duration = panelZ,
+                            width = panelX,
+                            height = panelY,
+                            startHeight = y,
+                            startTime = z
+                        )
+                    )
+                    z += panelZ
+                }
+                z = p1.z
+                add(
+                    SpookyWall(
+                        startRow = x,
+                        duration = panelZ,
+                        width = panelX,
+                        height = panelY,
+                        startHeight = y,
+                        startTime = z
+                    )
+                )
+                y += panelY
+            }
+            y = p1.y
+            add(
+                SpookyWall(
+                    startRow = x,
+                    duration = panelZ,
+                    width = panelX,
+                    height = panelY,
+                    startHeight = y,
+                    startTime = z
+                )
+            )
+            x += panelX
+        }
+        x = p1.x
+    }
+}
+
+/**
+ * draws multiple lines around Sections of the cuboid.
+ */
+class RandomCuboidLines : WallStructure() {
+    /**
+     * the first corner of the cuboid. Default is -2,0,0
+     */
+    var p1: Point = Point(-2, 0, 0)
+    /**
+     * the second corner of the cuboid. Default is 2,4,8
+     */
+    var p2: Point = Point(2, 4, 4)
+    /**
+     * The amount of walls per line. Default is 8
+     */
+    var amount: Int = 8
+    /**
+     * The amount of lines that will be created. Defaults to the duration
+     */
+    var count: Int? = null
+
+    /**
+     * In how many sections will each side/floor be splitted. Must be at least 3. Default: 4
+     */
+    var sections: Int = 4
+
+    override fun run() {
+        val c = CuboidConstrains(p1, p2)
+        val trueCount = count ?: c.duration.roundToInt()
+        val r = Random(seed)
+        repeat(trueCount) {
+            val z1 = c.sz + it.toDouble() / trueCount * c.duration
+            val z2 = z1 + 1.0 / trueCount * c.duration
+            // selects a random Side
+            val randomSide = r.nextInt(4)
+            // selects a random Section
+            val randomSection = r.nextInt(1, sections)
+            val randomX = c.sx + c.width / sections * randomSection
+            val randomY = c.sy + c.height / sections * randomSection
+
+            // selects the first Point of the line
+            val lineP1 = when (randomSide) {
+                0 -> Point(c.sx, randomY, z1)
+                1 -> Point(c.ex, randomY, z1)
+                2 -> Point(randomX, c.sy, z1)
+                3 -> Point(randomX, c.ey, z1)
+                else -> Point(0, 0, 0) // never happens
+            }
+
+            // calculates the end X and Y
+            val randomEndX = lineP1.x + if (r.nextBoolean()) -c.width / sections else c.width / sections
+            val randomEndY = lineP1.y + if (r.nextBoolean()) -c.height / sections else c.height / sections
+
+            val lineP2 = when (randomSide) {
+                0 -> lineP1.copy(y = randomEndY, z = z2)
+                1 -> lineP1.copy(y = randomEndY, z = z2)
+                2 -> lineP1.copy(x = randomEndX, z = z2)
+                3 -> lineP1.copy(x = randomEndX, z = z2)
+                else -> Point(0, 0, 0) // never happens
+            }
+            add(line(lineP1, lineP2, amount))
         }
     }
 }
@@ -483,11 +629,11 @@ class RandomNoise:WallStructure(){
 /**
  * Draw a curve of Walls. This uses BezierCurve. You can imagine it like a line between point 1 and point 4, that gets pulled upon by the controlpoints. Maybe this link can help (the dots are the Points) https://www.desmos.com/calculator/cahqdxeshd
  */
-class Curve:WallStructure(){
+class Curve : WallStructure() {
     /**
      * the start Point of the Curve
      */
-    var p1: Point = Point(0,0,0)
+    var p1: Point = Point(0, 0, 0)
     /**
      * the first Controllpoint, defaults to the startPoint
      */
@@ -658,13 +804,13 @@ class Loop: WallStructure(){
  */
 class Line: WallStructure(){
     /**
-     * how many walls will be created. When left empty, will figure out a decent amount depending on the angle
+     * how many walls will be created. Default: 8
      */
-    var amount: Int? = null
+    var amount: Int = 8
     /**
      * The startPoint
      */
-    var p1 = Point(0,0,0)
+    var p1 = Point(0, 0, 0)
     /**
      * the End Point
      */
@@ -1567,3 +1713,4 @@ fun ContinuesCurve.generateProperties(): String {
     }
     return s
 }
+

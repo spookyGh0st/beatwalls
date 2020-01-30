@@ -2,6 +2,8 @@ package structure
 
 import mu.KotlinLogging
 import java.io.*
+import kotlin.math.max
+import kotlin.math.min
 import kotlin.math.pow
 private val logger = KotlinLogging.logger {}
 
@@ -121,7 +123,7 @@ fun WallStructure.adjust(){
         spookyWalls.forEach {
             it.height = (it.startHeight+(it.height.takeIf { i -> i > 0 }?:0.0)) - fitStartHeight!!.invoke()
             it.startHeight = fitStartHeight!!.invoke()
-            }
+        }
     if (fitStartRow!=null)
         spookyWalls.forEach {
             it.width = (it.startRow+(it.width.takeIf { i -> i > 0 }?:0.0)) - fitStartRow!!.invoke()
@@ -191,8 +193,19 @@ fun ArrayList<SpookyWall>.reverseY() {
         it.height *= -1
     }
 }
+class CuboidConstrains(p1: Point, p2: Point) {
+    val sx = min(p1.x, p2.x)
+    val ex = max(p1.x, p2.x).coerceAtLeast(sx + 0.0000001)
+    val sy = min(p1.y, p2.y)
+    val ey = max(p1.y, p2.y).coerceAtLeast(sy + 0.0000001)
+    val sz = min(p1.z, p2.z)
+    val ez = max(p1.z, p2.z).coerceAtLeast(sz + 0.0000001)
+    val duration = ez - sz
+    val height = ey - sy
+    val width = ex - sx
+}
 
-    private fun ArrayList<SpookyWall>.maxX() =
+private fun ArrayList<SpookyWall>.maxX() =
     this.maxBy { spookyWall -> spookyWall.trueMaxPoint.x }?.trueMaxPoint?.x
 
 private fun ArrayList<SpookyWall>.minX() =

@@ -5,13 +5,26 @@ package structure
 import assetFile.findProperty
 import assetFile.readProperty
 import mu.KotlinLogging
+import structure.specialStrucures.curve
+import structure.specialStrucures.run
 import java.io.Serializable
-import kotlin.math.max
-import kotlin.math.min
-import kotlin.math.roundToInt
 import kotlin.random.Random
 
+/*
+This is the relevant File for the creation of all WallStructures
 
+Structure of this Document
+sealed class to allow for save calls in the assetParser
+this file contains only documentation of the structures and calls run for each
+in the specialStructures Folder the run and relevant Functions are defined via extension Functions
+
+so how do i add a structure
+Define the parameters and documentation of the structure here as usual. You dont need to define the parameters already defined in the Wallstructure class
+add the run Function in the relevant file in the specialStructures folder You can create Walls with SpookyWall and add them with add(Wall) or add(Collection of walls).
+submit a pull request and wait for approval.
+ */
+
+//todo remove
 private val logger = KotlinLogging.logger {}
 
 //    _   __                           __   _____ __                  __
@@ -353,7 +366,7 @@ sealed class WallStructure:Serializable
 
     }
 
-    open fun run(){}
+    abstract fun generateWalls()
 
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
@@ -424,11 +437,10 @@ sealed class WallStructure:Serializable
     }
 }
 
-
 /**
  * dont touch
  */
-object EmptyWallStructure:WallStructure()
+object EmptyWallStructure:WallStructure() { override fun generateWalls() {} }
 
 //   _____                 _       __   _       __      _________ __                  __
 //  / ___/____  ___  _____(_)___ _/ /  | |     / /___ _/ / / ___// /________  _______/ /___  __________  _____
@@ -456,34 +468,26 @@ class RandomNoise:WallStructure(){
      */
     var p2 = Point(6,5,1)
 
-    override fun run() {
-        val c = CuboidConstrains(p1, p2)
-        val r = Random(seed)
-        amount = amount ?: (8 * (c.ez - c.sz)).roundToInt()
-        repeat(amount!!) {
-
-            val w = SpookyWall(
-                startRow = r.nextDouble(c.sx, c.ex),
-                duration = 0.0,
-                width = 0.0,
-                height = 0.0,
-                startHeight = r.nextDouble(c.sy, c.ey),
-                startTime = c.sz + (it.toDouble() / amount!! * (c.ez - c.sz))
-            )
-            add(w)
-        }
-    }
+    /**
+     * generating the Walls
+     */
+    override fun generateWalls() { run() }
 }
 
+/**
+ * 3d Grid
+ */
 class FurryGrid : WallStructure() {
     /**
      * the X-Size of one panel in the grid
      */
     var panelX = 1.0
+
     /**
      * the Y-Size of one panel in the grid
      */
     var panelY = 0.0
+
     /**
      * the Z-Size of one panel in the grid
      */
@@ -493,10 +497,12 @@ class FurryGrid : WallStructure() {
      * the X-Size of the whole grid, aka how often it will repeat in the X-direction
      */
     var gridX = 8
+
     /**
      * the Y-Size of the whole grid, aka how often it will repeat in the Y-direction
      */
     var gridY = 1
+
     /**
      * the Z-Size of the whole grid aka how often it will repeat in the Z-direction
      */
@@ -512,54 +518,10 @@ class FurryGrid : WallStructure() {
      */
     var p1: Point = Point(-4, 0, 0)
 
-    override fun run() {
-        logger.info { "Im a furry and im using a furryGrid" }
-        var x = p1.x
-        var y = p1.y
-        var z = p1.z
-        repeat(gridX) {
-            repeat(gridY) {
-                repeat(gridZ) {
-                    add(
-                        SpookyWall(
-                            startRow = x,
-                            duration = panelZ,
-                            width = panelX,
-                            height = panelY,
-                            startHeight = y,
-                            startTime = z
-                        )
-                    )
-                    z += panelZ
-                }
-                z = p1.z
-                add(
-                    SpookyWall(
-                        startRow = x,
-                        duration = panelZ,
-                        width = panelX,
-                        height = panelY,
-                        startHeight = y,
-                        startTime = z
-                    )
-                )
-                y += panelY
-            }
-            y = p1.y
-            add(
-                SpookyWall(
-                    startRow = x,
-                    duration = panelZ,
-                    width = panelX,
-                    height = panelY,
-                    startHeight = y,
-                    startTime = z
-                )
-            )
-            x += panelX
-        }
-        x = p1.x
-    }
+    /**
+     * generating the Walls
+     */
+    override fun generateWalls() { run() }
 }
 
 /**
@@ -570,14 +532,17 @@ class RandomCuboidLines : WallStructure() {
      * the first corner of the cuboid. Default is -2,0,0
      */
     var p1: Point = Point(-2, 0, 0)
+
     /**
      * the second corner of the cuboid. Default is 2,4,8
      */
     var p2: Point = Point(2, 4, 4)
+
     /**
      * The amount of walls per line. Default is 8
      */
     var amount: Int = 8
+
     /**
      * The amount of lines that will be created. Defaults to the duration
      */
@@ -588,43 +553,10 @@ class RandomCuboidLines : WallStructure() {
      */
     var sections: Int = 4
 
-    override fun run() {
-        val c = CuboidConstrains(p1, p2)
-        val trueCount = count ?: c.duration.roundToInt()
-        val r = Random(seed)
-        repeat(trueCount) {
-            val z1 = c.sz + it.toDouble() / trueCount * c.duration
-            val z2 = z1 + 1.0 / trueCount * c.duration
-            // selects a random Side
-            val randomSide = r.nextInt(4)
-            // selects a random Section
-            val randomSection = r.nextInt(1, sections)
-            val randomX = c.sx + c.width / sections * randomSection
-            val randomY = c.sy + c.height / sections * randomSection
-
-            // selects the first Point of the line
-            val lineP1 = when (randomSide) {
-                0 -> Point(c.sx, randomY, z1)
-                1 -> Point(c.ex, randomY, z1)
-                2 -> Point(randomX, c.sy, z1)
-                3 -> Point(randomX, c.ey, z1)
-                else -> Point(0, 0, 0) // never happens
-            }
-
-            // calculates the end X and Y
-            val randomEndX = lineP1.x + if (r.nextBoolean()) -c.width / sections else c.width / sections
-            val randomEndY = lineP1.y + if (r.nextBoolean()) -c.height / sections else c.height / sections
-
-            val lineP2 = when (randomSide) {
-                0 -> lineP1.copy(y = randomEndY, z = z2)
-                1 -> lineP1.copy(y = randomEndY, z = z2)
-                2 -> lineP1.copy(x = randomEndX, z = z2)
-                3 -> lineP1.copy(x = randomEndX, z = z2)
-                else -> Point(0, 0, 0) // never happens
-            }
-            add(line(lineP1, lineP2, amount))
-        }
-    }
+    /**
+     * generating the Walls
+     */
+    override fun generateWalls() { run() }
 }
 
 /**
@@ -635,26 +567,33 @@ class Curve : WallStructure() {
      * the start Point of the Curve
      */
     var p1: Point = Point(0, 0, 0)
+
     /**
      * the first Controllpoint, defaults to the startPoint
      */
     var p2: Point? = null
+
     /**
      * second ControlPoint, defaults to the end point
      */
     var p3: Point? = null
+
     /**
      * The EndPoint of the Curve
      */
     var p4: Point = Point(0,0,0)
+
     /**
      * amount of Walls
      */
     var amount: Int = 8
-    override fun run() {
-        add(curve(p1, p2?:p1,p3?: p4, p4,amount))
-    }
+
+    /**
+     * generating the Walls
+     */
+    override fun generateWalls() { run() }
 }
+
 /**
  * Draw a steady curve of Walls. that is exactly 1 beat long
  * */
@@ -663,29 +602,31 @@ class SteadyCurve:WallStructure(){
      * the start Point of the Curve
      */
     var p1: Point = Point(0,0,0)
+
     /**
      * the first Controllpoint, defaults to the startPoint
      */
     var p2: Point? = null
+
     /**
      * second ControlPoint, defaults to the end point
      */
     var p3: Point? = null
+
     /**
      * The EndPoint of the Curve
      */
     var p4: Point = Point(0,0,1)
+
     /**
      * amount of Walls
      */
     var amount: Int = 8
-    override fun run() {
-        p1=p1.copy(z=0.0)
-        p2= p2?.copy(z=0.3333)
-        p3= p3?.copy(z=0.6666)
-        p4=p4.copy(z=1.0)
-        add(curve(p1, p2?:p1,p3?: p4, p4,amount))
-    }
+
+    /**
+     * generating the Walls
+     */
+    override fun generateWalls() { run() }
 }
 
 /**
@@ -709,72 +650,94 @@ class Define: WallStructure() {
      */
     var isTopLevel = false
 
-    override fun run() {
-        if (structures.isEmpty())
-            logger.warn { "The structureList of $name is empty, check if you have a typo " }
-        for(w in structures){
-            val l = w.walls()
-            l.forEach { it.startTime+=(w.beat) }
-            add(l)
-        }
-    }
+    /**
+     * generating the Walls
+     */
+    override fun generateWalls() { run() }
 }
 
 /**
  * create a single Wall
  */
 class Wall: WallStructure() {
+    /**
+     * The StartTime of the wall, relative to the beat count.
+     * Should be left at 0 most of the time.
+     * Default: 0
+     */
     var startTime = 0.0
+
+    /**
+     * Duration of the Wall in beats
+     */
     var duration = 1.0
+
+    /**
+     * The startHeight of the wall.
+     */
     var startHeight = 0.0
+
+    /**
+     * The Height of the wall.
+     */
     var height = 0.0
+
+    /**
+     * The startRow of the Wall
+     * 0 equals center. 1 equals 1 block size
+     */
     var startRow = 0.0
+
+    /**
+     * The width of the Wall
+     */
     var width = 0.0
 
-    override fun run() {
-        add(SpookyWall(
-            startRow = startRow,
-            duration = duration,
-            width = width,
-            height = height,
-            startHeight = startHeight,
-            startTime = startTime
-        ))
-    }
+    /**
+     * generating the Walls
+     */
+    override fun generateWalls() { run() }
 }
 
 /**
  * spinning time! make walls spin around the player
  */
 class Helix: WallStructure() {
+
     /**
      * how many spirals will be created
      */
     var count = 2
+
     /**
      * The radius of the Helix
      */
     var radius = 2.0
+
     /**
      * does not reflect the actual amount of walls, instead is more of an multiplier (will be changed with version 1.0)
      */
     var amount = 10
+
     /**
      * the start in degree
      */
     var startRotation = 0.0
+
     /**
      * describes, how many "Spins" the helix has
      */
     var rotationAmount = 1.0
+
     /**
      * Point of the center, defaults to 0,2,0
      */
     var center = Point(0,2,0)
 
-    override fun run() {
-        add(circle(count = count, fineTuning = amount, heightOffset = center.y, radius = radius,startRotation = startRotation,rotationCount = rotationAmount,helix = true))
-    }
+    /**
+     * generating the Walls
+     */
+    override fun generateWalls() { run() }
 }
 
 /**
@@ -794,11 +757,10 @@ class Loop: WallStructure(){
      */
     var amount: Int = 8
 
-    override fun run() {
+    override fun generateWalls() {
         TODO()
     }
 }
-
 
 /**
  * Draws a wall of line between the 2 provided Points
@@ -808,17 +770,23 @@ class Line: WallStructure(){
      * how many walls will be created. Default: 8
      */
     var amount: Int = 8
+
     /**
      * The startPoint
      */
     var p1 = Point(0, 0, 0)
+
     /**
      * the End Point
      */
     var p2 = Point(0,0,1)
-    override fun run() {
+
+    /**
+     * generating the Walls
+     */
+    //todo override fun generateWalls() { run() }
+    override fun generateWalls() {
         add(line(p1,p2,amount))
-        super.run()
     }
 }
 
@@ -826,34 +794,29 @@ class Line: WallStructure(){
  * place random blocks around the player
  */
 class RandomBlocks: WallStructure(){
+
     var duration = 4
+
     var amount= 8
+
     var wallDuration = 1.0
-    override fun run() {
-        repeat(amount){
-            add(createBlock(it.toDouble()/amount*duration,wallDuration))
-        }
-    }
-    private fun createBlock(st:Double ,d:Double): SpookyWall {
-        val r = Random(seed)
-        val sr = r.nextDouble(-20.0, 20.0)
-        val w = sr * r.nextDouble()
-        val sh = r.nextDouble(5.0)
-        val h = sr * r.nextDouble(0.2)
-        return SpookyWall(sr, d, w, h, sh, st)
 
-
-    }
+    /**
+     * generating the Walls
+     */
+    override fun generateWalls() { run() }
 }
 
 /**
  * random curves in a given cubic. Always starts at p1 and ends at p2.
  */
 class RandomCurve: WallStructure(){
+
     /**
      * dont touch
      */
     private var randomSideChooser = Random.nextBoolean()
+
     /**
      * first Point that controls the cubic, in which section walls are created. defaults to a random side
      */
@@ -863,62 +826,37 @@ class RandomCurve: WallStructure(){
      * second Point that crontrols in which section walls are created. z must be higher than p1
      */
     var p2: Point = if(randomSideChooser) Point(4,0,1) else Point(-4,4,1)
+
     /**
      * the amount of Walls per beat
      */
     var amount: Int = 8
 
-    override fun run() {
-        val r = Random(seed)
-        val mult: Double
-        if((p2.z-p1.z) < 1){
-            mult = 1 / (p2.z-p1.z)
-            p2  = p2.copy(z=p1.z+1)
-        }else{
-            mult = 1.0
-        }
-        var tp3 = randomTimedPoint(r, -0.33 * mult)
-        var tp4 = p1
-        for(i in p1.z.toInt() until p2.z.toInt()) {
-            val tp1 = tp4.copy()
-            val tp2 = tp4.mirrored(tp3)
-            tp3 = randomTimedPoint(r, i + 0.66 * mult)
-            tp4 = if (i + 1 == p2.z.toInt())
-                p2.copy(z = p2.z + 1)
-            else
-                randomTimedPoint(r, i + 1.0 * mult)
-            add(curve(tp1, tp2, tp3, tp4, amount))
-        }
-    }
-
-    private fun randomTimedPoint(r: Random, z: Double): Point {
-        val minx = min(p1.x, p2.x)
-        val maxX = max(p1.x, p2.x).coerceAtLeast(minx + 0.1)
-        val minY = min(p1.y, p2.y)
-        val maxY = max(p1.y, p2.y).coerceAtLeast(minY + 0.1)
-        val x = r.nextDouble(minx, maxX)
-        val y = r.nextDouble(minY, maxY)
-        return Point(x, y, z)
-    }
+    /**
+     * generating the Walls
+     */
+    override fun generateWalls() { run() }
 }
 
 /**
  * Helix Curve lets you define 1/4 of a curve around the center. The program creates the rest of the helix
  */
-
 class HelixCurve: WallStructure() {
     /**
      * the start Point of the Curve
      */
     var p1: Point = Point(0,0,0)
+
     /**
      * the first Controllpoint, defaults to the startPoint
      */
     var p2: Point = Point(4.0,0.0,0.33)
+
     /**
      * second ControlPoint, defaults to the end point
      */
     var p3: Point = Point(4.0,0.0,0.66)
+
     /**
      * The EndPoint of the Curve
      */
@@ -928,35 +866,32 @@ class HelixCurve: WallStructure() {
      * the amount of walls per Helix
      */
     var amount: Int = 8
+
     /**
      * how many helix spines will be Created. Only 2 or 4 allowed
      */
     var count: Int = 4
 
-    override fun run() {
+    /**
+     * generating the Walls
+     */
+    //todo override fun generateWalls() { run() }
+    override fun generateWalls() {
         val center = Point(0,2,0)
-        add(curve(p1,p2,p3,p4,amount))
-        add(curve(center.mirroredNoZ(p1),center.mirroredNoZ(p2), center.mirroredNoZ(p3), center.mirroredNoZ(p4), amount))
+        add(curve(p1, p2, p3, p4, amount))
+        add(
+            curve(
+                center.mirroredNoZ(p1),
+                center.mirroredNoZ(p2),
+                center.mirroredNoZ(p3),
+                center.mirroredNoZ(p4),
+                amount
+            )
+        )
         if(count == 4)
             TODO()
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 //                                               _                _      ____               _
@@ -1304,7 +1239,7 @@ class ContinuesCurve : WallStructure(){
      */
     var c32: Point? = null
 
-    override fun run() {
+    override fun generateWalls() {
         for(i in 1 until creationAmount){
             val point = readPoint("p$i")
             val controlPoint = readPoint("c$i")
@@ -1659,7 +1594,7 @@ class ContinuousCurve : WallStructure(){
      */
     var c32: Point? = null
 
-    override fun run() {
+    override fun generateWalls() {
         for(i in 1 until creationAmount){
             val point = readPoint("p$i")
             val controlPoint = readPoint("c$i")

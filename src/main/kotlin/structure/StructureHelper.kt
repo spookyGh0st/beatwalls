@@ -144,22 +144,6 @@ fun line(p0:Triple<Double,Double,Double>, p1: Triple<Double,Double,Double>,amoun
     return line(p0.first,p0.second,p0.third,p1.first,p1.first,p1.first,amount)
 }
 
-fun curve(startPoint: Point,p1: Point,p2: Point, endPoint: Point, amount: Int):ArrayList<SpookyWall>{
-    val list = arrayListOf<SpookyWall>()
-    repeat(amount){
-        val currentPoint = quadraticBezier(startPoint, p1, p2, endPoint, it.toDouble() / amount)
-        val nextPoint = quadraticBezier(startPoint, p1, p2, endPoint, (it + 1.0) / amount)
-        val startRow = currentPoint.x
-        val startHeight = currentPoint.y
-        val startTime = min(currentPoint.z, nextPoint.z)
-        val width = nextPoint.x - currentPoint.x
-        val height = nextPoint.y - currentPoint.y
-        val duration = abs(nextPoint.z -currentPoint.z)
-        list.add(SpookyWall(startRow, duration, width, height, startHeight, startTime))
-    }
-    return list
-}
-
 fun getBoxList(wallAmountPerWall: Int): ArrayList<SpookyWall> {
     val allWalls= arrayListOf<SpookyWall>()
     for ( i in 0 until wallAmountPerWall*2){
@@ -208,22 +192,6 @@ fun getBoxList(wallAmountPerWall: Int): ArrayList<SpookyWall> {
 }
 fun randomPoint() =
     Point(Random.nextDouble(-4.0, 4.0), Random.nextDouble(-2.0, 2.0), Random.nextDouble())
-
-fun quadraticBezier(p0: Point, p1: Point, p2: Point, p3: Point, t:Double): Point {
-    val x =(1-t).pow(3)*p0.x +
-            (1-t).pow(2)*3*t*p1.x +
-            (1-t)*3*t*t*p2.x +
-            t*t*t*p3.x
-    val y =(1-t).pow(3)*p0.y +
-            (1-t).pow(2)*3*t*p1.y +
-            (1-t)*3*t*t*p2.y +
-            t*t*t*p3.y
-    val z =(1-t).pow(3)*p0.z +
-            (1-t).pow(2)*3*t*p1.z +
-            (1-t)*3*t*t*p2.z +
-            t*t*t*p3.z
-    return Point(x, y, z)
-}
 
 data class Point(val x:Double, val y:Double, val z:Double):Serializable {
     constructor(x:Int,y:Int,z:Int):this(x.toDouble(),y.toDouble(),z.toDouble())

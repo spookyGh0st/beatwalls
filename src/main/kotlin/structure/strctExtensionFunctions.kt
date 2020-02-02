@@ -10,7 +10,7 @@ private val logger = KotlinLogging.logger {}
 /** this is for getting the acutal Walls */
 fun WallStructure.walls(): ArrayList<SpookyWall> {
     //order is important, dont question it
-    run()
+    generateWalls()
     adjust()
     repeat()
     mirror()

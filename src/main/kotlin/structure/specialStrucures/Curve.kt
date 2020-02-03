@@ -1,6 +1,8 @@
 package structure.specialStrucures
 
 import structure.*
+import structure.helperClasses.Point
+import structure.helperClasses.SpookyWall
 import kotlin.math.abs
 import kotlin.math.min
 import kotlin.math.pow
@@ -41,7 +43,16 @@ fun curve(startPoint: Point, p1: Point, p2: Point, endPoint: Point, amount: Int)
         val width = nextPoint.x - currentPoint.x
         val height = nextPoint.y - currentPoint.y
         val duration = abs(nextPoint.z - currentPoint.z)
-        list.add(SpookyWall(startRow, duration, width, height, startHeight, startTime))
+        list.add(
+            SpookyWall(
+                startRow,
+                duration,
+                width,
+                height,
+                startHeight,
+                startTime
+            )
+        )
     }
     return list
 }

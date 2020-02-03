@@ -1,7 +1,7 @@
 package structure.specialStrucures
 
 import structure.RandomBlocks
-import structure.SpookyWall
+import structure.helperClasses.SpookyWall
 import structure.add
 import kotlin.random.Random
 

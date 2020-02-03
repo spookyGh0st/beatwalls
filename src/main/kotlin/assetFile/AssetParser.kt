@@ -3,6 +3,7 @@ package assetFile
 import com.github.spookyghost.beatwalls.errorExit
 import mu.KotlinLogging
 import structure.*
+import structure.helperClasses.Point
 import kotlin.random.Random
 import kotlin.reflect.*
 import kotlin.reflect.full.createInstance
@@ -169,9 +170,9 @@ fun fillProperty(
         "kotlin.Int"-> value.toIntOrNull()
         "kotlin.Double"-> value.toDoubleOrNull()
         "() -> kotlin.Double" -> value.toDoubleFunc()
-        "kotlin.String"-> value
-        "structure.Point"-> value.toPoint()
-        "structure.WallStructure"-> value.toWallStructure(definedStructure)
+        "kotlin.String" -> value
+        "structure.helperClasses.Point" -> value.toPoint()
+        "structure.WallStructure" -> value.toWallStructure(definedStructure)
         "kotlin.collections.List<structure.WallStructure>" -> value.toWallStructureList(definedStructure)
         else -> null
     }
@@ -233,9 +234,9 @@ private fun String.toPoint(): Point {
         .map { it.trim() }
         .map { it.toDoubleOrNull() }
     return Point(
-        x = values.getOrNull(0)?:0.0,
-        y = values.getOrNull(1)?:0.0,
-        z = values.getOrNull(2)?:0.0
+        x = values.getOrNull(0) ?: 0.0,
+        y = values.getOrNull(1) ?: 0.0,
+        z = values.getOrNull(2) ?: 0.0
     )
 }
 

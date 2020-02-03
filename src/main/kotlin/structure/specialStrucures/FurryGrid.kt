@@ -1,7 +1,7 @@
 package structure.specialStrucures
 
 import structure.FurryGrid
-import structure.SpookyWall
+import structure.helperClasses.SpookyWall
 import structure.add
 
 fun FurryGrid.run(){

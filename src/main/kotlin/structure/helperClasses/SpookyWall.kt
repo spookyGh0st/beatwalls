@@ -1,6 +1,5 @@
-package structure
+package structure.helperClasses
 
-import com.github.spookyghost.beatwalls.readHjsDuration
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
 import difficulty._obstacles
@@ -8,7 +7,6 @@ import java.io.Serializable
 import kotlin.math.abs
 import kotlin.math.max
 import kotlin.math.min
-import kotlin.random.Random
 
 
 data class SpookyWall(
@@ -26,9 +24,17 @@ data class SpookyWall(
     @SerializedName("startTime") var startTime: Double
 ):Serializable{
     val trueMaxPoint
-        get() = Point(max(startRow, startRow +width),max(startHeight, startHeight+height), max(startTime,startTime+duration))
+        get() = Point(
+            max(startRow, startRow + width),
+            max(startHeight, startHeight + height),
+            max(startTime, startTime + duration)
+        )
     val trueLowestPoint
-        get() =  Point(min(startRow, startRow +width),min(startHeight, startHeight+height), startTime)
+        get() = Point(
+            min(startRow, startRow + width),
+            min(startHeight, startHeight + height),
+            startTime
+        )
     /**Changes the MyObstacle Type to an _obstacle Type */
     fun to_obstacle(hjd: Double): _obstacles {
         //first, so it adjust the startRow
@@ -104,22 +110,6 @@ data class SpookyWall(
         return  (tWallH * 1000 + tStartH+4001)
     }
 
-    fun fuckUp() =
-        SpookyWall(ra(startRow), ra(duration), ra(width), ra(height), ra(startHeight), ra(startTime))
-
-    fun ground(h:Double) =
-        SpookyWall(startRow, duration, width, height + (startHeight - h), h, startTime)
-
-    fun sky(h:Double) =
-        SpookyWall(startRow, duration, width, (h - startHeight), startHeight, startTime)
-
-    fun extend(a:Double) =
-        SpookyWall(startRow, a - startTime, width, height, startHeight, startTime)
-
-    private fun ra(i:Double) = i+Random.nextDouble(-0.2 ,0.2)
-    fun fast() = this.copy(duration= -2.0)
-    fun hyper() = this.copy(duration = -3.0)
-
     /**returns the mirrored obstacle */
     fun mirror() {
         startRow = -startRow
@@ -137,7 +127,6 @@ data class SpookyWall(
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (other !is SpookyWall) return false
-
         if (startRow != other.startRow) return false
         if (duration != other.duration) return false
         if (width != other.width) return false

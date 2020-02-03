@@ -1,6 +1,6 @@
 package structure.specialStrucures
 
-import structure.Point
+import structure.helperClasses.Point
 import structure.RandomCurve
 import structure.add
 import kotlin.math.max

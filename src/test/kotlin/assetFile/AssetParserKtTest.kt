@@ -2,11 +2,8 @@ package assetFile
 
 import junit.framework.TestCase
 import structure.*
+import structure.helperClasses.Point
 import kotlin.random.Random
-import kotlin.random.asJavaRandom
-import kotlin.reflect.KType
-import kotlin.reflect.full.withNullability
-import kotlin.reflect.jvm.javaType
 import kotlin.test.assertNotEquals
 
 
@@ -90,9 +87,9 @@ class AssetParserKtTest : TestCase() {
         val p = findProperty(w,"p1")
         fillProperty(p!!, "1,2,3", listOf(),w)
         val actual = w.p1
-        val expected = Point(1,2,3)
-        assertEquals(actual,expected)
-        assertNotEquals(actual, Point(0,2,3))
+        val expected = Point(1, 2, 3)
+        assertEquals(actual, expected)
+        assertNotEquals(actual, Point(0, 2, 3))
     }
 
     fun testDefineWallFillProperty() {

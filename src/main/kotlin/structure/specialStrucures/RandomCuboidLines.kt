@@ -1,6 +1,8 @@
 package structure.specialStrucures
 
 import structure.*
+import structure.helperClasses.CuboidConstrains
+import structure.helperClasses.Point
 import kotlin.math.roundToInt
 import kotlin.random.Random
 

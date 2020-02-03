@@ -2,7 +2,8 @@
 
 package structure
 
-import mu.KotlinLogging
+import structure.helperClasses.Point
+import structure.helperClasses.SpookyWall
 import structure.specialStrucures.calcP3
 import structure.specialStrucures.curve
 import structure.specialStrucures.readPoint
@@ -23,9 +24,6 @@ Define the parameters and documentation of the structure here as usual. You dont
 add the run Function in the relevant file in the specialStructures folder You can create Walls with SpookyWall and add them with add(Wall) or add(Collection of walls).
 submit a pull request and wait for approval.
  */
-
-//todo remove
-private val logger = KotlinLogging.logger {}
 
 //    _   __                           __   _____ __                  __
 //   / | / /___  _________ ___  ____ _/ /  / ___// /________  _______/ /___  __________  _____
@@ -322,7 +320,11 @@ sealed class WallStructure:Serializable
         var seed: Int? = null
     }
 
+    /** generates the walls */
     abstract fun generateWalls()
+
+    /** returns the name of the structure */
+    open fun name() = this::class.simpleName ?: "" //todo throw error
 
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
@@ -417,12 +419,12 @@ class RandomNoise:WallStructure(){
     /**
      * controls one corner of the Area
      */
-    var p1 = Point(-6,0,0)
+    var p1 = Point(-6, 0, 0)
 
     /**
      * controls the other corner of the Area
      */
-    var p2 = Point(6,5,1)
+    var p2 = Point(6, 5, 1)
 
     /**
      * generating the Walls
@@ -472,7 +474,8 @@ class FurryGrid : WallStructure() {
     /**
      * the start Point of the grid
      */
-    var p1: Point = Point(-4, 0, 0)
+    var p1: Point =
+        Point(-4, 0, 0)
 
     /**
      * generating the Walls
@@ -487,7 +490,8 @@ class RandomCuboidLines : WallStructure() {
     /**
      * the first corner of the cuboid. Default is -2,0,0
      */
-    var p1: Point = Point(-2, 0, 0)
+    var p1: Point =
+        Point(-2, 0, 0)
 
     /**
      * the second corner of the cuboid. Default is 2,4,8
@@ -537,7 +541,7 @@ class Curve : WallStructure() {
     /**
      * The EndPoint of the Curve
      */
-    var p4: Point = Point(0,0,0)
+    var p4: Point = Point(0, 0, 0)
 
     /**
      * amount of Walls
@@ -557,7 +561,7 @@ class SteadyCurve:WallStructure(){
     /**
      * the start Point of the Curve
      */
-    var p1: Point = Point(0,0,0)
+    var p1: Point = Point(0, 0, 0)
 
     /**
      * the first Controllpoint, defaults to the startPoint
@@ -572,7 +576,7 @@ class SteadyCurve:WallStructure(){
     /**
      * The EndPoint of the Curve
      */
-    var p4: Point = Point(0,0,1)
+    var p4: Point = Point(0, 0, 1)
 
     /**
      * amount of Walls
@@ -609,7 +613,13 @@ class Define: WallStructure() {
     /**
      * generating the Walls
      */
-    override fun generateWalls() { run() }
+    override fun generateWalls() {
+        run()
+    }
+
+    override fun name(): String {
+        return name
+    }
 }
 
 /**
@@ -688,7 +698,7 @@ class Helix: WallStructure() {
     /**
      * Point of the center, defaults to 0,2,0
      */
-    var center = Point(0,2,0)
+    var center = Point(0, 2, 0)
 
     /**
      * generating the Walls
@@ -722,6 +732,7 @@ class Loop: WallStructure(){
  * Draws a wall of line between the 2 provided Points
  */
 class Line: WallStructure(){
+
     /**
      * how many walls will be created. Default: 8
      */
@@ -735,14 +746,13 @@ class Line: WallStructure(){
     /**
      * the End Point
      */
-    var p2 = Point(0,0,1)
+    var p2 = Point(0, 0, 1)
 
     /**
      * generating the Walls
      */
-    //todo override fun generateWalls() { run() }
     override fun generateWalls() {
-        add(line(p1,p2,amount))
+        run()
     }
 }
 
@@ -776,12 +786,20 @@ class RandomCurve: WallStructure(){
     /**
      * first Point that controls the cubic, in which section walls are created. defaults to a random side
      */
-    var p1: Point = if(randomSideChooser) Point(1,0,0) else Point(-1,0,0)
+    var p1: Point = if (randomSideChooser) Point(
+        1,
+        0,
+        0
+    ) else Point(-1, 0, 0)
 
     /**
      * second Point that crontrols in which section walls are created. z must be higher than p1
      */
-    var p2: Point = if(randomSideChooser) Point(4,0,1) else Point(-4,4,1)
+    var p2: Point = if (randomSideChooser) Point(
+        4,
+        0,
+        1
+    ) else Point(-4, 4, 1)
 
     /**
      * the amount of Walls per beat
@@ -803,22 +821,24 @@ class HelixCurve: WallStructure() {
     /**
      * the start Point of the Curve
      */
-    var p1: Point = Point(0,0,0)
+    var p1: Point = Point(0, 0, 0)
 
     /**
      * the first Controllpoint, defaults to the startPoint
      */
-    var p2: Point = Point(4.0,0.0,0.33)
+    var p2: Point =
+        Point(4.0, 0.0, 0.33)
 
     /**
      * second ControlPoint, defaults to the end point
      */
-    var p3: Point = Point(4.0,0.0,0.66)
+    var p3: Point =
+        Point(4.0, 0.0, 0.66)
 
     /**
      * The EndPoint of the Curve
      */
-    var p4: Point = Point(4,2,1)
+    var p4: Point = Point(4, 2, 1)
 
     /**
      * the amount of walls per Helix
@@ -835,7 +855,7 @@ class HelixCurve: WallStructure() {
      */
     //todo override fun generateWalls() { run() }
     override fun generateWalls() {
-        val center = Point(0,2,0)
+        val center = Point(0, 2, 0)
         add(curve(p1, p2, p3, p4, amount))
         add(
             curve(

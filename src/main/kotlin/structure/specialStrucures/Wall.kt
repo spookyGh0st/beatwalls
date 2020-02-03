@@ -1,6 +1,6 @@
 package structure.specialStrucures
 
-import structure.SpookyWall
+import structure.helperClasses.SpookyWall
 import structure.Wall
 import structure.add
 

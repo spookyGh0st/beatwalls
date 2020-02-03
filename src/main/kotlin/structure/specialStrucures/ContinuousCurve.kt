@@ -3,6 +3,7 @@ package structure.specialStrucures
 import assetFile.findProperty
 import assetFile.readProperty
 import structure.*
+import structure.helperClasses.Point
 
 fun ContinuousCurve.run(){
     for(i in 1 until creationAmount){

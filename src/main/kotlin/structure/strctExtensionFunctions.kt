@@ -1,9 +1,8 @@
 package structure
 
 import mu.KotlinLogging
+import structure.helperClasses.SpookyWall
 import java.io.*
-import kotlin.math.max
-import kotlin.math.min
 import kotlin.math.pow
 private val logger = KotlinLogging.logger {}
 
@@ -14,7 +13,8 @@ fun WallStructure.walls(): ArrayList<SpookyWall> {
     adjust()
     repeat()
     mirror()
-    logger.info { "Added ${this::class.simpleName?:"undefined Structure"} with ${spookyWalls.size} walls on beat $beat." }
+    if (this !is Define || this.isTopLevel)
+        logger.info { "Added ${name()} with ${spookyWalls.size} walls on beat $beat." }
     return spookyWalls
 }
 
@@ -26,7 +26,7 @@ fun WallStructure.add(w:Collection<SpookyWall>){
     spookyWalls.addAll(w)
 }
 
-fun WallStructure.add(w:SpookyWall){
+fun WallStructure.add(w: SpookyWall) {
     spookyWalls.add(w)
 }
 
@@ -102,16 +102,14 @@ fun WallStructure.adjust(){
     spookyWalls.forEach { it.width += addWidth?.invoke()?:0.0 }
 
     //fit
-    //todo fix, there fucks with negative width
-    if (fitDuration!=null)
-        if (fitHeight!=null)
-            spookyWalls.forEach {
-                it.startTime = (it.startTime+(it.duration.takeIf { i -> i > 0 }?:0.0)) - fitDuration!!.invoke()
-                it.duration = fitDuration!!.invoke()
-            }
-    if (fitStartTime!=null)
+    if (fitDuration != null)
         spookyWalls.forEach {
-            it.duration = (it.startTime+(it.duration.takeIf { i -> i > 0 }?:0.0)) - fitStartTime!!.invoke()
+            it.startTime = (it.startTime + (it.duration.takeIf { i -> i > 0 } ?: 0.0)) - fitDuration!!.invoke()
+            it.duration = fitDuration!!.invoke()
+        }
+    if (fitStartTime != null)
+        spookyWalls.forEach {
+            it.duration = (it.startTime + (it.duration.takeIf { i -> i > 0 } ?: 0.0)) - fitStartTime!!.invoke()
             it.startTime = fitStartTime!!.invoke()
         }
     if (fitHeight!=null)
@@ -192,17 +190,6 @@ fun ArrayList<SpookyWall>.reverseY() {
         it.startHeight = center + (center - it.startHeight)
         it.height *= -1
     }
-}
-class CuboidConstrains(p1: Point, p2: Point) {
-    val sx = min(p1.x, p2.x)
-    val ex = max(p1.x, p2.x).coerceAtLeast(sx + 0.0000001)
-    val sy = min(p1.y, p2.y)
-    val ey = max(p1.y, p2.y).coerceAtLeast(sy + 0.0000001)
-    val sz = min(p1.z, p2.z)
-    val ez = max(p1.z, p2.z).coerceAtLeast(sz + 0.0000001)
-    val duration = ez - sz
-    val height = ey - sy
-    val width = ex - sx
 }
 
 private fun ArrayList<SpookyWall>.maxX() =

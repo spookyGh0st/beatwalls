@@ -1,6 +1,6 @@
 package difficulty
 import assetFile.MetaData
-import structure.SpookyWall
+import structure.helperClasses.SpookyWall
 import structure.WallStructure
 import structure.walls
 import kotlin.math.ceil

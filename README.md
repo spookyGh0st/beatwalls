@@ -82,6 +82,8 @@ Each time it will be shifted be the amounts in
 - repeatAddY(default: 0) 
 - repeatAddZ (default: 1)
 
+One gotcha: This is just copy and paste. So 5 repeatings of a struct with Randomness will create the same struct 5 times.
+
 ### Defining you own structures
 
 The Wallstructure Define is a special one for advanced uses. You can use this to to reuse complex structures without having to write them all down. They must be written in the order they are used.

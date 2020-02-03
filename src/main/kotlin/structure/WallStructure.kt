@@ -795,6 +795,8 @@ class RandomCurve: WallStructure(){
 }
 
 /**
+ * NOT IMPLEMENTED YET
+ *
  * Helix Curve lets you define 1/4 of a curve around the center. The program creates the rest of the helix
  */
 class HelixCurve: WallStructure() {

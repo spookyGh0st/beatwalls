@@ -41,9 +41,9 @@ object GlobalConfig{
 
 private val logger = KotlinLogging.logger {}
 
-fun errorExit(e:Exception? = null, msg: () -> Any){
+fun errorExit(e: Exception? = null, msg: () -> Any): Nothing {
     logger.error { msg.invoke() }
-    if(e != null){
+    if (e != null) {
         logger.info { "See Error Log below" }
         logger.error { e.message }
     }

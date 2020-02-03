@@ -2,10 +2,10 @@
 
 package structure
 
-import assetFile.findProperty
-import assetFile.readProperty
 import mu.KotlinLogging
+import structure.specialStrucures.calcP3
 import structure.specialStrucures.curve
+import structure.specialStrucures.readPoint
 import structure.specialStrucures.run
 import java.io.Serializable
 import kotlin.random.Random
@@ -279,91 +279,47 @@ sealed class WallStructure:Serializable
 
     companion object Default {
         var mirror: Int = 0
-
         var time: Boolean = true
-
         var changeStartTime: (() -> Double)? = null
-
         var changeDuration: (() -> Double)? = null
-
         var changeHeight: (() -> Double)? = null
-
         var changeStartHeight: (() -> Double)? = null
-
         var changeStartRow: (() -> Double)? = null
-
         var changeWidth: (() -> Double)? = null
-
         var scaleStartTime: (() -> Double)? = null
-
         var scaleDuration: (() -> Double)? = null
-
         var scaleHeight: (() -> Double)? = null
-
         var scaleStartHeight: (() -> Double)? = null
-
         var scaleStartRow: (() -> Double)? = null
-
         var scaleWidth: (() -> Double)? = null
-
         var addStartTime: (() -> Double)? = null
-
         var addDuration: (() -> Double)? = null
-
         var addHeight: (() -> Double)? = null
-
         var addStartHeight: (() -> Double)? = null
-
         var addStartRow: (() -> Double)? = null
-
         var addWidth: (() -> Double)? = null
-
         var fitStartTime: (() -> Double)? = null
-
         var fitDuration: (() -> Double)? = null
-
         var fitHeight: (() -> Double)? = null
-
         var fitStartHeight: (() -> Double)? = null
-
         var fitStartRow: (() -> Double)? = null
-
         var fitWidth: (() -> Double)? = null
-
         var scale: Double? = null
-
         var reverse: Boolean = false
-
         var reverseX: Boolean = false
-
         var reverseY: Boolean = false
-
         var speeder: Double? = null
-
-        //todo remove repeat and build loop
-
         var repeat: Int = 1
-
         var repeatAddZ: Double = 1.0
-
         var repeatAddX: Double = 0.0
-
         var repeatAddY: Double = 0.0
-
         var repeatAddWidth: Double = 0.0
-
         var repeatAddStartRow: Double = 0.0
-
         var repeatAddStartHeight: Double = 0.0
-
         var repeatAddHeight: Double = 0.0
-
         var repeatAddStartTime: Double = 0.0
-
         var repeatAddDuration: Double = 0.0
-
         var seed: Int? = null
-
     }
 
     abstract fun generateWalls()
@@ -1249,7 +1205,12 @@ class ContinuesCurve : WallStructure(){
             if(point!=null && nextPoint!=null && controlPoint!=null && nextControlPoint!= null) {
                 val tempP1 = point
                 val tempP2 = controlPoint.copy(z = point.z + (1/3.0) * (nextPoint.z - point.z))
-                val tempP3 = calcP3(point, nextPoint, nextControlPoint, nextNextPoint)
+                val tempP3 = calcP3(
+                    point,
+                    nextPoint,
+                    nextControlPoint,
+                    nextNextPoint
+                )
                 val tempP4 = nextPoint
                 val amount = ((tempP4.z - tempP1.z) * amount).toInt()
                 add(curve(tempP1, tempP2, tempP3, tempP4, amount))
@@ -1594,59 +1555,9 @@ class ContinuousCurve : WallStructure(){
      */
     var c32: Point? = null
 
-    override fun generateWalls() {
-        for(i in 1 until creationAmount){
-            val point = readPoint("p$i")
-            val controlPoint = readPoint("c$i")
-            val nextPoint = readPoint("p${i +1}")
-            val nextControlPoint = readPoint("c${i+1}")
-            val nextNextPoint = try { readPoint("p${i+2}") } catch (e:Exception){ null }
-            if(point!=null && nextPoint!=null && controlPoint!=null && nextControlPoint!= null) {
-                val tempP1 = point
-                val tempP2 = controlPoint.copy(z = point.z + (1/3.0) * (nextPoint.z - point.z))
-                val tempP3 = calcP3(point, nextPoint, nextControlPoint, nextNextPoint)
-                val tempP4 = nextPoint
-                val amount = ((tempP4.z - tempP1.z) * amount).toInt()
-                add(curve(tempP1, tempP2, tempP3, tempP4, amount))
-            }
-        }
-    }
-}
-
-fun calcP3(point: Point, nextPoint: Point, nextControlPoint:Point, nextNextPoint: Point?): Point {
-    //todo something is still not right
-    val defaultOffset = point.z + (nextPoint.z-point.z)
-    val nextControlPointZ = nextPoint.z + (1/3.0) * ((nextNextPoint?.z ?: defaultOffset) - nextPoint.z)
-    val nextCp = nextControlPoint.copy(z = nextControlPointZ)
-    val cp = nextPoint.mirrored(nextCp)
-    val z = point.z+0.66*(nextPoint.z-point.z)
-    val m = z-cp.z
-    val x = cp.x + m*(point.x-cp.x)
-    val y = cp.y + m*(point.y-cp.y)
-    return Point(x,y,z)
-}
-
-fun WallStructure.readPoint(name:String): Point? =
-    this.readProperty(findProperty(this,name)) as Point?
-
-@Suppress("DEPRECATION")
-fun ContinuesCurve.generateProperties(): String {
-    var s = ""
-    for(it in 1 .. creationAmount){
-        s+="""
-            
-            
-            /**
-            * The $it Point. use this to set an exact Point the wall will go through
-            */
-            var p$it: Point? = null
-            
-            /** 
-            * The ControllPoint for the $it Point. Use this to guide the curve to his direction
-            */
-            var c$it: Point? = null
-        """.trimIndent()
-    }
-    return s
+    /**
+     * generating the Walls
+     */
+    override fun generateWalls() { run() }
 }
 

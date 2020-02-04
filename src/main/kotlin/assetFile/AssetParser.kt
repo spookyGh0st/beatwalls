@@ -105,7 +105,6 @@ fun findStructure(name: String, definedStructure: List<Define>): Any {
         "default" -> WallStructure.Default
         else -> {
             errorExit { "structure $structName not found" }
-            EmptyWallStructure
         }
     }
     return struct
@@ -249,7 +248,6 @@ private fun String.toWallStructure(definedStructure: List<Define>): WallStructur
         a
     else {
         errorExit { "The Wallstructure $this does not exist" }
-        EmptyWallStructure
     }
 }
 
@@ -271,23 +269,19 @@ private fun String.toDoubleFunc(): Function<Double>? {
                     if (constrains[0] > 0.0)
                         return { RandomSeed.nextDouble(constrains[0]) }
                     errorExit { "Failed to parse the random values fo $s syntax is random(min, max), random(max) or random()" }
-                    return null
                 }
                 constrains.size == 2 -> {
                     if (constrains[1] > constrains[0] && constrains[0] != constrains[1])
                         return { RandomSeed.nextDouble(constrains[0], constrains[1]) }
                     errorExit { "Failed to parse the random values fo $s syntax is random(min, max), random(max) or random()" }
-                    return null
                 }
                 else -> {
                     errorExit { "Failed to parse the random values fo $s syntax is random(min,max,seed), random(min, max), random(max) or random()" }
-                    return null
                 }
             }
         }
         else -> {
             errorExit { "Failed to parse the value $s" }
-            return null
         }
     }
 }

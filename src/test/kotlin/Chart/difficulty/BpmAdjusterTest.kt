@@ -1,4 +1,4 @@
-package difficulty
+package Chart.difficulty
 
 import assetFile.MetaData
 import org.junit.Assert.assertEquals

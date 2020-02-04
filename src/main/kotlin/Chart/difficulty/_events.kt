@@ -1,4 +1,4 @@
-package difficulty
+package Chart.difficulty
 
 import com.google.gson.annotations.SerializedName
 

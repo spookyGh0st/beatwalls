@@ -4,31 +4,33 @@ import mu.KotlinLogging
 import structure.helperClasses.SpookyWall
 import java.io.*
 import kotlin.math.pow
-private val logger = KotlinLogging.logger {}
 
-/** this is for getting the acutal Walls */
+// Adds a collection of Walls to a Wallstructure
+fun WallStructure.add(w: Collection<SpookyWall>) {
+    spookyWalls.addAll(w)
+}
+
+// Adds a single Wall to a Wallstructure
+fun WallStructure.add(w: SpookyWall) {
+    spookyWalls.add(w)
+}
+
+/** this is for getting the actual Walls */
 fun WallStructure.walls(): ArrayList<SpookyWall> {
     //order is important, dont question it
     generateWalls()
     adjust()
     repeat()
     mirror()
-    if (this !is Define || this.isTopLevel)
-        logger.info { "Added ${name()} with ${spookyWalls.size} walls on beat $beat." }
     return spookyWalls
 }
 
+// copies the Wall of one Wallstructure. Used in Repeat
 fun WallStructure.copyWalls() :ArrayList<SpookyWall> = ArrayList((spookyWalls.map { it.copy() }))
 
+// deepcopies the Wallstructure
 fun WallStructure.deepCopy():WallStructure = deepCopyBySer(this)
 
-fun WallStructure.add(w:Collection<SpookyWall>){
-    spookyWalls.addAll(w)
-}
-
-fun WallStructure.add(w: SpookyWall) {
-    spookyWalls.add(w)
-}
 
 fun WallStructure.mirror(){
     var otherSpookyWalls: ArrayList<SpookyWall> = arrayListOf()

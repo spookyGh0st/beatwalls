@@ -618,6 +618,8 @@ class Define: WallStructure() {
     }
 
     override fun name(): String {
+        if (isTopLevel)
+            return structures.first().name()
         return name
     }
 }

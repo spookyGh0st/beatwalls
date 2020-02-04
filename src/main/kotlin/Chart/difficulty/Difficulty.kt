@@ -1,11 +1,13 @@
-package difficulty
+package Chart.difficulty
+
 import assetFile.MetaData
+import com.github.spookyghost.beatwalls.AssetReader
 import com.github.spookyghost.beatwalls.GlobalConfig
 import com.google.gson.annotations.SerializedName
 import structure.Define
 import structure.WallStructure
 
-data class Difficulty (
+data class Difficulty(
 
     @SerializedName("_version") val _version : String,
     @SerializedName("_events") val _events : ArrayList<_events>,
@@ -36,15 +38,17 @@ data class Difficulty (
         }
 
         // writes the old obstacles
-        writeOldObstacle(oldObstacles.toTypedArray())
+        AssetReader.writeOldObstacle(oldObstacles.toTypedArray())
     }
 
     private fun removeOldWalls(){
         if(GlobalConfig.deleteAllPrevious)
             this._obstacles.clear()
         else{
-            this._obstacles.removeAll(getOldObstacle())
+            this._obstacles.removeAll(AssetReader.getOldObstacles())
         }
     }
 }
+
+
 

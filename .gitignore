@@ -14,5 +14,5 @@
 # Maven
 log/
 target/
-/src/test/resources/song/
+/src/test/resources/Chart.song/
 /test.sh

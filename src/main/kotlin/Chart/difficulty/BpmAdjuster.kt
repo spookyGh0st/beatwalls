@@ -1,21 +1,26 @@
-package difficulty
+package Chart.difficulty
+
 import assetFile.MetaData
+import mu.KotlinLogging
+import structure.Define
 import structure.helperClasses.SpookyWall
 import structure.WallStructure
 import structure.walls
 import kotlin.math.ceil
 
-class BpmAdjuster(diff:Difficulty, private val meta: MetaData) {
+private val logger = KotlinLogging.logger {}
+
+class BpmAdjuster(diff: Difficulty, private val meta: MetaData) {
     private val baseBpm: Double = meta.bpm
     private val changes: ArrayList<Pair<_BPMChanges, Double>> = mapChangesToBeat(diff._customData._BPMChanges)
 
     private fun mapChangesToBeat(changes: ArrayList<_BPMChanges>): ArrayList<Pair<_BPMChanges, Double>> {
-        val l = arrayListOf(_BPMChanges(baseBpm,0.0,4,4) to 0.0)
+        val l = arrayListOf(_BPMChanges(baseBpm, 0.0, 4, 4) to 0.0)
         var beat = 0.0
         changes.forEach {
             val c = l.last().first
-            val traversedBeats = (it._time-c._time) / baseBpm * c._BPM
-            beat += ceil(traversedBeats )
+            val traversedBeats = (it._time - c._time) / baseBpm * c._BPM
+            beat += ceil(traversedBeats)
             l.add(it to beat)
         }
         l.sortedBy { it.second }
@@ -26,14 +31,16 @@ class BpmAdjuster(diff:Difficulty, private val meta: MetaData) {
         val walls = w.walls()
 
         // adjusts the neccesary values
-        walls.forEach {     it.startTime += w.beat  }
-        walls.forEach {     it.adjustToBPM()        }
-        walls.forEach {     it.addOffset()          }
+        walls.forEach { it.startTime += w.beat }
+        walls.forEach { it.adjustToBPM() }
+        walls.forEach { it.addOffset() }
 
         // adds the njsOffset if time is true
         if (w.time)
             walls.forEach { it.startTime += meta.hjd }
 
+        if (w !is Define || w.isTopLevel)
+            logger.info { "Added ${w.name()} with ${w.spookyWalls.size} walls on beat ${w.beat}." }
         // creates Obstacles
         return walls.map { it.to_obstacle(meta.hjd) }
     }

@@ -2,7 +2,7 @@ package structure.helperClasses
 
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
-import difficulty._obstacles
+import Chart.difficulty._obstacles
 import java.io.Serializable
 import kotlin.math.abs
 import kotlin.math.max

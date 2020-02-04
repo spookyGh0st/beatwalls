@@ -4,10 +4,10 @@ import com.google.gson.Gson
 import com.worldturner.medeia.api.UrlSchemaSource
 import com.worldturner.medeia.api.gson.MedeiaGsonApi
 import com.worldturner.medeia.schema.validation.SchemaValidator
-import Chart.difficulty.Difficulty
-import Chart.difficulty._obstacles
+import chart.difficulty.Difficulty
+import chart.difficulty._obstacles
 import mu.KotlinLogging
-import Chart.song.Info
+import chart.song.Info
 import java.io.File
 
 private val logger = KotlinLogging.logger {}

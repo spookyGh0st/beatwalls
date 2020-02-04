@@ -2,8 +2,8 @@ package beatwalls
 
 import com.google.gson.Gson
 import mu.KotlinLogging
-import Chart.song.Info
-import Chart.song.isSongInfo
+import chart.song.Info
+import chart.song.isSongInfo
 import java.io.File
 
 private val logger = KotlinLogging.logger {}

@@ -1,6 +1,6 @@
 @file:Suppress("ClassName")
 
-package Chart.song
+package chart.song
 
 import com.google.gson.annotations.SerializedName
 

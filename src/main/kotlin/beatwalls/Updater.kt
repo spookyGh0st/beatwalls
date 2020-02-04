@@ -1,4 +1,4 @@
-package com.github.spookyghost.beatwalls
+package beatwalls
 
 import com.google.gson.Gson
 import com.google.gson.annotations.SerializedName
@@ -49,7 +49,7 @@ fun getLatestVersion(): String {
     val url =URL("https://api.github.com/repos/spookygh0st/beatwalls/releases/latest")
     return try {
         val json = url.readText()
-        val latestVersion =  Gson().fromJson(json,GithubApi::class.java)!!
+        val latestVersion = Gson().fromJson(json, GithubApi::class.java)!!
         return latestVersion.tag_name
     }catch (e: UnknownHostException){
         logger.warn { "failed to retrieve new version" }
@@ -91,12 +91,12 @@ fun buildUpdater(): File {
         ren beatwalls.exe.temp beatwalls.exe
         .\beatwalls.exe
         """.trimIndent()
-        else -> "".also {  errorExit { "Only Windows 10 or linux updater are supported at the moment. Pleas download the latest version manually" } }
+        else -> "".also { errorExit { "Only Windows 10 or linux updater are supported at the moment. Pleas download the latest version manually" } }
     }
     val file = when(os){
         "Linux" -> File("bwUpdater.sh")
         "Windows 10" -> File("bwUpdater.bat")
-        else ->File("").also{ errorExit { "Only Windows 10 or linux updater are supported at the moment. Pleas download the latest version manually" }}
+        else -> File("").also { errorExit { "Only Windows 10 or linux updater are supported at the moment. Pleas download the latest version manually" } }
     }
     file.writeText(text)
     file.setExecutable(true)

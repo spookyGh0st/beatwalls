@@ -1,4 +1,4 @@
-package com.github.spookyghost.beatwalls
+package beatwalls
 
 // todo find a way to block a whole section for walls
 // todo make variables possible

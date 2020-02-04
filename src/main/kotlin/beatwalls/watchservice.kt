@@ -1,4 +1,4 @@
-package com.github.spookyghost.beatwalls
+package beatwalls
 
 import kotlinx.coroutines.*
 import kotlinx.coroutines.channels.*
@@ -44,7 +44,8 @@ fun File.asWatchChannel(
     scope: CoroutineScope = GlobalScope
 ) = KWatchChannel(
     file = this,
-    mode = mode ?: if (isFile) KWatchChannel.Mode.SingleFile else KWatchChannel.Mode.Recursive,
+    mode = mode
+        ?: if (isFile) KWatchChannel.Mode.SingleFile else KWatchChannel.Mode.Recursive,
     scope = scope,
     tag = tag
 )
@@ -105,7 +106,8 @@ class KWatchChannel(
                     file = path.toFile(),
                     tag = tag,
                     kind = KWatchEvent.Kind.Initialized
-                ))
+                )
+            )
 
             var shouldRegisterPath = true
 
@@ -140,7 +142,10 @@ class KWatchChannel(
                     // if any folder is created or deleted... and we are supposed
                     // to watch subtree we re-register the whole tree
                     if (mode == Mode.Recursive &&
-                        event.kind in listOf(KWatchEvent.Kind.Created, KWatchEvent.Kind.Deleted) &&
+                        event.kind in listOf(
+                            KWatchEvent.Kind.Created,
+                            KWatchEvent.Kind.Deleted
+                        ) &&
                         event.file.isDirectory) {
                         shouldRegisterPath = true
                     }

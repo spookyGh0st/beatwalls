@@ -1,6 +1,6 @@
 package assetFile
 
-import com.github.spookyghost.beatwalls.errorExit
+import beatwalls.errorExit
 import mu.KotlinLogging
 import structure.*
 import structure.helperClasses.Point

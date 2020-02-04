@@ -1,4 +1,4 @@
-package com.github.spookyghost.beatwalls
+package beatwalls
 
 import java.io.File
 import java.util.prefs.Preferences

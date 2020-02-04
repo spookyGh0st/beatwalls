@@ -1,4 +1,4 @@
-package com.github.spookyghost.beatwalls
+package beatwalls
 
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import mu.KotlinLogging

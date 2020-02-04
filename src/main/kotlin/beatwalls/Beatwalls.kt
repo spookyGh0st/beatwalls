@@ -1,4 +1,4 @@
-package com.github.spookyghost.beatwalls
+package beatwalls
 
 import assetFile.parseAsset
 import assetFile.readAsset

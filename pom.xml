@@ -8,7 +8,7 @@
     <version>0.0.5.0</version>
     <packaging>jar</packaging>
 
-    <name>com.github.spookyghost beatwalls</name>
+    <name>Beatwalls</name>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -151,7 +151,7 @@
                     <archive>
                         <manifest>
                             <addClasspath>true</addClasspath>
-                            <mainClass>com.github.spookyghost.beatwalls.MainKt</mainClass>
+                            <mainClass>beatwalls.MainKt</mainClass>
                         </manifest>
                     </archive>
                 </configuration>
@@ -170,7 +170,7 @@
                             <jar>${project.build.directory}/${project.artifactId}-${project.version}.jar</jar>
                             <outfile>${project.build.directory}/Beatwalls.exe</outfile>
                             <classPath>
-                                <mainClass>com.github.spookyghost.beatwalls.MainKt</mainClass>
+                                <mainClass>beatwalls.MainKt</mainClass>
                                 <preCp>anything</preCp>
                             </classPath>
                             <jre>

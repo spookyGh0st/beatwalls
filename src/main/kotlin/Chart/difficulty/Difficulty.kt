@@ -1,8 +1,8 @@
 package Chart.difficulty
 
 import assetFile.MetaData
-import com.github.spookyghost.beatwalls.AssetReader
-import com.github.spookyghost.beatwalls.GlobalConfig
+import beatwalls.AssetReader
+import beatwalls.GlobalConfig
 import com.google.gson.annotations.SerializedName
 import structure.Define
 import structure.WallStructure

@@ -1,4 +1,4 @@
-package com.github.spookyghost.beatwalls
+package beatwalls
 
 import com.google.gson.Gson
 import mu.KotlinLogging

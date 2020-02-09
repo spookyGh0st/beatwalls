@@ -38,6 +38,7 @@ suspend fun runOnChange(f: () -> Unit?){
  * @param [tag] - any kind of data that should be associated with this channel
  * @param [scope] - coroutine context for the channel, optional
  */
+@ExperimentalCoroutinesApi
 fun File.asWatchChannel(
     mode: KWatchChannel.Mode? = null,
     tag: Any? = null,
@@ -59,6 +60,7 @@ fun File.asWatchChannel(
  * watching a single directory or watching directory tree recursively
  * @param [tag] - any kind of data that should be associated with this channel, optional
  */
+@ExperimentalCoroutinesApi
 class KWatchChannel(
     val file: File,
     val scope: CoroutineScope = GlobalScope,
@@ -184,12 +186,6 @@ class KWatchChannel(
         SingleFile,
 
         /**
-         * Watches changes in the given directory, changes in subdirectories will be
-         * ignored
-         */
-        SingleDirectory,
-
-        /**
          * Watches changes in subdirectories
          */
         Recursive
@@ -218,25 +214,25 @@ data class KWatchEvent(
     /**
      * File system event, wrapper around [WatchEvent.Kind]
      */
-    enum class Kind(val kind: String) {
+    enum class Kind {
         /**
          * Triggered upon initialization of the channel
          */
-        Initialized("initialized"),
+        Initialized,
 
         /**
          * Triggered when file or directory is created
          */
-        Created("created"),
+        Created,
 
         /**
          * Triggered when file or directory is modified
          */
-        Modified("modified"),
+        Modified,
 
         /**
          * Triggered when file or directory is deleted
          */
-        Deleted("deleted")
+        Deleted
     }
 }

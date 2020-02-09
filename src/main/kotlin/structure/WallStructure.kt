@@ -2,6 +2,8 @@
 
 package structure
 
+import structure.helperClasses.ColorMode
+import structure.helperClasses.NoColor
 import structure.helperClasses.Point
 import structure.helperClasses.SpookyWall
 import structure.specialStrucures.calcP3
@@ -271,6 +273,34 @@ sealed class WallStructure:Serializable
     var repeatAddStartTime: Double = Default.repeatAddStartTime
 
     /**
+     * The Color of the Wallstructure. Click me to see examples
+     *
+     * color: red
+     * # turns the entire Wallstructure red.
+     * All available colors are here: https://docs.oracle.com/javase/7/docs/api/java/awt/Color.html
+     *
+     * color: 255,0,0
+     * # also turns the entire WallStructure red, but uses rgb values.
+     *
+     * color: rainbow
+     * # creates a rainbow :)
+     *
+     * color: rainbow(1.5)
+     * # also creates a rainbow :), but this one changes 1.5 times as fast as the default one
+     *
+     * color: flash(green)
+     * # Flashes between green and white
+     *
+     * color: flash(128,128,128,Green)
+     * # Flashes between Dark Gray (128,128,128) and Green.
+     *
+     * color: gradient(Red,Cyan)
+     * # gradient from Red to Furry (Cyan))
+     *
+     */
+    var color: ColorMode = Default.color
+
+    /**
      * some Wallstructures use Random walls. This is the seed for them
      */
     var seed: Int = Default.seed ?: Random.nextInt()
@@ -303,6 +333,7 @@ sealed class WallStructure:Serializable
         var fitStartRow: (() -> Double)? = null
         var fitWidth: (() -> Double)? = null
         var scale: Double? = null
+        var color: ColorMode = NoColor
         var reverse: Boolean = false
         var reverseX: Boolean = false
         var reverseY: Boolean = false
@@ -318,6 +349,7 @@ sealed class WallStructure:Serializable
         var repeatAddStartTime: Double = 0.0
         var repeatAddDuration: Double = 0.0
         var seed: Int? = null
+
     }
 
     /** generates the walls */

@@ -171,6 +171,7 @@ fun fillProperty(
         "() -> kotlin.Double" -> value.toDoubleFunc()
         "kotlin.String" -> value
         "structure.helperClasses.Point" -> value.toPoint()
+        "structure.helperClasses.ColorMode" -> value.toColorMode()
         "structure.WallStructure" -> value.toWallStructure(definedStructure)
         "kotlin.collections.List<structure.WallStructure>" -> value.toWallStructureList(definedStructure)
         else -> null
@@ -225,74 +226,3 @@ fun Pair<String,String>.key(): String {
     return this.component1()
 }
 
-/**
- * String to Point
- */
-private fun String.toPoint(): Point {
-    val values = this.split(",")
-        .map { it.trim() }
-        .map { it.toDoubleOrNull() }
-    return Point(
-        x = values.getOrNull(0) ?: 0.0,
-        y = values.getOrNull(1) ?: 0.0,
-        z = values.getOrNull(2) ?: 0.0
-    )
-}
-
-/**
- * String to WallStructure
- */
-private fun String.toWallStructure(definedStructure: List<Define>): WallStructure {
-    val a =  findStructure(this, definedStructure)
-    return if (a is WallStructure)
-        a
-    else {
-        errorExit { "The Wallstructure $this does not exist" }
-    }
-}
-
-private fun String.toDoubleFunc(): Function<Double>? {
-    val s = this.toLowerCase()
-    when {
-        s.toDoubleOrNull() != null -> return { this.toDouble() }
-        s == "null" -> return null
-        s.startsWith("random") -> {
-            // gets the numbers random(12,23)
-            val constrains = s
-                .substringAfter("random")
-                .removeSurrounding("(", ")")
-                .split(",")
-                .mapNotNull { it.toDoubleOrNull() }
-            when {
-                constrains.isEmpty() -> return { Random.nextDouble() }
-                constrains.size == 1 -> {
-                    if (constrains[0] > 0.0)
-                        return { RandomSeed.nextDouble(constrains[0]) }
-                    errorExit { "Failed to parse the random values fo $s syntax is random(min, max), random(max) or random()" }
-                }
-                constrains.size == 2 -> {
-                    if (constrains[1] > constrains[0] && constrains[0] != constrains[1])
-                        return { RandomSeed.nextDouble(constrains[0], constrains[1]) }
-                    errorExit { "Failed to parse the random values fo $s syntax is random(min, max), random(max) or random()" }
-                }
-                else -> {
-                    errorExit { "Failed to parse the random values fo $s syntax is random(min,max,seed), random(min, max), random(max) or random()" }
-                }
-            }
-        }
-        else -> {
-            errorExit { "Failed to parse the value $s" }
-        }
-    }
-}
-
-
-/**
- * String to List<WallStructure>
- */
-private fun String.toWallStructureList(definedStructure: List<Define>): List<WallStructure>{
-    return this
-        .split(",")
-        .map { it.trim() }
-        .map { val a = findStructure(it, definedStructure); if(a is WallStructure) a else EmptyWallStructure}
-}

@@ -1,5 +1,6 @@
 package structure.helperClasses
 
+import chart.difficulty._obstacleCustomData
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
 import chart.difficulty._obstacles
@@ -21,7 +22,9 @@ data class SpookyWall(
     @Expose
     @SerializedName("startHeight") var startHeight: Double,
     @Expose
-    @SerializedName("startTime") var startTime: Double
+    @SerializedName("startTime") var startTime: Double,
+    @Expose
+    @SerializedName("color") var color: Color? = null
 ):Serializable{
     val trueMaxPoint
         get() = Point(
@@ -47,12 +50,15 @@ data class SpookyWall(
 
         val tempDuration = calculateDuration(hjd)
 
+        val customData: _obstacleCustomData = customData()
+
         return _obstacles(
             tempStartTime,
             tempLineIndex,
             tempType,
             tempDuration,
-            tempWidth
+            tempWidth,
+            customData
         )
     }
 
@@ -108,6 +114,11 @@ data class SpookyWall(
             else -> tStartH
         }
         return  (tWallH * 1000 + tStartH+4001)
+    }
+
+    private fun customData()= when {
+        color != null -> _obstacleCustomData(color!!.red, color!!.green, color!!.blue)
+        else -> _obstacleCustomData(null, null, null)
     }
 
     /**returns the mirrored obstacle */

@@ -20,6 +20,7 @@ fun WallStructure.walls(): ArrayList<SpookyWall> {
     //order is important, dont question it
     generateWalls()
     adjust()
+    color()
     repeat()
     mirror()
     return spookyWalls
@@ -172,6 +173,11 @@ fun WallStructure.adjust(){
     if(reverseY){
         spookyWalls.reverseY()
     }
+}
+
+fun WallStructure.color(){
+    spookyWalls.sortBy { it.startTime }
+    this.color.colorWalls(spookyWalls)
 }
 
 fun ArrayList<SpookyWall>.reverseX(){

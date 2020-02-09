@@ -2,7 +2,9 @@ package assetFile
 
 import junit.framework.TestCase
 import structure.*
+import structure.helperClasses.Color
 import structure.helperClasses.Point
+import structure.helperClasses.SingleColor
 import kotlin.random.Random
 import kotlin.test.assertNotEquals
 
@@ -90,6 +92,15 @@ class AssetParserKtTest : TestCase() {
         val expected = Point(1, 2, 3)
         assertEquals(actual, expected)
         assertNotEquals(actual, Point(0, 2, 3))
+    }
+    fun testColorProperty() {
+        val w = Curve()
+        val p = findProperty(w,"color")
+        fillProperty(p!!, "Red", listOf(),w)
+        val actual = w.color
+        val expected = SingleColor(Color(java.awt.Color.RED))
+        assertEquals(actual, expected)
+        assertNotEquals(actual, SingleColor(Color(java.awt.Color.GREEN)))
     }
 
     fun testDefineWallFillProperty() {

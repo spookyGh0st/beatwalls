@@ -289,10 +289,13 @@ sealed class WallStructure:Serializable
      * # also creates a rainbow :), but this one changes 1.5 times as fast as the default one
      *
      * color: flash(green)
-     * # Flashes between green and white
+     * # Flashes between green and the default color
      *
      * color: flash(128,128,128,Green)
      * # Flashes between Dark Gray (128,128,128) and Green.
+     *
+     * color: flash(red, green, blue, yellow)
+     * # changes color in the order red, green, blue, yellow.
      *
      * color: gradient(Red,Cyan)
      * # gradient from Red to Furry (Cyan))

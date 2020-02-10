@@ -10,6 +10,14 @@ data class Color(val red: Double, val green: Double, val blue: Double):Serializa
     constructor(red: Int, green: Int, blue: Int):this(red/255.0, green/255.0, blue/255.0)
 }
 
+internal val red = Color(java.awt.Color.RED)
+internal val green = Color(java.awt.Color.GREEN)
+internal val blue = Color(java.awt.Color.BLUE)
+internal val cyan = Color(java.awt.Color.CYAN)
+internal val black = Color(java.awt.Color.BLACK)
+internal val white = Color(java.awt.Color.WHITE)
+
+
 interface ColorMode:Serializable{
     fun colorWalls(walls: Collection<SpookyWall>)
 }
@@ -49,13 +57,12 @@ data class Rainbow(private val repetitions: Double = 1.0): ColorMode{
     }
 }
 
-data class Flash(val color: Color, val flashColor: Color= Color(java.awt.Color.WHITE)): ColorMode{
+data class Flash(val colors: List<Color>): ColorMode{
     override fun colorWalls(walls: Collection<SpookyWall>) {
         for ((index,w) in walls.withIndex()){
-            w.color = when {
-                index % 2 == 0 -> color
-                else -> flashColor
-            }
+            w.color = colors[index % colors.size]
+            if(colors.size == 1 && index %2 == 1)
+                w.color=null
         }
     }
 }

@@ -53,10 +53,10 @@ class FunctionParserKtTest {
             Rainbow() to "rainBow",
             Rainbow(1.5) to "rainbow(1.5)",
             Rainbow(2.0) to "rainbow(2)",
-            Flash(red) to "flash(red)",
-            Flash(red,green) to "flash(red,green)",
-            Flash(red,Color(15,12,2)) to "flash(red,15,12,2)",
-            Flash(Color(120,12,13),Color(15,12,2)) to "flash(120,12,13,15,12,2)")
+            Flash(listOf(red)) to "flash(red)",
+            Flash(listOf(red,green)) to "flash(red,green)",
+            Flash(listOf(red,Color(15,12,2))) to "flash(red,15,12,2)",
+            Flash(listOf(Color(120,12,13),Color(15,12,2))) to "flash(120,12,13,15,12,2)")
 
         tests.forEach{
             assertEquals(it.first,it.second.toColorMode())

@@ -103,8 +103,9 @@ internal fun String.toColorMode(): ColorMode {
         }
         f.name == "flash" -> {
             val colorList = f.args.toColorList()
-            if(colorList.size == 2)  Flash(colorList[0],colorList[1])
-            else Flash(colorList[0]) }
+            if (colorList.isEmpty()) errorExit { "No colors submitted for flash" }
+            else Flash(colorList)
+        }
         else -> errorExit { "$this is invalid, please check the documentation." }
     }
 }

@@ -37,9 +37,9 @@ data class Gradient(val startColor: Color, val endColor: Color): ColorMode {
         val cb = endColor.blue - startColor.blue
         val amount= walls.size
         for((index, w) in walls.withIndex()){
-            val red = startColor.red + cr*index/amount
-            val green = startColor.green + cg*index/amount
-            val blue = startColor.blue + cb*index/amount
+            val red = startColor.red + cr*index/(amount - 1)
+            val green = startColor.green + cg*index/(amount - 1)
+            val blue = startColor.blue + cb*index/(amount - 1)
             w.color=Color(red,green,blue)
         }
     }
@@ -48,10 +48,10 @@ data class Gradient(val startColor: Color, val endColor: Color): ColorMode {
 data class Rainbow(private val repetitions: Double = 1.0): ColorMode{
     override fun colorWalls(walls: Collection<SpookyWall>) {
         for ((index,w) in walls.withIndex()){
-            val i = index/walls.size *2* PI * repetitions
-            val r = sin(i+0/3* PI)
-            val g = sin(i+2/3* PI)
-            val b = sin(i+4/3* PI)
+            val i = index.toDouble()/walls.size *2* PI * repetitions
+            val r = sin(i+0.0/3.0 * PI) /2 + 0.5
+            val g = sin(i+2.0/3.0 * PI) /2 + 0.5
+            val b = sin(i+4.0/3.0 * PI) /2 + 0.5
             w.color=Color(r,g,b)
         }
     }

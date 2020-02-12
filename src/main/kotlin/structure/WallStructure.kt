@@ -657,6 +657,30 @@ class Define: WallStructure() {
             return structures.first().name()
         return name
     }
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (javaClass != other?.javaClass) return false
+        if (!super.equals(other)) return false
+
+        other as Define
+
+        if (name != other.name) return false
+        if (structures != other.structures) return false
+        if (isTopLevel != other.isTopLevel) return false
+
+        return true
+    }
+
+    override fun hashCode(): Int {
+        var result = super.hashCode()
+        result = 31 * result + name.hashCode()
+        result = 31 * result + structures.hashCode()
+        result = 31 * result + isTopLevel.hashCode()
+        return result
+    }
+
+
 }
 
 /**

@@ -1,0 +1,1340 @@
+# This is an example File of a DifficultyAsset. Use this to orchestate Walls.
+# Lines starting with an # are Comments and will get ignored
+# Commands, Specify the Walls you want to create
+# Syntax Beat(check mm for  that):Name
+# simple wallstructures
+0: default
+    changeDuration: -2.5
+5.25: curve
+    amount: 64
+    p1: 10,0,0
+    p2: 4,0,1
+    p3: 2,4,2
+    p4: 2,10,3.75
+    fitStartHeight: 0
+    mirror: 2 
+    addWidth: 2
+
+7.25: curve
+    amount: 6
+    p1: 0,0,0
+    p2: 2,0,0.25
+    p3: 2,0,0.5
+    p4: 2,2,0.75
+    mirror: 8
+
+8: randomCurve
+    p1: 5,2,0
+    p2: 8,6,16
+    mirror: 2
+    fitStartHeight: 0
+    amount: 4
+
+8: Line
+    fitStartHeight: 0
+    p1: 3,0,0
+    p2: 3,2.1,16
+    amount: 64
+    mirror: 8
+8: Line
+    mirror: 8
+    fitStartRow: 3
+    p1: 3,0,0
+    p2: -0.1,0,16
+    amount: 64
+
+8: wall
+    startRow: -2
+    width: 4
+    height: 20
+    duration: -2.5
+
+define: intro_SideWalls
+    structures: wall
+    startRow: 4
+    width: 0.1
+    height: 10
+    repeat: 2
+    repeatAddX: -0.1
+    repeatAddZ: 0.25
+    mirror: 2
+
+9: intro_SideWalls
+    repeat: 15
+
+24: continuesCurve
+    mirror: 8
+    fitStartHeight: 0
+    p1: 3,0,0
+    c1: 5,0
+    p2: 10,1,4
+    c2: 12,2
+    p3: 10,2,8
+    c3: 12, 1
+    p4: 10,0,12
+    c4: 8,1
+    p5: 4,1,16
+    c5: 3.5,2
+    p6: 4,1,20
+    c6: 3.5,3
+    p7: 4,1,24
+    c7: 3,4
+    p8: 2,4,28
+    c8: 2,4
+    p9: 8,0,32
+    c9: 12,-1
+
+37: curve
+    mirror: 2
+    amount: 32
+    p1: 4,0,0
+    p2: 1,8,0.66
+    p3: -3,8,1.33
+    p4: -3,0,2
+
+define: start_sideWall
+    startRow: 3
+    startHeight: 0.5
+    heigh: 0.5
+    width: 0.5
+    duration: -2.5
+    mirror: 8
+
+38.5: start_sideWall
+
+39: start_sideWall
+    repeat: 4
+    repeatAddZ: 0.25
+    repeatAddY: -0.25
+
+39:curve
+    p1: 1.5,0,0
+    p2: 2.0,0,0.1
+    p3: 2.0,0,0.2
+    p4: 2.0,1,0.3
+    mirror: 1
+
+39.33:curve
+    mirror: 1
+    p1: -1,0,0
+    p2: -2.0,0.2,0.1
+    p3: -2.0,0.4,0.2
+    p4: -2.0,1.5,0.3
+
+39.66:curve
+    mirror: 1
+    p1: -1,2.5,0
+    p2: -1,4,0.1
+    p3: -1,4,0.2
+    p4: 1,4,0.3
+
+54: Line
+    fitStartHeight: 0
+    p1: 3,0,0
+    p2: 3,2,1
+    amount: 4
+    mirror: 8
+54: Line
+    mirror: 8
+    fitStartRow: 3
+    p1: 3,0,0
+    p2: 0,0,1
+    amount: 4
+
+55:curve
+    p1: 1.5,0,0
+    p2: 2.0,0,0.1
+    p3: 2.0,0,0.2
+    p4: 2.0,1,0.3
+
+55.33:curve
+    p1: -1,0,0
+    p2: -2.0,0.2,0.1
+    p3: -2.0,0.4,0.2
+    p4: -2.0,1.5,0.3
+
+55.66:curve
+    p1: -1,2.5,0
+    p2: -1,4,0.1
+    p3: -1,4,0.2
+    p4: 1,4,0.3
+
+55: line
+    amount: 3
+    p1: 3,2,0
+    p2: 3,0,1
+    mirror: 8
+
+define: start_bottomtopWall
+    structures: wall
+    startHeight: 5
+    startRow: -30
+    width: 60
+    repeat: 8
+    repeatAddZ: 0.0625
+    repeatAddY: -0.025
+    mirror: 4
+
+56: start_bottomtopWall
+    repeat: 3
+    repeatAddZ: 4
+
+# the top and bottom walls 
+
+57.5: start_bottomtopWall
+    scale: 0.5
+    repeat: 3
+    repeatAddZ: 4
+
+72: start_bottomtopWall
+    repeat: 3
+    repeatAddZ: 4
+
+73.5: start_bottomtopWall
+    scale: 0.5
+    repeat: 3
+    repeatAddZ: 4
+
+
+# the walls to keep the space occupied
+56: randomCurve
+    p1: 3,1,0
+    p2: 5,4,12
+    fitStartHeight: 0
+    mirror: 2
+    repeat: 2
+    repeatAddZ: 16
+
+define: _start_curveUp
+    structures: curve
+    amount: 12
+    p1: 2,1,0
+    p2: 2,0,0.1
+    p3: -2,0,0.3
+    p4: -2,1,0.4
+    mirror: 6
+
+define: start_hardAndShort
+    structures: _start_curveUp
+
+# triple, heavy
+68: start_bottomtopWall
+    scale: 0.5
+    repeat: 3
+    repeatAddZ: 0.33
+
+68: start_hardAndShort
+68.66: start_hardAndShort
+    mirror: 1
+69.33: start_hardAndShort
+
+# niaouuuuu
+70: line
+    p1: 4,5,0
+    p2: 3,0,2
+    fitStartHeight: 0.0
+    amount: 8
+    mirror: 2
+
+70: helix
+    count: 3
+    amount: 3
+    radius: 3
+    scale: 2
+    
+
+# 84 BAM BAM BAM
+define: _intro_bamLine1
+    structures: line
+    amount: 4
+    p1: 2.5,1,0
+    p2: 1.5,0,0.5
+
+define: _intro_bamLine2
+    structures: line
+    amount: 4
+    p1: 2.5,1,0
+    p2: 3.5,2,0.5
+
+define: _intro_bamWall
+    structures: wall
+    startRow: 3
+    height: 4
+    width: 1
+
+define: intro_Bam
+    structures: _intro_bamLine1, _intro_bamLine2, _intro_bamWall
+    mirror: 6
+
+84: intro_Bam
+84.66: intro_Bam
+    mirror: 1
+85.33: intro_Bam
+
+86: line
+    mirror: 2
+    p1: 2,2,0
+    p2: 1,3,0.5
+    amount: 6
+
+86.5: line
+    mirror: 2
+    p1: 1.5,2,0
+    p2: 1,4,0.25
+    amount: 4
+
+84: line
+    p1: -6,0,0
+    p2: -6,2.4,4
+    amount: 32
+    changeWidth: 12
+    fitStartHeight: 0
+
+84: line
+    p1: -6,5,0
+    p2: -6,2.6,4
+    amount: 32
+    changeWidth: 12
+    fitStartHeight: 8
+
+84: line
+    p1: 6,8,0
+    p2: 0.1,8,4
+    fitStartHeight: 0
+    fitStartRow: 6
+    mirror: 2
+    amount: 32
+
+# tunel
+
+
+define: _tunel1
+    structures: wall
+    startRow:-4
+    width: 8
+
+define: _tunel2
+    structures: wall
+    startRow:-4
+    startHeight:4
+    width: 8
+
+define: _tunel3
+    structures: wall
+    startRow: -4
+    Height: 4
+    mirror: 2
+
+define: tunel
+    structures: _tunel1,_tunel2,_tunel3
+
+
+88: tunel
+    changeDuration: -2.5
+    repeat: 112
+    repeatAddZ: 0.25
+
+define: tunel_middleWall
+    structures: wall
+    width: 0.25
+    duration: -2.5
+    height: 0.5
+
+88: tunel_middleWall
+    changeStartRow: 1.5
+    mirror: 8
+89.5: tunel_middleWall
+    changeStartRow: 1.0
+    mirror: 8
+91: tunel_middleWall
+    changeStartRow: 0.5
+    mirror: 8
+
+
+
+
+# middle Walls
+
+
+
+define: _tunel_middleWall2
+    Beat: 1.5
+    structures: tunel_middleWall
+define: _tunel_middleWall3
+    Beat: 3
+    structures: tunel_middleWall
+
+define: tunel_siren_middleWall
+    structures: tunel_middleWall, _tunel_middleWall2, _tunel_middleWall3
+    mirror: 8
+
+92: tunel_siren_middleWall
+    repeat: 3
+    repeatAddZ: 4
+
+104: tunel_siren_middleWall
+    changeWidth: 0
+    repeat: 2
+    repeatAddZ: 4
+
+    
+
+# siren curve
+
+90: curve
+    fitStartRow: 3.0
+    fitStartHeight: 0.0
+    amount: 32
+    p1: 4,0,0
+    p2: 2,0,1
+    p3: 2,2,1.6
+    p4: 0.25,4,2
+    mirror: 2
+
+92: line
+    p1: 0.5,4,0
+    p2: 0.0625,4,10
+    fitStartRow: 3.0
+    fitStartHeight: 0.0
+    amount: 80
+    mirror: 2
+
+102: curve
+    fitStartRow: 3.0
+    fitStartHeight: 0.0
+    amount: 32
+    p1: 0.0625,4,0
+    p2: 2,4,0.4
+    p3: 2,2,1
+    p4: 4,0,2
+    mirror: 2
+
+107: randomCurve
+    p1: -4,0,0
+    p2: 4,4,9
+    mirror: 6
+    amount: 16
+
+107: randomCurve
+    p1: -4,0,0
+    p2: 4,4,9
+    mirror: 6
+    amount: 16
+
+
+107: randomNoise
+    p1: -4,0,0
+    p2: 4,4,11
+    mirror: 6
+    amount: 88
+
+# end of the tunel
+116: line
+    fitStartHeight: 0
+    mirror: 8
+    p1: 4,2,0
+    p2: 4,0,2
+    amount: 16
+
+116: line
+    fitStartRow: 4
+    mirror: 8
+    p1: 0,0,0
+    p2: 4,0,2
+    amount: 16
+
+118: curve
+    fitStartHeight: 0
+    p1: 2,0,0
+    p2: 3,20,0.5
+    p3: 6,20,1.25
+    p4: 6,5,2
+    amount: 32
+    addWidth: 1
+    mirror: 2
+
+118: line
+    p1: 0,0,0
+    p2: 3,0,0.5
+    mirror: 8
+    amount: 4
+
+118.75: curve
+    p1: 3,0,0
+    p2: 1,1,0.33
+    p3: -1,0,0.66
+    p4: -3,2,1,25
+    amount: 5
+
+118.75: line
+    p1: 2,0,0
+    p2: 1,4,1,25
+    amount: 5
+    mirror: 8
+
+120: randomCurve
+    p1: 3,2,0
+    p2: 5,0,22
+    fitStartRow: 5
+    fitStartHeight: 0
+    mirror: 2
+
+define: mid_groundCurve1
+    structures: continuesCurve
+    p1: 3,2,0
+    c1: 3,0,0
+    p2: 1,0,1
+    c2: -1,0,1
+    p3: 1,0,2
+    c3: 2,0,2
+    p4: 3,0,3
+    c4: 3,0.5,3
+    p5: 0,0,4
+    c5: -1.5,0,0
+    fitStartHeight: 0
+    mirror: 8
+
+define: mid_groundCurve2
+    structures: continuesCurve
+    p1: 3,2,0
+    c1: 3,0,0
+    p2: 2,0,1
+    c2: 1,0,1
+    p3: -1,0,2
+    c3: 2,0,2
+    p4: 3,0,3
+    c4: 5,0.5,3
+    p5: 2,0,4
+    c5: 0,0,0
+    fitStartHeight: 0
+    mirror: 8
+
+120: mid_groundCurve1
+    repeat: 3
+    repeatAddZ: 8
+
+124: mid_groundCurve2
+    repeat: 3
+    repeatAddZ: 8
+
+142: line
+    p1: 5,0,0
+    p2: 1,10,2
+    amount: 16
+    fitStartHeight: 0.0
+    fitStartRow: 5
+    mirror: 2
+
+144.0: default
+    speeder: 3.0
+144: line
+    fitStartHeight: 0
+    amount: 32
+    mirror: 2
+    p1: 10,10,0
+    p2: 2,0,4
+
+144: randomNoise
+    p1: 1,0,0
+    p2: 3,3,4
+    amount: 32
+    mirror: 2
+
+144: randomBlocks
+    duration: 4
+    mirror: 2
+
+144: randomCurve
+    p1: -2,0,0
+    p2: 2,2,4
+    mirror: 4
+    changeHeight: 0
+    changeWidth: 0
+
+
+148: default
+    speeder: null
+    fitStartHeight: 0
+    mirror: 2
+
+148: curve
+    amount: 32
+    p1: 10,0,0
+    p2: 10,10,0.2
+    p3: 10,10,0.5
+    p4: 10,10,1
+
+148.75: curve
+    amount: 32
+    p1: 8,0,0
+    p2: 8,10,0.2
+    p3: 8,10,0.5
+    p4: 8,10,1
+
+149.5: curve
+    amount: 32
+    p1: 6,0,0
+    p2: 6,10,0.2
+    p3: 6.5,10,0.5
+    p4: 6.5,10,1
+
+150: curve
+    amount: 16
+    p1: 4.5,0,0
+    p2: 4.5,10,0.2
+    p3: 4.5,10,0.4
+    p4: 4.5,10,0.75
+
+150.75: curve
+    amount: 32
+    p1: 3,0,0
+    p2: 5,20,0.2
+    p3: 7,10,0.6
+    p4: 8,0, 1.25
+
+150.75: curve
+    amount: 16
+    p1: 0,5,0
+    p2: 3,5,0.5
+    p3: 3,5,1
+    p2: 3,0,1.25
+    fitStartHeight: null
+
+152: default
+    fitStartHeight: null
+    mirror: 0
+
+
+
+define: _gate1
+    structures: line
+    p1: 2,4.0
+    p2: 1.5,3,1
+    amount: 8
+    mirror: 2
+    fitStartHeight: 0
+
+define: _gate2
+    structures: line
+    amount: 8
+    p1: -2,4,0
+    p2: -2,3,1
+    addWidth: 4
+
+define: _gate3
+    structures: wall
+    startRow: 2
+    width: 4
+    height: 4
+    mirror: 2
+
+define: gate
+    structures: _gate1,_gate2, _gate3
+    scale: 0.8
+
+152: randomNoise
+    p1: 4,0,0
+    p2: 6,5,28
+    amount: 448
+    addHeight: 0.5
+    addWidth: 0.5
+    mirror: 6
+
+152: gate
+    addStartRow:  -1.5
+
+154.5: gate
+    addStartRow: 0.5
+
+156:gate
+    addStartRow: -0.5
+
+157.75: gate
+    addStartRow: -1.5
+    scale: 0.5
+
+158.5: gate
+    addStartRow: -1.5
+    scale: 0.5
+
+160: gate
+    addStartRow: -1
+
+162.5: gate
+    addStartRow: 0.5
+
+164: gate
+    addStartRow: 1.5
+
+165.75: gate
+    addStartRow: 1.5
+    scale: 0.5
+
+166.5: gate
+    addStartRow: 0.25
+    scale: 0.5
+
+167.5: gate
+    addStartRow: -0.5
+    scale: 0.4
+
+168: gate
+    addStartRow: -0.5
+
+170.5: gate
+    addStartRow: -1.0
+
+172: gate
+    addStartRow: -1.25
+
+
+173.75: gate
+    addStartRow: -1.0
+    scale: 0.5
+
+174.5: gate
+    addStartRow: -0.5
+    scale: 0.5
+
+176: gate
+    addStartRow: 0
+
+178.5: gate
+    addStartRow: -0.25
+
+
+
+180: randomCurve
+    p1: 3,0,0
+    p2: 5,4,4
+    mirror: 6
+
+180: randomCurve
+    p1: -3,0,0
+    p2: 3,0.1,4
+    mirror: 6
+
+180: curve
+    amount: 64
+    p1: -5,-2,0
+    p2: -5,8,1.33
+    p3: 5,8,2.66
+    p4: 5,-2,4
+    mirror: 2
+    fitStartHeight: 15
+
+
+184: gate
+    scaleStartRow: 2
+    scaleWidth: 2
+
+define: _end_sideLine1
+    structures: wall
+    startRow: 3
+    startHeight: 0
+    height: 0.1
+    width: 0.1
+    repeat: 2
+    repeatAddZ: 0.5
+    repeatAddY: 2
+
+define: _end_sideLine2
+    beat: 0.25
+    structures: wall
+    startRow: 3
+    startHeight: 1
+    height: 0.1
+    width: 0.1
+    repeat: 2
+    repeatAddZ: 0.5
+    repeatAddY: 2
+
+define: _end_sidecurve1
+    structures: randomCurve
+    amount: 4
+    p1: 3,0,0
+    p2: 5,3,1
+    mirror: 4
+
+define: _end_sidecurve2
+    beat: 0.50
+    structures: randomCurve
+    p1: -3,0,0
+    p2: -5,3,1
+    amount: 4
+
+define: end_sideLine
+    structures: _end_sideLine1, _end_sideLine2
+    mirror: 6
+
+# toplines
+define: _end_topLine1
+    amount: 4
+    structures: line
+    p1: 3,5,0
+    p2: -1,4,0.5
+
+# top/bottom lines
+define: _end_topLine2
+    amount: 4
+    structures: line
+    p1: -3,5,0.5
+    p2: 1,4,1
+
+define: end_topLines
+    structures: _end_topLine1, _end_topLine2
+
+185: end_sideLine
+    repeat: 4
+
+185: end_topLines
+    repeat: 4
+
+
+185: randomCurve
+    p1: -4,0,0
+    p2: 4,0.2,13
+    amount: 4
+    scale: 0.5
+    mirror: 2
+
+189: line
+    p1: 4,0,0
+    p2: 3,2,0.5
+    amount: 4
+    mirror: 6
+
+189.5: intro_Bam
+    p1: -4,0,0
+    p2: -3,2,0.5
+    amount: 4
+    mirror: 6
+
+
+189: curve
+    p1: 3,0,0
+    p2: 3,6,0.33
+    p3: -3,6,0.66
+    p4: -3,0,1
+    amount: 8
+    mirror: 2
+
+190: end_sideLine
+    repeat: 2
+
+190: end_topLines
+191: _end_topLine1
+
+191.5: line
+    p1: 10,6,0
+    p2: 8,4,0.5
+    amount: 6
+    fitStartHeight: 0
+    fitStartRow: 10
+    mirror: 2
+    
+192.0: line
+    p1: 6,6,0
+    p2: 5,4,0.5
+    amount: 8
+    mirror: 2
+    fitStartRow: 10
+    fitStartHeight: 0
+
+192.5: line
+    p1: 4,6,0
+    p2: 3,4,0.5
+    amount: 8
+    mirror: 2
+    fitStartHeight: 0
+    fitStartRow: 10
+
+192.5: line
+    p1: -4,5,0
+    p2: -3,5,0.5
+    amount: 8
+    fitStartRow: 5
+    fitStartHeight: 5
+
+193: end_topLines
+    repeat: 4
+
+193: end_sideLine
+    repeat: 4
+
+193: randomCurve
+    p1: -3,0,0
+    p2: 2,0,4
+    mirror: 2
+    amount: 4
+
+define: lineUp
+    structures: line
+    p1: 3,0,0
+    p2: 3,4,1
+    amount: 8
+
+197: lineUp
+    scale: 0.5
+
+197.25: lineUp
+    mirror: 1
+    scale: 0.5
+
+197: wall
+    startRow: 2
+    height: 0.5
+    mirror: 8
+    width: 0.5
+
+    
+197.75: wall
+    startRow: 2
+    height: 1.5
+    mirror: 8
+    width: 0.5
+
+198: line
+    p1: 8,8,0
+    p2: 4,2,1.5
+    amount: 6
+    mirror: 2
+    fitStartHeight: 0
+
+197:randomNoise 
+    p1: 3,0,0
+    p2: 5,5,2.5
+    amount: 5
+    mirror: 6
+    changeHeight: 0.25
+    changeWidth: 0.25
+
+199.5: Steadycurve
+    p1: 8,0
+    p2: 8,6
+    p3: -8,6
+    p4: -8.0
+    fitStartHeight: 8
+    mirror: 2
+    amount: 16
+    scale: 0.5
+
+200: line
+    amount: 16
+    mirror: 2
+    p1: 4,0,0
+    p2: 5,10,1
+    mirror: 2
+    fitStartHeight: 0
+    fitStartRow: 6
+
+201: randomCurve
+    p1: -6,4,0
+    p2: 6,5,13
+    addHeight: 8
+    scale: 0.5
+    
+
+define: end_secondSide
+    structures: Steadycurve
+    p1: 4,2
+    p2: 5,5
+    p3: 3,-1
+    p4: 4,2
+    amount: 6
+    mirror: 6
+    fitStartHeight: 2
+
+201: end_secondSide
+    scale: 0.5
+    repeat: 13
+    repeatAddZ: 0.5
+
+201: end_topLines
+    changeStartHeight: 0
+    repeat: 6
+
+207.5: Steadycurve
+    scale: 0.5
+    p1: 0,0
+    p2: 4,0
+    p3: 4,0
+    p4: 4,2
+    repeat: 3
+    repeatAddZ: 0.5
+    mirror: 8
+
+define: lineUpHalfBeat
+    structures: line
+    fitStartHeight: 0
+    amount: 4
+    p1: 4,0,0
+    p2: 4,10,0.5
+    mirror: 2
+
+207.5: lineUpHalfBeat
+208: lineUpHalfBeat
+    reverse: true
+208.5: lineUpHalfBeat
+
+
+define: _end2_line1
+    structures: line
+    p1: 4,0,0
+    p2: 3,1,1
+    amount: 4
+
+define: _end2_line2
+    structures: line
+    p1: 4,2,0
+    p2: 3,1,1
+    amount: 4
+
+define: _end2_side1
+    structures: _end2_line1, _end2_line2
+    mirror: 6
+
+define: _end2_side2
+    structures: _end2_side1
+    beat: 0.5
+    mirror: 1
+
+define: end2_side
+    structures: _end2_side1,_end2_side2
+
+
+209: end2_side
+    repeat: 5
+
+209: line
+    p1: 4,0,0
+    p2: 0,0,1
+    mirror: 2
+    amount: 4
+    repeat: 5
+
+209: line
+    mirror: 2
+    p1: 0,4,0
+    p2: 4,4,1
+    amount: 4
+    repeat: 5
+
+214: Steadycurve
+    p1: 4,0
+    p2: -10,0
+    p3: -10,4
+    p4: -4,4
+    amount: 16
+    mirror: 2
+
+214: line
+    p1: 4,4,0
+    p2: 4,0,1
+    amount: 4
+    mirror: 6
+
+214: line
+    p1: 3,0,0
+    p2: 3,4,1
+    amount: 4
+    mirror: 6
+    
+215: line
+    fitStartHeight:0
+    p1: 4,4,0
+    p2: 3,10,0.5
+    mirror: 2
+    amount: 8
+
+215.5: Steadycurve
+    p1: 8,0
+    p2: 8,6
+    p3: -8,6
+    p4: -8.0
+    fitStartHeight: 8
+    mirror: 2
+    amount: 8
+    scale: 0.5
+
+216: Steadycurve
+    p1: 7,0
+    p2: 4,0
+    p3: 7,2
+    p4: 4,2
+    mirror: 8
+    amount: 16
+    fitStartHeight: 0
+
+216: line
+    p1: 7,0,0
+    p2: -1,0,1
+    changeHeight: 0.1
+    fitStartRow: 7
+    amount: 16
+    mirror: 8
+
+#### the real End
+
+define: _end2DoopLine
+    structures: line
+    p1: 8,0,0
+    p2: 6,16,0.75
+    amount: 6
+    mirror: 2
+    fitStartHeight: 0
+
+define: _end2DoopCurve
+    structures: Steadycurve
+    p1: 0,4
+    p2: 4,4
+    p3: 4,4
+    p4: 4,0
+    amount: 12
+    scale: 0.75
+
+define: end2Doop
+    structures: _end2DoopLine, _end2DoopCurve
+    mirror: 2
+
+
+# booops
+217.75: end2Doop
+
+219.75: end2Doop
+
+221.75: end2Doop
+    reverse: true
+
+
+
+
+# second run
+
+define: _end2DoopCurve2
+    structures: Steadycurve
+    p1: 0,0
+    p2: 4,0
+    p3: 4,0
+    p4: 4,4
+    amount: 8
+    scale: 0.75
+    mirror: 2
+
+define: _end2Doopline2
+    structures: line
+    p1: 0,0,0
+    p2: 4,0,0.75
+    amount: 4
+    mirror: 8
+
+define: end2Doop2
+    structures: _end2DoopCurve2, _end2Doopline2
+
+
+223.75: end2Doop2
+
+225.75: end2Doop2
+    reverse: true
+
+227.75: end2Doop2
+
+229.75: randomNoise
+    p1: 3,0,0
+    p2: 5,4,1.25
+    amount: 16
+    mirror: 6
+
+229.75: randomNoise
+    p1: -3,0,0
+    p2: 3,0.5,1.25
+    amount: 16
+    mirror: 6
+
+231: Steadycurve
+    p1: 5,0
+    p2: 5,5
+    p3: 3,5
+    p4: 3,0
+    scale: 0.75
+    mirror: 2
+    amount: 16
+
+# using an easier name
+define: _felixLine1
+    structures: line
+    p1: 4,5,0
+    p2: 3,0,0.75
+    amount: 6
+    mirror: 6
+    fitStartHeight: 0
+
+define: _felixLine2
+    structures: line
+    amount: 6
+    p1: -3,0,0
+    p2: -2,4,0.75
+    mirror: 6
+
+define: _felixLine3
+    structures: line
+    amount: 6
+    p1: -3,0,0
+    p2: 3,0,0.75
+    mirror: 6
+
+define: felix
+    structures: _felixLine1, _felixLine2, _felixLine3
+
+
+
+231.75: felix
+    scale: 1.5
+
+233.75: felix
+    mirror: 1
+
+235.75: felix
+
+237.75: felix
+    mirror: 1
+
+239.75: end2Doop
+
+241.75: end2Doop2
+
+
+
+# the stuff betweens the doop
+
+define: cornerCurve1
+    structures: Steadycurve
+    amount: 4
+    p1: 2,0
+    p2: 3,0
+    p3: 3,0
+    p4: 3,1
+
+define: cornerCurve2
+    beat: 1
+    structures: Steadycurve
+    amount: 4
+    p1: 3,3
+    p2: 3,4
+    p3: 3,4
+    p4: 2,4
+
+define: cornerCurve3
+    beat: 2
+    structures: Steadycurve
+    amount: 4
+    p1: -2,4
+    p2: -3,4
+    p3: -3,4
+    p4: -3,3
+
+define: cornerCurve4
+    beat: 3
+    structures: Steadycurve
+    amount: 4
+    p1: -3,1
+    p2: -3,0
+    p3: -3,0
+    p4: -2,0
+
+define: beat4cornerCurve1
+    beat: 4
+    structures: cornerCurve1
+
+define: beat5cornerCurve2
+    beat: 5
+    structures: cornerCurve2
+
+
+define: 3beatCurve
+    structures: Steadycurve
+    p1: 3,0
+    p2: 3,3
+    p3: 3,4
+    p4: 0,4
+    amount: 12
+    scale: 3
+
+define: 3beatIntersection
+    structures: cornerCurve1,cornerCurve2,cornerCurve3, 3beatCurve
+    scale: 0.25
+
+define: 4beatIntersection
+    structures: cornerCurve1,cornerCurve2,cornerCurve3,cornerCurve4
+    scale: 0.25
+
+define: 6beatNoise1
+    structures: randomNoise
+    p1: -3,0,0
+    p2: -5,2,6
+    amount: 6
+    mirror: 6
+    addHeight: 0.4
+
+define: 6beatNoise2
+    beat: 0.5
+    structures: randomNoise
+    p1: -3,0,0
+    p2: 0,0,6
+    mirror: 6
+    amount: 6
+    addWidth: 0.4
+
+define: 6beatIntersection
+    structures: cornerCurve1,cornerCurve2,cornerCurve3,cornerCurve4,beat4cornerCurve1,beat5cornerCurve2, 6beatNoise1, 6beatNoise2
+    scale: 0.25
+
+
+
+# INTERSECTION
+
+217: 3beatIntersection
+218.25: 6beatIntersection
+220.25: 6beatIntersection
+    mirror: 1
+
+222.25: 6beatIntersection
+224.25: 6beatIntersection
+    mirror: 5
+226.25: 6beatIntersection
+    mirror: 3
+
+228.26: 6beatIntersection
+
+233: 3beatIntersection
+
+234.25: 6beatIntersection
+    mirror: 5
+
+236.25: 6beatIntersection
+    mirror: 1
+
+238.25: 6beatIntersection
+    mirror: 0
+240.25: 6beatIntersection
+    mirror: 3
+
+242: 6beatIntersection
+    mirror: 5
+
+# END
+
+243.75: line
+    p1: 6,8,0
+    p2: 3,2,4.25
+    amount: 64
+    mirror: 2
+    changeWidth: 0
+    fitStartHeight: 0
+
+
+243.75: helix
+    count: 3
+    scale: 4.25
+    speeder: 1.25
+    

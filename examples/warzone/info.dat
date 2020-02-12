@@ -1,0 +1,51 @@
+{
+  "_version": "2.0.0",
+  "_songName": "Warzone",
+  "_songSubName": "",
+  "_songAuthorName": "Boom Kitty",
+  "_levelAuthorName": "Spooky Ghost",
+  "_beatsPerMinute": 132,
+  "_shuffle": 0,
+  "_shufflePeriod": 0.5,
+  "_previewStartTime": 40.454547882080078,
+  "_previewDuration": 12,
+  "_songFilename": "kitty.ogg",
+  "_coverImageFilename": "cover.png",
+  "_environmentName": "DragonsEnvironment",
+  "_songTimeOffset": 0,
+  "_customData": {
+    "_contributors": [
+      { "_role": "Wall mapper", "_name": "Spooky ghost", "_iconPath": "spoop.png" },
+      { "_role": "Lighter", "_name": "Aeroluna", "_iconPath": "aero.png" },
+      { "_role": "Mapper", "_name": "CyanSnow", "_iconPath": "cyan.png" }
+    ]
+  },
+  "_difficultyBeatmapSets": [
+    {
+      "_beatmapCharacteristicName": "Standard",
+      "_difficultyBeatmaps": [
+        {
+          "_difficulty": "EasyStandard",
+          "_difficultyRank": 9,
+          "_beatmapFilename": "EasyStandard.dat",
+          "_noteJumpMovementSpeed": 18,
+          "_noteJumpStartBeatOffset": -0.25,
+          "_customData": {
+            "_difficultyLabel": "",
+            "_editorOffset": 0,
+            "_editorOldOffset": 0,
+            "_warnings": [],
+            "_information": [],
+            "_suggestions": [],
+            "_requirements": ["Mapping Extensions"],
+            "_colorLeft": { "r": 0.65837478637695313, "g": 0.0060488330200314522, "b": 0.003676507156342268 },
+            "_colorRight": { "r": 0.014443843625485897, "g": 0.85499262809753418, "b": 0.71569347381591797 },
+            "_obstacleColor": { "r": 0.066625937819480896, "g": 0.066625937819480896, "b": 0.066625937819480896 },
+            "_envColorLeft": { "r": 0.65837478637695313, "g": 0.0060488330200314522, "b": 0.003676507156342268 },
+            "_envColorRight": { "r": 0.014443843625485897, "g": 0.85499262809753418, "b": 0.71569347381591797 }
+          }
+        }
+      ]
+    }
+  ]
+}

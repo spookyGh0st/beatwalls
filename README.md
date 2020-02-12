@@ -1,7 +1,7 @@
 # beatwalls
 
 Commandline tool to add Walls to beatsaber maps using bookmarks. [showcase](https://streamable.com/felde),
- [docs](https://spookygh0st.github.io/beatwalls/structure/-wall-structure/index.html)
+ [docs](https://spookygh0st.github.io/beatwalls/structure/-wall-structure/index.html), [examples](https://github.com/spookyGh0st/beatwalls/tree/master/examples)
 
 ## Installation
 

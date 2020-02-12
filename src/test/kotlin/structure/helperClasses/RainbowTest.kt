@@ -33,7 +33,10 @@ class RainbowTest {
             Color(red=0.02447174185242318, green=0.8715724127386968, blue=0.6039558454088805),
             Color(red=0.20610737385376332, green=0.9972609476841366, blue=0.2966316784621006)
         )
-        assertEquals(expected, actual)
-
+        repeat(actual.size) {
+            assertEquals(expected[it].red, actual[it]?.red!!,0.0001)
+            assertEquals(expected[it].green, actual[it]?.green!!,0.0001)
+            assertEquals(expected[it].blue, actual[it]?.blue!!,0.0001)
+        }
     }
 }

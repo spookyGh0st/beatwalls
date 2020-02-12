@@ -195,13 +195,26 @@ There are also cl options for more advanced user
 
 ## other stuff
 
+#### Randomness
+
 some values allow the use of random. You can set the seed for this by using 
 ```yaml
 randomSeed: 10
+changeHeight: random(0,5) # will be the same every run
 ```
 this will sed the seed for every random Call **below** that line to the given seed. 
 this can be done multiple times.
 
+some **Wallstructures** also use random. These use the variable seed for each Structure
+```yaml
+12: RandomNoise
+    seed: 420
+```
+
+#### Feedback
+
+I really want to hear about any problem you may run into. Write me.
+
 Please ping me on discord (spookyGhost) about any feedback or any wallstructures you would like to see added. Or submit a pull request yourself
 
-Windows will probably annoy you that this program is dangerous. If you dont want this, build from source or buy me a certificate
+Windows will probably annoy you that this program is dangerous. If you dont trust me, build from source and check the shasum

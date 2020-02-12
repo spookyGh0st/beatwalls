@@ -8,5 +8,5 @@ here are some example files to get you started
 
 ### full songs
 
-- [warzone](https://github.com/spookyGh0st/beatwalls/examples/warzone/README.md)  |   [video](https://www.youtube.com/watch?v=6UwEjc6VGyM)
+- [warzone](https://github.com/spookyGh0st/beatwalls/tree/master/examples/warzone)  |   [video](https://www.youtube.com/watch?v=6UwEjc6VGyM)
 - to be added

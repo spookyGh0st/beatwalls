@@ -1,7 +1,10 @@
-# beatwalls
+# Beatwalls
 
-Commandline tool to add Walls to beatsaber maps using bookmarks. [showcase](https://streamable.com/felde),
- [docs](https://spookygh0st.github.io/beatwalls/structure/-wall-structure/index.html), [examples](https://github.com/spookyGh0st/beatwalls/tree/master/examples)
+A separate tool to create awesome Wallshows in Beatsaber! Define entire Sections in a few lines and watch your maps get requested everywhere!
+
+[showcase](https://streamable.com/felde),
+[docs](https://spookygh0st.github.io/beatwalls/structure/-wall-structure/index.html), 
+[examples](https://github.com/spookyGh0st/beatwalls/tree/master/examples).
 
 ## Installation
 
@@ -9,38 +12,36 @@ Commandline tool to add Walls to beatsaber maps using bookmarks. [showcase](http
 
 - Download the binary from the [latest release](https://github.com/spookyGh0st/beatwalls/releases) tab
 
-## Introduction
+## Usage
 
-The goal of the Beatwalls Program is to make working with mapping extension walls easier and enable everyone to use cool Walls in their Maps. It is designed to be used easily with good defaults, but still enables lots of options for interested Users.
+Drag a Song Folder into the .exe to launch the configuration setup. 
+It will create a .bw File in your song folder. Open this in any text editor. Recommended is Visual Studio Code.
+This File defines the created Wallstructures for the selected difficulty, like a cookbook.
 
-### A WallStructure 
+# Syntax
 
-A WallStructure is a collection of Walls. Bundling them together allows one to scale, repeat and edit them all at once to fit the Song, without having to manually edit each Wall. Combine multiple Wallstructures, to create amazing scenery for your Map.
+### WallStructure 
+
+A WallStructure is a collection of Walls. 
+Bundling them together allows one to  edit and repeat them all at once to fit the Song, 
+without having to manually edit each Wall. 
+Now add a few of them, and you can have some really awesome ~~lag~~ awesome Walls, fitting the music.
 
 
-### A Wall
+### Wall
 
 To make working with Walls easier, I introduce to you a new [standard](https://xkcd.com/927) of Values, which define a wall. It defines 1 = one line Index and the center = 0. Everything else scales accordingly.
 
 ![something like this](https://i.imgur.com/Uz7aIDg.png=100x100 )
 
-## Usage
-
-Drag a Song Folder into the .exe to launch the configuration setup. 
-It will create a .bw File in your song folder. Open this in any text editor. Recommended is Visual Studio Code.
-This File defines the created Wallstructures for the selected difficulty, like a cookbook. Here is an example:
 
 ```yaml
-# start of the intro
-10.0: RandomNoise
-    amount: 10
-    time: true
-    repeat: 10
-    
 # start of the first chorus
-20: Helix
-    count: 3
-    repeat: 10
+10: Line
+    p1: 3,0,0
+    p2: 0,5,2.5
+    amount: 16
+    mirror: 2
     time: true
 ```
 
@@ -50,99 +51,92 @@ Lets walk through the start of this example line by line
 
 Lines starting with a `#` are comments and get ignored
 
-```10: RandomNoise```
+```10: Line```
 
 This is our first Wallstructure. It consists of 2 parts:
-- 10: the beat it will be created on
-- RandomNoise: The name of the Wallstructure
 
-So just with that line we will create a default RandomNoise structure on beat 10.
+`10`: the beat it will be created on
+`Line`: The name of the Wallstructure
 
-The program provides a set of predefined Wallstructures you can build on. The are limited in numbers at the moment, but very flexible. Also I plan to update the program to add more in the future. Lets move on to the next lines
+The program provides a set of predefined Wallstructures you can work with. 
+Each Wallstructure has it own properties, and some properties all Wallstructures share.
 
-```yaml
-amount: 10
-time: true
-repeat: 10
-```
+Our line for example needs 2 Points, so the line will go from the startPoint to the EndPoint
 
-These are properties for our created WallStructure. You can find all available parameters in the documentation linked at the end.
+`p1: 3,0,0` Point 1 -> The start point of the line. Imagine a 3-dimensional Point. 
+- 3 -> means about 3 meters on the right side of the player
+- 0 -> means a height of 0 meters, so basically at the Ground
+- 0 -> will start 0 beats away from the player. But because the whole structure starts at 10, this means that the first wall will be created at the beat 10+0.
 
-- amount: 10 -> create 10 small structs
-- time: true -> times the wall, so they appear with the beat
+`p1: 0,5,2.5` Point 2 -> The end point of the line. so we are drawing a line from p1 to p2 
+- 0 -> means 0 meters to the right from the player, so the center
+- 5 -> means a height of 5 meters, about the highest one can go
+- 2.5 -> will start 2 beats away from the player. The entire Line will now end at 10+2.5=12.5 beats
 
-### Repeat
+Now all Wallstructures share some common Properties. 
+This one for example uses these 3:
 
-The repeat parameter allows you to repeat the walls of the Structure. 
+`amount: 16 ` how many walls will be created -> creates 16 walls for this lane
 
-`repeat: 10` says, that this structure will be created 10 times.
-Each time it will be shifted be the amounts in 
+`mirror: 2` mirrors the entire line to the other side, so we 2 lines will be created, one left and one right from the player.
 
-- repeatAddX(default: 0)
-- repeatAddY(default: 0) 
-- repeatAddZ (default: 1)
+`time: true` all Walls will have the halfjumpDurationOffset added, so they appear at the beat (and not pass by them). 
 
-One gotcha: This is just copy and paste. So 5 repeatings of a struct with Randomness will create the same struct 5 times.
+The `time` property is a special one, since it is enabled by default, meaning that all Wallstructures will appear on the beat you place them on. 
+I see no reason why you would want anything else
+
+These are just a few of all available parameters. Make sure you check the 
+[documentation](https://spookygh0st.github.io/beatwalls/structure/-wall-structure/index.html), 
+and the
+[examples](https://github.com/spookyGh0st/beatwalls/tree/master/examples).
+for everything you can work with.
+
 
 ### Defining you own structures
 
-The Wallstructure Define is a special one for advanced uses. You can use this to to reuse complex structures without having to write them all down. They must be written in the order they are used.
+Writing a few lines of code some walls is preaty gread, but how about storing and reusing them?
+
+Define is a special structure one for advanced uses. You can use this to to reuse complex structures without having to write them all down. They must be written in the order they are used.
 
 Example:
 ```yaml
-define: _tunel1
+define: _tunnel1
     structures: wall
-    startRow:-4
+    startRow: -4
     width: 8
 
-define: _tunel2
+define: _tunnel2
     structures: wall
-    startRow:-4
-    startHeight:4
+    startRow: -4
+    startHeight: 4
     width: 8
 
-define: _tunel3
+define: _tunnel3
     structures: wall
     startRow: -4
     Height: 4
 
-define: _tunel4
+define: _tunnel4
     structures: wall
     startRow: 4
     Height: 4
     
-define: tunel
-    structures: _tunel1,_tunel2,_tunel3,tunel4
+define: _tunnel4
+    structures: RandomNoise
+    p1: -4,0,0
+    p2: 4,4,0.5
+    amount: 8
+define: tunnel
+    structures: _tunnel1,_tunnel2,_tunnel3,tunnel4
 ```
-now you can create a tunel at time 10 with
+now you can create a bunch of tunnels at time 10 with just
 ```yaml
-10:tunel
-```
-
-
-
-
-### Point
-
-Some structures use Points as properties. These are simply 3-dimensional Points in space. With
-
-- x= startRow (line index)
-- y= startHeight 
-- z= startTime, relative to the structure
-
-to create a Point use
-
-```$x,$y,$z```
-
-a normal curve might look like this:
-
-```yaml
-30: curve
-    amount:16
-    p1:0,0,0
-    p2:2,0,0.33
-    p3:2,0,0.66
-    p4:2,4,1
+10: tunnel
+12: tunnel
+16.6: tunnel
+# a tunnel, which is twice as long
+20: tunel
+    scale: 2
 ```
 
 ### Default
@@ -164,6 +158,14 @@ Everything you define under a default. Will be have the default value of the thi
 
 this sets the changedurationparameter to -3 to default, draws the
 note that default still has a beat attached to it. It does not matter at all. only the location in the file matters.
+
+## more syntax
+
+- Beatwalls is ***NOT*** case sensitive
+- Beatwalls does ***NOT*** care about spaces or tabs, or any 
+- Beatwalls does ***NOT*** work with non-ascii characters
+- Beatwalls works with BEATS (the thing in mm) and not TIMES, so no need to worry about bpm changes
+- Beatwalls has NO Syntax checker currently and might crash when something weird happens. Please write me when it does.
 
 ## Documentation
 
@@ -205,7 +207,7 @@ changeHeight: random(0,5) # will be the same every run
 this will sed the seed for every random Call **below** that line to the given seed. 
 this can be done multiple times.
 
-some **Wallstructures** also use random. These use the variable seed for each Structure
+some **Wallstructures** (not properties) also use random. These use the variable seed for each Structure
 ```yaml
 12: RandomNoise
     seed: 420

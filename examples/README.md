@@ -2,6 +2,12 @@
 
 here are some example files to get you started
 
+### Single WallStructures
+
+- [Curve](https://github.com/spookyGh0st/beatwalls/tree/master/examples/wallStructures/Curve.md)
+- [Line](https://github.com/spookyGh0st/beatwalls/tree/master/examples/wallStructures/Line.md)
+- [RandomNoise](https://github.com/spookyGh0st/beatwalls/tree/master/examples/wallStructures/Line.md)
+ 
 ### common patterns
 
 - to be added

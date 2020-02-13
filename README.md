@@ -94,7 +94,7 @@ for everything you can work with.
 
 ### Defining you own structures
 
-Writing a few lines of code some walls is preaty gread, but how about storing and reusing them?
+Writing a few lines of code some walls is pretty great, but how about storing and reusing them?
 
 Define is a special structure one for advanced uses. You can use this to to reuse complex structures without having to write them all down. They must be written in the order they are used.
 

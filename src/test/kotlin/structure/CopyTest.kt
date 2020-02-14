@@ -34,7 +34,7 @@ class CopyTest {
             SpookyWall(1.0,0.0,32.3,23.4,124.2,221.0, blue)
         )
         val wl = ws.deepCopy()
-        assertEquals(ws, wl)
+        assert(ws.name == wl.name())
         assertNotSame(ws,wl)
         assertEquals(ws.spookyWalls, wl.spookyWalls)
         assertNotSame(ws.spookyWalls, wl.spookyWalls)

@@ -56,7 +56,10 @@ class FunctionParserKtTest {
             Flash(listOf(red)) to "flash(red)",
             Flash(listOf(red,green)) to "flash(red,green)",
             Flash(listOf(red,Color(15,12,2))) to "flash(red,15,12,2)",
-            Flash(listOf(Color(120,12,13),Color(15,12,2))) to "flash(120,12,13,15,12,2)")
+            Flash(listOf(Color(120,12,13),Color(15,12,2))) to "flash(120,12,13,15,12,2)",
+            NoColor to "NoColor",
+            NoColor to "null")
+
 
         tests.forEach{
             assertEquals(it.first,it.second.toColorMode())

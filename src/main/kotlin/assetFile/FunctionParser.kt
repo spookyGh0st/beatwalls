@@ -106,6 +106,9 @@ internal fun String.toColorMode(): ColorMode {
             if (colorList.isEmpty()) errorExit { "No colors submitted for flash" }
             else Flash(colorList)
         }
+        (f.name == "nocolor" || f.name == "null") -> {
+            NoColor
+        }
         else -> errorExit { "$this is invalid, please check the documentation." }
     }
 }

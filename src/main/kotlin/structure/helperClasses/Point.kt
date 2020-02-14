@@ -31,15 +31,15 @@ data class Point(val x:Double, val y:Double, val z:Double):Serializable {
         return true
     }
 
+    override fun toString(): String {
+        return "Point(x=$x, y=$y, z=$z)"
+    }
+
     override fun hashCode(): Int {
         var result = x.hashCode()
         result = 31 * result + y.hashCode()
         result = 31 * result + z.hashCode()
         return result
-    }
-
-    override fun toString(): String {
-        return "Point(x=$x, y=$y, z=$z)"
     }
 }
 

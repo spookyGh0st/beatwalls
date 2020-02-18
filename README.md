@@ -6,11 +6,13 @@ A separate tool to create awesome Wallshows in Beatsaber! Define entire Sections
 [docs](https://spookygh0st.github.io/beatwalls/structure/-wall-structure/index.html), 
 [examples](https://github.com/spookyGh0st/beatwalls/tree/master/examples).
 
-## Installation
+## Prerequisites
 
 - Have java installed
 
 - Download the binary from the [latest release](https://github.com/spookyGh0st/beatwalls/releases) tab
+
+- Have a song setup with mapping extensions already. You can find instructions somewhere in the bsmg discord.
 
 ## Usage
 

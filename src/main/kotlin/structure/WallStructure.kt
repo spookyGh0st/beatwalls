@@ -359,7 +359,7 @@ sealed class WallStructure:Serializable
     abstract fun generateWalls()
 
     /** returns the name of the structure */
-    open fun name() = this::class.simpleName ?: "" //todo throw error
+    open fun name() = this::class.simpleName ?: throw ClassNotFoundException("class does not have a name")
 
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
@@ -502,7 +502,13 @@ class FurryGrid : WallStructure() {
     var gridZ = 8
 
     /**
-     * TODO mode NOT IMPLEMENTED YET
+     * different modes of walls
+     *
+     * 0 = create every wall in the pattern
+     *
+     * 1 = chess-pattern
+     *
+     * todo add more
      */
     var mode = 0
 

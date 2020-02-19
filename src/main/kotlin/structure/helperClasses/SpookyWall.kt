@@ -68,7 +68,6 @@ data class SpookyWall(
     }
 
     /**returns th _obstacle value of the width*/
-    //TODO until negative width is allowed, this is needed. Once negative width is allowed, do this like lineIndex
     private fun calculateWidth():Int{
         //makes sure its not 0 width
         width = if(width > -0.01 && width < 0.01) 0.01 else width

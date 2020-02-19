@@ -63,7 +63,6 @@ sealed class WallStructure:Serializable
      *  7-> mirror horizontal and on the other side and duplicate all 4
      *  8-> mirror on the center and on the other side and duplicate all 4
      */
-    //todo mirror 6 and than mirror that
     var mirror: Int = Default.mirror
 
     /**
@@ -508,7 +507,7 @@ class FurryGrid : WallStructure() {
      *
      * 1 = chess-pattern
      *
-     * todo add more
+     * want more? write me
      */
     var mode = 0
 
@@ -920,22 +919,7 @@ class HelixCurve: WallStructure() {
     /**
      * generating the Walls
      */
-    //todo override fun generateWalls() { run() }
-    override fun generateWalls() {
-        val center = Point(0, 2, 0)
-        add(curve(p1, p2, p3, p4, amount))
-        add(
-            curve(
-                center.mirroredNoZ(p1),
-                center.mirroredNoZ(p2),
-                center.mirroredNoZ(p3),
-                center.mirroredNoZ(p4),
-                amount
-            )
-        )
-        if(count == 4)
-            TODO()
-    }
+    override fun generateWalls() { run() }
 }
 
 

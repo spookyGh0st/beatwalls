@@ -18,6 +18,9 @@ fun SteadyCurve.run(){
     p4=p4.copy(z=1.0)
     add(curve(p1, p2 ?: p1, p3 ?: p4, p4, amount))
 }
+fun HelixCurve.run(){
+    TODO()
+}
 
 fun curve(startPoint: Point, p1: Point, p2: Point, endPoint: Point, amount: Int):ArrayList<SpookyWall>{
     val list = arrayListOf<SpookyWall>()

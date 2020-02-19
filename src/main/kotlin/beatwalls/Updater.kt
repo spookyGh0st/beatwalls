@@ -84,7 +84,8 @@ fun buildUpdater(): File {
             rm beatwalls.exe
             mv beatwals.exe.temp beatwalls.exe
             ./beatwalls.exe
-        """.trimIndent() //todo download jar
+            download file
+        """.trimIndent()
         "Windows 10" -> """
         @ping -n 1 localhost> nul
         del /Q beatwalls.exe

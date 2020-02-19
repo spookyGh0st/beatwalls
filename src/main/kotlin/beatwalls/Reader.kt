@@ -32,7 +32,7 @@ object AssetReader {
     fun getDifficulty(): Difficulty {
         val diffFile = readDifficultyFile()
         return try {
-            parseDifficulty(diffFile) //todo do this for every
+            parseDifficulty(diffFile)
         } catch (e: Exception) {
             errorExit(e) { "Failed to parse the Difficulty. Do you use an up to date editor?" }
         }
@@ -42,7 +42,6 @@ object AssetReader {
         try {
             val file = readDifficultyFile()
             val json = Gson().toJson(diff)
-            //todo remove scientific notations
             //https://stackoverflow.com/questions/11119094/switch-off-scientific-notation-in-gson-double-serialization#18892735
             file.writeText(json)
             logger.info { "written Chart.difficulty file to $file" }

@@ -3,13 +3,15 @@ package structure.specialStrucures
 import structure.*
 import structure.helperClasses.CuboidConstrains
 import structure.helperClasses.Point
+import structure.helperClasses.SpookyWall
 import kotlin.math.roundToInt
 import kotlin.random.Random
 
-fun RandomCuboidLines.run(){
+fun RandomCuboidLines.run(): List<SpookyWall> {
+    val l= mutableListOf<SpookyWall>()
     val c = CuboidConstrains(p1, p2)
     val trueCount = count ?: c.duration.roundToInt()
-    val r = Random(seed)
+    val r = Random(seed?: Random.nextInt())
     repeat(trueCount) {
         val z1 = c.sz + it.toDouble() / trueCount * c.duration
         val z2 = z1 + 1.0 / trueCount * c.duration
@@ -40,6 +42,7 @@ fun RandomCuboidLines.run(){
             3 -> lineP1.copy(x = randomEndX, z = z2)
             else -> Point(0, 0, 0) // never happens
         }
-        add(line(lineP1, lineP2, amount))
+        l.addAll(line(lineP1, lineP2, amount))
     }
+    return l.toList()
 }

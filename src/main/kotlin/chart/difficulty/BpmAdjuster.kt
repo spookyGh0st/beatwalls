@@ -5,7 +5,7 @@ import mu.KotlinLogging
 import structure.Define
 import structure.helperClasses.SpookyWall
 import structure.WallStructure
-import structure.walls
+import structure.wallbender.generateBendAndRepeatWalls
 import kotlin.math.ceil
 
 private val logger = KotlinLogging.logger {}
@@ -28,7 +28,7 @@ class BpmAdjuster(diff: Difficulty, private val meta: MetaData) {
     }
 
     fun generate(w: WallStructure): List<_obstacles> {
-        val walls = w.walls()
+        val walls = w.generateBendAndRepeatWalls()
 
         // adjusts the neccesary values
         walls.forEach { it.startTime += w.beat }

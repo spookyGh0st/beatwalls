@@ -2,11 +2,10 @@ package structure.specialStrucures
 
 import structure.Helix
 import structure.helperClasses.SpookyWall
-import structure.add
 import kotlin.math.*
 
-fun Helix.run() {
-    add(
+fun Helix.run(): List<SpookyWall> {
+    return (
         circle(
             count = count,
             fineTuning = amount,
@@ -16,7 +15,7 @@ fun Helix.run() {
             rotationCount = rotationAmount,
             helix = true
         )
-    )
+    ).toList()
 }
 
 /** A function to getSpookyWallList a circle of walls or a helix, probably should have splitted those up */

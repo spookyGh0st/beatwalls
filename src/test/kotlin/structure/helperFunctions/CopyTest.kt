@@ -1,8 +1,12 @@
-package structure
+package structure.helperFunctions
 
 import org.junit.Test
 
 import org.junit.Assert.*
+import structure.Define
+import structure.Line
+import structure.copyWalls
+import structure.deepCopy
 import structure.helperClasses.*
 
 class CopyTest {

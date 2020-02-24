@@ -1,0 +1,48 @@
+package structure.wallbender
+
+import structure.WallStructure
+import structure.helperClasses.SpookyWall
+
+fun WallStructure.repeat(walls: List<SpookyWall>): List<SpookyWall> {
+    var l = walls
+    l=repeatWalls(l)
+    l=repeatStruct(l)
+    return l
+}
+fun WallStructure.repeatWalls(walls: List<SpookyWall>): List<SpookyWall> {
+    val l = walls.toMutableList()
+    for (i in 1 until repeatWalls){
+        val temp = walls.map {
+            it.copy(
+                startTime=it.startTime+repeatAddZ*i+repeatAddStartTime*i,
+                duration = it.duration+repeatAddDuration*i,
+                startRow = it.startRow + repeatAddX*i+repeatAddStartRow*i,
+                width = it.width+repeatAddWidth*i,
+                startHeight = it.startHeight + repeatAddY*i + repeatAddStartHeight*i,
+                height =  it.height+repeatAddHeight*i
+            )
+        }
+        l+=temp
+    }
+    return l.toList()
+}
+
+fun WallStructure.repeatStruct(walls:List<SpookyWall>): List<SpookyWall>{
+    val l = walls.toMutableList()
+    for(i in 1 until repeat){
+        var temp = this.generateWalls()
+        temp =this.adjust(temp)
+        temp = temp.map {
+            it.copy(
+                startTime=it.startTime+repeatAddZ*i+repeatAddStartTime*i,
+                duration = it.duration+repeatAddDuration*i,
+                startRow = it.startRow + repeatAddX*i+repeatAddStartRow*i,
+                width = it.width+repeatAddWidth*i,
+                startHeight = it.startHeight + repeatAddY*i + repeatAddStartHeight*i,
+                height =  it.height+repeatAddHeight*i
+            )
+        }
+        l+=temp
+    }
+    return l.toList()
+}

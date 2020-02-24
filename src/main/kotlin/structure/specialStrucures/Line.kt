@@ -3,11 +3,10 @@ package structure.specialStrucures
 import structure.Line
 import structure.helperClasses.Point
 import structure.helperClasses.SpookyWall
-import structure.add
 import kotlin.math.*
 
-fun Line.run() {
-    add(line(p1, p2, amount))
+fun Line.run(): List<SpookyWall> {
+    return (line(p1, p2, amount)).toList()
 }
 
 fun line(p0: Point, p1: Point, amount: Int?): ArrayList<SpookyWall> {

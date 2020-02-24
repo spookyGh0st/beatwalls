@@ -4,8 +4,10 @@ import assetFile.findProperty
 import assetFile.readProperty
 import structure.*
 import structure.helperClasses.Point
+import structure.helperClasses.SpookyWall
 
-fun ContinuousCurve.run(){
+fun ContinuousCurve.run(): List<SpookyWall> {
+    val l= mutableListOf<SpookyWall>()
     for(i in 1 until creationAmount){
         val point = readPoint("p$i")
         val controlPoint = readPoint("c$i")
@@ -19,9 +21,10 @@ fun ContinuousCurve.run(){
                 calcP3(point, nextPoint, nextControlPoint, nextNextPoint)
             val tempP4 = nextPoint
             val amount = ((tempP4.z - tempP1.z) * amount).toInt()
-            add(curve(tempP1, tempP2, tempP3, tempP4, amount))
+            l.addAll(curve(tempP1, tempP2, tempP3, tempP4, amount))
         }
     }
+    return l.toList()
 }
 
 fun calcP3(point: Point, nextPoint: Point, nextControlPoint: Point, nextNextPoint: Point?): Point {
@@ -40,8 +43,8 @@ fun calcP3(point: Point, nextPoint: Point, nextControlPoint: Point, nextNextPoin
 fun WallStructure.readPoint(name:String): Point? =
     this.readProperty(findProperty(this, name)) as Point?
 
-@Suppress("DEPRECATION")
-fun ContinuesCurve.generateProperties(): String {
+@Suppress("unused")
+fun ContinuousCurve.generateProperties(): String {
     var s = ""
     for(it in 1 .. creationAmount){
         s+="""

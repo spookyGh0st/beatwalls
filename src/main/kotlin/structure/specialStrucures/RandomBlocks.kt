@@ -2,17 +2,18 @@ package structure.specialStrucures
 
 import structure.RandomBlocks
 import structure.helperClasses.SpookyWall
-import structure.add
 import kotlin.random.Random
 
 
-fun RandomBlocks.run(){
+fun RandomBlocks.run(): List<SpookyWall> {
+    val l= mutableListOf<SpookyWall>()
     repeat(amount){
-        add(createBlock(it.toDouble()/amount*duration,wallDuration))
+        l.add(createBlock(it.toDouble()/amount*duration,wallDuration))
     }
+    return l.toList()
 }
 private fun RandomBlocks.createBlock(st:Double ,d:Double): SpookyWall {
-    val r = Random(seed)
+    val r = Random(seed?: Random.nextInt())
     val sr = r.nextDouble(-20.0, 20.0)
     val w = sr * r.nextDouble()
     val sh = r.nextDouble(5.0)

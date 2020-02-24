@@ -2,13 +2,14 @@ package structure.specialStrucures
 
 import structure.helperClasses.Point
 import structure.RandomCurve
-import structure.add
+import structure.helperClasses.SpookyWall
 import kotlin.math.max
 import kotlin.math.min
 import kotlin.random.Random
 
-fun RandomCurve.run(){
-    val r = Random(seed)
+fun RandomCurve.run(): List<SpookyWall> {
+    val l= mutableListOf<SpookyWall>()
+    val r = Random(seed?: Random.nextInt())
     val mult: Double
     if((p2.z-p1.z) < 1){
         mult = 1 / (p2.z-p1.z)
@@ -26,8 +27,9 @@ fun RandomCurve.run(){
             p2.copy(z = p2.z + 1)
         else
             randomTimedPoint(r, i + 1.0 * mult)
-        add(curve(tp1, tp2, tp3, tp4, amount))
+        l.addAll(curve(tp1, tp2, tp3, tp4, amount))
     }
+    return l.toList()
 }
 
 private fun RandomCurve.randomTimedPoint(r: Random, z: Double): Point {

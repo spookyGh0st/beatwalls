@@ -26,6 +26,23 @@ data class SpookyWall(
     @Expose
     @SerializedName("color") var color: Color? = null
 ):Serializable{
+
+    constructor(
+        startRow: Int=0,
+        duration: Int=0,
+        width: Int=0,
+        height: Int=0,
+        startHeight: Int=0,
+        startTime: Int=0,
+        color: Color?=null
+    ):this(
+        startRow.toDouble(),
+        duration.toDouble(),
+        width.toDouble(),
+        height.toDouble(),
+        startHeight.toDouble(),
+        startTime.toDouble(),
+        color)
     val trueMaxPoint
         get() = Point(
             max(startRow, startRow + width),

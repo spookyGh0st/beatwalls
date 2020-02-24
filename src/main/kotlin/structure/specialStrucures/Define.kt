@@ -2,18 +2,20 @@ package structure.specialStrucures
 
 import beatwalls.errorExit
 import structure.Define
-import structure.add
-import structure.walls
+import structure.helperClasses.SpookyWall
+import structure.wallbender.generateBendAndRepeatWalls
 
-fun Define.run(){
+fun Define.run(): MutableList<SpookyWall> {
     when {
         structures.isEmpty() -> errorExit { "The structureList of $name is empty, check if you have a typo " }
         structures.contains(this) -> errorExit { "NO RECURSION, BAD BOY" }
     }
+    val l= mutableListOf<SpookyWall>()
 
     for(w in structures){
-        val l = w.walls()
-        l.forEach { it.startTime+=(w.beat) }
-        add(l)
+        val t = w.generateBendAndRepeatWalls()
+        t.forEach { it.startTime+=(w.beat) }
+        l.addAll(l)
     }
+    return l
 }

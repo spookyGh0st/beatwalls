@@ -2,10 +2,9 @@ package structure.specialStrucures
 
 import structure.helperClasses.SpookyWall
 import structure.Wall
-import structure.add
 
-fun Wall.run(){
-    add(
+fun Wall.run(): List<SpookyWall> {
+    return listOf(
         SpookyWall(
             startRow = startRow,
             duration = duration,

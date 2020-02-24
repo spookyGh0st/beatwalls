@@ -3,13 +3,13 @@ package structure.specialStrucures
 import structure.helperClasses.CuboidConstrains
 import structure.RandomNoise
 import structure.helperClasses.SpookyWall
-import structure.add
 import kotlin.math.roundToInt
 import kotlin.random.Random
 
-fun RandomNoise.run(){
+fun RandomNoise.run(): List<SpookyWall> {
+    val l = mutableListOf<SpookyWall>()
     val c = CuboidConstrains(p1, p2)
-    val r = Random(seed)
+    val r = Random(seed?: Random.nextInt())
     amount = amount ?: (8 * (c.ez - c.sz)).roundToInt()
     repeat(amount!!) {
 
@@ -21,6 +21,7 @@ fun RandomNoise.run(){
             startHeight = r.nextDouble(c.sy, c.ey),
             startTime = c.sz + (it.toDouble() / amount!! * (c.ez - c.sz))
         )
-        add(w)
+        l.add(w)
     }
+    return l.toList()
 }

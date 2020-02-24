@@ -1,13 +1,8 @@
 package structure.helperClasses
 
-import com.google.gson.Gson
-import org.junit.Test
-
-import org.junit.Assert.*
+import org.junit.Assert.assertEquals
 import org.junit.Before
-import structure.Line
-import structure.specialStrucures.run
-import structure.walls
+import org.junit.Test
 
 class RainbowTest {
     private val l = mutableListOf<SpookyWall>()

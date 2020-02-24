@@ -21,7 +21,9 @@ class AssetParserKtTest : TestCase() {
             "beat" to "4.5",
             "0.0" to "hallo",
             "10" to "Wall",
-            "randomSeed" to "10"
+            "randomSeed" to "10",
+            "0.0" to "default",
+            "changeDuration" to "null"
         )
         val list = parseStructures(mutList)
         assertTrue(list.first() is Define)

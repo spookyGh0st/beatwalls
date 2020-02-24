@@ -2,10 +2,10 @@ package structure.specialStrucures
 
 import structure.FurryGrid
 import structure.helperClasses.SpookyWall
-import structure.add
 
 // for now this is sufficiant, might want to add more in the future
-fun FurryGrid.run(){
+fun FurryGrid.run(): List<SpookyWall> {
+    val l = mutableListOf<SpookyWall>()
     var x = p1.x
     var y = p1.y
     var z = p1.z
@@ -14,7 +14,7 @@ fun FurryGrid.run(){
             repeat(gridZ) { itZ ->
                 val w =SpookyWall(startRow = x, duration = panelZ, width = panelX, height = panelY, startHeight = y, startTime = z)
                 if((itZ+itY+itX)%2==0 || mode == 0)
-                    add(w)
+                    l.add(w)
                 z += panelZ
             }
             z = p1.z
@@ -24,4 +24,5 @@ fun FurryGrid.run(){
         x += panelX
     }
     x = p1.x
+    return l.toList()
 }

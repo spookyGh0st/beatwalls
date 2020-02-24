@@ -31,15 +31,15 @@ fun WallStructure.repeatStruct(walls:List<SpookyWall>): List<SpookyWall>{
     val l = walls.toMutableList()
     for(i in 1 until repeat){
         var temp = this.generateWalls()
-        temp =this.adjust(temp)
+        temp = this.bendWalls(temp)
         temp = temp.map {
             it.copy(
-                startTime=it.startTime+repeatAddZ*i+repeatAddStartTime*i,
-                duration = it.duration+repeatAddDuration*i,
-                startRow = it.startRow + repeatAddX*i+repeatAddStartRow*i,
-                width = it.width+repeatAddWidth*i,
-                startHeight = it.startHeight + repeatAddY*i + repeatAddStartHeight*i,
-                height =  it.height+repeatAddHeight*i
+                startTime = it.startTime + repeatAddZ * i + repeatAddStartTime * i,
+                duration = it.duration + repeatAddDuration * i,
+                startRow = it.startRow + repeatAddX * i + repeatAddStartRow * i,
+                width = it.width + repeatAddWidth * i,
+                startHeight = it.startHeight + repeatAddY * i + repeatAddStartHeight * i,
+                height = it.height + repeatAddHeight * i
             )
         }
         l+=temp

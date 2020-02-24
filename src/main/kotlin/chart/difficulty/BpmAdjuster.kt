@@ -40,7 +40,7 @@ class BpmAdjuster(diff: Difficulty, private val meta: MetaData) {
             walls.forEach { it.startTime += meta.hjd }
 
         if (w !is Define || w.isTopLevel)
-            logger.info { "Added ${w.name()} with ${w.spookyWalls.size} walls on beat ${w.beat}." }
+            logger.info { "Added ${w.name()} with ${walls.size} walls on beat ${w.beat}." }
         // creates Obstacles
         return walls.map { it.to_obstacle(meta.hjd) }
     }

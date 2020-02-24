@@ -167,7 +167,7 @@ note that default still has a beat attached to it. It does not matter at all. on
 - Beatwalls does ***NOT*** care about spaces or tabs, or any 
 - Beatwalls does ***NOT*** work with non-ascii characters
 - Beatwalls works with BEATS (the thing in mm) and not TIMES, so no need to worry about bpm changes
-- Beatwalls has NO Syntax checker currently and might crash when something weird happens. Please write me when it does.
+- Beatwalls has ***NO*** Syntax checker currently and might crash when something weird happens. Please write me when it does.
 
 ## Documentation
 

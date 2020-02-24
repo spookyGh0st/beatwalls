@@ -87,7 +87,7 @@ data class SpookyWall(
     /**returns th _obstacle value of the width*/
     private fun calculateWidth():Int{
         //makes sure its not 0 width
-        width = if(width > -0.01 && width < 0.01) 0.01 else width
+        width = if (width > -minValue && width < minValue) minValue else width
 
         //calculate the width
         return if( width >= 0.0)
@@ -112,7 +112,7 @@ data class SpookyWall(
     /**returns the type given heigt and startheight */
     private fun type():Int {
 
-        val wallH= if(height >-0.01 && height <0.01) 0.01 else abs(height)
+        val wallH = if (height > -minValue && height < minValue) minValue else abs(height)
 
         val startH = if(height >0) startHeight else startHeight + height
 
@@ -135,20 +135,6 @@ data class SpookyWall(
     private fun customData()= when {
         color != null -> _obstacleCustomData(listOf(color!!.red, color!!.green, color!!.blue,1.0))
         else -> _obstacleCustomData(null)
-    }
-
-    /**returns the mirrored obstacle */
-    fun mirror() {
-        startRow = -startRow
-        width = -width
-    }
-    fun verticalMirror() {
-        startHeight = 2 + (2-startHeight)
-        height = -height
-    }
-    fun pointMirror() {
-        mirror()
-        verticalMirror()
     }
 
     override fun equals(other: Any?): Boolean {
@@ -174,4 +160,6 @@ data class SpookyWall(
         return result
     }
 }
+
+private const val minValue = 0.005
 

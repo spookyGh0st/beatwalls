@@ -133,7 +133,7 @@ data class SpookyWall(
     }
 
     private fun customData()= when {
-        color != null -> _obstacleCustomData(listOf(color!!.red, color!!.green, color!!.blue,1.0))
+        color != null -> _obstacleCustomData(listOf(color!!.red, color!!.green, color!!.blue))
         else -> _obstacleCustomData(null)
     }
 

@@ -233,17 +233,17 @@ sealed class WallStructure:Serializable
     var repeatWalls: Int = Default.repeatWalls
 
     /**
-     * The Gap between each Repeat
+     * The Gap between each Repeat. Default: 0
      */
     var repeatAddZ: Double = Default.repeatAddZ
 
     /**
-     * shifts each repeat in x
+     * shifts each repeat in x. Default: 0
      */
     var repeatAddX: Double = Default.repeatAddX
 
     /**
-     * shifts each repeated Structure in y
+     * shifts each repeated Structure in y. Default: 0
      */
     var repeatAddY: Double = Default.repeatAddY
 
@@ -347,7 +347,7 @@ sealed class WallStructure:Serializable
         var speeder: Double? = null
         var repeat: Int = 1
         var repeatWalls: Int = 1
-        var repeatAddZ: Double = 1.0
+        var repeatAddZ: Double = 0.0
         var repeatAddX: Double = 0.0
         var repeatAddY: Double = 0.0
         var repeatAddWidth: Double = 0.0
@@ -921,7 +921,6 @@ class HelixCurve: WallStructure() {
      */
      override fun generateWalls()  = run() 
 }
-
 
 //                                               _                _      ____               _
 //   __ _    ___   _ __     ___   _ __    __ _  | |_    ___    __| |    / ___|   ___     __| |   ___

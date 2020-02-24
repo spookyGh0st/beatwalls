@@ -122,11 +122,11 @@ private fun  List<String>.toColorList(): List<Color> {
                 l.add(this[i].toConstColor())
                 i++
             }
-            this[i].isInt() && this[i+1].isInt() && this[i+2].isInt() -> {
-                l.add(Color(this[i].toInt(),this[i+1].toInt(),this[i+2].toInt() ))
-                i+=3
+            this[i].isInt() && this[i + 1].isInt() && this[i + 2].isInt() -> {
+                l.add(Color(this[i].toInt(), this[i + 1].toInt(), this[i + 2].toInt()))
+                i += 3
             }
-            else -> throw NoSuchElementException()
+            else -> errorExit { "$this is not a valid color list. Make sure you dont have any float values or other weird stuff. check the documentation for details" }
         }
     }
     return l

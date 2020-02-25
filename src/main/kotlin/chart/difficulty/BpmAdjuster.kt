@@ -12,10 +12,13 @@ private val logger = KotlinLogging.logger {}
 
 class BpmAdjuster(diff: Difficulty, private val meta: MetaData) {
     private val baseBpm: Double = meta.bpm
-    private val changes: ArrayList<Pair<_BPMChanges, Double>> = mapChangesToBeat(diff._customData._BPMChanges)
+    private val changes: ArrayList<Pair<_BPMChanges, Double>> = mapChangesToBeat(diff._customData?._BPMChanges)
 
-    private fun mapChangesToBeat(changes: ArrayList<_BPMChanges>): ArrayList<Pair<_BPMChanges, Double>> {
+    private fun mapChangesToBeat(changes: ArrayList<_BPMChanges>?): ArrayList<Pair<_BPMChanges, Double>> {
         val l = arrayListOf(_BPMChanges(baseBpm, 0.0, 4, 4) to 0.0)
+        //if we have no bpm changes, we just use the default one
+        if(changes == null)
+            return l
         var beat = 0.0
         changes.forEach {
             val c = l.last().first

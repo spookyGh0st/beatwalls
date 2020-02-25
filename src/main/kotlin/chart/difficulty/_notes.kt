@@ -9,7 +9,7 @@ data class _notes (
     @SerializedName("_lineLayer") val _lineLayer : Int,
     @SerializedName("_type") val _type : Int,
     @SerializedName("_cutDirection") val _cutDirection : Int,
-    @SerializedName("_customData") val _noteCustomData : _noteCustomData?
+    @SerializedName("_customData") val _noteCustomData : _noteCustomData? = null
 )
 
 data class _noteCustomData(

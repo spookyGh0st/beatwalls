@@ -13,7 +13,8 @@ data class Difficulty(
     @SerializedName("_events") val _events : ArrayList<_events>,
     @SerializedName("_notes") val _notes : ArrayList<_notes>,
     @SerializedName("_obstacles") val _obstacles : ArrayList<_obstacles>,
-    @SerializedName("_customData") val _customData : _customData
+    @SerializedName("_customEvents") val _customEvents : ArrayList<_customEvents>?,
+    @SerializedName("_customData") val _customData : _customData?
 ) {
     fun createWalls(list: ArrayList<WallStructure>, metaData: MetaData) {
 

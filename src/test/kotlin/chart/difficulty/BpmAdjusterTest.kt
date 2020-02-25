@@ -19,7 +19,14 @@ class BpmAdjusterTest {
             )
         ), arrayListOf())
 
-        val diff = Difficulty("2.0.0", arrayListOf(), arrayListOf(), arrayListOf(),c)
+        val diff = Difficulty(
+            _version = "2.0.0",
+            _notes = arrayListOf(),
+            _obstacles = arrayListOf(),
+            _events = arrayListOf(),
+            _customEvents = null,
+            _customData = c
+        )
         bpmAdjuster = BpmAdjuster(diff,meta)
     }
 

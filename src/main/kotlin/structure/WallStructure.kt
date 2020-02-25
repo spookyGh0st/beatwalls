@@ -312,6 +312,11 @@ sealed class WallStructure:Serializable
      */
     var seed: Int? = Default.seed
 
+    /**
+     * used for some internal stuff, dont touch
+     */
+    var track: String? = Default.track
+
     companion object Default {
         var mirror: Int = 0
         var time: Boolean = true
@@ -357,7 +362,7 @@ sealed class WallStructure:Serializable
         var repeatAddStartTime: Double = 0.0
         var repeatAddDuration: Double = 0.0
         var seed: Int? = null
-
+        var track: String? = null
     }
 
     /** generates the walls */

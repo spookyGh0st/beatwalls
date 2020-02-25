@@ -10,6 +10,7 @@ fun WallStructure.bendWalls(walls: List<SpookyWall>): List<SpookyWall> {
     l = speeder(l)
     l = color(l)
     l = mirror(l)
+    l.forEach { it.track = track }
     return l
 }
 

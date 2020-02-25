@@ -24,7 +24,9 @@ data class SpookyWall(
     @Expose
     @SerializedName("startTime") var startTime: Double,
     @Expose
-    @SerializedName("color") var color: Color? = null
+    @SerializedName("color") var color: Color? = null,
+    @Expose
+    @SerializedName("track") var track: String? = null
 ):Serializable{
 
     constructor(
@@ -67,7 +69,7 @@ data class SpookyWall(
 
         val tempDuration = calculateDuration(hjd)
 
-        val customData: _obstacleCustomData = customData()
+        val customData: _obstacleCustomData? = customData()
 
         return _obstacles(
             tempStartTime,
@@ -132,9 +134,13 @@ data class SpookyWall(
         return  (tWallH * 1000 + tStartH+4001)
     }
 
-    private fun customData()= when {
-        color != null -> _obstacleCustomData(listOf(color!!.red, color!!.green, color!!.blue))
-        else -> _obstacleCustomData(null)
+    private fun customData(): _obstacleCustomData? {
+        if(color ==null && track == null)
+            return null
+        val cdColor =when {
+                color != null -> listOf(color!!.red, color!!.green, color!!.blue)
+                else -> null }
+        return _obstacleCustomData(cdColor,track)
     }
 
     override fun equals(other: Any?): Boolean {

@@ -10,5 +10,5 @@ data class _obstacles (
     @SerializedName("_type") val _type : Int,
     @SerializedName("_duration") var _duration : Float,
     @SerializedName("_width") val _width : Int,
-    @SerializedName("_customData") val _obstacleCustomData : _obstacleCustomData
+    @SerializedName("_customData") val _obstacleCustomData : _obstacleCustomData?
 )

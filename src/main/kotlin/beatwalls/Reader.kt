@@ -51,10 +51,12 @@ object AssetReader {
     }
 
     private fun parseDifficulty(file: File): Difficulty {
-        val difficultyValidator = loadSchema("difficulty")
-        val dataReader = file.reader()
-        val validatedReader = api.createJsonReader(difficultyValidator, dataReader)
-        return gson.fromJson<Difficulty>(validatedReader, Difficulty::class.java)
+        //todo turn on
+        //val difficultyValidator = loadSchema("difficulty")
+        //val dataReader = file.reader()
+        //val validatedReader = api.createJsonReader(difficultyValidator, dataReader)
+        //return gson.fromJson<Difficulty>(validatedReader, Difficulty::class.java)
+        return gson.fromJson<Difficulty>(file.readText(),Difficulty::class.java)
     }
 
     private fun readDifficultyFile(): File = try {
@@ -67,6 +69,7 @@ object AssetReader {
     }
 
 
+    @Suppress("SameParameterValue")
     private fun loadSchema(name: String): SchemaValidator {
         val source = UrlSchemaSource(
             javaClass.getResource("/schemas/$name.schema.json")

@@ -114,18 +114,18 @@ data class SpookyWall(
     /**returns the type given heigt and startheight */
     private fun type():Int {
 
-        val wallH = if (height > -minValue && height < minValue) minValue else abs(height)
+        height = if (height > -minValue && height < minValue) minValue else abs(height)
 
-        val startH = if(height >0) startHeight else startHeight + height
+        startHeight = if(height >0) startHeight else startHeight + height
 
-        var tWallH:Int = (((1.0/3.0)*(wallH/(4.0/3.0)))*1000).toInt()
+        var tWallH:Int = (((1.0/3.0)*(height/(4.0/3.0)))*1000).toInt()
         tWallH = when {
             tWallH>4000 -> 4000
             tWallH<0 -> 0
             else -> tWallH
         }
 
-        var tStartH:Int =  (250*(startH/(4.0/3.0))).toInt()
+        var tStartH:Int =  (250*(startHeight/(4.0/3.0))).toInt()
         tStartH = when {
             tStartH>999 -> 999
             tStartH<0 -> 0
@@ -135,12 +135,18 @@ data class SpookyWall(
     }
 
     private fun customData(): _obstacleCustomData? {
-        if(color ==null && track == null)
-            return null
         val cdColor =when {
                 color != null -> listOf(color!!.red, color!!.green, color!!.blue)
                 else -> null }
-        return _obstacleCustomData(cdColor,track)
+
+        return _obstacleCustomData(
+            _startRow = startRow,
+            _startHeight = startHeight,
+            _width = width,
+            _height = height,
+            _color = cdColor,
+            track = track
+        )
     }
 
     override fun equals(other: Any?): Boolean {

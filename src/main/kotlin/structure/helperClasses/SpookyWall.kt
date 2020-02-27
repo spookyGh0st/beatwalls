@@ -5,7 +5,6 @@ import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
 import chart.difficulty._obstacles
 import java.io.Serializable
-import kotlin.math.abs
 import kotlin.math.max
 import kotlin.math.min
 
@@ -59,17 +58,16 @@ data class SpookyWall(
         )
     /**Changes the MyObstacle Type to an _obstacle Type */
     fun to_obstacle(hjd: Double): _obstacles {
-        //first, so it adjust the startRow
-        val tempWidth = calculateWidth()
-        val tempLineIndex = calculateLineIndex()
+        val obs = toValidWall(hjd)
+        val tempStartTime = obs.startTime.toFloat()
+        val tempDuration = obs.duration.toFloat()
 
-        //other parameters
-        val tempStartTime = startTime.coerceAtLeast(0.001).toFloat()
-        val tempType = type()
+        val tempLineIndex = obs.calculateLineIndex()
+        val tempWidth = obs.calculateWidth()
 
-        val tempDuration = calculateDuration(hjd)
+        val tempType = obs.type()
 
-        val customData: _obstacleCustomData? = customData()
+        val customData: _obstacleCustomData? = obs.customData()
 
         return _obstacles(
             tempStartTime,
@@ -81,25 +79,29 @@ data class SpookyWall(
         )
     }
 
-    private fun calculateDuration(hjd: Double): Float {
-        val tempDuration = if (duration < 0.0001 && duration > -0.0001) 0.0001 else duration
-        return tempDuration.coerceAtLeast(-1.5 * hjd).toFloat()
+    fun toValidWall(hjd: Double): SpookyWall {
+        val t = this.copy()
+        if(t.width< 0){
+            t.startRow += t.width
+            t.width *= -1
+        }
+        if(height < 0){
+            t.startHeight += t.height
+            t.height *= -1
+        }
+        t.width = t.width.coerceAtLeast(minValue)
+        t.height = t.height.coerceAtLeast(minValue)
+
+        if (t.duration in -0.0001 .. 0.0001)
+            t.duration = 0.0001
+        t.duration = t.duration.coerceAtLeast(-1.5 * hjd)
+        t.startTime = t.startTime.coerceAtLeast(minValue)
+        return t
     }
 
     /**returns th _obstacle value of the width*/
-    private fun calculateWidth():Int{
-        //makes sure its not 0 width
-        width = if (width > -minValue && width < minValue) minValue else width
-
-        //calculate the width
-        return if( width >= 0.0)
+    private fun calculateWidth():Int =
             (width * 1000 +1000).toInt()
-        else{
-            startRow += width
-            (abs(width)*1000+1000).toInt()
-        }
-    }
-
 
     /**Return the _obstacle value of the startRow*/
     private fun calculateLineIndex():Int {
@@ -113,11 +115,6 @@ data class SpookyWall(
 
     /**returns the type given heigt and startheight */
     private fun type():Int {
-
-        height = if (height > -minValue && height < minValue) minValue else abs(height)
-
-        startHeight = if(height >0) startHeight else startHeight + height
-
         var tWallH:Int = (((1.0/3.0)*(height/(4.0/3.0)))*1000).toInt()
         tWallH = when {
             tWallH>4000 -> 4000
@@ -173,5 +170,5 @@ data class SpookyWall(
     }
 }
 
-private const val minValue = 0.005
+internal const val minValue = 0.005
 

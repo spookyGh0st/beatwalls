@@ -6,6 +6,67 @@ import org.junit.Assert.assertEquals
 import org.junit.Test
 
 class SpookyWallTest {
+    @Test
+    fun standardToValidWall(){
+        val expected = SpookyWall(
+            startRow = 1.0,
+            duration = 1.0,
+            width = 1.0,
+            height = 1.0,
+            startHeight = 1.0,
+            startTime = 1.0,
+            color = red
+        )
+        val actual = expected.toValidWall(2.0)
+        assertEquals(expected,actual)
+    }
+
+    @Test
+    fun negativeToValidWall(){
+        val w = SpookyWall(
+            startRow = -1.0,
+            duration = -5.0,
+            width = -1.0,
+            height = -1.0,
+            startHeight = -1.0,
+            startTime = 1.0,
+            color = blue
+        )
+        val expected = SpookyWall(
+            startRow = -2.0,
+            duration = -3.0,
+            width = 1.0,
+            height = 1.0,
+            startHeight = -2.0,
+            startTime = 1.0,
+            color = blue
+        )
+        val actual = w.toValidWall(2.0)
+        assertEquals(expected,actual)
+    }
+    @Test
+    fun weirdToValidWall(){
+        val w = SpookyWall(
+            startRow = 0.0,
+            duration = 0.0,
+            width = 0.0,
+            height = 0.0,
+            startHeight = 0.0,
+            startTime = -1.0,
+            color = blue
+        )
+        val expected = SpookyWall(
+            startRow = 0.0,
+            duration = 0.0001,
+            width = minValue,
+            height = minValue,
+            startHeight = 0.0,
+            startTime = minValue,
+            color = blue
+        )
+        val actual = w.toValidWall(2.0)
+        assertEquals(expected,actual)
+    }
 
     @Test
     fun to_obstacle() {

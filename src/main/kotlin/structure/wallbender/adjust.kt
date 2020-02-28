@@ -3,6 +3,9 @@ package structure.wallbender
 import structure.WallStructure
 import structure.helperClasses.SpookyWall
 
+/**
+ * adjust does all the adding, scaling and changing and fitting of the walls
+ */
 internal fun WallStructure.adjust(l:List<SpookyWall>): List<SpookyWall> {
     adjustChange(l)
     adjustScale(l)
@@ -11,6 +14,9 @@ internal fun WallStructure.adjust(l:List<SpookyWall>): List<SpookyWall> {
     return l
 }
 
+/**
+ * changes the values of the walls
+ */
 internal fun WallStructure.adjustChange(l: List<SpookyWall>){
     l.forEach { it.duration = changeDuration?.invoke() ?: it.duration }
     l.forEach { it.startTime = changeStartTime?.invoke() ?: it.startTime }
@@ -20,6 +26,9 @@ internal fun WallStructure.adjustChange(l: List<SpookyWall>){
     l.forEach { it.width = changeWidth?.invoke() ?: it.width }
 }
 
+/**
+ * scales the values of the walls
+ */
 internal fun WallStructure.adjustScale(l: List<SpookyWall>) {
     l.forEach { it.duration *= scaleDuration?.invoke() ?: 1.0 }
     l.forEach { it.startTime *= scaleStartTime?.invoke() ?: 1.0 }
@@ -28,7 +37,7 @@ internal fun WallStructure.adjustScale(l: List<SpookyWall>) {
     l.forEach { it.startRow *= scaleStartRow?.invoke() ?: 1.0 }
     l.forEach { it.width *= scaleWidth?.invoke() ?: 1.0 }
 
-    if(scale!=null){
+    if (scale != null) {
         spookyWalls.forEach {
             it.startTime *= scale as Double
             if (it.duration > 0)
@@ -36,6 +45,10 @@ internal fun WallStructure.adjustScale(l: List<SpookyWall>) {
         }
     }
 }
+
+/**
+ * adds to the values of the walls
+ */
 internal fun WallStructure.adjustAdd(l: List<SpookyWall>) {
     l.forEach { it.duration += addDuration?.invoke() ?: 0.0 }
     l.forEach { it.startTime += addStartTime?.invoke() ?: 0.0 }
@@ -45,6 +58,9 @@ internal fun WallStructure.adjustAdd(l: List<SpookyWall>) {
     l.forEach { it.width += addWidth?.invoke() ?: 0.0 }
 }
 
+/**
+ * fits the values of the walls
+ */
 internal fun WallStructure.adjustFit(l: List<SpookyWall>) {
     if (fitDuration != null)
         l.forEach {

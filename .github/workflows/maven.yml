@@ -1,6 +1,5 @@
 name: Java CI
 
-on: [push]
 on:
   push:
     tags:

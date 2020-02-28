@@ -22,11 +22,11 @@ fun update(){
     val latestVersion = getLatestVersion()
 
     // breaks if up to date
-    if(latestVersion == currentVersion || currentVersion == "CyanIsAFurry")
+    if (latestVersion == currentVersion || currentVersion == "CyanIsAFurry")
         return
 
-    logger.info { "New Version avaible, do you want to update? (y,n)"}
-    if(readLine() == "y")
+    logger.info { "version $latestVersion available, do you want to update? (y,n)" }
+    if (readLine() != "y")
         return
 
     // download the latest version from the github release page

@@ -115,7 +115,7 @@ data class SpookyWall(
 
     /**returns the type given heigt and startheight */
     private fun type():Int {
-        var tWallH:Int = (((1.0/3.0)*(height/(4.0/3.0)))*1000).toInt()
+        var tWallH: Int = (((1.0 / 3.0) * (height * 0.6)) * 1000).toInt()
         tWallH = when {
             tWallH>4000 -> 4000
             tWallH<0 -> 0

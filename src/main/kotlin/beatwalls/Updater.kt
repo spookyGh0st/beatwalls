@@ -25,12 +25,13 @@ fun update(){
     logger.info { "local version: $currentVersion, latest version: $latestVersion" }
 
     // breaks if up to date
-    if (latestVersion == currentVersion || currentVersion == "CyanIsAFurry")
+    if (currentVersion == latestVersion || currentVersion == "CyanIsAFurry") {
+        logger.info { "no update found, resuming" }
         return
+    }
 
     logger.info { "new version available, do you want to update? (y,n)" }
-    if (readLine() != "y")
-        return
+    if (readLine() != "y") return
 
     // download the latest version from the github release page
     downloadUpdate(latestVersion)
@@ -65,11 +66,10 @@ data class GithubApi (
 )
 
 fun downloadUpdate(version: String) {
-    logger.info { "Downloading new version" }
+    logger.info { "Downloading latest version" }
     val website = URL("https://github.com/spookyGh0st/beatwalls/releases/download/$version/beatwalls.exe")
     val file = File("beatwalls.exe.temp")
     try {
-        logger.info { "Downloading latest version" }
         val rbc = Channels.newChannel(website.openStream())
         val fos = FileOutputStream("beatwalls.exe.temp")
         fos.channel.transferFrom(rbc, 0, java.lang.Long.MAX_VALUE)

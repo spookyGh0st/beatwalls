@@ -12,39 +12,39 @@ jobs:
       - uses: actions/checkout@master
       - name: Prepare files
         run: sed -i "s/CyanIsAFurry/${GITHUB_REF:10}/g" src/main/kotlin/beatwalls/Updater.kt && cat src/main/kotlin/beatwalls/Updater.kt
-#    - name: Set up JDK 1.8
-#      uses: actions/setup-java@master
-#      with:
-#        java-version: 1.8
-#    - name: Build with Maven
-#      run: mvn -B package --file pom.xml
-#    - name: create Documentation with maven
-#      run: mvn -B site --file pom.xml
-#    - name: Create Release
-#      id: create_release
-#      uses: actions/create-release@master
-#      env:
-#        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-#      with:
-#        tag_name: ${{ github.ref }}
-#        release_name: 👻BeatWalls ${{ github.ref }}👻
-#        draft: false
-#        prerelease: false
-#    - name: Upload Release Asset
-#      id: upload-release-asset
-#      uses: actions/upload-release-asset@v1.0.1
-#      env:
-#        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-#      with:
-#        upload_url: ${{ steps.create_release.outputs.upload_url }} # This pulls from the CREATE RELEASE step above, referencing it's ID to get its outputs object, which include a `upload_url`. See this blog post for more info: https://jasonet.co/posts/new-features-of-github-actions/#passing-data-to-future-steps
-#        asset_path: /home/runner/work/beatwalls/beatwalls/target/Beatwalls.exe
-#        asset_name: beatwalls.exe
-#        asset_content_type: application/exe
-#    - name: prepare pages
-#      run: mv /home/runner/work/beatwalls/beatwalls/target/dokka/style.css /home/runner/work/beatwalls/beatwalls/target/dokka/beatwalls/style.css && sed -i 's/\.\./\./g' /home/runner/work/beatwalls/beatwalls/target/dokka/beatwalls/index.html
-#    - name: GitHub Pages Deploy
-#      uses: maxheld83/ghpages@v0.2.1
-#      env:
-#        BUILD_DIR: /home/runner/work/beatwalls/beatwalls/target/dokka/beatwalls
-#        GH_PAT: ${{ secrets.GH_PAT }}
-#
+      - name: Set up JDK 1.8
+        uses: actions/setup-java@master
+        with:
+          java-version: 1.8
+      - name: Build with Maven
+        run: mvn -B package --file pom.xml
+      - name: create Documentation with maven
+        run: mvn -B site --file pom.xml
+      - name: Create Release
+        id: create_release
+        uses: actions/create-release@master
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: ${{ github.ref }}
+          release_name: 👻BeatWalls ${{ github.ref }}👻
+          draft: false
+          prerelease: false
+      - name: Upload Release Asset
+        id: upload-release-asset
+        uses: actions/upload-release-asset@v1.0.1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }} # This pulls from the CREATE RELEASE step above, referencing it's ID to get its outputs object, which include a `upload_url`. See this blog post for more info: https://jasonet.co/posts/new-features-of-github-actions/#passing-data-to-future-steps
+          asset_path: /home/runner/work/beatwalls/beatwalls/target/Beatwalls.exe
+          asset_name: beatwalls.exe
+          asset_content_type: application/exe
+      - name: prepare pages
+        run: mv /home/runner/work/beatwalls/beatwalls/target/dokka/style.css /home/runner/work/beatwalls/beatwalls/target/dokka/beatwalls/style.css && sed -i 's/\.\./\./g' /home/runner/work/beatwalls/beatwalls/target/dokka/beatwalls/index.html
+      - name: GitHub Pages Deploy
+        uses: maxheld83/ghpages@v0.2.1
+        env:
+          BUILD_DIR: /home/runner/work/beatwalls/beatwalls/target/dokka/beatwalls
+          GH_PAT: ${{ secrets.GH_PAT }}
+

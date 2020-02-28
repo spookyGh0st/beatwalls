@@ -21,11 +21,13 @@ fun update(){
     //retrieves the latest version
     val latestVersion = getLatestVersion()
 
+    logger.info { "local version: $currentVersion, latest version: $latestVersion" }
+
     // breaks if up to date
     if (latestVersion == currentVersion || currentVersion == "CyanIsAFurry")
         return
 
-    logger.info { "version $latestVersion available, do you want to update? (y,n)" }
+    logger.info { "new version available, do you want to update? (y,n)" }
     if (readLine() != "y")
         return
 

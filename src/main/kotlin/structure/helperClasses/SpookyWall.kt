@@ -122,7 +122,7 @@ data class SpookyWall(
             else -> tWallH
         }
 
-        var tStartH:Int =  (250*(startHeight/(4.0/3.0))).toInt()
+        var tStartH: Int = (250 * (startHeight * 0.6)).toInt()
         tStartH = when {
             tStartH>999 -> 999
             tStartH<0 -> 0

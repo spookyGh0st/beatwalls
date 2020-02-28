@@ -19,6 +19,7 @@ fun update(){
     deleteUpdater()
 
     //retrieves the latest version
+    logger.info { "trying to retrieve latest version from github" }
     val latestVersion = getLatestVersion()
 
     logger.info { "local version: $currentVersion, latest version: $latestVersion" }
@@ -64,6 +65,7 @@ data class GithubApi (
 )
 
 fun downloadUpdate(version: String) {
+    logger.info { "Downloading new version" }
     val website = URL("https://github.com/spookyGh0st/beatwalls/releases/download/$version/beatwalls.exe")
     val file = File("beatwalls.exe.temp")
     try {

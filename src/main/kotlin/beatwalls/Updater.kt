@@ -25,13 +25,10 @@ fun update(){
     logger.info { "local version: $currentVersion, latest version: $latestVersion" }
 
     // breaks if up to date
-    if (currentVersion == latestVersion || currentVersion == "CyanIsAFurry") {
-        logger.info { "no update found, resuming" }
+    if (currentVersion == latestVersion || currentVersion == "CyanIsAFurry" || GlobalConfig.noUpdate)
         return
-    }
 
-    logger.info { "new version available, do you want to update? (y,n)" }
-    if (readLine() != "y") return
+    logger.info { "updating to latest version" }
 
     // download the latest version from the github release page
     downloadUpdate(latestVersion)

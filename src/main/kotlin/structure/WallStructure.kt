@@ -807,9 +807,9 @@ class Loop: WallStructure(){
 class Line: WallStructure(){
 
     /**
-     * how many walls will be created. Default: 8
+     * how many walls will be created. Default: 6 * duration
      */
-    var amount: Int = 8
+    var amount: Int? = null
 
     /**
      * The startPoint

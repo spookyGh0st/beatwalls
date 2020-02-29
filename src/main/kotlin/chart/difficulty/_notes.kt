@@ -14,7 +14,8 @@ data class _notes (
 
 data class _noteCustomData(
     @SerializedName("scale") var scale: Double?,
-    @SerializedName("sineMovement") var sineMovement: sineMovement?
+    @SerializedName("sineMovement") var sineMovement: sineMovement?,
+    @SerializedName("track") var track: String?
 )
 data class sineMovement(
     @SerializedName("amplitude") var amplitude: Double?,

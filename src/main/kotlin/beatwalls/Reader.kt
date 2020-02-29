@@ -5,9 +5,11 @@ import com.worldturner.medeia.api.UrlSchemaSource
 import com.worldturner.medeia.api.gson.MedeiaGsonApi
 import com.worldturner.medeia.schema.validation.SchemaValidator
 import chart.difficulty.Difficulty
+import chart.difficulty._customEvents
 import chart.difficulty._obstacles
 import mu.KotlinLogging
 import chart.song.Info
+import com.google.gson.reflect.TypeToken
 import java.io.File
 
 private val logger = KotlinLogging.logger {}
@@ -40,6 +42,12 @@ object AssetReader {
 
     fun writeDifficulty(diff: Difficulty) {
         try {
+            val ce = readCustomEvents()
+            if (ce != null) {
+                diff._customEvents?.clear()
+                diff._customEvents?.addAll(ce)
+                logger.info { "replaced custom events" }
+            }
             val file = readDifficultyFile()
             val json = Gson().toJson(diff)
             //https://stackoverflow.com/questions/11119094/switch-off-scientific-notation-in-gson-double-serialization#18892735
@@ -50,13 +58,27 @@ object AssetReader {
         }
     }
 
+    private fun readCustomEvents(): ArrayList<_customEvents>? = try {
+        val file = readPath()
+        val name = file.nameWithoutExtension + ".ce"
+        val directory = file.parentFile
+        val f = File(directory, name)
+        val lType = object : TypeToken<ArrayList<_customEvents>>() {}.type
+        if (f.exists())
+            gson.fromJson<ArrayList<_customEvents>>(f.readText(), lType)
+        else
+            null
+    } catch (e: Exception) {
+        errorExit(e) { "failed to read in events, please write me i fucked something up" }
+    }
+
     private fun parseDifficulty(file: File): Difficulty {
         //todo turn on
         //val difficultyValidator = loadSchema("difficulty")
         //val dataReader = file.reader()
         //val validatedReader = api.createJsonReader(difficultyValidator, dataReader)
         //return gson.fromJson<Difficulty>(validatedReader, Difficulty::class.java)
-        return gson.fromJson<Difficulty>(file.readText(),Difficulty::class.java)
+        return gson.fromJson<Difficulty>(file.readText(), Difficulty::class.java)
     }
 
     private fun readDifficultyFile(): File = try {
@@ -112,6 +134,7 @@ object AssetReader {
     } catch (e: Exception) {
         errorExit(e) { "Failed to read in the oldObst" }
     }
+
 }
 
 

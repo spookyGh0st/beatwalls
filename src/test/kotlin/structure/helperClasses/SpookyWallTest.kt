@@ -88,15 +88,16 @@ class SpookyWallTest {
             _duration = 1.0E-4F,
             _width = 1005,
             _obstacleCustomData = _obstacleCustomData(
-                _startRow = 0.0,
-                _startHeight = 0.0,
+                _posX = 0.0,
+                _posY = 0.0,
                 _width = 0.005,
                 _height = 0.005,
                 _color = null,
+                _localRotation = null,
+                _rotation = null,
                 track = null
             )
         )
         assertEquals(expected, actual)
-
     }
 }

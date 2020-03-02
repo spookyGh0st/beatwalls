@@ -137,11 +137,13 @@ data class SpookyWall(
                 else -> null }
 
         return _obstacleCustomData(
-            _startRow = startRow,
-            _startHeight = startHeight,
+            _posX = startRow,
+            _posY = startHeight,
             _width = width,
             _height = height,
             _color = cdColor,
+            _localRotation = null,
+            _rotation = null,
             track = track
         )
     }

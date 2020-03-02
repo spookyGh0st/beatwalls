@@ -12,13 +12,3 @@ data class _notes (
     @SerializedName("_customData") val _noteCustomData : _noteCustomData? = null
 )
 
-data class _noteCustomData(
-    @SerializedName("scale") var scale: Double?,
-    @SerializedName("sineMovement") var sineMovement: sineMovement?,
-    @SerializedName("track") var track: String?
-)
-data class sineMovement(
-    @SerializedName("amplitude") var amplitude: Double?,
-    @SerializedName("frequency") var frequency: Double?,
-    @SerializedName("track") var track: String?
-)

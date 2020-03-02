@@ -51,19 +51,37 @@ sealed class WallStructure:Serializable
     ///_/ |_/_/  |_/_/ |_/_____/\____/_/  /_/   /____//_/  \____/_/   /_/
 
     /**
-     * mirrors the SpookyWall:
+     * mirrors the SpookyWall. Default: 0. click me:
      *
      *  0 -> dont mirror,
+     *
      *  1-> mirror to the other side,
+     *
      *  2-> mirror to the other side and duplicate,
+     *
      *  3-> mirror horizontal on y=2
+     *
      *  4-> mirror horizontal and duplicate
+     *
      *  5-> mirror on the center of x=0, y=2
+     *
      *  6-> mirror on the center and duplicate
-     *  7-> mirror horizontal and on the other side and duplicate all 4
+     *
+     *  7-> mirror 1 and 6
+     *
      *  8-> mirror on the center and on the other side and duplicate all 4
      */
     var mirror: Int = Default.mirror
+
+    /**
+     * The x Position used for mirror. Default: 0
+     */
+    var mirrorX: Double = Default.mirrorX
+
+    /**
+     * The x Position used for mirror. Default: 0
+     */
+    var mirrorY: Double = Default.mirrorY
 
     /**
      * times the SpookyWall by adding the njsOffset, default: true
@@ -317,8 +335,11 @@ sealed class WallStructure:Serializable
      */
     var track: String? = Default.track
 
+
     companion object Default {
         var mirror: Int = 0
+        var mirrorX: Double = 0.0
+        var mirrorY: Double = 2.0
         var time: Boolean = true
         var changeStartTime: (() -> Double)? = null
         var changeDuration: (() -> Double)? = null

@@ -5,6 +5,7 @@ import org.junit.Test
 import org.junit.Assert.*
 import structure.EmptyWallStructure
 import structure.helperClasses.*
+import structure.helperFunctions.reset
 
 class MirrorKtTest {
     private val l =listOf(SpookyWall(1.0,1.0,1.0,1.0,1.0,1.0, red))
@@ -38,19 +39,43 @@ class MirrorKtTest {
             EmptyWallStructure.mirror=t.code
             assertEquals(t.expected, EmptyWallStructure.mirror(l))
         }
+        EmptyWallStructure.reset()
     }
 
     @Test
     fun mirrorX() {
-        val actual = l.mirrorX()
+        val actual = EmptyWallStructure.mirrorX(l)
         val expected = listOf(SpookyWall(-1.0,1.0,-1.0,1.0,1.0,1.0,red))
         assertEquals(expected, actual)
+        EmptyWallStructure.reset()
+    }
+
+    @Test
+    fun mirrorXWithMirrorX() {
+        var actual = EmptyWallStructure.also { it.mirrorX = 1.0 }.mirrorX(l)
+        var expected = listOf(SpookyWall(1.0,1.0,-1.0,1.0,1.0,1.0,red))
+        assertEquals(expected, actual)
+        actual = EmptyWallStructure.also { it.mirrorX = -1.0 }.mirrorX(l)
+        expected = listOf(SpookyWall(-3.0,1.0,-1.0,1.0,1.0,1.0,red))
+        assertEquals(expected, actual)
+        EmptyWallStructure.reset()
+    }
+    @Test
+    fun mirrorYWithMirrorY() {
+        var actual = EmptyWallStructure.also { it.mirrorY = 1.0 }.mirrorY(l)
+        var expected = listOf(SpookyWall(1.0,1.0,1.0,-1.0,1.0,1.0,red))
+        assertEquals(expected, actual)
+        actual = EmptyWallStructure.also { it.mirrorY = -1.0 }.mirrorY(l)
+        expected = listOf(SpookyWall(1.0,1.0,1.0,-1.0,-3.0,1.0,red))
+        assertEquals(expected, actual)
+        EmptyWallStructure.reset()
     }
 
     @Test
     fun mirrorY() {
-        val actual = l.mirrorY()
+        val actual = EmptyWallStructure.mirrorY(l)
         val expected = listOf(SpookyWall(1.0,1.0,1.0,-1.0,3.0,1.0,red))
         assertEquals(expected, actual)
+        EmptyWallStructure.reset()
     }
 }

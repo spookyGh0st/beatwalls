@@ -24,7 +24,7 @@ data class Info(
 
     @SerializedName("_environmentName") val _environmentName: String,
 
-    @SerializedName("_customData") val InfoCustomData: InfoCustomData,
+    @SerializedName("_customData") val InfoCustomData: InfoCustomData?,
 
     @SerializedName("_difficultyBeatmapSets") val _difficultyBeatmapSets: List<_difficultyBeatmapSets>
 )

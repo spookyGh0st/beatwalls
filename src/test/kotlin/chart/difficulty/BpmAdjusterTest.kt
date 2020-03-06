@@ -1,6 +1,6 @@
 package chart.difficulty
 
-import assetFile.MetaData
+import beatwalls.GlobalConfig
 import org.junit.Assert.assertEquals
 import org.junit.Test
 
@@ -9,7 +9,9 @@ class BpmAdjusterTest {
     private val bpmAdjuster : BpmAdjuster
 
     init {
-        val meta = MetaData(120.0,2.0,0.0)
+        GlobalConfig.bpm = 120.0
+        GlobalConfig.hjsDuration = 2.0
+        GlobalConfig.offset = 0.0
         val c = _customData(1, arrayListOf(
             _BPMChanges(120.0, 3.0,4,4),
             _BPMChanges(130.0, 5.0,4,4),
@@ -27,7 +29,7 @@ class BpmAdjusterTest {
             _customEvents = null,
             _customData = c
         )
-        bpmAdjuster = BpmAdjuster(diff,meta)
+        bpmAdjuster = BpmAdjuster(diff)
     }
 
     @Test

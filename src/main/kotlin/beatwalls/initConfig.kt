@@ -1,12 +1,10 @@
 package beatwalls
 
 import com.google.gson.Gson
-import mu.KotlinLogging
 import chart.song.Info
 import chart.song.isSongInfo
 import java.io.File
 
-private val logger = KotlinLogging.logger {}
 
 fun initConfig(songPath:String){
     val file = File(songPath)
@@ -17,23 +15,40 @@ fun initConfig(songPath:String){
     val diff = pickDifficulty(info)
     val diffName = diff.first
     val diffOffset = diff.second
-    val name = diffName.replace(".dat",".bw")
 
-    val path = File(songPath,name)
-    if(path.exists()){
-        logger.info { "File already exist, not creating Default file" }
-    }else
-        path.writeText(defaultSongAssetString())
+    val bwFile = writeIfNotExist(songPath,diffName,"bw", defaultBWStr())
+    val ceFile = writeIfNotExist(songPath,diffName,"ce", defaultCEStr())
 
     val hjd = pickHjd()
-
     val bpm = info._beatsPerMinute
     val offset = info._songTimeOffset+diffOffset
 
-    savePath(path)
+    val neExt = pickNe()
+
+    savePath(bwFile)
+    saveCEPath(ceFile)
     saveHjsDuration(hjd)
     saveBpm(bpm)
     saveOffset(offset)
+    saveNeValues(neExt)
+}
+
+fun writeIfNotExist(songPath: String, diffName:String,suffix:String, defaultText: String): File {
+    val name = diffName.replace(".dat",".$suffix")
+    val path = File(songPath,name)
+    if(path.exists()){
+        logger.info { "$suffix File already exist under $path, not creating Default file" }
+    }else{
+        path.writeText(defaultText)
+        logger.info { "written default $suffix file to $path" }
+    }
+    return path
+}
+
+fun pickNe(): Boolean {
+    println("Create values for noodle-Extension? this allows for walls in the ground and sky. default: y")
+    print("(y/n) input: ")
+    return (readLine()?:"y") in listOf("","y","Y","Yes","yes","true","True")
 }
 
 fun pickDifficulty(info: Info): Pair<String, Int> {
@@ -54,8 +69,12 @@ fun pickHjd(): Double {
     print("input: ")
     return readLine()?.toDoubleOrNull() ?: pickHjd()
 }
+private fun defaultCEStr() =
+    """
+# to be added
+    """.trimIndent() //todo add defautlCEStr
 
-private fun defaultSongAssetString() =
+private fun defaultBWStr() =
     """
 # This is an example File of a .bw file. 
 # General Guide: https://github.com/spookyGh0st/beatwalls

@@ -12,7 +12,6 @@ import java.nio.file.SimpleFileVisitor
 import java.nio.file.Files
 import java.nio.file.StandardWatchEventKinds.*
 
-private val logger = KotlinLogging.logger {}
 // stolen from here: https://github.com/vishna/watchservice-ktx/blob/master/src/main/kotlin/dev/vishna/watchservice/watchservice.kt
 
 @ExperimentalCoroutinesApi

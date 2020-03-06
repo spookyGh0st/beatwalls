@@ -12,7 +12,6 @@ import kotlin.system.exitProcess
 
 
 const val currentVersion = "CyanIsAFurry"
-private val logger = KotlinLogging.logger {}
 
 fun update(){
     //delete the updater

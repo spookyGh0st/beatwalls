@@ -12,7 +12,6 @@ import chart.song.Info
 import com.google.gson.reflect.TypeToken
 import java.io.File
 
-private val logger = KotlinLogging.logger {}
 
 object AssetReader {
     private val api = MedeiaGsonApi()
@@ -69,7 +68,8 @@ object AssetReader {
         else
             null
     } catch (e: Exception) {
-        errorExit(e) { "failed to read in events, please write me i fucked something up" }
+        logger.warn { "failed to read in customEvents, If you dont know what this means dont worry, this is still wip." }
+        null
     }
 
     private fun parseDifficulty(file: File): Difficulty {

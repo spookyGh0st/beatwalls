@@ -1,5 +1,6 @@
 package structure.helperClasses
 
+import beatwalls.GlobalConfig
 import chart.difficulty._obstacleCustomData
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
@@ -57,8 +58,8 @@ data class SpookyWall(
             startTime
         )
     /**Changes the MyObstacle Type to an _obstacle Type */
-    fun to_obstacle(hjd: Double): _obstacles {
-        val obs = toValidWall(hjd)
+    fun to_obstacle(): _obstacles {
+        val obs = toValidWall()
         val tempStartTime = obs.startTime.toFloat()
         val tempDuration = obs.duration.toFloat()
 
@@ -79,7 +80,7 @@ data class SpookyWall(
         )
     }
 
-    fun toValidWall(hjd: Double): SpookyWall {
+    fun toValidWall(): SpookyWall {
         val t = this.copy()
         if(t.width< 0){
             t.startRow += t.width
@@ -94,7 +95,7 @@ data class SpookyWall(
 
         if (t.duration in -0.0001 .. 0.0001)
             t.duration = 0.0001
-        t.duration = t.duration.coerceAtLeast(-1.5 * hjd)
+        t.duration = t.duration.coerceAtLeast(-1.5 * GlobalConfig.hjsDuration)
         t.startTime = t.startTime.coerceAtLeast(minValue)
         return t
     }
@@ -133,19 +134,26 @@ data class SpookyWall(
 
     private fun customData(): _obstacleCustomData? {
         val cdColor =when {
-                color != null -> listOf(color!!.red, color!!.green, color!!.blue)
-                else -> null }
+            color != null -> listOf(color!!.red, color!!.green, color!!.blue)
+            else -> null }
 
-        return _obstacleCustomData(
-            _posX = startRow,
-            _posY = startHeight,
-            _width = width,
-            _height = height,
-            _color = cdColor,
-            _localRotation = null,
-            _rotation = null,
-            track = track
-        )
+
+
+        return if(GlobalConfig.neValues)
+            _obstacleCustomData(
+                _posX = startRow,
+                _posY = startHeight,
+                _width = width,
+                _height = height,
+                _color = cdColor,
+                _localRotation = null,
+                _rotation = null,
+                track = track
+            )else
+            _obstacleCustomData(
+                _color = cdColor,
+                track = track
+            )
     }
 
     override fun equals(other: Any?): Boolean {

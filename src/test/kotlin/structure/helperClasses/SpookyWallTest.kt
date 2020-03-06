@@ -1,11 +1,17 @@
 package structure.helperClasses
 
+import beatwalls.GlobalConfig
 import chart.difficulty._obstacleCustomData
 import chart.difficulty._obstacles
 import org.junit.Assert.assertEquals
+import org.junit.Before
 import org.junit.Test
 
 class SpookyWallTest {
+    @Before
+    fun setGLobalConfig(){
+        GlobalConfig.hjsDuration = 2.0
+    }
     @Test
     fun standardToValidWall(){
         val expected = SpookyWall(
@@ -17,7 +23,7 @@ class SpookyWallTest {
             startTime = 1.0,
             color = red
         )
-        val actual = expected.toValidWall(2.0)
+        val actual = expected.toValidWall()
         assertEquals(expected,actual)
     }
 
@@ -41,7 +47,7 @@ class SpookyWallTest {
             startTime = 1.0,
             color = blue
         )
-        val actual = w.toValidWall(2.0)
+        val actual = w.toValidWall()
         assertEquals(expected,actual)
     }
     @Test
@@ -64,12 +70,13 @@ class SpookyWallTest {
             startTime = minValue,
             color = blue
         )
-        val actual = w.toValidWall(2.0)
+        val actual = w.toValidWall()
         assertEquals(expected,actual)
     }
 
     @Test
-    fun to_obstacle() {
+    fun to_NeObstacle() {
+        GlobalConfig.neValues = true
         val w = SpookyWall(
             startRow = 0.0,
             duration = 0.0,
@@ -80,7 +87,7 @@ class SpookyWallTest {
             color = null
 
         )
-        val actual = w.to_obstacle(2.0)
+        val actual = w.to_obstacle()
         val expected = _obstacles(
             _time = 1.0F,
             _lineIndex =  3000,
@@ -97,6 +104,30 @@ class SpookyWallTest {
                 _rotation = null,
                 track = null
             )
+        )
+        assertEquals(expected, actual)
+    }
+    @Test
+    fun to_MeObstacle() {
+        GlobalConfig.neValues = false
+        val w = SpookyWall(
+            startRow = 0.0,
+            duration = 0.0,
+            width = 0.0,
+            height = 0.0,
+            startHeight = 0.0,
+            startTime = 1.0,
+            color = null
+
+        )
+        val actual = w.to_obstacle()
+        val expected = _obstacles(
+            _time = 1.0F,
+            _lineIndex =  3000,
+            _type = 5001,
+            _duration = 1.0E-4F,
+            _width = 1005,
+            _obstacleCustomData = null
         )
         assertEquals(expected, actual)
     }

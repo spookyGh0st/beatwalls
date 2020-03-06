@@ -1,6 +1,6 @@
 package chart.difficulty
 
-import assetFile.MetaData
+import beatwalls.GlobalConfig
 import mu.KotlinLogging
 import structure.Define
 import structure.helperClasses.SpookyWall
@@ -10,8 +10,8 @@ import kotlin.math.ceil
 
 private val logger = KotlinLogging.logger {}
 
-class BpmAdjuster(diff: Difficulty, private val meta: MetaData) {
-    private val baseBpm: Double = meta.bpm
+class BpmAdjuster(diff: Difficulty) {
+    private val baseBpm: Double = GlobalConfig.bpm
     private val changes: ArrayList<Pair<_BPMChanges, Double>> = mapChangesToBeat(diff._customData?._BPMChanges)
 
     private fun mapChangesToBeat(changes: ArrayList<_BPMChanges>?): ArrayList<Pair<_BPMChanges, Double>> {
@@ -40,16 +40,16 @@ class BpmAdjuster(diff: Difficulty, private val meta: MetaData) {
 
         // adds the njsOffset if time is true
         if (w.time)
-            walls.forEach { it.startTime += meta.hjd }
+            walls.forEach { it.startTime += GlobalConfig.hjsDuration }
 
         if (w !is Define || w.isTopLevel)
             logger.info { "Added ${w.name()} with ${walls.size} walls on beat ${w.beat}." }
         // creates Obstacles
-        return walls.map { it.to_obstacle(meta.hjd) }
+        return walls.map { it.to_obstacle() }
     }
 
     private fun SpookyWall.addOffset(){
-        val offset = meta.bpm / 60000 * meta.offset
+        val offset = GlobalConfig.bpm / 60000 * GlobalConfig.offset
         this.startTime += offset
     }
 

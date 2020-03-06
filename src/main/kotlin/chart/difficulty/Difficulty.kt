@@ -1,6 +1,5 @@
 package chart.difficulty
 
-import assetFile.MetaData
 import beatwalls.AssetReader
 import beatwalls.GlobalConfig
 import com.google.gson.annotations.SerializedName
@@ -16,7 +15,7 @@ data class Difficulty(
     @SerializedName("_customEvents") val _customEvents : ArrayList<_customEvents>?,
     @SerializedName("_customData") val _customData : _customData?
 ) {
-    fun createWalls(list: ArrayList<WallStructure>, metaData: MetaData) {
+    fun createWalls(list: ArrayList<WallStructure>) {
 
         //removes the old Obstacles
         removeOldWalls()
@@ -28,7 +27,7 @@ data class Difficulty(
             if (w is Define && !w.isTopLevel) { continue }
 
             // generates the obstacles
-            val obstacles = BpmAdjuster(this,metaData).generate(w)
+            val obstacles = BpmAdjuster(this).generate(w)
 
             // adds the obstacle to the diff
             if(!GlobalConfig.clearAll)

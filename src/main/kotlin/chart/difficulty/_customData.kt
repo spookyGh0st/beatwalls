@@ -16,7 +16,7 @@ For support, please feel free to contact me at https://www.linkedin.com/in/syeda
 
 data class _customData (
 
-	@SerializedName("_time") val _time : Int,
-	@SerializedName("_BPMChanges") val _BPMChanges : ArrayList<_BPMChanges>,
-	@SerializedName("_bookmarks") val _bookmarks : ArrayList<_bookmarks>
+	@SerializedName("_time") val _time : Number?,
+	@SerializedName("_BPMChanges") val _BPMChanges : ArrayList<_BPMChanges>?,
+	@SerializedName("_bookmarks") val _bookmarks : ArrayList<_bookmarks>?
 )

@@ -13,6 +13,6 @@ data class _difficultyBeatmaps(
     @SerializedName("_noteJumpMovementSpeed") val _noteJumpMovementSpeed: Double,
     @SerializedName("_noteJumpStartBeatOffset") val _noteJumpStartBeatOffset: Double,
 
-    @SerializedName("_customData") val _customData: _customData
+    @SerializedName("_customData") val _customData: _customData?
 
 )

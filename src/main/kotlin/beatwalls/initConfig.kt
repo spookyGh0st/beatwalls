@@ -11,7 +11,11 @@ fun initConfig(songPath:String){
     if (!file.isSongInfo())
         errorExit { "Please drag in the Whole Folder for the initial Config" }
     val infoJson = File(file,"info.dat").readText()
-    val info = Gson().fromJson(infoJson, Info::class.java)
+    val info = try {
+        Gson().fromJson(infoJson, Info::class.java)
+    }catch (e:Exception){
+        errorExit(e) { "Failed to parse info.dat, is your json correct?" }
+    }
     val diff = pickDifficulty(info)
     val diffName = diff.first
     val diffOffset = diff.second
@@ -53,7 +57,7 @@ fun pickNe(): Boolean {
 
 fun pickDifficulty(info: Info): Pair<String, Int> {
     val diffSet = info._difficultyBeatmapSets.map { it._beatmapCharacteristicName to it._difficultyBeatmaps }
-    val names = diffSet.flatMap { it.second.map {  l -> l._beatmapFilename to l._customData._editorOffset} }
+    val names = diffSet.flatMap { it.second.map {  l -> l._beatmapFilename to (l._customData?._editorOffset ?: 0) } }
     for ((index, it) in names.withIndex()) {
         println("$index -> ${it.first}")
     }

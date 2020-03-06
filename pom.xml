@@ -5,14 +5,14 @@
 
     <groupId>com.github.spookyghost</groupId>
     <artifactId>beatwalls</artifactId>
-    <version>0.0.5.0</version>
+    <version>0.0.0.0</version>
     <packaging>jar</packaging>
 
     <name>Beatwalls</name>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <kotlin.version>1.3.60</kotlin.version>
+        <kotlin.version>1.3.61</kotlin.version>
         <kotlin.code.style>official</kotlin.code.style>
         <junit.version>4.12</junit.version>
         <dokka.version>0.10.0</dokka.version>

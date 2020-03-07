@@ -13,18 +13,11 @@ private const val ne = ""
 class Main
 val prefs: Preferences = Preferences.userNodeForPackage(Main::class.java)
 
-
 fun savePath(path: File) {
     prefs.put("path", path.absolutePath)
 }
 fun readPath(): File {
     return File(prefs.get("path", path))
-}
-fun saveCEPath(path: File) {
-    prefs.put("cePath", path.absolutePath)
-}
-fun readCEPath(): File {
-    return File(prefs.get("cePath", path))
 }
 fun saveBpm(bpm: Double) {
     prefs.put("bpm", bpm.toString())

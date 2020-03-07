@@ -21,7 +21,6 @@ fun initConfig(songPath:String){
     val diffOffset = diff.second
 
     val bwFile = writeIfNotExist(songPath,diffName,"bw", defaultBWStr())
-    val ceFile = writeIfNotExist(songPath,diffName,"ce", defaultCEStr())
 
     val hjd = pickHjd()
     val bpm = info._beatsPerMinute
@@ -30,7 +29,6 @@ fun initConfig(songPath:String){
     val neExt = pickNe()
 
     savePath(bwFile)
-    saveCEPath(ceFile)
     saveHjsDuration(hjd)
     saveBpm(bpm)
     saveOffset(offset)

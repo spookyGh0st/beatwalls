@@ -38,7 +38,6 @@ object GlobalConfig{
     fun reload() {
         try {
             bwFile = readPath()
-            ceFile = readCEPath()
             bpm = readBpm()
             hjsDuration = readHjsDuration()
             offset = readOffset()

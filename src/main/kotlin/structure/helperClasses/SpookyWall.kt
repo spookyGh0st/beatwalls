@@ -139,21 +139,22 @@ data class SpookyWall(
 
 
 
-        return if(GlobalConfig.neValues)
-            _obstacleCustomData(
-                _posX = startRow,
-                _posY = startHeight,
-                _width = width,
-                _height = height,
+        return when {
+            GlobalConfig.neValues -> _obstacleCustomData(
+                _position = listOf(startRow,startHeight),
+                _scale = listOf(width,height),
                 _color = cdColor,
                 _localRotation = null,
                 _rotation = null,
                 track = track
-            )else
-            _obstacleCustomData(
+            )
+            track != null || color != null ->  _obstacleCustomData(
                 _color = cdColor,
                 track = track
             )
+            else ->
+                null
+        }
     }
 
     override fun equals(other: Any?): Boolean {

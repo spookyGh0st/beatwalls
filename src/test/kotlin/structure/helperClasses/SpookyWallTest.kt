@@ -95,10 +95,8 @@ class SpookyWallTest {
             _duration = 1.0E-4F,
             _width = 1005,
             _obstacleCustomData = _obstacleCustomData(
-                _posX = 0.0,
-                _posY = 0.0,
-                _width = 0.005,
-                _height = 0.005,
+                _position = listOf(0.0, 0.0),
+                _scale = listOf(0.005, 0.005),
                 _color = null,
                 _localRotation = null,
                 _rotation = null,
@@ -128,6 +126,30 @@ class SpookyWallTest {
             _duration = 1.0E-4F,
             _width = 1005,
             _obstacleCustomData = null
+        )
+        assertEquals(expected, actual)
+    }
+    @Test
+    fun to_MeObstacleButColor() {
+        GlobalConfig.neValues = false
+        val w = SpookyWall(
+            startRow = 0.0,
+            duration = 0.0,
+            width = 0.0,
+            height = 0.0,
+            startHeight = 0.0,
+            startTime = 1.0,
+            color = red
+
+        )
+        val actual = w.to_obstacle()
+        val expected = _obstacles(
+            _time = 1.0F,
+            _lineIndex =  3000,
+            _type = 5001,
+            _duration = 1.0E-4F,
+            _width = 1005,
+            _obstacleCustomData = _obstacleCustomData(_color = listOf(1.0,0.0,0.0))
         )
         assertEquals(expected, actual)
     }

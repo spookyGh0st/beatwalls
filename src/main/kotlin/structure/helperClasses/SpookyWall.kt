@@ -26,6 +26,8 @@ data class SpookyWall(
     @Expose
     @SerializedName("color") var color: Color? = null,
     @Expose
+    @SerializedName("rotation") var rotation: Double? = null,
+    @Expose
     @SerializedName("track") var track: String? = null
 ):Serializable{
 

@@ -2,10 +2,7 @@
 
 package structure
 
-import structure.helperClasses.ColorMode
-import structure.helperClasses.NoColor
-import structure.helperClasses.Point
-import structure.helperClasses.SpookyWall
+import structure.helperClasses.*
 import structure.specialStrucures.calcP3
 import structure.specialStrucures.curve
 import structure.specialStrucures.readPoint
@@ -326,6 +323,35 @@ sealed class WallStructure:Serializable
     var color: ColorMode = Default.color
 
     /**
+     * The rotation of the wallstructure around the player, think 360 maps. click me.
+     *
+     * # rotates the entire Wallstructure 90 degrees
+     * rotation: 90
+     *
+     * # also rotates the entire Wallstructure 90 degrees. You can use negative values as well
+     * rotation: 450
+     *
+     * # rotates the walls linear from 45 to 90.
+     * rotation: ease(45,90)
+     *
+     * # rotates the walls from 180 to 90 degrees using easeInOutQuad.
+     * # all Easing methods can be found here https://easings.net/en
+     * rotation: ease(180,90,easeInOutQuad)
+     *
+     * # switches the rotation between the given values. here the first wall will have rotation 24, ththe second one 48 the third one 50, the fourth 24  and so forth
+     * rotation: switch(24,48,50)
+     *
+     * # rotates all the way around the player (360 degrees)
+     * rotation: circle
+     *
+     * # rotates twice all the way around the player backwards
+     * rotation: circle(-2)
+     *
+     * # default: no rotation
+     */
+    var rotation: RotationMode = Default.rotation
+
+    /**
      * some Wallstructures use Random walls. This is the seed for them
      */
     var seed: Int? = Default.seed
@@ -366,7 +392,6 @@ sealed class WallStructure:Serializable
         var fitStartRow: (() -> Double)? = null
         var fitWidth: (() -> Double)? = null
         var scale: Double? = null
-        var color: ColorMode = NoColor
         var reverse: Boolean = false
         var reverseX: Boolean = false
         var reverseY: Boolean = false
@@ -382,6 +407,8 @@ sealed class WallStructure:Serializable
         var repeatAddHeight: Double = 0.0
         var repeatAddStartTime: Double = 0.0
         var repeatAddDuration: Double = 0.0
+        var color: ColorMode = NoColor
+        var rotation: RotationMode = NoRotation
         var seed: Int? = null
         var track: String? = null
     }

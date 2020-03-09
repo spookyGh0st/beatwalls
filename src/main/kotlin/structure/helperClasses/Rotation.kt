@@ -33,7 +33,7 @@ data class CirclesRotation(private val repetitions: Double = 1.0): RotationMode{
     }
 }
 
-data class FlashRotation(val rotations: List<Double>): RotationMode{
+data class SwitchRotation(val rotations: List<Double>): RotationMode{
     override fun rotateWalls(walls: Collection<SpookyWall>) {
         for ((index,w) in walls.withIndex()){
             w.rotation = rotations[index % rotations.size]

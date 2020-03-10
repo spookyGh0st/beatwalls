@@ -51,8 +51,6 @@ object GlobalConfig{
     private fun check(){
         if(!bwFile.canRead())
             errorExit { "cant read bw file:$bwFile, setup this program by dragging a Song into it" }
-        if(!ceFile.canRead())
-            errorExit { "cant read customEvent File:$bwFile, setup this program by dragging a Song into it" }
         if(bpm<=0.0)
             errorExit { "Failed to read in the bpm. It cannot be negative or null" }
         if(hjsDuration<=0.0)

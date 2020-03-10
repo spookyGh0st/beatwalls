@@ -94,6 +94,7 @@ data class SpookyWall(
         }
         t.width = t.width.coerceAtLeast(minValue)
         t.height = t.height.coerceAtLeast(minValue)
+        t.rotation = if(t.rotation ==null) null else t.rotation!! % 360
 
         if (t.duration in -0.0001 .. 0.0001)
             t.duration = 0.0001
@@ -147,7 +148,7 @@ data class SpookyWall(
                 _scale = listOf(width,height),
                 _color = cdColor,
                 _localRotation = null,
-                _rotation = null,
+                _rotation = rotation,
                 track = track
             )
             track != null || color != null ->  _obstacleCustomData(

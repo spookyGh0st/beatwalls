@@ -86,6 +86,25 @@ internal fun String.toDoubleFunc(): Function<Double>? {
     }
 }
 
+internal fun String.toRotationMode(): RotationMode{
+    val f = this.toBwFunction()
+    return when{
+        f.name.isDouble() -> StaticRotation(f.name.toDouble())
+        f.name == "ease" -> EaseRotation(
+            startRotation = f.args[0].toDouble(),
+            endRotation = f.args[1].toDouble(),
+            easing = f.args.getOrNull(2)?.toEasingOrNull() ?: Easing.Linear
+        )
+        f.name == "switch" -> SwitchRotation(f.args.map { it.toDouble() })
+        f.name == "circle" -> CirclesRotation(f.args.getOrNull(0)?.toDoubleOrNull()?: 1.0)
+        else -> throw NoSuchElementException()
+
+    }
+}
+
+internal fun String.toEasingOrNull() =
+    Easing.values().find { it.name.toLowerCase() == this.toLowerCase() }
+
 internal fun String.toColorMode(): ColorMode {
     val f = this.toBwFunction()
     return when{

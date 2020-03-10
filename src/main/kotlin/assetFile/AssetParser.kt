@@ -172,6 +172,7 @@ fun fillProperty(
         "kotlin.String" -> value
         "structure.helperClasses.Point" -> value.toPoint()
         "structure.helperClasses.ColorMode" -> value.toColorMode()
+        "structure.helperClasses.RotationMode" -> value.toRotationMode()
         "structure.WallStructure" -> value.toWallStructure(definedStructure)
         "kotlin.collections.List<structure.WallStructure>" -> value.toWallStructureList(definedStructure)
         else -> null

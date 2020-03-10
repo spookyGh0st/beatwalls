@@ -348,8 +348,15 @@ sealed class WallStructure:Serializable
      * rotation: circle(-2)
      *
      * # default: no rotation
+     *
+     * # Other interesting Properties: mirrorRotation -> controls if mirror also effects the rotation(true,false)
      */
     var rotation: RotationMode = Default.rotation
+
+    /**
+     * Defines, if mirror also effects the rotation. Can be true or false. Default: true
+     */
+    var mirrorRotation: Boolean = Default.mirrorRotation
 
     /**
      * some Wallstructures use Random walls. This is the seed for them
@@ -409,6 +416,7 @@ sealed class WallStructure:Serializable
         var repeatAddDuration: Double = 0.0
         var color: ColorMode = NoColor
         var rotation: RotationMode = NoRotation
+        var mirrorRotation: Boolean = true
         var seed: Int? = null
         var track: String? = null
     }

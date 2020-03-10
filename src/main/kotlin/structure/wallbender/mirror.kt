@@ -19,7 +19,14 @@ fun WallStructure.mirror(l: List<SpookyWall>) =
     }
 
 internal fun WallStructure.mirrorX(list: List<SpookyWall>) =
-    list.map { it.copy(startRow = 2*mirrorX-it.startRow, width = -it.width ) }
+    list.map { it.copy(
+        startRow = 2*mirrorX-it.startRow,
+        width = -it.width,
+        rotation = if(mirrorRotation && it.rotation !=null ) -it.rotation!! else it.rotation
+    ) }
 
 internal fun WallStructure.mirrorY(list: List<SpookyWall>) =
-    list.map { it.copy(startHeight = 2*mirrorY-it.startHeight,height = -it.height) }
+    list.map { it.copy(
+        startHeight = 2*mirrorY-it.startHeight,
+        height = -it.height
+    ) }

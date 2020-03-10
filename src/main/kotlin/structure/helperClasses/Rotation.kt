@@ -15,8 +15,8 @@ data class StaticRotation(val rotation: Double): RotationMode {
     }
 }
 
-data class EaseRotation(val startRotation: Double, val endRotation: Double, val easing: Easing): ColorMode {
-    override fun colorWalls(walls: Collection<SpookyWall>) {
+data class EaseRotation(val startRotation: Double, val endRotation: Double, val easing: Easing): RotationMode {
+    override fun rotateWalls(walls: Collection<SpookyWall>) {
         val amount= walls.size
         for((index, w) in walls.withIndex()){
             w.rotation=easing(index.toDouble()/amount)

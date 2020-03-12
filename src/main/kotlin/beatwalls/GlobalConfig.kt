@@ -42,20 +42,25 @@ object GlobalConfig{
             hjsDuration = readHjsDuration()
             offset = readOffset()
             neValues = readNeValues()
-        }catch (e:Exception){
+        } catch (e: Exception) {
             errorExit(e) { "Failed to read some parameters. Please drag your song into beatwalls.exe" }
         }
         check()
+        logger.info { "reloaded config $this" }
     }
 
-    private fun check(){
-        if(!bwFile.canRead())
+    override fun toString(): String {
+        return "clearAll: $clearAll, deleteAllPrevious: $deleteAllPrevious, noupdate:$noUpdate, neValues: $neValues bwfileL $bwFile bpm:$bpm, hjsDuration: $hjsDuration, offset: $offset"
+    }
+
+    private fun check() {
+        if (!bwFile.canRead())
             errorExit { "cant read bw file:$bwFile, setup this program by dragging a Song into it" }
-        if(bpm<=0.0)
+        if (bpm <= 0.0)
             errorExit { "Failed to read in the bpm. It cannot be negative or null" }
-        if(hjsDuration<=0.0)
+        if (hjsDuration <= 0.0)
             errorExit { "Failed to read in the hjsDuration. It cannot be negative or null" }
-        if(hjsDuration<=0.0)
+        if (hjsDuration <= 0.0)
             errorExit { "Failed to read in the hjsDuration. It cannot be negative or null" }
     }
 }

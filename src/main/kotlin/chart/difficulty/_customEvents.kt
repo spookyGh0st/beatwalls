@@ -9,5 +9,3 @@ data class _customEvents (
     @SerializedName("_type") var _type: String,
     @SerializedName("_data") var _data: _customEventCustomData?
 )
-
-

@@ -290,6 +290,10 @@ sealed class WallStructure:Serializable
      * adds this value to the StartTime to each repeated Structure
      */
     var repeatAddStartTime: Double = Default.repeatAddStartTime
+    /**
+     * adds this value to the rotation to each repeated Structure
+     */
+    var repeatAddRotation: Double = Default.repeatAddRotation
 
     /**
      * The Color of the Wallstructure. Click me to see examples
@@ -414,6 +418,7 @@ sealed class WallStructure:Serializable
         var repeatAddHeight: Double = 0.0
         var repeatAddStartTime: Double = 0.0
         var repeatAddDuration: Double = 0.0
+        var repeatAddRotation: Double = 0.0
         var color: ColorMode = NoColor
         var rotation: RotationMode = NoRotation
         var mirrorRotation: Boolean = true
@@ -838,6 +843,7 @@ class Helix: WallStructure() {
 }
 
 /**
+ * NOT IMPLEMENTED YET
  * loops throuh the given wallstructures and increments their values
  */
 class Loop: WallStructure(){

@@ -45,9 +45,6 @@ data class SwitchRotation(val rotations: List<Double>): RotationMode{
 
 object NoRotation: RotationMode {
     override fun rotateWalls(walls: Collection<SpookyWall>) {
-        walls.forEach{
-            it.rotation = null
-        }
     }
 }
 

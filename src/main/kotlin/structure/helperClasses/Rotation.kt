@@ -37,8 +37,6 @@ data class SwitchRotation(val rotations: List<Double>): RotationMode{
     override fun rotateWalls(walls: Collection<SpookyWall>) {
         for ((index,w) in walls.withIndex()){
             w.rotation = rotations[index % rotations.size]
-            if(rotations.size == 1 && index %2 == 1)
-                w.rotation=null
         }
     }
 }

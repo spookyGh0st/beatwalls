@@ -26,7 +26,7 @@ data class SpookyWall(
     @Expose
     @SerializedName("color") var color: Color? = null,
     @Expose
-    @SerializedName("rotation") var rotation: Double? = null,
+    @SerializedName("rotation") var rotation: Double = 0.0,
     @Expose
     @SerializedName("track") var track: String? = null
 ):Serializable{
@@ -94,7 +94,7 @@ data class SpookyWall(
         }
         t.width = t.width.coerceAtLeast(minValue)
         t.height = t.height.coerceAtLeast(minValue)
-        t.rotation = if(t.rotation ==null) null else t.rotation!! % 360
+        t.rotation = t.rotation % 360
 
         if (t.duration in -0.0001 .. 0.0001)
             t.duration = 0.0001
@@ -140,19 +140,22 @@ data class SpookyWall(
             color != null -> listOf(color!!.red, color!!.green, color!!.blue)
             else -> null }
 
+        val tRotation = if (rotation == 0.0) null else rotation
 
 
         return when {
             GlobalConfig.neValues -> _obstacleCustomData(
-                _position = listOf(startRow,startHeight),
-                _scale = listOf(width,height),
+                _position = listOf(startRow, startHeight),
+                _scale = listOf(width, height),
                 _color = cdColor,
                 _localRotation = null,
-                _rotation = rotation,
+                _rotation = tRotation,
                 track = track
             )
-            track != null || color != null ->  _obstacleCustomData(
+            track != null || color != null || tRotation != null -> _obstacleCustomData(
                 _color = cdColor,
+                _rotation = tRotation,
+                _localRotation = null,
                 track = track
             )
             else ->

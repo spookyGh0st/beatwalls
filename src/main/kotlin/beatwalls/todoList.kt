@@ -5,3 +5,4 @@ package beatwalls
 // todo create a loop structure
 // todo move spookywall to own package and put extension functions a seperate file and maybe rename to wall or obstacle, idc
 // todo a way to use broken walls
+// todo fix documentation to markdown. see https://spookygh0st.github.io/beatwalls/structure/-wall-structure/color.html

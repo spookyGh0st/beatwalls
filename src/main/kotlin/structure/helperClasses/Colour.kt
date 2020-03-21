@@ -69,9 +69,6 @@ data class Flash(val colors: List<Color>): ColorMode{
 
 object NoColor: ColorMode {
     override fun colorWalls(walls: Collection<SpookyWall>) {
-        walls.forEach{
-            it.color = null
-        }
     }
 }
 

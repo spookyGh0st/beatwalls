@@ -49,7 +49,7 @@ note: pictures use less walls to make understanding them easier
 # Not all parametes support this tho. check the documentation
 30: RandomNoise
     p1: -8,0,0
-    p2: 8,0.4
+    p2: 8,0,4
     amount: 16   # create 16 walls
     repeat: 2   # but create the structure 2 times
     mirror: 4

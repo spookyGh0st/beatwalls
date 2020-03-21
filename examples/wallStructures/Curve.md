@@ -8,7 +8,7 @@ Check out this [**this link**](https://youtu.be/eowLTGFseuk) to play around.
 
 
 
-![I should be a picture](https://github.com/spookyGh0st/examples/pictures/curve/10.png)
+![I should be a picture](https://github.com/spookyGh0st/beatwalls/blob/master/examples/pictures/curve/10.png)
 
 
 ```yaml
@@ -25,7 +25,7 @@ Check out this [**this link**](https://youtu.be/eowLTGFseuk) to play around.
     scale: 2.0          # stretch the structure over 2 beats.
 ```
 
-![I should be a picture](https://github.com/spookyGh0st/examples/pictures/curve/20.png)
+![I should be a picture](https://github.com/spookyGh0st/beatwalls/blob/master/examples/pictures/curve/20.png)
 
 ```yaml
 # the normal curve can use z-values for finer control
@@ -39,7 +39,7 @@ Check out this [**this link**](https://youtu.be/eowLTGFseuk) to play around.
     mirror: 8         # mirors both on the x and y axis
 ```
 
-![I should be a picture](https://github.com/spookyGh0st/examples/pictures/curve/30.png)
+![I should be a picture](https://github.com/spookyGh0st/beatwalls/blob/master/examples/pictures/curve/30.png)
 
 ```yaml
 # This structure uses hyperwalls.

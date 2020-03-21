@@ -1,15 +1,15 @@
-# Cuve/Steadycurve
+# Curve/Steadycurve
 
-[ingame video of all Wallstructures in this file](https://streamable.com/v1ya3)
+[video](https://youtu.be/eowLTGFseuk) of all Wallstructures in this file
 
 All curves are controlled using Points. 
 These are fairly intuitive when using, but might be difficult when first seeing. 
 Check out this [**this link**](https://youtu.be/eowLTGFseuk) to play around.
 
 
+## Example 1
 
 ![I should be a picture](https://github.com/spookyGh0st/beatwalls/blob/master/examples/pictures/curve/10.png)
-
 
 ```yaml
 # Steadycurve stretches the points over 1 beat
@@ -25,6 +25,10 @@ Check out this [**this link**](https://youtu.be/eowLTGFseuk) to play around.
     scale: 2.0          # stretch the structure over 2 beats.
 ```
 
+--- 
+
+## Example 2
+
 ![I should be a picture](https://github.com/spookyGh0st/beatwalls/blob/master/examples/pictures/curve/20.png)
 
 ```yaml
@@ -38,6 +42,10 @@ Check out this [**this link**](https://youtu.be/eowLTGFseuk) to play around.
     p4: 3,2,2       
     mirror: 8         # mirors both on the x and y axis
 ```
+
+--- 
+
+## Example 3
 
 ![I should be a picture](https://github.com/spookyGh0st/beatwalls/blob/master/examples/pictures/curve/30.png)
 

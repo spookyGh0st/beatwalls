@@ -178,7 +178,13 @@ fun fillProperty(
         else -> null
     }
 
-    lastObject.writeProperty(property,valueType)
+    try {
+        lastObject.writeProperty(property, valueType)
+    } catch (e: Exception) {
+        val beat = if (lastObject is WallStructure) lastObject.beat.toString() else "COULDNOTFIND"
+        errorExit(e) { "Failed to parse value $value of property ${property.name} with type $type of wallstructure $lastObject at beat $beat . Perhaps in your syntax you have some typos?" }
+    }
+
 }
 
 fun<E> E.writeProperty(property: KProperty1<out E, Any?>?, value : Any?){
@@ -211,6 +217,8 @@ fun parseAssetString(s:String): MutableList<Pair<String, String>> =
         .map { it.trim() }
         .filterNot { it.startsWith("#") || it.isEmpty() }
         .map { it.replace("\\t".toRegex(), "") }
+        .map { it.replaceAfter("#", "") }
+        .map { it.replace("#", "") }
         .map { it.split(":") }
         .map { it.map { l -> l.trim() } }
         .map { it[0].toLowerCase() to it.minus(it[0]).joinToString(":") }

@@ -21,6 +21,8 @@ fun errorExit(e: Exception? = null, msg: () -> Any): Nothing {
         logger.info { "See Error Log below" }
         logger.error { e.message }
     }
+    logger.info("PLEASE FIX THE ERROR AND RESTART THE PROGRAM")
+    logger.info("if you think this is a bug, let me know on discord or github")
     readLine()
     exitProcess(-1)
 }

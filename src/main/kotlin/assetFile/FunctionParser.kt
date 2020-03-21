@@ -73,6 +73,8 @@ internal fun String.toDoubleFunc(): Function<Double>? {
                 constrains.size == 2 -> {
                     if (constrains[1] > constrains[0] && constrains[0] != constrains[1])
                         return { RandomSeed.nextDouble(constrains[0], constrains[1]) }
+                    if (constrains[0] > constrains[1] && constrains[0] != constrains[1])
+                        return { RandomSeed.nextDouble(constrains[1], constrains[0]) }
                     errorExit { "Failed to parse the random values fo $s syntax is random(min, max), random(max) or random()" }
                 }
                 else -> {

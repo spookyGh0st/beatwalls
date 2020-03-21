@@ -1,0 +1,742 @@
+# This is an example File of a .bw file. 
+# General Guide: https://github.com/spookyGh0st/beatwalls
+# documentation: https://spookygh0st.github.io/beatwalls/structure/-wall-structure/index.html
+
+# Lines starting with an # are Comments and will get ignored
+# Syntax Beat:Name
+# simple WallStructures of a single Wall
+#10: Wall
+    #StartRow: 2
+    #height: 4
+    #width: 2
+    #duration: 8
+    #mirror: 2
+    
+# Random Noise creates small particels in the given region
+# docu: https://spookygh0st.github.io/beatwalls/structure/-random-noise/index.html
+#20.0: RandomNoise
+    #p1: -4,0,0
+    #p2: 4,4,8
+    # we dont want to many, how about 40 walls
+    #amount: 40
+    
+#How about a curve at the same time as our randomNoise
+# docu: https://spookygh0st.github.io/beatwalls/structure/-steady-curve/index.html
+# 20.0: SteadyCurve
+    #p1: 2,0
+    #p2: 4,4
+    #p3: 2,4
+    #p4: 4,3
+    
+    # Stretch it out to 10 beats
+    #scale: 10
+    # mirror it to the other side and to the top
+    #mirror: 8
+    # we stretch the curve out over 8 beats, lets go with 6*8 walls
+    #amount: 48
+    
+    
+# defining a wallstructures for multiple use
+#define: upDownCurve
+    # what structure we are basing of
+    #structures: curve
+    
+    # the 4 controlPoints we are basing of. These are Points in 3d-space. 
+    # Imagine a line between p1 and p4. The other 2 Points,  p2 and p3 are "pulling" on it
+    #p1: 0,4,0
+    #p2: 2,4,0.33
+    #p3: 3,2,0.66
+    #p4: 2,0,1
+    
+    # fit the startRow to 5. All Walls in the curve will get stretched in width until they reach that startRow
+    #fitStartRow: 10
+    # same for startHeight. All walls will get stretched in height until they reach that startheight
+    # we also Want to change the height to something random
+    #changeHeight: random(0,4)
+    
+    # mirrors the whole structure to the left side
+    #mirror: 2
+    
+#30: upDownCurve
+    # we repeat our structure 5 times, but only every second beat
+    #repeat: 5
+    #repeatAddZ: 2
+    
+#31: upDownCurve
+    # we reverse the structure, the rest is same as 30
+    #reverse: true
+    #repeat: 5
+    #repeatAddZ: 2
+    
+# Every Wallstructure below this will have changeDuration set to -3
+#0.0: default
+    changeDuration: -3
+    
+# like in 30/31 but mirrored horizontally and with hyper walls
+#40: upDownCurve
+    #mirror: 3
+    #changeDuration: -3
+    #repeat: 5
+    #repeatAddZ: 2
+    
+#41: upDownCurve
+    #mirror: 3
+    #changeDuration: -3
+    #reverse: true
+    #repeat: 5
+    #repeatAddZ: 2
+    
+# remember to reset changeDuration. This one is null, but the default for most is 0.0 or whatever makes sense
+# consult the documentation for this.
+0.0: default
+    changeDuration: null
+	
+define: gapwaLL1
+	structures: wall
+	startRow: 4
+	height: 8
+	width: 1
+	duration: -1
+	mirror: 2
+
+define: gapwaLL2
+	structures: wall
+	startRow: 3
+	height: 8
+	width: 1
+	duration: -1
+	mirror: 2
+	changeStartTime: 1
+	
+define: gapwaLL3
+	structures: wall
+	startRow: 2
+	height: 8
+	width: 1
+	duration: -1
+	mirror: 2
+	changeStartTime: 2
+	
+define: gapwaLL4
+	structures: wall
+	startRow: 4
+	height: 8
+	width: 1
+	duration: 26
+	mirror: 2
+
+define: gapwaLL5
+	structures: wall
+	startRow: 3
+	height: 8
+	width: 1
+	duration: 25
+	mirror: 2
+	changeStartTime: 1
+	
+define: gapwaLL6
+	structures: wall
+	startRow: 2
+	height: 8
+	width: 1
+	duration: 24
+	mirror: 2
+	changeStartTime: 2
+	
+define: wallClose
+	structures: gapwaLL1, gapwaLL2, gapwaLL3, gapwaLL4, gapwaLL5, gapwaLL6
+	
+define: brlw
+	structures: Wall
+	StartRow: 1
+	height: 1.3333
+	StartHeight: 0
+	width: 0.0001
+	duration: -3
+	
+define: brrw
+	structures: Wall
+	StartRow: 2
+	height: 1.3333
+	StartHeight: 0
+	width: 0.0001
+	duration: -3
+	
+define: brtw
+	structures: Wall
+	StartRow: 1
+	height: 0.0001
+	StartHeight: 1.3333
+	width: 1
+	duration: -3
+	
+define: brbw
+	structures: Wall
+	StartRow: 1
+	height: 0.0001
+	StartHeight: 0
+	width: 1
+	duration: -3
+	
+define: bRBox
+	structures: brlw, brrw, brtw, brbw
+	mirror: 2
+	
+define: mrlw
+	structures: Wall
+	StartRow: 2
+	height: 1.3333
+	StartHeight: 1.3333
+	width: 0.0001
+	duration: -3
+	
+define: mrrw
+	structures: Wall
+	StartRow: 3
+	height: 1.3333
+	StartHeight: 1.3333
+	width: 0.0001
+	duration: -3
+	
+define: mrtw
+	structures: Wall
+	StartRow: 2
+	height: 0.0001
+	StartHeight: 2.6666
+	width: 1
+	duration: -3
+	
+define: mrbw
+	structures: Wall
+	StartRow: 2
+	height: 0.0001
+	StartHeight: 1.3333
+	width: 1
+	duration: -3
+	
+define: mRBox
+	structures: mrlw, mrrw, mrtw, mrbw
+	mirror: 2
+	
+define: bllw
+	structures: Wall
+	StartRow: 0
+	height: 1.3333
+	StartHeight: 0
+	width: 0.0001
+	duration: -3
+	
+define: blrw
+	structures: Wall
+	StartRow: 1
+	height: 1.3333
+	StartHeight: 0
+	width: 0.0001
+	duration: -3
+	
+define: bltw
+	structures: Wall
+	StartRow: 0
+	height: 0.0001
+	StartHeight: 1.3333
+	width: 1
+	duration: -3
+	
+define: blbw
+	structures: Wall
+	StartRow: 0
+	height: 0.0001
+	StartHeight: 0
+	width: 1
+	duration: -3
+	
+define: bLBox
+	structures: bllw, blrw, bltw, blbw
+	mirror: 2
+	
+define: tllw
+	structures: Wall
+	StartRow: 0
+	height: 1.3333
+	StartHeight: 2.6666
+	width: 0.0001
+	duration: -3
+	
+define: tlrw
+	structures: Wall
+	StartRow: 1
+	height: 1.3333
+	StartHeight: 2.6666
+	width: 0.0001
+	duration: -3
+	
+define: tltw
+	structures: Wall
+	StartRow: 0
+	height: 0.0001
+	StartHeight: 4
+	width: 1
+	duration: -3
+	
+define: tlbw
+	structures: Wall
+	StartRow: 0
+	height: 0.0001
+	StartHeight: 2.6666
+	width: 1
+	duration: -3
+	
+define: tLBox
+	structures: tllw, tlrw, tltw, tlbw
+	mirror: 2
+	
+define: trlw
+	structures: Wall
+	StartRow: 1
+	height: 1.3333
+	StartHeight: 2.6666
+	width: 0.0001
+	duration: -3
+	
+define: trrw
+	structures: Wall
+	StartRow: 2
+	height: 1.3333
+	StartHeight: 2.6666
+	width: 0.0001
+	duration: -3
+	
+define: trtw
+	structures: Wall
+	StartRow: 1
+	height: 0.0001
+	StartHeight: 4
+	width: 1
+	duration: -3
+	
+define: trbw
+	structures: Wall
+	StartRow: 1
+	height: 0.0001
+	StartHeight: 2.6666
+	width: 1
+	duration: -3
+	
+define: tRBox
+	structures: trlw, trrw, trtw, trbw
+	mirror: 2
+	
+define: strut1
+	structures: wall
+	startRow: 2
+	height: 4
+	width: 0.25
+	duration: 0.25
+	mirror: 2
+	
+define: strut2
+	structures: wall
+	startRow: -2.25
+	height: 0.5
+	width: 4.5
+	duration: 0.25
+	addStartHeight: 4
+	
+define: wholeStrut
+	structures: strut1, strut2
+	repeat: 19
+	repeatAddZ: 2
+	
+define: base1
+	structures: Wall
+	StartRow: -20
+	height: 0.000001
+	addStartHeight: 0
+	width: 40
+	duration: 45
+
+define: base2
+	structures: Wall
+	StartRow: 3.5
+	height: 1
+	StartHeight: 0
+	width: 1.5
+	duration: 45
+	mirror: 2
+	
+define: base3
+	structures: Wall
+	StartRow: -20
+	height: 8
+	StartHeight: 0
+	width: 1
+	duration: 45
+	mirror: 2
+	
+define: collumn1
+	structures: Wall
+	StartRow: 3.75
+	height: 4.5
+	StartHeight: 1
+	width: 1
+	duration: 0.25
+	mirror: 2
+	
+define: collumn2
+	structures: Wall
+	StartRow: 3.25
+	height: 0.75
+	StartHeight: 5.5
+	width: 2
+	duration: 0.25
+	mirror: 2
+	
+define: collumn3
+	structures: Wall
+	StartRow: 3.25
+	height: 1.75
+	StartHeight: 6.25
+	width: 0.5
+	duration: 0.25
+	mirror: 2
+	
+define: collumn4
+	structures: Wall
+	StartRow: 4.75
+	height: 1.75
+	StartHeight: 6.25
+	width: 0.5
+	duration: 0.25
+	mirror: 2
+
+define: base4
+	structures: Wall
+	StartRow: -20
+	height: 1
+	StartHeight: 8
+	width: 40
+	duration: 45
+	mirror: 2
+	
+define: fullBase
+	structures: base1, base2, base3, base4
+	
+define: collumns
+	structures: collumn1, collumn2, collumn3, collumn4
+	repeat: 16
+	repeatAddZ: 3
+	
+define: baseCurve
+	structures: SteadyCurve
+	p1: 4,0
+	p2: 6,2
+	p3: 4,4
+	p4: 2,2
+	scale: 6
+	mirror: 8
+	amount: 48
+	
+define: baseCurveEnd
+	structures: SteadyCurve
+	p1: 4,0
+	p2: 6,2
+	p3: 4,4
+	p4: 2,2
+	scale: 4
+	mirror: 8
+	amount: 36
+	
+define: baseCurveReverse
+	structures: SteadyCurve
+	p1: 2,2
+	p2: 4,4
+	P3: 6,2
+	p4: 4,0
+	scale: 2
+	mirror: 8
+	amount: 24
+	changeDuration: -3
+	
+define: baseCurveReverseSlow
+	structures: SteadyCurve
+	p1: 2,2
+	p2: 4,4
+	P3: 6,2
+	p4: 4,0
+	scale: 4
+	mirror: 8
+	amount: 36
+	
+define: baseCurveFast
+	structures: SteadyCurve
+	p1: 4,0
+	p2: 6,2
+	p3: 4,4
+	p4: 2,2
+	scale: 2
+	mirror: 8
+	amount: 24
+	changeDuration: -3
+	
+define: fastCurve
+	structures: curve
+	p1: 4,0
+	p2: 2,8
+	p3: -2,8
+	p4: -4,0
+	scale: 1
+	mirror: 2
+	amount: 24
+	changeDuration: -3
+	
+define: houseCurve
+	structures: SteadyCurve
+	p1: 4,0
+	p2: 2,10
+	p3: -2,10
+	p4: -4,0
+	scale: 6
+	mirror: 2
+	amount: 48
+	
+define: hit1
+	structures: wall
+	startHeight: 1.5
+	startRow: 5.875
+	width: 0.25
+	height: 4.25
+	mirror: 2
+	duration: -3
+	
+define: hit2
+	structures: wall
+	startHeight: 1.25
+	startRow: 5
+	width: 2
+	height: 0.25
+	mirror: 2
+	duration: -3
+	
+define: hit3
+	structures: wall
+	startHeight: 5.5
+	startRow: 5
+	width: 2
+	height: 0.25
+	mirror: 2
+	duration: -3
+	
+define: hit4
+	structures: wall
+	startHeight: 3.5
+	height: 0.25
+	width: 4
+	startRow: 4
+	mirror: 2
+	duration: -3
+	
+define: hit5
+	structures: wall
+	startHeight: 2.625
+	height: 2
+	width: 0.25
+	startRow: 3.75
+	mirror: 2
+	duration: -3
+	
+define: hit6
+	structures: wall
+	startHeight: 2.625
+	height: 2
+	width: 0.25
+	startRow: 8
+	mirror: 2
+	duration: -3
+	
+define: hit7
+	structures: wall
+	height: 7.25
+	width: 1
+	startRow: 2
+	mirror: 2
+	duration: -3
+	
+define: hit8
+	structures: wall
+	height: 7.25
+	width: 1
+	startRow: 9
+	mirror: 2
+	duration: -3
+
+define: hit9
+	structures: wall
+	height: 0.75
+	width: 7
+	startRow: 3
+	mirror: 2
+	duration: -3
+	
+define: hit10
+	structures: wall
+	height: 0.5
+	startHeight: 6.5
+	width: 7
+	startRow: 3
+	mirror: 2
+	duration: -3
+	
+define: cross
+	structures: hit1, hit2, hit3, hit4, hit5, hit6, hit7, hit8, hit9, hit10
+	
+22: baseCurve
+	repeat: 8
+	repeatAddZ: 6
+	
+72: collumns
+72: fullBase
+
+72: houseCurve
+	repeat: 8
+	repeatAddZ: 6
+	
+121: bRBox
+123: tLBox
+125: bLBox
+127: mRBox
+127.75: tLBox
+128.5: tRBox
+129: bLBox
+131: mRBox
+133: tLBox
+135: bRBox
+135.75: tLBox
+136.5: mRBox
+137: bLBox
+139: tRBox
+141: tLBox
+141.5: tRBox
+142: mRBox
+143: bLBox
+143.5 bRBox
+144: mRBox
+144.5: tRBox
+145: tLBox
+146: bLBox
+146.5 bRBox
+147: mRBox
+147.5: tRBox
+148: tLBox
+149: bLBox
+149.5 bRBox
+150: mRBox
+150.5: tRBox
+151: tLBox
+151.5: tRBox
+152: mRBox
+152.4: bRBox
+153: bLBox
+154: mRBox
+155: mRBox
+155: tRBox
+155: bRBox
+156: mRBox
+156: tRBox
+156: bRBox
+156: tLBox
+156: bLBox
+169: fastCurve
+170: fastCurve
+171: fastCurve
+178: wallClose
+180: RandomNoise
+	p1: -2,4,0
+	p2: 2,8,8
+	amount: 32
+	changeDuration: -3
+180: RandomNoise
+	p1: -2,0,0
+	p2: 2,1.3333,8
+	amount: 16
+	changeDuration: -3
+180: RandomNoise
+	p1: -2,1.3333,0
+	p2: -1,4,8
+	amount: 8
+	changeDuration: -3
+180: RandomNoise
+	p1: 1,1.3333,0
+	p2: 2,4,8
+	amount: 8
+	changeDuration: -3
+188: RandomNoise
+	p1: -2,4,0
+	p2: 2,8,10
+	amount: 80
+	changeDuration: -3
+188: RandomNoise
+	p1: -2,0,0
+	p2: 2,1.3333,10
+	amount: 40
+	changeDuration: -3
+188: RandomNoise
+	p1: -2,1.3333,0
+	p2: -1,4,10
+	amount: 20
+	changeDuration: -3
+188: RandomNoise
+	p1: 1,1.3333,0
+	p2: 2,4,10
+	amount: 20
+	changeDuration: -3
+198: RandomNoise
+	p1: -2,4,0
+	p2: 2,8,6
+	amount: 96
+	changeDuration: -3
+198: RandomNoise
+	p1: -2,0,0
+	p2: 2,1.3333,6
+	amount: 48
+	changeDuration: -3
+198: RandomNoise
+	p1: -2,1.3333,0
+	p2: -1,4,6
+	amount: 24
+	changeDuration: -3
+198: RandomNoise
+	p1: 1,1.3333,0
+	p2: 2,4,6
+	amount: 24
+	changeDuration: -3
+231.5: wholeStrut
+231.5: steadyCurve
+	p1: 3,0
+	p2: 1,8
+	p3: -1,8
+	p4: -3,0
+	scale: 2
+	mirror: 2
+	amount: 36
+	repeat: 19
+	repeatAddZ: 2
+233.5: baseCurveFast
+	repeat: 9
+	repeatAddZ: 4
+235.5: baseCurveReverse
+	repeat: 8
+	repeatAddZ: 4
+	
+273: baseCurve
+	repeat: 5
+	repeatAddZ: 8
+279: baseCurveReverseSlow
+	repeat: 5
+	repeatAddZ: 8
+295.75: cross
+300.75: cross
+302.75: cross
+304.75: cross
+306.75: cross
+316.25: cross
+	changeDuration: 0.1

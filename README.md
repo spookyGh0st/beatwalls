@@ -123,15 +123,12 @@ define: _tunnel4
     startRow: 4
     Height: 4
     
-define: _tunnel4
-    structures: RandomNoise
-    p1: -4,0,0
-    p2: 4,4,0.5
-    amount: 8
 define: tunnel
     structures: _tunnel1,_tunnel2,_tunnel3,tunnel4
 ```
-now you can create a bunch of tunnels at time 10 with just
+
+now you can create a bunch of tunnels at times 10, 12, 16.6 and 20 with just
+
 ```yaml
 10: tunnel
 12: tunnel

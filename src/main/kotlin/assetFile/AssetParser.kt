@@ -41,7 +41,7 @@ fun parseAsset(s: String): ArrayList<WallStructure> {
 fun parseStructures(mutableList: MutableList<Pair<String, String>>): ArrayList<WallStructure>{
     val list = arrayListOf<WallStructure>()
 
-    var lastStruct: Any = EmptyWallStructure
+    var lastStruct: Any = EmptyWallStructure()
     val definedStructures = mutableListOf<Define>()
 
     for (i in 0 until mutableList.size) {

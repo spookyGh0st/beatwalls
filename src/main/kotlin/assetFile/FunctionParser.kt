@@ -1,13 +1,12 @@
 package assetFile
 
 import beatwalls.errorExit
+import compiler.types.isDouble
+import compiler.types.isInt
 import structure.Define
 import structure.EmptyWallStructure
 import structure.WallStructure
 import structure.helperClasses.*
-import java.lang.Double.parseDouble
-import java.lang.Integer.parseInt
-import java.lang.NumberFormatException
 import kotlin.random.Random
 
 /**
@@ -91,7 +90,7 @@ internal fun String.toDoubleFunc(): Function<Double>? {
 internal fun String.toRotationMode(): RotationMode{
     val f = this.toBwFunction()
     return when{
-        f.name.isDouble() -> StaticRotation(f.name.toDouble())
+        isDouble(f.name) -> StaticRotation(f.name.toDouble())
         f.name == "ease" -> EaseRotation(
             startRotation = f.args[0].toDouble(),
             endRotation = f.args[1].toDouble(),
@@ -122,8 +121,8 @@ internal fun String.toColorMode(): ColorMode {
         }
         f.name == "rainbow" -> {
             when {
-                f.args.isEmpty()-> Rainbow()
-                f.args.size == 1 && f.args[0].isDouble() -> Rainbow(f.args[0].toDouble())
+                f.args.isEmpty() -> Rainbow()
+                f.args.size == 1 && isDouble(f.args[0]) -> Rainbow(f.args[0].toDouble())
                 else -> errorExit { "wrong syntax for rainbow" }
             }
         }
@@ -207,16 +206,9 @@ internal fun String.toConstColor():Color =
     }
 
 
-private fun String.isDouble() =
-    try { parseDouble(this); true
-} catch (e: NumberFormatException){ false }
-private fun String.isInt() =
-    try { parseInt(this); true
-    } catch (e: NumberFormatException){ false }
-
 internal fun String.toWallStructureList(definedStructure: List<Define>): List<WallStructure>{
     return this
         .split(",")
         .map { it.trim() }
-        .map { val a = findStructure(it, definedStructure); if(a is WallStructure) a else EmptyWallStructure }
+        .map { val a = findStructure(it, definedStructure); if (a is WallStructure) a else EmptyWallStructure() }
 }

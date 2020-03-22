@@ -235,6 +235,29 @@ sealed class WallStructure:Serializable
     var speeder: Double? = Default.speeder
 
     /**
+     * The Interfaces This Wallstructure uses
+     *
+     * for example create an interface using
+     * ```yaml
+     * interface: hyperWalls
+     *   changeDuration: -3
+     * interface: bigBoy
+     *   addHeight: -3
+     *
+     * 10: wall
+     *   extends: hyperwalls, bigBoy
+     * ```
+     *
+     * There are already predefined Interfaces you can use.
+     *
+     * - default: Interface every wallstructure has, set values globally
+     * - hyper: set changeDuration to hyperwalls
+     * - ground: set fitStartHeight=0
+     *
+     *
+     */
+    var extends: List<Interface> = listOf()
+    /**
      * how often you want to repeat the Structure.
      */
     var repeat: Int = Default.repeat
@@ -553,9 +576,27 @@ sealed class WallStructure:Serializable
 }
 
 /**
- * dont touch
+ * Set the default values of other Wallstructures.
+ *
+ * to create one use
+ * ```yaml
+ * interface: hyper
+ *   changeDuration: -3
+ * 10: RandomNoise
+ *   extends: hyper
+ *
  */
-object EmptyWallStructure:WallStructure() { override fun generateWalls() = emptyList<SpookyWall>() }
+class Interface : WallStructure() {
+    override fun generateWalls(): List<SpookyWall> = emptyList()
+}
+
+/**
+ * dont touch
+ * todo remove
+ */
+class EmptyWallStructure : WallStructure() {
+    override fun generateWalls() = emptyList<SpookyWall>()
+}
 
 //   _____                 _       __   _       __      _________ __                  __
 //  / ___/____  ___  _____(_)___ _/ /  | |     / /___ _/ / / ___// /________  _______/ /___  __________  _____
@@ -762,12 +803,38 @@ class SteadyCurve:WallStructure(){
 
 /**
  * Define your own WallStructure from existing WallStructures.
+ *
+ * Define your own structure with something like this
+ *
+ * ```yaml
+ * myLine: Line
+ *  p1: 4,0,0
+ *  p2: 2,4,2
+ * ```
+ *
+ * and then use it with
+ * ```yaml
+ * 10: myLine
+ * ```
+ *
+ * You can also supply more then one structure.
+ * For example when you have more then one line already defined
+ *
+ * ```yaml
+ * myLine:
+ *  structures: _line1, _line2
+ *
+ *
  */
 class Define: WallStructure() {
     /**
      * the name the structure gets saved to
      */
     var name: String = "customStructure"
+    /**
+     * The baseStructure to use. This automatically gets filled when using `myStructure : baseStructure`
+     */
+    lateinit var baseStructure: WallStructure
     /**
      * The name of Different Structures. Separated by comma (example: structures: Floor, Ceiling)
      * You can also define Parameters of the first Structure

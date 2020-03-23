@@ -100,7 +100,6 @@ internal fun String.toRotationMode(): RotationMode{
         f.name == "switch" -> SwitchRotation(f.args.map { it.toDouble() })
         f.name == "circle" -> CirclesRotation(f.args.getOrNull(0)?.toDoubleOrNull()?: 1.0)
         else -> throw NoSuchElementException()
-
     }
 }
 

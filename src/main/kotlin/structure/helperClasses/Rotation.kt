@@ -19,7 +19,9 @@ data class EaseRotation(val startRotation: Double, val endRotation: Double, val 
     override fun rotateWalls(walls: Collection<SpookyWall>) {
         val amount= walls.size
         for((index, w) in walls.withIndex()){
-            w.rotation=easing(index.toDouble()/amount)
+            val diff = endRotation - startRotation
+            val mul =easing(index.toDouble()/amount)
+            w.rotation = startRotation + diff*mul
         }
     }
 }

@@ -363,6 +363,41 @@ sealed class WallStructure:Serializable
     var mirrorRotation: Boolean = Default.mirrorRotation
 
     /**
+     * localRotX controls the rotation on the x-axis for each individual wall in degree. allows random. Default: 0
+     *
+     *  example:
+     *
+     *  ```yaml
+     *  localRotX: 20 # rotates each wall 20 degree to the right
+     *  localRotX: random(-20,20) # rotates each wall on the x axis randomnly between -20 and 20.
+     *  ```
+     */
+    val localRotX: (() -> Double) = Default.localRotX
+
+    /**
+     * localRotY controls the rotation on the y-axis for each individual Wall in degree. allows random. Default: 0
+     *
+     *  example:
+     *
+     *  ```yaml
+     *  localRotY: 20 # rotates each wall 20 degree to the right
+     *  localRotY: random(-20,20) # rotates each wall on the x axis randomnly between -20 and 20.
+     *  ```
+     */
+    val localRotY: (() -> Double) = Default.localRotY
+    /**
+     * * localRotZ controls the rotation on the x-axis for each individual Wall in degree. allows random. Default: 0
+    *
+    *  example:
+    *
+    *  ```yaml
+    *  localRotZ: 20 # rotates each wall 20 degree to the right
+    *  localRotZ: random(-20,20) # rotates each wall on the x axis randomnly between -20 and 20.
+     *  ```
+    */
+    val localRotZ: (() -> Double) = Default.localRotZ
+
+    /**
      * some Wallstructures use Random walls. This is the seed for them
      */
     var seed: Int? = Default.seed
@@ -422,6 +457,9 @@ sealed class WallStructure:Serializable
         var color: ColorMode = NoColor
         var rotation: RotationMode = NoRotation
         var mirrorRotation: Boolean = true
+        var localRotX : () -> Double = { 0.0 }
+        var localRotY : () -> Double = { 0.0 }
+        var localRotZ : () -> Double = { 0.0 }
         var seed: Int? = null
         var track: String? = null
     }

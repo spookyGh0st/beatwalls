@@ -28,6 +28,8 @@ data class SpookyWall(
     @Expose
     @SerializedName("rotation") var rotation: Double = 0.0,
     @Expose
+    @SerializedName("localRotation") var localRotation: Array<Double> = arrayOf(0.0,0.0,0.0),
+    @Expose
     @SerializedName("track") var track: String? = null
 ):Serializable{
 
@@ -141,14 +143,14 @@ data class SpookyWall(
             else -> null }
 
         val tRotation = if (rotation == 0.0) null else rotation
-
+        val tLocalRotation = if (localRotation.all { it == 0.0 }) null else localRotation.toList()
 
         return when {
             GlobalConfig.neValues -> _obstacleCustomData(
                 _position = listOf(startRow, startHeight),
                 _scale = listOf(width, height),
                 _color = cdColor,
-                _localRotation = null,
+                _localRotation = tLocalRotation,
                 _rotation = tRotation,
                 track = track
             )

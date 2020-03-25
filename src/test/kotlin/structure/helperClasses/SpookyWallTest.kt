@@ -42,7 +42,7 @@ class SpookyWallTest {
         )
         val expected = SpookyWall(
             startRow = -2.0,
-            duration = -3.0,
+            duration = -4.0,
             width = 1.0,
             height = 1.0,
             startHeight = -2.0,

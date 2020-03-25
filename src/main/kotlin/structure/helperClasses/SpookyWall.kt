@@ -97,10 +97,11 @@ data class SpookyWall(
         t.width = t.width.coerceAtLeast(minValue)
         t.height = t.height.coerceAtLeast(minValue)
         t.rotation = t.rotation % 360
+        t.localRotation = t.localRotation.map { it % 360 }.toTypedArray()
 
         if (t.duration in -0.0001 .. 0.0001)
             t.duration = 0.0001
-        t.duration = t.duration.coerceAtLeast(-1.5 * GlobalConfig.hjsDuration)
+        t.duration = t.duration.coerceAtLeast(-2.0 * GlobalConfig.hjsDuration)
         t.startTime = t.startTime.coerceAtLeast(minValue)
         return t
     }

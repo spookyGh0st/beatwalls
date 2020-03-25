@@ -10,7 +10,7 @@ interface RotationMode:Serializable{
 data class StaticRotation(val rotation: Double): RotationMode {
     override fun rotateWalls(walls: Collection<SpookyWall>) {
         walls.forEach{
-            it.rotation = rotation
+            it.rotation += rotation
         }
     }
 }
@@ -21,7 +21,7 @@ data class EaseRotation(val startRotation: Double, val endRotation: Double, val 
         for((index, w) in walls.withIndex()){
             val diff = endRotation - startRotation
             val mul =easing(index.toDouble()/amount)
-            w.rotation = startRotation + diff*mul
+            w.rotation += startRotation + diff*mul
         }
     }
 }
@@ -30,7 +30,7 @@ data class CirclesRotation(private val repetitions: Double = 1.0): RotationMode{
     override fun rotateWalls(walls: Collection<SpookyWall>) {
         val amount = walls.size
         for ((index,w) in walls.withIndex()){
-            w.rotation = index.toDouble()/amount*360*repetitions
+            w.rotation += index.toDouble()/amount*360*repetitions
         }
     }
 }
@@ -38,7 +38,7 @@ data class CirclesRotation(private val repetitions: Double = 1.0): RotationMode{
 data class SwitchRotation(val rotations: List<Double>): RotationMode{
     override fun rotateWalls(walls: Collection<SpookyWall>) {
         for ((index,w) in walls.withIndex()){
-            w.rotation = rotations[index % rotations.size]
+            w.rotation += rotations[index % rotations.size]
         }
     }
 }

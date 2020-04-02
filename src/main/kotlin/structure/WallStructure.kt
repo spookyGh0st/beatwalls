@@ -372,7 +372,7 @@ sealed class WallStructure:Serializable
      *  localRotX: random(-20,20) # rotates each wall on the x axis randomnly between -20 and 20.
      *  ```
      */
-    val localRotX: (() -> Double) = Default.localRotX
+    var localRotX: (() -> Double) = Default.localRotX
 
     /**
      * localRotY controls the rotation on the y-axis for each individual Wall in degree. allows random. Default: 0
@@ -384,7 +384,7 @@ sealed class WallStructure:Serializable
      *  localRotY: random(-20,20) # rotates each wall on the x axis randomnly between -20 and 20.
      *  ```
      */
-    val localRotY: (() -> Double) = Default.localRotY
+    var localRotY: (() -> Double) = Default.localRotY
     /**
      * * localRotZ controls the rotation on the x-axis for each individual Wall in degree. allows random. Default: 0
     *
@@ -395,7 +395,7 @@ sealed class WallStructure:Serializable
     *  localRotZ: random(-20,20) # rotates each wall on the x axis randomnly between -20 and 20.
      *  ```
     */
-    val localRotZ: (() -> Double) = Default.localRotZ
+    var localRotZ: (() -> Double) = Default.localRotZ
 
     /**
      * some Wallstructures use Random walls. This is the seed for them

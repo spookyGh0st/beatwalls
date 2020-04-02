@@ -1,4 +1,4 @@
-package compiler.Properties
+package compiler.OldPropertis
 
 import beatwalls.errorExit
 import compiler.Compiler

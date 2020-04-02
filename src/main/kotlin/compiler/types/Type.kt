@@ -1,7 +1,7 @@
 package compiler.types
 
 import compiler.Compiler
-import compiler.Properties.fillProperty
+import compiler.OldPropertis.fillProperty
 import org.mariuszgromada.math.mxparser.Constant
 import org.mariuszgromada.math.mxparser.Function
 import structure.*

@@ -1,6 +1,5 @@
-package compiler.Properties
+package compiler.OldPropertis
 
-import assetFile.*
 import assetFile.toColorMode
 import assetFile.toDoubleFunc
 import assetFile.toPoint

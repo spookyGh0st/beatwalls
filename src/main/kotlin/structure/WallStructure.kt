@@ -2,6 +2,7 @@
 
 package structure
 
+import compiler.property.BwDouble
 import structure.helperClasses.*
 import structure.specialStrucures.*
 import java.io.Serializable
@@ -29,6 +30,9 @@ submit a pull request and wait for approval.
 
 sealed class WallStructure:Serializable
 {
+    val testProperty: Double by BwDouble()
+    val testRecursiveProperty: Double by BwDouble()
+
     /**
      * dont touch
      */
@@ -588,6 +592,8 @@ sealed class WallStructure:Serializable
  */
 class Interface : WallStructure() {
     override fun generateWalls(): List<SpookyWall> = emptyList()
+    val testProperty1: Double by BwDouble()
+    val testProperty2: Double by BwDouble()
 }
 
 /**

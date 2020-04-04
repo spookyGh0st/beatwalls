@@ -25,7 +25,7 @@ internal fun WallStructure.mirrorX(list: List<SpookyWall>) =
         width = -wall.width,
         rotation = if(mirrorRotation) -wall.rotation else wall.rotation,
         localRotation = if(mirrorRotation)
-            wall.localRotation.clone().also {  it[1] = -it[1] }
+            arrayOf(wall.localRotation[0],-wall.localRotation[1],-wall.localRotation[2])
         else
             wall.localRotation
 

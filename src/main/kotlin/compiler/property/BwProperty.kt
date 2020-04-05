@@ -11,7 +11,8 @@ import kotlin.reflect.full.memberProperties
 import kotlin.reflect.jvm.isAccessible
 
 
-abstract class BwProperty<T>(var expressionString: String) {
+abstract class BwProperty<T>(){
+    var expressionString: String = ""
     var isInitialized=false
     var preDefinedVars: Set<Constant> = setOf()
     var wallValues: Set<Constant> = setOf()
@@ -56,9 +57,6 @@ abstract class BwProperty<T>(var expressionString: String) {
         !(expression.calculate().isNaN() || !expression.syntaxStatus)
 }
 
-fun<T> KProperty1<out T,Any?>.getDelegate(receiver: WallStructure): Any? {
-    return this.getDelegate(receiver)
-}
 
 fun main(){
     val a = Interface()
@@ -67,6 +65,7 @@ fun main(){
     println("t1: ${a.testProperty1}")
     println("t2: ${a.testProperty2}")
 }
+
 fun WallStructure.initializeProperty(name: String, value: String){
     val prop = this::class.memberProperties.find { it.name.toLowerCase() == name.toLowerCase() }
     if(prop == null || prop.returnType.isMarkedNullable)
@@ -77,6 +76,7 @@ fun WallStructure.initializeProperty(name: String, value: String){
     if (del !is BwProperty<*>) throw  Exception()
     del.initialize(value.toLowerCase(), emptyList(), emptyList())
 }
+
 
 class r(){
 

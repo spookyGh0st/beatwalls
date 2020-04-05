@@ -4,7 +4,7 @@ import structure.WallStructure
 import structure.helperClasses.Point
 import kotlin.reflect.KProperty
 
-class BwPoint(default: String="0,0,0"): BwProperty<Point>(default) {
+class BwPoint: BwProperty<Point>() {
     override fun getValue(thisRef: WallStructure, property: KProperty<*>): Point {
         // constants of the wallstructures properties
         val constants = getConstants(thisRef)
@@ -13,10 +13,7 @@ class BwPoint(default: String="0,0,0"): BwProperty<Point>(default) {
         // turns the strings into Expressions
         val valueExpressions = valueExpressionStrings.map { getExpression(it, constants) }
         // throws an exception if one Expression is not valid
-        valueExpressions.forEach { if (!checkExpression(it))throw InvalidExpressionException(
-            it
-        )
-        }
+        valueExpressions.forEach { if (!checkExpression(it))throw InvalidExpressionException(it) }
         // retrieves the values from the expressions
         val values = valueExpressions.map { it.calculate() }
         // turns the values into a Point

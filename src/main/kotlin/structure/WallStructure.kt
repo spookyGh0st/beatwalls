@@ -838,10 +838,6 @@ class Define: WallStructure() {
      */
     var name: String = "customStructure"
     /**
-     * The baseStructure to use. This automatically gets filled when using `myStructure : baseStructure`
-     */
-    lateinit var baseStructure: WallStructure
-    /**
      * The name of Different Structures. Separated by comma (example: structures: Floor, Ceiling)
      * You can also define Parameters of the first Structure
      * These get loaded in Order, So if your reference defined Structures, those must be listed before that

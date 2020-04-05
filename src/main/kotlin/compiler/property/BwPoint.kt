@@ -4,7 +4,7 @@ import structure.WallStructure
 import structure.helperClasses.Point
 import kotlin.reflect.KProperty
 
-class BwPoint(): BwProperty<Point>() {
+class BwPoint(default: String="0,0,0"): BwProperty<Point>(default) {
     override fun getValue(thisRef: WallStructure, property: KProperty<*>): Point {
         // constants of the wallstructures properties
         val constants = getConstants(thisRef)

@@ -5,17 +5,17 @@ import org.mariuszgromada.math.mxparser.Expression
 import org.mariuszgromada.math.mxparser.Function
 import structure.Interface
 import structure.WallStructure
-import kotlin.math.roundToInt
 import kotlin.reflect.KProperty
 import kotlin.reflect.KProperty1
 import kotlin.reflect.full.memberProperties
 import kotlin.reflect.jvm.isAccessible
 
 
-abstract class BwProperty<T> {
-    lateinit var expressionString: String
+abstract class BwProperty<T>(var expressionString: String) {
     var isInitialized=false
     var preDefinedVars: Set<Constant> = setOf()
+    var wallValues: Set<Constant> = setOf()
+    var runTimeValues: Set<Constant> = setOf()
     var preDefinedFunctions: Set<Function> = setOf()
 
     fun initialize(expression: String, variables: List<Constant>, functions: List<Function>){
@@ -26,10 +26,6 @@ abstract class BwProperty<T> {
     }
 
     abstract operator fun getValue(thisRef: WallStructure, property: KProperty<*>): T
-    operator fun getValue(thisRef: WallStructure, property: KProperty<*>,field: T): T {
-        initialize(field.toString(), emptyList(), emptyList())
-        return getValue(thisRef,property, field)
-    }
 
     @Suppress("UNCHECKED_CAST")
     fun getConstants(wallStructure: WallStructure) = wallStructure::class.memberProperties
@@ -42,7 +38,6 @@ abstract class BwProperty<T> {
             val value = (it.getDelegate(wallStructure) as BwProperty<*>).expressionString
             Constant("${key}=${value}")
         }
-        .filter { it.syntaxStatus}
         .toSet()
 
 
@@ -61,23 +56,26 @@ abstract class BwProperty<T> {
         !(expression.calculate().isNaN() || !expression.syntaxStatus)
 }
 
+fun<T> KProperty1<out T,Any?>.getDelegate(receiver: WallStructure): Any? {
+    return this.getDelegate(receiver)
+}
 
 fun main(){
-    println(Double.NaN.roundToInt())
-    val a = BwString()
-    val i=Interface()
-    val s="123,f(12,32),321"
-    println(s.split(Regex(",(?![^(]*\\))")))
-    //(i::testProperty1.also { it.isAccessible=true }.getDelegate() as BwProperty<*>).initialize("5.0", emptyList(), emptyList())
-    //println(i.testProperty)
-    //println(i.testRecursiveProperty)
-    //println(i.testRecursiveProperty)
-
-    //val l = arrayOf(Constant("variable",2.0),Constant("Novariable",3.0))
-    //val f = arrayOf(Function("f(x)=x+2"))
-    //val v = Expression("3+variable",*f,*l)
-    //println(v.calculate())
-    //val s=Constant("3-hallo")
+    val a = Interface()
+    a.initializeProperty("testProperty2","2 ")
+    a.initializeProperty("testProperty1","10 * testProperty2")
+    println("t1: ${a.testProperty1}")
+    println("t2: ${a.testProperty2}")
+}
+fun WallStructure.initializeProperty(name: String, value: String){
+    val prop = this::class.memberProperties.find { it.name.toLowerCase() == name.toLowerCase() }
+    if(prop == null || prop.returnType.isMarkedNullable)
+        throw Exception()
+    prop as KProperty1<WallStructure, Any>
+    prop.isAccessible = true
+    val del = prop.getDelegate(this)
+    if (del !is BwProperty<*>) throw  Exception()
+    del.initialize(value.toLowerCase(), emptyList(), emptyList())
 }
 
 class r(){

@@ -156,7 +156,7 @@ private fun String.isColor(): Boolean{
     val s= this.split(",")
         .mapNotNull { it.toIntOrNull() }
     return when {
-        this in listOf("black","blue","cyan","dark gray","gray","green","light gray","magenta","orange","pink","red","white","yellow") -> true
+        this in listOf("black","blue","cyan","darkgray","gray","green","lightgray","magenta","orange","pink","red","white","yellow") -> true
         s.size == 3 && s.all { it in 0..255 } -> true
         else -> false
     }
@@ -167,10 +167,10 @@ internal fun String.toConstColor():Color =
         "black" -> Color(java.awt.Color.BLACK)
         "blue" -> Color(java.awt.Color.blue)
         "cyan" -> Color(java.awt.Color.cyan)
-        "dark gray" -> Color(java.awt.Color.darkGray)
+        "darkgray" -> Color(java.awt.Color.darkGray)
         "gray" -> Color(java.awt.Color.gray)
         "green" -> Color(java.awt.Color.green)
-        "light gray" -> Color(java.awt.Color.lightGray)
+        "lightgray" -> Color(java.awt.Color.lightGray)
         "magenta" -> Color(java.awt.Color.magenta)
         "orange" -> Color(java.awt.Color.orange)
         "pink" -> Color(java.awt.Color.pink)

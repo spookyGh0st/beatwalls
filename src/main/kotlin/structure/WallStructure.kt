@@ -3,10 +3,7 @@
 package structure
 
 import structure.helperClasses.*
-import structure.specialStrucures.calcP3
-import structure.specialStrucures.curve
-import structure.specialStrucures.readPoint
-import structure.specialStrucures.run
+import structure.specialStrucures.*
 import java.io.Serializable
 import kotlin.random.Random
 
@@ -796,6 +793,46 @@ class Define: WallStructure() {
 
 }
 
+
+/**
+ * Define your own WallStructure from existing WallStructures.
+ */
+class RandomStructures: WallStructure() {
+    /**
+     * The name of Different Structures. Separated by comma (example: structures: Floor, Ceiling)
+     * You can also define Parameters of the first Structure
+     * These get loaded in Order, So if your reference defined Structures, those must be listed before that
+     * The Beat Value gets every time, so it should be 0 most of the time
+     */
+    var structures: List<WallStructure> = listOf()
+
+    /**
+     * The first point of the area which your structures get placed into
+     */
+    var p1 = Point(-8,0,0)
+
+    /**
+     * The first point of the area which your structures get placed into
+     */
+    var p2 = Point(8,0,8)
+
+    /**
+     * How many structures you want to place. default: 8
+     */
+    var amount: Int = 8
+
+    /**
+     * avoids spawning structures in the playspace. default: true
+     */
+    var avoidCenter: Boolean = true
+
+
+    /**
+     * generating the Walls
+     */
+    override fun generateWalls()  = run()
+}
+
 /**
  * create a single Wall
  */
@@ -868,6 +905,43 @@ class Helix: WallStructure() {
      * describes, how many "Spins" the helix has
      */
     var rotationAmount = 1.0
+
+    /**
+     * Point of the center, defaults to 0,2,0
+     */
+    var center = Point(0, 2, 0)
+
+    /**
+     * generating the Walls
+     */
+     override fun generateWalls()  = run() 
+}
+
+class RotatedHelix: WallStructure(){
+
+    /**
+     * The radius of the Helix
+     */
+    var radius = 2.0
+
+    /**
+     *  the amount of walls created. Default: 8*scale
+     */
+    var amount = 8*(scale?:1.0).toInt()
+
+    /**
+     * spins every wall additionally this amount
+     */
+    var localRotationOffset = 0.0
+    /**
+     * the start in degree
+     */
+    var startRotation = 0.0
+
+    /**
+     * describes in degree, how many "Spins" the helix has. default: 360
+     */
+    var rotationAmount = 360.0
 
     /**
      * Point of the center, defaults to 0,2,0

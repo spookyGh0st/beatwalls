@@ -99,6 +99,12 @@ internal fun String.toRotationMode(): RotationMode{
         )
         f.name == "switch" -> SwitchRotation(f.args.map { it.toDouble() })
         f.name == "circle" -> CirclesRotation(f.args.getOrNull(0)?.toDoubleOrNull()?: 1.0)
+        f.name == "norotation" -> NoRotation
+        f.name == "random" -> when(f.args.size){
+            0->RandomRotation(0.0,1.0, RandomSeed)
+            1-> RandomRotation(0.0,f.args[0].toDouble(), RandomSeed)
+            else -> RandomRotation(f.args[0].toDouble(),f.args[1].toDouble(), RandomSeed)
+        }
         else -> throw NoSuchElementException()
     }
 }

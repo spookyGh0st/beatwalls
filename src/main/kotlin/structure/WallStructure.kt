@@ -325,7 +325,7 @@ sealed class WallStructure:Serializable
 
     /**
      * The rotation of the wallstructure around the player, think 360 maps. click me.
-     *
+     * ```
      * # rotates the entire Wallstructure 90 degrees
      * rotation: 90
      *
@@ -347,10 +347,11 @@ sealed class WallStructure:Serializable
      *
      * # rotates twice all the way around the player backwards
      * rotation: circle(-2)
+     * ```
      *
-     * # default: no rotation
+     * default: noRotation
      *
-     * # Other interesting Properties: mirrorRotation -> controls if mirror also effects the rotation(true,false)
+     *  Other interesting Properties: mirrorRotation -> controls if mirror also effects the rotation(true,false)
      */
     var rotation: RotationMode = Default.rotation
 
@@ -369,7 +370,7 @@ sealed class WallStructure:Serializable
      *  localRotX: random(-20,20) # rotates each wall on the x axis randomnly between -20 and 20.
      *  ```
      */
-    var localRotX: (() -> Double) = Default.localRotX
+    var localRotX: RotationMode = Default.localRotX
 
     /**
      * localRotY controls the rotation on the y-axis for each individual Wall in degree. allows random. Default: 0
@@ -381,7 +382,7 @@ sealed class WallStructure:Serializable
      *  localRotY: random(-20,20) # rotates each wall on the x axis randomnly between -20 and 20.
      *  ```
      */
-    var localRotY: (() -> Double) = Default.localRotY
+    var localRotY: RotationMode = Default.localRotY
     /**
      * * localRotZ controls the rotation on the x-axis for each individual Wall in degree. allows random. Default: 0
     *
@@ -392,7 +393,7 @@ sealed class WallStructure:Serializable
     *  localRotZ: random(-20,20) # rotates each wall on the x axis randomnly between -20 and 20.
      *  ```
     */
-    var localRotZ: (() -> Double) = Default.localRotZ
+    var localRotZ: RotationMode = Default.localRotZ
 
     /**
      * some Wallstructures use Random walls. This is the seed for them
@@ -454,9 +455,9 @@ sealed class WallStructure:Serializable
         var color: ColorMode = NoColor
         var rotation: RotationMode = NoRotation
         var mirrorRotation: Boolean = true
-        var localRotX : () -> Double = { 0.0 }
-        var localRotY : () -> Double = { 0.0 }
-        var localRotZ : () -> Double = { 0.0 }
+        var localRotX : RotationMode = NoRotation
+        var localRotY : RotationMode = NoRotation
+        var localRotZ : RotationMode = NoRotation
         var seed: Int? = null
         var track: String? = null
     }

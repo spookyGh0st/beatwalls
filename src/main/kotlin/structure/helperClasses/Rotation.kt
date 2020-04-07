@@ -1,50 +1,64 @@
 package structure.helperClasses
 
 import java.io.Serializable
+import kotlin.random.Random
 
 
 interface RotationMode:Serializable{
-    fun rotateWalls(walls: Collection<SpookyWall>)
-}
-
-data class StaticRotation(val rotation: Double): RotationMode {
-    override fun rotateWalls(walls: Collection<SpookyWall>) {
-        walls.forEach{
-            it.rotation += rotation
+    fun getValue(index: Int,amount: Int) : Double
+    fun localRotX(walls: Collection<SpookyWall>){
+        for((i,w) in walls.withIndex()){
+            w.localRotation= arrayOf(w.localRotation[0] + getValue(i,walls.size),w.localRotation[1],w.localRotation[2])
+        }
+    }
+    fun localRotY(walls: Collection<SpookyWall>){
+        for((i,w) in walls.withIndex()){
+            w.localRotation= arrayOf(w.localRotation[0] ,w.localRotation[1]+ getValue(i,walls.size),w.localRotation[2])
+        }
+        println()
+    }
+    fun localRotZ(walls: Collection<SpookyWall>){
+        for((i,w) in walls.withIndex()){
+            w.localRotation= arrayOf(w.localRotation[0],w.localRotation[1],w.localRotation[2]+ getValue(i,walls.size))
+        }
+    }
+    fun rotation(walls: Collection<SpookyWall>){
+        for((i,w) in walls.withIndex()){
+            w.rotation += getValue(i,walls.size)
         }
     }
 }
 
+data class StaticRotation(val rotation: Double): RotationMode {
+    override fun getValue(index: Int, amount: Int): Double = rotation
+}
+
 data class EaseRotation(val startRotation: Double, val endRotation: Double, val easing: Easing): RotationMode {
-    override fun rotateWalls(walls: Collection<SpookyWall>) {
-        val amount= walls.size
-        for((index, w) in walls.withIndex()){
+    override fun getValue(index: Int, amount: Int): Double {
             val diff = endRotation - startRotation
             val mul =easing(index.toDouble()/amount)
-            w.rotation += startRotation + diff*mul
-        }
+            return  startRotation + diff*mul
     }
 }
 
 data class CirclesRotation(private val repetitions: Double = 1.0): RotationMode{
-    override fun rotateWalls(walls: Collection<SpookyWall>) {
-        val amount = walls.size
-        for ((index,w) in walls.withIndex()){
-            w.rotation += index.toDouble()/amount*360*repetitions
-        }
+    override fun getValue(index: Int, amount: Int): Double {
+            return index.toDouble()/amount*360*repetitions
+    }
+}
+data class RandomRotation(private val min: Double ,private val max: Double , private val r:Random): RotationMode{
+    override fun getValue(index: Int, amount: Int): Double {
+        return r.nextDouble(min,max)
     }
 }
 
 data class SwitchRotation(val rotations: List<Double>): RotationMode{
-    override fun rotateWalls(walls: Collection<SpookyWall>) {
-        for ((index,w) in walls.withIndex()){
-            w.rotation += rotations[index % rotations.size]
-        }
+    override fun getValue(index: Int, amount: Int): Double {
+        return rotations[index % rotations.size]
     }
 }
 
 object NoRotation: RotationMode {
-    override fun rotateWalls(walls: Collection<SpookyWall>) {
-    }
+    override fun getValue(index: Int, amount: Int): Double =0.0
 }
 

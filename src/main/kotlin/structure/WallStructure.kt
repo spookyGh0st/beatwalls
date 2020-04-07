@@ -569,6 +569,10 @@ class RandomNoise:WallStructure(){
     var p2 = Point(6, 5, 1)
 
     /**
+     * avoids spawning structures in the playspace. default: true
+     */
+    var avoidCenter: Boolean = true
+    /**
      * generating the Walls
      */
     override fun generateWalls() = run()

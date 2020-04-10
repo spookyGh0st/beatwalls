@@ -1,6 +1,8 @@
 package structure.helperClasses
 
 import java.io.Serializable
+import java.lang.Double.max
+import java.lang.Double.min
 import kotlin.random.Random
 
 
@@ -48,7 +50,9 @@ data class CirclesRotation(private val repetitions: Double = 1.0): RotationMode{
 }
 data class RandomRotation(private val min: Double ,private val max: Double , private val r:Random): RotationMode{
     override fun getValue(index: Int, amount: Int): Double {
-        return r.nextDouble(min,max)
+        val n = min(min,max)
+        val m = max(min,max).coerceAtLeast(n+0.00000000001)
+        return r.nextDouble(n,m)
     }
 }
 

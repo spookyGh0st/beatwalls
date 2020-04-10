@@ -922,7 +922,11 @@ class Helix: WallStructure() {
      override fun generateWalls()  = run() 
 }
 
-class RotatedHelix: WallStructure(){
+class NoodleHelix: WallStructure(){
+    /**
+     * how many spirals will be created
+     */
+    var count = 1
 
     /**
      * The radius of the Helix

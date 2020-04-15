@@ -2,7 +2,7 @@
 
 package structure
 
-import compiler.property.BwDouble
+import compiler.property.specialProperties.BwDouble
 import structure.helperClasses.*
 import structure.specialStrucures.*
 import java.io.Serializable

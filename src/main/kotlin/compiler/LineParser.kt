@@ -67,8 +67,9 @@ class WallStructFactory {
         if (ws is Define && props[l.key] == null){
             addProperty(ws.structures.first(),l)
         }else{
-            props[l.key]?.initialize(l.value,valList.values.toList(),funList.values.toList())?:
-                throw Exception("property ${l.key} does not exist")
+            //todo refactor
+            //props[l.key]?.initialize(l.value,valList.values.toList(),funList.values.toList())?:
+                //throw Exception("property ${l.key} does not exist")
         }
     }
 
@@ -97,20 +98,21 @@ class WallStructFactory {
 
             for (s in interfaceProps){
                 val changedProperty = wsProps[s.key] ?: throw Exception(interfaceList)
-                changedProperty.expressionString=s.value.expressionString
+                //changedProperty.expressionString=s.value.expressionString
+                //todo better way for interfaces (just store strings of stuff
             }
         }
     }
 
-    inline fun <reified E : Any> initializedBwPropertiesOfElement(element: E): Map<String, BwProperty<*>> {
+    inline fun <reified E : Any> initializedBwPropertiesOfElement(element: E): Map<String, BwProperty> {
         val s = bwPropertiesOfElement(element)
         return s.filterValues { it.isInitialized }
     }
 
-    inline fun <reified E : Any> bwPropertiesOfElement(element: E): Map<String, BwProperty<*>> {
+    inline fun <reified E : Any> bwPropertiesOfElement(element: E): Map<String, BwProperty> {
         val s = memberPropertiesOfElement(element)
         @Suppress("UNCHECKED_CAST") // we can ignore this, since we check for it.
-        return s.filterValues { it is BwProperty<*> } as Map<String, BwProperty<*>>
+        return s.filterValues { it is BwProperty } as Map<String, BwProperty>
     }
 
     inline fun <reified E : Any> memberPropertiesOfElement(element: E): Map<String, Any?> {

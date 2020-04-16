@@ -17,7 +17,6 @@ interface RotationMode:Serializable{
         for((i,w) in walls.withIndex()){
             w.localRotation= arrayOf(w.localRotation[0] ,w.localRotation[1]+ getValue(i,walls.size),w.localRotation[2])
         }
-        println()
     }
     fun localRotZ(walls: Collection<SpookyWall>){
         for((i,w) in walls.withIndex()){

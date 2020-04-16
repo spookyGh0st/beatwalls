@@ -934,6 +934,10 @@ class NoodleHelix: WallStructure(){
     var radius = 2.0
 
     /**
+     * the endradius. default: null (normal radius)
+     */
+    var endRadius:Double? = null
+    /**
      *  the amount of walls created. Default: 8*scale
      */
     var amount = 8*(scale?:1.0).toInt()

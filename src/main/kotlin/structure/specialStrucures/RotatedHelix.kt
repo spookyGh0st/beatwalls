@@ -19,12 +19,13 @@ fun NoodleHelix.run(): List<SpookyWall> {
             points[i] = Point(x,y,j)
         }
         for(i in 0 until amount){
+            val r = radius + (endRadius?:radius -radius) * (i.toDouble()/amount)
             val p1= points[i]!!
             val p2= points[i+1]!!
-            val x1 = center.x + p1.x*radius
-            val x2 = center.x + p2.x*radius
-            val y1 = center.y + p1.y*radius
-            val y2 = center.y + p2.y*radius
+            val x1 = center.x + p1.x*r
+            val x2 = center.x + p2.x*r
+            val y1 = center.y + p1.y*r
+            val y2 = center.y + p2.y*r
             val a = y2 - y1
             val b = x1 - x2
             val c = sqrt(a.pow(2) + b.pow(2))

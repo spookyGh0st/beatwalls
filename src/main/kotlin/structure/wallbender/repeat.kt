@@ -20,7 +20,7 @@ fun WallStructure.repeatWalls(walls: List<SpookyWall>): List<SpookyWall> {
                 width = it.width+repeatAddWidth*i,
                 startHeight = it.startHeight + repeatAddY*i + repeatAddStartHeight*i,
                 height =  it.height+repeatAddHeight*i,
-                rotation = it.rotation+repeatAddRotation
+                rotation = it.rotation+repeatAddRotation * i
             )
         }
         l+=temp
@@ -41,7 +41,7 @@ fun WallStructure.repeatStruct(walls:List<SpookyWall>): List<SpookyWall>{
                 width = it.width + repeatAddWidth * i,
                 startHeight = it.startHeight + repeatAddY * i + repeatAddStartHeight * i,
                 height = it.height + repeatAddHeight * i,
-                rotation = it.rotation + repeatAddDuration
+                rotation = it.rotation + repeatAddDuration * i
             )
         }
         l+=temp

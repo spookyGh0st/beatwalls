@@ -1,60 +1,63 @@
 package compiler.property.specialProperties
 
 import compiler.property.BwProperty
+import compiler.property.strPlusExprStr
+import compiler.property.strPowExprStr
+import compiler.property.strTimesExprStr
 import structure.WallStructure
 import kotlin.reflect.KProperty
 
-class BwDouble(private var exprString: String = "0.0"): BwProperty() {
+class BwDouble(private var es: String = "0.0"): BwProperty() {
     constructor(e: Double): this(e.toString())
 
     override fun getValue(thisRef: WallStructure, property: KProperty<*>): Double {
         setWsConstants(thisRef)
-        return calcExpression(exprString)
+        return calcExpression(es)
     }
 
     override fun setExpr(e: String) {
-        exprString = e
+        es = e
     }
 
     override fun plusExpr(e: String) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        es = strPlusExprStr(es, e)
     }
 
     override fun timesExpr(e: String) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        es = strTimesExprStr(es, e)
     }
 
     override fun powExpr(e: String) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        es = strPowExprStr(es, e)
     }
 
-    override fun toString(): String = exprString
+    override fun toString(): String = es
 }
 
-class BwDoubleOrNull(private var exprString: String = "null"): BwProperty() {
+class BwDoubleOrNull(private var es: String = "null"): BwProperty() {
     constructor(e: Double?): this(e.toString())
 
     override fun getValue(thisRef: WallStructure, property: KProperty<*>): Double? {
-        if (strExpressesNull(exprString)) return null
+        if (strExpressesNull(es)) return null
         setWsConstants(thisRef)
-        return calcExpression(exprString)
+        return calcExpression(es)
     }
 
     override fun setExpr(e: String) {
-        exprString = e
+        es = e
     }
 
     override fun plusExpr(e: String) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        es = strPlusExprStr(es, e)
     }
 
     override fun timesExpr(e: String) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        es = strTimesExprStr(es, e)
     }
 
     override fun powExpr(e: String) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        es = strPowExprStr(es, e)
     }
 
-    override fun toString(): String = exprString
+    override fun toString(): String = es
 }

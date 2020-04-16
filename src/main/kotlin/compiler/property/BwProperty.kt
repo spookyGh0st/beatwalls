@@ -4,7 +4,6 @@ import compiler.property.constantFactory.getSwConstants
 import compiler.property.constantFactory.getWsConstants
 import org.mariuszgromada.math.mxparser.Constant
 import org.mariuszgromada.math.mxparser.Expression
-import org.mariuszgromada.math.mxparser.Function
 import structure.Interface
 import structure.WallStructure
 import structure.helperClasses.SpookyWall
@@ -15,11 +14,6 @@ import kotlin.reflect.jvm.isAccessible
 
 
 abstract class BwProperty(){
-
-    var isInitialized=false
-    var preDefinedVars: Set<Constant> = setOf()
-    var runTimeValues: Set<Constant> = setOf()
-    var preDefinedFunctions: Set<Function> = setOf()
 
     // stored wallstructure and SpookywallConstants
     // all here stored constants are valid
@@ -86,15 +80,19 @@ abstract class BwProperty(){
     }
 
     fun strExpressesNull(s:String) = s == "null" || s.isEmpty()
-
-
 }
 
+fun strPlusExprStr(s: String, e: String) = "(${s})+($e)"
+fun strTimesExprStr(s: String, e: String) = "(${s})*($e)"
+fun strPowExprStr(s: String, e: String) = "(${s})^($e)"
 
 fun main(){
+    val s = Expression("2^3").calculate()
+    println(s)
     val a = Interface()
     a.initializeProperty("testProperty2","2 ")
-    a.initializeProperty("testProperty1","10 * testProperty2")
+    a.initializeProperty("testProperty2","2 ")
+    a.initializeProperty("testProperty2","3 ")
     println("t1: ${a.testProperty1}")
     println("t2: ${a.testProperty2}")
 }
@@ -107,7 +105,7 @@ fun WallStructure.initializeProperty(name: String, value: String){
     prop.isAccessible = true
     val del = prop.getDelegate(this)
     if (del !is BwProperty) throw  Exception()
-    del.setExpr(value.toLowerCase())
+    del.plusExpr(value.toLowerCase())
 }
 
 

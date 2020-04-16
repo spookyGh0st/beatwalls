@@ -93,7 +93,7 @@ class WallStructFactory {
         val interfacesString = interfaceList.split(",")
         val interfaces = interfacesString.map { storedInterfaces[it]!! }
         for(i in interfaces){
-            val interfaceProps = initializedBwPropertiesOfElement(i)
+            val interfaceProps = bwPropertiesOfElement(i)
             val wsProps = bwPropertiesOfElement(ws)
 
             for (s in interfaceProps){
@@ -104,10 +104,6 @@ class WallStructFactory {
         }
     }
 
-    inline fun <reified E : Any> initializedBwPropertiesOfElement(element: E): Map<String, BwProperty> {
-        val s = bwPropertiesOfElement(element)
-        return s.filterValues { it.isInitialized }
-    }
 
     inline fun <reified E : Any> bwPropertiesOfElement(element: E): Map<String, BwProperty> {
         val s = memberPropertiesOfElement(element)

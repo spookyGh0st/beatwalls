@@ -1,6 +1,9 @@
 package compiler.property.specialProperties
 
 import compiler.property.BwProperty
+import compiler.property.strPlusExprStr
+import compiler.property.strPowExprStr
+import compiler.property.strTimesExprStr
 import structure.WallStructure
 import structure.helperClasses.Point
 import kotlin.reflect.KProperty
@@ -28,16 +31,33 @@ class BwPoint(var x: String = "0.0", var y: String="0.0",var z: String="0.0"): B
         z = el.getOrNull(2)?:z
     }
 
-    override fun plusExpr(e: String) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    fun parseExpression(e: String,f: (String,String)->String) {
+        val el = e.split(Regex(",(?![^(]*\\))"))
+        when(el.size){
+            1 -> {
+                x = f(x,el[0])
+                y = f(y, el[0])
+                z = f(z, el[0])
+            }
+            3 -> {
+                x = f(x,el[0])
+                y = f(y, el[1])
+                z = f(z, el[2])
+            }
+            else -> throw Exception("Expression $e is invalid, should have one or three parameter")
+        }
     }
 
+
+    override fun plusExpr(e: String) {
+        parseExpression(e) { s: String, s2: String -> strPlusExprStr(s,s2) }
+    }
     override fun timesExpr(e: String) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        parseExpression(e) { s: String, s2: String -> strTimesExprStr(s,s2) }
     }
 
     override fun powExpr(e: String) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        parseExpression(e) { s: String, s2: String -> strPowExprStr(s,s2) }
     }
 
     override fun toString(): String = "$x,$y,$z"

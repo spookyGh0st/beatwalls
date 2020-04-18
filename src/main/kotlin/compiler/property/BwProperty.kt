@@ -1,5 +1,7 @@
 package compiler.property
 
+import compiler.property.constantFactory.EasingController
+import compiler.property.constantFactory.getEasingFunctions
 import compiler.property.constantFactory.getSwConstants
 import compiler.property.constantFactory.getWsConstants
 import org.mariuszgromada.math.mxparser.Constant
@@ -14,6 +16,9 @@ import kotlin.reflect.jvm.isAccessible
 
 
 abstract class BwProperty(){
+    // controls all the easing
+    private val ec = EasingController(Double.NaN)
+    private val easingFunctions = getEasingFunctions(ec)
 
     // stored wallstructure and SpookywallConstants
     // all here stored constants are valid
@@ -21,11 +26,13 @@ abstract class BwProperty(){
     private var wsConstants = listOf<Constant>()
 
 
+
+
     /**
      * returns an expression with all saved Constants and functions
      */
     fun buildExpression(expressionString: String): Expression {
-            val cs = swConstants + wsConstants
+            val cs = swConstants + wsConstants + easingFunctions
             val ca = cs.toTypedArray()
             return Expression(expressionString,*ca)
     }
@@ -79,6 +86,10 @@ abstract class BwProperty(){
         wsConstants = correctConst.toList()
     }
 
+    fun setEasingFunctions(progress: Double) {
+        ec.progress=progress
+    }
+
     fun strExpressesNull(s:String) = s == "null" || s.isEmpty()
 }
 
@@ -88,11 +99,9 @@ fun strPowExprStr(s: String, e: String) = "(${s})^($e)"
 
 fun main(){
     val s = Expression("2^3").calculate()
-    println(s)
     val a = Interface()
+    a.initializeProperty("testProperty1","linear(10,20) ")
     a.initializeProperty("testProperty2","2 ")
-    a.initializeProperty("testProperty2","2 ")
-    a.initializeProperty("testProperty2","3 ")
     println("t1: ${a.testProperty1}")
     println("t2: ${a.testProperty2}")
 }
@@ -105,7 +114,9 @@ fun WallStructure.initializeProperty(name: String, value: String){
     prop.isAccessible = true
     val del = prop.getDelegate(this)
     if (del !is BwProperty) throw  Exception()
-    del.plusExpr(value.toLowerCase())
+    del.setExpr(value.toLowerCase())
+    del.setEasingFunctions(0.5)
+    //todo all bw should share a same upperclass, which sets stuff like the sw and easing
 }
 
 

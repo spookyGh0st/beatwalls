@@ -7,7 +7,7 @@ import java.io.File
  * stores the key, value line and file of a line
  * key and value are just needed and line and file are for better error messages
  */
-data class Line(val key: String, val value: String, val line: Int, val file: File){
+data class Line(val key: String, val value: String, val identifier: String, val line: Int, val file: File){
     fun toLowercase() = copy(key=key.toLowerCase(),value = value.toLowerCase())
     fun replaceWithIncludes() = if(key.toLowerCase()=="include") includes() else listOf(this)
 

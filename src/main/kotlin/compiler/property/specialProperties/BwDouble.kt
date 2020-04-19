@@ -11,8 +11,7 @@ class BwDouble(private var es: String = "0.0"): BwProperty() {
     constructor(e: Double): this(e.toString())
 
     override fun getValue(thisRef: WallStructure, property: KProperty<*>): Double {
-        setWsConstants(thisRef)
-        return calcExpression(es)
+        return calcExpression(es,thisRef)
     }
 
     override fun setExpr(e: String) {
@@ -39,8 +38,7 @@ class BwDoubleOrNull(private var es: String = "null"): BwProperty() {
 
     override fun getValue(thisRef: WallStructure, property: KProperty<*>): Double? {
         if (strExpressesNull(es)) return null
-        setWsConstants(thisRef)
-        return calcExpression(es)
+        return calcExpression(es,thisRef)
     }
 
     override fun setExpr(e: String) {

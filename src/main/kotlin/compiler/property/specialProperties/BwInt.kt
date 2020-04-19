@@ -13,8 +13,7 @@ class BwInt(private var es: String = "0.0"): BwProperty() {
     constructor(e: Int): this(e.toString())
 
     override fun getValue(thisRef: WallStructure, property: KProperty<*>): Int {
-        setWsConstants(thisRef)
-        return calcExpression(es).roundToInt()
+        return calcExpression(es,thisRef).roundToInt()
     }
 
     override fun setExpr(e: String) {
@@ -41,8 +40,7 @@ class BwIntOrNull(private var es: String = "null"): BwProperty() {
 
     override fun getValue(thisRef: WallStructure, property: KProperty<*>): Int? {
         if (strExpressesNull(es)) return null
-        setWsConstants(thisRef)
-        return calcExpression(es).roundToInt()
+        return calcExpression(es,thisRef).roundToInt()
     }
 
     override fun setExpr(e: String) {

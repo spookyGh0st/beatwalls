@@ -2,6 +2,7 @@
 
 package structure
 
+import compiler.property.constantFactory.ConstantController
 import compiler.property.specialProperties.BwDouble
 import structure.helperClasses.*
 import structure.specialStrucures.*
@@ -32,6 +33,7 @@ sealed class WallStructure:Serializable
 {
     val testProperty: Double by BwDouble()
     val testRecursiveProperty: Double by BwDouble()
+    val constantController by lazy { ConstantController(this) }
 
     /**
      * dont touch
@@ -579,22 +581,6 @@ sealed class WallStructure:Serializable
     }
 }
 
-/**
- * Set the default values of other Wallstructures.
- *
- * to create one use
- * ```yaml
- * interface: hyper
- *   changeDuration: -3
- * 10: RandomNoise
- *   extends: hyper
- *
- */
-class Interface : WallStructure() {
-    override fun generateWalls(): List<SpookyWall> = emptyList()
-    val testProperty1: Double by BwDouble()
-    val testProperty2: Double by BwDouble()
-}
 
 /**
  * dont touch

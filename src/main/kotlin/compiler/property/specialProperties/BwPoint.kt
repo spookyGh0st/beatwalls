@@ -12,14 +12,11 @@ class BwPoint(var x: String = "0.0", var y: String="0.0",var z: String="0.0"): B
     constructor(x:Number,y:Number,z:Number): this(x.toString(),y.toString(),z.toString())
 
     override fun getValue(thisRef: WallStructure, property: KProperty<*>): Point {
-        // constants of the wallstructures properties
-        setWsConstants(thisRef)
-        val valueExpressions = calcExpression(x)
         // throws an exception if one Expression is not valid
         return Point(
-            calcExpression(x),
-            calcExpression(y),
-            calcExpression(z)
+            calcExpression(x,thisRef),
+            calcExpression(y,thisRef),
+            calcExpression(z,thisRef)
         )
     }
 

@@ -37,15 +37,4 @@ data class EasingFunction(val e: Easing,val ec: ConstantController): FunctionExt
 
     override fun getParametersNumber(): Int = 2
 
-
-}
-fun main(){
-
-
-    val ctl = ConstantController()
-    val ec = getEasingFunctions(ctl).toTypedArray()
-    val e = Expression("linear(10,20)",*ec)
-    ctl.progress = 0.12
-    println(e.calculate())
-    println(e.errorMessage)
 }

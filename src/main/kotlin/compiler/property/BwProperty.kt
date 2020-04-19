@@ -1,9 +1,9 @@
 package compiler.property
 
-import compiler.property.constantFactory.EasingController
+import compiler.property.constantFactory.ConstantController
 import compiler.property.constantFactory.getEasingFunctions
-import compiler.property.constantFactory.getSwConstants
 import compiler.property.constantFactory.getWsConstants
+import org.mariuszgromada.math.mxparser.Argument
 import org.mariuszgromada.math.mxparser.Constant
 import org.mariuszgromada.math.mxparser.Expression
 import structure.Interface
@@ -17,7 +17,7 @@ import kotlin.reflect.jvm.isAccessible
 
 abstract class BwProperty(){
     // controls all the easing
-    private val ec = EasingController(Double.NaN)
+    private val ec = ConstantController()
     private val easingFunctions = getEasingFunctions(ec)
 
     // stored wallstructure and SpookywallConstants
@@ -73,11 +73,6 @@ abstract class BwProperty(){
 
     abstract override fun toString(): String
 
-    fun setSwConstants(sw: SpookyWall){
-        val const = getSwConstants(sw)
-        val correctConst = const.filter { it.syntaxStatus }
-        swConstants = correctConst.toList()
-    }
 
 
     fun setWsConstants(ws: WallStructure) {
@@ -98,18 +93,23 @@ fun strTimesExprStr(s: String, e: String) = "(${s})*($e)"
 fun strPowExprStr(s: String, e: String) = "(${s})^($e)"
 
 fun main(){
-    val s = Expression("2^3").calculate()
-    val a = Interface()
-    a.initializeProperty("testProperty1","linear(10,20) ")
-    a.initializeProperty("testProperty2","2 ")
-    println("t1: ${a.testProperty1}")
-    println("t2: ${a.testProperty2}")
+    var v = 1.0
+    val a = Constant("a",v)
+    a.constantValue = 2.0
+    val e = Expression("10+a",a)
+    println(e.calculate())
+
+   // a.initializeProperty("testProperty1","linear(10,20) ")
+   // a.initializeProperty("testProperty2","2 ")
+   // println("t1: ${a.testProperty1}")
+   // println("t2: ${a.testProperty2}")
 }
 
 fun WallStructure.initializeProperty(name: String, value: String){
     val prop = this::class.memberProperties.find { it.name.toLowerCase() == name.toLowerCase() }
     if(prop == null || prop.returnType.isMarkedNullable)
         throw Exception()
+    @Suppress("UNCHECKED_CAST")
     prop as KProperty1<WallStructure, Any>
     prop.isAccessible = true
     val del = prop.getDelegate(this)

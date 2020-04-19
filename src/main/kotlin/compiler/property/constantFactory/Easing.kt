@@ -1,20 +1,17 @@
 package compiler.property.constantFactory
 
-import org.mariuszgromada.math.mxparser.*
+import org.mariuszgromada.math.mxparser.Expression
 import org.mariuszgromada.math.mxparser.Function
+import org.mariuszgromada.math.mxparser.FunctionExtension
 import structure.helperClasses.Easing
 
-fun getEasingFunctions(ec: EasingController): List<Function> =
+fun getEasingFunctions(ec: ConstantController): List<Function> =
     Easing.values().map { it.toFunction(ec) }
 
-fun Easing.toFunction(ec: EasingController): Function =
+fun Easing.toFunction(ec: ConstantController): Function =
     Function(name.toLowerCase(),EasingFunction(this,ec))
 
-data class EasingController(
-    var progress: Double = Double.NaN
-)
-
-data class EasingFunction(val e: Easing,val ec: EasingController): FunctionExtension {
+data class EasingFunction(val e: Easing,val ec: ConstantController): FunctionExtension {
     var min: Double = 0.0
     var max: Double = 1.0
 
@@ -45,7 +42,7 @@ data class EasingFunction(val e: Easing,val ec: EasingController): FunctionExten
 fun main(){
 
 
-    val ctl = EasingController(0.5)
+    val ctl = ConstantController()
     val ec = getEasingFunctions(ctl).toTypedArray()
     val e = Expression("linear(10,20)",*ec)
     ctl.progress = 0.12

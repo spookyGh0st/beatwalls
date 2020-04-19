@@ -8,12 +8,12 @@ fun Wall.run(): List<SpookyWall> {
     val cc = CuboidConstrains(p1,p2)
     return listOf(
         SpookyWall(
-            startRow = cc.sx,
+            x = cc.sx,
             duration = cc.duration,
             width = cc.width,
             height = cc.height,
-            startHeight = cc.sy,
-            startTime = cc.sz
+            y = cc.sy,
+            z = cc.sz
         )
     )
 }

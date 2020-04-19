@@ -14,7 +14,7 @@ fun Define.run(): MutableList<SpookyWall> {
 
     for(w in structures){
         val t = w.generateBendAndRepeatWalls()
-        t.forEach { it.startTime += (w.beat) }
+        t.forEach { it.z += (w.beat) }
         l.addAll(t)
     }
     return l

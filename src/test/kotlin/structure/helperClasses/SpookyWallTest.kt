@@ -15,12 +15,12 @@ class SpookyWallTest {
     @Test
     fun standardToValidWall(){
         val expected = SpookyWall(
-            startRow = 1.0,
+            x = 1.0,
             duration = 1.0,
             width = 1.0,
             height = 1.0,
-            startHeight = 1.0,
-            startTime = 1.0,
+            y = 1.0,
+            z = 1.0,
             color = red
         )
         val actual = expected.toValidWall()
@@ -30,23 +30,23 @@ class SpookyWallTest {
     @Test
     fun negativeToValidWall(){
         val w = SpookyWall(
-            startRow = -1.0,
+            x = -1.0,
             duration = -5.0,
             width = -1.0,
             height = -1.0,
-            startHeight = -1.0,
-            startTime = 1.0,
+            y = -1.0,
+            z = 1.0,
             color = blue,
             rotation = -180.0
 
         )
         val expected = SpookyWall(
-            startRow = -2.0,
+            x = -2.0,
             duration = -4.0,
             width = 1.0,
             height = 1.0,
-            startHeight = -2.0,
-            startTime = 1.0,
+            y = -2.0,
+            z = 1.0,
             color = blue,
             rotation = -180.0 % 360
 
@@ -57,21 +57,21 @@ class SpookyWallTest {
     @Test
     fun weirdToValidWall(){
         val w = SpookyWall(
-            startRow = 0.0,
+            x = 0.0,
             duration = 0.0,
             width = 0.0,
             height = 0.0,
-            startHeight = 0.0,
-            startTime = -1.0,
+            y = 0.0,
+            z = -1.0,
             color = blue
         )
         val expected = SpookyWall(
-            startRow = 0.0,
+            x = 0.0,
             duration = 0.0001,
             width = minValue,
             height = minValue,
-            startHeight = 0.0,
-            startTime = minValue,
+            y = 0.0,
+            z = minValue,
             color = blue
         )
         val actual = w.toValidWall()
@@ -82,12 +82,12 @@ class SpookyWallTest {
     fun to_NeObstacle() {
         GlobalConfig.neValues = true
         val w = SpookyWall(
-            startRow = 0.0,
+            x = 0.0,
             duration = 0.0,
             width = 0.0,
             height = 0.0,
-            startHeight = 0.0,
-            startTime = 1.0,
+            y = 0.0,
+            z = 1.0,
             color = null
 
         )
@@ -113,12 +113,12 @@ class SpookyWallTest {
     fun to_MeObstacle() {
         GlobalConfig.neValues = false
         val w = SpookyWall(
-            startRow = 0.0,
+            x = 0.0,
             duration = 0.0,
             width = 0.0,
             height = 0.0,
-            startHeight = 0.0,
-            startTime = 1.0,
+            y = 0.0,
+            z = 1.0,
             color = null
 
         )
@@ -137,12 +137,12 @@ class SpookyWallTest {
     fun to_MeObstacleButColor() {
         GlobalConfig.neValues = false
         val w = SpookyWall(
-            startRow = 0.0,
+            x = 0.0,
             duration = 0.0,
             width = 0.0,
             height = 0.0,
-            startHeight = 0.0,
-            startTime = 1.0,
+            y = 0.0,
+            z = 1.0,
             color = red
 
         )

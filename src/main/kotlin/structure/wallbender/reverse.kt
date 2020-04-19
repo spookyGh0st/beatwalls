@@ -6,10 +6,10 @@ import structure.helperClasses.SpookyWall
 internal fun WallStructure.reverse(l:List<SpookyWall>): List<SpookyWall> {
     if (reverse) {
         val last = l.maxBy { spookyWall ->
-            spookyWall.startTime + (spookyWall.duration.takeIf { it > 0 } ?: 0.0)
-        }?.startTime ?: 0.0
+            spookyWall.z + (spookyWall.duration.takeIf { it > 0 } ?: 0.0)
+        }?.z ?: 0.0
         l.forEach { spookyWall ->
-            spookyWall.startTime = last - (spookyWall.startTime + (spookyWall.duration.takeIf { it > 0 } ?: 0.0))
+            spookyWall.z = last - (spookyWall.z + (spookyWall.duration.takeIf { it > 0 } ?: 0.0))
         }
     }
 
@@ -27,7 +27,7 @@ fun List<SpookyWall>.reverseX(){
     val max = this.maxXOrZero()
     val center = min + ((max-min )/ 2)
     this.forEach {
-        it.startRow = center + (center - it.startRow)
+        it.x = center + (center - it.x)
         it.width *= -1
     }
 }
@@ -37,7 +37,7 @@ fun List<SpookyWall>.reverseY() {
     val max = this.maxYOrZero()
     val center = min + ((max - min) / 2)
     this.forEach {
-        it.startHeight = center + (center - it.startHeight)
+        it.y = center + (center - it.y)
         it.height *= -1
     }
 }

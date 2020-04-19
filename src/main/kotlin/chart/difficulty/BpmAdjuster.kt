@@ -34,13 +34,13 @@ class BpmAdjuster(diff: Difficulty) {
         val walls = w.generateBendAndRepeatWalls()
 
         // adjusts the neccesary values
-        walls.forEach { it.startTime += w.beat }
+        walls.forEach { it.z += w.beat }
         walls.forEach { it.adjustToBPM() }
         walls.forEach { it.addOffset() }
 
         // adds the njsOffset if time is true
         if (w.time)
-            walls.forEach { it.startTime += GlobalConfig.hjsDuration }
+            walls.forEach { it.z += GlobalConfig.hjsDuration }
 
         if (w !is Define || w.isTopLevel)
             logger.info { "Added ${w.name()} with ${walls.size} walls on beat ${w.beat}." }
@@ -50,12 +50,12 @@ class BpmAdjuster(diff: Difficulty) {
 
     private fun SpookyWall.addOffset(){
         val offset = GlobalConfig.bpm / 60000 * GlobalConfig.offset
-        this.startTime += offset
+        this.z += offset
     }
 
     private fun SpookyWall.adjustToBPM(){
-        val c = lastChange(this.startTime).first
-        this.startTime = findTime(this.startTime)
+        val c = lastChange(this.z).first
+        this.z = findTime(this.z)
         if (this.duration > 0)
             this.duration / baseBpm *c._BPM
     }

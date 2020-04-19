@@ -12,7 +12,7 @@ fun FurryGrid.run(): List<SpookyWall> {
     repeat(gridX) { itX ->
         repeat(gridY) { itY ->
             repeat(gridZ) { itZ ->
-                val w =SpookyWall(startRow = x, duration = panelZ, width = panelX, height = panelY, startHeight = y, startTime = z)
+                val w =SpookyWall(x = x, duration = panelZ, width = panelX, height = panelY, y = y, z = z)
                 if((itZ+itY+itX)%2==0 || mode == 0)
                     l.add(w)
                 z += panelZ

@@ -14,7 +14,7 @@ import kotlin.math.min
 
 data class SpookyWall(
     @Expose
-    @SerializedName("startRow") var startRow: Double,
+    @SerializedName("x") var x: Double,
     @Expose
     @SerializedName("duration") var duration: Double,
     @Expose
@@ -22,9 +22,9 @@ data class SpookyWall(
     @Expose
     @SerializedName("height") var height: Double,
     @Expose
-    @SerializedName("startHeight") var startHeight: Double,
+    @SerializedName("startHeight") var y: Double,
     @Expose
-    @SerializedName("startTime") var startTime: Double,
+    @SerializedName("startTime") var z: Double,
     @Expose
     @SerializedName("color") var color: Color? = null,
     @Expose
@@ -63,20 +63,20 @@ data class SpookyWall(
         color)
     val trueMaxPoint
         get() = Point(
-            max(startRow, startRow + width),
-            max(startHeight, startHeight + height),
-            max(startTime, startTime + duration)
+            max(x, x + width),
+            max(y, y + height),
+            max(z, z + duration)
         )
     val trueLowestPoint
         get() = Point(
-            min(startRow, startRow + width),
-            min(startHeight, startHeight + height),
-            startTime
+            min(x, x + width),
+            min(y, y + height),
+            z
         )
     /**Changes the MyObstacle Type to an _obstacle Type */
     fun to_obstacle(): _obstacles {
         val obs = toValidWall()
-        val tempStartTime = obs.startTime.toFloat()
+        val tempStartTime = obs.z.toFloat()
         val tempDuration = obs.duration.toFloat()
 
         var tempLineIndex = obs.calculateLineIndex()
@@ -134,11 +134,11 @@ data class SpookyWall(
     fun toValidWall(): SpookyWall {
         val t = this.copy()
         if(t.width< 0){
-            t.startRow += t.width
+            t.x += t.width
             t.width *= -1
         }
         if(height < 0){
-            t.startHeight += t.height
+            t.y += t.height
             t.height *= -1
         }
         t.width = t.width.coerceAtLeast(minValue)
@@ -152,7 +152,7 @@ data class SpookyWall(
         if (t.duration in -0.0001 .. 0.0001)
             t.duration = 0.0001
         t.duration = t.duration.coerceAtLeast(-2.0 * GlobalConfig.hjsDuration)
-        t.startTime = t.startTime.coerceAtLeast(minValue)
+        t.z = t.z.coerceAtLeast(minValue)
         return t
     }
 
@@ -162,7 +162,7 @@ data class SpookyWall(
 
     /**Return the _obstacle value of the startRow*/
     private fun calculateLineIndex():Int {
-        val i = startRow +2
+        val i = x +2
         return if( i >= 0.0)
             (i* 1000 +1000).toInt()
         else
@@ -179,7 +179,7 @@ data class SpookyWall(
             else -> tWallH
         }
 
-        var tStartH: Int = (250 * (startHeight * 0.6)).toInt()
+        var tStartH: Int = (250 * (y * 0.6)).toInt()
         tStartH = when {
             tStartH>999 -> 999
             tStartH<0 -> 0
@@ -199,7 +199,7 @@ data class SpookyWall(
 
         return when {
             GlobalConfig.neValues -> _obstacleCustomData(
-                _position = listOf(startRow, startHeight),
+                _position = listOf(x, y),
                 _scale = listOf(width, height),
                 _color = cdColor,
                 _localRotation = tLocalRotation,
@@ -222,23 +222,23 @@ data class SpookyWall(
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (other !is SpookyWall) return false
-        if (startRow != other.startRow) return false
+        if (x != other.x) return false
         if (duration != other.duration) return false
         if (width != other.width) return false
         if (height != other.height) return false
-        if (startHeight != other.startHeight) return false
-        if (startTime != other.startTime) return false
+        if (y != other.y) return false
+        if (z != other.z) return false
 
         return true
     }
 
     override fun hashCode(): Int {
-        var result = startRow.hashCode()
+        var result = x.hashCode()
         result = 31 * result + duration.hashCode()
         result = 31 * result + width.hashCode()
         result = 31 * result + height.hashCode()
-        result = 31 * result + startHeight.hashCode()
-        result = 31 * result + startTime.hashCode()
+        result = 31 * result + y.hashCode()
+        result = 31 * result + z.hashCode()
         return result
     }
 }

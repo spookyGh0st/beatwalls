@@ -14,11 +14,11 @@ fun WallStructure.repeatWalls(walls: List<SpookyWall>): List<SpookyWall> {
     for (i in 1 until repeatWalls){
         val temp = walls.map {
             it.copy(
-                startTime=it.startTime+repeatAddZ*i+repeatAddStartTime*i,
+                z=it.z+repeatAddZ*i+repeatAddStartTime*i,
                 duration = it.duration+repeatAddDuration*i,
-                startRow = it.startRow + repeatAddX*i+repeatAddStartRow*i,
+                x = it.x + repeatAddX*i+repeatAddStartRow*i,
                 width = it.width+repeatAddWidth*i,
-                startHeight = it.startHeight + repeatAddY*i + repeatAddStartHeight*i,
+                y = it.y + repeatAddY*i + repeatAddStartHeight*i,
                 height =  it.height+repeatAddHeight*i,
                 rotation = it.rotation+repeatAddRotation * i
             )
@@ -35,11 +35,11 @@ fun WallStructure.repeatStruct(walls:List<SpookyWall>): List<SpookyWall>{
         temp = this.bendWalls(temp)
         temp = temp.map {
             it.copy(
-                startTime = it.startTime + repeatAddZ * i + repeatAddStartTime * i,
+                z = it.z + repeatAddZ * i + repeatAddStartTime * i,
                 duration = it.duration + repeatAddDuration * i,
-                startRow = it.startRow + repeatAddX * i + repeatAddStartRow * i,
+                x = it.x + repeatAddX * i + repeatAddStartRow * i,
                 width = it.width + repeatAddWidth * i,
-                startHeight = it.startHeight + repeatAddY * i + repeatAddStartHeight * i,
+                y = it.y + repeatAddY * i + repeatAddStartHeight * i,
                 height = it.height + repeatAddHeight * i,
                 rotation = it.rotation + repeatAddDuration * i
             )

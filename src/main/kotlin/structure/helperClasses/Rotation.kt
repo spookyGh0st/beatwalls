@@ -10,17 +10,17 @@ interface RotationMode:Serializable{
     fun getValue(index: Int,amount: Int) : Double
     fun localRotX(walls: Collection<SpookyWall>){
         for((i,w) in walls.withIndex()){
-            w.localRotation= arrayOf(w.localRotation[0] + getValue(i,walls.size),w.localRotation[1],w.localRotation[2])
+            w.localRotX+=getValue(i,walls.size)
         }
     }
     fun localRotY(walls: Collection<SpookyWall>){
         for((i,w) in walls.withIndex()){
-            w.localRotation= arrayOf(w.localRotation[0] ,w.localRotation[1]+ getValue(i,walls.size),w.localRotation[2])
+            w.localRotY+=getValue(i,walls.size)
         }
     }
     fun localRotZ(walls: Collection<SpookyWall>){
         for((i,w) in walls.withIndex()){
-            w.localRotation= arrayOf(w.localRotation[0],w.localRotation[1],w.localRotation[2]+ getValue(i,walls.size))
+            w.localRotZ+=getValue(i,walls.size)
         }
     }
     fun rotation(walls: Collection<SpookyWall>){

@@ -241,6 +241,7 @@ sealed class WallStructure:Serializable
     var speeder: Double? = Default.speeder
 
     /**
+     * todo doku for interfaces
      * The Interfaces This Wallstructure uses
      *
      * for example create an interface using
@@ -262,7 +263,7 @@ sealed class WallStructure:Serializable
      *
      *
      */
-    var extends: List<Interface> = listOf()
+
     /**
      * how often you want to repeat the Structure.
      */

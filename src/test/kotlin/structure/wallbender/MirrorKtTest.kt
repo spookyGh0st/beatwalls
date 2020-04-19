@@ -3,12 +3,12 @@ package structure.wallbender
 import org.junit.Test
 
 import org.junit.Assert.*
-import structure.Interface
+import structure.Wall
 import structure.helperClasses.*
 import structure.helperFunctions.reset
 
 class MirrorKtTest {
-    val e = Interface()
+    val e = Wall()
     private val l = listOf(SpookyWall(1.0, 1.0, 1.0, 1.0, 1.0, 1.0, red))
 
     private fun w(startRow: Int =1, duration: Int =1, width: Int =1, height: Int =1, startHeight: Int =1, startTime: Int =1, color: Color =red) =

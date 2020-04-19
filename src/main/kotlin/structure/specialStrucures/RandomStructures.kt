@@ -18,11 +18,11 @@ fun RandomStructures.run(): MutableList<SpookyWall> {
     for(i in 0 until amount){
         for(w in structures){
             val t = w.generateBendAndRepeatWalls()
-            t.forEach { it.startTime += (w.beat) }
+            t.forEach { it.z += (w.beat) }
             val rp = cc.random(avoidCenter)
-            t.forEach { it.startRow += rp.x }
-            t.forEach { it.startHeight += rp.y }
-            t.forEach { it.startTime += i.toDouble()/amount * cc.duration}
+            t.forEach { it.x += rp.x }
+            t.forEach { it.y += rp.y }
+            t.forEach { it.z += i.toDouble()/amount * cc.duration}
             l.addAll(t)
         }
     }

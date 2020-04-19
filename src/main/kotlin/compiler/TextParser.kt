@@ -60,7 +60,7 @@ fun IndexedValue<String>.toLine(file: File): Line {
     val value = list.getOrNull(1)?: throw NoSuchElementException("missing value in line $index")
     val k = key.trim()
     val v= value.trim()
-    return Line(k, v, index, file)
+    return Line(k, v, ":", index, file)
 }
 
 /**

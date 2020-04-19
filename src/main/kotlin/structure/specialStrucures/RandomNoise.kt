@@ -13,12 +13,12 @@ fun RandomNoise.run(): List<SpookyWall> {
     repeat(amount!!) {
         val p = c.random(true)
         val w = SpookyWall(
-            startRow = p.x,
+            x = p.x,
             duration = 0.0,
             width = 0.0,
             height = 0.0,
-            startHeight = p.y,
-            startTime = c.sz + (it.toDouble() / amount!! * (c.ez - c.sz))
+            y = p.y,
+            z = c.sz + (it.toDouble() / amount!! * (c.ez - c.sz))
         )
         l.add(w)
     }

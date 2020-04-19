@@ -91,7 +91,7 @@ class WallStructFactory {
         val baseClasses = l.value.split(",")
         for(s in baseClasses){
             val structure = when(s){
-                in defaultStructures.keys -> defaultStructures[s]!!.createInstance().also { extendInterface(it,it::class.simpleName!!) }
+                in defaultStructures.keys -> defaultStructures[s]!!.createInstance()
                 in storedStructures.keys -> storedStructures[s]!!
                 else -> throw NoSuchElementException("$l")
             }
@@ -99,7 +99,8 @@ class WallStructFactory {
         }
     }
 
-    fun addProperty(ws: WallStructure, l: Line) {
+    fun addProperty(ws: Any, l: Line) {
+        TODO()
         val props = bwPropertiesOfElement(ws)
         if (ws is Define && props[l.key] == null){
             addProperty(ws.structures.first(),l)
@@ -112,28 +113,13 @@ class WallStructFactory {
 
     fun addDefaultStruct(l: Line){
         lastStructure = defaultStructures[l.value]!!.createInstance()
-        extendInterface(lastStructure, lastStructure::class.simpleName!!)
     }
 
     fun addStoredStruct(l: Line){
-        structList.add(lastStructure)
+        addLastStruct()
         lastStructure = storedStructures[l.value]!!
     }
 
-    fun extendInterface(ws: WallStructure, interfaceList: String){
-        val interfacesString = interfaceList.split(",")
-        val interfaces = interfacesString.map { storedInterfaces[it]!! }
-        for(i in interfaces){
-            val interfaceProps = bwPropertiesOfElement(i)
-            val wsProps = bwPropertiesOfElement(ws)
-
-            for (s in interfaceProps){
-                val changedProperty = wsProps[s.key] ?: throw Exception(interfaceList)
-                //changedProperty.expressionString=s.value.expressionString
-                //todo better way for interfaces (just store strings of stuff
-            }
-        }
-    }
 
 
     inline fun <reified E : Any> bwPropertiesOfElement(element: E): Map<String, BwProperty> {

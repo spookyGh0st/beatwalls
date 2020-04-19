@@ -104,7 +104,7 @@ data class SpookyWall(
     }
     fun toBomb(): _notes {
         val obs = toValidWall()
-        val tempStartTime = obs.startTime.toFloat()
+        val tempStartTime = obs.z.toFloat()
         val tempDuration = obs.duration.toFloat()
 
         val tempLineIndex = obs.calculateLineIndex()

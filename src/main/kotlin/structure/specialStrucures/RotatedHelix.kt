@@ -41,13 +41,13 @@ fun NoodleHelix.run(): List<SpookyWall> {
             val localRotZ =  180 - degree/(2*PI)*360 + localRotationOffset
             val lrz = if (p1.x > p2.x) localRotZ else localRotZ + 180
             l.add(SpookyWall(
-                startRow = startRow,
+                x = startRow,
                 duration = duration,
                 width = width,
                 height = height,
-                startHeight = startHeight,
-                startTime = startTime,
-                localRotation = arrayOf(0.0, 0.0,lrz)
+                y = startHeight,
+                z = startTime,
+                localrotZ = lrz
             ))
         }
     }

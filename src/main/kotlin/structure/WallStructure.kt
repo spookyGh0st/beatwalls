@@ -405,6 +405,10 @@ sealed class WallStructure:Serializable
      */
     var track: String? = Default.track
 
+    /**
+     * turns the entire WallStructure into bombs. only available, if deleteAllPrevious is set.
+     */
+    var bombs: Boolean = Default.bombs
 
     companion object Default {
         var mirror: Int = 0
@@ -460,6 +464,7 @@ sealed class WallStructure:Serializable
         var localRotZ : RotationMode = NoRotation
         var seed: Int? = null
         var track: String? = null
+        var bombs: Boolean = false
     }
 
     /** generates the walls */
@@ -665,6 +670,10 @@ class RandomCuboidLines : WallStructure() {
      */
     var sections: Int = 4
 
+    /**
+     * 2 = only sides, 4 - bottom and top aswell
+     */
+    var randomSidePicker: Int = 4
     /**
      * generating the Walls
      */

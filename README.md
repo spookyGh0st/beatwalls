@@ -192,7 +192,7 @@ To select a different Song just drag in the Folder again.
 There are also cl options for more advanced user
 
 ``--clearAll`` -> deletes all previous from bw created Walls without creating no walls
-``--deleteAllPrevious`` ->  deletes all Walls in the difficulty, and not just the one created by beatwalls.
+``--deleteAllPrevious`` ->  deletes all Walls and notes in the difficulty, and not just the one created by beatwalls before creating walls/bombs.
 ``--noUpdate`` -> dont auto update
 
 ## other stuff

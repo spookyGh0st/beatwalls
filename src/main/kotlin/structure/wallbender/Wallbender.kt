@@ -11,6 +11,7 @@ fun WallStructure.bendWalls(walls: List<SpookyWall>): List<SpookyWall> {
     l = rotate(l)
     l = color(l)
     l.forEach { if(track != null) it.track = track } // only sets the track, if it is not null. this allows nested tracks in define
+    l.forEach { if(bombs) it.bomb = bombs } // only sets the track, if it is not null. this allows nested tracks in define
     l = mirror(l)
     return l
 }

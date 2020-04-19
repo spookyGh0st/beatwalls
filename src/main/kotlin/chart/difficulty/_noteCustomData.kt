@@ -3,9 +3,14 @@ package chart.difficulty
 import com.google.gson.annotations.SerializedName
 
 data class _noteCustomData(
-    @SerializedName("scale") var scale: Double?,
-    @SerializedName("sineMovement") var sineMovement: sineMovement?,
-    @SerializedName("track") var track: String?
+    @SerializedName("scale") var scale: Double? = null,
+    @SerializedName("sineMovement") var sineMovement: sineMovement? = null,
+    @SerializedName("track") var track: String? = null,
+    @SerializedName("_position") val _position: List<Double>? = null,
+    @SerializedName("_color") val _color: List<Double>? = null,
+    @SerializedName("_rotation") val _rotation: Double? = null,
+    @SerializedName("_flip") val _flip: Double? = null
+
 )
 
 data class sineMovement(

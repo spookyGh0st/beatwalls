@@ -16,7 +16,7 @@ fun RandomCuboidLines.run(): List<SpookyWall> {
         val z1 = c.sz + it.toDouble() / trueCount * c.duration
         val z2 = z1 + 1.0 / trueCount * c.duration
         // selects a random Side
-        val randomSide = r.nextInt(4)
+        val randomSide = r.nextInt(randomSidePicker)
         // selects a random Section
         val randomSection = r.nextInt(1, sections)
         val randomX = c.sx + c.width / sections * randomSection

@@ -30,7 +30,7 @@ class BpmAdjuster(diff: Difficulty) {
         return l
     }
 
-    fun generate(w: WallStructure): List<_obstacles> {
+    fun generate(w: WallStructure): List<SpookyWall> {
         val walls = w.generateBendAndRepeatWalls()
 
         // adjusts the neccesary values
@@ -45,7 +45,7 @@ class BpmAdjuster(diff: Difficulty) {
         if (w !is Define || w.isTopLevel)
             logger.info { "Added ${w.name()} with ${walls.size} walls on beat ${w.beat}." }
         // creates Obstacles
-        return walls.map { it.to_obstacle() }
+        return walls
     }
 
     private fun SpookyWall.addOffset(){

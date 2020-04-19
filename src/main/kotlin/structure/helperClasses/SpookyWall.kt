@@ -1,6 +1,8 @@
 package structure.helperClasses
 
 import beatwalls.GlobalConfig
+import chart.difficulty._noteCustomData
+import chart.difficulty._notes
 import chart.difficulty._obstacleCustomData
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
@@ -30,7 +32,9 @@ data class SpookyWall(
     @Expose
     @SerializedName("localRotation") var localRotation: Array<Double> = arrayOf(0.0,0.0,0.0),
     @Expose
-    @SerializedName("track") var track: String? = null
+    @SerializedName("track") var track: String? = null,
+    @Expose
+    @SerializedName("bomb") var bomb: Boolean = false
 ):Serializable{
 
     constructor(
@@ -81,6 +85,34 @@ data class SpookyWall(
             tempDuration,
             tempWidth,
             customData
+        )
+    }
+    fun toBomb(): _notes {
+        val obs = toValidWall()
+        val tempStartTime = obs.startTime.toFloat()
+        val tempDuration = obs.duration.toFloat()
+
+        val tempLineIndex = obs.calculateLineIndex()
+        val tempWidth = obs.calculateWidth()
+
+        val tempType = obs.type()
+
+        val cd: _obstacleCustomData? = obs.customData()!!
+        val x = (cd?._position?.get(0) ?: 0.0) + (cd?._scale?.get(0) ?: 0.0) /2
+        val y = (cd?._position?.get(1) ?: 0.0) + (cd?._scale?.get(1) ?: 0.0) /2
+        val ncd = _noteCustomData(
+            _position = listOf(x,y),
+            _color = cd?._color,
+            _rotation = cd?._rotation,
+            track = cd?.track)
+
+        return _notes(
+            _time = tempStartTime.toDouble(),
+            _lineIndex = 0,
+            _lineLayer  = 0,
+            _type = 3,
+            _cutDirection = 1,
+            _noteCustomData = ncd
         )
     }
 

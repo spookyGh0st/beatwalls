@@ -27,11 +27,19 @@ data class Difficulty(
             if (w is Define && !w.isTopLevel) { continue }
 
             // generates the obstacles
-            val obstacles = BpmAdjuster(this).generate(w)
+            val generatedObjects = BpmAdjuster(this).generate(w)
+
+            val obstacles = generatedObjects.filterNot { it.bomb }.map { it.to_obstacle() }
+            val bombs = generatedObjects.filter { it.bomb }.map { it.toBomb() }
 
             // adds the obstacle to the diff
-            if(!GlobalConfig.clearAll)
+            if(!GlobalConfig.clearAll){
                 this._obstacles.addAll(obstacles)
+                if(GlobalConfig.deleteAllPrevious){
+                    this._notes.addAll(bombs)
+                }
+
+            }
 
             // adds the obstacles to the OldObstacles
             oldObstacles.addAll(obstacles)
@@ -42,8 +50,10 @@ data class Difficulty(
     }
 
     private fun removeOldWalls(){
-        if(GlobalConfig.deleteAllPrevious)
+        if(GlobalConfig.deleteAllPrevious) {
             this._obstacles.clear()
+            this._notes.clear()
+        }
         else{
             this._obstacles.removeAll(AssetReader.getOldObstacles())
         }

@@ -1,6 +1,8 @@
 package compiler
 
 import beatwalls.errorExit
+import compiler.parser.LineParser
+import compiler.parser.parseFile
 import structure.WallStructure
 import java.io.File
 
@@ -8,7 +10,7 @@ class Compiler {
 
     fun compile(file: File): MutableList<WallStructure> {
         //we need one factory
-        val wf = WallStructFactory()
+        val wf = LineParser()
         //format the lines into the correct lines
         val lines = try {
             parseFile(file)

@@ -1,6 +1,7 @@
 package compiler.property.constantFactory
 
 import org.mariuszgromada.math.mxparser.Constant
+import org.mariuszgromada.math.mxparser.Function
 import structure.WallStructure
 import structure.helperClasses.SpookyWall
 
@@ -40,7 +41,11 @@ class ConstantController(private val ws :WallStructure) {
             return getWsConstants(ws)
         }
 
+    val customConstants = mutableListOf<Constant>()
+
     val easingFunctions by lazy {  getEasingFunctions(this) }
+
+    val customFunctions = mutableListOf<Function>()
 
     val progressConstant = Constant("progress",progress)
 

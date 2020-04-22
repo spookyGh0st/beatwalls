@@ -35,10 +35,10 @@ data class Line(val s: String, val line: Int, val file: File){
         return parseFile(f)
     }
 
-    fun trimKey(delimiter: String) = s.split(delimiter)[0].trim()
-    fun trimKey(vararg delimiters:String) = s.split(*delimiters)[0].trim()
-    fun trimValue(delimiter: String) = s.split(delimiter)[1].trim()
-    fun trimValue(vararg delimiters:String) = s.split(*delimiters)[1].trim()
+    fun trimKey(delimiter: String) = s.split(delimiter).getOrNull(0)?.trim()
+    fun trimKey(vararg delimiters:String) = s.split(*delimiters).getOrNull(0)?.trim()
+    fun trimValue(delimiter: String) = s.split(delimiter).getOrNull(1)?.trim()
+    fun trimValue(vararg delimiters:String) = s.split(*delimiters).getOrNull(1)?.trim()
 
     override fun toString(): String = "Line $line in ${file.absolutePath}: $s"
 }

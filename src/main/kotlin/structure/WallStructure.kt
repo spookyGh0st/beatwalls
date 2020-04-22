@@ -4,6 +4,7 @@ package structure
 
 import compiler.property.constantFactory.ConstantController
 import compiler.property.specialProperties.BwDouble
+import compiler.property.specialProperties.BwPoint
 import structure.helperClasses.*
 import structure.specialStrucures.*
 import java.io.Serializable
@@ -34,6 +35,8 @@ sealed class WallStructure:Serializable
     val testProperty: Double by BwDouble()
     val testRecursiveProperty: Double by BwDouble()
     val constantController by lazy { ConstantController(this) }
+
+    val a by BwDouble()
 
     /**
      * dont touch
@@ -922,12 +925,12 @@ class Wall: WallStructure() {
      * Should be left at 0 most of the time.
      * Default: 0
      */
-    var p1 = Point(0,0,0)
+    val p1 by BwPoint(0,0,0)
 
     /**
      * Duration of the Wall in beats
      */
-    var p2 = Point(0,0,0)
+    val p2 by BwPoint(0,0,0)
 
     /**
      * generating the Walls

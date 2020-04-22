@@ -30,12 +30,12 @@ abstract class BwProperty(){
         return elements.toTypedArray()
     }
     fun buildConstants(cc: ConstantController): List<Constant> {
-        val cl = cc.wallConstants + cc.progressConstant + cc.structureConstants
+        val cl = cc.wallConstants + cc.progressConstant + cc.structureConstants + cc.customConstants
         return cl.filter { it.syntaxStatus }
     }
 
     fun buildFunctions(cc: ConstantController): List<Function>  {
-        val fl = cc.easingFunctions
+        val fl = cc.easingFunctions + cc.customFunctions
         return fl.filter { it.checkSyntax() }
     }
 

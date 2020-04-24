@@ -2,7 +2,7 @@ package compiler
 
 import beatwalls.errorExit
 import compiler.parser.LineParser
-import compiler.parser.parseFile
+import compiler.parser.parseFileToLines
 import structure.WallStructure
 import java.io.File
 
@@ -13,7 +13,7 @@ class Compiler {
         val wf = LineParser()
         //format the lines into the correct lines
         val lines = try {
-            parseFile(file)
+            parseFileToLines(file)
         }catch (e:Exception){ errorExit(e){ "Parsing failed for $file"} }
 
         // try to parse each line

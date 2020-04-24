@@ -8,7 +8,7 @@ import structure.WallStructure
 import kotlin.reflect.KProperty
 
 class BwDouble(private var es: String = "0.0"): BwProperty() {
-    constructor(e: Double): this(e.toString())
+    constructor(e: Number): this(e.toString())
 
     override fun getValue(thisRef: WallStructure, property: KProperty<*>): Double {
         return calcExpression(es,thisRef)

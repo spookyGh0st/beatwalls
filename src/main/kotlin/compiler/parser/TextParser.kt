@@ -2,10 +2,12 @@ package compiler.parser
 
 import java.io.File
 
+
+
 /**
  * parses a complete file to Lines
  */
-fun parseFile(f: File): List<Line>{
+fun parseFileToLines(f: File): List<Line>{
     val text = f.readText()
     val formattedText = parseText(text)
     val lines = formattedText.map { it.toLine(f) }

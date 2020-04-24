@@ -1,4 +1,4 @@
-# Beatwalls
+# Beatwalls ![build](https://github.com/spookyGh0st/beatwalls/workflows/Java%20CI/badge.svg?branch=master)
 
 A separate tool to create awesome Wallshows in Beatsaber! Define entire Sections in a few lines and watch your maps get requested everywhere!
 

@@ -1,6 +1,6 @@
 package compiler.parser
 
-import compiler.parser.types.BwInterface
+import compiler.parser.types.BwPropFactory
 import compiler.property.BwProperty
 import org.mariuszgromada.math.mxparser.Constant
 import org.mariuszgromada.math.mxparser.Function
@@ -28,7 +28,7 @@ data class DataSet(
     val functionList: HashMap<String, Function> = hashMapOf(),
 
     // stores all properties of all WallStructures (subclasses as well)
-    val wsProperties: HashMap<String, (WallStructure) -> BwProperty> = bwProperties()
+    val wsProperties: HashMap<String, BwPropFactory> = bwProperties()
 )
 
 fun DataSet.inKeys(s:String) =

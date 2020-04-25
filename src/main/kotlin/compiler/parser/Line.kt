@@ -14,7 +14,7 @@ class InvalidLineExpression(l: Line, message: String? =null): Exception(){
  * stores the key, value line and file of a line
  * key and value are just needed and line and file are for better error messages
  */
-data class Line(val s: String, val line: Int, val file: File){
+data class Line(val s: String, val line: Int = 0, val file: File = File("")){
     fun toLowercase() = copy(s=s.toLowerCase())
     fun replaceWithIncludes() = if(s.toLowerCase()=="include") includes() else listOf(this)
 

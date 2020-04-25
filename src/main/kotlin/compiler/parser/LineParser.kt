@@ -1,10 +1,9 @@
 package compiler.parser
 
+import assetFile.isDouble
 import compiler.parser.types.*
-import compiler.property.BwProperty
 import org.mariuszgromada.math.mxparser.Constant
 import org.mariuszgromada.math.mxparser.Function
-import structure.Define
 import structure.WallStructure
 
 /*
@@ -31,7 +30,7 @@ class LineParser {
     val structList = mutableListOf<WallStructure>()
 
     // this always Points to the last structure
-    var lastStructure: OperationsHolder = WsFactory(TODO())
+    lateinit var lastStructure: OperationsHolder
 
     val dataSet = DataSet()
 
@@ -54,9 +53,9 @@ class LineParser {
             isFunction(l) -> defineFunction(l)
             isDefineCustomStruct(l) -> defineCustomStruct(l)
             isBwInterface(l) -> defineInterface(l)
-            isProperty(l) -> parseProperty(l)
+            isProperty(l) -> parseProperty(l,lastStructure) { dataSet.wsProperties[it]!!} //todo
             isDefaultStructure(l) -> addDefaultStruct(l)
-            isCustomStructure(l) -> addStoredStruct(l)
+            isWsStruct(l) -> addStoredStruct(l)
             else -> throw InvalidLineExpression(l)
         }
     }
@@ -67,19 +66,6 @@ class LineParser {
 // | | | | | | (_| | | | | | |  _| |_| | | | | (__| |_| | (_) | | | \__ \
 // |_| |_| |_|\__,_|_|_| |_| |_|  \__,_|_| |_|\___|\__|_|\___/|_| |_|___/
 
-    fun parseProperty(l:Line){
-        val a = Assign(l.s)
-        val ws = TODO() //lastStructure.s
-        when (ws) {
-            is WallStructure -> {
-                val propFunction: (WallStructure) -> BwProperty = dataSet.wsProperties[a.name]!!
-                val prop = propFunction(ws)
-                a.parseProperty(prop)
-            }
-            //is BwInterface -> ws.propertySetters.add(a.parseProperty)
-            else -> throw Exception("tried to set Property to $ws, please report this error")
-        }
-    }
 
     fun isConstant(l: Line) = l.sBefore(" ")  == "const"
 
@@ -119,49 +105,29 @@ class LineParser {
         //dataSet.customStructures[n]= customStructBuilder(n,b)
     }
 
-    fun customStructBuilder(name: String,baseStructs: List<String>): Define {
-            val i = Define()
-            for (s in baseStructs) {
-                val structure = when (s) {
-                    in dataSet.wsFactories.keys -> dataSet.wsFactories[s]!!.create()
-                    in dataSet.customStructures.keys -> dataSet.customStructures[s]!!.invoke()
-                    else -> throw Exception("WallStructure $name does not exist in $baseStructs")
-                }
-                i.structures += structure
-            }
-            return i
-    }
-
     fun defineInterface(l: Line) {
-        addLastStruct()
-        val i = l.parseBwInterface(dataSet.interfaces)
+        val i: Pair<String, BwInterface> = l.parseBwInterface(dataSet.interfaces)
         dataSet.interfaces[i.first] = i.second
-        TODO()
-       // lastStructure = LastStructure(i.second)
+        lastStructure = i.second
     }
 
-    fun isProperty(l: Line): Boolean= TODO() //propNameOfLine(l) in dataSet.wallStructurePropertyNames
+    fun isProperty(l: Line): Boolean= Assign(l.s).name in dataSet.wsProperties.keys
 
+    fun isWsStruct(l: Line): Boolean {
+        val b = l.sBefore(" ")
+        val n = l.sBetween(" ",":")
+        return b.isDouble() && n in dataSet.wsFactories.keys
+    }
 
     fun isDefaultStructure(l: Line): Boolean = isWallstructInHashmap(l,dataSet.wsFactories)
 
     fun addDefaultStruct(l: Line){
-        addLastStruct()
         TODO()
-        //val ws = wallStructFromLine(l,dataSet) { dataSet.baseStructures[it]!!.createInstance() }
-        //ws.applyInterfaces(dataSet.interfaces["default"]!!)
-        //lastStructure = ws
-
     }
 
-    fun isCustomStructure(l: Line): Boolean = isWallstructInHashmap(l,dataSet.customStructures)
 
     fun addStoredStruct(l: Line){
-        addLastStruct()
-        val ws = wallStructFromLine(l,dataSet){ dataSet.customStructures[it]!!.invoke() }
         TODO()
-        //ws.applyInterfaces(dataSet.interfaces["default"]!!)
-        lastStructure = ws
     }
 
 
@@ -191,16 +157,16 @@ class LineParser {
 }
 
 fun wallStructFromLine(l: Line, dataSet: DataSet, f: (String)-> WallStructure): WsFactory {
-    val b = wsBeatOfLine(l)?: throw InvalidLineExpression(l,"failed to parse beat of WallStructure (syntax: 10 Line: \$interfaces)")
-    val s = wsNameOfLine(l)?: throw InvalidLineExpression(l, "failed to parse name of WallStructure (syntax: 10 Line: \$interfaces")
-    val bwInterfaceNames =  l.s.substringAfter(":","")
-    val il = bwInterfaceNames.toInterfaceList(dataSet.interfaces) + dataSet
-    val ws = f(s)
-    ws.constantController.customConstants.addAll(dataSet.constantList.values)
-    ws.constantController.customFunctions.addAll(dataSet.functionList.values)
-    ws.beat=b.toDouble()
-
     TODO()
+    //  val b = wsBeatOfLine(l)?: throw InvalidLineExpression(l,"failed to parse beat of WallStructure (syntax: 10 Line: \$interfaces)")
+    //  val s = wsNameOfLine(l)?: throw InvalidLineExpression(l, "failed to parse name of WallStructure (syntax: 10 Line: \$interfaces")
+    //  val bwInterfaceNames =  l.s.substringAfter(":","")
+    //  val il = bwInterfaceNames.toInterfaceList(dataSet.interfaces) + dataSet
+    //  val ws = f(s)
+    //  ws.constantController.customConstants.addAll(dataSet.constantList.values)
+    //  ws.constantController.customFunctions.addAll(dataSet.functionList.values)
+    //  ws.beat=b.toDouble()
+
 //    for(i in il + additionalBwInterfaces.toList())
 //        for(p in r.propertySetters){
 //            when (s) {
@@ -212,6 +178,7 @@ fun wallStructFromLine(l: Line, dataSet: DataSet, f: (String)-> WallStructure): 
 //
 //    return WallStructurews, i, true)
 }
+
 
 
 fun wsNameOfLine(l: Line): String? {
@@ -227,4 +194,5 @@ fun wsBeatOfLine(l: Line): String? {
 fun isDouble(charSequence: CharSequence?) = charSequence?.toString()?.toDoubleOrNull()?.run { true }?: false
 
 val Function.syntaxStatus: Boolean get() = this.checkSyntax()
+
 

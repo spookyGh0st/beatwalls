@@ -1,16 +1,8 @@
 package compiler.parser
 
-import compiler.parser.types.BwInterface
-import org.junit.Assert.assertEquals
-import org.junit.Assert.assertNotEquals
 import org.junit.Test
-import org.mariuszgromada.math.mxparser.Function
-import structure.Line
-import structure.SteadyCurve
 import structure.Wall
-import structure.WallStructure
 import java.io.File
-import kotlin.reflect.KClass
 import kotlin.reflect.full.memberProperties
 
 class LineParserTest {

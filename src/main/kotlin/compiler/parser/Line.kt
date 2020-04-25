@@ -37,11 +37,13 @@ fun Line.sBetween(startDelimiter: String, endDelimiter: String, missingDelimiter
     s.sBetween(startDelimiter,endDelimiter, missingDelimiterValue)
 
 fun String.sBefore(delimiter: String,missingDelimiterValue: String = "")=
-    this.substringBefore(delimiter,missingDelimiterValue).trim()
+    this.trim().substringBefore(delimiter,missingDelimiterValue).trim()
 fun String.sAfter(delimiter: String,missingDelimiterValue: String = "")=
-    this.substringAfter(delimiter,missingDelimiterValue).trim()
+    this.trim().substringAfter(delimiter,missingDelimiterValue).trim()
 fun String.sBetween(startDelimiter: String,endDelimiter: String,missingDelimiterValue: String = "")=
-    this.substringBetween(startDelimiter,endDelimiter,missingDelimiterValue).trim()
+    this.trim().substringBetween(startDelimiter,endDelimiter,missingDelimiterValue).trim()
 
-fun String.substringBetween(start: String = "", end: String = "",missingDelimiterValue: String = "") =
-    this.substringAfter(start,missingDelimiterValue).substringBefore(end,missingDelimiterValue)
+fun String.substringBetween(start: String = "", end: String = "",missingDelimiterStartValue: String= "", missingDelimiterEndValue: String? = null): String {
+    val saft = this.substringAfter(start,missingDelimiterStartValue)
+    return saft.substringBefore(end,missingDelimiterEndValue?: saft )
+}

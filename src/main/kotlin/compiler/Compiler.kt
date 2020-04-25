@@ -8,7 +8,7 @@ import java.io.File
 
 class Compiler {
 
-    fun compile(file: File): MutableList<WallStructure> {
+    fun compile(file: File): List<WallStructure> {
         //we need one factory
         val wf = LineParser()
         //format the lines into the correct lines
@@ -22,6 +22,6 @@ class Compiler {
         }
 
         // returns the structlist
-        return wf.structList
+        return wf.structList.map { it.create() }
     }
 }

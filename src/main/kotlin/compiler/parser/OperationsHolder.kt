@@ -14,6 +14,9 @@ sealed class OperationsHolder{
 
 // a WsFactory holds a WallStructure and operations for that WallStructure
 data class WsFactory(val ws: ()->WallStructure, override val operations: MutableList<operation> = mutableListOf()):OperationsHolder(){
+
+    constructor(ws: () -> WallStructure, vararg interfaces: BwInterface?):
+            this(ws, interfaces.flatMap { it?.operations?: listOf<operation>() }.toMutableList())
     // create the WallStructe and parse all the properties
     fun create(): WallStructure {
         val struct = ws()

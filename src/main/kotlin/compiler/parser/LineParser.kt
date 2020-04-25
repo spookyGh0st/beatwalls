@@ -4,6 +4,7 @@ import assetFile.isDouble
 import compiler.parser.types.*
 import org.mariuszgromada.math.mxparser.Constant
 import org.mariuszgromada.math.mxparser.Function
+import structure.Define
 import structure.WallStructure
 
 /*
@@ -27,7 +28,7 @@ interface myInterface: interface1, inteface2
 class LineParser {
 
     // the final structlist of the Factory
-    val structList = mutableListOf<WallStructure>()
+    val structList = mutableListOf<WsFactory>()
 
     // this always Points to the last structure
     lateinit var lastStructure: OperationsHolder
@@ -44,18 +45,16 @@ class LineParser {
 
     fun parseLines(l: List<Line>){
         l.forEach { parseLine(it) }
-        addLastStruct()
     }
 
     fun parseLine(l: Line){
         when{
             isConstant(l) -> defineConstant(l)
             isFunction(l) -> defineFunction(l)
-            isDefineCustomStruct(l) -> defineCustomStruct(l)
+            isCustomStruct(l) -> defineCustomStruct(l)
             isBwInterface(l) -> defineInterface(l)
-            isProperty(l) -> parseProperty(l,lastStructure) { dataSet.wsProperties[it]!!} //todo
-            isDefaultStructure(l) -> addDefaultStruct(l)
-            isWsStruct(l) -> addStoredStruct(l)
+            isProperty(l) -> addProperty(l)
+            isWsFact(l) -> addWsFact(l)
             else -> throw InvalidLineExpression(l)
         }
     }
@@ -66,18 +65,20 @@ class LineParser {
 // | | | | | | (_| | | | | | |  _| |_| | | | | (__| |_| | (_) | | | \__ \
 // |_| |_| |_|\__,_|_|_| |_| |_|  \__,_|_| |_|\___|\__|_|\___/|_| |_|___/
 
+    private fun checkName(name: String){
+        if (dataSet.inKeys(name)) throw NameAlreadyExistException(name)
+
+    }
 
     fun isConstant(l: Line) = l.sBefore(" ")  == "const"
 
     fun defineConstant(l: Line){
         val value = l.sAfter("const")
-        val name = l.sBetween("const","(")
+        val name = l.sBetween("const","=")
+        checkName(name)
         val args = (dataSet.constantList.values  + dataSet.functionList.values).toTypedArray()
         val c = Constant(value,*args)
-        if(!c.syntaxStatus || dataSet.inKeys(name)) throw InvalidLineExpression(
-            l,
-            "Constant is invalid"
-        )
+        if(!c.syntaxStatus || dataSet.inKeys(name)) throw InvalidLineExpression(l, "Constant is invalid")
         dataSet.constantList[name] = c
     }
 
@@ -86,113 +87,73 @@ class LineParser {
     fun defineFunction(l: Line){
         val value = l.sAfter("fun")
         val name = l.sBetween("fun","(")
+        checkName(name)
         val args = (dataSet.constantList.values  + dataSet.functionList.values).toTypedArray()
         val f = Function(value,*args)
-        if(!f.syntaxStatus || dataSet.inKeys(name)) throw InvalidLineExpression(
-            l,
-            "Function is invalid"
-        )
+        if(!f.syntaxStatus || dataSet.inKeys(name)) throw InvalidLineExpression(l, "Function is invalid")
         dataSet.functionList[name] = f
     }
 
-    fun isDefineCustomStruct(l: Line) = l.sBefore(" ") == "struct"
+    fun isCustomStruct(l: Line) = l.sBefore(" ") == "struct"
 
     fun defineCustomStruct(l: Line){
-        addLastStruct()
-        val n = l.sBefore(":")?.substringAfter("struct ") ?: throw InvalidLineExpression(l)
-        val b = l.sAfter(":")?.split(",")?: emptyList()
-        TODO()
-        //dataSet.customStructures[n]= customStructBuilder(n,b)
+        val name = l.sBetween("struct",":")
+        checkName(name)
+
+        val ohList = l.sAfter(":").toOperatorHolderList {
+            dataSet.wsFactories[it]?:dataSet.interfaces[it]?:
+            throw InvalidLineExpression(l,"$it is not a valid interface/WallStructure")
+        }
+
+        val structList: List<WallStructure> = ohList.filterIsInstance<WsFactory>().map { it.create() }
+        val interfaceOp: MutableList<operation> = ohList.filterIsInstance<BwInterface>().flatMap { it.operations }.toMutableList()
+        val wsGenerator: () -> Define ={ Define().also { it.structures = structList }}
+        val wsFactory = WsFactory(wsGenerator, interfaceOp)
+        dataSet.wsFactories[name]=wsFactory
+        lastStructure = wsFactory
     }
 
+    fun isBwInterface(l: Line) = l.s.startsWith("interface ")
+
     fun defineInterface(l: Line) {
-        val i: Pair<String, BwInterface> = l.parseBwInterface(dataSet.interfaces)
-        dataSet.interfaces[i.first] = i.second
-        lastStructure = i.second
+        val name = l.sBetween("struct",":")
+        checkName(name)
+
+        val ohList = l.sAfter(":").toInterfaceList {
+            dataSet.interfaces[it]?:throw InvalidLineExpression(l,"$it is not a valid Interface")
+        }
+        val interfaceOp: MutableList<operation> = ohList.flatMap { it.operations }.toMutableList()
+        val i = BwInterface(interfaceOp)
+
+        dataSet.interfaces[name] = i
+        lastStructure = i
     }
 
     fun isProperty(l: Line): Boolean= Assign(l.s).name in dataSet.wsProperties.keys
 
-    fun isWsStruct(l: Line): Boolean {
+    fun addProperty(l: Line) = parseProperty(l,lastStructure) { dataSet.wsProperties[it]?: throw InvalidLineExpression(l) }
+
+    fun isWsFact(l: Line): Boolean {
         val b = l.sBefore(" ")
-        val n = l.sBetween(" ",":")
+        val n = l.sBetween(b,":")
         return b.isDouble() && n in dataSet.wsFactories.keys
     }
 
-    fun isDefaultStructure(l: Line): Boolean = isWallstructInHashmap(l,dataSet.wsFactories)
-
-    fun addDefaultStruct(l: Line){
-        TODO()
-    }
-
-
-    fun addStoredStruct(l: Line){
-        TODO()
-    }
-
-
-//  _          _                    __                  _   _
-// | |__   ___| |_ __   ___ _ __   / _|_   _ _ __   ___| |_(_) ___  _ __  ___
-// | '_ \ / _ \ | '_ \ / _ \ '__| | |_| | | | '_ \ / __| __| |/ _ \| '_ \/ __|
-// | | | |  __/ | |_) |  __/ |    |  _| |_| | | | | (__| |_| | (_) | | | \__ \
-// |_| |_|\___|_| .__/ \___|_|    |_|  \__,_|_| |_|\___|\__|_|\___/|_| |_|___/
-//              |_|
-
-    fun addLastStruct(){
-        //      if(lastStructure.initialize) {
-        //          if(lastStructure.s !is WallStructure) throw Exception("$lastStructure is not an Wallstructure and cannot be added, please report this error")
-        //          structList.add(lastStructure.s as WallStructure)
-        //          TODO()
-
-        //          //lastStructure = LastStructure(Unit)
-        //      }
-    }
-
-
-    fun isWallstructInHashmap(l: Line, keys: HashMap<String, *>): Boolean {
-        val b = wsBeatOfLine(l)
-        val s = wsNameOfLine(l)
-        return isDouble(b) && s in keys
+    fun addWsFact(l: Line){
+        val beat = l.sBefore(" ")
+        val name = l.sBetween(beat,":")
+        val fact = dataSet.wsFactories[name]?: throw InvalidLineExpression(l,"fakt $name does not exist, please report this error")
+        val defaultInterface = dataSet.interfaces["default"]
+        val wsFact = WsFactory({ fact.create() },defaultInterface)
+        structList.add(wsFact)
+        lastStructure = wsFact
     }
 }
 
-fun wallStructFromLine(l: Line, dataSet: DataSet, f: (String)-> WallStructure): WsFactory {
-    TODO()
-    //  val b = wsBeatOfLine(l)?: throw InvalidLineExpression(l,"failed to parse beat of WallStructure (syntax: 10 Line: \$interfaces)")
-    //  val s = wsNameOfLine(l)?: throw InvalidLineExpression(l, "failed to parse name of WallStructure (syntax: 10 Line: \$interfaces")
-    //  val bwInterfaceNames =  l.s.substringAfter(":","")
-    //  val il = bwInterfaceNames.toInterfaceList(dataSet.interfaces) + dataSet
-    //  val ws = f(s)
-    //  ws.constantController.customConstants.addAll(dataSet.constantList.values)
-    //  ws.constantController.customFunctions.addAll(dataSet.functionList.values)
-    //  ws.beat=b.toDouble()
-
-//    for(i in il + additionalBwInterfaces.toList())
-//        for(p in r.propertySetters){
-//            when (s) {
-//                is WallStructure ->
-//                is BwInterface -> ws.lines.add(l)
-//                else -> throw InvalidLineExpression(l)
-//            }
-//        }
-//
-//    return WallStructurews, i, true)
-}
-
-
-
-fun wsNameOfLine(l: Line): String? {
-    val struct = l.sBefore(":")
-    return struct?.split(" ")?.getOrNull(1)
-}
-
-fun wsBeatOfLine(l: Line): String? {
-    val struct = l.sBefore(":")
-    return struct?.split(" ")?.getOrNull(0)
-}
-
-fun isDouble(charSequence: CharSequence?) = charSequence?.toString()?.toDoubleOrNull()?.run { true }?: false
 
 val Function.syntaxStatus: Boolean get() = this.checkSyntax()
+
+
+class NameAlreadyExistException(name: String, cause:Throwable? = null): Exception("$name already exist in keys, please choose a different name",cause)
 
 

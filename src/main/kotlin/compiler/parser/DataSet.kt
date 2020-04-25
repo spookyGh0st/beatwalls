@@ -46,9 +46,11 @@ fun bwProperties(): HashMap<String, (WallStructure) -> BwProperty> {
 
     val hm = hashMapOf<String, (WallStructure) -> BwProperty>()
     props.forEach {
+        TODO("Fix this")
         it as KProperty1<WallStructure,Any?>
         val n = it.name.toLowerCase().trim()
-        val v: (WallStructure) -> BwProperty = { ref: WallStructure -> it.getDelegate(ref) as BwProperty }
+        val v: (WallStructure) -> BwProperty = {
+                ref: WallStructure -> it.getDelegate(ref) as BwProperty }
         hm[n] = v
     }
     return hm

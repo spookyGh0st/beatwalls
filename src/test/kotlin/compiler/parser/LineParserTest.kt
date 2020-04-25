@@ -50,11 +50,9 @@ interface hyper
   a=10
 const b = 20
 fun f(x) = x*x
-struct w1: wall
+10 wall
   a += 5
   p1 += f(a),a,b
-10 w1
-20 w1
   a += 10
         """.trimIndent()
         //todo clean up
@@ -62,8 +60,8 @@ struct w1: wall
 
         val l = t.lines().map{ Line(it,0,File("")) }
         lp.parseLines(l)
-        println((lp.structList[0]).a)
-        println((lp.structList[1]).a)
+        println((lp.structList[0]).create().a)
+        println((lp.structList[1]).create().a)
         println()
     }
 

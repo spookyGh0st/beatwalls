@@ -41,7 +41,7 @@ fun bwProperties(): List<String> {
     // this is needed, since sealedSubclasses does not return nested subclasses
     val wsSClasses = wsClass.recursiveWsClasses()
     val props =  wsClass.memberProperties + wsSClasses.flatMap { it.declaredMemberPropertiesDelegates }
-    return props.mapNotNull { it.name.toLowerCase().trim() }
+    return props.map { it.name.toLowerCase().trim() }
 }
 
 val <E: Any> KClass<E>.declaredMemberPropertiesDelegates : Collection<KProperty1<E, Any?>>

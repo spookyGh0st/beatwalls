@@ -4,6 +4,7 @@ import org.junit.Test
 import structure.Wall
 import java.io.File
 import kotlin.reflect.full.memberProperties
+import kotlin.test.assertEquals
 
 class LineParserTest {
 
@@ -50,17 +51,17 @@ interface hyper
   a=10
 const b = 20
 fun f(x) = x*x
-10 wall
+struct w1:wall,hyper
+10 w1
   a += 5
   p1 += f(a),a,b
-  a += 10
         """.trimIndent()
         //todo clean up
         val lp = LineParser()
 
         val l = t.lines().map{ Line(it,0,File("")) }
-        lp.parseLines(l)
-        val ws = lp.structList[0].create()
+        val ws = lp.create(l).first()
+        assertEquals(15.0, ws.a)
         println(ws.a)
     }
 

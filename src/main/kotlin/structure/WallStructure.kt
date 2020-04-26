@@ -34,6 +34,10 @@ sealed class WallStructure:Serializable
 {
     val testProperty: Double by BwDouble()
     val testRecursiveProperty: Double by BwDouble()
+    /**
+     * This is needed for all the functions and properties.
+     * This allows for the use of other bwProperties in the expressions
+     */
     val constantController by lazy { ConstantController(this) }
 
     open val a by BwDouble()

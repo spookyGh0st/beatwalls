@@ -43,6 +43,16 @@ class LineParser {
 // | .__/|_|\___|_|\_\___|_|
 // |_|
 
+    fun create(l:List<Line>): List<WallStructure> {
+        parseLines(l)
+        val ws = structList.map { it.create() }
+        ws.forEach {
+            it.constantController.customConstants.addAll(dataSet.constantList.values)
+            it.constantController.customFunctions.addAll(dataSet.functionList.values)
+        }
+        return ws
+    }
+
     fun parseLines(l: List<Line>){
         l.forEach { parseLine(it) }
     }
@@ -116,7 +126,7 @@ class LineParser {
     fun isBwInterface(l: Line) = l.s.startsWith("interface ")
 
     fun defineInterface(l: Line) {
-        val name = l.sBetween("struct",":")
+        val name = l.sBetween("interface",":")
         checkName(name)
 
         val ohList = l.sAfter(":").toInterfaceList {

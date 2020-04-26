@@ -31,10 +31,9 @@ class WsFactoryTest {
         val wsf = testWsFact
         val expected = "20.0"
         val name = WallStructure::a.name.toLowerCase()
-        val operator = bwProperties()[name]!!
-        wsf.operations.add { operator(it).setExpr(expected) }
         assertNotSame(wsf.create().a, wsf.create().a)
         assertEquals(expected.toDouble(), wsf.create().a,0.0)
+        TODO()
     }
 }
 

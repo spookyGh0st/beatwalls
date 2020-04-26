@@ -1,6 +1,6 @@
 package structure.specialStrucures
 
-import assetFile.findProperty
+import assetFile.propOfName
 import assetFile.readProperty
 import structure.*
 import structure.helperClasses.Point
@@ -41,7 +41,7 @@ fun calcP3(point: Point, nextPoint: Point, nextControlPoint: Point, nextNextPoin
 }
 
 fun WallStructure.readPoint(name:String): Point? =
-    this.readProperty(findProperty(this, name)) as Point?
+    this.readProperty(propOfName(this, name)) as Point?
 
 @Suppress("unused")
 fun ContinuousCurve.generateProperties(): String {

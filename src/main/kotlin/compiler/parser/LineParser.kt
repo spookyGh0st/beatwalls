@@ -129,9 +129,9 @@ class LineParser {
         lastStructure = i
     }
 
-    fun isProperty(l: Line): Boolean= Assign(l.s).name in dataSet.wsProperties.keys
+    fun isProperty(l: Line): Boolean= Assign(l.s).name in dataSet.wsPropsNames
 
-    fun addProperty(l: Line) = parseProperty(l,lastStructure) { dataSet.wsProperties[it]?: throw InvalidLineExpression(l) }
+    fun addProperty(l: Line) = parseProperty(l, lastStructure)
 
     fun isWsFact(l: Line): Boolean {
         val b = l.sBefore(" ")

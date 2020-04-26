@@ -3,7 +3,6 @@ package assetFile
 import beatwalls.errorExit
 import mu.KotlinLogging
 import structure.*
-import structure.helperClasses.Point
 import kotlin.random.Random
 import kotlin.reflect.*
 import kotlin.reflect.full.createInstance
@@ -129,7 +128,7 @@ fun readWallStructOptions(lastObject: Any, option: Pair<String, String>, defined
         return
     }
 
-    val property = findProperty(lastObject,option.key())
+    val property = propOfName(lastObject,option.key())
 
     if (property != null) {
         fillProperty(
@@ -148,7 +147,7 @@ fun readWallStructOptions(lastObject: Any, option: Pair<String, String>, defined
         }
     }
 }
-fun findProperty(lastObject: Any, key:String): KProperty1<out Any, Any?>? {
+fun propOfName(lastObject: Any, key:String): KProperty1<out Any, Any?>? {
     val properties = lastObject::class.memberProperties.toMutableList()
     return  properties.find { it.name.toLowerCase() ==key.toLowerCase() }
 

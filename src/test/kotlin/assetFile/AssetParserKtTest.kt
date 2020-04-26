@@ -61,7 +61,7 @@ class AssetParserKtTest : TestCase() {
 
     fun testRandomProperty() {
         val w = Wall()
-        val p = findProperty(w,"changeDuration")
+        val p = propOfName(w,"changeDuration")
 
         fillProperty(p!!, "1.0", listOf(),w)
         val actual = w.changeDuration!!.invoke()
@@ -88,7 +88,7 @@ class AssetParserKtTest : TestCase() {
 
     fun testPointProperty() {
         val w = Curve()
-        val p = findProperty(w,"p1")
+        val p = propOfName(w,"p1")
         fillProperty(p!!, "1,2,3", listOf(),w)
         val actual = w.p1
         val expected = Point(1, 2, 3)
@@ -97,7 +97,7 @@ class AssetParserKtTest : TestCase() {
     }
     fun testColorProperty() {
         val w = Curve()
-        val p = findProperty(w,"color")
+        val p = propOfName(w,"color")
         fillProperty(p!!, "Red", listOf(),w)
         val actual = w.color
         val expected = SingleColor(Color(java.awt.Color.RED))
@@ -108,15 +108,15 @@ class AssetParserKtTest : TestCase() {
     fun testDefineWallFillProperty() {
         val wall = Define()
         wall.structures = listOf()
-        val property = findProperty(wall, "structures")
+        val property = propOfName(wall, "structures")
         fillProperty(property!!, "wall", listOf(),wall)
-        val nameProperty = findProperty(wall, "name")
+        val nameProperty = propOfName(wall, "name")
         fillProperty(nameProperty!!, "fineWall", listOf(),wall)
         assertFalse(wall.structures.isEmpty())
         assertEquals(wall.name, "fineWall")
         val propList =listOf(wall)
         val newWall = Define()
-        val newProperty = findProperty(newWall, "structures")
+        val newProperty = propOfName(newWall, "structures")
         fillProperty(newProperty!!, "finewall,wall", propList,newWall)
         assertTrue(newWall.structures.first() is Define)
         val w = newWall.structures.first() as Define

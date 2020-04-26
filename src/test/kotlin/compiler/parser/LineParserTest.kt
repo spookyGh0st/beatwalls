@@ -60,9 +60,8 @@ fun f(x) = x*x
 
         val l = t.lines().map{ Line(it,0,File("")) }
         lp.parseLines(l)
-        println((lp.structList[0]).create().a)
-        println((lp.structList[1]).create().a)
-        println()
+        val ws = lp.structList[0].create()
+        println(ws.a)
     }
 
     @Test

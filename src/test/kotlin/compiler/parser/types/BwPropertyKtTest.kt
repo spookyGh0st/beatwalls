@@ -1,9 +1,7 @@
 package compiler.parser.types
 
-import compiler.parser.BwInterface
 import compiler.parser.Line
 import compiler.parser.WsFactory
-import compiler.parser.operation
 import compiler.property.BwProperty
 import org.junit.Test
 
@@ -28,7 +26,7 @@ class BwPropertyKtTest {
     @Test
     fun parseProperty() {
         val oh = WsFactory({ Wall() })
-        parseProperty(l,oh,pfp)
+        parseProperty(l, oh)
         val actual =oh.create().a
         assertEquals(v,actual,0.0)
     }

@@ -1,7 +1,6 @@
 package compiler.parser
 
 import compiler.parser.types.BwPropFactory
-import compiler.property.BwProperty
 import org.mariuszgromada.math.mxparser.Constant
 import org.mariuszgromada.math.mxparser.Function
 import structure.WallStructure
@@ -10,6 +9,7 @@ import kotlin.reflect.KClass
 import kotlin.reflect.KProperty1
 import kotlin.reflect.full.createInstance
 import kotlin.reflect.full.declaredMemberProperties
+import kotlin.reflect.full.memberProperties
 import kotlin.reflect.jvm.isAccessible
 
 // Line Parser parses each line and build wallstructures from them
@@ -28,32 +28,20 @@ data class DataSet(
     val functionList: HashMap<String, Function> = hashMapOf(),
 
     // stores all properties of all WallStructures (subclasses as well)
-    val wsProperties: HashMap<String, BwPropFactory> = bwProperties()
+    val wsPropsNames: List<String> = bwProperties()
 )
 
 fun DataSet.inKeys(s:String) =
-    s in wsFactories.keys || s in interfaces.keys || s in constantList.keys || s in functionList.keys || s in wsProperties.keys
+    s in wsFactories.keys || s in interfaces.keys || s in constantList.keys || s in functionList.keys || s in wsPropsNames
 
 // its not unchecked you bongo compiler
 @Suppress("UNCHECKED_CAST")
-fun bwProperties(): HashMap<String, (WallStructure) -> BwProperty> {
-    //TODO this should be cleaner with better types
-    // it is possinle without unchecked cast
+fun bwProperties(): List<String> {
     val wsClass = WallStructure::class
     // this is needed, since sealedSubclasses does not return nested subclasses
     val wsSClasses = wsClass.recursiveWsClasses()
-    val props =  wsClass.declaredMemberPropertiesDelegates + wsSClasses.flatMap { it.declaredMemberPropertiesDelegates }
-
-    val hm = hashMapOf<String, (WallStructure) -> BwProperty>()
-    props.forEach {
-        TODO("Fix this")
-        it as KProperty1<WallStructure,Any?>
-        val n = it.name.toLowerCase().trim()
-        val v: (WallStructure) -> BwProperty = {
-                ref: WallStructure -> it.getDelegate(ref) as BwProperty }
-        hm[n] = v
-    }
-    return hm
+    val props =  wsClass.memberProperties + wsSClasses.flatMap { it.declaredMemberPropertiesDelegates }
+    return props.mapNotNull { it.name.toLowerCase().trim() }
 }
 
 val <E: Any> KClass<E>.declaredMemberPropertiesDelegates : Collection<KProperty1<E, Any?>>

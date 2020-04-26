@@ -134,7 +134,7 @@ now you can create a bunch of tunnels at times 10, 12, 16.6 and 20 with just
 12: tunnel
 16.6: tunnel
 # a tunnel, which is twice as long
-20: tunel
+20: tunnel
     scale: 2
 ```
 

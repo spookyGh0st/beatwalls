@@ -17,7 +17,7 @@ data class CuboidConstrains(val p1: Point, val p2: Point,var seed: Int = Random.
     private val r = Random(seed)
     fun random(avoidCenter: Boolean): Point {
         val p = Point(r.nextDouble(sx,ex),r.nextDouble(sy,ey), r.nextDouble(sz,ez))
-        if(avoidCenter && p.x in -2.0..2.0 && p.y in 0.5..2.0)
+        if(avoidCenter && p.x in -2.0..2.0 && p.y in 0.5..3.0)
             return random(avoidCenter)
         return p
     }

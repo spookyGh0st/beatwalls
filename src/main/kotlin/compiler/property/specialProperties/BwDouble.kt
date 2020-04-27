@@ -7,55 +7,55 @@ import compiler.property.strTimesExprStr
 import structure.WallStructure
 import kotlin.reflect.KProperty
 
-class BwDouble(private var es: String = "0.0"): BwProperty() {
-    constructor(e: Number): this(e.toString())
+class BwDouble(private var expression: String = "0.0"): BwProperty() {
+    constructor(default: Number): this(default.toString())
 
     override fun getValue(thisRef: WallStructure, property: KProperty<*>): Double {
-        return calcExpression(es,thisRef)
+        return calcExpression(expression,thisRef)
     }
 
     override fun setExpr(e: String) {
-        es = e
+        expression = e
     }
 
     override fun plusExpr(e: String) {
-        es = strPlusExprStr(es, e)
+        expression = strPlusExprStr(expression, e)
     }
 
     override fun timesExpr(e: String) {
-        es = strTimesExprStr(es, e)
+        expression = strTimesExprStr(expression, e)
     }
 
     override fun powExpr(e: String) {
-        es = strPowExprStr(es, e)
+        expression = strPowExprStr(expression, e)
     }
 
-    override fun toString(): String = es
+    override fun toString(): String = expression
 }
 
-class BwDoubleOrNull(private var es: String = "null"): BwProperty() {
-    constructor(e: Double?): this(e.toString())
+class BwDoubleOrNull(private var expresssion: String = "null"): BwProperty() {
+    constructor(default: Double?): this(default.toString())
 
     override fun getValue(thisRef: WallStructure, property: KProperty<*>): Double? {
-        if (strExpressesNull(es)) return null
-        return calcExpression(es,thisRef)
+        if (strExpressesNull(expresssion)) return null
+        return calcExpression(expresssion,thisRef)
     }
 
     override fun setExpr(e: String) {
-        es = e
+        expresssion = e
     }
 
     override fun plusExpr(e: String) {
-        es = strPlusExprStr(es, e)
+        expresssion = strPlusExprStr(expresssion, e)
     }
 
     override fun timesExpr(e: String) {
-        es = strTimesExprStr(es, e)
+        expresssion = strTimesExprStr(expresssion, e)
     }
 
     override fun powExpr(e: String) {
-        es = strPowExprStr(es, e)
+        expresssion = strPowExprStr(expresssion, e)
     }
 
-    override fun toString(): String = es
+    override fun toString(): String = expresssion
 }

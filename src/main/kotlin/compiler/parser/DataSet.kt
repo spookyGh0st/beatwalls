@@ -1,6 +1,5 @@
 package compiler.parser
 
-import compiler.parser.types.BwPropFactory
 import org.mariuszgromada.math.mxparser.Constant
 import org.mariuszgromada.math.mxparser.Function
 import structure.WallStructure
@@ -46,7 +45,7 @@ fun bwProperties(): List<String> {
 
 val <E: Any> KClass<E>.declaredMemberPropertiesDelegates : Collection<KProperty1<E, Any?>>
 get()  {
-    val props: Collection<KProperty1<E, Any?>> = this.declaredMemberProperties as Collection<KProperty1<E, Any?>>
+    val props: Collection<KProperty1<E, Any?>> = this.declaredMemberProperties
     props.forEach { it.isAccessible = true }
     return props
 }

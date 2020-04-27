@@ -29,7 +29,7 @@ class CopyTest {
         assertFalse(expected.first() === actual.first())
     }
 
-    @Test
+    //@Test no longer needed
     fun deepCopy() {
         val ws = Define()
         ws.structures = listOf(Line().also { it.spookyWalls.add(SpookyWall(0.0,0.0,0.0,0.0,0.0,0.0, cyan)) })

@@ -3,8 +3,7 @@
 package structure
 
 import compiler.property.constantFactory.ConstantController
-import compiler.property.specialProperties.BwDouble
-import compiler.property.specialProperties.BwPoint
+import compiler.property.specialProperties.*
 import structure.helperClasses.*
 import structure.specialStrucures.*
 import java.io.Serializable
@@ -40,7 +39,7 @@ sealed class WallStructure:Serializable
      */
     val constantController by lazy { ConstantController(this) }
 
-    open val a by BwDouble()
+    open val a by BwInt()
 
     /**
      * dont touch
@@ -1897,3 +1896,16 @@ class ContinuousCurve : WallStructure(){
      override fun generateWalls()  = run() 
 }
 
+
+/**
+ * This Structure is used for internal testing does not do anything for you
+ */
+class TestStructure: WallStructure(){
+    val testDouble by BwDouble()
+    val testDoubleOrNull by BwDoubleOrNull()
+    val testInt by BwInt()
+    val testIntOrNull by BwIntOrNull()
+    val testPoint by BwPoint()
+
+    override fun generateWalls(): List<SpookyWall>  = listOf()
+}

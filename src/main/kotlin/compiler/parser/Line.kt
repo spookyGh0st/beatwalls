@@ -16,11 +16,15 @@ class InvalidLineExpression(l: Line, message: String? =null): Exception(){
  */
 data class Line(val s: String, val line: Int = 0, val file: File = File("")){
     fun toLowercase() = copy(s=s.toLowerCase())
-    fun replaceWithIncludes() = if(s.toLowerCase()=="include") includes() else listOf(this)
+    fun replaceWithIncludes() = try {
+        if(s.sBefore(":")=="include") parseInclude() else listOf(this)
+    }catch (e: Exception){
+        throw InvalidLineExpression(this,"Failed to import file, check if this file exist in your song folder")
+    }
 
-    private fun includes():List<Line>{
+    fun parseInclude():List<Line>{
         val pf = GlobalConfig.bwFile.parentFile
-        val fn = sAfter(" ")
+        val fn = sAfter(":")
         val f= File(pf, fn)
         return parseFileToLines(f)
     }

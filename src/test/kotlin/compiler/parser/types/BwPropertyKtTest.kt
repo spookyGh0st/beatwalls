@@ -13,14 +13,13 @@ import kotlin.reflect.jvm.isAccessible
 class BwPropertyKtTest {
 
     private val n = WallStructure::a.name
-    private val v  = 10.0
+    private val v  = 10
     private val l = Line(" $n = $v")
     private val bwPropFactory: BwPropFactory = {
         val a = it::a
         a.isAccessible = true
         println(a.isAccessible)
         a.getDelegate() as BwProperty }
-    private val pfp:BwPropFactPicker = { bwPropFactory }
 
     //small integration test, this function cant really be unit-tested
     @Test
@@ -28,6 +27,6 @@ class BwPropertyKtTest {
         val oh = WsFactory({ Wall() })
         parseProperty(l, oh)
         val actual =oh.create().a
-        assertEquals(v,actual,0.0)
+        assertEquals(v,actual)
     }
 }

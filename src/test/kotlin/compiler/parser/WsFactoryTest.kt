@@ -1,10 +1,14 @@
 package compiler.parser
 
+import compiler.parser.types.delOfPropName
+import compiler.parser.types.propOfName
+import compiler.property.BwProperty
 import org.junit.Test
 
 import org.junit.Assert.*
 import structure.Wall
 import structure.WallStructure
+import kotlin.math.roundToInt
 
 class WsFactoryTest {
 
@@ -31,9 +35,10 @@ class WsFactoryTest {
         val wsf = testWsFact
         val expected = "20.0"
         val name = WallStructure::a.name.toLowerCase()
-        assertNotSame(wsf.create().a, wsf.create().a)
-        assertEquals(expected.toDouble(), wsf.create().a,0.0)
-        TODO()
+        wsf.operations.add{ it.delOfPropName(name)?.setExpr(expected) }
+        assertNotSame(wsf.create(), wsf.create())
+        assertEquals(expected.toDouble().roundToInt(), wsf.create().a)
+
     }
 }
 

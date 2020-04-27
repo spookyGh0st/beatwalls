@@ -152,9 +152,13 @@ class LineParser {
     fun addWsFact(l: Line){
         val beat = l.sBefore(" ")
         val name = l.sBetween(beat,":")
+        val bwInterfaces = l.sAfter(":").toInterfaceList {
+            dataSet.interfaces[it]?:throw InvalidLineExpression(l,"$it is not a valid Interface")
+        }
         val fact = dataSet.wsFactories[name]?: throw InvalidLineExpression(l,"fakt $name does not exist, please report this error")
-        val defaultInterface = dataSet.interfaces["default"]
-        val wsFact = WsFactory({ fact.create() },defaultInterface)
+        val defaultInterface = dataSet.interfaces["default"]!!
+        val operations = (bwInterfaces + defaultInterface).flatMap { it.operations }.toMutableList()
+        val wsFact = WsFactory({ fact.create() },operations)
         structList.add(wsFact)
         lastStructure = wsFact
     }

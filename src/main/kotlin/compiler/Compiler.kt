@@ -1,5 +1,6 @@
 package compiler
 
+import beatwalls.GlobalConfig
 import beatwalls.errorExit
 import compiler.parser.LineParser
 import compiler.parser.parseFileToLines
@@ -7,21 +8,16 @@ import structure.WallStructure
 import java.io.File
 
 class Compiler {
-
-    fun compile(file: File): List<WallStructure> {
+    fun compile(): List<WallStructure> {
         //we need one factory
         val wf = LineParser()
         //format the lines into the correct lines
         val lines = try {
-            parseFileToLines(file)
-        }catch (e:Exception){ errorExit(e){ "Parsing failed for $file"} }
+            parseFileToLines(GlobalConfig.bwFile)
+        }catch (e:Exception){ errorExit(e){ "Parsing failed for ${GlobalConfig.bwFile}"} }
 
         // try to parse each line
-        lines.forEach {
-            try {  wf.parseLine(it) }catch (e:Exception){ errorExit(e) { "Failed to parse $it" } }
-        }
+        return try {  wf.create(lines) }catch (e:Exception){ errorExit(e) { "FAILED PARSING A LINE" } }
 
-        // returns the structlist
-        return wf.structList.map { it.create() }
     }
 }

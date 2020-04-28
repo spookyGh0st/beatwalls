@@ -22,9 +22,9 @@ data class SpookyWall(
     @Expose
     @SerializedName("height") var height: Double,
     @Expose
-    @SerializedName("startHeight") var y: Double,
+    @SerializedName("y") var y: Double,
     @Expose
-    @SerializedName("startTime") var z: Double,
+    @SerializedName("z") var z: Double,
     @Expose
     @SerializedName("color") var color: Color? = null,
     @Expose

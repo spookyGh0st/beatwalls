@@ -1,6 +1,7 @@
 package beatwalls
 
 import assetFile.parseAsset
+import compiler.Compiler
 
 fun run() {
     //reloads the config
@@ -10,7 +11,7 @@ fun run() {
     // the text of the File we work on
     val diffAssetText = readPath().readText()
     // the parsed list of the file
-    val list = parseAsset(diffAssetText)
+    val list = Compiler().compile()
     // created the Walls in the diff
     diff.createWalls(list)
     // writes the diff

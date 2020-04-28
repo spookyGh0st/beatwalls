@@ -22,7 +22,7 @@ abstract class BwProperty:Serializable{
      */
     fun buildExpression(expressionString: String,cc:ConstantController): Expression {
         val elements =  buildPrimitiveElements(cc)
-        return Expression(expressionString,*elements)
+        return Expression(expressionString.toLowerCase(),*elements)
     }
 
 
@@ -48,7 +48,7 @@ abstract class BwProperty:Serializable{
         val value = e.calculate()
         if(e.syntaxStatus)
             return value
-        throw InvalidExpressionException(e)
+        throw InvalidExpressionException(e,"This means, that a constant or functions is propably not loaded")
     }
 
 
@@ -82,31 +82,3 @@ abstract class BwProperty:Serializable{
 fun strPlusExprStr(s: String, e: String) = "(${s})+($e)"
 fun strTimesExprStr(s: String, e: String) = "(${s})*($e)"
 fun strPowExprStr(s: String, e: String) = "(${s})^($e)"
-
-fun main(){
-    val a = Line()
-
-    a.initializeProperty("testProperty","linear(10,20) + testProperty2")
-    a.initializeProperty("testRecursiveProperty","2 ")
-    a.constantController.progress = 0.5
-    println("t1: ${a.testProperty}")
-    println("t2: ${a.testRecursiveProperty}")
-}
-
-fun WallStructure.initializeProperty(name: String, value: String){
-    val prop = this::class.memberProperties.find { it.name.toLowerCase() == name.toLowerCase() }
-    if(prop == null || prop.returnType.isMarkedNullable)
-        throw Exception()
-    @Suppress("UNCHECKED_CAST")
-    prop as KProperty1<WallStructure, Any>
-    prop.isAccessible = true
-    val del = prop.getDelegate(this)
-    if (del !is BwProperty) throw  Exception()
-    del.setExpr(value.toLowerCase())
-    //todo all bw should share a same upperclass, which sets stuff like the sw and easing
-}
-
-
-class r(){
-
-}

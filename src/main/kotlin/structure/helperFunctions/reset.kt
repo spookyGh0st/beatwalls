@@ -18,32 +18,32 @@ fun WallStructure.reset(){
     /**
      * change The StartTime of all Walls in the structure to the given Value. Random possible with random(min,max). Default: null
      */
-    changeStartTime= WallStructure.changeStartTime
+    // x= WallStructure.changeStartTime
 
     /**
      * change The Duration of all Walls in the structure to the given Value. Random possible with random(min,max). Default: null
      */
-    changeDuration= WallStructure.changeDuration
+    // changeDuration= WallStructure.changeDuration
 
     /**
      * change The Height of all Walls in the structure to the given Value. Random possible with random(min,max). Default: null
      */
-    changeHeight= WallStructure.changeHeight
+    // changeHeight= WallStructure.changeHeight
 
     /**
      * change The StartHeight of all Walls in the structure to the given Value. Random possible with random(min,max). Default: null
      */
-    changeStartHeight= WallStructure.changeStartHeight
+    //y= WallStructure.changeStartHeight
 
     /**
      * change The StartRow of all Walls in the structure to the given Value. Random possible with random(min,max). Default: null
      */
-    changeStartRow= WallStructure.changeStartRow
+    //x= WallStructure.changeStartRow
 
     /**
      * change the Width of all Walls in the structure to the given Value. Random possible with random(min,max). Default: null
      */
-    changeWidth= WallStructure.changeWidth
+    // changeWidth= WallStructure.changeWidth
 
     /**
      * multiplies the StartTime of all Walls in the structure by the given Value. Random possible with random(min,max). Default: null (does nothing)

@@ -37,7 +37,7 @@ sealed class WallStructure:Serializable
      * This is needed for all the functions and properties.
      * This allows for the use of other bwProperties in the expressions
      */
-    val constantController by lazy { ConstantController(this) }
+    val constantController  = ConstantController(this)
 
     open val a by BwInt()
 
@@ -95,34 +95,34 @@ sealed class WallStructure:Serializable
     var time: Boolean = Default.time
 
     /**
+     * change The StartRow of all Walls in the structure to the given Value. Random possible with random(min,max). Default: null
+     */
+    val x by BwDouble("wall${SpookyWall::x.name}")
+    /**
+     * change The StartHeight of all Walls in the structure to the given Value. Random possible with random(min,max). Default: null
+     */
+    val y by BwDouble("wall${SpookyWall::y.name}")
+    /**
      * change The StartTime of all Walls in the structure to the given Value. Random possible with random(min,max). Default: null
      */
-    var changeStartTime: (() -> Double)? = Default.changeStartTime
+    val z by BwDouble("wall${SpookyWall::z.name}")
+
+
 
     /**
      * change The Duration of all Walls in the structure to the given Value. Random possible with random(min,max). Default: null
      */
-    var changeDuration: (() -> Double)? = Default.changeDuration
+    val d by BwDouble("wall${SpookyWall::duration.name}")
 
     /**
      * change The Height of all Walls in the structure to the given Value. Random possible with random(min,max). Default: null
      */
-    var changeHeight: (() -> Double)? = Default.changeHeight
-
-    /**
-     * change The StartHeight of all Walls in the structure to the given Value. Random possible with random(min,max). Default: null
-     */
-    var changeStartHeight: (() -> Double)? = Default.changeStartHeight
-
-    /**
-     * change The StartRow of all Walls in the structure to the given Value. Random possible with random(min,max). Default: null
-     */
-    var changeStartRow: (() -> Double)? = Default.changeStartRow
+    val h by BwDouble("wall${SpookyWall::height.name}")
 
     /**
      * change the Width of all Walls in the structure to the given Value. Random possible with random(min,max). Default: null
      */
-    var changeWidth: (() -> Double)? = Default.changeWidth
+    val w by BwDouble("wall${SpookyWall::width.name}")
 
     /**
      * multiplies the StartTime of all Walls in the structure by the given Value. Random possible with random(min,max). Default: null (does nothing)
@@ -529,12 +529,12 @@ sealed class WallStructure:Serializable
         if (beat != other.beat) return false
         if (mirror != other.mirror) return false
         if (time != other.time) return false
-        if (changeStartTime != other.changeStartTime) return false
-        if (changeDuration != other.changeDuration) return false
-        if (changeHeight != other.changeHeight) return false
-        if (changeStartHeight != other.changeStartHeight) return false
-        if (changeStartRow != other.changeStartRow) return false
-        if (changeWidth != other.changeWidth) return false
+        if (z != other.z) return false
+        if (d != other.d) return false
+        if (h != other.h) return false
+        if (y != other.y) return false
+        if (x != other.x) return false
+        if (w != other.w) return false
         if (scaleStartTime != other.scaleStartTime) return false
         if (scaleDuration != other.scaleDuration) return false
         if (scaleHeight != other.scaleHeight) return false
@@ -561,12 +561,12 @@ sealed class WallStructure:Serializable
         result = 31 * result + beat.hashCode()
         result = 31 * result + mirror
         result = 31 * result + time.hashCode()
-        result = 31 * result + (changeStartTime?.hashCode() ?: 0)
-        result = 31 * result + (changeDuration?.hashCode() ?: 0)
-        result = 31 * result + (changeHeight?.hashCode() ?: 0)
-        result = 31 * result + (changeStartHeight?.hashCode() ?: 0)
-        result = 31 * result + (changeStartRow?.hashCode() ?: 0)
-        result = 31 * result + (changeWidth?.hashCode() ?: 0)
+        result = 31 * result + (z?.hashCode() ?: 0)
+        result = 31 * result + (d?.hashCode() ?: 0)
+        result = 31 * result + (h?.hashCode() ?: 0)
+        result = 31 * result + (y?.hashCode() ?: 0)
+        result = 31 * result + (x?.hashCode() ?: 0)
+        result = 31 * result + (w?.hashCode() ?: 0)
         result = 31 * result + (scaleStartTime?.hashCode() ?: 0)
         result = 31 * result + (scaleDuration?.hashCode() ?: 0)
         result = 31 * result + (scaleHeight?.hashCode() ?: 0)
@@ -1906,6 +1906,7 @@ class TestStructure: WallStructure(){
     val testInt by BwInt()
     val testIntOrNull by BwIntOrNull()
     val testPoint by BwPoint()
+    val nonBwProperty = 10
 
     override fun generateWalls(): List<SpookyWall>  = listOf()
 }

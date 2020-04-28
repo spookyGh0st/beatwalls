@@ -18,12 +18,17 @@ internal fun WallStructure.adjust(l:List<SpookyWall>): List<SpookyWall> {
  * changes the values of the walls
  */
 internal fun WallStructure.adjustChange(l: List<SpookyWall>){
-    l.forEach { it.duration = changeDuration?.invoke() ?: it.duration }
-    l.forEach { it.z = changeStartTime?.invoke() ?: it.z }
-    l.forEach { it.height = changeHeight?.invoke() ?: it.height }
-    l.forEach { it.y = changeStartHeight?.invoke() ?: it.y }
-    l.forEach { it.x = changeStartRow?.invoke() ?: it.x }
-    l.forEach { it.width = changeWidth?.invoke() ?: it.width }
+    for ((i, wall) in l.withIndex()) {
+        this.constantController.wall = wall
+        this.constantController.progress = i.toDouble()/l.size
+        wall.x = z
+        wall.y = y
+        wall.z = z
+        wall.width = w
+        wall.height = h
+        wall.duration = d
+
+    }
 }
 
 /**

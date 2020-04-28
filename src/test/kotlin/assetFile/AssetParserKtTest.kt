@@ -64,25 +64,25 @@ class AssetParserKtTest : TestCase() {
         val p = propOfName(w,"changeDuration")
 
         fillProperty(p!!, "1.0", listOf(),w)
-        val actual = w.changeDuration!!.invoke()
+        val actual = w.d
         assertEquals(actual,1.0)
         assertNotEquals(actual, 0.0)
 
         fillProperty(p, "random(0,1)", listOf(), w)
-        assertNotEquals(w.changeDuration!!(), w.changeDuration!!())
+        assertNotEquals(w.d, w.d)
         repeat(100) {
-            assert(w.changeDuration!!.invoke() in 0.0..1.0)
+            assert(w.d in 0.0..1.0)
         }
         fillProperty(p, "random(-2,-1)", listOf(), w)
-        assertNotEquals(w.changeDuration!!.invoke(), w.changeDuration!!.invoke())
+        assertNotEquals(w.d, w.d)
         repeat(100) {
-            assert(w.changeDuration!!.invoke() in -2.0..-1.0)
+            assert(w.d in -2.0..-1.0)
         }
         RandomSeed = Random(10)
         val r = Random(10)
         fillProperty(p, "random(0,1)", listOf(), w)
         repeat(100) {
-            assertEquals(w.changeDuration!!(), r.nextDouble(0.0, 1.0))
+            assertEquals(w.d, r.nextDouble(0.0, 1.0))
         }
     }
 

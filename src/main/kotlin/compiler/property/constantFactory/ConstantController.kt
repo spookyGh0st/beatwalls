@@ -19,22 +19,15 @@ class ConstantController(private val ws :WallStructure) {
 
     var wall: SpookyWall? =null
         set(value) {
-            if(wall == null)
+            if(value == null)
                 field = value
             else{
-                wallConstants[0].constantValue = value?.x ?: 0.0
-                wallConstants[1].constantValue = value?.y ?: 0.0
-                wallConstants[2].constantValue = value?.y ?: 0.0
-                wallConstants[3].constantValue = value?.width ?: 0.0
-                wallConstants[4].constantValue = value?.height ?: 0.0
-                wallConstants[5].constantValue = value?.duration ?: 0.0
-                wallConstants[6].constantValue = value?.rotation ?: 0.0
-                wallConstants[7].constantValue = value?.localRotX ?: 0.0
-                wallConstants[8].constantValue = value?.localRotY ?: 0.0
-                wallConstants[9].constantValue = value?.localRotZ ?: 0.0
-                wallConstants[10].constantValue = value?.color?.red ?: 0.0
-                wallConstants[11].constantValue = value?.color?.green ?: 0.0
-                wallConstants[12].constantValue = value?.color?.blue ?: 0.0
+                wallConstants = value::class.memberProperties.map {
+                    val n = "wall${it.name.toLowerCase()}"
+                    val s = (it as KProperty1<SpookyWall,Any?>).get(value)
+                    val v = s.toString().toDoubleOrNull()?: 0.0
+                    Constant(n,v)
+                }
             }
         }
 
@@ -53,21 +46,7 @@ class ConstantController(private val ws :WallStructure) {
 
     val progressConstant = Constant("progress",progress)
 
-    val wallConstants = listOf(
-        Constant("wallx=${wall?.x?: Double.NaN}"),
-        Constant("wally=${wall?.y?: Double.NaN}"),
-        Constant("wallz=${wall?.z?: Double.NaN}"),
-        Constant("wallwidth=${wall?.width?: Double.NaN}"),
-        Constant("wallheight=${wall?.height?: Double.NaN}"),
-        Constant("wallduration=${wall?.duration?: Double.NaN}"),
-        Constant("wallrotation=${wall?.rotation?: Double.NaN}"),
-        Constant("walllocalrotx=${wall?.localRotX?: Double.NaN}"),
-        Constant("walllocalroty=${wall?.localRotY?: Double.NaN}"),
-        Constant("walllocalrotz=${wall?.localRotZ?: Double.NaN}"),
-        Constant("wallcolorr=${wall?.color?.red?: Double.NaN}"),
-        Constant("wallcolorg=${wall?.color?.green?: Double.NaN}"),
-        Constant("wallcolorb=${wall?.color?.blue?: Double.NaN}")
-    )
+    var wallConstants = listOf<Constant>()
 }
 
 

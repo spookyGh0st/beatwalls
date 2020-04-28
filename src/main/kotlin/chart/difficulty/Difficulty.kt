@@ -15,7 +15,7 @@ data class Difficulty(
     @SerializedName("_customEvents") val _customEvents : ArrayList<_customEvents>?,
     @SerializedName("_customData") val _customData : _customData?
 ) {
-    fun createWalls(list: ArrayList<WallStructure>) {
+    fun createWalls(list: List<WallStructure>) {
 
         //removes the old Obstacles
         removeOldWalls()

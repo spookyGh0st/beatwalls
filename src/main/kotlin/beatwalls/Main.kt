@@ -23,6 +23,7 @@ fun errorExit(e: Exception? = null, msg: () -> Any): Nothing {
     }
     logger.error {
         """
+            
   _____ ____  ____   ___  ____  
  | ____|  _ \|  _ \ / _ \|  _ \ 
  |  _| | |_) | |_) | | | | |_) |

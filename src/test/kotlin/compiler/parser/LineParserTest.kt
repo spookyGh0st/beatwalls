@@ -1,13 +1,16 @@
 package compiler.parser
 
+import compiler.property.InvalidExpressionException
 import org.junit.Test
 import structure.Define
 import structure.TestStructure
 import structure.Wall
 import structure.helperClasses.Point
 import java.io.File
+import kotlin.random.nextULong
 import kotlin.reflect.full.memberProperties
 import kotlin.test.assertEquals
+import kotlin.test.assertFailsWith
 
 class LineParserTest {
     @Test
@@ -138,6 +141,28 @@ struct w4: w1,w2,w3
         assertEquals(1,w[1].testInt)
         assertEquals(2,w[2].testInt)
     }
+
+    @Test
+    fun `test invalid Property`(){
+        val t = """
+10 testStructure
+  nonBwProperty = 20
+        """.trimIndent().toLowerCase()
+        val lp = LineParser()
+        assertFailsWith<InvalidLineExpression> { lp.create(t.toLines())  }
+    }
+
+    @Test
+    fun `test invalid Constant`(){
+        val t = """
+10 testStructure
+  testInt = 1 + fsdsdfjkladfjsakldfjsklajfdskla
+        """.trimIndent().toLowerCase()
+        val lp = LineParser()
+        val ws = lp.create(t.toLines()).first()
+        assertFailsWith<InvalidExpressionException> { (ws as TestStructure).testInt }
+    }
+
 
 
 

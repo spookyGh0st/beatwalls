@@ -47,8 +47,9 @@ class LineParser {
         parseLines(l)
         val ws = structList.map { it.create() }
         ws.forEach {
-            it.constantController.customConstants.addAll(dataSet.constantList.values)
-            it.constantController.customFunctions.addAll(dataSet.functionList.values)
+            val cc = it.constantController
+            cc.customConstants.addAll(dataSet.constantList.values)
+            cc.customFunctions.addAll(dataSet.functionList.values)
         }
         return ws
     }
@@ -157,7 +158,9 @@ class LineParser {
         }
         val fact = dataSet.wsFactories[name]?: throw InvalidLineExpression(l,"fakt $name does not exist, please report this error")
         val defaultInterface = dataSet.interfaces["default"]!!
-        val operations = (bwInterfaces + defaultInterface).flatMap { it.operations }.toMutableList()
+        val beatOperation = { ws: WallStructure -> ws.beat = beat.toDouble() }
+        val interfaceOperations = (bwInterfaces + defaultInterface ).flatMap { it.operations }
+        val operations = (interfaceOperations + beatOperation).toMutableList()
         val wsFact = WsFactory({ fact.create() },operations)
         structList.add(wsFact)
         lastStructure = wsFact

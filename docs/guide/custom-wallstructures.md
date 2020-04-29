@@ -1,9 +1,18 @@
-# Custom Wallstructures
+# Structs and Interfaces
+
+It is best to avoid duplicates, when you can.
+This leads to Code, that you can easily change and adjust to maps.
+To help you with this Beatwalls has some features you might recognized when you worked with object-oriented programming before.
+
+## Custom Wallstructures
 
 You can combine and build on top of existing Wallstructures
 This is a good way to reduce duplicated Code.
 
-Example:
+::: danger
+You always need one at least one Wallstructure you are basing on
+:::
+
 ```
 # Bottom and top Wall of the tunel
 # _tunnel1 is the name of our Wallstructure
@@ -28,14 +37,46 @@ tunnel: _tunnel1,_tunnel2,
 [//]: # (TODO find a better example)
 
 ::: tip naming convention
-Starting Names with underscores is a simple way of telling what Wallstructures are used only in other Structures,
-and not called uppon
+Starting Names with underscores is a simple way of telling what Wallstructures are used only in other Structures.
 :::
 
-::: danger Overriding Assertions
+::: tip Overriding Assertions
 You can still override Assertions.
 ```
 10 tunnel
     p1 = 1,1,1
 ```
 :::
+
+## Interfaces
+
+Interfaces hold assertions for Wallstructures.
+
+```
+# create
+interface fast
+    duration = -2
+interface point
+    width = 0
+    height = 0
+
+# has duration set to -2
+# has width and height 0
+10 tunnel: fast, point
+```
+
+You can also create nested Interfaces
+
+```
+interface fastpoints: fast, point
+10 tunnel: fast, point
+```
+
+You can use Interfaces on custom Wallstructures
+
+```
+struct pointLine: Line, fastpoints
+    p1: -10,0,0
+    p2: 2,10,4
+10 pointLine
+```

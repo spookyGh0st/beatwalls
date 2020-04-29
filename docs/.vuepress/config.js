@@ -57,8 +57,8 @@ module.exports = {
         sidebar: {
           '/guide/': generateSidebar('Guide', [
             '',
+            'assertions',
             'custom-wallstructures',
-            //'interfaces',
             //'functions',
             //'constants',
             //'options',

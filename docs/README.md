@@ -34,6 +34,6 @@ footer: Copyright © fuck copyright, do whatever you want
 <hr />
 
 ## External Links
-* [BSMG Wiki](bsmg.wiki) 
+* [BSMG Wiki](https://bsmg.wiki) 
 * [BeatSaver](https://beatsaver.com/) 
 * [Trippy Index](https://readyplayeremma.com/trippy_index) 

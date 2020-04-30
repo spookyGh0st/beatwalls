@@ -18,3 +18,5 @@ target/
 /test.sh
 /src/main/kotlin/chart/difficulty/tempScripts.kt
 /.temp/
+/node_modules/
+/website/

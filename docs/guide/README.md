@@ -1,6 +1,6 @@
 # Quickstart
 
-Ever saw a wallmap on beatsaber and thought.
+Ever played a wallmap and thought.
 
 ![Rookie Numbers](./images/rooki_numbers.jpg)
 

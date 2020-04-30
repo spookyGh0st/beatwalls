@@ -1,0 +1,18 @@
+on: push
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@master
+      - name: Build Website
+        run: |
+          yarn install --frozen-lockfile
+          yarn build
+      - name: Deploy
+        uses: JamesIves/github-pages-deploy-action@releases/v3
+        with:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}.
+          BRANCH: gh-pages
+          FOLDER: docs/.vuepress/dist
+          TARGET_FOLDER: ${GITHUB_REF:10}

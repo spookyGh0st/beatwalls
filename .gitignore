@@ -20,3 +20,4 @@ target/
 /.temp/
 /node_modules/
 /website/
+/docs/.vuepress/dist/

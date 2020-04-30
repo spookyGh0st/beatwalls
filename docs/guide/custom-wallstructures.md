@@ -1,4 +1,4 @@
-# Structs and Interfaces
+# Nested Wallstructures and Interfaces
 
 It is best to avoid duplicates, when you can.
 This leads to Code, that you can easily change and adjust to maps.
@@ -34,7 +34,6 @@ tunnel: _tunnel1,_tunnel2,
 # creating a tunel
 10 tunnel
 ```
-[//]: # (TODO find a better example)
 
 ::: tip naming convention
 Starting Names with underscores is a simple way of telling what Wallstructures are used only in other Structures.
@@ -43,8 +42,10 @@ Starting Names with underscores is a simple way of telling what Wallstructures a
 ::: tip Overriding Assertions
 You can still override Assertions.
 ```
-10 tunnel
-    p1 = 1,1,1
+myline: Line
+    p1 = 10,0,0
+10 myLine
+    p1 = 10,5,0
 ```
 :::
 

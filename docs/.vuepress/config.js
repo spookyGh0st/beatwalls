@@ -60,9 +60,7 @@ module.exports = {
             '',
             'assertions',
             'custom-wallstructures',
-            //'functions',
-            //'constants',
-            //'options',
+            'advanced-usage',
           ]),
           '/changelog/': generateSidebar('Changelog', [
             '',

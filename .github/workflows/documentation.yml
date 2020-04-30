@@ -1,7 +1,7 @@
 on: push
 
 jobs:
-  build:
+  Documentation:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@master
@@ -15,4 +15,3 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}.
           BRANCH: gh-pages
           FOLDER: docs/.vuepress/dist
-          TARGET_FOLDER: ${GITHUB_REF:10}

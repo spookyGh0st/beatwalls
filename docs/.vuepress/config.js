@@ -63,6 +63,10 @@ module.exports = {
             //'constants',
             //'options',
           ]),
+          '/changelog/': generateSidebar('Changelog', [
+            '',
+            'history',
+          ]),
           }
       },
       '/fr/': {

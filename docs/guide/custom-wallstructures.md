@@ -80,3 +80,16 @@ struct pointLine: Line, fastpoints
     p2: 2,10,4
 10 pointLine
 ```
+
+## Default Interface
+
+The default Interface is one __all__ Wallstructures have.
+You can overwrite it to set certain Values for all Walls.
+
+```
+# override the default Interface
+interface default
+    duration = -3
+# will have its duration set to -3
+10 wall
+```

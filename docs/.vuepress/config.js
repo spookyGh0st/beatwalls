@@ -13,6 +13,7 @@ function generateSidebar(title, routes, collapsable = false) {
 }
 
 module.exports = {
+  base: "/beatwalls/",
   head: [
     ['link', { rel: 'icon', href: '/favicon.png' }],
     ['meta', { name: 'theme-color', content: '#2196f3' }],
@@ -69,45 +70,32 @@ module.exports = {
           ]),
           }
       },
-      '/fr/': {
-        selectText: 'Langue',
-        label: 'Français',
-        ariaLabel: 'Langue',
-        editLinkText: 'Aidez à améliorer cette page !',
-        lastUpdated: 'Dernière mise à jour',
+      '/ja/': {
+        selectText: 'Language',
+        label: 'Japanese',
+        ariaLabel: 'Language',
+        editLinkText: 'Help improve this page!',
+        lastUpdated: 'Last Updated',
         nav: [
-          { text: 'Accueil', link: '/fr/' },
-          { text: 'Guide du Débutant', link: '/fr/beginners-guide.md' },
-          { text: 'Discord BSMG', link: 'https://discord.gg/beatsabermods' },
+          { text: 'Home', link: '/ja/' },
+          { text: 'Guide', link: '/ja/guide/' },
+          { text: 'Examples', link: '/ja/examples/' },
+          { text: 'Reference', link: '/ja/reference/' },
         ],
         sidebar: {
-          '/fr/about/': generateSidebar('À propos', [
+          '/ja/guide/': generateSidebar('Guide', [
             '',
-            'staff',
-            'moderators',
-            'modders',
-            'supports',
-            'mapping-supports',
-            '3d-artists',
+            'assertions',
+            'custom-wallstructures',
+            //'functions',
+            //'constants',
+            //'options',
           ]),
-          '/fr/faq/': generateSidebar('FAQ', [
+          '/ja/changelog/': generateSidebar('Changelog', [
             '',
-            'install-folder',
+            'history',
           ]),
-          '/fr/modding/': generateSidebar('Modding', [
-            '',
-            'intro',
-            'extras',
-            'linux',
-          ]),
-          '/fr/models/': generateSidebar('Modèles 3D', [
-            '',
-            'custom-sabers',
-            'custom-avatars',
-            'custom-platforms',
-            'custom-notes',
-          ]),
-        },
+          }
       },
     },
   },

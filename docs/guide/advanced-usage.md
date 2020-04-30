@@ -44,4 +44,3 @@ There are also cl options for more advanced user
 - ``--clearAll`` -> deletes all previous from bw created Walls without creating no walls
 - ``--deleteAllPrevious`` ->  deletes all Walls and notes in the difficulty, and not just the one created by beatwalls before creating walls/bombs.
 - ``--noUpdate`` -> don't auto update
-

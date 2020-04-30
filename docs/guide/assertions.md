@@ -102,4 +102,3 @@ Be cautions with `i` and `wall{x/y/z/width/height/duration}`.
 Only Properties, that are used to __change__ existing Wallstructures and not all Properties that are used to __create__ them have access to them.
 Therefore, some functions like easing do not work on all properties.
 :::
-

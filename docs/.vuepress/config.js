@@ -24,9 +24,9 @@ module.exports = {
       lang: 'en-US',
       title: 'BW Docs',
     },
-    '/fr/': {
-      lang: 'fr-FR',
-      title: 'Wiki BSMG',
+    '/ja/': {
+      lang: 'ja-JA',
+      title: 'BW Docs',
     },
   },
 

@@ -13,7 +13,7 @@ footer: Copyright © fuck copyright, do whatever you want
 * [Guide](./guide/)
 * [Reference](./reference/)
 * [Examples](./examples/)
-* [Roadmap](./roadmap/)
+* [Changelog](./changelog/)
 :::
 
 ::: feature Community

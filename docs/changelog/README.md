@@ -1,14 +1,18 @@
-# planned Features
+# Changelog
+
+## planned Features
 
 - better map loading
 - name globbing
 - faster runtime 
 - More Noodle Wallstructures
+- better curve
 - modules
 - vsc plugin
 - syntax checker
+- formatter
 
-# v1.0.0
+## v1.0.0
 
 __Fancy new Documentations__
 - it looks good now and hopefully is helpful
@@ -28,3 +32,6 @@ __WallStructure changes__
 - Wall now uses Points instead of single Variables
 - Some default Values have been changed
 
+## Older
+
+check out the [history](./history.md)

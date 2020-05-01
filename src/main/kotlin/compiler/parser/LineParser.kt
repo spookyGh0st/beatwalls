@@ -77,7 +77,7 @@ class LineParser {
 // |_| |_| |_|\__,_|_|_| |_| |_|  \__,_|_| |_|\___|\__|_|\___/|_| |_|___/
 
     private fun checkName(name: String){
-        if (dataSet.inKeys(name)) throw NameAlreadyExistException(name)
+        if (dataSet.inKeys(name) && name != "default") throw NameAlreadyExistException(name)
 
     }
 

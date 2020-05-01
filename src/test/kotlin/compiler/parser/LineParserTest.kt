@@ -7,6 +7,8 @@ import structure.TestStructure
 import structure.Wall
 import structure.helperClasses.Point
 import java.io.File
+import kotlin.math.PI
+import kotlin.math.roundToInt
 import kotlin.random.nextULong
 import kotlin.reflect.full.memberProperties
 import kotlin.test.assertEquals
@@ -163,9 +165,44 @@ struct w4: w1,w2,w3
         assertFailsWith<InvalidExpressionException> { (ws as TestStructure).testInt }
     }
 
+    @Test
+    fun `test build in constants`(){
+        val t = """
+10 testStructure
+  testInt = 2 * pi
+        """.trimIndent().toLowerCase().toLines()
+        val lp = LineParser()
+        val ws = lp.create(t).first() as TestStructure
+        assertEquals(ws.testInt,(2* PI).roundToInt())
+
+    }
+
+    @Test
+    fun `test default interface`(){
+        val t = """
+10 testStructure
+interface default
+  testInt = 1 
+20 testStructure
+interface default
+  testIntOrNull = 1 
+30 testStructure
+interface default
+40 testStructure
+        """.trimIndent().toLowerCase().toLines()
+        val lp = LineParser()
+        val w = lp.create(t)
+        val ws0 = w[0] as TestStructure
+        val ws1 = w[1] as TestStructure
+        val ws2 = w[2] as TestStructure
+        val ws3 = w[3] as TestStructure
+        assertEquals(0,ws0.testInt)
+        assertEquals(1,ws1.testInt)
+        assertEquals(0,ws2.testInt)
+        assertEquals(0,ws3.testInt)
+    }
 
 
 
-
-    private fun String.toLines() = this.lines().map { Line(it) }
+    private fun String.toLines() = this.lines().mapIndexed { index, s ->  Line(s,index) }
 }

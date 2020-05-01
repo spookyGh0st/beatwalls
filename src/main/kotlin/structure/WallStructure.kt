@@ -107,8 +107,6 @@ sealed class WallStructure:Serializable
      */
     val z by BwDouble("wall${SpookyWall::z.name}")
 
-
-
     /**
      * change The Duration of all Walls in the structure to the given Value. Random possible with random(min,max). Default: null
      */
@@ -123,66 +121,6 @@ sealed class WallStructure:Serializable
      * change the Width of all Walls in the structure to the given Value. Random possible with random(min,max). Default: null
      */
     val w by BwDouble("wall${SpookyWall::width.name}")
-
-    /**
-     * multiplies the StartTime of all Walls in the structure by the given Value. Random possible with random(min,max). Default: null (does nothing)
-     */
-    var scaleStartTime: (() -> Double)? = Default.scaleStartTime
-
-    /**
-     * multiplies the Duration of all Walls in the structure by the given Value. Random possible with random(min,max). Default: null (does nothing)
-     */
-    var scaleDuration: (() -> Double)? = Default.scaleDuration
-
-    /**
-     * multiplies the Height of all Walls in the structure by the given Value. Random possible with random(min,max). Default: null (does nothing)
-     */
-    var scaleHeight: (() -> Double)? = Default.scaleHeight
-
-    /**
-     * multiplies the StartHeight of all Walls in the structure by the given Value. Random possible with random(min,max). Default: null (does nothing)
-     */
-    var scaleStartHeight: (() -> Double)? = Default.scaleStartHeight
-
-    /**
-     * multiplies the StartRow of all Walls in the structure by the given Value. Random possible with random(min,max). Default: null (does nothing)
-     */
-    var scaleStartRow: (() -> Double)? = Default.scaleStartRow
-
-    /**
-     * multiplies the Width of all Walls in the structure by the given Value. Random possible with random(min,max). Default: null (does nothing)
-     */
-    var scaleWidth: (() -> Double)? = Default.scaleWidth
-
-    /**
-     * adds the given Value. Random possible with random(min,max). Default: null (does nothing)
-     */
-    var addStartTime: (() -> Double)? = Default.addStartTime
-
-    /**
-     * adds the given Value. Random possible with random(min,max). Default: null (does nothing)
-     */
-    var addDuration: (() -> Double)? = Default.addDuration
-
-    /**
-     * adds the given Value. Random possible with random(min,max). Default: null (does nothing)
-     */
-    var addHeight: (() -> Double)? = Default.addHeight
-
-    /**
-     * adds the given Value. Random possible with random(min,max). Default: null (does nothing)
-     */
-    var addStartHeight: (() -> Double)? = Default.addStartHeight
-
-    /**
-     * adds the given Value. Random possible with random(min,max). Default: null (does nothing)
-     */
-    var addStartRow: (() -> Double)? = Default.addStartRow
-
-    /**
-     * adds the given Value. Random possible with random(min,max). Default: null (does nothing)
-     */
-    var addWidth: (() -> Double)? = Default.addWidth
 
     /**
      * increases or decreases the duration of all walls until they have the the specific startTime. Random possible with random(min,max). default: null (does nothing)
@@ -512,18 +450,6 @@ sealed class WallStructure:Serializable
         if (y != other.y) return false
         if (x != other.x) return false
         if (w != other.w) return false
-        if (scaleStartTime != other.scaleStartTime) return false
-        if (scaleDuration != other.scaleDuration) return false
-        if (scaleHeight != other.scaleHeight) return false
-        if (scaleStartHeight != other.scaleStartHeight) return false
-        if (scaleStartRow != other.scaleStartRow) return false
-        if (scaleWidth != other.scaleWidth) return false
-        if (addStartTime != other.addStartTime) return false
-        if (addDuration != other.addDuration) return false
-        if (addHeight != other.addHeight) return false
-        if (addStartHeight != other.addStartHeight) return false
-        if (addStartRow != other.addStartRow) return false
-        if (addWidth != other.addWidth) return false
         if (scale != other.scale) return false
         if (repeat != other.repeat) return false
         if (repeatAddZ != other.repeatAddZ) return false
@@ -538,24 +464,12 @@ sealed class WallStructure:Serializable
         result = 31 * result + beat.hashCode()
         result = 31 * result + mirror
         result = 31 * result + time.hashCode()
-        result = 31 * result + (z?.hashCode() ?: 0)
-        result = 31 * result + (d?.hashCode() ?: 0)
-        result = 31 * result + (h?.hashCode() ?: 0)
-        result = 31 * result + (y?.hashCode() ?: 0)
-        result = 31 * result + (x?.hashCode() ?: 0)
-        result = 31 * result + (w?.hashCode() ?: 0)
-        result = 31 * result + (scaleStartTime?.hashCode() ?: 0)
-        result = 31 * result + (scaleDuration?.hashCode() ?: 0)
-        result = 31 * result + (scaleHeight?.hashCode() ?: 0)
-        result = 31 * result + (scaleStartHeight?.hashCode() ?: 0)
-        result = 31 * result + (scaleStartRow?.hashCode() ?: 0)
-        result = 31 * result + (scaleWidth?.hashCode() ?: 0)
-        result = 31 * result + (addStartTime?.hashCode() ?: 0)
-        result = 31 * result + (addDuration?.hashCode() ?: 0)
-        result = 31 * result + (addHeight?.hashCode() ?: 0)
-        result = 31 * result + (addStartHeight?.hashCode() ?: 0)
-        result = 31 * result + (addStartRow?.hashCode() ?: 0)
-        result = 31 * result + (addWidth?.hashCode() ?: 0)
+        result = 31 * result + (z.hashCode() ?: 0)
+        result = 31 * result + (d.hashCode() ?: 0)
+        result = 31 * result + (h.hashCode() ?: 0)
+        result = 31 * result + (y.hashCode() ?: 0)
+        result = 31 * result + (x.hashCode() ?: 0)
+        result = 31 * result + (w.hashCode() ?: 0)
         result = 31 * result + (scale?.hashCode() ?: 0)
         result = 31 * result + repeat
         result = 31 * result + repeatAddZ.hashCode()

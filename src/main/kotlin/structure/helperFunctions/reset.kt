@@ -48,62 +48,62 @@ fun WallStructure.reset(){
     /**
      * multiplies the StartTime of all Walls in the structure by the given Value. Random possible with random(min,max). Default: null (does nothing)
      */
-    scaleStartTime= WallStructure.scaleStartTime
+    //scaleStartTime= WallStructure.scaleStartTime
 
     /**
      * multiplies the Duration of all Walls in the structure by the given Value. Random possible with random(min,max). Default: null (does nothing)
      */
-    scaleDuration= WallStructure.scaleDuration
+    //scaleDuration= WallStructure.scaleDuration
 
     /**
      * multiplies the Height of all Walls in the structure by the given Value. Random possible with random(min,max). Default: null (does nothing)
      */
-    scaleHeight= WallStructure.scaleHeight
+    //scaleHeight= WallStructure.scaleHeight
 
     /**
      * multiplies the StartHeight of all Walls in the structure by the given Value. Random possible with random(min,max). Default: null (does nothing)
      */
-    scaleStartHeight= WallStructure.scaleStartHeight
+    //scaleStartHeight= WallStructure.scaleStartHeight
 
     /**
      * multiplies the StartRow of all Walls in the structure by the given Value. Random possible with random(min,max). Default: null (does nothing)
      */
-    scaleStartRow= WallStructure.scaleStartRow
+    //scaleStartRow= WallStructure.scaleStartRow
 
     /**
      * multiplies the Width of all Walls in the structure by the given Value. Random possible with random(min,max). Default: null (does nothing)
      */
-    scaleWidth= WallStructure.scaleWidth
+    //scaleWidth= WallStructure.scaleWidth
 
     /**
      * adds the given Value. Random possible with random(min,max). Default: null (does nothing)
      */
-    addStartTime= WallStructure.addStartTime
+    //addStartTime= WallStructure.addStartTime
 
     /**
      * adds the given Value. Random possible with random(min,max). Default: null (does nothing)
      */
-    addDuration= WallStructure.addDuration
+    //addDuration= WallStructure.addDuration
 
     /**
      * adds the given Value. Random possible with random(min,max). Default: null (does nothing)
      */
-    addHeight= WallStructure.addHeight
+    //addHeight= WallStructure.addHeight
 
     /**
      * adds the given Value. Random possible with random(min,max). Default: null (does nothing)
      */
-    addStartHeight= WallStructure.addStartHeight
+    //addStartHeight= WallStructure.addStartHeight
 
     /**
      * adds the given Value. Random possible with random(min,max). Default: null (does nothing)
      */
-    addStartRow= WallStructure.addStartRow
+    //addStartRow= WallStructure.addStartRow
 
     /**
      * adds the given Value. Random possible with random(min,max). Default: null (does nothing)
      */
-    addWidth= WallStructure.addWidth
+    //addWidth= WallStructure.addWidth
 
     /**
      * increases or decreases the duration of all walls until they have the the specific startTime. Random possible with random(min,max). default: null (does nothing)

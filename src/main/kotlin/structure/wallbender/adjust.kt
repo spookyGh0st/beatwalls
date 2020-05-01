@@ -8,8 +8,6 @@ import structure.helperClasses.SpookyWall
  */
 internal fun WallStructure.adjust(l:List<SpookyWall>): List<SpookyWall> {
     adjustChange(l)
-    adjustScale(l)
-    adjustAdd(l)
     adjustFit(l)
     return l
 }
@@ -29,38 +27,6 @@ internal fun WallStructure.adjustChange(l: List<SpookyWall>){
         wall.duration = d
 
     }
-}
-
-/**
- * scales the values of the walls
- */
-internal fun WallStructure.adjustScale(l: List<SpookyWall>) {
-    l.forEach { it.duration *= scaleDuration?.invoke() ?: 1.0 }
-    l.forEach { it.z *= scaleStartTime?.invoke() ?: 1.0 }
-    l.forEach { it.height *= scaleHeight?.invoke() ?: 1.0 }
-    l.forEach { it.y *= scaleStartHeight?.invoke() ?: 1.0 }
-    l.forEach { it.x *= scaleStartRow?.invoke() ?: 1.0 }
-    l.forEach { it.width *= scaleWidth?.invoke() ?: 1.0 }
-
-    if (scale != null) {
-        spookyWalls.forEach {
-            it.z *= scale as Double
-            if (it.duration > 0)
-                it.duration *= scale as Double
-        }
-    }
-}
-
-/**
- * adds to the values of the walls
- */
-internal fun WallStructure.adjustAdd(l: List<SpookyWall>) {
-    l.forEach { it.duration += addDuration?.invoke() ?: 0.0 }
-    l.forEach { it.z += addStartTime?.invoke() ?: 0.0 }
-    l.forEach { it.height += addHeight?.invoke() ?: 0.0 }
-    l.forEach { it.y += addStartHeight?.invoke() ?: 0.0 }
-    l.forEach { it.x += addStartRow?.invoke() ?: 0.0 }
-    l.forEach { it.width += addWidth?.invoke() ?: 0.0 }
 }
 
 /**

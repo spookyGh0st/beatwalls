@@ -18,8 +18,6 @@ fun SteadyCurve.run(): List<SpookyWall> {
     p4=p4.copy(z=1.0)
     return (curve(p1, p2 ?: p1, p3 ?: p4, p4, amount))
 }
-@Suppress("unused")
-fun HelixCurve.run(): List<SpookyWall> = TODO()
 
 fun curve(startPoint: Point, p1: Point, p2: Point, endPoint: Point, amount: Int): List<SpookyWall> {
     val list = mutableListOf<SpookyWall>()

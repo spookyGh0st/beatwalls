@@ -37,7 +37,7 @@ sealed class WallStructure:Serializable
      * This is needed for all the functions and properties.
      * This allows for the use of other bwProperties in the expressions
      */
-    val constantController  = ConstantController(this)
+    val constantController  by lazy{ ConstantController(this) }
 
     open val a by BwInt()
 
@@ -246,29 +246,6 @@ sealed class WallStructure:Serializable
      */
     var speeder: Double? = Default.speeder
 
-    /**
-     * todo doku for interfaces
-     * The Interfaces This Wallstructure uses
-     *
-     * for example create an interface using
-     * ```yaml
-     * interface: hyperWalls
-     *   changeDuration: -3
-     * interface: bigBoy
-     *   addHeight: -3
-     *
-     * 10: wall
-     *   extends: hyperwalls, bigBoy
-     * ```
-     *
-     * There are already predefined Interfaces you can use.
-     *
-     * - default: Interface every wallstructure has, set values globally
-     * - hyper: set changeDuration to hyperwalls
-     * - ground: set fitStartHeight=0
-     *
-     *
-     */
 
     /**
      * how often you want to repeat the Structure.
@@ -588,15 +565,6 @@ sealed class WallStructure:Serializable
     }
 }
 
-sealed class test: WallStructure(){
-
-}
-class test2: test(){
-    override fun generateWalls(): List<SpookyWall> {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
-
-}
 
 /**
  * dont touch
@@ -1036,26 +1004,6 @@ class NoodleHelix: WallStructure(){
     override fun generateWalls()  = run()
 }
 
-/**
- * NOT IMPLEMENTED YET
- * loops throuh the given wallstructures and increments their values
- */
-class Loop: WallStructure(){
-    /**
-     * The name of Different Structures. Separated by comma (example: structures: Floor, Ceiling)
-     * You can also define Parameters of the first Structure
-     * These get loaded in Order, So if your reference defined Structures, those must be listed before that
-     * The Beat Value gets every time, so it should be 0 most of the time
-     */
-    var structures: List<WallStructure> = listOf()
-
-    /**
-     * how often to loop through it
-     */
-    var amount: Int = 8
-
-    override fun generateWalls() = run()
-}
 
 /**
  * Draws a wall of line between the 2 provided Points
@@ -1139,49 +1087,6 @@ class RandomCurve: WallStructure(){
     override fun generateWalls()  = run()
 }
 
-/**
- * NOT IMPLEMENTED YET
- *
- * Helix Curve lets you define 1/4 of a curve around the center. The program creates the rest of the helix
- */
-class HelixCurve: WallStructure() {
-    /**
-     * the start Point of the Curve
-     */
-    var p1: Point = Point(0, 0, 0)
-
-    /**
-     * the first Controllpoint, defaults to the startPoint
-     */
-    var p2: Point =
-        Point(4.0, 0.0, 0.33)
-
-    /**
-     * second ControlPoint, defaults to the end point
-     */
-    var p3: Point =
-        Point(4.0, 0.0, 0.66)
-
-    /**
-     * The EndPoint of the Curve
-     */
-    var p4: Point = Point(4, 2, 1)
-
-    /**
-     * the amount of walls per Helix
-     */
-    var amount: Int = 8
-
-    /**
-     * how many helix spines will be Created. Only 2 or 4 allowed
-     */
-    var count: Int = 4
-
-    /**
-     * generating the Walls
-     */
-    override fun generateWalls()  = run()
-}
 
 //                                               _                _      ____               _
 //   __ _    ___   _ __     ___   _ __    __ _  | |_    ___    __| |    / ___|   ___     __| |   ___

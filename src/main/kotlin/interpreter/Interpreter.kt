@@ -6,7 +6,7 @@ import interpreter.parser.LineParser
 import interpreter.parser.parseFileToLines
 import structure.WallStructure
 
-class Compiler {
+class Interpreter {
     fun compile(): List<WallStructure> {
         //we need one factory
         val wf = LineParser()

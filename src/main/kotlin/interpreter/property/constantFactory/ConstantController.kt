@@ -49,6 +49,10 @@ class ConstantController(private val ws :WallStructure) {
 
     val progressConstant = Constant("progress",progress)
 
+    val repeatArguments
+            get() = ws.repeatNeu.map { Argument(it.name,it.value.toDouble()) }
+
+
     var wallConstants = listOf<Constant>()
 
 }

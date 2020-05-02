@@ -196,7 +196,23 @@ struct w4: w1,w2,w3
         val lp = LineParser()
         val ws = lp.create(t).first() as TestStructure
         assertEquals(2,ws.testInt)
+    }
 
+    @Test
+    fun `test repeat in functions`(){
+        val t = """
+10 testStructure
+  $keyRepeat j = 5
+  $keyRepeat k = 2
+  testInt = 2 + j + k
+        """.trimIndent().toLowerCase().toLines()
+        val lp = LineParser()
+        val ws = lp.create(t).first() as TestStructure
+        assertEquals(2,ws.testInt)
+        ws.repeatNeu.first().value = 1
+        assertEquals(3,ws.testInt)
+        ws.repeatNeu[1].value = 2
+        assertEquals(5,ws.testInt)
     }
 
     @Test

@@ -31,7 +31,7 @@ abstract class BwProperty:Serializable{
         return cl.filter { it.syntaxStatus }
     }
     fun buildArguments(cc: ConstantController): List<Argument> {
-        val cl =  cc.structureConstants
+        val cl =  cc.structureConstants + cc.repeatArguments
         return cl.filter { it.checkSyntax() }
     }
 

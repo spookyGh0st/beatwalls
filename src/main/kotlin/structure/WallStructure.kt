@@ -367,6 +367,8 @@ sealed class WallStructure:Serializable
      */
     var bombs: Boolean = Default.bombs
 
+    val repeatNeu: MutableList<Repeat>  = mutableListOf()
+
     /**
      * I have no idea, ask cyan
      */

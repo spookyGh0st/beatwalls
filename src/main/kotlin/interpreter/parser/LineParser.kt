@@ -2,6 +2,7 @@ package interpreter.parser
 
 import assetFile.isDouble
 import interpreter.parser.types.*
+import interpreter.property.specialProperties.Repeat
 import org.mariuszgromada.math.mxparser.Constant
 import org.mariuszgromada.math.mxparser.Function
 import structure.Define
@@ -60,6 +61,7 @@ class LineParser {
 
     fun parseLine(l: Line){
         when{
+            isRepeat(l) -> addRepeat(l)
             isConstant(l) -> defineConstant(l)
             isFunction(l) -> defineFunction(l)
             isCustomStruct(l) -> defineCustomStruct(l)
@@ -78,7 +80,16 @@ class LineParser {
 
     private fun checkName(name: String){
         if (dataSet.inKeys(name) && name != "default") throw NameAlreadyExistException(name)
+    }
 
+    fun isRepeat(l: Line) = l.sBefore(" ") == keyRepeat
+
+    fun addRepeat(l: Line){
+        val name = l.sBetween(keyRepeat, keyAssignment)
+        val max = l.sAfter(keyAssignment).toIntOrNull()?: throw  InvalidLineExpression(l,"Could not get the max value")
+        lastStructure.operations.add{
+            it.repeatNeu.add(Repeat(name,max))
+        }
     }
 
     fun isConstant(l: Line) = l.sBefore(" ")  == "const"

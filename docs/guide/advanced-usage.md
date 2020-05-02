@@ -33,8 +33,11 @@ middle.bw
 
 etc.
 
-::: danger
-The files simply get merged at runtime, custom Structures, interfaces, etc are not private per file.
+::: danger NOTE
+Imported files are merged into one at runtime.
+Custom Structures, Interfaces etc are not private per file and will be shared.
+This may have unintended results if the same name is used for different structures
+or parameters between files.
 :::
 
 ## Command Line Options

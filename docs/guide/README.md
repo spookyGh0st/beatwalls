@@ -9,6 +9,9 @@ __OH BOY DO I HAVE THE TOOL FOR YOU__
 __Beatwalls__ is a program designed to make wallmaps with thousands of wall possible.
 It tries to make them __easy and fast__ to create and change.
 
+Before we start, I want to thank Bloodcloak, 
+who put up with my spelling and helped me write this documentary.
+
 ## Installation
 
 ### Tools
@@ -48,9 +51,12 @@ Drag a Song Folder into the .exe to launch the configuration setup.
 It will create a .bw File in your song folder. Open this in any text editor. Recommended is Visual Studio Code.
 This File defines the created Wallstructures for the selected difficulty, like a cookbook.
 
-The next time you run beatwalls simply double-click the exe.
-::: tip Info
-When you want to change some settings or pick a different Song, you need to redo the step above
+Once beatwalls is running, it will listen to all changes to the selected file.
+So whenever you change a section and hit save, it will create the new walls.
+
+::: tip Working with multiple Songs
+After the program has been set up, it can be started again simply by double clicking the .exe.
+When you want to change the song or difficulty, simply drag in the new song folder and repeat Setup.
 :::
 
 
@@ -111,7 +117,7 @@ Beatwalls automatically makes sure your Wallstructures __apear__ and not zoom pa
 
 [//]: # (TODO add video)
 
-## Specifics
+## Gotchas
 
 - Beatwalls is ***NOT*** case-sensitive
 - Beatwalls does ***NOT*** care about spaces or tabs, or any 

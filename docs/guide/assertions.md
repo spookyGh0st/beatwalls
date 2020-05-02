@@ -29,16 +29,20 @@ Beatwalls supports math expressions.
 Functions in Beatwalls take some numbers as input and return one. 
 They can and should not assign properties. 
 
-Beatwalls features [build in](http://mathparser.org/api/org/mariuszgromada/math/mxparser/mathcollection/MathFunctions.html)
+Beatwalls features [build-in](http://mathparser.org/api/org/mariuszgromada/math/mxparser/mathcollection/MathFunctions.html)
 functions for more advanced use cases.
 
 ::: tip
-i always returns a double of 0..1 based on the progress of the wallstructure
+i is a double of 0..1 and tells how many of the walls have been affected.
+When you have a wallstructure with 4 beats, i will be 0 on the first wall, 0.25 on the second, etc...
 :::
 
 ```
-10 wall
-    height = round(i)
+10 line
+    p1 = 10,0
+    p2 = 4,0,2
+    width = abs(-2)         # -> 2
+    height = round(i,1)+1   # -> 1 for the first half, 2 for the second
 ```
 
 They have also been enhanced by some functions I found lacking.
@@ -52,7 +56,8 @@ They have also been enhanced by some functions I found lacking.
 ```
 
 ::: danger
-Only Properties, that are used to __change__ existing Wallstructures and not Properties that are used to __create__ them have access to easing functions
+Not all properties that are used to __create__ wallstructures do not have access to easing functions. 
+You can only use easing functions on properties that are used to __change__ existing wallstructures.
 :::
 
 ## User-defined Functions
@@ -67,7 +72,7 @@ fun myFunction(x,y) = sin(x) + 2 * y
 
 ## Constants
 
-all build in Constants can be found in [this list](https://mathparser.org/mxparser-tutorial/build-in-constants) e.g. `pi`
+all build-in Constants can be found in [this list](https://mathparser.org/mxparser-tutorial/build-in-constants) e.g. `pi`
 
 ## User-defined Constants
 
@@ -99,6 +104,6 @@ There are also some predefined variables to use.
 
 ::: danger
 Be cautions with `i` and `wall{x/y/z/width/height/duration}`.
-Only Properties, that are used to __change__ existing Wallstructures and not all Properties that are used to __create__ them have access to them.
-Therefore, some functions like easing do not work on all properties.
+Again, not all properties that are used to __create__ wallstructures do not have access to easing functions. 
+You can only use easing functions on properties that are used to __change__ existing wallstructures.
 :::

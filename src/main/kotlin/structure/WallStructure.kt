@@ -2,8 +2,8 @@
 
 package structure
 
-import compiler.property.constantFactory.ConstantController
-import compiler.property.specialProperties.*
+import interpreter.property.constantFactory.ConstantController
+import interpreter.property.specialProperties.*
 import structure.helperClasses.*
 import structure.specialStrucures.*
 import java.io.Serializable

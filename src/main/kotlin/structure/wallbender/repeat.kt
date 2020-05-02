@@ -1,14 +1,39 @@
 package structure.wallbender
 
+import interpreter.property.specialProperties.Repeat
 import structure.WallStructure
 import structure.helperClasses.SpookyWall
 
-fun WallStructure.repeat(walls: List<SpookyWall>): List<SpookyWall> {
-    var l = walls
-    l=repeatWalls(l)
-    l=repeatStruct(l)
+
+fun WallStructure.repeat(x: (ws: WallStructure) -> List<SpookyWall>): List<SpookyWall> {
+    val r  = repeatNeu.reversed()
+    val i = r.iterator()
+    return if(r.isEmpty())
+        x(this)
+    else
+        r2(r.first(),r.subList(1,r.size),x)
+}
+fun WallStructure.r2(r: Repeat, n: List<Repeat>, x: (ws: WallStructure) -> List<SpookyWall>): List<SpookyWall> {
+    val l = mutableListOf<SpookyWall>()
+    for (i in 0 until r.max) {
+        r.value = i
+        if(n.isNotEmpty())
+            l.addAll(r2(n.first(),n.subList(1,n.size),x))
+        else
+            l.addAll(x(this))
+
+    }
+    r.value = 0
     return l
 }
+
+
+
+//var l = walls
+    //l=repeatWalls(l)
+    //l=repeatStruct(l)
+    //return l
+
 fun WallStructure.repeatWalls(walls: List<SpookyWall>): List<SpookyWall> {
     val l = walls.toMutableList()
     for (i in 1 until repeatWalls){

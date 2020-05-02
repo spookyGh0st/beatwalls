@@ -1706,5 +1706,5 @@ class TestStructure: WallStructure(){
     val testPoint by BwPoint()
     val nonBwProperty = 10
 
-    override fun generateWalls(): List<SpookyWall>  = listOf()
+    override fun generateWalls(): List<SpookyWall>  = listOf(SpookyWall(0,1,1,1,0,0))
 }

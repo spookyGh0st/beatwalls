@@ -11,7 +11,7 @@ internal fun WallStructure.adjust(l: List<SpookyWall>){
     for ((i, wall) in l.withIndex()) {
         this.constantController.wall = wall
         this.constantController.progress = i.toDouble()/l.size
-        wall.x = z
+        wall.x = x
         wall.y = y
         wall.z = z
         wall.width = width

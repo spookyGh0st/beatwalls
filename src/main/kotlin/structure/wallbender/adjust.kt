@@ -3,19 +3,11 @@ package structure.wallbender
 import structure.WallStructure
 import structure.helperClasses.SpookyWall
 
-/**
- * adjust does all the adding, scaling and changing and fitting of the walls
- */
-internal fun WallStructure.adjust(l:List<SpookyWall>): List<SpookyWall> {
-    adjustChange(l)
-    adjustFit(l)
-    return l
-}
 
 /**
- * changes the values of the walls
+ * changes the individual values of the walls
  */
-internal fun WallStructure.adjustChange(l: List<SpookyWall>){
+internal fun WallStructure.adjust(l: List<SpookyWall>){
     for ((i, wall) in l.withIndex()) {
         this.constantController.wall = wall
         this.constantController.progress = i.toDouble()/l.size
@@ -26,49 +18,37 @@ internal fun WallStructure.adjustChange(l: List<SpookyWall>){
         wall.height = h
         wall.duration = d
 
-    }
-}
+        wall.z *= scaleZ
+        if (wall.duration > 0)
+            wall.duration *= scaleZ
+        wall.x *= scaleX
+        wall.width *= scaleX
+        wall.y *= scaleY
+        wall.height *= scaleY
 
-/**
- * fits the values of the walls
- */
-internal fun WallStructure.adjustFit(l: List<SpookyWall>) {
-    if (fitDuration != null)
-        l.forEach {
-            it.z = (it.z + (it.duration.takeIf { i -> i > 0 } ?: 0.0)) - fitDuration!!.invoke()
-            it.duration = fitDuration!!.invoke()
+        if (fitDuration != null) {
+            wall.z = (wall.z + (wall.duration.takeIf { it > 0 } ?: 0.0)) - fitDuration!!
+            wall.duration = fitDuration!!
         }
-    if (fitStartTime != null)
-        l.forEach {
-            it.duration = (it.z + (it.duration.takeIf { i -> i > 0 } ?: 0.0)) - fitStartTime!!.invoke()
-            it.z = fitStartTime!!.invoke()
+        if (fitStartTime != null) {
+            wall.duration = (wall.z + (wall.duration.takeIf { it > 0 } ?: 0.0)) - fitStartTime!!
+            wall.z = fitStartTime!!
         }
-    if (fitHeight != null)
-        l.forEach {
-            it.y = (it.y + (it.height.takeIf { i -> i > 0 } ?: 0.0)) - fitHeight!!.invoke()
-            it.height = fitHeight!!.invoke()
+        if (fitHeight != null) {
+            wall.y = (wall.y + (wall.height.takeIf { it > 0 } ?: 0.0)) - fitHeight!!
+            wall.height = fitHeight!!
         }
-    if (fitStartHeight != null)
-        l.forEach {
-            it.height = (it.y + (it.height.takeIf { i -> i > 0 } ?: 0.0)) - fitStartHeight!!.invoke()
-            it.y = fitStartHeight!!.invoke()
+        if (fitStartHeight != null) {
+            wall.height = (wall.y + (wall.height.takeIf { it > 0 } ?: 0.0)) - fitStartHeight!!
+            wall.y = fitStartHeight!!
         }
-    if (fitStartRow != null)
-        l.forEach {
-            it.width = (it.x + (it.width.takeIf { i -> i > 0 } ?: 0.0)) - fitStartRow!!.invoke()
-            it.x = fitStartRow!!.invoke()
+        if (fitStartRow != null) {
+            wall.width = (wall.x + (wall.width.takeIf { it > 0 } ?: 0.0)) - fitStartRow!!
+            wall.x = fitStartRow!!
         }
-    if (fitWidth != null)
-        l.forEach {
-            it.x = (it.x + (it.width.takeIf { i -> i > 0 } ?: 0.0)) - fitWidth!!.invoke()
-            it.width = fitWidth!!.invoke()
-        }
-    //extra
-    if (scale != null) {
-        l.forEach {
-            it.z *= scale as Double
-            if (it.duration > 0)
-                it.duration *= scale as Double
+        if (fitWidth != null) {
+            wall.x = (wall.x + (wall.width.takeIf { it > 0 } ?: 0.0)) - fitWidth!!
+            wall.width = fitWidth!!
         }
     }
 }

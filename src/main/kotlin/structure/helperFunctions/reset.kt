@@ -108,38 +108,38 @@ fun WallStructure.reset(){
     /**
      * increases or decreases the duration of all walls until they have the the specific startTime. Random possible with random(min,max). default: null (does nothing)
      */
-    fitStartTime= WallStructure.fitStartTime
+    //fitStartTime= WallStructure.fitStartTime
 
     /**
      * increases or decreases the StartTime of all walls until they have the the specific duration. Random possible with random(min,max). default: null (does nothing)
      */
-    fitDuration= WallStructure.fitDuration
+    //fitDuration= WallStructure.fitDuration
 
     /**
      * increases or decreases the StartHeight of all walls until they have the the specific Height. Random possible with random(min,max). default: null (does nothing)
      */
-    fitHeight= WallStructure.fitHeight
+    //fitHeight= WallStructure.fitHeight
 
     /**
      * increases or decreases the height of all walls until they have the the specific startHeight. Random possible with random(min,max). default: null (does nothing)
      */
-    fitStartHeight= WallStructure.fitStartHeight
+    //fitStartHeight= WallStructure.fitStartHeight
 
     /**
      * increases or decreases the width of all walls until they have the the specific startTime. Random possible with random(min,max). default: null (does nothing)
      */
-    fitStartRow= WallStructure.fitStartRow
+    //fitStartRow= WallStructure.fitStartRow
 
     /**
      * increases or decreases the StartRow of all walls until they have the the specific Width. Random possible with random(min,max). default: null (does nothing)
      */
-    fitWidth= WallStructure.fitWidth
+    //fitWidth= WallStructure.fitWidth
 
     /**
      * scales the Duration and startTime, (duration only for positive duration).
      * This is useful for making a structure, that is one beat long longer or shorter
      */
-    scale= WallStructure.scale
+    //scaleZ= WallStructure.scale
 
     /**
      * reverses the WallStructure on the Starttime/duration

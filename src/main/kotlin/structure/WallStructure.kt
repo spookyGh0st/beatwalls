@@ -125,38 +125,50 @@ sealed class WallStructure:Serializable
     /**
      * increases or decreases the duration of all walls until they have the the specific startTime. Random possible with random(min,max). default: null (does nothing)
      */
-    var fitStartTime: (() -> Double)? = Default.fitStartTime
+    val fitStartTime by BwDoubleOrNull()
 
     /**
      * increases or decreases the StartTime of all walls until they have the the specific duration. Random possible with random(min,max). default: null (does nothing)
      */
-    var fitDuration: (() -> Double)? = Default.fitDuration
+    val fitDuration by BwDoubleOrNull()
 
     /**
      * increases or decreases the StartHeight of all walls until they have the the specific Height. Random possible with random(min,max). default: null (does nothing)
      */
-    var fitHeight: (() -> Double)? = Default.fitHeight
+    val fitHeight by BwDoubleOrNull()
 
     /**
      * increases or decreases the height of all walls until they have the the specific startHeight. Random possible with random(min,max). default: null (does nothing)
      */
-    var fitStartHeight: (() -> Double)? = Default.fitStartHeight
+    val fitStartHeight by BwDoubleOrNull()
 
     /**
      * increases or decreases the width of all walls until they have the the specific startTime. Random possible with random(min,max). default: null (does nothing)
      */
-    var fitStartRow: (() -> Double)? = Default.fitStartRow
+    val fitStartRow by BwDoubleOrNull()
 
     /**
      * increases or decreases the StartRow of all walls until they have the the specific Width. Random possible with random(min,max). default: null (does nothing)
      */
-    var fitWidth: (() -> Double)? = Default.fitWidth
+    val fitWidth by BwDoubleOrNull()
+
 
     /**
-     * scales the Duration and startTime, (duration only for positive duration).
-     * This is useful for making a structure, that is one beat long longer or shorter
+     * scales both X and Width at the same time.
      */
-    var scale: Double? = Default.scale
+    val scaleX by BwDouble(1)
+
+    /**
+     * scales both Y and Height at the same time.
+     */
+    val scaleY by BwDouble(1)
+
+    /**
+     * scales both Z and duration at the same time.
+     * the Duration only gets scaled, if it is positive.
+     * This is useful for stretching out Wallstructures over a wider section
+     */
+    val scaleZ by BwDouble(1)
 
     /**
      * reverses the WallStructure on the Starttime/duration
@@ -450,7 +462,6 @@ sealed class WallStructure:Serializable
         if (y != other.y) return false
         if (x != other.x) return false
         if (w != other.w) return false
-        if (scale != other.scale) return false
         if (repeat != other.repeat) return false
         if (repeatAddZ != other.repeatAddZ) return false
         if (repeatAddX != other.repeatAddX) return false
@@ -464,13 +475,12 @@ sealed class WallStructure:Serializable
         result = 31 * result + beat.hashCode()
         result = 31 * result + mirror
         result = 31 * result + time.hashCode()
-        result = 31 * result + (z.hashCode() ?: 0)
-        result = 31 * result + (d.hashCode() ?: 0)
-        result = 31 * result + (h.hashCode() ?: 0)
-        result = 31 * result + (y.hashCode() ?: 0)
-        result = 31 * result + (x.hashCode() ?: 0)
-        result = 31 * result + (w.hashCode() ?: 0)
-        result = 31 * result + (scale?.hashCode() ?: 0)
+        result = 31 * result + (z.hashCode() )
+        result = 31 * result + (d.hashCode() )
+        result = 31 * result + (h.hashCode() )
+        result = 31 * result + (y.hashCode() )
+        result = 31 * result + (x.hashCode() )
+        result = 31 * result + (w.hashCode() )
         result = 31 * result + repeat
         result = 31 * result + repeatAddZ.hashCode()
         result = 31 * result + repeatAddX.hashCode()
@@ -891,7 +901,7 @@ class NoodleHelix: WallStructure(){
     /**
      *  the amount of walls created. Default: 8*scale
      */
-    var amount = 8*(scale?:1.0).toInt()
+    var amount = 8*(scaleZ?:1.0).toInt()
 
     /**
      * spins every wall additionally this amount

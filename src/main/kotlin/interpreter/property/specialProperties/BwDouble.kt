@@ -4,6 +4,7 @@ import interpreter.property.BwProperty
 import interpreter.property.strPlusExprStr
 import interpreter.property.strPowExprStr
 import interpreter.property.strTimesExprStr
+import org.mariuszgromada.math.mxparser.Argument
 import structure.WallStructure
 import kotlin.reflect.KProperty
 
@@ -30,32 +31,36 @@ class BwDouble(private var expression: String = "0.0"): BwProperty() {
         expression = strPowExprStr(expression, e)
     }
 
-    override fun toString(): String = expression
+    override fun toArguments(baseName: String): List<Argument> {
+        return listOf(Argument("$baseName=$expression"))
+    }
 }
 
-class BwDoubleOrNull(private var expresssion: String = "null"): BwProperty() {
+class BwDoubleOrNull(private var expression: String = "null"): BwProperty() {
     constructor(default: Double?): this(default.toString())
 
     override fun getValue(thisRef: WallStructure, property: KProperty<*>): Double? {
-        if (strExpressesNull(expresssion)) return null
-        return calcExpression(expresssion,thisRef)
+        if (strExpressesNull(expression)) return null
+        return calcExpression(expression,thisRef)
     }
 
     override fun setExpr(e: String) {
-        expresssion = e
+        expression = e
     }
 
     override fun plusExpr(e: String) {
-        expresssion = strPlusExprStr(expresssion, e)
+        expression = strPlusExprStr(expression, e)
     }
 
     override fun timesExpr(e: String) {
-        expresssion = strTimesExprStr(expresssion, e)
+        expression = strTimesExprStr(expression, e)
     }
 
     override fun powExpr(e: String) {
-        expresssion = strPowExprStr(expresssion, e)
+        expression = strPowExprStr(expression, e)
     }
 
-    override fun toString(): String = expresssion
+    override fun toArguments(baseName: String): List<Argument> {
+        return listOf(Argument("$baseName=$expression"))
+    }
 }

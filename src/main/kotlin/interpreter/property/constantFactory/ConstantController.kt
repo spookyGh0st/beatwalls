@@ -1,6 +1,7 @@
 package interpreter.property.constantFactory
 
 import interpreter.property.BwProperty
+import org.mariuszgromada.math.mxparser.Argument
 import org.mariuszgromada.math.mxparser.Constant
 import org.mariuszgromada.math.mxparser.Function
 import structure.WallStructure
@@ -33,9 +34,9 @@ class ConstantController(private val ws :WallStructure) {
 
 
 
-    val structureConstants: List<Constant>
+    val structureConstants: List<Argument>
         get() {
-            return getWsConstants(ws)
+            return getWsArguments(ws)
         }
 
     val customConstants = mutableListOf<Constant>()
@@ -54,9 +55,10 @@ class ConstantController(private val ws :WallStructure) {
 
 
 
-fun getWsConstants(ws: WallStructure) =
+fun getWsArguments(ws: WallStructure) =
     getWsProperties(ws)
-        .map { it.toConstant(ws) }
+        .map { it.toArguments(ws) }
+        .flatten()
         .toList()
 
 @Suppress("UNCHECKED_CAST")
@@ -66,9 +68,8 @@ fun getWsProperties(ws: WallStructure) = ws::class.memberProperties
     .map { it.also { it.isAccessible=true } }
     .filter { it.getDelegate(ws) is BwProperty }
 
-//this currently does not work with points. TODO
-fun KProperty1<WallStructure, Any?>.toConstant(ws: WallStructure): Constant {
+fun KProperty1<WallStructure, Any?>.toArguments(ws: WallStructure): List<Argument> {
     val key = this.name.toLowerCase()
-    val value = (this.getDelegate(ws) as BwProperty).toString()
-    return Constant("${key}=${value}")
+    val value = (this.getDelegate(ws) as BwProperty)
+    return value.toArguments(key)
 }

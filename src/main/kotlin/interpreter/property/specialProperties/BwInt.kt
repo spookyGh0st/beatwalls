@@ -4,60 +4,65 @@ import interpreter.property.BwProperty
 import interpreter.property.strPlusExprStr
 import interpreter.property.strPowExprStr
 import interpreter.property.strTimesExprStr
+import org.mariuszgromada.math.mxparser.Argument
 import structure.WallStructure
 import kotlin.math.roundToInt
 import kotlin.reflect.KProperty
 
 
-class BwInt(private var es: String = "0.0"): BwProperty() {
+class BwInt(private var expression: String = "0.0"): BwProperty() {
     constructor(e: Int): this(e.toString())
 
     override fun getValue(thisRef: WallStructure, property: KProperty<*>): Int {
-        return calcExpression(es,thisRef).roundToInt()
+        return calcExpression(expression,thisRef).roundToInt()
     }
 
     override fun setExpr(e: String) {
-        es = e
+        expression = e
     }
 
     override fun plusExpr(e: String) {
-        es = strPlusExprStr(es, e)
+        expression = strPlusExprStr(expression, e)
     }
 
     override fun timesExpr(e: String) {
-        es = strTimesExprStr(es, e)
+        expression = strTimesExprStr(expression, e)
     }
 
     override fun powExpr(e: String) {
-        es = strPowExprStr(es, e)
+        expression = strPowExprStr(expression, e)
     }
 
-    override fun toString(): String = es
+    override fun toArguments(baseName: String): List<Argument> {
+        return listOf(Argument("$baseName=$expression"))
+    }
 }
 
-class BwIntOrNull(private var es: String = "null"): BwProperty() {
+class BwIntOrNull(private var expression: String = "null"): BwProperty() {
     constructor(e: Int?): this(e.toString())
 
     override fun getValue(thisRef: WallStructure, property: KProperty<*>): Int? {
-        if (strExpressesNull(es)) return null
-        return calcExpression(es,thisRef).roundToInt()
+        if (strExpressesNull(expression)) return null
+        return calcExpression(expression,thisRef).roundToInt()
     }
 
     override fun setExpr(e: String) {
-        es = e
+        expression = e
     }
 
     override fun plusExpr(e: String) {
-        es = strPlusExprStr(es, e)
+        expression = strPlusExprStr(expression, e)
     }
 
     override fun timesExpr(e: String) {
-        es = strTimesExprStr(es, e)
+        expression = strTimesExprStr(expression, e)
     }
 
     override fun powExpr(e: String) {
-        es = strPowExprStr(es, e)
+        expression = strPowExprStr(expression, e)
     }
 
-    override fun toString(): String = es
+    override fun toArguments(baseName: String): List<Argument> {
+        return listOf(Argument("$baseName=$expression"))
+    }
 }

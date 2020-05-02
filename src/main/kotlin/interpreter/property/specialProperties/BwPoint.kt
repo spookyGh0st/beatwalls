@@ -4,6 +4,7 @@ import interpreter.property.BwProperty
 import interpreter.property.strPlusExprStr
 import interpreter.property.strPowExprStr
 import interpreter.property.strTimesExprStr
+import org.mariuszgromada.math.mxparser.Argument
 import structure.WallStructure
 import structure.helperClasses.Point
 import kotlin.reflect.KProperty
@@ -57,5 +58,11 @@ class BwPoint(var x: String = "0.0", var y: String="0.0",var z: String="0.0"): B
         parseExpression(e) { s: String, s2: String -> strPowExprStr(s,s2) }
     }
 
-    override fun toString(): String = "$x,$y,$z"
+    override fun toArguments(baseName: String): List<Argument> {
+        return listOf(
+            Argument("${baseName}x = $x"),
+            Argument("${baseName}y = $y"),
+            Argument("${baseName}z = $z")
+            )
+    }
 }

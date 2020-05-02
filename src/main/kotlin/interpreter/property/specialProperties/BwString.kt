@@ -2,6 +2,7 @@ package interpreter.property.specialProperties
 
 import interpreter.property.BwProperty
 import interpreter.property.InvalidExpressionException
+import org.mariuszgromada.math.mxparser.Argument
 import org.mariuszgromada.math.mxparser.Expression
 import structure.WallStructure
 import kotlin.reflect.KProperty
@@ -32,5 +33,7 @@ class BwString(private var exprString: String) : BwProperty() {
         )
     }
 
-    override fun toString(): String = exprString
+    override fun toArguments(baseName: String): List<Argument> {
+        return listOf(Argument("$baseName = $exprString"))
+    }
 }

@@ -118,6 +118,19 @@ fun f(x) = x+testProp
     }
 
     @Test
+    fun `test point property in property`() {
+        val t = """
+10 testStructure
+  testPoint = 1,3,5
+  testInt = testPointX + testPointY + testPointZ
+        """.trimIndent().toLowerCase().toLines()
+        val lp = LineParser()
+        val ws = lp.create(t).first() as TestStructure
+        assertEquals(Point(1,3,5), ws.testPoint)
+        assertEquals(9,ws.testInt)
+    }
+
+    @Test
     fun `test multiple wallStructures in custom Structure`(){
         val t = """
 struct w1: testStructure

@@ -6,9 +6,9 @@ import structure.WallStructure
 
 fun WallStructure.reset(){
 
-    mirror= WallStructure.mirror
-    mirrorX= WallStructure.mirrorX
-    mirrorY= WallStructure.mirrorY
+    //mirror= WallStructure.mirror
+    //mirrorX= WallStructure.mirrorX
+    //mirrorY= WallStructure.mirrorY
 
     /**
      * times the SpookyWall by adding the njsOffset, default: true

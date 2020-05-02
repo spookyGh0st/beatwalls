@@ -10,7 +10,7 @@ class ConstantControllerTest{
     fun `test different types`(){
         val const = Constant("a = foo")
         val arg = Argument("a = foo")
-        val e = { t: PrimitiveElement -> Expression("a",t).calculate() }
+        val e = { t: PrimitiveElement -> Expression("10",t).calculate() }
         println("const: ${const.syntaxStatus} = ${e(const)}")
         println("arg: ${arg.checkSyntax()} = ${e(arg)}")
         arg.argumentValue = 20.0

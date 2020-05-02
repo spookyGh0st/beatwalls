@@ -37,7 +37,8 @@ class MirrorKtTest {
                 w(startRow = -1,width = -1,startHeight = 3,height = -1)
             )))
         for(t in tables) {
-            e.mirror = t.code
+            TODO()
+            //e.mirror = t.code
             assertEquals(t.expected, e.mirror(l))
         }
         e.reset()
@@ -53,23 +54,25 @@ class MirrorKtTest {
 
     @Test
     fun mirrorXWithMirrorX() {
-        var actual = e.also { it.mirrorX = 1.0 }.mirrorX(l)
-        var expected = listOf(SpookyWall(1.0, 1.0, -1.0, 1.0, 1.0, 1.0, red))
-        assertEquals(expected, actual)
-        actual = e.also { it.mirrorX = -1.0 }.mirrorX(l)
-        expected = listOf(SpookyWall(-3.0, 1.0, -1.0, 1.0, 1.0, 1.0, red))
-        assertEquals(expected, actual)
-        e.reset()
+        TODO()
+        //var actual = e.also { it.mirrorX = 1.0 }.mirrorX(l)
+        //var expected = listOf(SpookyWall(1.0, 1.0, -1.0, 1.0, 1.0, 1.0, red))
+        //assertEquals(expected, actual)
+        //actual = e.also { it.mirrorX = -1.0 }.mirrorX(l)
+        //expected = listOf(SpookyWall(-3.0, 1.0, -1.0, 1.0, 1.0, 1.0, red))
+        //assertEquals(expected, actual)
+        //e.reset()
     }
     @Test
     fun mirrorYWithMirrorY() {
-        var actual = e.also { it.mirrorY = 1.0 }.mirrorY(l)
-        var expected = listOf(SpookyWall(1.0, 1.0, 1.0, -1.0, 1.0, 1.0, red))
-        assertEquals(expected, actual)
-        actual = e.also { it.mirrorY = -1.0 }.mirrorY(l)
-        expected = listOf(SpookyWall(1.0, 1.0, 1.0, -1.0, -3.0, 1.0, red))
-        assertEquals(expected, actual)
-        e.reset()
+        TODO()
+        //var actual = e.also { it.mirrorY = 1.0 }.mirrorY(l)
+        //var expected = listOf(SpookyWall(1.0, 1.0, 1.0, -1.0, 1.0, 1.0, red))
+        //assertEquals(expected, actual)
+        //actual = e.also { it.mirrorY = -1.0 }.mirrorY(l)
+        //expected = listOf(SpookyWall(1.0, 1.0, 1.0, -1.0, -3.0, 1.0, red))
+        //assertEquals(expected, actual)
+        //e.reset()
     }
 
     @Test

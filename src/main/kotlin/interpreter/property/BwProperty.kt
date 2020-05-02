@@ -23,12 +23,16 @@ abstract class BwProperty:Serializable{
 
 
     fun buildPrimitiveElements(cc: ConstantController): Array<PrimitiveElement> {
-        val elements = buildConstants(cc) + buildFunctions(cc)
+        val elements = buildConstants(cc) + buildArguments(cc)+ buildFunctions(cc)
         return elements.toTypedArray()
     }
     fun buildConstants(cc: ConstantController): List<Constant> {
-        val cl = cc.wallConstants + cc.progressConstant + cc.structureConstants + cc.customConstants
+        val cl = cc.wallConstants + cc.progressConstant  + cc.customConstants
         return cl.filter { it.syntaxStatus }
+    }
+    fun buildArguments(cc: ConstantController): List<Argument> {
+        val cl =  cc.structureConstants
+        return cl.filter { it.checkSyntax() }
     }
 
     fun buildFunctions(cc: ConstantController): List<Function>  {
@@ -47,6 +51,7 @@ abstract class BwProperty:Serializable{
         throw InvalidExpressionException(e,"This means, that a constant or functions is propably not loaded")
     }
 
+    abstract fun toArguments(baseName: String): List<Argument>
 
     abstract operator fun getValue(thisRef: WallStructure, property: KProperty<*>): Any?
 
@@ -69,8 +74,6 @@ abstract class BwProperty:Serializable{
      * takes the expression to the power of e
      */
     abstract fun powExpr(e: String)
-
-    abstract override fun toString(): String
 
     fun strExpressesNull(s:String) = s == "null" || s.isEmpty()
 }

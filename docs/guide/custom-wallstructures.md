@@ -9,10 +9,6 @@ To help you with this Beatwalls has some features you might recognized when you 
 You can combine and build on top of existing Wallstructures
 This is a good way to reduce duplicated Code.
 
-::: danger
-You always need one at least one Wallstructure you are basing on
-:::
-
 ```
 # Bottom and top Wall of the tunel
 # _tunnel1 is the name of our Wallstructure
@@ -29,7 +25,7 @@ _tunnel1: Wall
     mirror: 2
     
 # you can add multiple Wallstructures
-tunnel: _tunnel1,_tunnel2,
+tunnel: _tunnel1,_tunnel2
 
 # creating a tunel
 10 tunnel
@@ -70,7 +66,7 @@ You can also create nested Interfaces
 
 ```
 interface fastpoints: fast, point
-10 tunnel: fast, point
+10 tunnel: fastpoints
 ```
 
 You can use Interfaces on custom Wallstructures

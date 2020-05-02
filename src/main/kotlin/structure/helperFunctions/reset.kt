@@ -139,7 +139,7 @@ fun WallStructure.reset(){
      * scales the Duration and startTime, (duration only for positive duration).
      * This is useful for making a structure, that is one beat long longer or shorter
      */
-    //scaleZ= WallStructure.scale
+    //scaleZ= WallStructure.scaleZ
 
     /**
      * reverses the WallStructure on the Starttime/duration

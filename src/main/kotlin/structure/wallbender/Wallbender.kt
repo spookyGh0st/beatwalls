@@ -5,7 +5,7 @@ import structure.helperClasses.SpookyWall
 
 fun WallStructure.bendWalls(walls: List<SpookyWall>): List<SpookyWall> {
     var l = walls.map { it.copy() }
-    l = adjust(l)
+    adjust(l)
     l = reverse(l)
     l = speeder(l)
     l = rotate(l)

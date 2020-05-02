@@ -109,7 +109,7 @@ private fun defaultBWStr() =
     p4: 4,3
     
     # Stretch it out to 10 beats
-    scale: 10
+    scaleZ: 10
     # mirror it to the other side and to the top
     mirror: 8
     # we stretch the curve out over 8 beats, lets go with 6*8 walls

@@ -14,8 +14,8 @@ internal fun WallStructure.adjust(l: List<SpookyWall>){
         wall.x = z
         wall.y = y
         wall.z = z
-        wall.width = w
-        wall.height = h
+        wall.width = width
+        wall.height = height
         wall.duration = d
 
         wall.z *= scaleZ
@@ -30,21 +30,21 @@ internal fun WallStructure.adjust(l: List<SpookyWall>){
             wall.z = (wall.z + (wall.duration.takeIf { it > 0 } ?: 0.0)) - fitDuration!!
             wall.duration = fitDuration!!
         }
-        if (fitStartTime != null) {
-            wall.duration = (wall.z + (wall.duration.takeIf { it > 0 } ?: 0.0)) - fitStartTime!!
-            wall.z = fitStartTime!!
+        if (fitZ != null) {
+            wall.duration = (wall.z + (wall.duration.takeIf { it > 0 } ?: 0.0)) - fitZ!!
+            wall.z = fitZ!!
         }
         if (fitHeight != null) {
             wall.y = (wall.y + (wall.height.takeIf { it > 0 } ?: 0.0)) - fitHeight!!
             wall.height = fitHeight!!
         }
-        if (fitStartHeight != null) {
-            wall.height = (wall.y + (wall.height.takeIf { it > 0 } ?: 0.0)) - fitStartHeight!!
-            wall.y = fitStartHeight!!
+        if (fitY != null) {
+            wall.height = (wall.y + (wall.height.takeIf { it > 0 } ?: 0.0)) - fitY!!
+            wall.y = fitY!!
         }
-        if (fitStartRow != null) {
-            wall.width = (wall.x + (wall.width.takeIf { it > 0 } ?: 0.0)) - fitStartRow!!
-            wall.x = fitStartRow!!
+        if (fitX != null) {
+            wall.width = (wall.x + (wall.width.takeIf { it > 0 } ?: 0.0)) - fitX!!
+            wall.x = fitX!!
         }
         if (fitWidth != null) {
             wall.x = (wall.x + (wall.width.takeIf { it > 0 } ?: 0.0)) - fitWidth!!

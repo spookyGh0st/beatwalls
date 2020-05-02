@@ -77,17 +77,17 @@ sealed class WallStructure:Serializable
      *
      *  8-> mirror on the center and on the other side and duplicate all 4
      */
-    var mirror: Int = Default.mirror
+    val mirror by BwInt()
 
     /**
      * The x Position used for mirror. Default: 0
      */
-    var mirrorX: Double = Default.mirrorX
+    val mirrorX by BwDouble()
 
     /**
-     * The x Position used for mirror. Default: 0
+     * The y Position used for mirror. Default: 2
      */
-    var mirrorY: Double = Default.mirrorY
+    val mirrorY by BwDouble(2)
 
     /**
      * times the SpookyWall by adding the njsOffset, default: true
@@ -379,8 +379,6 @@ sealed class WallStructure:Serializable
 
     companion object Default {
         var mirror: Int = 0
-        var mirrorX: Double = 0.0
-        var mirrorY: Double = 2.0
         var time: Boolean = true
         var reverse: Boolean = false
         var reverseX: Boolean = false

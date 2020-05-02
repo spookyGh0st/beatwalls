@@ -42,11 +42,14 @@ class ConstantController(private val ws :WallStructure) {
 
     val easingFunctions by lazy {  getEasingFunctions(this) }
 
+    //todo add Random functions
+
     val customFunctions = mutableListOf<Function>()
 
     val progressConstant = Constant("progress",progress)
 
     var wallConstants = listOf<Constant>()
+
 }
 
 

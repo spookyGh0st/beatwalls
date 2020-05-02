@@ -1,8 +1,8 @@
-package compiler.parser.types
+package interpreter.parser.types
 
-import compiler.parser.sAfter
-import compiler.parser.sBefore
-import compiler.property.BwProperty
+import interpreter.parser.sAfter
+import interpreter.parser.sBefore
+import interpreter.property.BwProperty
 
 // holds
 data class Assign(val s: String){

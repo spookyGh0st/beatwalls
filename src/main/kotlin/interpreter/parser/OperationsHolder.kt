@@ -1,4 +1,4 @@
-package compiler.parser
+package interpreter.parser
 
 import structure.WallStructure
 

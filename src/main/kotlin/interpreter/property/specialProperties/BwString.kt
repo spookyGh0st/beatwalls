@@ -1,7 +1,7 @@
-package compiler.property.specialProperties
+package interpreter.property.specialProperties
 
-import compiler.property.BwProperty
-import compiler.property.InvalidExpressionException
+import interpreter.property.BwProperty
+import interpreter.property.InvalidExpressionException
 import org.mariuszgromada.math.mxparser.Expression
 import structure.WallStructure
 import kotlin.reflect.KProperty

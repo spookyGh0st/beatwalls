@@ -1,9 +1,9 @@
-package compiler.property.specialProperties
+package interpreter.property.specialProperties
 
-import compiler.property.BwProperty
-import compiler.property.strPlusExprStr
-import compiler.property.strPowExprStr
-import compiler.property.strTimesExprStr
+import interpreter.property.BwProperty
+import interpreter.property.strPlusExprStr
+import interpreter.property.strPowExprStr
+import interpreter.property.strTimesExprStr
 import structure.WallStructure
 import kotlin.math.roundToInt
 import kotlin.reflect.KProperty

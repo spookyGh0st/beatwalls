@@ -1,6 +1,5 @@
-package compiler.property.constantFactory
+package interpreter.property.constantFactory
 
-import org.mariuszgromada.math.mxparser.Expression
 import org.mariuszgromada.math.mxparser.Function
 import org.mariuszgromada.math.mxparser.FunctionExtension
 import structure.helperClasses.Easing

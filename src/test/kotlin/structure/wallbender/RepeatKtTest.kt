@@ -59,7 +59,7 @@ class RepeatKtTest {
         val w = Wall()
         w.repeatWalls = 2
         w.repeat = 2
-        w.addDuration = { Random.nextDouble()}
+        //w.addDuration = { Random.nextDouble()}
         val wl = w.generateWalls()
         val l1 = w.repeatWalls(wl)
         val l2 = w.repeatStruct(wl)

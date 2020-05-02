@@ -1,15 +1,11 @@
-package compiler.property
+package interpreter.property
 
-import compiler.property.constantFactory.ConstantController
+import interpreter.property.constantFactory.ConstantController
 import org.mariuszgromada.math.mxparser.*
 import org.mariuszgromada.math.mxparser.Function
-import structure.Line
 import structure.WallStructure
 import java.io.Serializable
 import kotlin.reflect.KProperty
-import kotlin.reflect.KProperty1
-import kotlin.reflect.full.memberProperties
-import kotlin.reflect.jvm.isAccessible
 
 
 abstract class BwProperty:Serializable{

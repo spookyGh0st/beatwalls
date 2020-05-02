@@ -1,9 +1,9 @@
-package compiler.parser.types
+package interpreter.parser.types
 
-import compiler.parser.InvalidLineExpression
-import compiler.parser.Line
-import compiler.parser.OperationsHolder
-import compiler.property.BwProperty
+import interpreter.parser.InvalidLineExpression
+import interpreter.parser.Line
+import interpreter.parser.OperationsHolder
+import interpreter.property.BwProperty
 import structure.Define
 import structure.WallStructure
 import kotlin.reflect.KProperty1

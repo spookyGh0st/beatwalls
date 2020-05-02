@@ -1,8 +1,6 @@
-package compiler.parser
+package interpreter.parser
 
-import compiler.parser.types.delOfPropName
-import compiler.parser.types.propOfName
-import compiler.property.BwProperty
+import interpreter.parser.types.delOfPropName
 import org.junit.Test
 
 import org.junit.Assert.*

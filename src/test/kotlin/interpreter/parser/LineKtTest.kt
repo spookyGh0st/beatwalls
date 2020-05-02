@@ -1,4 +1,4 @@
-package compiler.parser
+package interpreter.parser
 
 import org.junit.Test
 

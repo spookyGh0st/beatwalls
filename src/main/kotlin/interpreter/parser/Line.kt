@@ -1,4 +1,4 @@
-package compiler.parser
+package interpreter.parser
 
 import beatwalls.GlobalConfig
 import java.io.File

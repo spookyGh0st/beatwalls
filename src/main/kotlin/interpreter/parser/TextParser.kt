@@ -1,4 +1,4 @@
-package compiler.parser
+package interpreter.parser
 
 import java.io.File
 

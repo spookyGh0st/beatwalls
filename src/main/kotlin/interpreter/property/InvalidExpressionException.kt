@@ -1,4 +1,4 @@
-package compiler.property
+package interpreter.property
 
 import org.mariuszgromada.math.mxparser.Expression
 

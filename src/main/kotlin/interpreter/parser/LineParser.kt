@@ -1,7 +1,7 @@
-package compiler.parser
+package interpreter.parser
 
 import assetFile.isDouble
-import compiler.parser.types.*
+import interpreter.parser.types.*
 import org.mariuszgromada.math.mxparser.Constant
 import org.mariuszgromada.math.mxparser.Function
 import structure.Define

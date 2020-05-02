@@ -1,4 +1,4 @@
-package compiler.parser
+package interpreter.parser
 
 import org.mariuszgromada.math.mxparser.Constant
 import org.mariuszgromada.math.mxparser.Function

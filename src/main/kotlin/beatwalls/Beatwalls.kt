@@ -1,7 +1,6 @@
 package beatwalls
 
-import assetFile.parseAsset
-import compiler.Compiler
+import interpreter.Compiler
 
 fun run() {
     //reloads the config

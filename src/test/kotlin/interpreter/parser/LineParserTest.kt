@@ -1,16 +1,12 @@
-package compiler.parser
+package interpreter.parser
 
-import compiler.property.InvalidExpressionException
+import interpreter.property.InvalidExpressionException
 import org.junit.Test
 import structure.Define
 import structure.TestStructure
-import structure.Wall
 import structure.helperClasses.Point
-import java.io.File
 import kotlin.math.PI
 import kotlin.math.roundToInt
-import kotlin.random.nextULong
-import kotlin.reflect.full.memberProperties
 import kotlin.test.assertEquals
 import kotlin.test.assertFailsWith
 
@@ -174,6 +170,19 @@ struct w4: w1,w2,w3
         val lp = LineParser()
         val ws = lp.create(t).first() as TestStructure
         assertEquals(ws.testInt,(2* PI).roundToInt())
+
+    }
+
+    @Test
+    fun `test build in functions`(){
+        val t = """
+10 testStructure
+  testInt = round(1.2,1)
+  testInt += abs(-1)
+        """.trimIndent().toLowerCase().toLines()
+        val lp = LineParser()
+        val ws = lp.create(t).first() as TestStructure
+        assertEquals(2,ws.testInt)
 
     }
 

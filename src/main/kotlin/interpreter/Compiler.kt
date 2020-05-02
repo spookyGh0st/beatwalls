@@ -1,11 +1,10 @@
-package compiler
+package interpreter
 
 import beatwalls.GlobalConfig
 import beatwalls.errorExit
-import compiler.parser.LineParser
-import compiler.parser.parseFileToLines
+import interpreter.parser.LineParser
+import interpreter.parser.parseFileToLines
 import structure.WallStructure
-import java.io.File
 
 class Compiler {
     fun compile(): List<WallStructure> {

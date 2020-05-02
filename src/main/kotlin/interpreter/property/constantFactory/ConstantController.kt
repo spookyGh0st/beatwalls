@@ -1,6 +1,6 @@
-package compiler.property.constantFactory
+package interpreter.property.constantFactory
 
-import compiler.property.BwProperty
+import interpreter.property.BwProperty
 import org.mariuszgromada.math.mxparser.Constant
 import org.mariuszgromada.math.mxparser.Function
 import structure.WallStructure

@@ -66,6 +66,10 @@ module.exports = {
             '',
             'history',
           ]),
+          '/contributing/': generateSidebar('Contributing', [
+            'docs',
+            'program',
+          ]),
           }
       },
       '/ja/': {

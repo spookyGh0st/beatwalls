@@ -120,6 +120,7 @@ module.exports = {
       pageChunkName: ({ key }) => `page${key.slice(1)}`,
       layoutChunkName: ({ componentName }) => `layout-${componentName}`,
     }],
+    ['vuepress-plugin-code-copy', true],
     'seo',
   ],
   configureWebpack: {

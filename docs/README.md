@@ -17,10 +17,10 @@ footer: Copyright © fuck copyright, do whatever you want
 :::
 
 ::: feature Community
-* [contribute to the docs](/about/)
-* [contribute to the program](./health-and-safety.md)
+* [contribute to the docs](./contributing/docs.md)
+* [contribute to the program](./contributing/program.md)
 * [featured maps](./featured/maps/)
-* [Frequently Asked Questions](/faq/)
+* [Frequently Asked Questions](./faq/)
 :::
 
 ::: feature Cats

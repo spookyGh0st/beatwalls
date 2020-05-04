@@ -124,7 +124,7 @@ define: _tunnel4
     Height: 4
     
 define: tunnel
-    structures: _tunnel1,_tunnel2,_tunnel3,tunnel4
+    structures: _tunnel1,_tunnel2,_tunnel3,_tunnel4
 ```
 
 now you can create a bunch of tunnels at times 10, 12, 16.6 and 20 with just

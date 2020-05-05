@@ -3,7 +3,7 @@ package interpreter
 import beatwalls.GlobalConfig
 import beatwalls.errorExit
 import interpreter.parser.LineParser
-import interpreter.parser.parseFileToLines
+import interpreter.formatter.parseFileToLines
 import structure.WallStructure
 
 class Interpreter {

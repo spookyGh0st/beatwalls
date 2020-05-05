@@ -1,6 +1,7 @@
 package interpreter.parser
 
 import beatwalls.GlobalConfig
+import interpreter.formatter.parseFileToLines
 import java.io.File
 
 /**

@@ -30,7 +30,7 @@ object GlobalConfig{
         if (args.contains("--deleteAllPrevious"))
             deleteAllPrevious = true
         if (args.contains("--noUpdate"))
-            deleteAllPrevious = true
+            noUpdate = true
 
         reload()
     }

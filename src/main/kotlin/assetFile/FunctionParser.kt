@@ -162,8 +162,22 @@ private fun String.isColor(): Boolean{
     val s= this.split(",")
         .mapNotNull { it.toIntOrNull() }
     return when {
-        this in listOf("black","blue","cyan","darkgray","gray","green","lightgray","magenta","orange","pink","red","white","yellow") -> true
-        s.size == 3 && s.all { it in 0..255 } -> true
+        this in listOf(
+            "black",
+            "blue",
+            "cyan",
+            "darkgray",
+            "gray",
+            "green",
+            "lightgray",
+            "magenta",
+            "orange",
+            "pink",
+            "red",
+            "white",
+            "yellow"
+        ) -> true
+        s.size == 3 -> true
         else -> false
     }
 }

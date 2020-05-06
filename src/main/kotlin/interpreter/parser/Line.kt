@@ -29,7 +29,7 @@ data class Line(val s: String, val line: Int = 0, val file: File = File("")){
         return parseFileToLines(f)
     }
 
-    override fun toString(): String = "Line $line in ${file.absolutePath}: $s"
+    override fun toString(): String = "Line $line in ${file.absolutePath}: \n$s"
 }
 
 

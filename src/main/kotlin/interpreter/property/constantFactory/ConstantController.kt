@@ -34,10 +34,7 @@ class ConstantController(private val ws :WallStructure) {
 
 
 
-    val structureConstants: List<Argument>
-        get() {
-            return getWsArguments(ws)
-        }
+    val structureConstants by lazy { getWsArguments(ws) }
 
     val customConstants = mutableListOf<Constant>()
 

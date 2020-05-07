@@ -30,11 +30,15 @@ data class SpookyWall(
     @Expose
     @SerializedName("rotation") var rotation: Double = 0.0,
     @Expose
-    @SerializedName("localRotation") var localRotation: Array<Double> = arrayOf(0.0,0.0,0.0),
+    @SerializedName("localRotation") var localRotation: Array<Double> = arrayOf(0.0, 0.0, 0.0),
     @Expose
     @SerializedName("track") var track: String? = null,
     @Expose
-    @SerializedName("bomb") var bomb: Boolean = false
+    @SerializedName("bomb") var bomb: Boolean = false,
+    @Expose
+    @SerializedName("noteJumpStartBeat") var noteJumpStartBeat: Double? = null,
+    @Expose
+    @SerializedName("noteJumpStartBeatOffset") var noteJumpStartBeatOffset: Double? = null
 ):Serializable{
 
     constructor(
@@ -185,7 +189,9 @@ data class SpookyWall(
                 _color = cdColor,
                 _localRotation = tLocalRotation,
                 _rotation = tRotation,
-                track = track
+                track = track,
+                _noteJumpStartBeat = noteJumpStartBeat,
+                _noteJumpStartBeatOffset = noteJumpStartBeatOffset
             )
             track != null || color != null || tRotation != null -> _obstacleCustomData(
                 _color = cdColor,

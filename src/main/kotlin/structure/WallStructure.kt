@@ -410,6 +410,16 @@ sealed class WallStructure:Serializable
      */
     var bombs: Boolean = Default.bombs
 
+    /**
+     * I have no idea, ask cyan
+     */
+    var noteJumpMovementSpeed: (() -> Double)? = null
+
+    /**
+     * I have no idea, ask cyan
+     */
+    var noteJumpMovementSpeedOffset: (() -> Double)? = null
+
     companion object Default {
         var mirror: Int = 0
         var mirrorX: Double = 0.0

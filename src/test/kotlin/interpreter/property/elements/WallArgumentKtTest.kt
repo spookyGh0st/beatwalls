@@ -4,6 +4,7 @@ import junit.framework.TestCase
 import org.mariuszgromada.math.mxparser.Argument
 import org.mariuszgromada.math.mxparser.Expression
 import structure.helperClasses.SpookyWall
+import java.util.*
 
 class WallArgumentKtTest : TestCase() {
 
@@ -15,11 +16,12 @@ class WallArgumentKtTest : TestCase() {
         tokens.filter { it.looksLike == "argument" }.forEach {
             a.addDefinitions(hm[it.tokenStr]!!)
         }
+        println("start")
         for (i in 0..50000) {
-            w.x = i.toDouble()
-            assertEquals(i.toDouble(), a.calculate())
-            println(a.computingTime)
+            w = SpookyWall()
+            wallArguments(w)
         }
+        println("end")
     }
 
     fun testToDoubleOrZero() {

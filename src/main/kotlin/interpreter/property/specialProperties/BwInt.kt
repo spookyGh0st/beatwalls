@@ -10,59 +10,19 @@ import kotlin.math.roundToInt
 import kotlin.reflect.KProperty
 
 
-class BwInt(private var expression: String = "0.0"): BwProperty() {
-    constructor(e: Int): this(e.toString())
+class BwInt(expression: String = "0"): BwNumber(expression) {
+    constructor(default: Number): this(default.toString())
 
     override fun getValue(thisRef: WallStructure, property: KProperty<*>): Int {
         return calcExpression(expression,thisRef).roundToInt()
     }
-
-    override fun setExpr(e: String) {
-        expression = e
-    }
-
-    override fun plusExpr(e: String) {
-        expression = strPlusExprStr(expression, e)
-    }
-
-    override fun timesExpr(e: String) {
-        expression = strTimesExprStr(expression, e)
-    }
-
-    override fun powExpr(e: String) {
-        expression = strPowExprStr(expression, e)
-    }
-
-    override fun toArguments(baseName: String): List<Argument> {
-        return listOf(Argument("$baseName=$expression"))
-    }
 }
 
-class BwIntOrNull(private var expression: String = "null"): BwProperty() {
-    constructor(e: Int?): this(e.toString())
+class BwIntOrNull(expression: String = "null"): BwNumber(expression) {
+    constructor(default: Double?): this(default.toString())
 
     override fun getValue(thisRef: WallStructure, property: KProperty<*>): Int? {
         if (strExpressesNull(expression)) return null
         return calcExpression(expression,thisRef).roundToInt()
-    }
-
-    override fun setExpr(e: String) {
-        expression = e
-    }
-
-    override fun plusExpr(e: String) {
-        expression = strPlusExprStr(expression, e)
-    }
-
-    override fun timesExpr(e: String) {
-        expression = strTimesExprStr(expression, e)
-    }
-
-    override fun powExpr(e: String) {
-        expression = strPowExprStr(expression, e)
-    }
-
-    override fun toArguments(baseName: String): List<Argument> {
-        return listOf(Argument("$baseName=$expression"))
     }
 }

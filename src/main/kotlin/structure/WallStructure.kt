@@ -442,7 +442,6 @@ sealed class WallStructure:Serializable
     override fun hashCode(): Int {
         var result = spookyWalls.hashCode()
         result = 31 * result + beat.hashCode()
-        result = 31 * result + mirror
         result = 31 * result + time.hashCode()
         result = 31 * result + (z.hashCode() )
         result = 31 * result + (d.hashCode() )

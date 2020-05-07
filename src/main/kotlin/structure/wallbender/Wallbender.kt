@@ -14,7 +14,7 @@ fun WallStructure.bendWalls(walls: List<SpookyWall>): List<SpookyWall> {
         if (track != null) it.track = track
     } // only sets the track, if it is not null. this allows nested tracks in define
     l.forEach { if (noteJumpMovementSpeed != null) it.noteJumpStartBeat = noteJumpMovementSpeed!!() }
-    l.forEach { if (noteJumpMovementSpeedOffset != null) it.noteJumpStartBeat = noteJumpMovementSpeedOffset!!() }
+    l.forEach { if (noteJumpMovementSpeedOffset != null) it.noteJumpStartBeatOffset = noteJumpMovementSpeedOffset!!() }
     l.forEach {
         if (bombs) it.bomb = bombs
     } // only sets the track, if it is not null. this allows nested tracks in define

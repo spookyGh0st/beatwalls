@@ -1,0 +1,1274 @@
+0.0: default
+    changeDuration: null
+    color: 200,0,0
+    seed:666666666666
+
+17.5: curve
+    amount:64
+    p1: 20,3,0
+    p2: 15,5,35.5
+    p3: 10,10,41.5
+    p4: 8,15,50.5
+    fitStartHeight: 0
+    fitStartRow: 25
+    mirror: 2
+    mirrorRotation:false
+    speeder:0.75
+
+define:introbang
+    structures:wall
+    StartRow: 4
+    height: 8
+    width: 2
+    changeDuration: -1.2
+    repeat: 6
+    repeatAddZ: 0.5
+    repeatAddX: -0.2
+    
+65.5: introbang
+    mirror: 2
+
+68: curve
+    amount:24
+    p1: 3,15,0
+    p2: 4,5,0.5
+    p3: 5,3,1
+    p4: 8,0,1.5
+    fitStartHeight: 0
+    fitStartRow: 12
+    mirror: 2
+72: continuesCurve
+    mirror: 2
+    fitStartHeight: 0
+    p1: 3,2,0
+    c1: 4,4
+    p2: 3,4,2
+    c2: 3,7
+    p3: 4,4,7
+    c3: 6,4
+    changeDuration:-1
+80: continuesCurve
+    mirror: 2
+    fitStartHeight: 0
+    p1: 3,4,0
+    c1: 4,6
+    p2: 3,6,4
+    c2: 3,9
+    p3: 4,6,7
+    c3: 6,0
+    speeder:0.5
+    changeDuration:-1.8
+
+
+#open time
+85: RandomNoise
+    amount:12
+    p1:10,0,0
+    p2:30,1,25
+    changeHeight:random(7,15)
+    changeWidth:random(4,6)
+    changeDuration:random(1,3)
+    mirror:2
+89: Line
+    fitStartHeight: 0
+    p1: 2,4,0
+    p2: 2,0,2
+    amount: 16
+    mirror: 2
+    changeDuration:-1.8
+    changeWidth:3
+94.75:Line
+    fitStartHeight: 0
+    p1: 2,6,0
+    p2: 2,2,3
+    amount: 24
+    mirror: 2
+    changeDuration:-1.8
+    changeWidth:4
+100.75:Line
+    fitStartHeight: 0
+    p1: 2,8,0
+    p2: 2,4,4
+    amount: 16
+    mirror: 2
+    changeDuration:-1.8
+    changeWidth:5
+ 106.75:Line
+    fitStartHeight: 0
+    p1: 2,10,0
+    p2: 2,6,4
+    amount: 16
+    mirror: 2
+    changeDuration:-1.8
+    changeWidth:6
+
+#here we fucking go
+110: default
+    changeDuration: -1.8
+define: woosh_sides
+    structures:curve
+    amount: 48
+    p1: 25,-25,0
+    p2: 15,-10,0.5
+    p3: 1,10,1
+    p4: 1,25,3
+    fitStartHeight: -100
+    fitStartRow: 25
+
+define: woosh_bottom
+    structures:curve
+    amount: 48
+    p1: 25,-25,0
+    p2: 25,-10,0.5
+    p3: 25,1,1
+    p4: 25,1,4
+    fitStartHeight: -100
+    fitStartRow: -25
+    mirror: 0
+
+
+114:woosh_sides
+    color: gradient(0,0,0,255,255,255)
+    rotation: ease(25,5,easeOutCubic)
+    mirror: 1
+114:woosh_sides
+    color: gradient(0,0,0,255,255,255)
+    rotation: ease(25,5,easeOutCubic)
+    mirror: 0
+
+114:woosh_bottom
+    color: gradient(0,0,0,255,255,255)
+
+115: default
+    color: 200,0,0
+
+115.5:Line
+    p1: 0.5,100,0
+    p2: 0.5,100,4
+    amount: 16
+    mirror: 2
+    fitStartRow: 2
+    fitStartHeight:0
+    rotation: ease(15,0,easeOutCubic)
+    color: gradient(255,255,255,200,0,0)
+
+define:dudududu_side
+    structures:wall
+    StartRow: -4
+    StartHeight: -3
+    height: 8
+    width: 1
+    duration: -2
+    mirror:2
+    changeStartTime:0
+
+define:dudududu_topbottom
+    structures:wall
+    StartRow: -4
+    StartHeight: 5
+    height: 1
+    width: 8
+    duration: -2
+    mirror:4
+    changeStartTime:0.33
+    
+120: default
+    changeDuration: -1.8
+#bangbangbangbangbafwekjafbawif
+define: bang
+    structures: line
+    amount: 4
+    p1: 6,5,0
+    p2: 3,0,0.33
+    fitStartHeight: -100
+    fitStartRow: 8
+    localRotZ:random(0,15)
+
+define: bang2
+    structures: line
+    amount: 4
+    p1: -100,5,0
+    p2: -100,4,0.33
+    fitStartHeight: 100
+    fitStartRow: 100
+    localRotZ:random(0,-15)
+
+define: pow
+    structures: wall
+    startRow: 6
+    mirror: 2
+    changeDuration: -1.25
+    changeHeight: random(4,8)
+    changeWidth: random(2,4)
+    changeStartHeight: random(-5,-2)
+
+define: bamTowers_A
+    structures: wall
+    changeStartRow:random(-15,10)
+    startHeight:-25
+    fitStartHeight:-100
+    changeHeight:random(20,25)
+    changeWidth: random(2,5)
+    changeDuration: random(1,3)
+    repeat: 0
+    repeatAddz: 0.033
+    localRotZ:random(0,15)
+
+define: bamTowers
+    structures: bamTowers_A, pow
+    repeatAddZ: 0.33
+    repeat:7
+
+define: bassDududu1
+    structures: Steadycurve
+    p1: 0,-4
+    p2: 7,-4
+    p3: 10,-3
+    p4: 8,20
+    scale: 4
+    mirror: 2
+    fitStartHeight: -100
+    changeWidth: random(2,3)
+    amount:12
+    localRotZ:random(0,15)
+
+define: bassDududu2
+    structures: line
+    p1: 0,0,0
+    p2: 10,0,4.5
+    mirror: 8
+    changeWidth: random(0.5,0.75)
+define: bassDududu
+    structures: bassDududu1, bassDududu2
+    changeDuration:-1.25
+
+121:bamTowers
+
+124:bamTowers
+
+127:bamTowers
+130: bassDududu
+130: continuesCurve
+    mirror: 0
+    fitStartHeight: -100
+    p1: -5,-2,0
+    c1: 0,0
+    p2: 5,-2,2
+    c2: 0,0
+    p3: -5,-2,4
+    c3: 0,0
+    changeDuration:-1.8
+133:bamTowers
+
+136:bamTowers
+140: bassDududu
+
+145:bamTowers
+    repeat:3
+    repeatAddZ:3
+154: bassDududu
+157:bamTowers
+    repeat:2
+    repeatAddZ:3
+163: bassDududu
+163: continuesCurve
+169:bamTowers
+    repeat:3
+    repeatAddZ:3
+178: bassDududu
+181:bamTowers
+    repeat:2
+    repeatAddZ:3
+
+187: default
+    color: 255,0,0
+188: bassDududu
+    scale:3
+188: continuesCurve
+    fitStartHeight: -100
+    p1: 5,-2,0
+    c1: 2,-3
+    p2: 5,-3,1.5
+    c2: 2,-1
+    p3: 5,-3,5
+    c3: 5,-1
+    p4: -5,-4,10
+    c4: 4,-3
+    p5: 5,-2,15
+    c5: 4,-3
+    p6: 0,-25,20
+    c6: -25,-25
+    changeDuration:random(-2.2,-1.6)
+    mirror:5
+    changeHeight:1
+    addWidth: random(-6,6)
+    addHeight: random(0,1)
+193:bamTowers
+    repeat:3
+    repeatAddZ:3
+202: bassDududu
+    changeDuration:-2
+205:bamTowers
+    repeat:2
+    repeatAddZ:3
+    repeatAddX:-1
+
+187: default
+    color: 255,50,50
+
+define: bangTowerL
+    structures: wall
+    changeStartRow:random(-15,10)
+    startHeight:-25
+    fitStartHeight:-100
+    changeHeight:random(20,25)
+    changeWidth: random(2,5)
+    changeDuration: random(1,3)
+    repeat: 0
+    repeatAddz: 0.033
+    mirror:4
+define: powL
+    structures: wall
+    startRow: 6
+    changeDuration: -1.25
+    changeHeight: random(4,8)
+    changeWidth: random(2,4)
+    changeStartHeight: random(-5,-2)
+    repeatAddX:-0.5
+    mirror:2
+define: bamTowersLong
+    structures: bangTowerL, powL
+    repeatAddZ: 0.33
+    repeat:10
+
+211:bamTowersLong
+
+
+
+215: default
+    changeDuration: -2.55
+
+
+
+#round 2
+define: woosh_up
+    structures:curve
+    amount: 48
+    p1: 6,-100,0
+    p2: 5,-50,1.5
+    p3: 4,10,2
+    p4: 3,50,3
+    fitStartHeight: -100
+    fitStartRow: 25
+
+define: woosh_up_center
+    structures:curve
+    amount: 48
+    p1: 20,-100,0
+    p2: 20,-50,1.5
+    p3: 20,-1,2
+    p4: 20,-2,3
+    fitStartHeight: -100
+    fitStartRow: -20
+
+216:woosh_up
+    color: gradient(100,0,0,255,255,255)
+    rotation: ease(25,5,easeOutCubic)
+    mirror:1
+216:woosh_up
+    color: gradient(100,0,0,255,255,255)
+    rotation: ease(25,5,easeOutCubic)
+
+216:woosh_up_center
+   color: gradient(100,0,0,255,255,255)
+
+217.75:Line
+    p1: 0.5,100,0
+    p2: 0.5,100,2
+    amount: 16
+    mirror: 2
+    fitStartRow: 2
+    fitStartHeight:0
+    rotation: ease(15,0,easeOutCubic)
+    color: gradient(255,255,255,200,0,0)
+
+
+
+217.9: default
+   changeDuration: null
+   color: 255,0,0
+
+#sides
+218: continuesCurve
+    amount: 6
+    fitStartHeight: -100
+    p1: -3,50,0
+    c1: -3,15
+    p2: -4,-3,3
+    c2: -0,-3
+    p3: -5,6,7
+    c3: -7,7
+    p4: -4,-3,11
+    c4: -3,-3
+    p5: -3,25,15
+    c5: -5,10
+    p6: -10,0,19
+    c6: -10,5
+    p7: -16,10,23
+    c7: -14,4
+    p8: -12,6,27
+    c8: -12,2
+    fitStartRow: -100
+    mirror: 2
+    changeDuration: -1.6
+218: continuesCurve
+    amount: 6
+    fitStartHeight: -100
+    p1: 3,50,0
+    c1: 3,15
+    p2: 4,-3,3
+    c2: 0,-3
+    p3: 5,6,7
+    c3: 7,7
+    p4: 4,-3,11
+    c4: 3,-3
+    p5: 3,25,15
+    c5: 5,10
+    p6: 10,0,19
+    c6: 10,5
+    p7: 16,10,23
+    c7: 14,4
+    p8: 12,6,27
+    c8: 12,2
+    fitStartRow: 100
+    mirror: 2
+    changeDuration: -1.6
+
+#floor
+218: continuesCurve
+    amount: 6
+    fitStartHeight: -100
+    p1: 10,-50,0
+    c1: 10,-15
+    p2: 12,-3,3
+    c2: 7,-3
+    p3: 12,-6,7
+    c3: 14,-7
+    p4: 11,-3,11
+    c4: 10,-3
+    p5: 10,-25,15
+    c5: 12,-10
+    p6: 17,-3,19
+    c6: 17,-5
+    p7: 21,-10,23
+    c7: 19,-4
+    p8: 19,-6,27
+    c8: 5,-1
+    fitStartRow: 0
+    mirror: 0
+    changeDuration: -1.6
+    speeder:0.75
+
+
+218: continuesCurve
+    amount: 6
+    fitStartHeight: -100
+    p1: 8,-50,0
+    c1: 8,-15
+    p2: 9,-3,3
+    c2: 5,-3
+    p3: 10,-6,7
+    c3: 12,-7
+    p4: 9,-3,11
+    c4: 8,-3
+    p5: 8,-25,15
+    c5: 10,-10
+    p6: 15,-3,19
+    c6: 15,-5
+    p7: 21,10,23
+    c7: 19,-4
+    p8: 17,-6,27
+    c8: 5,-1
+    fitStartRow: 0
+    mirror: 1
+    changeDuration: -1.6
+    speeder:0.75
+
+
+#idk whatever the fuck this is
+#sides
+243: continuesCurve
+    amount: 6
+    fitStartHeight: -100
+    p1: -10,10,0
+    c1: -3,15
+    p2: -4,-3,3
+    c2: -0,-3
+    p3: -5,6,7
+    c3: -7,7
+    p4: -4,-3,11
+    c4: -3,-3
+    p5: -3,25,15
+    c5: -5,10
+    p6: -10,0,19
+    c6: -10,5
+    p7: -16,10,23
+    c7: -14,4
+    p8: -12,6,27
+    c8: -12,2
+    fitStartRow: -100
+    mirror: 2
+    changeDuration: -1.6
+243: continuesCurve
+    amount: 6
+    fitStartHeight: -100
+    p1: 10,10,0
+    c1: 3,15
+    p2: 4,-3,3
+    c2: 0,-3
+    p3: 5,6,7
+    c3: 7,7
+    p4: 4,-3,11
+    c4: 3,-3
+    p5: 3,25,15
+    c5: 5,10
+    p6: 10,0,19
+    c6: 10,5
+    p7: 16,10,23
+    c7: 14,4
+    p8: 12,6,27
+    c8: 12,2
+    fitStartRow: 100
+    mirror: 2
+    changeDuration: -1.6
+
+#floor
+243: continuesCurve
+    amount: 6
+    fitStartHeight: -100
+    p1: 10,-50,0
+    c1: 10,-15
+    p2: 12,-3,3
+    c2: 7,-3
+    p3: 12,-6,7
+    c3: 14,-7
+    p4: 11,-3,11
+    c4: 10,-3
+    p5: 10,-25,15
+    c5: 12,-10
+    p6: 17,-3,19
+    c6: 17,-5
+    p7: 21,-10,23
+    c7: 19,-4
+    p8: 19,-6,27
+    c8: 5,-1
+    fitStartRow: 0
+    mirror: 1
+    changeDuration: -1.6
+    speeder:0.75
+
+243: continuesCurve
+    amount: 6
+    fitStartHeight: -100
+    p1: 8,-50,0
+    c1: 8,-15
+    p2: 9,-3,3
+    c2: 5,-3
+    p3: 10,-6,7
+    c3: 14,-7
+    p4: 9,-3,11
+    c4: 8,-3
+    p5: 8,-25,15
+    c5: 10,-10
+    p6: 15,-3,19
+    c6: 15,-5
+    p7: 21,10,23
+    c7: 19,-4
+    p8: 17,-6,27
+    c8: 5,-1
+    fitStartRow: 0
+    mirror: 0
+    changeDuration: -1.6
+    speeder:0.75
+#and more
+#sides
+268: continuesCurve
+    amount: 6
+    fitStartHeight: -100
+    p1: -10,10,0
+    c1: -5,15
+    p2: -9,-3,3
+    c2: -5,-3
+    p3: -10,6,7
+    c3: -12,7
+    p4: -9,-3,11
+    c4: -8,-3
+    p5: -8,25,15
+    c5: -10,10
+    p6: -15,0,19
+    c6: -15,5
+    p7: -24,10,23
+    c7: -26,4
+    p8: -28,6,27
+    c8: -28,2
+    fitStartRow: -100
+    mirror: 2
+    changeDuration: -1.6
+268: continuesCurve
+    amount: 6
+    fitStartHeight: -100
+    p1: 10,10,0
+    c1: 5,15
+    p2: 9,-3,3
+    c2: 5,-3
+    p3: 10,6,7
+    c3: 12,7
+    p4: 9,-3,11
+    c4: 8,-3
+    p5: 8,25,15
+    c5: 10,10
+    p6: 15,0,19
+    c6: 15,5
+    p7: 24,10,23
+    c7: 26,4
+    p8: 28,6,27
+    c8: 28,2
+    fitStartRow: 100
+    mirror: 2
+    changeDuration: -1.6
+
+#floor
+268: continuesCurve
+    amount: 6
+    fitStartHeight: -100
+    p1: 10,-50,0
+    c1: 10,-15
+    p2: 12,-3,3
+    c2: 7,-3
+    p3: 12,-6,7
+    c3: 14,-7
+    p4: 11,-3,11
+    c4: 10,-3
+    p5: 10,-25,15
+    c5: 12,-10
+    p6: 17,-3,19
+    c6: 17,-5
+    p7: 21,-10,23
+    c7: 19,-4
+    p8: 19,-6,23
+    c8: 5,-1
+    fitStartRow: 0
+    mirror: 1
+    changeDuration: -1.6
+    speeder:0.75
+268: continuesCurve
+    amount: 6
+    fitStartHeight: -100
+    p1: 8,-50,0
+    c1: 8,-15
+    p2: 9,-3,3
+    c2: 5,-3
+    p3: 10,-6,7
+    c3: 12,-7
+    p4: 9,-3,11
+    c4: 8,-3
+    p5: 8,-25,15
+    c5: 10,-10
+    p6: 15,-3,19
+    c6: 15,-5
+    p7: 21,10,23
+    c7: 19,-10
+    p8: 17,-25,23
+    c8: 5,-50
+    fitStartRow: 0
+    mirror: 0
+    changeDuration: -1.6
+    speeder:0.75
+#fuckfmwf kill me
+define:outerFillWallsRight
+    structures: curve
+    p1: 20,50,0
+    p2: 20,-5,0
+    p3: 10,-5,0
+    p4: 3,-5,0
+    mirror: 0
+    amount: 6
+    addStartTime: random(0,1)
+    scaleWidth: random(-2,1)
+    addStartRow: random(0.5,1)
+    scaleHeight: random(0.75,1)
+    fitStartHeight: -100
+    fitStartRow: 50
+    repeat: 47
+    repeatAddZ:1
+    repeatAddStartRow:-0.2
+    changeDuration: random(-1.2,-0.6)
+    localRotX:random(-5,5)
+    localRotZ:random(0,45)
+
+define:outerFillWallsLeft
+    structures: curve
+    p1: 20,50,0
+    p2: 20,-5,0
+    p3: 10,-5,0
+    p4: 3,-5,0
+    mirror: 1
+    amount: 6
+    addStartTime: random(0,1)
+    scaleWidth: random(-2,1)
+    addStartRow: random(0.5,1)
+    scaleHeight: random(0.75,1)
+    fitStartHeight: -100
+    fitStartRow: 50
+    repeat: 47
+    repeatAddZ:1
+    repeatAddStartRow:0.2
+    rotation: ease(0,35,easeInOutQuad)
+    changeDuration: random(-1.2,-0.6)
+    localRotX:random(-3,3)
+    localRotZ:random(0,-10)
+
+define:outerFillWalls
+    structures:outerFillWallsLeft,outerFillWallsRight
+
+define:floorFillWallsFloor
+    structures: curve
+    p1: 10,1.5,0
+    p2: 10,-5,0
+    p3: 5,-5,0
+    p4: 0,-5,0
+    mirror: 2
+    amount: 4
+    addStartTime: random(0,0.5)
+    changeDuration: random(-1.2,-0.6)
+    scaleWidth: random(1,1.5)
+    addStartRow: random(-0.5,0.5)
+    scaleHeight: random(1,1.25)
+    fitStartHeight: -100
+    repeat: 47
+    repeatAddZ:1
+    rotation: ease(15,-15,easeInOutQuad)
+    localRotX:random(-3,3)
+
+define:floorFillWalls
+    structures:floorFillWallsFloor
+
+290:outerFillWalls
+    repeat:2
+    scaleWidth:0.9
+    repeatAddZ:53
+    color: gradient(255,0,0,0,0,0)
+
+290:floorFillWalls
+    repeat:2
+    repeatAddZ:53
+    color: gradient(255,0,0,0,0,0)
+
+define:gernadePin
+    structures:ContinuousCurve
+    amount: 12
+    p1: 6,1,0
+    c1: 5,-3
+    p2: 0,-3,0.5
+    c2: -5,-3
+    p3: -4,1,1
+    c3: -4,5
+    mirror: 6
+    changeDuration: -1.6
+    rotation: ease(45,0,easeOutCubic)
+
+define:gernade
+    structures:line
+    p1:-5,1,0
+    p2:-4.5,4,0.5
+    changeDuration: -1.25
+    fitStartHeight:-1
+    changeWidth: 3
+    repeatAddZ:0.15
+    repeat:3
+    localRotX:random(-3,3)
+    localRotZ:random(-3,3)
+    
+298:gernadePin
+298.75:gernade
+    rotation: ease(-175,-165,easeInCubic)
+    mirror:2
+    
+define:idkkindasoundslikeadoorclosing
+    structures:curve
+    p1:-5,-6,0
+    p2:-2,0,0.5
+    p3:2,0,1
+    p4:4,-7,1.5
+    changeDuration: -2
+    fitStartHeight:-6
+    changeWidth: 2
+    rotation: ease(-35,35,easeInOutQuad)
+    amount: 12
+    localRotZ:random(-3,3)
+    
+303:idkkindasoundslikeadoorclosing 
+
+306:idkkindasoundslikeadoorclosing 
+    mirror:3
+    reverse:true
+
+define:skyOpenRight
+    structures:line
+    p1: 0,10,0
+    p2: 2,5,6
+    fitStartHeight: 11
+    fitStartRow: 25
+    mirror: 0
+    changeDuration: -2.55
+    color: 255,150,150
+    rotation: ease(180,155,easeInQuint)
+    reverse:false
+    
+define:skyOpenLeft
+    structures:line
+    p1: 0,10,0
+    p2: -2,5,6
+    fitStartHeight: 11
+    fitStartRow: -25
+    mirror: 0
+    changeDuration: -2.55
+    color: 255,150,150
+    rotation: ease(-180,-155,easeInQuint)
+    reverse:false
+    
+
+305:skyOpenRight
+    localRotZ:-25
+305:skyOpenLeft
+    localRotZ:25
+    
+#suck my tube furry
+define:intoTubeSides
+    structures:line
+    p1:-8,8,0
+    p2:-2.5,8,5
+    addWidth: 0.25
+    amount: 12
+    mirror: 2
+    changeDuration:-1.2
+    fitStartHeight:-5
+    speeder:0.5
+
+define:intoTubeTopBtom
+    structures:line
+    p1:-8,8,0
+    p2:-8,4,5
+    fitStartRow:8
+    amount: 12
+    mirror: 0
+    changeDuration:-1.2
+    speeder:0.5
+
+define:intoTubeExtra
+    structures:line
+    p1:-2.5,4,5
+    p2:-2.5,0,6
+    addWidth: 0.25
+    amount: 12
+    mirror: 2
+    changeDuration: -2.55
+    fitStartHeight:-5
+
+define:intoTube
+    structures:intoTubeSides,intoTubeTopBtom,intoTubeExtra
+
+define:hypertubeTop
+    structures:line
+    p1:-2,4,0
+    p2:-2,4.1,4
+    addWidth: 4
+    amount: 24
+    mirror: 4
+    rotation: 180  
+    changeDuration: -2.55
+
+define: hypertubeSides
+    structures: line
+    p1: -2,4,0
+    p2: -2.1,4,4
+    amount: 24
+    mirror: 2
+    fitStartHeight: 0
+    rotation: 180
+    changeDuration: -2.55
+
+define:hypertubeHelix
+    structures:helix
+    count:5
+    radius:2
+    rotationAmount:1
+    startRotation:0
+    scale:4   
+    rotation: switch(0,180,1,179,-1,181)
+    changeDuration: -2.55
+
+define: idksomeothershit
+    structures: line
+    p1: -5,5,0
+    p2: -7,5,3.5
+    mirror: 0
+    fitStartHeight: 6
+    rotation: switch(72,144,216,288,0)
+    changeDuration: -1.75
+    repeatAddRotation:72
+
+define:hypertube
+    structures:hypertubeTop,hypertubeSides,hypertubeHelix
+    addStartHeight:0.5
+    
+309:intoTube
+    color: gradient(255,0,0,0,0,0)
+
+315:idksomeothershit
+    repeat: 4
+    repeatAddZ: 5
+    color: gradient(255,0,0,0,0,0)
+
+315:hypertube
+    addStartRow:0
+    color: gradient(0,0,0,150,0,0)
+    rotation: ease(0,10,easeOutSine)
+
+320:hypertube
+    addStartRow:0
+    color: gradient(150,0,0,255,0,0)
+    rotation: ease(10,0,easeOutSine)
+
+325:hypertube
+    addStartRow:0
+    color: gradient(255,0,0,255,150,150)
+    rotation: ease(0,-10,easeOutSine)
+
+330:hypertube
+    addStartRow:0
+    color: gradient(255,150,150,255,255,255)
+    rotation: ease(-10,0,easeOutSine)
+#do it need this? idk!
+331: default
+    color: 225,0,0
+define:BAMLeft
+    structures:Line
+    fitStartHeight: -100
+    p1: 25,-25,1
+    p2: 1.75,25,1.75
+    amount: 12
+    mirror: 1
+    changeDuration:-2.5
+    fitStartRow: 100
+
+define:BAMLeftHold
+    structures:Line
+    p1: 1.75,25,1.75
+    p2: 1.75,25,4
+    fitStartHeight: -25
+    fitStartRow: 100
+    mirror: 1
+
+define:BAMRight
+    structures:Line
+    fitStartHeight: -100
+    p1: 25,-25,0
+    p2: 1.75,25,0.75
+    amount: 12
+    mirror: 0
+    changeDuration:-2.5
+    fitStartRow: 100
+
+define:BAMRightHold
+    structures:Line
+    p1: 1.75,25,0.75
+    p2: 1.75,25,4
+    fitStartHeight: -25
+    fitStartRow: 100
+    mirror: 0
+    
+define:BAMFloor
+    structures:Line
+    fitStartHeight: -100
+    p1: 5,-25,2
+    p2: 5,-0.5,2.75
+    amount: 12
+    mirror: 0
+    changeDuration:-2.25
+    fitStartRow: -5
+
+define:BAMFloorHold
+    structures:Line
+    p1: 5,-0.5,2.75
+    p2: 5,-0.5,4
+    fitStartHeight: -25
+    fitStartRow: -5
+    mirror: 0
+
+define:BAMTop
+    structures:Line
+    fitStartHeight: -100
+    p1: 5,-25,3
+    p2: 5,-0.5,3.75
+    amount: 12
+    mirror: 3
+    changeDuration:-2.25
+    fitStartRow: -5
+
+define:BAMTopHold
+    structures:Line
+    p1: 5,-0.5,3.75
+    p2: 5,-0.5,4
+    fitStartHeight: -25
+    fitStartRow: -5
+    mirror: 3
+
+define:BAM
+    structures:BAMLeft,BAMRight,BAMFloor,BAMTop
+    addStartTime:0
+define:BAMHolds
+    structures:BAMLeftHold,BAMRightHold,BAMFloorHold,BAMTopHold
+    changeDuration:-2.25
+
+339:BAM
+    color: 255,0,0
+339:BAMHolds
+#wtf do it even do here
+351:gernadePin
+351.75:gernade
+    rotation: ease(-175,-165,easeInCubic)
+    mirror:2
+
+356:idkkindasoundslikeadoorclosing 
+    repeat:2
+    repeatAddZ:0.25
+    mirror:7
+
+359:idkkindasoundslikeadoorclosing 
+    repeat:2
+    repeatAddZ:0.25
+    mirror:8
+    reverse:true
+#awlhbwafjiwahbnfowaifioawlf
+358:skyOpenRight
+    localRotZ:-25
+358:skyOpenLeft
+    localRotZ:25
+
+362:intoTube
+    color: gradient(255,0,0,0,0,0)
+
+368:idksomeothershit
+    repeat: 4
+    repeatAddZ: 5
+
+368:hypertube
+    addStartRow:0
+    color: gradient(0,0,0,150,0,0)
+    rotation: ease(0,-15,easeOutSine)
+
+373:hypertube
+    addStartRow:0
+    color: gradient(150,0,0,255,0,0)
+    rotation: ease(-15,0,easeOutSine)
+
+378:hypertube
+    addStartRow:0
+    color: gradient(255,0,0,255,150,150)
+    rotation: ease(0,15,easeOutSine)
+
+383:hypertube
+    addStartRow:0
+    color: gradient(255,150,150,255,255,255)
+    rotation: ease(15,0,easeOutSine)
+
+391: default
+    color: 225,0,0
+392:BAM
+392:BAMHolds
+
+395: default
+    changeDuration: null
+    color: null    
+
+#yay random shit
+396:RandomNoise  
+    amount:50
+    changeDuration:-1.7
+    addWidth: random(0,3.5)
+    addHeight: random(0,3.5)
+    color: gradient(255,50,50,255,0,0)
+    localRotX:random(0,360)
+    localRotY:random(0,360)
+    localRotZ:random(0,360)
+    p1:20,-12,0,0
+    p2:30,12,5,5
+396:RandomNoise  
+    amount:50
+    changeDuration:-1.7
+    addWidth: random(0,3.5)
+    addHeight: random(0,3.5)
+    color: gradient(255,50,50,255,0,0)
+    localRotX:random(0,360)
+    localRotY:random(0,360)
+    localRotZ:random(0,360)
+    p1:20,-12,0
+    p2:30,12,5
+    mirror:1
+396:RandomNoise  
+    amount:50
+    changeDuration:-1.7
+    addWidth: random(0,3.5)
+    addHeight: random(0,3.5)
+    color: gradient(255,50,50,255,0,0)
+    localRotX:random(0,360)
+    localRotY:random(0,360)
+    localRotZ:random(0,360)
+    p1:-20,20,0
+    p2:20,25,5
+    mirror:4
+
+400:RandomNoise  
+    amount:35
+    changeDuration:-1.25
+    addWidth: random(0,3)
+    addHeight: random(0,3)
+    color: gradient(255,0,0,225,0,0)
+    localRotX:random(0,360)
+    localRotY:random(0,360)
+    localRotZ:random(0,360)
+    p1:20,-12,0
+    p2:30,12,5
+400:RandomNoise  
+    amount:35
+    changeDuration:-1.25
+    addWidth: random(0,3)
+    addHeight: random(0,3)
+    color: gradient(255,0,0,225,0,0)
+    localRotX:random(0,360)
+    localRotY:random(0,360)
+    localRotZ:random(0,360)
+    p1:20,-12,0
+    p2:30,12,5
+    mirror:1
+400:RandomNoise  
+    amount:35
+    changeDuration:-1.25
+    addWidth: random(0,3)
+    addHeight: random(0,3)
+    color: gradient(255,0,0,225,0,0)
+    localRotX:random(0,360)
+    localRotY:random(0,360)
+    localRotZ:random(0,360)
+    p1:-20,20,0
+    p2:20,25,5
+    mirror:4
+
+405:RandomNoise  
+    amount:20
+    changeDuration:-1
+    addWidth: random(0,2.5)
+    addHeight: random(0,2.5)
+    color: gradient(255,0,0,200,0,0)
+    localRotX:random(0,360)
+    localRotY:random(0,360)
+    localRotZ:random(0,360)
+    p1:20,-12,0
+    p2:30,12,5
+405:RandomNoise  
+    amount:20
+    changeDuration:-1
+    addWidth: random(0,2.5)
+    addHeight: random(0,2.5)
+    color: gradient(255,0,0,200,0,0)
+    localRotX:random(0,360)
+    localRotY:random(0,360)
+    localRotZ:random(0,360)
+    p1:20,-12,0
+    p2:30,12,5
+    mirror:1
+405:RandomNoise  
+    amount:20
+    changeDuration:-1
+    addWidth: random(0,2.5)
+    addHeight: random(0,2.5)
+    color: gradient(255,0,0,200,0,0)
+    localRotX:random(0,360)
+    localRotY:random(0,360)
+    localRotZ:random(0,360)
+    p1:-20,20,0
+    p2:20,25,5
+    mirror:4
+
+410:RandomNoise  
+    amount:7
+    changeDuration:-0.5
+    addWidth: random(0,2)
+    addHeight: random(0,2)
+    color: gradient(200,0,0,100,0,0)
+    localRotX:random(0,360)
+    localRotY:random(0,360)
+    localRotZ:random(0,360)
+    p1:15,-6,0
+    p2:20,6,5
+410:RandomNoise  
+    amount:7
+    changeDuration:-0.5
+    addWidth: random(0,2)
+    addHeight: random(0,2)
+    color: gradient(200,0,0,100,0,0)
+    localRotX:random(0,360)
+    localRotY:random(0,360)
+    localRotZ:random(0,360)
+    p1:15,-6,0
+    p2:20,6,5
+    mirror:1
+410:RandomNoise  
+    amount:7
+    changeDuration:-0.5
+    addWidth: random(0,2)
+    addHeight: random(0,2)
+    color: gradient(200,0,0,100,0,0)
+    localRotX:random(0,360)
+    localRotY:random(0,360)
+    localRotZ:random(0,360)
+    p1:-15,15,0
+    p2:20,20,5
+    mirror:4
+
+415:RandomNoise  
+    amount:5
+    changeDuration:0.5
+    addWidth: random(0,1)
+    addHeight: random(0,1)
+    color: gradient(100,0,0,0,0,0)
+    localRotX:random(0,360)
+    localRotY:random(0,360)
+    localRotZ:random(0,360)
+    p1:15,-6,0
+    p2:20,6,5
+    mirror:1
+415:RandomNoise  
+    amount:5
+    addWidth: random(0,1)
+    addHeight: random(0,1)
+    color: gradient(100,0,0,0,0,0)
+    localRotX:random(0,360)
+    localRotY:random(0,360)
+    localRotZ:random(0,360)
+    p1:15,-6,0
+    p2:20,6,5
+415:RandomNoise  
+    amount:5
+    changeDuration:0.5
+    addWidth: random(0,1)
+    addHeight: random(0,1)
+    color: gradient(100,0,0,0,0,0)
+    localRotX:random(0,360)
+    localRotY:random(0,360)
+    localRotZ:random(0,360)
+    p1:-15,15,0
+    p2:20,20,5
+    mirror:4
+

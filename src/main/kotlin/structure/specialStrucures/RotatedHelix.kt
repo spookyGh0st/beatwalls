@@ -30,7 +30,7 @@ fun NoodleHelix.run(): List<SpookyWall> {
             val b = x1 - x2
             val c = sqrt(a.pow(2) + b.pow(2))
             val degree = atan(a/b)
-
+            // todo this is hacky and bad. too bad!
             val cc = CuboidConstrains(p1.copy(x=x1,y=y1),p2.copy(x=x2,y=y2))
             val startRow  = cc.sx + cc.width/2-c/2
             val startHeight = cc.sy + cc.height/2
@@ -39,6 +39,7 @@ fun NoodleHelix.run(): List<SpookyWall> {
             val height = 0.0
             val duration = p2.z-p1.z
             val localRotZ =  180 - degree/(2*PI)*360 + localRotationOffset
+            val lrz = if (p1.x > p2.x) localRotZ else localRotZ + 180
             l.add(SpookyWall(
                 startRow = startRow,
                 duration = duration,
@@ -46,7 +47,7 @@ fun NoodleHelix.run(): List<SpookyWall> {
                 height = height,
                 startHeight = startHeight,
                 startTime = startTime,
-                localRotation = arrayOf(0.0, 0.0,localRotZ)
+                localRotation = arrayOf(0.0, 0.0,lrz)
             ))
         }
     }

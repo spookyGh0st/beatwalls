@@ -1,0 +1,17 @@
+$dokka.format:html
+$dokka.linkExtension:html
+$dokka.location:assetFile$key(kotlin.Pair((kotlin.String, )))asset-file/kotlin.-pair/key.html
+$dokka.location:assetFile$value(kotlin.Pair((kotlin.String, )))asset-file/kotlin.-pair/value.html
+$dokka.location:beatwalls$asWatchChannel(java.io.File, beatwalls.KWatchChannel.Mode, kotlin.Any, kotlinx.coroutines.CoroutineScope)beatwalls/java.io.-file/as-watch-channel.html
+$dokka.location:chart.song$isSongInfo(java.io.File)chart.song/java.io.-file/is-song-info.html
+$dokka.location:structure.wallbender$reverseX(kotlin.collections.List((structure.helperClasses.SpookyWall)))structure.wallbender/kotlin.collections.-list/reverse-x.html
+$dokka.location:structure.wallbender$reverseY(kotlin.collections.List((structure.helperClasses.SpookyWall)))structure.wallbender/kotlin.collections.-list/reverse-y.html
+assetFile
+beatwalls
+chart.difficulty
+chart.song
+structure
+structure.helperClasses
+structure.helperFunctions
+structure.specialStrucures
+structure.wallbender

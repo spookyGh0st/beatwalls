@@ -1,0 +1,100 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>RotationMode - beatwalls</title>
+<link rel="stylesheet" href="../../../style.css">
+</HEAD>
+<BODY>
+<a href="../../index.html">beatwalls</a>&nbsp;/&nbsp;<a href="../index.html">structure.helperClasses</a>&nbsp;/&nbsp;<a href="./index.html">RotationMode</a><br/>
+<br/>
+<h1>RotationMode</h1>
+<code><span class="keyword">interface </span><span class="identifier">RotationMode</span>&nbsp;<span class="symbol">:</span>&nbsp;<span class="identifier">Serializable</span></code>
+<h3>Functions</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<h4><a href="get-value.html">getValue</a></h4>
+</td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">fun </span><span class="identifier">getValue</span><span class="symbol">(</span><span class="identifier" id="structure.helperClasses.RotationMode$getValue(kotlin.Int, kotlin.Int)/index">index</span><span class="symbol">:</span>&nbsp;<span class="identifier">Int</span><span class="symbol">, </span><span class="identifier" id="structure.helperClasses.RotationMode$getValue(kotlin.Int, kotlin.Int)/amount">amount</span><span class="symbol">:</span>&nbsp;<span class="identifier">Int</span><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">Double</span></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="local-rot-x.html">localRotX</a></h4>
+</td>
+<td>
+<code><span class="keyword">open</span> <span class="keyword">fun </span><span class="identifier">localRotX</span><span class="symbol">(</span><span class="identifier" id="structure.helperClasses.RotationMode$localRotX(kotlin.collections.Collection((structure.helperClasses.SpookyWall)))/walls">walls</span><span class="symbol">:</span>&nbsp;<span class="identifier">Collection</span><span class="symbol">&lt;</span><a href="../-spooky-wall/index.html"><span class="identifier">SpookyWall</span></a><span class="symbol">&gt;</span><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">Unit</span></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="local-rot-y.html">localRotY</a></h4>
+</td>
+<td>
+<code><span class="keyword">open</span> <span class="keyword">fun </span><span class="identifier">localRotY</span><span class="symbol">(</span><span class="identifier" id="structure.helperClasses.RotationMode$localRotY(kotlin.collections.Collection((structure.helperClasses.SpookyWall)))/walls">walls</span><span class="symbol">:</span>&nbsp;<span class="identifier">Collection</span><span class="symbol">&lt;</span><a href="../-spooky-wall/index.html"><span class="identifier">SpookyWall</span></a><span class="symbol">&gt;</span><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">Unit</span></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="local-rot-z.html">localRotZ</a></h4>
+</td>
+<td>
+<code><span class="keyword">open</span> <span class="keyword">fun </span><span class="identifier">localRotZ</span><span class="symbol">(</span><span class="identifier" id="structure.helperClasses.RotationMode$localRotZ(kotlin.collections.Collection((structure.helperClasses.SpookyWall)))/walls">walls</span><span class="symbol">:</span>&nbsp;<span class="identifier">Collection</span><span class="symbol">&lt;</span><a href="../-spooky-wall/index.html"><span class="identifier">SpookyWall</span></a><span class="symbol">&gt;</span><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">Unit</span></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="rotation.html">rotation</a></h4>
+</td>
+<td>
+<code><span class="keyword">open</span> <span class="keyword">fun </span><span class="identifier">rotation</span><span class="symbol">(</span><span class="identifier" id="structure.helperClasses.RotationMode$rotation(kotlin.collections.Collection((structure.helperClasses.SpookyWall)))/walls">walls</span><span class="symbol">:</span>&nbsp;<span class="identifier">Collection</span><span class="symbol">&lt;</span><a href="../-spooky-wall/index.html"><span class="identifier">SpookyWall</span></a><span class="symbol">&gt;</span><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">Unit</span></code></td>
+</tr>
+</tbody>
+</table>
+<h3>Inheritors</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<h4><a href="../-circles-rotation/index.html">CirclesRotation</a></h4>
+</td>
+<td>
+<code><span class="keyword">data</span> <span class="keyword">class </span><span class="identifier">CirclesRotation</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="./index.html"><span class="identifier">RotationMode</span></a></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="../-ease-rotation/index.html">EaseRotation</a></h4>
+</td>
+<td>
+<code><span class="keyword">data</span> <span class="keyword">class </span><span class="identifier">EaseRotation</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="./index.html"><span class="identifier">RotationMode</span></a></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="../-no-rotation/index.html">NoRotation</a></h4>
+</td>
+<td>
+<code><span class="keyword">object </span><span class="identifier">NoRotation</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="./index.html"><span class="identifier">RotationMode</span></a></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="../-random-rotation/index.html">RandomRotation</a></h4>
+</td>
+<td>
+<code><span class="keyword">data</span> <span class="keyword">class </span><span class="identifier">RandomRotation</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="./index.html"><span class="identifier">RotationMode</span></a></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="../-static-rotation/index.html">StaticRotation</a></h4>
+</td>
+<td>
+<code><span class="keyword">data</span> <span class="keyword">class </span><span class="identifier">StaticRotation</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="./index.html"><span class="identifier">RotationMode</span></a></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="../-switch-rotation/index.html">SwitchRotation</a></h4>
+</td>
+<td>
+<code><span class="keyword">data</span> <span class="keyword">class </span><span class="identifier">SwitchRotation</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="./index.html"><span class="identifier">RotationMode</span></a></code></td>
+</tr>
+</tbody>
+</table>
+</BODY>
+</HTML>

@@ -1,0 +1,41 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>WallStructure.rotation - beatwalls</title>
+<link rel="stylesheet" href="../../../style.css">
+</HEAD>
+<BODY>
+<a href="../../index.html">beatwalls</a>&nbsp;/&nbsp;<a href="../index.html">structure</a>&nbsp;/&nbsp;<a href="index.html">WallStructure</a>&nbsp;/&nbsp;<a href="./rotation.html">rotation</a><br/>
+<br/>
+<h1>rotation</h1>
+<a name="structure.WallStructure$rotation"></a>
+<code><span class="keyword">var </span><span class="identifier">rotation</span><span class="symbol">: </span><a href="../../structure.helper-classes/-rotation-mode/index.html"><span class="identifier">RotationMode</span></a></code>
+<p>The rotation of the wallstructure around the player, think 360 maps. click me.</p>
+<pre><code># rotates the entire Wallstructure 90 degrees
+rotation: 90
+
+# also rotates the entire Wallstructure 90 degrees. You can use negative values as well
+rotation: 450
+
+# rotates the walls linear from 45 to 90.
+rotation: ease(45,90)
+
+# rotates the walls from 180 to 90 degrees using easeInOutQuad.
+# all Easing methods can be found here https://easings.net/en
+rotation: ease(180,90,easeInOutQuad)
+
+# switches the rotation between the given values. here the first wall will have rotation 24, ththe second one 48 the third one 50, the fourth 24  and so forth
+rotation: switch(24,48,50)
+
+# rotates all the way around the player (360 degrees)
+rotation: circle
+
+# rotates twice all the way around the player backwards
+rotation: circle(-2)
+</code></pre>
+<p>default: noRotation</p>
+<p>Other interesting Properties: mirrorRotation -&gt; controls if mirror also effects the rotation(true,false)</p>
+<a name="structure.WallStructure.Default$rotation"></a>
+<code><span class="keyword">var </span><span class="identifier">rotation</span><span class="symbol">: </span><a href="../../structure.helper-classes/-rotation-mode/index.html"><span class="identifier">RotationMode</span></a></code>
+</BODY>
+</HTML>

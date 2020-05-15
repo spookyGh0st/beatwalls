@@ -1,0 +1,691 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>ContinuousCurve - beatwalls</title>
+<link rel="stylesheet" href="../../../style.css">
+</HEAD>
+<BODY>
+<a href="../../index.html">beatwalls</a>&nbsp;/&nbsp;<a href="../index.html">structure</a>&nbsp;/&nbsp;<a href="./index.html">ContinuousCurve</a><br/>
+<br/>
+<h1>ContinuousCurve</h1>
+<code><span class="keyword">class </span><span class="identifier">ContinuousCurve</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="../-wall-structure/index.html"><span class="identifier">WallStructure</span></a></code>
+<p>Creates a continues line with up to 31 Points. this one does not have a typo in the name :)</p>
+<h3>Constructors</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<h4><a href="-init-.html">&lt;init&gt;</a></h4>
+</td>
+<td>
+<p>Creates a continues line with up to 31 Points. this one does not have a typo in the name :)</p>
+<code><span class="identifier">ContinuousCurve</span><span class="symbol">(</span><span class="symbol">)</span></code></td>
+</tr>
+</tbody>
+</table>
+<h3>Properties</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<h4><a href="amount.html">amount</a></h4>
+</td>
+<td>
+<p>The amount of Walls per beat</p>
+<code><span class="keyword">var </span><span class="identifier">amount</span><span class="symbol">: </span><span class="identifier">Int</span></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="c1.html">c1</a></h4>
+</td>
+<td>
+<p>The ControllPoint for the 1 Point. Use this to guide the curve to his direction</p>
+<code><span class="keyword">var </span><span class="identifier">c1</span><span class="symbol">: </span><a href="../../structure.helper-classes/-point/index.html"><span class="identifier">Point</span></a><span class="symbol">?</span></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="c10.html">c10</a></h4>
+</td>
+<td>
+<p>The ControllPoint for the 10 Point. Use this to guide the curve to his direction</p>
+<code><span class="keyword">var </span><span class="identifier">c10</span><span class="symbol">: </span><a href="../../structure.helper-classes/-point/index.html"><span class="identifier">Point</span></a><span class="symbol">?</span></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="c11.html">c11</a></h4>
+</td>
+<td>
+<p>The ControllPoint for the 11 Point. Use this to guide the curve to his direction</p>
+<code><span class="keyword">var </span><span class="identifier">c11</span><span class="symbol">: </span><a href="../../structure.helper-classes/-point/index.html"><span class="identifier">Point</span></a><span class="symbol">?</span></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="c12.html">c12</a></h4>
+</td>
+<td>
+<p>The ControllPoint for the 12 Point. Use this to guide the curve to his direction</p>
+<code><span class="keyword">var </span><span class="identifier">c12</span><span class="symbol">: </span><a href="../../structure.helper-classes/-point/index.html"><span class="identifier">Point</span></a><span class="symbol">?</span></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="c13.html">c13</a></h4>
+</td>
+<td>
+<p>The ControllPoint for the 13 Point. Use this to guide the curve to his direction</p>
+<code><span class="keyword">var </span><span class="identifier">c13</span><span class="symbol">: </span><a href="../../structure.helper-classes/-point/index.html"><span class="identifier">Point</span></a><span class="symbol">?</span></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="c14.html">c14</a></h4>
+</td>
+<td>
+<p>The ControllPoint for the 14 Point. Use this to guide the curve to his direction</p>
+<code><span class="keyword">var </span><span class="identifier">c14</span><span class="symbol">: </span><a href="../../structure.helper-classes/-point/index.html"><span class="identifier">Point</span></a><span class="symbol">?</span></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="c15.html">c15</a></h4>
+</td>
+<td>
+<p>The ControllPoint for the 15 Point. Use this to guide the curve to his direction</p>
+<code><span class="keyword">var </span><span class="identifier">c15</span><span class="symbol">: </span><a href="../../structure.helper-classes/-point/index.html"><span class="identifier">Point</span></a><span class="symbol">?</span></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="c16.html">c16</a></h4>
+</td>
+<td>
+<p>The ControllPoint for the 16 Point. Use this to guide the curve to his direction</p>
+<code><span class="keyword">var </span><span class="identifier">c16</span><span class="symbol">: </span><a href="../../structure.helper-classes/-point/index.html"><span class="identifier">Point</span></a><span class="symbol">?</span></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="c17.html">c17</a></h4>
+</td>
+<td>
+<p>The ControllPoint for the 17 Point. Use this to guide the curve to his direction</p>
+<code><span class="keyword">var </span><span class="identifier">c17</span><span class="symbol">: </span><a href="../../structure.helper-classes/-point/index.html"><span class="identifier">Point</span></a><span class="symbol">?</span></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="c18.html">c18</a></h4>
+</td>
+<td>
+<p>The ControllPoint for the 18 Point. Use this to guide the curve to his direction</p>
+<code><span class="keyword">var </span><span class="identifier">c18</span><span class="symbol">: </span><a href="../../structure.helper-classes/-point/index.html"><span class="identifier">Point</span></a><span class="symbol">?</span></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="c19.html">c19</a></h4>
+</td>
+<td>
+<p>The ControllPoint for the 19 Point. Use this to guide the curve to his direction</p>
+<code><span class="keyword">var </span><span class="identifier">c19</span><span class="symbol">: </span><a href="../../structure.helper-classes/-point/index.html"><span class="identifier">Point</span></a><span class="symbol">?</span></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="c2.html">c2</a></h4>
+</td>
+<td>
+<p>The ControllPoint for the 2 Point. Use this to guide the curve to his direction</p>
+<code><span class="keyword">var </span><span class="identifier">c2</span><span class="symbol">: </span><a href="../../structure.helper-classes/-point/index.html"><span class="identifier">Point</span></a><span class="symbol">?</span></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="c20.html">c20</a></h4>
+</td>
+<td>
+<p>The ControllPoint for the 20 Point. Use this to guide the curve to his direction</p>
+<code><span class="keyword">var </span><span class="identifier">c20</span><span class="symbol">: </span><a href="../../structure.helper-classes/-point/index.html"><span class="identifier">Point</span></a><span class="symbol">?</span></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="c21.html">c21</a></h4>
+</td>
+<td>
+<p>The ControllPoint for the 21 Point. Use this to guide the curve to his direction</p>
+<code><span class="keyword">var </span><span class="identifier">c21</span><span class="symbol">: </span><a href="../../structure.helper-classes/-point/index.html"><span class="identifier">Point</span></a><span class="symbol">?</span></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="c22.html">c22</a></h4>
+</td>
+<td>
+<p>The ControllPoint for the 22 Point. Use this to guide the curve to his direction</p>
+<code><span class="keyword">var </span><span class="identifier">c22</span><span class="symbol">: </span><a href="../../structure.helper-classes/-point/index.html"><span class="identifier">Point</span></a><span class="symbol">?</span></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="c23.html">c23</a></h4>
+</td>
+<td>
+<p>The ControllPoint for the 23 Point. Use this to guide the curve to his direction</p>
+<code><span class="keyword">var </span><span class="identifier">c23</span><span class="symbol">: </span><a href="../../structure.helper-classes/-point/index.html"><span class="identifier">Point</span></a><span class="symbol">?</span></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="c24.html">c24</a></h4>
+</td>
+<td>
+<p>The ControllPoint for the 24 Point. Use this to guide the curve to his direction</p>
+<code><span class="keyword">var </span><span class="identifier">c24</span><span class="symbol">: </span><a href="../../structure.helper-classes/-point/index.html"><span class="identifier">Point</span></a><span class="symbol">?</span></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="c25.html">c25</a></h4>
+</td>
+<td>
+<p>The ControllPoint for the 25 Point. Use this to guide the curve to his direction</p>
+<code><span class="keyword">var </span><span class="identifier">c25</span><span class="symbol">: </span><a href="../../structure.helper-classes/-point/index.html"><span class="identifier">Point</span></a><span class="symbol">?</span></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="c26.html">c26</a></h4>
+</td>
+<td>
+<p>The ControllPoint for the 26 Point. Use this to guide the curve to his direction</p>
+<code><span class="keyword">var </span><span class="identifier">c26</span><span class="symbol">: </span><a href="../../structure.helper-classes/-point/index.html"><span class="identifier">Point</span></a><span class="symbol">?</span></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="c27.html">c27</a></h4>
+</td>
+<td>
+<p>The ControllPoint for the 27 Point. Use this to guide the curve to his direction</p>
+<code><span class="keyword">var </span><span class="identifier">c27</span><span class="symbol">: </span><a href="../../structure.helper-classes/-point/index.html"><span class="identifier">Point</span></a><span class="symbol">?</span></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="c28.html">c28</a></h4>
+</td>
+<td>
+<p>The ControllPoint for the 28 Point. Use this to guide the curve to his direction</p>
+<code><span class="keyword">var </span><span class="identifier">c28</span><span class="symbol">: </span><a href="../../structure.helper-classes/-point/index.html"><span class="identifier">Point</span></a><span class="symbol">?</span></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="c29.html">c29</a></h4>
+</td>
+<td>
+<p>The ControllPoint for the 29 Point. Use this to guide the curve to his direction</p>
+<code><span class="keyword">var </span><span class="identifier">c29</span><span class="symbol">: </span><a href="../../structure.helper-classes/-point/index.html"><span class="identifier">Point</span></a><span class="symbol">?</span></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="c3.html">c3</a></h4>
+</td>
+<td>
+<p>The ControllPoint for the 3 Point. Use this to guide the curve to his direction</p>
+<code><span class="keyword">var </span><span class="identifier">c3</span><span class="symbol">: </span><a href="../../structure.helper-classes/-point/index.html"><span class="identifier">Point</span></a><span class="symbol">?</span></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="c30.html">c30</a></h4>
+</td>
+<td>
+<p>The ControllPoint for the 30 Point. Use this to guide the curve to his direction</p>
+<code><span class="keyword">var </span><span class="identifier">c30</span><span class="symbol">: </span><a href="../../structure.helper-classes/-point/index.html"><span class="identifier">Point</span></a><span class="symbol">?</span></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="c31.html">c31</a></h4>
+</td>
+<td>
+<p>The ControllPoint for the 31 Point. Use this to guide the curve to his direction</p>
+<code><span class="keyword">var </span><span class="identifier">c31</span><span class="symbol">: </span><a href="../../structure.helper-classes/-point/index.html"><span class="identifier">Point</span></a><span class="symbol">?</span></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="c32.html">c32</a></h4>
+</td>
+<td>
+<p>The ControllPoint for the 32 Point. Use this to guide the curve to his direction</p>
+<code><span class="keyword">var </span><span class="identifier">c32</span><span class="symbol">: </span><a href="../../structure.helper-classes/-point/index.html"><span class="identifier">Point</span></a><span class="symbol">?</span></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="c4.html">c4</a></h4>
+</td>
+<td>
+<p>The ControllPoint for the 4 Point. Use this to guide the curve to his direction</p>
+<code><span class="keyword">var </span><span class="identifier">c4</span><span class="symbol">: </span><a href="../../structure.helper-classes/-point/index.html"><span class="identifier">Point</span></a><span class="symbol">?</span></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="c5.html">c5</a></h4>
+</td>
+<td>
+<p>The ControllPoint for the 5 Point. Use this to guide the curve to his direction</p>
+<code><span class="keyword">var </span><span class="identifier">c5</span><span class="symbol">: </span><a href="../../structure.helper-classes/-point/index.html"><span class="identifier">Point</span></a><span class="symbol">?</span></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="c6.html">c6</a></h4>
+</td>
+<td>
+<p>The ControllPoint for the 6 Point. Use this to guide the curve to his direction</p>
+<code><span class="keyword">var </span><span class="identifier">c6</span><span class="symbol">: </span><a href="../../structure.helper-classes/-point/index.html"><span class="identifier">Point</span></a><span class="symbol">?</span></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="c7.html">c7</a></h4>
+</td>
+<td>
+<p>The ControllPoint for the 7 Point. Use this to guide the curve to his direction</p>
+<code><span class="keyword">var </span><span class="identifier">c7</span><span class="symbol">: </span><a href="../../structure.helper-classes/-point/index.html"><span class="identifier">Point</span></a><span class="symbol">?</span></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="c8.html">c8</a></h4>
+</td>
+<td>
+<p>The ControllPoint for the 8 Point. Use this to guide the curve to his direction</p>
+<code><span class="keyword">var </span><span class="identifier">c8</span><span class="symbol">: </span><a href="../../structure.helper-classes/-point/index.html"><span class="identifier">Point</span></a><span class="symbol">?</span></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="c9.html">c9</a></h4>
+</td>
+<td>
+<p>The ControllPoint for the 9 Point. Use this to guide the curve to his direction</p>
+<code><span class="keyword">var </span><span class="identifier">c9</span><span class="symbol">: </span><a href="../../structure.helper-classes/-point/index.html"><span class="identifier">Point</span></a><span class="symbol">?</span></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="creation-amount.html">creationAmount</a></h4>
+</td>
+<td>
+<p>dont touch</p>
+<code><span class="keyword">val </span><span class="identifier">creationAmount</span><span class="symbol">: </span><span class="identifier">Int</span></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="duration.html">duration</a></h4>
+</td>
+<td>
+<p>The duration of each wall</p>
+<code><span class="keyword">var </span><span class="identifier">duration</span><span class="symbol">: </span><span class="identifier">Double</span></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="p1.html">p1</a></h4>
+</td>
+<td>
+<p>The 1 Point. use this to set an exact Point the wall will go through</p>
+<code><span class="keyword">var </span><span class="identifier">p1</span><span class="symbol">: </span><a href="../../structure.helper-classes/-point/index.html"><span class="identifier">Point</span></a><span class="symbol">?</span></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="p10.html">p10</a></h4>
+</td>
+<td>
+<p>The 10 Point. use this to set an exact Point the wall will go through</p>
+<code><span class="keyword">var </span><span class="identifier">p10</span><span class="symbol">: </span><a href="../../structure.helper-classes/-point/index.html"><span class="identifier">Point</span></a><span class="symbol">?</span></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="p11.html">p11</a></h4>
+</td>
+<td>
+<p>The 11 Point. use this to set an exact Point the wall will go through</p>
+<code><span class="keyword">var </span><span class="identifier">p11</span><span class="symbol">: </span><a href="../../structure.helper-classes/-point/index.html"><span class="identifier">Point</span></a><span class="symbol">?</span></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="p12.html">p12</a></h4>
+</td>
+<td>
+<p>The 12 Point. use this to set an exact Point the wall will go through</p>
+<code><span class="keyword">var </span><span class="identifier">p12</span><span class="symbol">: </span><a href="../../structure.helper-classes/-point/index.html"><span class="identifier">Point</span></a><span class="symbol">?</span></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="p13.html">p13</a></h4>
+</td>
+<td>
+<p>The 13 Point. use this to set an exact Point the wall will go through</p>
+<code><span class="keyword">var </span><span class="identifier">p13</span><span class="symbol">: </span><a href="../../structure.helper-classes/-point/index.html"><span class="identifier">Point</span></a><span class="symbol">?</span></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="p14.html">p14</a></h4>
+</td>
+<td>
+<p>The 14 Point. use this to set an exact Point the wall will go through</p>
+<code><span class="keyword">var </span><span class="identifier">p14</span><span class="symbol">: </span><a href="../../structure.helper-classes/-point/index.html"><span class="identifier">Point</span></a><span class="symbol">?</span></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="p15.html">p15</a></h4>
+</td>
+<td>
+<p>The 15 Point. use this to set an exact Point the wall will go through</p>
+<code><span class="keyword">var </span><span class="identifier">p15</span><span class="symbol">: </span><a href="../../structure.helper-classes/-point/index.html"><span class="identifier">Point</span></a><span class="symbol">?</span></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="p16.html">p16</a></h4>
+</td>
+<td>
+<p>The 16 Point. use this to set an exact Point the wall will go through</p>
+<code><span class="keyword">var </span><span class="identifier">p16</span><span class="symbol">: </span><a href="../../structure.helper-classes/-point/index.html"><span class="identifier">Point</span></a><span class="symbol">?</span></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="p17.html">p17</a></h4>
+</td>
+<td>
+<p>The 17 Point. use this to set an exact Point the wall will go through</p>
+<code><span class="keyword">var </span><span class="identifier">p17</span><span class="symbol">: </span><a href="../../structure.helper-classes/-point/index.html"><span class="identifier">Point</span></a><span class="symbol">?</span></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="p18.html">p18</a></h4>
+</td>
+<td>
+<p>The 18 Point. use this to set an exact Point the wall will go through</p>
+<code><span class="keyword">var </span><span class="identifier">p18</span><span class="symbol">: </span><a href="../../structure.helper-classes/-point/index.html"><span class="identifier">Point</span></a><span class="symbol">?</span></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="p19.html">p19</a></h4>
+</td>
+<td>
+<p>The 19 Point. use this to set an exact Point the wall will go through</p>
+<code><span class="keyword">var </span><span class="identifier">p19</span><span class="symbol">: </span><a href="../../structure.helper-classes/-point/index.html"><span class="identifier">Point</span></a><span class="symbol">?</span></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="p2.html">p2</a></h4>
+</td>
+<td>
+<p>The 2 Point. use this to set an exact Point the wall will go through</p>
+<code><span class="keyword">var </span><span class="identifier">p2</span><span class="symbol">: </span><a href="../../structure.helper-classes/-point/index.html"><span class="identifier">Point</span></a><span class="symbol">?</span></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="p20.html">p20</a></h4>
+</td>
+<td>
+<p>The 20 Point. use this to set an exact Point the wall will go through</p>
+<code><span class="keyword">var </span><span class="identifier">p20</span><span class="symbol">: </span><a href="../../structure.helper-classes/-point/index.html"><span class="identifier">Point</span></a><span class="symbol">?</span></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="p21.html">p21</a></h4>
+</td>
+<td>
+<p>The 21 Point. use this to set an exact Point the wall will go through</p>
+<code><span class="keyword">var </span><span class="identifier">p21</span><span class="symbol">: </span><a href="../../structure.helper-classes/-point/index.html"><span class="identifier">Point</span></a><span class="symbol">?</span></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="p22.html">p22</a></h4>
+</td>
+<td>
+<p>The 22 Point. use this to set an exact Point the wall will go through</p>
+<code><span class="keyword">var </span><span class="identifier">p22</span><span class="symbol">: </span><a href="../../structure.helper-classes/-point/index.html"><span class="identifier">Point</span></a><span class="symbol">?</span></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="p23.html">p23</a></h4>
+</td>
+<td>
+<p>The 23 Point. use this to set an exact Point the wall will go through</p>
+<code><span class="keyword">var </span><span class="identifier">p23</span><span class="symbol">: </span><a href="../../structure.helper-classes/-point/index.html"><span class="identifier">Point</span></a><span class="symbol">?</span></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="p24.html">p24</a></h4>
+</td>
+<td>
+<p>The 24 Point. use this to set an exact Point the wall will go through</p>
+<code><span class="keyword">var </span><span class="identifier">p24</span><span class="symbol">: </span><a href="../../structure.helper-classes/-point/index.html"><span class="identifier">Point</span></a><span class="symbol">?</span></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="p25.html">p25</a></h4>
+</td>
+<td>
+<p>The 25 Point. use this to set an exact Point the wall will go through</p>
+<code><span class="keyword">var </span><span class="identifier">p25</span><span class="symbol">: </span><a href="../../structure.helper-classes/-point/index.html"><span class="identifier">Point</span></a><span class="symbol">?</span></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="p26.html">p26</a></h4>
+</td>
+<td>
+<p>The 26 Point. use this to set an exact Point the wall will go through</p>
+<code><span class="keyword">var </span><span class="identifier">p26</span><span class="symbol">: </span><a href="../../structure.helper-classes/-point/index.html"><span class="identifier">Point</span></a><span class="symbol">?</span></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="p27.html">p27</a></h4>
+</td>
+<td>
+<p>The 27 Point. use this to set an exact Point the wall will go through</p>
+<code><span class="keyword">var </span><span class="identifier">p27</span><span class="symbol">: </span><a href="../../structure.helper-classes/-point/index.html"><span class="identifier">Point</span></a><span class="symbol">?</span></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="p28.html">p28</a></h4>
+</td>
+<td>
+<p>The 28 Point. use this to set an exact Point the wall will go through</p>
+<code><span class="keyword">var </span><span class="identifier">p28</span><span class="symbol">: </span><a href="../../structure.helper-classes/-point/index.html"><span class="identifier">Point</span></a><span class="symbol">?</span></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="p29.html">p29</a></h4>
+</td>
+<td>
+<p>The 29 Point. use this to set an exact Point the wall will go through</p>
+<code><span class="keyword">var </span><span class="identifier">p29</span><span class="symbol">: </span><a href="../../structure.helper-classes/-point/index.html"><span class="identifier">Point</span></a><span class="symbol">?</span></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="p3.html">p3</a></h4>
+</td>
+<td>
+<p>The 3 Point. use this to set an exact Point the wall will go through</p>
+<code><span class="keyword">var </span><span class="identifier">p3</span><span class="symbol">: </span><a href="../../structure.helper-classes/-point/index.html"><span class="identifier">Point</span></a><span class="symbol">?</span></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="p30.html">p30</a></h4>
+</td>
+<td>
+<p>The 30 Point. use this to set an exact Point the wall will go through</p>
+<code><span class="keyword">var </span><span class="identifier">p30</span><span class="symbol">: </span><a href="../../structure.helper-classes/-point/index.html"><span class="identifier">Point</span></a><span class="symbol">?</span></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="p31.html">p31</a></h4>
+</td>
+<td>
+<p>The 31 Point. use this to set an exact Point the wall will go through</p>
+<code><span class="keyword">var </span><span class="identifier">p31</span><span class="symbol">: </span><a href="../../structure.helper-classes/-point/index.html"><span class="identifier">Point</span></a><span class="symbol">?</span></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="p32.html">p32</a></h4>
+</td>
+<td>
+<p>The 32 Point. use this to set an exact Point the wall will go through</p>
+<code><span class="keyword">var </span><span class="identifier">p32</span><span class="symbol">: </span><a href="../../structure.helper-classes/-point/index.html"><span class="identifier">Point</span></a><span class="symbol">?</span></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="p4.html">p4</a></h4>
+</td>
+<td>
+<p>The 4 Point. use this to set an exact Point the wall will go through</p>
+<code><span class="keyword">var </span><span class="identifier">p4</span><span class="symbol">: </span><a href="../../structure.helper-classes/-point/index.html"><span class="identifier">Point</span></a><span class="symbol">?</span></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="p5.html">p5</a></h4>
+</td>
+<td>
+<p>The 5 Point. use this to set an exact Point the wall will go through</p>
+<code><span class="keyword">var </span><span class="identifier">p5</span><span class="symbol">: </span><a href="../../structure.helper-classes/-point/index.html"><span class="identifier">Point</span></a><span class="symbol">?</span></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="p6.html">p6</a></h4>
+</td>
+<td>
+<p>The 6 Point. use this to set an exact Point the wall will go through</p>
+<code><span class="keyword">var </span><span class="identifier">p6</span><span class="symbol">: </span><a href="../../structure.helper-classes/-point/index.html"><span class="identifier">Point</span></a><span class="symbol">?</span></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="p7.html">p7</a></h4>
+</td>
+<td>
+<p>The 7 Point. use this to set an exact Point the wall will go through</p>
+<code><span class="keyword">var </span><span class="identifier">p7</span><span class="symbol">: </span><a href="../../structure.helper-classes/-point/index.html"><span class="identifier">Point</span></a><span class="symbol">?</span></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="p8.html">p8</a></h4>
+</td>
+<td>
+<p>The 8 Point. use this to set an exact Point the wall will go through</p>
+<code><span class="keyword">var </span><span class="identifier">p8</span><span class="symbol">: </span><a href="../../structure.helper-classes/-point/index.html"><span class="identifier">Point</span></a><span class="symbol">?</span></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="p9.html">p9</a></h4>
+</td>
+<td>
+<p>The 9 Point. use this to set an exact Point the wall will go through</p>
+<code><span class="keyword">var </span><span class="identifier">p9</span><span class="symbol">: </span><a href="../../structure.helper-classes/-point/index.html"><span class="identifier">Point</span></a><span class="symbol">?</span></code></td>
+</tr>
+</tbody>
+</table>
+<h3>Functions</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<h4><a href="generate-walls.html">generateWalls</a></h4>
+</td>
+<td>
+<p>generating the Walls</p>
+<code><span class="keyword">fun </span><span class="identifier">generateWalls</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">List</span><span class="symbol">&lt;</span><a href="../../structure.helper-classes/-spooky-wall/index.html"><span class="identifier">SpookyWall</span></a><span class="symbol">&gt;</span></code></td>
+</tr>
+</tbody>
+</table>
+<h3>Extension Functions</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<h4><a href="../../structure.wallbender/bend-walls.html">bendWalls</a></h4>
+</td>
+<td>
+<code><span class="keyword">fun </span><a href="../-wall-structure/index.html"><span class="identifier">WallStructure</span></a><span class="symbol">.</span><span class="identifier">bendWalls</span><span class="symbol">(</span><span class="identifier" id="structure.wallbender$bendWalls(structure.WallStructure, kotlin.collections.List((structure.helperClasses.SpookyWall)))/walls">walls</span><span class="symbol">:</span>&nbsp;<span class="identifier">List</span><span class="symbol">&lt;</span><a href="../../structure.helper-classes/-spooky-wall/index.html"><span class="identifier">SpookyWall</span></a><span class="symbol">&gt;</span><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">List</span><span class="symbol">&lt;</span><a href="../../structure.helper-classes/-spooky-wall/index.html"><span class="identifier">SpookyWall</span></a><span class="symbol">&gt;</span></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="../../structure.wallbender/color.html">color</a></h4>
+</td>
+<td>
+<code><span class="keyword">fun </span><a href="../-wall-structure/index.html"><span class="identifier">WallStructure</span></a><span class="symbol">.</span><span class="identifier">color</span><span class="symbol">(</span><span class="identifier" id="structure.wallbender$color(structure.WallStructure, kotlin.collections.List((structure.helperClasses.SpookyWall)))/l">l</span><span class="symbol">:</span>&nbsp;<span class="identifier">List</span><span class="symbol">&lt;</span><a href="../../structure.helper-classes/-spooky-wall/index.html"><span class="identifier">SpookyWall</span></a><span class="symbol">&gt;</span><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">List</span><span class="symbol">&lt;</span><a href="../../structure.helper-classes/-spooky-wall/index.html"><span class="identifier">SpookyWall</span></a><span class="symbol">&gt;</span></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="../copy-walls.html">copyWalls</a></h4>
+</td>
+<td>
+<code><span class="keyword">fun </span><a href="../-wall-structure/index.html"><span class="identifier">WallStructure</span></a><span class="symbol">.</span><span class="identifier">copyWalls</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">ArrayList</span><span class="symbol">&lt;</span><a href="../../structure.helper-classes/-spooky-wall/index.html"><span class="identifier">SpookyWall</span></a><span class="symbol">&gt;</span></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="../deep-copy.html">deepCopy</a></h4>
+</td>
+<td>
+<code><span class="keyword">fun </span><a href="../-wall-structure/index.html"><span class="identifier">WallStructure</span></a><span class="symbol">.</span><span class="identifier">deepCopy</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="../-wall-structure/index.html"><span class="identifier">WallStructure</span></a></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="../../structure.wallbender/generate-bend-and-repeat-walls.html">generateBendAndRepeatWalls</a></h4>
+</td>
+<td>
+<code><span class="keyword">fun </span><a href="../-wall-structure/index.html"><span class="identifier">WallStructure</span></a><span class="symbol">.</span><span class="identifier">generateBendAndRepeatWalls</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">List</span><span class="symbol">&lt;</span><a href="../../structure.helper-classes/-spooky-wall/index.html"><span class="identifier">SpookyWall</span></a><span class="symbol">&gt;</span></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="../../structure.special-strucures/generate-properties.html">generateProperties</a></h4>
+</td>
+<td>
+<code><span class="keyword">fun </span><a href="./index.html"><span class="identifier">ContinuousCurve</span></a><span class="symbol">.</span><span class="identifier">generateProperties</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">String</span></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="../../structure.wallbender/mirror.html">mirror</a></h4>
+</td>
+<td>
+<code><span class="keyword">fun </span><a href="../-wall-structure/index.html"><span class="identifier">WallStructure</span></a><span class="symbol">.</span><span class="identifier">mirror</span><span class="symbol">(</span><span class="identifier" id="structure.wallbender$mirror(structure.WallStructure, kotlin.collections.List((structure.helperClasses.SpookyWall)))/l">l</span><span class="symbol">:</span>&nbsp;<span class="identifier">List</span><span class="symbol">&lt;</span><a href="../../structure.helper-classes/-spooky-wall/index.html"><span class="identifier">SpookyWall</span></a><span class="symbol">&gt;</span><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">List</span><span class="symbol">&lt;</span><a href="../../structure.helper-classes/-spooky-wall/index.html"><span class="identifier">SpookyWall</span></a><span class="symbol">&gt;</span></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="../../structure.special-strucures/read-point.html">readPoint</a></h4>
+</td>
+<td>
+<code><span class="keyword">fun </span><a href="../-wall-structure/index.html"><span class="identifier">WallStructure</span></a><span class="symbol">.</span><span class="identifier">readPoint</span><span class="symbol">(</span><span class="identifier" id="structure.specialStrucures$readPoint(structure.WallStructure, kotlin.String)/name">name</span><span class="symbol">:</span>&nbsp;<span class="identifier">String</span><span class="symbol">)</span><span class="symbol">: </span><a href="../../structure.helper-classes/-point/index.html"><span class="identifier">Point</span></a><span class="symbol">?</span></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="../../structure.wallbender/repeat.html">repeat</a></h4>
+</td>
+<td>
+<code><span class="keyword">fun </span><a href="../-wall-structure/index.html"><span class="identifier">WallStructure</span></a><span class="symbol">.</span><span class="identifier">repeat</span><span class="symbol">(</span><span class="identifier" id="structure.wallbender$repeat(structure.WallStructure, kotlin.collections.List((structure.helperClasses.SpookyWall)))/walls">walls</span><span class="symbol">:</span>&nbsp;<span class="identifier">List</span><span class="symbol">&lt;</span><a href="../../structure.helper-classes/-spooky-wall/index.html"><span class="identifier">SpookyWall</span></a><span class="symbol">&gt;</span><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">List</span><span class="symbol">&lt;</span><a href="../../structure.helper-classes/-spooky-wall/index.html"><span class="identifier">SpookyWall</span></a><span class="symbol">&gt;</span></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="../../structure.wallbender/repeat-struct.html">repeatStruct</a></h4>
+</td>
+<td>
+<code><span class="keyword">fun </span><a href="../-wall-structure/index.html"><span class="identifier">WallStructure</span></a><span class="symbol">.</span><span class="identifier">repeatStruct</span><span class="symbol">(</span><span class="identifier" id="structure.wallbender$repeatStruct(structure.WallStructure, kotlin.collections.List((structure.helperClasses.SpookyWall)))/walls">walls</span><span class="symbol">:</span>&nbsp;<span class="identifier">List</span><span class="symbol">&lt;</span><a href="../../structure.helper-classes/-spooky-wall/index.html"><span class="identifier">SpookyWall</span></a><span class="symbol">&gt;</span><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">List</span><span class="symbol">&lt;</span><a href="../../structure.helper-classes/-spooky-wall/index.html"><span class="identifier">SpookyWall</span></a><span class="symbol">&gt;</span></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="../../structure.wallbender/repeat-walls.html">repeatWalls</a></h4>
+</td>
+<td>
+<code><span class="keyword">fun </span><a href="../-wall-structure/index.html"><span class="identifier">WallStructure</span></a><span class="symbol">.</span><span class="identifier">repeatWalls</span><span class="symbol">(</span><span class="identifier" id="structure.wallbender$repeatWalls(structure.WallStructure, kotlin.collections.List((structure.helperClasses.SpookyWall)))/walls">walls</span><span class="symbol">:</span>&nbsp;<span class="identifier">List</span><span class="symbol">&lt;</span><a href="../../structure.helper-classes/-spooky-wall/index.html"><span class="identifier">SpookyWall</span></a><span class="symbol">&gt;</span><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">List</span><span class="symbol">&lt;</span><a href="../../structure.helper-classes/-spooky-wall/index.html"><span class="identifier">SpookyWall</span></a><span class="symbol">&gt;</span></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="../../structure.helper-functions/reset.html">reset</a></h4>
+</td>
+<td>
+<code><span class="keyword">fun </span><a href="../-wall-structure/index.html"><span class="identifier">WallStructure</span></a><span class="symbol">.</span><span class="identifier">reset</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">Unit</span></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="../../structure.wallbender/rotate.html">rotate</a></h4>
+</td>
+<td>
+<code><span class="keyword">fun </span><a href="../-wall-structure/index.html"><span class="identifier">WallStructure</span></a><span class="symbol">.</span><span class="identifier">rotate</span><span class="symbol">(</span><span class="identifier" id="structure.wallbender$rotate(structure.WallStructure, kotlin.collections.List((structure.helperClasses.SpookyWall)))/l">l</span><span class="symbol">:</span>&nbsp;<span class="identifier">List</span><span class="symbol">&lt;</span><a href="../../structure.helper-classes/-spooky-wall/index.html"><span class="identifier">SpookyWall</span></a><span class="symbol">&gt;</span><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">List</span><span class="symbol">&lt;</span><a href="../../structure.helper-classes/-spooky-wall/index.html"><span class="identifier">SpookyWall</span></a><span class="symbol">&gt;</span></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="../../structure.special-strucures/run.html">run</a></h4>
+</td>
+<td>
+<code><span class="keyword">fun </span><a href="./index.html"><span class="identifier">ContinuousCurve</span></a><span class="symbol">.</span><span class="identifier">run</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">List</span><span class="symbol">&lt;</span><a href="../../structure.helper-classes/-spooky-wall/index.html"><span class="identifier">SpookyWall</span></a><span class="symbol">&gt;</span></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="../../structure.wallbender/speeder.html">speeder</a></h4>
+</td>
+<td>
+<code><span class="keyword">fun </span><a href="../-wall-structure/index.html"><span class="identifier">WallStructure</span></a><span class="symbol">.</span><span class="identifier">speeder</span><span class="symbol">(</span><span class="identifier" id="structure.wallbender$speeder(structure.WallStructure, kotlin.collections.List((structure.helperClasses.SpookyWall)))/l">l</span><span class="symbol">:</span>&nbsp;<span class="identifier">List</span><span class="symbol">&lt;</span><a href="../../structure.helper-classes/-spooky-wall/index.html"><span class="identifier">SpookyWall</span></a><span class="symbol">&gt;</span><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">List</span><span class="symbol">&lt;</span><a href="../../structure.helper-classes/-spooky-wall/index.html"><span class="identifier">SpookyWall</span></a><span class="symbol">&gt;</span></code></td>
+</tr>
+</tbody>
+</table>
+</BODY>
+</HTML>

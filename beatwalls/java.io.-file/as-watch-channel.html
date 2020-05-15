@@ -1,0 +1,29 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>asWatchChannel - beatwalls</title>
+<link rel="stylesheet" href="../../../style.css">
+</HEAD>
+<BODY>
+<a href="../../index.html">beatwalls</a>&nbsp;/&nbsp;<a href="../index.html">beatwalls</a>&nbsp;/&nbsp;<a href="index.html">java.io.File</a>&nbsp;/&nbsp;<a href="./as-watch-channel.html">asWatchChannel</a><br/>
+<br/>
+<h1>asWatchChannel</h1>
+<a name="beatwalls$asWatchChannel(java.io.File, beatwalls.KWatchChannel.Mode, kotlin.Any, kotlinx.coroutines.CoroutineScope)"></a>
+<code><span class="identifier">@ExperimentalCoroutinesApi</span> <span class="keyword">fun </span><span class="identifier">File</span><span class="symbol">.</span><span class="identifier">asWatchChannel</span><span class="symbol">(</span><span class="identifier" id="beatwalls$asWatchChannel(java.io.File, beatwalls.KWatchChannel.Mode, kotlin.Any, kotlinx.coroutines.CoroutineScope)/mode">mode</span><span class="symbol">:</span>&nbsp;<span class="identifier">Mode</span><span class="symbol">?</span>&nbsp;<span class="symbol">=</span>&nbsp;null<span class="symbol">, </span><span class="identifier" id="beatwalls$asWatchChannel(java.io.File, beatwalls.KWatchChannel.Mode, kotlin.Any, kotlinx.coroutines.CoroutineScope)/tag">tag</span><span class="symbol">:</span>&nbsp;<span class="identifier">Any</span><span class="symbol">?</span>&nbsp;<span class="symbol">=</span>&nbsp;null<span class="symbol">, </span><span class="identifier" id="beatwalls$asWatchChannel(java.io.File, beatwalls.KWatchChannel.Mode, kotlin.Any, kotlinx.coroutines.CoroutineScope)/scope">scope</span><span class="symbol">:</span>&nbsp;<span class="identifier">CoroutineScope</span>&nbsp;<span class="symbol">=</span>&nbsp;GlobalScope<span class="symbol">)</span><span class="symbol">: </span><a href="../-k-watch-channel/index.html"><span class="identifier">KWatchChannel</span></a></code>
+<p>Watches directory. If file is supplied it will use parent directory. If it's an intent to watch just file,
+developers must filter for the file related events themselves.</p>
+<h3>Parameters</h3>
+<p><a name="mode"></a>
+<code>mode</code> - <ul><li>mode in which we should observe changes, can be SingleFile, SingleDirectory, Recursive</li>
+</ul>
+</p>
+<p><a name="tag"></a>
+<code>tag</code> - <ul><li>any kind of data that should be associated with this channel</li>
+</ul>
+</p>
+<p><a name="scope"></a>
+<code>scope</code> - <ul><li>coroutine context for the channel, optional</li>
+</ul>
+</p>
+</BODY>
+</HTML>

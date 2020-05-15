@@ -1,0 +1,180 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>RandomNoise - beatwalls</title>
+<link rel="stylesheet" href="../../../style.css">
+</HEAD>
+<BODY>
+<a href="../../index.html">beatwalls</a>&nbsp;/&nbsp;<a href="../index.html">structure</a>&nbsp;/&nbsp;<a href="./index.html">RandomNoise</a><br/>
+<br/>
+<h1>RandomNoise</h1>
+<code><span class="keyword">class </span><span class="identifier">RandomNoise</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="../-wall-structure/index.html"><span class="identifier">WallStructure</span></a></code>
+<p>Random Noise (small mini cubes)</p>
+<h3>Constructors</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<h4><a href="-init-.html">&lt;init&gt;</a></h4>
+</td>
+<td>
+<p>Random Noise (small mini cubes)</p>
+<code><span class="identifier">RandomNoise</span><span class="symbol">(</span><span class="symbol">)</span></code></td>
+</tr>
+</tbody>
+</table>
+<h3>Properties</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<h4><a href="amount.html">amount</a></h4>
+</td>
+<td>
+<p>the amount of the created Walls, if no value is given creates 8x the beatcount</p>
+<code><span class="keyword">var </span><span class="identifier">amount</span><span class="symbol">: </span><span class="identifier">Int</span><span class="symbol">?</span></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="avoid-center.html">avoidCenter</a></h4>
+</td>
+<td>
+<p>avoids spawning structures in the playspace. default: true</p>
+<code><span class="keyword">var </span><span class="identifier">avoidCenter</span><span class="symbol">: </span><span class="identifier">Boolean</span></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="p1.html">p1</a></h4>
+</td>
+<td>
+<p>controls one corner of the Area</p>
+<code><span class="keyword">var </span><span class="identifier">p1</span><span class="symbol">: </span><a href="../../structure.helper-classes/-point/index.html"><span class="identifier">Point</span></a></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="p2.html">p2</a></h4>
+</td>
+<td>
+<p>controls the other corner of the Area</p>
+<code><span class="keyword">var </span><span class="identifier">p2</span><span class="symbol">: </span><a href="../../structure.helper-classes/-point/index.html"><span class="identifier">Point</span></a></code></td>
+</tr>
+</tbody>
+</table>
+<h3>Functions</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<h4><a href="generate-walls.html">generateWalls</a></h4>
+</td>
+<td>
+<p>generating the Walls</p>
+<code><span class="keyword">fun </span><span class="identifier">generateWalls</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">List</span><span class="symbol">&lt;</span><a href="../../structure.helper-classes/-spooky-wall/index.html"><span class="identifier">SpookyWall</span></a><span class="symbol">&gt;</span></code></td>
+</tr>
+</tbody>
+</table>
+<h3>Extension Functions</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<h4><a href="../../structure.wallbender/bend-walls.html">bendWalls</a></h4>
+</td>
+<td>
+<code><span class="keyword">fun </span><a href="../-wall-structure/index.html"><span class="identifier">WallStructure</span></a><span class="symbol">.</span><span class="identifier">bendWalls</span><span class="symbol">(</span><span class="identifier" id="structure.wallbender$bendWalls(structure.WallStructure, kotlin.collections.List((structure.helperClasses.SpookyWall)))/walls">walls</span><span class="symbol">:</span>&nbsp;<span class="identifier">List</span><span class="symbol">&lt;</span><a href="../../structure.helper-classes/-spooky-wall/index.html"><span class="identifier">SpookyWall</span></a><span class="symbol">&gt;</span><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">List</span><span class="symbol">&lt;</span><a href="../../structure.helper-classes/-spooky-wall/index.html"><span class="identifier">SpookyWall</span></a><span class="symbol">&gt;</span></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="../../structure.wallbender/color.html">color</a></h4>
+</td>
+<td>
+<code><span class="keyword">fun </span><a href="../-wall-structure/index.html"><span class="identifier">WallStructure</span></a><span class="symbol">.</span><span class="identifier">color</span><span class="symbol">(</span><span class="identifier" id="structure.wallbender$color(structure.WallStructure, kotlin.collections.List((structure.helperClasses.SpookyWall)))/l">l</span><span class="symbol">:</span>&nbsp;<span class="identifier">List</span><span class="symbol">&lt;</span><a href="../../structure.helper-classes/-spooky-wall/index.html"><span class="identifier">SpookyWall</span></a><span class="symbol">&gt;</span><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">List</span><span class="symbol">&lt;</span><a href="../../structure.helper-classes/-spooky-wall/index.html"><span class="identifier">SpookyWall</span></a><span class="symbol">&gt;</span></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="../copy-walls.html">copyWalls</a></h4>
+</td>
+<td>
+<code><span class="keyword">fun </span><a href="../-wall-structure/index.html"><span class="identifier">WallStructure</span></a><span class="symbol">.</span><span class="identifier">copyWalls</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">ArrayList</span><span class="symbol">&lt;</span><a href="../../structure.helper-classes/-spooky-wall/index.html"><span class="identifier">SpookyWall</span></a><span class="symbol">&gt;</span></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="../deep-copy.html">deepCopy</a></h4>
+</td>
+<td>
+<code><span class="keyword">fun </span><a href="../-wall-structure/index.html"><span class="identifier">WallStructure</span></a><span class="symbol">.</span><span class="identifier">deepCopy</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="../-wall-structure/index.html"><span class="identifier">WallStructure</span></a></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="../../structure.wallbender/generate-bend-and-repeat-walls.html">generateBendAndRepeatWalls</a></h4>
+</td>
+<td>
+<code><span class="keyword">fun </span><a href="../-wall-structure/index.html"><span class="identifier">WallStructure</span></a><span class="symbol">.</span><span class="identifier">generateBendAndRepeatWalls</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">List</span><span class="symbol">&lt;</span><a href="../../structure.helper-classes/-spooky-wall/index.html"><span class="identifier">SpookyWall</span></a><span class="symbol">&gt;</span></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="../../structure.wallbender/mirror.html">mirror</a></h4>
+</td>
+<td>
+<code><span class="keyword">fun </span><a href="../-wall-structure/index.html"><span class="identifier">WallStructure</span></a><span class="symbol">.</span><span class="identifier">mirror</span><span class="symbol">(</span><span class="identifier" id="structure.wallbender$mirror(structure.WallStructure, kotlin.collections.List((structure.helperClasses.SpookyWall)))/l">l</span><span class="symbol">:</span>&nbsp;<span class="identifier">List</span><span class="symbol">&lt;</span><a href="../../structure.helper-classes/-spooky-wall/index.html"><span class="identifier">SpookyWall</span></a><span class="symbol">&gt;</span><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">List</span><span class="symbol">&lt;</span><a href="../../structure.helper-classes/-spooky-wall/index.html"><span class="identifier">SpookyWall</span></a><span class="symbol">&gt;</span></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="../../structure.special-strucures/read-point.html">readPoint</a></h4>
+</td>
+<td>
+<code><span class="keyword">fun </span><a href="../-wall-structure/index.html"><span class="identifier">WallStructure</span></a><span class="symbol">.</span><span class="identifier">readPoint</span><span class="symbol">(</span><span class="identifier" id="structure.specialStrucures$readPoint(structure.WallStructure, kotlin.String)/name">name</span><span class="symbol">:</span>&nbsp;<span class="identifier">String</span><span class="symbol">)</span><span class="symbol">: </span><a href="../../structure.helper-classes/-point/index.html"><span class="identifier">Point</span></a><span class="symbol">?</span></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="../../structure.wallbender/repeat.html">repeat</a></h4>
+</td>
+<td>
+<code><span class="keyword">fun </span><a href="../-wall-structure/index.html"><span class="identifier">WallStructure</span></a><span class="symbol">.</span><span class="identifier">repeat</span><span class="symbol">(</span><span class="identifier" id="structure.wallbender$repeat(structure.WallStructure, kotlin.collections.List((structure.helperClasses.SpookyWall)))/walls">walls</span><span class="symbol">:</span>&nbsp;<span class="identifier">List</span><span class="symbol">&lt;</span><a href="../../structure.helper-classes/-spooky-wall/index.html"><span class="identifier">SpookyWall</span></a><span class="symbol">&gt;</span><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">List</span><span class="symbol">&lt;</span><a href="../../structure.helper-classes/-spooky-wall/index.html"><span class="identifier">SpookyWall</span></a><span class="symbol">&gt;</span></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="../../structure.wallbender/repeat-struct.html">repeatStruct</a></h4>
+</td>
+<td>
+<code><span class="keyword">fun </span><a href="../-wall-structure/index.html"><span class="identifier">WallStructure</span></a><span class="symbol">.</span><span class="identifier">repeatStruct</span><span class="symbol">(</span><span class="identifier" id="structure.wallbender$repeatStruct(structure.WallStructure, kotlin.collections.List((structure.helperClasses.SpookyWall)))/walls">walls</span><span class="symbol">:</span>&nbsp;<span class="identifier">List</span><span class="symbol">&lt;</span><a href="../../structure.helper-classes/-spooky-wall/index.html"><span class="identifier">SpookyWall</span></a><span class="symbol">&gt;</span><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">List</span><span class="symbol">&lt;</span><a href="../../structure.helper-classes/-spooky-wall/index.html"><span class="identifier">SpookyWall</span></a><span class="symbol">&gt;</span></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="../../structure.wallbender/repeat-walls.html">repeatWalls</a></h4>
+</td>
+<td>
+<code><span class="keyword">fun </span><a href="../-wall-structure/index.html"><span class="identifier">WallStructure</span></a><span class="symbol">.</span><span class="identifier">repeatWalls</span><span class="symbol">(</span><span class="identifier" id="structure.wallbender$repeatWalls(structure.WallStructure, kotlin.collections.List((structure.helperClasses.SpookyWall)))/walls">walls</span><span class="symbol">:</span>&nbsp;<span class="identifier">List</span><span class="symbol">&lt;</span><a href="../../structure.helper-classes/-spooky-wall/index.html"><span class="identifier">SpookyWall</span></a><span class="symbol">&gt;</span><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">List</span><span class="symbol">&lt;</span><a href="../../structure.helper-classes/-spooky-wall/index.html"><span class="identifier">SpookyWall</span></a><span class="symbol">&gt;</span></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="../../structure.helper-functions/reset.html">reset</a></h4>
+</td>
+<td>
+<code><span class="keyword">fun </span><a href="../-wall-structure/index.html"><span class="identifier">WallStructure</span></a><span class="symbol">.</span><span class="identifier">reset</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">Unit</span></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="../../structure.wallbender/rotate.html">rotate</a></h4>
+</td>
+<td>
+<code><span class="keyword">fun </span><a href="../-wall-structure/index.html"><span class="identifier">WallStructure</span></a><span class="symbol">.</span><span class="identifier">rotate</span><span class="symbol">(</span><span class="identifier" id="structure.wallbender$rotate(structure.WallStructure, kotlin.collections.List((structure.helperClasses.SpookyWall)))/l">l</span><span class="symbol">:</span>&nbsp;<span class="identifier">List</span><span class="symbol">&lt;</span><a href="../../structure.helper-classes/-spooky-wall/index.html"><span class="identifier">SpookyWall</span></a><span class="symbol">&gt;</span><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">List</span><span class="symbol">&lt;</span><a href="../../structure.helper-classes/-spooky-wall/index.html"><span class="identifier">SpookyWall</span></a><span class="symbol">&gt;</span></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="../../structure.special-strucures/run.html">run</a></h4>
+</td>
+<td>
+<code><span class="keyword">fun </span><a href="./index.html"><span class="identifier">RandomNoise</span></a><span class="symbol">.</span><span class="identifier">run</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">List</span><span class="symbol">&lt;</span><a href="../../structure.helper-classes/-spooky-wall/index.html"><span class="identifier">SpookyWall</span></a><span class="symbol">&gt;</span></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="../../structure.wallbender/speeder.html">speeder</a></h4>
+</td>
+<td>
+<code><span class="keyword">fun </span><a href="../-wall-structure/index.html"><span class="identifier">WallStructure</span></a><span class="symbol">.</span><span class="identifier">speeder</span><span class="symbol">(</span><span class="identifier" id="structure.wallbender$speeder(structure.WallStructure, kotlin.collections.List((structure.helperClasses.SpookyWall)))/l">l</span><span class="symbol">:</span>&nbsp;<span class="identifier">List</span><span class="symbol">&lt;</span><a href="../../structure.helper-classes/-spooky-wall/index.html"><span class="identifier">SpookyWall</span></a><span class="symbol">&gt;</span><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">List</span><span class="symbol">&lt;</span><a href="../../structure.helper-classes/-spooky-wall/index.html"><span class="identifier">SpookyWall</span></a><span class="symbol">&gt;</span></code></td>
+</tr>
+</tbody>
+</table>
+</BODY>
+</HTML>

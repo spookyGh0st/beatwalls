@@ -1,0 +1,112 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>KWatchChannel - beatwalls</title>
+<link rel="stylesheet" href="../../../style.css">
+</HEAD>
+<BODY>
+<a href="../../index.html">beatwalls</a>&nbsp;/&nbsp;<a href="../index.html">beatwalls</a>&nbsp;/&nbsp;<a href="./index.html">KWatchChannel</a><br/>
+<br/>
+<h1>KWatchChannel</h1>
+<code><span class="identifier">@ExperimentalCoroutinesApi</span> <span class="keyword">class </span><span class="identifier">KWatchChannel</span>&nbsp;<span class="symbol">:</span>&nbsp;<span class="identifier">Channel</span><span class="symbol">&lt;</span><a href="../-k-watch-event/index.html"><span class="identifier">KWatchEvent</span></a><span class="symbol">&gt;</span></code>
+<p>Channel based wrapper for Java's WatchService</p>
+<h3>Parameters</h3>
+<p><a name="file"></a>
+<code>file</code> - <ul><li>file or directory that is supposed to be monitored by WatchService</li>
+</ul>
+</p>
+<p><a name="scope"></a>
+<code>scope</code> - <ul><li>CoroutineScope in within which Channel's sending loop will be running</li>
+</ul>
+</p>
+<p><a name="mode"></a>
+<code>mode</code> - <ul><li>channel can work in one of the three modes: watching a single file,
+watching a single directory or watching directory tree recursively</li>
+</ul>
+</p>
+<p><a name="tag"></a>
+<code>tag</code> - <ul><li>any kind of data that should be associated with this channel, optional</li>
+</ul>
+</p>
+<h3>Types</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<h4><a href="-mode/index.html">Mode</a></h4>
+</td>
+<td>
+<p>Describes the mode this channels is running in</p>
+<code><span class="keyword">enum</span> <span class="keyword">class </span><span class="identifier">Mode</span></code></td>
+</tr>
+</tbody>
+</table>
+<h3>Constructors</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<h4><a href="-init-.html">&lt;init&gt;</a></h4>
+</td>
+<td>
+<p>Channel based wrapper for Java's WatchService</p>
+<code><span class="identifier">KWatchChannel</span><span class="symbol">(</span><span class="identifier" id="beatwalls.KWatchChannel$<init>(java.io.File, kotlinx.coroutines.CoroutineScope, beatwalls.KWatchChannel.Mode, kotlin.Any, kotlinx.coroutines.channels.Channel((beatwalls.KWatchEvent)))/file">file</span><span class="symbol">:</span>&nbsp;<span class="identifier">File</span><span class="symbol">, </span><span class="identifier" id="beatwalls.KWatchChannel$<init>(java.io.File, kotlinx.coroutines.CoroutineScope, beatwalls.KWatchChannel.Mode, kotlin.Any, kotlinx.coroutines.channels.Channel((beatwalls.KWatchEvent)))/scope">scope</span><span class="symbol">:</span>&nbsp;<span class="identifier">CoroutineScope</span>&nbsp;<span class="symbol">=</span>&nbsp;GlobalScope<span class="symbol">, </span><span class="identifier" id="beatwalls.KWatchChannel$<init>(java.io.File, kotlinx.coroutines.CoroutineScope, beatwalls.KWatchChannel.Mode, kotlin.Any, kotlinx.coroutines.channels.Channel((beatwalls.KWatchEvent)))/mode">mode</span><span class="symbol">:</span>&nbsp;<span class="identifier">Mode</span><span class="symbol">, </span><span class="identifier" id="beatwalls.KWatchChannel$<init>(java.io.File, kotlinx.coroutines.CoroutineScope, beatwalls.KWatchChannel.Mode, kotlin.Any, kotlinx.coroutines.channels.Channel((beatwalls.KWatchEvent)))/tag">tag</span><span class="symbol">:</span>&nbsp;<span class="identifier">Any</span><span class="symbol">?</span>&nbsp;<span class="symbol">=</span>&nbsp;null<span class="symbol">, </span><span class="identifier" id="beatwalls.KWatchChannel$<init>(java.io.File, kotlinx.coroutines.CoroutineScope, beatwalls.KWatchChannel.Mode, kotlin.Any, kotlinx.coroutines.channels.Channel((beatwalls.KWatchEvent)))/channel">channel</span><span class="symbol">:</span>&nbsp;<span class="identifier">Channel</span><span class="symbol">&lt;</span><a href="../-k-watch-event/index.html"><span class="identifier">KWatchEvent</span></a><span class="symbol">&gt;</span>&nbsp;<span class="symbol">=</span>&nbsp;Channel()<span class="symbol">)</span></code></td>
+</tr>
+</tbody>
+</table>
+<h3>Properties</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<h4><a href="file.html">file</a></h4>
+</td>
+<td>
+<ul><li>file or directory that is supposed to be monitored by WatchService</li>
+</ul>
+<code><span class="keyword">val </span><span class="identifier">file</span><span class="symbol">: </span><span class="identifier">File</span></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="mode.html">mode</a></h4>
+</td>
+<td>
+<ul><li>channel can work in one of the three modes: watching a single file,
+watching a single directory or watching directory tree recursively</li>
+</ul>
+<code><span class="keyword">val </span><span class="identifier">mode</span><span class="symbol">: </span><span class="identifier">Mode</span></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="scope.html">scope</a></h4>
+</td>
+<td>
+<ul><li>CoroutineScope in within which Channel's sending loop will be running</li>
+</ul>
+<code><span class="keyword">val </span><span class="identifier">scope</span><span class="symbol">: </span><span class="identifier">CoroutineScope</span></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="tag.html">tag</a></h4>
+</td>
+<td>
+<ul><li>any kind of data that should be associated with this channel, optional</li>
+</ul>
+<code><span class="keyword">val </span><span class="identifier">tag</span><span class="symbol">: </span><span class="identifier">Any</span><span class="symbol">?</span></code></td>
+</tr>
+</tbody>
+</table>
+<h3>Functions</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<h4><a href="close.html">close</a></h4>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">close</span><span class="symbol">(</span><span class="identifier" id="beatwalls.KWatchChannel$close(kotlin.Throwable)/cause">cause</span><span class="symbol">:</span>&nbsp;<span class="identifier">Throwable</span><span class="symbol">?</span><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">Boolean</span></code></td>
+</tr>
+</tbody>
+</table>
+</BODY>
+</HTML>

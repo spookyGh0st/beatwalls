@@ -1,0 +1,272 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>beatwalls - beatwalls</title>
+<link rel="stylesheet" href="../../style.css">
+</HEAD>
+<BODY>
+<a href="../index.html">beatwalls</a>&nbsp;/&nbsp;<a href="./index.html">beatwalls</a><br/>
+<br/>
+<h2>Package beatwalls</h2>
+<h3>Types</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<h4><a href="-asset-reader/index.html">AssetReader</a></h4>
+</td>
+<td>
+<code><span class="keyword">object </span><span class="identifier">AssetReader</span></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="-github-api/index.html">GithubApi</a></h4>
+</td>
+<td>
+<code><span class="keyword">data</span> <span class="keyword">class </span><span class="identifier">GithubApi</span></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="-global-config/index.html">GlobalConfig</a></h4>
+</td>
+<td>
+<code><span class="keyword">object </span><span class="identifier">GlobalConfig</span></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="-k-watch-channel/index.html">KWatchChannel</a></h4>
+</td>
+<td>
+<p>Channel based wrapper for Java's WatchService</p>
+<code><span class="keyword">class </span><span class="identifier">KWatchChannel</span>&nbsp;<span class="symbol">:</span>&nbsp;<span class="identifier">Channel</span><span class="symbol">&lt;</span><a href="-k-watch-event/index.html"><span class="identifier">KWatchEvent</span></a><span class="symbol">&gt;</span></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="-k-watch-event/index.html">KWatchEvent</a></h4>
+</td>
+<td>
+<p>Wrapper around <a href="#">WatchEvent</a> that comes with properly resolved absolute path</p>
+<code><span class="keyword">data</span> <span class="keyword">class </span><span class="identifier">KWatchEvent</span></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="-main/index.html">Main</a></h4>
+</td>
+<td>
+<code><span class="keyword">class </span><span class="identifier">Main</span></code></td>
+</tr>
+</tbody>
+</table>
+<h3>Extensions for External Classes</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<h4><a href="java.io.-file/index.html">java.io.File</a></h4>
+</td>
+<td>
+</td>
+</tr>
+</tbody>
+</table>
+<h3>Properties</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<h4><a href="current-version.html">currentVersion</a></h4>
+</td>
+<td>
+<code><span class="keyword">const</span> <span class="keyword">val </span><span class="identifier">currentVersion</span><span class="symbol">: </span><span class="identifier">String</span></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="prefs.html">prefs</a></h4>
+</td>
+<td>
+<code><span class="keyword">val </span><span class="identifier">prefs</span><span class="symbol">: </span><span class="identifier">Preferences</span></code></td>
+</tr>
+</tbody>
+</table>
+<h3>Functions</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<h4><a href="build-updater.html">buildUpdater</a></h4>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">buildUpdater</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">File</span></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="delete-updater.html">deleteUpdater</a></h4>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">deleteUpdater</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">Unit</span></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="download-update.html">downloadUpdate</a></h4>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">downloadUpdate</span><span class="symbol">(</span><span class="identifier" id="beatwalls$downloadUpdate(kotlin.String)/version">version</span><span class="symbol">:</span>&nbsp;<span class="identifier">String</span><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">Unit</span></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="error-exit.html">errorExit</a></h4>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">errorExit</span><span class="symbol">(</span><span class="identifier" id="beatwalls$errorExit(java.lang.Exception, kotlin.Function0((kotlin.Any)))/e">e</span><span class="symbol">:</span>&nbsp;<span class="identifier">Exception</span><span class="symbol">?</span>&nbsp;<span class="symbol">=</span>&nbsp;null<span class="symbol">, </span><span class="identifier" id="beatwalls$errorExit(java.lang.Exception, kotlin.Function0((kotlin.Any)))/msg">msg</span><span class="symbol">:</span>&nbsp;<span class="symbol">(</span><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<span class="identifier">Any</span><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">Nothing</span></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="execute-updater.html">executeUpdater</a></h4>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">executeUpdater</span><span class="symbol">(</span><span class="identifier" id="beatwalls$executeUpdater(java.io.File)/file">file</span><span class="symbol">:</span>&nbsp;<span class="identifier">File</span><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">Unit</span></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="get-latest-version.html">getLatestVersion</a></h4>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">getLatestVersion</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">String</span></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="init-config.html">initConfig</a></h4>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">initConfig</span><span class="symbol">(</span><span class="identifier" id="beatwalls$initConfig(kotlin.String)/songPath">songPath</span><span class="symbol">:</span>&nbsp;<span class="identifier">String</span><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">Unit</span></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="main.html">main</a></h4>
+</td>
+<td>
+<code><span class="keyword">suspend</span> <span class="keyword">fun </span><span class="identifier">main</span><span class="symbol">(</span><span class="identifier" id="beatwalls$main(kotlin.Array((kotlin.String)))/args">args</span><span class="symbol">:</span>&nbsp;<span class="identifier">Array</span><span class="symbol">&lt;</span><span class="identifier">String</span><span class="symbol">&gt;</span><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">Unit</span></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="pick-difficulty.html">pickDifficulty</a></h4>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">pickDifficulty</span><span class="symbol">(</span><span class="identifier" id="beatwalls$pickDifficulty(chart.song.Info)/info">info</span><span class="symbol">:</span>&nbsp;<a href="../chart.song/-info/index.html"><span class="identifier">Info</span></a><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">Pair</span><span class="symbol">&lt;</span><span class="identifier">String</span><span class="symbol">,</span>&nbsp;<span class="identifier">Int</span><span class="symbol">&gt;</span></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="pick-hjd.html">pickHjd</a></h4>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">pickHjd</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">Double</span></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="pick-ne.html">pickNe</a></h4>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">pickNe</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">Boolean</span></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="read-bpm.html">readBpm</a></h4>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">readBpm</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">Double</span></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="read-hjs-duration.html">readHjsDuration</a></h4>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">readHjsDuration</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">Double</span></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="read-ne-values.html">readNeValues</a></h4>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">readNeValues</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">Boolean</span></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="read-offset.html">readOffset</a></h4>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">readOffset</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">Double</span></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="read-path.html">readPath</a></h4>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">readPath</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">File</span></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="run.html">run</a></h4>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">run</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">Unit</span></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="run-on-change.html">runOnChange</a></h4>
+</td>
+<td>
+<code><span class="keyword">suspend</span> <span class="keyword">fun </span><span class="identifier">runOnChange</span><span class="symbol">(</span><span class="identifier" id="beatwalls$runOnChange(kotlin.Function0((kotlin.Unit)))/f">f</span><span class="symbol">:</span>&nbsp;<span class="symbol">(</span><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<span class="identifier">Unit</span><span class="symbol">?</span><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">Unit</span></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="save-bpm.html">saveBpm</a></h4>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">saveBpm</span><span class="symbol">(</span><span class="identifier" id="beatwalls$saveBpm(kotlin.Double)/bpm">bpm</span><span class="symbol">:</span>&nbsp;<span class="identifier">Double</span><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">Unit</span></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="save-hjs-duration.html">saveHjsDuration</a></h4>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">saveHjsDuration</span><span class="symbol">(</span><span class="identifier" id="beatwalls$saveHjsDuration(kotlin.Double)/hjsDuration">hjsDuration</span><span class="symbol">:</span>&nbsp;<span class="identifier">Double</span><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">Unit</span></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="save-ne-values.html">saveNeValues</a></h4>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">saveNeValues</span><span class="symbol">(</span><span class="identifier" id="beatwalls$saveNeValues(kotlin.Boolean)/b">b</span><span class="symbol">:</span>&nbsp;<span class="identifier">Boolean</span><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">Unit</span></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="save-offset.html">saveOffset</a></h4>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">saveOffset</span><span class="symbol">(</span><span class="identifier" id="beatwalls$saveOffset(kotlin.Double)/offset">offset</span><span class="symbol">:</span>&nbsp;<span class="identifier">Double</span><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">Unit</span></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="save-path.html">savePath</a></h4>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">savePath</span><span class="symbol">(</span><span class="identifier" id="beatwalls$savePath(java.io.File)/path">path</span><span class="symbol">:</span>&nbsp;<span class="identifier">File</span><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">Unit</span></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="update.html">update</a></h4>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">update</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">Unit</span></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="write-if-not-exist.html">writeIfNotExist</a></h4>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">writeIfNotExist</span><span class="symbol">(</span><span class="identifier" id="beatwalls$writeIfNotExist(kotlin.String, kotlin.String, kotlin.String, kotlin.String)/songPath">songPath</span><span class="symbol">:</span>&nbsp;<span class="identifier">String</span><span class="symbol">, </span><span class="identifier" id="beatwalls$writeIfNotExist(kotlin.String, kotlin.String, kotlin.String, kotlin.String)/diffName">diffName</span><span class="symbol">:</span>&nbsp;<span class="identifier">String</span><span class="symbol">, </span><span class="identifier" id="beatwalls$writeIfNotExist(kotlin.String, kotlin.String, kotlin.String, kotlin.String)/suffix">suffix</span><span class="symbol">:</span>&nbsp;<span class="identifier">String</span><span class="symbol">, </span><span class="identifier" id="beatwalls$writeIfNotExist(kotlin.String, kotlin.String, kotlin.String, kotlin.String)/defaultText">defaultText</span><span class="symbol">:</span>&nbsp;<span class="identifier">String</span><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">File</span></code></td>
+</tr>
+</tbody>
+</table>
+</BODY>
+</HTML>

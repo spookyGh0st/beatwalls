@@ -1,0 +1,1139 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>WallStructure - beatwalls</title>
+<link rel="stylesheet" href="../../../style.css">
+</HEAD>
+<BODY>
+<a href="../../index.html">beatwalls</a>&nbsp;/&nbsp;<a href="../index.html">structure</a>&nbsp;/&nbsp;<a href="./index.html">WallStructure</a><br/>
+<br/>
+<h1>WallStructure</h1>
+<code><span class="keyword">sealed</span> <span class="keyword">class </span><span class="identifier">WallStructure</span>&nbsp;<span class="symbol">:</span>&nbsp;<span class="identifier">Serializable</span></code>
+<h3>Properties</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<h4><a href="add-duration.html">addDuration</a></h4>
+</td>
+<td>
+<p>adds the given Value. Random possible with random(min,max). Default: null (does nothing)</p>
+<code><span class="keyword">var </span><span class="identifier">addDuration</span><span class="symbol">: </span><span class="symbol">(</span><span class="symbol">(</span><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<span class="identifier">Double</span><span class="symbol">)</span><span class="symbol">?</span></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="add-height.html">addHeight</a></h4>
+</td>
+<td>
+<p>adds the given Value. Random possible with random(min,max). Default: null (does nothing)</p>
+<code><span class="keyword">var </span><span class="identifier">addHeight</span><span class="symbol">: </span><span class="symbol">(</span><span class="symbol">(</span><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<span class="identifier">Double</span><span class="symbol">)</span><span class="symbol">?</span></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="add-start-height.html">addStartHeight</a></h4>
+</td>
+<td>
+<p>adds the given Value. Random possible with random(min,max). Default: null (does nothing)</p>
+<code><span class="keyword">var </span><span class="identifier">addStartHeight</span><span class="symbol">: </span><span class="symbol">(</span><span class="symbol">(</span><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<span class="identifier">Double</span><span class="symbol">)</span><span class="symbol">?</span></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="add-start-row.html">addStartRow</a></h4>
+</td>
+<td>
+<p>adds the given Value. Random possible with random(min,max). Default: null (does nothing)</p>
+<code><span class="keyword">var </span><span class="identifier">addStartRow</span><span class="symbol">: </span><span class="symbol">(</span><span class="symbol">(</span><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<span class="identifier">Double</span><span class="symbol">)</span><span class="symbol">?</span></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="add-start-time.html">addStartTime</a></h4>
+</td>
+<td>
+<p>adds the given Value. Random possible with random(min,max). Default: null (does nothing)</p>
+<code><span class="keyword">var </span><span class="identifier">addStartTime</span><span class="symbol">: </span><span class="symbol">(</span><span class="symbol">(</span><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<span class="identifier">Double</span><span class="symbol">)</span><span class="symbol">?</span></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="add-width.html">addWidth</a></h4>
+</td>
+<td>
+<p>adds the given Value. Random possible with random(min,max). Default: null (does nothing)</p>
+<code><span class="keyword">var </span><span class="identifier">addWidth</span><span class="symbol">: </span><span class="symbol">(</span><span class="symbol">(</span><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<span class="identifier">Double</span><span class="symbol">)</span><span class="symbol">?</span></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="beat.html">beat</a></h4>
+</td>
+<td>
+<p>dont touch</p>
+<code><span class="keyword">var </span><span class="identifier">beat</span><span class="symbol">: </span><span class="identifier">Double</span></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="bombs.html">bombs</a></h4>
+</td>
+<td>
+<p>turns the entire WallStructure into bombs. only available, if deleteAllPrevious is set.</p>
+<code><span class="keyword">var </span><span class="identifier">bombs</span><span class="symbol">: </span><span class="identifier">Boolean</span></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="change-duration.html">changeDuration</a></h4>
+</td>
+<td>
+<p>change The Duration of all Walls in the structure to the given Value. Random possible with random(min,max). Default: null</p>
+<code><span class="keyword">var </span><span class="identifier">changeDuration</span><span class="symbol">: </span><span class="symbol">(</span><span class="symbol">(</span><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<span class="identifier">Double</span><span class="symbol">)</span><span class="symbol">?</span></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="change-height.html">changeHeight</a></h4>
+</td>
+<td>
+<p>change The Height of all Walls in the structure to the given Value. Random possible with random(min,max). Default: null</p>
+<code><span class="keyword">var </span><span class="identifier">changeHeight</span><span class="symbol">: </span><span class="symbol">(</span><span class="symbol">(</span><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<span class="identifier">Double</span><span class="symbol">)</span><span class="symbol">?</span></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="change-start-height.html">changeStartHeight</a></h4>
+</td>
+<td>
+<p>change The StartHeight of all Walls in the structure to the given Value. Random possible with random(min,max). Default: null</p>
+<code><span class="keyword">var </span><span class="identifier">changeStartHeight</span><span class="symbol">: </span><span class="symbol">(</span><span class="symbol">(</span><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<span class="identifier">Double</span><span class="symbol">)</span><span class="symbol">?</span></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="change-start-row.html">changeStartRow</a></h4>
+</td>
+<td>
+<p>change The StartRow of all Walls in the structure to the given Value. Random possible with random(min,max). Default: null</p>
+<code><span class="keyword">var </span><span class="identifier">changeStartRow</span><span class="symbol">: </span><span class="symbol">(</span><span class="symbol">(</span><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<span class="identifier">Double</span><span class="symbol">)</span><span class="symbol">?</span></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="change-start-time.html">changeStartTime</a></h4>
+</td>
+<td>
+<p>change The StartTime of all Walls in the structure to the given Value. Random possible with random(min,max). Default: null</p>
+<code><span class="keyword">var </span><span class="identifier">changeStartTime</span><span class="symbol">: </span><span class="symbol">(</span><span class="symbol">(</span><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<span class="identifier">Double</span><span class="symbol">)</span><span class="symbol">?</span></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="change-width.html">changeWidth</a></h4>
+</td>
+<td>
+<p>change the Width of all Walls in the structure to the given Value. Random possible with random(min,max). Default: null</p>
+<code><span class="keyword">var </span><span class="identifier">changeWidth</span><span class="symbol">: </span><span class="symbol">(</span><span class="symbol">(</span><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<span class="identifier">Double</span><span class="symbol">)</span><span class="symbol">?</span></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="color.html">color</a></h4>
+</td>
+<td>
+<p>The Color of the Wallstructure. Click me to see examples</p>
+<code><span class="keyword">var </span><span class="identifier">color</span><span class="symbol">: </span><a href="../../structure.helper-classes/-color-mode/index.html"><span class="identifier">ColorMode</span></a></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="fit-duration.html">fitDuration</a></h4>
+</td>
+<td>
+<p>increases or decreases the StartTime of all walls until they have the the specific duration. Random possible with random(min,max). default: null (does nothing)</p>
+<code><span class="keyword">var </span><span class="identifier">fitDuration</span><span class="symbol">: </span><span class="symbol">(</span><span class="symbol">(</span><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<span class="identifier">Double</span><span class="symbol">)</span><span class="symbol">?</span></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="fit-height.html">fitHeight</a></h4>
+</td>
+<td>
+<p>increases or decreases the StartHeight of all walls until they have the the specific Height. Random possible with random(min,max). default: null (does nothing)</p>
+<code><span class="keyword">var </span><span class="identifier">fitHeight</span><span class="symbol">: </span><span class="symbol">(</span><span class="symbol">(</span><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<span class="identifier">Double</span><span class="symbol">)</span><span class="symbol">?</span></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="fit-start-height.html">fitStartHeight</a></h4>
+</td>
+<td>
+<p>increases or decreases the height of all walls until they have the the specific startHeight. Random possible with random(min,max). default: null (does nothing)</p>
+<code><span class="keyword">var </span><span class="identifier">fitStartHeight</span><span class="symbol">: </span><span class="symbol">(</span><span class="symbol">(</span><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<span class="identifier">Double</span><span class="symbol">)</span><span class="symbol">?</span></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="fit-start-row.html">fitStartRow</a></h4>
+</td>
+<td>
+<p>increases or decreases the width of all walls until they have the the specific startTime. Random possible with random(min,max). default: null (does nothing)</p>
+<code><span class="keyword">var </span><span class="identifier">fitStartRow</span><span class="symbol">: </span><span class="symbol">(</span><span class="symbol">(</span><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<span class="identifier">Double</span><span class="symbol">)</span><span class="symbol">?</span></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="fit-start-time.html">fitStartTime</a></h4>
+</td>
+<td>
+<p>increases or decreases the duration of all walls until they have the the specific startTime. Random possible with random(min,max). default: null (does nothing)</p>
+<code><span class="keyword">var </span><span class="identifier">fitStartTime</span><span class="symbol">: </span><span class="symbol">(</span><span class="symbol">(</span><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<span class="identifier">Double</span><span class="symbol">)</span><span class="symbol">?</span></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="fit-width.html">fitWidth</a></h4>
+</td>
+<td>
+<p>increases or decreases the StartRow of all walls until they have the the specific Width. Random possible with random(min,max). default: null (does nothing)</p>
+<code><span class="keyword">var </span><span class="identifier">fitWidth</span><span class="symbol">: </span><span class="symbol">(</span><span class="symbol">(</span><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<span class="identifier">Double</span><span class="symbol">)</span><span class="symbol">?</span></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="local-rot-x.html">localRotX</a></h4>
+</td>
+<td>
+<p>localRotX controls the rotation on the x-axis for each individual wall in degree. allows random. Default: 0</p>
+<code><span class="keyword">var </span><span class="identifier">localRotX</span><span class="symbol">: </span><a href="../../structure.helper-classes/-rotation-mode/index.html"><span class="identifier">RotationMode</span></a></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="local-rot-y.html">localRotY</a></h4>
+</td>
+<td>
+<p>localRotY controls the rotation on the y-axis for each individual Wall in degree. allows random. Default: 0</p>
+<code><span class="keyword">var </span><span class="identifier">localRotY</span><span class="symbol">: </span><a href="../../structure.helper-classes/-rotation-mode/index.html"><span class="identifier">RotationMode</span></a></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="local-rot-z.html">localRotZ</a></h4>
+</td>
+<td>
+<ul><li>localRotZ controls the rotation on the x-axis for each individual Wall in degree. allows random. Default: 0</li>
+</ul>
+<code><span class="keyword">var </span><span class="identifier">localRotZ</span><span class="symbol">: </span><a href="../../structure.helper-classes/-rotation-mode/index.html"><span class="identifier">RotationMode</span></a></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="mirror.html">mirror</a></h4>
+</td>
+<td>
+<p>mirrors the SpookyWall. Default: 0. click me:</p>
+<code><span class="keyword">var </span><span class="identifier">mirror</span><span class="symbol">: </span><span class="identifier">Int</span></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="mirror-rotation.html">mirrorRotation</a></h4>
+</td>
+<td>
+<p>Defines, if mirror also effects the rotation. Can be true or false. Default: true</p>
+<code><span class="keyword">var </span><span class="identifier">mirrorRotation</span><span class="symbol">: </span><span class="identifier">Boolean</span></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="mirror-x.html">mirrorX</a></h4>
+</td>
+<td>
+<p>The x Position used for mirror. Default: 0</p>
+<code><span class="keyword">var </span><span class="identifier">mirrorX</span><span class="symbol">: </span><span class="identifier">Double</span></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="mirror-y.html">mirrorY</a></h4>
+</td>
+<td>
+<p>The x Position used for mirror. Default: 0</p>
+<code><span class="keyword">var </span><span class="identifier">mirrorY</span><span class="symbol">: </span><span class="identifier">Double</span></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="note-jump-movement-speed.html">noteJumpMovementSpeed</a></h4>
+</td>
+<td>
+<p>I have no idea, ask cyan</p>
+<code><span class="keyword">var </span><span class="identifier">noteJumpMovementSpeed</span><span class="symbol">: </span><span class="symbol">(</span><span class="symbol">(</span><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<span class="identifier">Double</span><span class="symbol">)</span><span class="symbol">?</span></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="note-jump-movement-speed-offset.html">noteJumpMovementSpeedOffset</a></h4>
+</td>
+<td>
+<p>I have no idea, ask cyan</p>
+<code><span class="keyword">var </span><span class="identifier">noteJumpMovementSpeedOffset</span><span class="symbol">: </span><span class="symbol">(</span><span class="symbol">(</span><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<span class="identifier">Double</span><span class="symbol">)</span><span class="symbol">?</span></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="repeat.html">repeat</a></h4>
+</td>
+<td>
+<p>how often you want to repeat the Structure.</p>
+<code><span class="keyword">var </span><span class="identifier">repeat</span><span class="symbol">: </span><span class="identifier">Int</span></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="repeat-add-duration.html">repeatAddDuration</a></h4>
+</td>
+<td>
+<p>adds this value to the Duration to each repeated Structure</p>
+<code><span class="keyword">var </span><span class="identifier">repeatAddDuration</span><span class="symbol">: </span><span class="identifier">Double</span></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="repeat-add-height.html">repeatAddHeight</a></h4>
+</td>
+<td>
+<p>adds this value to the Height to each repeated Structure</p>
+<code><span class="keyword">var </span><span class="identifier">repeatAddHeight</span><span class="symbol">: </span><span class="identifier">Double</span></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="repeat-add-rotation.html">repeatAddRotation</a></h4>
+</td>
+<td>
+<p>adds this value to the rotation to each repeated Structure</p>
+<code><span class="keyword">var </span><span class="identifier">repeatAddRotation</span><span class="symbol">: </span><span class="identifier">Double</span></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="repeat-add-start-height.html">repeatAddStartHeight</a></h4>
+</td>
+<td>
+<p>adds this value to the StartHeight to each repeated Structure</p>
+<code><span class="keyword">var </span><span class="identifier">repeatAddStartHeight</span><span class="symbol">: </span><span class="identifier">Double</span></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="repeat-add-start-row.html">repeatAddStartRow</a></h4>
+</td>
+<td>
+<p>adds this value to the StartRow to each repeated Structure</p>
+<code><span class="keyword">var </span><span class="identifier">repeatAddStartRow</span><span class="symbol">: </span><span class="identifier">Double</span></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="repeat-add-start-time.html">repeatAddStartTime</a></h4>
+</td>
+<td>
+<p>adds this value to the StartTime to each repeated Structure</p>
+<code><span class="keyword">var </span><span class="identifier">repeatAddStartTime</span><span class="symbol">: </span><span class="identifier">Double</span></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="repeat-add-width.html">repeatAddWidth</a></h4>
+</td>
+<td>
+<p>adds this value to the Width to each repeated Structure</p>
+<code><span class="keyword">var </span><span class="identifier">repeatAddWidth</span><span class="symbol">: </span><span class="identifier">Double</span></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="repeat-add-x.html">repeatAddX</a></h4>
+</td>
+<td>
+<p>shifts each repeat in x. Default: 0</p>
+<code><span class="keyword">var </span><span class="identifier">repeatAddX</span><span class="symbol">: </span><span class="identifier">Double</span></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="repeat-add-y.html">repeatAddY</a></h4>
+</td>
+<td>
+<p>shifts each repeated Structure in y. Default: 0</p>
+<code><span class="keyword">var </span><span class="identifier">repeatAddY</span><span class="symbol">: </span><span class="identifier">Double</span></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="repeat-add-z.html">repeatAddZ</a></h4>
+</td>
+<td>
+<p>The Gap between each Repeat. Default: 0</p>
+<code><span class="keyword">var </span><span class="identifier">repeatAddZ</span><span class="symbol">: </span><span class="identifier">Double</span></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="repeat-walls.html">repeatWalls</a></h4>
+</td>
+<td>
+<p>how often you want to repeat the walls of the Structure. This copy pastes the walls, while (repeat) generates a new one.</p>
+<code><span class="keyword">var </span><span class="identifier">repeatWalls</span><span class="symbol">: </span><span class="identifier">Int</span></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="reverse.html">reverse</a></h4>
+</td>
+<td>
+<p>reverses the WallStructure on the Starttime/duration</p>
+<code><span class="keyword">var </span><span class="identifier">reverse</span><span class="symbol">: </span><span class="identifier">Boolean</span></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="reverse-x.html">reverseX</a></h4>
+</td>
+<td>
+<p>basically mirrors the Wallstructure in itself on the x-Achsis if set to true</p>
+<code><span class="keyword">var </span><span class="identifier">reverseX</span><span class="symbol">: </span><span class="identifier">Boolean</span></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="reverse-y.html">reverseY</a></h4>
+</td>
+<td>
+<p>basically mirrors the Wallstructure in itself on the x-Achsis if set to true</p>
+<code><span class="keyword">var </span><span class="identifier">reverseY</span><span class="symbol">: </span><span class="identifier">Boolean</span></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="rotation.html">rotation</a></h4>
+</td>
+<td>
+<p>The rotation of the wallstructure around the player, think 360 maps. click me.</p>
+<code><span class="keyword">var </span><span class="identifier">rotation</span><span class="symbol">: </span><a href="../../structure.helper-classes/-rotation-mode/index.html"><span class="identifier">RotationMode</span></a></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="scale.html">scale</a></h4>
+</td>
+<td>
+<p>scales the Duration and startTime, (duration only for positive duration).
+This is useful for making a structure, that is one beat long longer or shorter</p>
+<code><span class="keyword">var </span><span class="identifier">scale</span><span class="symbol">: </span><span class="identifier">Double</span><span class="symbol">?</span></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="scale-duration.html">scaleDuration</a></h4>
+</td>
+<td>
+<p>multiplies the Duration of all Walls in the structure by the given Value. Random possible with random(min,max). Default: null (does nothing)</p>
+<code><span class="keyword">var </span><span class="identifier">scaleDuration</span><span class="symbol">: </span><span class="symbol">(</span><span class="symbol">(</span><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<span class="identifier">Double</span><span class="symbol">)</span><span class="symbol">?</span></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="scale-height.html">scaleHeight</a></h4>
+</td>
+<td>
+<p>multiplies the Height of all Walls in the structure by the given Value. Random possible with random(min,max). Default: null (does nothing)</p>
+<code><span class="keyword">var </span><span class="identifier">scaleHeight</span><span class="symbol">: </span><span class="symbol">(</span><span class="symbol">(</span><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<span class="identifier">Double</span><span class="symbol">)</span><span class="symbol">?</span></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="scale-start-height.html">scaleStartHeight</a></h4>
+</td>
+<td>
+<p>multiplies the StartHeight of all Walls in the structure by the given Value. Random possible with random(min,max). Default: null (does nothing)</p>
+<code><span class="keyword">var </span><span class="identifier">scaleStartHeight</span><span class="symbol">: </span><span class="symbol">(</span><span class="symbol">(</span><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<span class="identifier">Double</span><span class="symbol">)</span><span class="symbol">?</span></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="scale-start-row.html">scaleStartRow</a></h4>
+</td>
+<td>
+<p>multiplies the StartRow of all Walls in the structure by the given Value. Random possible with random(min,max). Default: null (does nothing)</p>
+<code><span class="keyword">var </span><span class="identifier">scaleStartRow</span><span class="symbol">: </span><span class="symbol">(</span><span class="symbol">(</span><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<span class="identifier">Double</span><span class="symbol">)</span><span class="symbol">?</span></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="scale-start-time.html">scaleStartTime</a></h4>
+</td>
+<td>
+<p>multiplies the StartTime of all Walls in the structure by the given Value. Random possible with random(min,max). Default: null (does nothing)</p>
+<code><span class="keyword">var </span><span class="identifier">scaleStartTime</span><span class="symbol">: </span><span class="symbol">(</span><span class="symbol">(</span><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<span class="identifier">Double</span><span class="symbol">)</span><span class="symbol">?</span></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="scale-width.html">scaleWidth</a></h4>
+</td>
+<td>
+<p>multiplies the Width of all Walls in the structure by the given Value. Random possible with random(min,max). Default: null (does nothing)</p>
+<code><span class="keyword">var </span><span class="identifier">scaleWidth</span><span class="symbol">: </span><span class="symbol">(</span><span class="symbol">(</span><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<span class="identifier">Double</span><span class="symbol">)</span><span class="symbol">?</span></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="seed.html">seed</a></h4>
+</td>
+<td>
+<p>some Wallstructures use Random walls. This is the seed for them</p>
+<code><span class="keyword">var </span><span class="identifier">seed</span><span class="symbol">: </span><span class="identifier">Int</span><span class="symbol">?</span></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="speeder.html">speeder</a></h4>
+</td>
+<td>
+<p>speeds up the wallstructure over time. the duration of the whole structure. Remains. \n</p>
+<code><span class="keyword">var </span><span class="identifier">speeder</span><span class="symbol">: </span><span class="identifier">Double</span><span class="symbol">?</span></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="time.html">time</a></h4>
+</td>
+<td>
+<p>times the SpookyWall by adding the njsOffset, default: true</p>
+<code><span class="keyword">var </span><span class="identifier">time</span><span class="symbol">: </span><span class="identifier">Boolean</span></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="track.html">track</a></h4>
+</td>
+<td>
+<p>used for some internal stuff, dont touch</p>
+<code><span class="keyword">var </span><span class="identifier">track</span><span class="symbol">: </span><span class="identifier">String</span><span class="symbol">?</span></code></td>
+</tr>
+</tbody>
+</table>
+<h3>Functions</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<h4><a href="equals.html">equals</a></h4>
+</td>
+<td>
+<code><span class="keyword">open</span> <span class="keyword">fun </span><span class="identifier">equals</span><span class="symbol">(</span><span class="identifier" id="structure.WallStructure$equals(kotlin.Any)/other">other</span><span class="symbol">:</span>&nbsp;<span class="identifier">Any</span><span class="symbol">?</span><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">Boolean</span></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="generate-walls.html">generateWalls</a></h4>
+</td>
+<td>
+<p>generates the walls</p>
+<code><span class="keyword">abstract</span> <span class="keyword">fun </span><span class="identifier">generateWalls</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">List</span><span class="symbol">&lt;</span><a href="../../structure.helper-classes/-spooky-wall/index.html"><span class="identifier">SpookyWall</span></a><span class="symbol">&gt;</span></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="hash-code.html">hashCode</a></h4>
+</td>
+<td>
+<code><span class="keyword">open</span> <span class="keyword">fun </span><span class="identifier">hashCode</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">Int</span></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="name.html">name</a></h4>
+</td>
+<td>
+<p>returns the name of the structure</p>
+<code><span class="keyword">open</span> <span class="keyword">fun </span><span class="identifier">name</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">String</span></code></td>
+</tr>
+</tbody>
+</table>
+<h3>Companion Object Properties</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<h4><a href="add-duration.html">addDuration</a></h4>
+</td>
+<td>
+<code><span class="keyword">var </span><span class="identifier">addDuration</span><span class="symbol">: </span><span class="symbol">(</span><span class="symbol">(</span><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<span class="identifier">Double</span><span class="symbol">)</span><span class="symbol">?</span></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="add-height.html">addHeight</a></h4>
+</td>
+<td>
+<code><span class="keyword">var </span><span class="identifier">addHeight</span><span class="symbol">: </span><span class="symbol">(</span><span class="symbol">(</span><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<span class="identifier">Double</span><span class="symbol">)</span><span class="symbol">?</span></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="add-start-height.html">addStartHeight</a></h4>
+</td>
+<td>
+<code><span class="keyword">var </span><span class="identifier">addStartHeight</span><span class="symbol">: </span><span class="symbol">(</span><span class="symbol">(</span><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<span class="identifier">Double</span><span class="symbol">)</span><span class="symbol">?</span></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="add-start-row.html">addStartRow</a></h4>
+</td>
+<td>
+<code><span class="keyword">var </span><span class="identifier">addStartRow</span><span class="symbol">: </span><span class="symbol">(</span><span class="symbol">(</span><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<span class="identifier">Double</span><span class="symbol">)</span><span class="symbol">?</span></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="add-start-time.html">addStartTime</a></h4>
+</td>
+<td>
+<code><span class="keyword">var </span><span class="identifier">addStartTime</span><span class="symbol">: </span><span class="symbol">(</span><span class="symbol">(</span><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<span class="identifier">Double</span><span class="symbol">)</span><span class="symbol">?</span></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="add-width.html">addWidth</a></h4>
+</td>
+<td>
+<code><span class="keyword">var </span><span class="identifier">addWidth</span><span class="symbol">: </span><span class="symbol">(</span><span class="symbol">(</span><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<span class="identifier">Double</span><span class="symbol">)</span><span class="symbol">?</span></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="bombs.html">bombs</a></h4>
+</td>
+<td>
+<code><span class="keyword">var </span><span class="identifier">bombs</span><span class="symbol">: </span><span class="identifier">Boolean</span></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="change-duration.html">changeDuration</a></h4>
+</td>
+<td>
+<code><span class="keyword">var </span><span class="identifier">changeDuration</span><span class="symbol">: </span><span class="symbol">(</span><span class="symbol">(</span><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<span class="identifier">Double</span><span class="symbol">)</span><span class="symbol">?</span></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="change-height.html">changeHeight</a></h4>
+</td>
+<td>
+<code><span class="keyword">var </span><span class="identifier">changeHeight</span><span class="symbol">: </span><span class="symbol">(</span><span class="symbol">(</span><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<span class="identifier">Double</span><span class="symbol">)</span><span class="symbol">?</span></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="change-start-height.html">changeStartHeight</a></h4>
+</td>
+<td>
+<code><span class="keyword">var </span><span class="identifier">changeStartHeight</span><span class="symbol">: </span><span class="symbol">(</span><span class="symbol">(</span><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<span class="identifier">Double</span><span class="symbol">)</span><span class="symbol">?</span></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="change-start-row.html">changeStartRow</a></h4>
+</td>
+<td>
+<code><span class="keyword">var </span><span class="identifier">changeStartRow</span><span class="symbol">: </span><span class="symbol">(</span><span class="symbol">(</span><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<span class="identifier">Double</span><span class="symbol">)</span><span class="symbol">?</span></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="change-start-time.html">changeStartTime</a></h4>
+</td>
+<td>
+<code><span class="keyword">var </span><span class="identifier">changeStartTime</span><span class="symbol">: </span><span class="symbol">(</span><span class="symbol">(</span><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<span class="identifier">Double</span><span class="symbol">)</span><span class="symbol">?</span></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="change-width.html">changeWidth</a></h4>
+</td>
+<td>
+<code><span class="keyword">var </span><span class="identifier">changeWidth</span><span class="symbol">: </span><span class="symbol">(</span><span class="symbol">(</span><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<span class="identifier">Double</span><span class="symbol">)</span><span class="symbol">?</span></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="color.html">color</a></h4>
+</td>
+<td>
+<code><span class="keyword">var </span><span class="identifier">color</span><span class="symbol">: </span><a href="../../structure.helper-classes/-color-mode/index.html"><span class="identifier">ColorMode</span></a></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="fit-duration.html">fitDuration</a></h4>
+</td>
+<td>
+<code><span class="keyword">var </span><span class="identifier">fitDuration</span><span class="symbol">: </span><span class="symbol">(</span><span class="symbol">(</span><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<span class="identifier">Double</span><span class="symbol">)</span><span class="symbol">?</span></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="fit-height.html">fitHeight</a></h4>
+</td>
+<td>
+<code><span class="keyword">var </span><span class="identifier">fitHeight</span><span class="symbol">: </span><span class="symbol">(</span><span class="symbol">(</span><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<span class="identifier">Double</span><span class="symbol">)</span><span class="symbol">?</span></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="fit-start-height.html">fitStartHeight</a></h4>
+</td>
+<td>
+<code><span class="keyword">var </span><span class="identifier">fitStartHeight</span><span class="symbol">: </span><span class="symbol">(</span><span class="symbol">(</span><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<span class="identifier">Double</span><span class="symbol">)</span><span class="symbol">?</span></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="fit-start-row.html">fitStartRow</a></h4>
+</td>
+<td>
+<code><span class="keyword">var </span><span class="identifier">fitStartRow</span><span class="symbol">: </span><span class="symbol">(</span><span class="symbol">(</span><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<span class="identifier">Double</span><span class="symbol">)</span><span class="symbol">?</span></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="fit-start-time.html">fitStartTime</a></h4>
+</td>
+<td>
+<code><span class="keyword">var </span><span class="identifier">fitStartTime</span><span class="symbol">: </span><span class="symbol">(</span><span class="symbol">(</span><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<span class="identifier">Double</span><span class="symbol">)</span><span class="symbol">?</span></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="fit-width.html">fitWidth</a></h4>
+</td>
+<td>
+<code><span class="keyword">var </span><span class="identifier">fitWidth</span><span class="symbol">: </span><span class="symbol">(</span><span class="symbol">(</span><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<span class="identifier">Double</span><span class="symbol">)</span><span class="symbol">?</span></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="local-rot-x.html">localRotX</a></h4>
+</td>
+<td>
+<code><span class="keyword">var </span><span class="identifier">localRotX</span><span class="symbol">: </span><a href="../../structure.helper-classes/-rotation-mode/index.html"><span class="identifier">RotationMode</span></a></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="local-rot-y.html">localRotY</a></h4>
+</td>
+<td>
+<code><span class="keyword">var </span><span class="identifier">localRotY</span><span class="symbol">: </span><a href="../../structure.helper-classes/-rotation-mode/index.html"><span class="identifier">RotationMode</span></a></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="local-rot-z.html">localRotZ</a></h4>
+</td>
+<td>
+<code><span class="keyword">var </span><span class="identifier">localRotZ</span><span class="symbol">: </span><a href="../../structure.helper-classes/-rotation-mode/index.html"><span class="identifier">RotationMode</span></a></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="mirror.html">mirror</a></h4>
+</td>
+<td>
+<code><span class="keyword">var </span><span class="identifier">mirror</span><span class="symbol">: </span><span class="identifier">Int</span></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="mirror-rotation.html">mirrorRotation</a></h4>
+</td>
+<td>
+<code><span class="keyword">var </span><span class="identifier">mirrorRotation</span><span class="symbol">: </span><span class="identifier">Boolean</span></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="mirror-x.html">mirrorX</a></h4>
+</td>
+<td>
+<code><span class="keyword">var </span><span class="identifier">mirrorX</span><span class="symbol">: </span><span class="identifier">Double</span></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="mirror-y.html">mirrorY</a></h4>
+</td>
+<td>
+<code><span class="keyword">var </span><span class="identifier">mirrorY</span><span class="symbol">: </span><span class="identifier">Double</span></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="repeat.html">repeat</a></h4>
+</td>
+<td>
+<code><span class="keyword">var </span><span class="identifier">repeat</span><span class="symbol">: </span><span class="identifier">Int</span></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="repeat-add-duration.html">repeatAddDuration</a></h4>
+</td>
+<td>
+<code><span class="keyword">var </span><span class="identifier">repeatAddDuration</span><span class="symbol">: </span><span class="identifier">Double</span></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="repeat-add-height.html">repeatAddHeight</a></h4>
+</td>
+<td>
+<code><span class="keyword">var </span><span class="identifier">repeatAddHeight</span><span class="symbol">: </span><span class="identifier">Double</span></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="repeat-add-rotation.html">repeatAddRotation</a></h4>
+</td>
+<td>
+<code><span class="keyword">var </span><span class="identifier">repeatAddRotation</span><span class="symbol">: </span><span class="identifier">Double</span></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="repeat-add-start-height.html">repeatAddStartHeight</a></h4>
+</td>
+<td>
+<code><span class="keyword">var </span><span class="identifier">repeatAddStartHeight</span><span class="symbol">: </span><span class="identifier">Double</span></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="repeat-add-start-row.html">repeatAddStartRow</a></h4>
+</td>
+<td>
+<code><span class="keyword">var </span><span class="identifier">repeatAddStartRow</span><span class="symbol">: </span><span class="identifier">Double</span></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="repeat-add-start-time.html">repeatAddStartTime</a></h4>
+</td>
+<td>
+<code><span class="keyword">var </span><span class="identifier">repeatAddStartTime</span><span class="symbol">: </span><span class="identifier">Double</span></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="repeat-add-width.html">repeatAddWidth</a></h4>
+</td>
+<td>
+<code><span class="keyword">var </span><span class="identifier">repeatAddWidth</span><span class="symbol">: </span><span class="identifier">Double</span></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="repeat-add-x.html">repeatAddX</a></h4>
+</td>
+<td>
+<code><span class="keyword">var </span><span class="identifier">repeatAddX</span><span class="symbol">: </span><span class="identifier">Double</span></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="repeat-add-y.html">repeatAddY</a></h4>
+</td>
+<td>
+<code><span class="keyword">var </span><span class="identifier">repeatAddY</span><span class="symbol">: </span><span class="identifier">Double</span></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="repeat-add-z.html">repeatAddZ</a></h4>
+</td>
+<td>
+<code><span class="keyword">var </span><span class="identifier">repeatAddZ</span><span class="symbol">: </span><span class="identifier">Double</span></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="repeat-walls.html">repeatWalls</a></h4>
+</td>
+<td>
+<code><span class="keyword">var </span><span class="identifier">repeatWalls</span><span class="symbol">: </span><span class="identifier">Int</span></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="reverse.html">reverse</a></h4>
+</td>
+<td>
+<code><span class="keyword">var </span><span class="identifier">reverse</span><span class="symbol">: </span><span class="identifier">Boolean</span></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="reverse-x.html">reverseX</a></h4>
+</td>
+<td>
+<code><span class="keyword">var </span><span class="identifier">reverseX</span><span class="symbol">: </span><span class="identifier">Boolean</span></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="reverse-y.html">reverseY</a></h4>
+</td>
+<td>
+<code><span class="keyword">var </span><span class="identifier">reverseY</span><span class="symbol">: </span><span class="identifier">Boolean</span></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="rotation.html">rotation</a></h4>
+</td>
+<td>
+<code><span class="keyword">var </span><span class="identifier">rotation</span><span class="symbol">: </span><a href="../../structure.helper-classes/-rotation-mode/index.html"><span class="identifier">RotationMode</span></a></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="scale.html">scale</a></h4>
+</td>
+<td>
+<code><span class="keyword">var </span><span class="identifier">scale</span><span class="symbol">: </span><span class="identifier">Double</span><span class="symbol">?</span></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="scale-duration.html">scaleDuration</a></h4>
+</td>
+<td>
+<code><span class="keyword">var </span><span class="identifier">scaleDuration</span><span class="symbol">: </span><span class="symbol">(</span><span class="symbol">(</span><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<span class="identifier">Double</span><span class="symbol">)</span><span class="symbol">?</span></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="scale-height.html">scaleHeight</a></h4>
+</td>
+<td>
+<code><span class="keyword">var </span><span class="identifier">scaleHeight</span><span class="symbol">: </span><span class="symbol">(</span><span class="symbol">(</span><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<span class="identifier">Double</span><span class="symbol">)</span><span class="symbol">?</span></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="scale-start-height.html">scaleStartHeight</a></h4>
+</td>
+<td>
+<code><span class="keyword">var </span><span class="identifier">scaleStartHeight</span><span class="symbol">: </span><span class="symbol">(</span><span class="symbol">(</span><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<span class="identifier">Double</span><span class="symbol">)</span><span class="symbol">?</span></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="scale-start-row.html">scaleStartRow</a></h4>
+</td>
+<td>
+<code><span class="keyword">var </span><span class="identifier">scaleStartRow</span><span class="symbol">: </span><span class="symbol">(</span><span class="symbol">(</span><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<span class="identifier">Double</span><span class="symbol">)</span><span class="symbol">?</span></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="scale-start-time.html">scaleStartTime</a></h4>
+</td>
+<td>
+<code><span class="keyword">var </span><span class="identifier">scaleStartTime</span><span class="symbol">: </span><span class="symbol">(</span><span class="symbol">(</span><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<span class="identifier">Double</span><span class="symbol">)</span><span class="symbol">?</span></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="scale-width.html">scaleWidth</a></h4>
+</td>
+<td>
+<code><span class="keyword">var </span><span class="identifier">scaleWidth</span><span class="symbol">: </span><span class="symbol">(</span><span class="symbol">(</span><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<span class="identifier">Double</span><span class="symbol">)</span><span class="symbol">?</span></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="seed.html">seed</a></h4>
+</td>
+<td>
+<code><span class="keyword">var </span><span class="identifier">seed</span><span class="symbol">: </span><span class="identifier">Int</span><span class="symbol">?</span></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="speeder.html">speeder</a></h4>
+</td>
+<td>
+<code><span class="keyword">var </span><span class="identifier">speeder</span><span class="symbol">: </span><span class="identifier">Double</span><span class="symbol">?</span></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="time.html">time</a></h4>
+</td>
+<td>
+<code><span class="keyword">var </span><span class="identifier">time</span><span class="symbol">: </span><span class="identifier">Boolean</span></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="track.html">track</a></h4>
+</td>
+<td>
+<code><span class="keyword">var </span><span class="identifier">track</span><span class="symbol">: </span><span class="identifier">String</span><span class="symbol">?</span></code></td>
+</tr>
+</tbody>
+</table>
+<h3>Extension Functions</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<h4><a href="../../structure.wallbender/bend-walls.html">bendWalls</a></h4>
+</td>
+<td>
+<code><span class="keyword">fun </span><a href="./index.html"><span class="identifier">WallStructure</span></a><span class="symbol">.</span><span class="identifier">bendWalls</span><span class="symbol">(</span><span class="identifier" id="structure.wallbender$bendWalls(structure.WallStructure, kotlin.collections.List((structure.helperClasses.SpookyWall)))/walls">walls</span><span class="symbol">:</span>&nbsp;<span class="identifier">List</span><span class="symbol">&lt;</span><a href="../../structure.helper-classes/-spooky-wall/index.html"><span class="identifier">SpookyWall</span></a><span class="symbol">&gt;</span><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">List</span><span class="symbol">&lt;</span><a href="../../structure.helper-classes/-spooky-wall/index.html"><span class="identifier">SpookyWall</span></a><span class="symbol">&gt;</span></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="../../structure.wallbender/color.html">color</a></h4>
+</td>
+<td>
+<code><span class="keyword">fun </span><a href="./index.html"><span class="identifier">WallStructure</span></a><span class="symbol">.</span><span class="identifier">color</span><span class="symbol">(</span><span class="identifier" id="structure.wallbender$color(structure.WallStructure, kotlin.collections.List((structure.helperClasses.SpookyWall)))/l">l</span><span class="symbol">:</span>&nbsp;<span class="identifier">List</span><span class="symbol">&lt;</span><a href="../../structure.helper-classes/-spooky-wall/index.html"><span class="identifier">SpookyWall</span></a><span class="symbol">&gt;</span><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">List</span><span class="symbol">&lt;</span><a href="../../structure.helper-classes/-spooky-wall/index.html"><span class="identifier">SpookyWall</span></a><span class="symbol">&gt;</span></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="../copy-walls.html">copyWalls</a></h4>
+</td>
+<td>
+<code><span class="keyword">fun </span><a href="./index.html"><span class="identifier">WallStructure</span></a><span class="symbol">.</span><span class="identifier">copyWalls</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">ArrayList</span><span class="symbol">&lt;</span><a href="../../structure.helper-classes/-spooky-wall/index.html"><span class="identifier">SpookyWall</span></a><span class="symbol">&gt;</span></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="../deep-copy.html">deepCopy</a></h4>
+</td>
+<td>
+<code><span class="keyword">fun </span><a href="./index.html"><span class="identifier">WallStructure</span></a><span class="symbol">.</span><span class="identifier">deepCopy</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="./index.html"><span class="identifier">WallStructure</span></a></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="../../structure.wallbender/generate-bend-and-repeat-walls.html">generateBendAndRepeatWalls</a></h4>
+</td>
+<td>
+<code><span class="keyword">fun </span><a href="./index.html"><span class="identifier">WallStructure</span></a><span class="symbol">.</span><span class="identifier">generateBendAndRepeatWalls</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">List</span><span class="symbol">&lt;</span><a href="../../structure.helper-classes/-spooky-wall/index.html"><span class="identifier">SpookyWall</span></a><span class="symbol">&gt;</span></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="../../structure.wallbender/mirror.html">mirror</a></h4>
+</td>
+<td>
+<code><span class="keyword">fun </span><a href="./index.html"><span class="identifier">WallStructure</span></a><span class="symbol">.</span><span class="identifier">mirror</span><span class="symbol">(</span><span class="identifier" id="structure.wallbender$mirror(structure.WallStructure, kotlin.collections.List((structure.helperClasses.SpookyWall)))/l">l</span><span class="symbol">:</span>&nbsp;<span class="identifier">List</span><span class="symbol">&lt;</span><a href="../../structure.helper-classes/-spooky-wall/index.html"><span class="identifier">SpookyWall</span></a><span class="symbol">&gt;</span><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">List</span><span class="symbol">&lt;</span><a href="../../structure.helper-classes/-spooky-wall/index.html"><span class="identifier">SpookyWall</span></a><span class="symbol">&gt;</span></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="../../structure.special-strucures/read-point.html">readPoint</a></h4>
+</td>
+<td>
+<code><span class="keyword">fun </span><a href="./index.html"><span class="identifier">WallStructure</span></a><span class="symbol">.</span><span class="identifier">readPoint</span><span class="symbol">(</span><span class="identifier" id="structure.specialStrucures$readPoint(structure.WallStructure, kotlin.String)/name">name</span><span class="symbol">:</span>&nbsp;<span class="identifier">String</span><span class="symbol">)</span><span class="symbol">: </span><a href="../../structure.helper-classes/-point/index.html"><span class="identifier">Point</span></a><span class="symbol">?</span></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="../../structure.wallbender/repeat.html">repeat</a></h4>
+</td>
+<td>
+<code><span class="keyword">fun </span><a href="./index.html"><span class="identifier">WallStructure</span></a><span class="symbol">.</span><span class="identifier">repeat</span><span class="symbol">(</span><span class="identifier" id="structure.wallbender$repeat(structure.WallStructure, kotlin.collections.List((structure.helperClasses.SpookyWall)))/walls">walls</span><span class="symbol">:</span>&nbsp;<span class="identifier">List</span><span class="symbol">&lt;</span><a href="../../structure.helper-classes/-spooky-wall/index.html"><span class="identifier">SpookyWall</span></a><span class="symbol">&gt;</span><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">List</span><span class="symbol">&lt;</span><a href="../../structure.helper-classes/-spooky-wall/index.html"><span class="identifier">SpookyWall</span></a><span class="symbol">&gt;</span></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="../../structure.wallbender/repeat-struct.html">repeatStruct</a></h4>
+</td>
+<td>
+<code><span class="keyword">fun </span><a href="./index.html"><span class="identifier">WallStructure</span></a><span class="symbol">.</span><span class="identifier">repeatStruct</span><span class="symbol">(</span><span class="identifier" id="structure.wallbender$repeatStruct(structure.WallStructure, kotlin.collections.List((structure.helperClasses.SpookyWall)))/walls">walls</span><span class="symbol">:</span>&nbsp;<span class="identifier">List</span><span class="symbol">&lt;</span><a href="../../structure.helper-classes/-spooky-wall/index.html"><span class="identifier">SpookyWall</span></a><span class="symbol">&gt;</span><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">List</span><span class="symbol">&lt;</span><a href="../../structure.helper-classes/-spooky-wall/index.html"><span class="identifier">SpookyWall</span></a><span class="symbol">&gt;</span></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="../../structure.wallbender/repeat-walls.html">repeatWalls</a></h4>
+</td>
+<td>
+<code><span class="keyword">fun </span><a href="./index.html"><span class="identifier">WallStructure</span></a><span class="symbol">.</span><span class="identifier">repeatWalls</span><span class="symbol">(</span><span class="identifier" id="structure.wallbender$repeatWalls(structure.WallStructure, kotlin.collections.List((structure.helperClasses.SpookyWall)))/walls">walls</span><span class="symbol">:</span>&nbsp;<span class="identifier">List</span><span class="symbol">&lt;</span><a href="../../structure.helper-classes/-spooky-wall/index.html"><span class="identifier">SpookyWall</span></a><span class="symbol">&gt;</span><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">List</span><span class="symbol">&lt;</span><a href="../../structure.helper-classes/-spooky-wall/index.html"><span class="identifier">SpookyWall</span></a><span class="symbol">&gt;</span></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="../../structure.helper-functions/reset.html">reset</a></h4>
+</td>
+<td>
+<code><span class="keyword">fun </span><a href="./index.html"><span class="identifier">WallStructure</span></a><span class="symbol">.</span><span class="identifier">reset</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">Unit</span></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="../../structure.wallbender/rotate.html">rotate</a></h4>
+</td>
+<td>
+<code><span class="keyword">fun </span><a href="./index.html"><span class="identifier">WallStructure</span></a><span class="symbol">.</span><span class="identifier">rotate</span><span class="symbol">(</span><span class="identifier" id="structure.wallbender$rotate(structure.WallStructure, kotlin.collections.List((structure.helperClasses.SpookyWall)))/l">l</span><span class="symbol">:</span>&nbsp;<span class="identifier">List</span><span class="symbol">&lt;</span><a href="../../structure.helper-classes/-spooky-wall/index.html"><span class="identifier">SpookyWall</span></a><span class="symbol">&gt;</span><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">List</span><span class="symbol">&lt;</span><a href="../../structure.helper-classes/-spooky-wall/index.html"><span class="identifier">SpookyWall</span></a><span class="symbol">&gt;</span></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="../../structure.wallbender/speeder.html">speeder</a></h4>
+</td>
+<td>
+<code><span class="keyword">fun </span><a href="./index.html"><span class="identifier">WallStructure</span></a><span class="symbol">.</span><span class="identifier">speeder</span><span class="symbol">(</span><span class="identifier" id="structure.wallbender$speeder(structure.WallStructure, kotlin.collections.List((structure.helperClasses.SpookyWall)))/l">l</span><span class="symbol">:</span>&nbsp;<span class="identifier">List</span><span class="symbol">&lt;</span><a href="../../structure.helper-classes/-spooky-wall/index.html"><span class="identifier">SpookyWall</span></a><span class="symbol">&gt;</span><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">List</span><span class="symbol">&lt;</span><a href="../../structure.helper-classes/-spooky-wall/index.html"><span class="identifier">SpookyWall</span></a><span class="symbol">&gt;</span></code></td>
+</tr>
+</tbody>
+</table>
+<h3>Inheritors</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<h4><a href="../-continues-curve/index.html">ContinuesCurve</a></h4>
+</td>
+<td>
+<p>Creates a continues line with up to 31 Points. has a typo and will be deleted on version 1.0</p>
+<code><span class="keyword">class </span><s><span class="identifier">ContinuesCurve</span></s>&nbsp;<span class="symbol">:</span>&nbsp;<a href="./index.html"><span class="identifier">WallStructure</span></a></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="../-continuous-curve/index.html">ContinuousCurve</a></h4>
+</td>
+<td>
+<p>Creates a continues line with up to 31 Points. this one does not have a typo in the name :)</p>
+<code><span class="keyword">class </span><span class="identifier">ContinuousCurve</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="./index.html"><span class="identifier">WallStructure</span></a></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="../-curve/index.html">Curve</a></h4>
+</td>
+<td>
+<p>Draw a curve of Walls. This uses BezierCurve. You can imagine it like a line between point 1 and point 4, that gets pulled upon by the controlpoints. Maybe this link can help (the dots are the Points) https://www.desmos.com/calculator/cahqdxeshd</p>
+<code><span class="keyword">class </span><span class="identifier">Curve</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="./index.html"><span class="identifier">WallStructure</span></a></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="../-define/index.html">Define</a></h4>
+</td>
+<td>
+<p>Define your own WallStructure from existing WallStructures.</p>
+<code><span class="keyword">class </span><span class="identifier">Define</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="./index.html"><span class="identifier">WallStructure</span></a></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="../-empty-wall-structure/index.html">EmptyWallStructure</a></h4>
+</td>
+<td>
+<p>dont touch</p>
+<code><span class="keyword">object </span><span class="identifier">EmptyWallStructure</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="./index.html"><span class="identifier">WallStructure</span></a></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="../-furry-grid/index.html">FurryGrid</a></h4>
+</td>
+<td>
+<p>3d Grid</p>
+<code><span class="keyword">class </span><span class="identifier">FurryGrid</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="./index.html"><span class="identifier">WallStructure</span></a></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="../-helix/index.html">Helix</a></h4>
+</td>
+<td>
+<p>spinning time! make walls spin around the player</p>
+<code><span class="keyword">class </span><span class="identifier">Helix</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="./index.html"><span class="identifier">WallStructure</span></a></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="../-helix-curve/index.html">HelixCurve</a></h4>
+</td>
+<td>
+<p>NOT IMPLEMENTED YET</p>
+<code><span class="keyword">class </span><span class="identifier">HelixCurve</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="./index.html"><span class="identifier">WallStructure</span></a></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="../-line/index.html">Line</a></h4>
+</td>
+<td>
+<p>Draws a wall of line between the 2 provided Points</p>
+<code><span class="keyword">class </span><span class="identifier">Line</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="./index.html"><span class="identifier">WallStructure</span></a></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="../-loop/index.html">Loop</a></h4>
+</td>
+<td>
+<p>NOT IMPLEMENTED YET
+loops throuh the given wallstructures and increments their values</p>
+<code><span class="keyword">class </span><span class="identifier">Loop</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="./index.html"><span class="identifier">WallStructure</span></a></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="../-noodle-helix/index.html">NoodleHelix</a></h4>
+</td>
+<td>
+<code><span class="keyword">class </span><span class="identifier">NoodleHelix</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="./index.html"><span class="identifier">WallStructure</span></a></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="../-random-blocks/index.html">RandomBlocks</a></h4>
+</td>
+<td>
+<p>place random blocks around the player</p>
+<code><span class="keyword">class </span><span class="identifier">RandomBlocks</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="./index.html"><span class="identifier">WallStructure</span></a></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="../-random-cuboid-lines/index.html">RandomCuboidLines</a></h4>
+</td>
+<td>
+<p>draws multiple lines around Sections of the cuboid.</p>
+<code><span class="keyword">class </span><span class="identifier">RandomCuboidLines</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="./index.html"><span class="identifier">WallStructure</span></a></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="../-random-curve/index.html">RandomCurve</a></h4>
+</td>
+<td>
+<p>random curves in a given cubic. Always starts at p1 and ends at p2.</p>
+<code><span class="keyword">class </span><span class="identifier">RandomCurve</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="./index.html"><span class="identifier">WallStructure</span></a></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="../-random-noise/index.html">RandomNoise</a></h4>
+</td>
+<td>
+<p>Random Noise (small mini cubes)</p>
+<code><span class="keyword">class </span><span class="identifier">RandomNoise</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="./index.html"><span class="identifier">WallStructure</span></a></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="../-random-structures/index.html">RandomStructures</a></h4>
+</td>
+<td>
+<p>Define your own WallStructure from existing WallStructures.</p>
+<code><span class="keyword">class </span><span class="identifier">RandomStructures</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="./index.html"><span class="identifier">WallStructure</span></a></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="../-steady-curve/index.html">SteadyCurve</a></h4>
+</td>
+<td>
+<p>Draw a steady curve of Walls. that is exactly 1 beat long</p>
+<code><span class="keyword">class </span><span class="identifier">SteadyCurve</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="./index.html"><span class="identifier">WallStructure</span></a></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="../-wall/index.html">Wall</a></h4>
+</td>
+<td>
+<p>create a single Wall</p>
+<code><span class="keyword">class </span><span class="identifier">Wall</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="./index.html"><span class="identifier">WallStructure</span></a></code></td>
+</tr>
+</tbody>
+</table>
+</BODY>
+</HTML>

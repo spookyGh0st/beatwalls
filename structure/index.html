@@ -1,0 +1,187 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>structure - beatwalls</title>
+<link rel="stylesheet" href="../../style.css">
+</HEAD>
+<BODY>
+<a href="../index.html">beatwalls</a>&nbsp;/&nbsp;<a href="./index.html">structure</a><br/>
+<br/>
+<h2>Package structure</h2>
+<h3>Types</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<h4><a href="-continues-curve/index.html">ContinuesCurve</a></h4>
+</td>
+<td>
+<p>Creates a continues line with up to 31 Points. has a typo and will be deleted on version 1.0</p>
+<code><span class="keyword">class </span><s><span class="identifier">ContinuesCurve</span></s>&nbsp;<span class="symbol">:</span>&nbsp;<a href="-wall-structure/index.html"><span class="identifier">WallStructure</span></a></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="-continuous-curve/index.html">ContinuousCurve</a></h4>
+</td>
+<td>
+<p>Creates a continues line with up to 31 Points. this one does not have a typo in the name :)</p>
+<code><span class="keyword">class </span><span class="identifier">ContinuousCurve</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="-wall-structure/index.html"><span class="identifier">WallStructure</span></a></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="-curve/index.html">Curve</a></h4>
+</td>
+<td>
+<p>Draw a curve of Walls. This uses BezierCurve. You can imagine it like a line between point 1 and point 4, that gets pulled upon by the controlpoints. Maybe this link can help (the dots are the Points) https://www.desmos.com/calculator/cahqdxeshd</p>
+<code><span class="keyword">class </span><span class="identifier">Curve</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="-wall-structure/index.html"><span class="identifier">WallStructure</span></a></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="-define/index.html">Define</a></h4>
+</td>
+<td>
+<p>Define your own WallStructure from existing WallStructures.</p>
+<code><span class="keyword">class </span><span class="identifier">Define</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="-wall-structure/index.html"><span class="identifier">WallStructure</span></a></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="-empty-wall-structure/index.html">EmptyWallStructure</a></h4>
+</td>
+<td>
+<p>dont touch</p>
+<code><span class="keyword">object </span><span class="identifier">EmptyWallStructure</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="-wall-structure/index.html"><span class="identifier">WallStructure</span></a></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="-furry-grid/index.html">FurryGrid</a></h4>
+</td>
+<td>
+<p>3d Grid</p>
+<code><span class="keyword">class </span><span class="identifier">FurryGrid</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="-wall-structure/index.html"><span class="identifier">WallStructure</span></a></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="-helix/index.html">Helix</a></h4>
+</td>
+<td>
+<p>spinning time! make walls spin around the player</p>
+<code><span class="keyword">class </span><span class="identifier">Helix</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="-wall-structure/index.html"><span class="identifier">WallStructure</span></a></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="-helix-curve/index.html">HelixCurve</a></h4>
+</td>
+<td>
+<p>NOT IMPLEMENTED YET</p>
+<code><span class="keyword">class </span><span class="identifier">HelixCurve</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="-wall-structure/index.html"><span class="identifier">WallStructure</span></a></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="-line/index.html">Line</a></h4>
+</td>
+<td>
+<p>Draws a wall of line between the 2 provided Points</p>
+<code><span class="keyword">class </span><span class="identifier">Line</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="-wall-structure/index.html"><span class="identifier">WallStructure</span></a></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="-loop/index.html">Loop</a></h4>
+</td>
+<td>
+<p>NOT IMPLEMENTED YET
+loops throuh the given wallstructures and increments their values</p>
+<code><span class="keyword">class </span><span class="identifier">Loop</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="-wall-structure/index.html"><span class="identifier">WallStructure</span></a></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="-noodle-helix/index.html">NoodleHelix</a></h4>
+</td>
+<td>
+<code><span class="keyword">class </span><span class="identifier">NoodleHelix</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="-wall-structure/index.html"><span class="identifier">WallStructure</span></a></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="-random-blocks/index.html">RandomBlocks</a></h4>
+</td>
+<td>
+<p>place random blocks around the player</p>
+<code><span class="keyword">class </span><span class="identifier">RandomBlocks</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="-wall-structure/index.html"><span class="identifier">WallStructure</span></a></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="-random-cuboid-lines/index.html">RandomCuboidLines</a></h4>
+</td>
+<td>
+<p>draws multiple lines around Sections of the cuboid.</p>
+<code><span class="keyword">class </span><span class="identifier">RandomCuboidLines</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="-wall-structure/index.html"><span class="identifier">WallStructure</span></a></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="-random-curve/index.html">RandomCurve</a></h4>
+</td>
+<td>
+<p>random curves in a given cubic. Always starts at p1 and ends at p2.</p>
+<code><span class="keyword">class </span><span class="identifier">RandomCurve</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="-wall-structure/index.html"><span class="identifier">WallStructure</span></a></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="-random-noise/index.html">RandomNoise</a></h4>
+</td>
+<td>
+<p>Random Noise (small mini cubes)</p>
+<code><span class="keyword">class </span><span class="identifier">RandomNoise</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="-wall-structure/index.html"><span class="identifier">WallStructure</span></a></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="-random-structures/index.html">RandomStructures</a></h4>
+</td>
+<td>
+<p>Define your own WallStructure from existing WallStructures.</p>
+<code><span class="keyword">class </span><span class="identifier">RandomStructures</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="-wall-structure/index.html"><span class="identifier">WallStructure</span></a></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="-steady-curve/index.html">SteadyCurve</a></h4>
+</td>
+<td>
+<p>Draw a steady curve of Walls. that is exactly 1 beat long</p>
+<code><span class="keyword">class </span><span class="identifier">SteadyCurve</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="-wall-structure/index.html"><span class="identifier">WallStructure</span></a></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="-wall/index.html">Wall</a></h4>
+</td>
+<td>
+<p>create a single Wall</p>
+<code><span class="keyword">class </span><span class="identifier">Wall</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="-wall-structure/index.html"><span class="identifier">WallStructure</span></a></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="-wall-structure/index.html">WallStructure</a></h4>
+</td>
+<td>
+<code><span class="keyword">sealed</span> <span class="keyword">class </span><span class="identifier">WallStructure</span>&nbsp;<span class="symbol">:</span>&nbsp;<span class="identifier">Serializable</span></code></td>
+</tr>
+</tbody>
+</table>
+<h3>Functions</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<h4><a href="copy-walls.html">copyWalls</a></h4>
+</td>
+<td>
+<code><span class="keyword">fun </span><a href="-wall-structure/index.html"><span class="identifier">WallStructure</span></a><span class="symbol">.</span><span class="identifier">copyWalls</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">ArrayList</span><span class="symbol">&lt;</span><a href="../structure.helper-classes/-spooky-wall/index.html"><span class="identifier">SpookyWall</span></a><span class="symbol">&gt;</span></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="deep-copy.html">deepCopy</a></h4>
+</td>
+<td>
+<code><span class="keyword">fun </span><a href="-wall-structure/index.html"><span class="identifier">WallStructure</span></a><span class="symbol">.</span><span class="identifier">deepCopy</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="-wall-structure/index.html"><span class="identifier">WallStructure</span></a></code></td>
+</tr>
+</tbody>
+</table>
+</BODY>
+</HTML>

@@ -47,7 +47,7 @@ fun NoodleHelix.run(): List<SpookyWall> {
                 height = height,
                 y = startHeight,
                 z = startTime,
-                localrotZ = lrz
+                localRotZ = lrz
             ))
         }
     }

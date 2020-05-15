@@ -19,7 +19,10 @@ class WallArgumentKtTest : TestCase() {
         println("start")
         for (i in 0..50000) {
             w = SpookyWall()
-            wallArguments(w)
+            val s = w.arguments
+            w.x = i.toDouble()
+            w.width = 342.0
+            val sa= Expression("wallx",s["wallx"]).calculate()
         }
         println("end")
     }

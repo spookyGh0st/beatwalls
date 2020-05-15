@@ -8,7 +8,7 @@ import org.mariuszgromada.math.mxparser.Argument
 import structure.WallStructure
 import kotlin.reflect.KProperty
 
-data class BwDouble(expression: String = "0.0"): BwNumber(expression) {
+class BwDouble(expression: String = "0.0"): BwNumber(expression) {
     constructor(default: Number): this(default.toString())
 
     override fun getValue(thisRef: WallStructure, property: KProperty<*>): Double {

@@ -7,9 +7,12 @@ import chart.difficulty._obstacleCustomData
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
 import chart.difficulty._obstacles
+import org.mariuszgromada.math.mxparser.Argument
+import org.mariuszgromada.math.mxparser.ArgumentExtension
 import java.io.Serializable
 import kotlin.math.max
 import kotlin.math.min
+import kotlin.reflect.full.memberProperties
 
 
 data class SpookyWall(
@@ -219,29 +222,26 @@ data class SpookyWall(
         }
     }
 
-    override fun equals(other: Any?): Boolean {
-        if (this === other) return true
-        if (other !is SpookyWall) return false
-        if (x != other.x) return false
-        if (duration != other.duration) return false
-        if (width != other.width) return false
-        if (height != other.height) return false
-        if (y != other.y) return false
-        if (z != other.z) return false
-
-        return true
-    }
-
-    override fun hashCode(): Int {
-        var result = x.hashCode()
-        result = 31 * result + duration.hashCode()
-        result = 31 * result + width.hashCode()
-        result = 31 * result + height.hashCode()
-        result = 31 * result + y.hashCode()
-        result = 31 * result + z.hashCode()
-        return result
+    val arguments: HashMap<String, Argument> = hashMapOf(
+        wArg("wallX"){ it.x },
+        wArg("wallY"){ it.y },
+        wArg("wallZ"){ it.z },
+        wArg("wallWidth"){ it.width },
+        wArg("wallHeight"){ it.height },
+        wArg("wallDuration"){ it.duration },
+        wArg("wallColorR"){ it.color?.red },
+        wArg("wallColorG"){ it.color?.green },
+        wArg("wallColorB"){ it.color?.red },
+        wArg("wallRotation"){ it.rotation },
+        wArg("wallLocalRotX"){ it.localRotX },
+        wArg("wallLocalRotX"){ it.localRotY },
+        wArg("wallLocalRotX"){ it.localRotZ }
+   )
+    private fun wArg(name: String, e: (w:SpookyWall) -> Double?) = name.toLowerCase() to Argument(name.toLowerCase(), WallArgument(e))
+    inner class WallArgument(val e: (w: SpookyWall) -> Double?): ArgumentExtension{
+        override fun clone(): ArgumentExtension = WallArgument(e)
+        override fun getArgumentValue(): Double = e(this@SpookyWall)?: Double.NaN
     }
 }
 
 internal const val minValue = 0.005
-

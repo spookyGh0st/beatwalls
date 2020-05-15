@@ -8,7 +8,7 @@ import java.io.Serializable
 import kotlin.reflect.KProperty
 
 
-abstract class BwProperty:ArgumentExtension{
+abstract class BwProperty{
 
     // stored wallstructure and SpookywallConstants
     // all here stored constants are valid

@@ -1,37 +1,43 @@
 package interpreter.property.elements
 
 import junit.framework.TestCase
-import org.mariuszgromada.math.mxparser.Argument
-import org.mariuszgromada.math.mxparser.Expression
-import structure.helperClasses.SpookyWall
-import java.util.*
+import net.objecthunter.exp4j.ExpressionBuilder
+import net.objecthunter.exp4j.function.Function
+import java.util.concurrent.Executors
+import kotlin.random.Random
 
 class WallArgumentKtTest : TestCase() {
 
     fun testWallArguments() {
-        var w = SpookyWall()
-        val hm = wallArguments(w)
-        val a = Expression("1 + wallx - 1")
-        val tokens = a.copyOfInitialTokens
-        tokens.filter { it.looksLike == "argument" }.forEach {
-            a.addDefinitions(hm[it.tokenStr]!!)
+        val e = ExpressionBuilder("random(20)")
+            .variables("x", "y","z","ak","i")
+            .functions(RandomFunc(),Random2Func())
+            .build()
+        e.setVariable("x", 2.3)
+
+        val exec = Executors.newFixedThreadPool(1)
+        repeat(50000) {
+            //  e.setVariable("i", it/50000.0)
+            //  e.setVariable("x", it.toDouble())
+            //  e.setVariable("y", it.toDouble()+1)
+            println(e.evaluate())
+
         }
-        println("start")
-        for (i in 0..50000) {
-            w = SpookyWall()
-            val s = w.arguments
-            w.x = i.toDouble()
-            w.width = 342.0
-            val sa= Expression("wallx",s["wallx"]).calculate()
-        }
-        println("end")
+        println(e.variableNames)
     }
 
     fun testToDoubleOrZero() {
-        assertEquals(10.0, 10.toDoubleOrZero())
-        val m: Double? = 20.0
-        assertEquals(20.0, m.toDoubleOrZero())
-        assertEquals(0.0, "MyLittlePhony".toDoubleOrZero())
 
     }
 }
+class RandomFunc(): Function("random",2){
+    private val r = Random(0)
+    override fun apply(vararg p0: Double): Double = r.nextDouble(p0[0],p0[1])
+
+    }
+class Random2Func(): Function("random",1){
+    private val r = Random(0)
+    override fun apply(vararg p0: Double): Double = r.nextDouble(p0[0])
+
+}
+

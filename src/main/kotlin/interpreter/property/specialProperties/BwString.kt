@@ -2,8 +2,7 @@ package interpreter.property.specialProperties
 
 import interpreter.property.BwProperty
 import interpreter.property.InvalidExpressionException
-import org.mariuszgromada.math.mxparser.Argument
-import org.mariuszgromada.math.mxparser.Expression
+import net.objecthunter.exp4j.Expression
 import structure.WallStructure
 import kotlin.reflect.KProperty
 
@@ -20,20 +19,18 @@ class BwString(private var exprString: String) : BwProperty() {
     }
 
     override fun timesExpr(e: String) {
-        throw InvalidExpressionException(
-            Expression(e),
-            "how the fuck should this work"
-        )
+        throw TODO()
+        //InvalidExpressionException(
+         //   Expression(e),
+          //  "how the fuck should this work"
+        //)
     }
 
     override fun powExpr(e: String) {
-        throw InvalidExpressionException(
-            Expression(e),
-            "how the fuck should this work"
-        )
-    }
-
-    override fun toArguments(baseName: String): List<Argument> {
-        return listOf(Argument("$baseName = $exprString"))
+        TODO()
+        //throw InvalidExpressionException(
+         //   Expression(e),
+          //  "how the fuck should this work"
+        //)
     }
 }

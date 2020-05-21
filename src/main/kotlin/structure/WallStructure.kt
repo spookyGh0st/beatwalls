@@ -2,7 +2,6 @@
 
 package structure
 
-import interpreter.property.constantFactory.ConstantController
 import interpreter.property.specialProperties.*
 import structure.helperClasses.*
 import structure.specialStrucures.*
@@ -31,13 +30,19 @@ submit a pull request and wait for approval.
 
 sealed class WallStructure:Serializable
 {
+    var i: Double  = 0.0
+    var activeWall: SpookyWall = SpookyWall()
+    /**
+     * some Wallstructures use Random walls. This is the seed for them
+     */
+    var seed: Int? = Default.seed
+    val r: Random = Random(seed?: Random.nextInt())
     val testProperty: Double by BwDouble()
     val testRecursiveProperty: Double by BwDouble()
     /**
      * This is needed for all the functions and properties.
      * This allows for the use of other bwProperties in the expressions
      */
-    val constantController  by lazy{ ConstantController(this) }
 
     open val a by BwInt()
 
@@ -97,28 +102,28 @@ sealed class WallStructure:Serializable
     /**
      * change The x of all Walls in the structure to the given Value. Random possible with random(min,max). Default: null
      */
-    val x by BwDouble("wall${SpookyWall::x.name}")
+    val x by BwDouble(0.0)//"wall${SpookyWall::x.name}")
     /**
      * change The y of all Walls in the structure to the given Value. Random possible with random(min,max). Default: null
      */
-    val y by BwDouble("wall${SpookyWall::y.name}")
+    val y by BwDouble(0.0)//"wall${SpookyWall::y.name}")
     /**
      * change The StartTime of all Walls in the structure to the given Value. Random possible with random(min,max). Default: null
      */
-    val z by BwDouble("wall${SpookyWall::z.name}")
+    val z by BwDouble(0.0)//"wall${SpookyWall::z.name}")
 
     /**
      * change The Duration of all Walls in the structure to the given Value. Random possible with random(min,max). Default: null
      */
-    val d by BwDouble("wall${SpookyWall::duration.name}") // todo rename to duration
+    val d by BwDouble(0.0)//"wall${SpookyWall::duration.name}") // todo rename to duration
     /**
      * change The Height of all Walls in the structure to the given Value. Random possible with random(min,max). Default: null
      */
-    val height by BwDouble("wall${SpookyWall::height.name}")
+    val height by BwDouble(0.0)//"wall${SpookyWall::height.name}")
     /**
      * change the Width of all Walls in the structure to the given Value. Random possible with random(min,max). Default: null
      */
-    val width by BwDouble("wall${SpookyWall::width.name}")
+    val width by BwDouble(0.0)//"wall${SpookyWall::width.name}")
 
     /**
      * increases or decreases the width of all walls until they have the the specific X. Random possible with random(min,max). default: null (does nothing)
@@ -352,10 +357,6 @@ sealed class WallStructure:Serializable
      */
     var localRotZ: RotationMode = Default.localRotZ
 
-    /**
-     * some Wallstructures use Random walls. This is the seed for them
-     */
-    var seed: Int? = Default.seed
 
     /**
      * used for some internal stuff, dont touch
@@ -443,12 +444,6 @@ sealed class WallStructure:Serializable
         var result = spookyWalls.hashCode()
         result = 31 * result + beat.hashCode()
         result = 31 * result + time.hashCode()
-        result = 31 * result + (z.hashCode() )
-        result = 31 * result + (d.hashCode() )
-        result = 31 * result + (height.hashCode() )
-        result = 31 * result + (y.hashCode() )
-        result = 31 * result + (x.hashCode() )
-        result = 31 * result + (width.hashCode() )
         result = 31 * result + repeat
         result = 31 * result + repeatAddZ.hashCode()
         result = 31 * result + repeatAddX.hashCode()

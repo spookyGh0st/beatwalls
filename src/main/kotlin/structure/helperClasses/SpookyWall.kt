@@ -7,8 +7,6 @@ import chart.difficulty._obstacleCustomData
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
 import chart.difficulty._obstacles
-import org.mariuszgromada.math.mxparser.Argument
-import org.mariuszgromada.math.mxparser.ArgumentExtension
 import java.io.Serializable
 import kotlin.math.max
 import kotlin.math.min
@@ -222,26 +220,6 @@ data class SpookyWall(
         }
     }
 
-    val arguments: HashMap<String, Argument> = hashMapOf(
-        wArg("wallX"){ it.x },
-        wArg("wallY"){ it.y },
-        wArg("wallZ"){ it.z },
-        wArg("wallWidth"){ it.width },
-        wArg("wallHeight"){ it.height },
-        wArg("wallDuration"){ it.duration },
-        wArg("wallColorR"){ it.color?.red },
-        wArg("wallColorG"){ it.color?.green },
-        wArg("wallColorB"){ it.color?.red },
-        wArg("wallRotation"){ it.rotation },
-        wArg("wallLocalRotX"){ it.localRotX },
-        wArg("wallLocalRotX"){ it.localRotY },
-        wArg("wallLocalRotX"){ it.localRotZ }
-   )
-    private fun wArg(name: String, e: (w:SpookyWall) -> Double?) = name.toLowerCase() to Argument(name.toLowerCase(), WallArgument(e))
-    inner class WallArgument(val e: (w: SpookyWall) -> Double?): ArgumentExtension{
-        override fun clone(): ArgumentExtension = WallArgument(e)
-        override fun getArgumentValue(): Double = e(this@SpookyWall)?: Double.NaN
-    }
 }
 
 internal const val minValue = 0.005

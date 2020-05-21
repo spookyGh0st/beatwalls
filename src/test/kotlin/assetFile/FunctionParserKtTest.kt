@@ -1,5 +1,7 @@
 package assetFile
 
+import interpreter.property.functions.BwFunction
+import interpreter.property.functions.toBwFunction
 import org.junit.Test
 
 import org.junit.Assert.*
@@ -23,8 +25,8 @@ class FunctionParserKtTest {
     fun toFunction() {
         assertEquals(BwFunction("random"),                      "random".toBwFunction())
         assertEquals(BwFunction("random"),                      " R a NDom".toBwFunction())
-        assertEquals(BwFunction("r", listOf("foo","bar")),      "r (foo, bar)".toBwFunction() )
-        assertEquals(BwFunction("r", listOf("foo","bar")),   "r(foo,bar".toBwFunction())
+        assertEquals(BwFunction("r", listOf("foo", "bar")),      "r (foo, bar)".toBwFunction() )
+        assertEquals(BwFunction("r", listOf("foo", "bar")),   "r(foo,bar".toBwFunction())
         assertFailsWith<NullPointerException> {  "".toBwFunction()}
     }
 

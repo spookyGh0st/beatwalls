@@ -3,8 +3,6 @@ package interpreter.parser
 import assetFile.isDouble
 import interpreter.parser.types.*
 import interpreter.property.specialProperties.Repeat
-import org.mariuszgromada.math.mxparser.Constant
-import org.mariuszgromada.math.mxparser.Function
 import structure.Define
 import structure.WallStructure
 
@@ -48,9 +46,7 @@ class LineParser {
         parseLines(l)
         val ws = structList.map { it.create() }
         ws.forEach {
-            val cc = it.constantController
-            cc.customConstants.addAll(dataSet.constantList.values)
-            cc.customFunctions.addAll(dataSet.functionList.values)
+            //TODO()
         }
         return ws
     }
@@ -62,8 +58,8 @@ class LineParser {
     fun parseLine(l: Line){
         when{
             isRepeat(l) -> addRepeat(l)
-            isConstant(l) -> defineConstant(l)
-            isFunction(l) -> defineFunction(l)
+            // todo isConstant(l) -> defineConstant(l)
+            // todo isFunction(l) -> defineFunction(l)
             isCustomStruct(l) -> defineCustomStruct(l)
             isBwInterface(l) -> defineInterface(l)
             isProperty(l) -> addProperty(l)
@@ -98,10 +94,11 @@ class LineParser {
         val value = l.sAfter("const")
         val name = l.sBetween("const","=")
         checkName(name)
-        val args = (dataSet.constantList.values  + dataSet.functionList.values).toTypedArray()
-        val c = Constant(value,*args)
-        if(!c.syntaxStatus || dataSet.inKeys(name)) throw InvalidLineExpression(l, "Constant is invalid")
-        dataSet.constantList[name] = c
+        TODO()
+        //  val args = (dataSet.constantList.values  + dataSet.functionList.values).toTypedArray()
+        //  val c = Constant(value,*args)
+        //  if(!c.syntaxStatus || dataSet.inKeys(name)) throw InvalidLineExpression(l, "Constant is invalid")
+        //  dataSet.constantList[name] = c
     }
 
     fun isFunction(l: Line) = l.sBefore(" ") == "fun"
@@ -110,10 +107,11 @@ class LineParser {
         val value = l.sAfter("fun")
         val name = l.sBetween("fun","(")
         checkName(name)
-        val args = (dataSet.constantList.values  + dataSet.functionList.values).toTypedArray()
-        val f = Function(value,*args)
-        if(!f.syntaxStatus || dataSet.inKeys(name)) throw InvalidLineExpression(l, "Function is invalid")
-        dataSet.functionList[name] = f
+        TODO()
+        //  val args = (dataSet.constantList.values  + dataSet.functionList.values).toTypedArray()
+        //  val f = Function(value,*args)
+        //  if(!f.syntaxStatus || dataSet.inKeys(name)) throw InvalidLineExpression(l, "Function is invalid")
+        //  dataSet.functionList[name] = f
     }
 
     fun isCustomStruct(l: Line) = l.sBefore(" ") == "struct"
@@ -179,7 +177,7 @@ class LineParser {
 }
 
 
-val Function.syntaxStatus: Boolean get() = this.checkSyntax()
+//  val Function.syntaxStatus: Boolean get() = this.checkSyntax()
 
 
 class NameAlreadyExistException(name: String, cause:Throwable? = null): Exception("$name already exist in keys, please choose a different name",cause)

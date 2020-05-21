@@ -4,20 +4,23 @@ import interpreter.property.BwProperty
 import interpreter.property.strPlusExprStr
 import interpreter.property.strPowExprStr
 import interpreter.property.strTimesExprStr
-import org.mariuszgromada.math.mxparser.Argument
 import structure.WallStructure
 import structure.helperClasses.Point
 import kotlin.reflect.KProperty
 
 class BwPoint(var x: String = "0.0", var y: String="0.0",var z: String="0.0"): BwProperty() {
     constructor(x:Number,y:Number,z:Number): this(x.toString(),y.toString(),z.toString())
+    val xExpr by lazy { buildExpression(x) }
+    val yExpr by lazy { buildExpression(y) }
+    val zExpr by lazy { buildExpression(z) }
 
     override fun getValue(thisRef: WallStructure, property: KProperty<*>): Point {
         // throws an exception if one Expression is not valid
+        wsRef = thisRef // this is needed so we pass the right ws in the functions
         return Point(
-            calcExpression(x,thisRef),
-            calcExpression(y,thisRef),
-            calcExpression(z,thisRef)
+            setVarsAndCalcExprForWs(xExpr,thisRef),
+            setVarsAndCalcExprForWs(yExpr,thisRef),
+            setVarsAndCalcExprForWs(zExpr,thisRef)
         )
     }
 
@@ -58,11 +61,4 @@ class BwPoint(var x: String = "0.0", var y: String="0.0",var z: String="0.0"): B
         parseExpression(e) { s: String, s2: String -> strPowExprStr(s,s2) }
     }
 
-    override fun toArguments(baseName: String): List<Argument> {
-        return listOf(
-            Argument("${baseName}x = $x"),
-            Argument("${baseName}y = $y"),
-            Argument("${baseName}z = $z")
-            )
-    }
 }

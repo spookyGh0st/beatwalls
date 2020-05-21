@@ -1,7 +1,5 @@
 package interpreter.parser
 
-import org.mariuszgromada.math.mxparser.Constant
-import org.mariuszgromada.math.mxparser.Function
 import structure.WallStructure
 import kotlin.collections.HashMap
 import kotlin.reflect.KClass
@@ -21,20 +19,22 @@ data class DataSet(
     val interfaces: HashMap<String, BwInterface> = hashMapOf("default" to BwInterface()),
 
     // stores all user-defined Constants
-    val constantList: HashMap<String, Constant> = hashMapOf(),
+    // TODO val constantList: HashMap<String, Constant> = hashMapOf(),
 
     // stores all user-defined Functions
-    val functionList: HashMap<String, Function> = hashMapOf(),
+    // todoval functionList: HashMap<String, Function> = hashMapOf(),
 
     // stores all properties of all WallStructures (subclasses as well)
-    val wsPropsNames: List<String> = bwProperties()
+    val wsPropsNames: List<String> = bwPropNames
 )
 
 fun DataSet.inKeys(s:String) =
-    s in wsFactories.keys || s in interfaces.keys || s in constantList.keys || s in functionList.keys || s in wsPropsNames
+    s in wsFactories.keys || s in interfaces.keys || s in wsPropsNames //|| s in constantList.keys || s in functionList.keys
 
 // its not unchecked you bongo compiler
 @Suppress("UNCHECKED_CAST")
+
+val bwPropNames = bwProperties()
 fun bwProperties(): List<String> {
     val wsClass = WallStructure::class
     // this is needed, since sealedSubclasses does not return nested subclasses

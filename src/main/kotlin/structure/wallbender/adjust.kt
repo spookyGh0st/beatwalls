@@ -9,8 +9,7 @@ import structure.helperClasses.SpookyWall
  */
 internal fun WallStructure.adjust(l: List<SpookyWall>){
     for ((i, wall) in l.withIndex()) {
-        this.constantController.wall = wall
-        this.constantController.progress = i.toDouble()/l.size
+        this.i = i.toDouble()/l.size
         wall.x = x
         wall.y = y
         wall.z = z

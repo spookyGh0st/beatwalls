@@ -1,35 +1,37 @@
 package interpreter.property.specialProperties
 
-import interpreter.property.BwProperty
-import interpreter.property.strPlusExprStr
-import interpreter.property.strPowExprStr
-import interpreter.property.strTimesExprStr
-import org.mariuszgromada.math.mxparser.Argument
-import org.mariuszgromada.math.mxparser.ArgumentExtension
+import interpreter.property.*
+import net.objecthunter.exp4j.Expression
+import net.objecthunter.exp4j.ExpressionBuilder
 import structure.WallStructure
-import kotlin.reflect.KProperty
+import kotlin.math.pow
 
-abstract class BwNumber(var expression: String): BwProperty() {
-    constructor(default: Number): this(default.toString())
+abstract class BwNumber(var expressionString: String): BwProperty() {
+    // this needs to be lazy, so wsRef is set
+    val expression: Expression by lazy { buildExpression(expressionString)  }
+
+    /**
+     * returns an expression with all saved Constants and functions
+     */
+
+
+    /**
+     * creates an Expression and calculates it
+     */
 
     override fun setExpr(e: String) {
-        expression = e
+        expressionString = e
     }
 
     override fun plusExpr(e: String) {
-        expression = strPlusExprStr(expression, e)
+        expressionString = strPlusExprStr(expressionString, e)
     }
 
     override fun timesExpr(e: String) {
-        expression = strTimesExprStr(expression, e)
+        expressionString = strTimesExprStr(expressionString, e)
     }
 
     override fun powExpr(e: String) {
-        expression = strPowExprStr(expression, e)
-    }
-    
-
-    override fun toArguments(baseName: String): List<Argument> {
-        return listOf(Argument("$baseName=$expression"))
+        expressionString = strPowExprStr(expressionString, e)
     }
 }

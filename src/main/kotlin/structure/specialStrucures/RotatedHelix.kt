@@ -1,9 +1,11 @@
 package structure.specialStrucures
 
+import beatwalls.GlobalConfig
 import structure.NoodleHelix
 import structure.helperClasses.CuboidConstrains
 import structure.helperClasses.Point
 import structure.helperClasses.SpookyWall
+import java.awt.Desktop
 import kotlin.math.*
 
 fun NoodleHelix.run(): List<SpookyWall> {

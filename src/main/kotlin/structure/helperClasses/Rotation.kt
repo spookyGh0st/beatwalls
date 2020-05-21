@@ -1,5 +1,6 @@
 package structure.helperClasses
 
+import interpreter.property.functions.BwEasing
 import java.io.Serializable
 import java.lang.Double.max
 import java.lang.Double.min
@@ -34,11 +35,12 @@ data class StaticRotation(val rotation: Double): RotationMode {
     override fun getValue(index: Int, amount: Int): Double = rotation
 }
 
-data class EaseRotation(val startRotation: Double, val endRotation: Double, val easing: Easing): RotationMode {
+data class EaseRotation(val startRotation: Double, val endRotation: Double, val easing: BwEasing): RotationMode {
     override fun getValue(index: Int, amount: Int): Double {
             val diff = endRotation - startRotation
-            val mul =easing(index.toDouble()/amount)
-            return  startRotation + diff*mul
+            //val mul =easing(index.toDouble()/amount)
+            //return  startRotation + diff*mul
+        return 0.0
     }
 }
 

@@ -1,58 +1,20 @@
 package interpreter.property
 
-import interpreter.property.constantFactory.ConstantController
-import org.mariuszgromada.math.mxparser.*
-import org.mariuszgromada.math.mxparser.Function
+import interpreter.parser.bwPropNames
+import interpreter.property.functions.*
+import interpreter.property.variables.buildInVariables
+import interpreter.property.variables.wallVariables
+import net.objecthunter.exp4j.Expression
+import net.objecthunter.exp4j.ExpressionBuilder
+import net.objecthunter.exp4j.tokenizer.UnknownFunctionOrVariableException
 import structure.WallStructure
-import java.io.Serializable
+import java.lang.NullPointerException
 import kotlin.reflect.KProperty
 
 
 abstract class BwProperty{
 
-    // stored wallstructure and SpookywallConstants
-    // all here stored constants are valid
-
-    /**
-     * returns an expression with all saved Constants and functions
-     */
-    fun buildExpression(expressionString: String,cc:ConstantController): Expression {
-        val elements =  buildPrimitiveElements(cc)
-        return Expression(expressionString.toLowerCase(),*elements)
-    }
-
-
-    fun buildPrimitiveElements(cc: ConstantController): Array<PrimitiveElement> {
-        val elements = buildConstants(cc) + buildArguments(cc)+ buildFunctions(cc)
-        return elements.toTypedArray()
-    }
-    fun buildConstants(cc: ConstantController): List<Constant> {
-        val cl = cc.wallConstants + cc.progressConstant  + cc.customConstants
-        return cl.filter { it.syntaxStatus }
-    }
-    fun buildArguments(cc: ConstantController): List<Argument> {
-        val cl =  cc.structureConstants + cc.repeatArguments
-        return cl.filter { it.checkSyntax() }
-    }
-
-    fun buildFunctions(cc: ConstantController): List<Function>  {
-        val fl = cc.easingFunctions + cc.customFunctions
-        return fl.filter { it.checkSyntax() }
-    }
-
-    /**
-     * creates an Expression and calculates it
-     */
-    fun calcExpression(expressionString: String,ws: WallStructure): Double {
-        val e = buildExpression(expressionString,ws.constantController)
-        val value = e.calculate()
-        if(e.syntaxStatus)
-            return value
-        throw InvalidExpressionException(e,"This means, that a constant or functions is propably not loaded")
-    }
-
-    abstract fun toArguments(baseName: String): List<Argument>
-
+    var wsRef: WallStructure? = null
     abstract operator fun getValue(thisRef: WallStructure, property: KProperty<*>): Any?
 
     /**
@@ -75,7 +37,37 @@ abstract class BwProperty{
      */
     abstract fun powExpr(e: String)
 
-    fun strExpressesNull(s:String) = s == "null" || s.isEmpty()
+    fun buildExpression(expressionString: String): Expression {
+        return ExpressionBuilder(expressionString)
+            .functions(BwRandom0(wsRef),BwRandom1(wsRef),BwRandom2(wsRef))
+            .functions(easingFunctions(wsRef))
+            .functions(BwSwitch2(),BwSwitch3(),BwSwitch4(),BwSwitch5())
+            .variables(wallVariables.keys)
+            .variables(bwPropNames.toMutableSet())
+            .build()
+    }
+
+    fun setVariables(e: Expression, ws: WallStructure): Expression {
+
+        e.variableNames.forEach{
+            val name = it
+            val value = variableValue(it,ws)?: throw NullPointerException("$it returns null")
+            e.setVariable(name,value)
+        }
+        return e
+    }
+
+    fun variableValue(s:String,ws: WallStructure): Double? = when (s){
+        in buildInVariables.keys -> buildInVariables[s]
+        in wallVariables.keys -> wallVariables[s]?.invoke(ws.activeWall)
+        "i" -> wsRef?.i?:0.0
+        else -> throw UnknownFunctionOrVariableException(s,0,0)
+    }
+
+    fun setVarsAndCalcExprForWs(expression:Expression,ws: WallStructure): Double  {
+        wsRef = ws
+        return setVariables(expression,ws).evaluate()
+    }
 }
 
 fun strPlusExprStr(s: String, e: String) = "(${s})+($e)"

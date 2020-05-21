@@ -1,6 +1,9 @@
 package assetFile
 
 import beatwalls.errorExit
+import interpreter.property.functions.BwEasing
+import interpreter.property.functions.Linear
+import interpreter.property.functions.toBwFunction
 import structure.Define
 import structure.EmptyWallStructure
 import structure.WallStructure
@@ -32,20 +35,6 @@ internal fun String.toWallStructure(definedStructure: List<Define>): WallStructu
         errorExit { "The Wallstructure $this does not exist" }
     }
 }
-
-internal fun String.toBwFunction(): BwFunction {
-    val s = this.replace(" ","").toLowerCase()
-    val head = s.substringBefore("(").ifEmpty { throw NullPointerException("Function head cant be empty") }
-    val args = s
-        .substringAfter(head)
-        .removeSurrounding("(", ")")
-        .replace("(","")
-        .replace(")","")
-        .split(",")
-        .filter { it.isNotEmpty() }
-    return BwFunction(head,args)
-}
-data class BwFunction(val name: String,val args: List<String> = emptyList())
 
 
 internal fun String.toDoubleFunc(): Function<Double>? {
@@ -92,7 +81,7 @@ internal fun String.toRotationMode(): RotationMode{
         f.name == "ease" -> EaseRotation(
             startRotation = f.args[0].toDouble(),
             endRotation = f.args[1].toDouble(),
-            easing = f.args.getOrNull(2)?.toEasingOrNull() ?: Easing.Linear
+            easing = f.args.getOrNull(2)?.toEasingOrNull() ?: Linear(null)
         )
         f.name == "switch" -> SwitchRotation(f.args.map { it.toDouble() })
         f.name == "circle" -> CirclesRotation(f.args.getOrNull(0)?.toDoubleOrNull()?: 1.0)
@@ -106,8 +95,8 @@ internal fun String.toRotationMode(): RotationMode{
     }
 }
 
-internal fun String.toEasingOrNull() =
-    Easing.values().find { it.name.toLowerCase() == this.toLowerCase() }
+internal fun String.toEasingOrNull():BwEasing = TODO()
+    //BwEasin.values().find { it.name.toLowerCase() == this.toLowerCase() }
 
 internal fun String.toColorMode(): ColorMode {
     val f = this.toBwFunction()

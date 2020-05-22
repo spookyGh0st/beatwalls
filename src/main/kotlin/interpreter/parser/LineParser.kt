@@ -3,6 +3,7 @@ package interpreter.parser
 import assetFile.isDouble
 import interpreter.parser.types.*
 import interpreter.property.specialProperties.Repeat
+import net.objecthunter.exp4j.ExpressionBuilder
 import structure.Define
 import structure.WallStructure
 
@@ -46,7 +47,7 @@ class LineParser {
         parseLines(l)
         val ws = structList.map { it.create() }
         ws.forEach {
-            //TODO()
+            it.variables = dataSet.constantList
         }
         return ws
     }
@@ -58,7 +59,7 @@ class LineParser {
     fun parseLine(l: Line){
         when{
             isRepeat(l) -> addRepeat(l)
-            // todo isConstant(l) -> defineConstant(l)
+            isConstant(l) -> defineConstant(l)
             // todo isFunction(l) -> defineFunction(l)
             isCustomStruct(l) -> defineCustomStruct(l)
             isBwInterface(l) -> defineInterface(l)
@@ -91,14 +92,11 @@ class LineParser {
     fun isConstant(l: Line) = l.sBefore(" ")  == "const"
 
     fun defineConstant(l: Line){
-        val value = l.sAfter("const")
         val name = l.sBetween("const","=")
         checkName(name)
-        TODO()
-        //  val args = (dataSet.constantList.values  + dataSet.functionList.values).toTypedArray()
-        //  val c = Constant(value,*args)
-        //  if(!c.syntaxStatus || dataSet.inKeys(name)) throw InvalidLineExpression(l, "Constant is invalid")
-        //  dataSet.constantList[name] = c
+        val value = l.sAfter("=")
+        val result = ExpressionBuilder(value).build().evaluate()
+        dataSet.constantList[name] = result
     }
 
     fun isFunction(l: Line) = l.sBefore(" ") == "fun"

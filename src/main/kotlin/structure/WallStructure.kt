@@ -30,26 +30,31 @@ submit a pull request and wait for approval.
 
 sealed class WallStructure:Serializable
 {
+    // the progress on 0..1 of the generation of walls. set this to allow for easing
     var i: Double  = 0.0
+    // a reference to the currently active wall. set this to allow for wall variables
     var activeWall: SpookyWall = SpookyWall()
+    // Random element so we can use seeding for functions and ws intern generation
+    val r: Random by lazy {  Random(seed?: Random.nextInt()) }
+    // local variables
+    var variables: HashMap<String,Double> = hashMapOf()
+
     /**
      * some Wallstructures use Random walls. This is the seed for them
      */
     var seed: Int? = Default.seed
-    val r: Random = Random(seed?: Random.nextInt())
-    val testProperty: Double by BwDouble()
-    val testRecursiveProperty: Double by BwDouble()
+
     /**
      * This is needed for all the functions and properties.
      * This allows for the use of other bwProperties in the expressions
      */
-
     open val a by BwInt()
 
     /**
      * dont touch
      */
     internal var spookyWalls: ArrayList<SpookyWall> = arrayListOf()
+
     /**
      * dont touch
      */

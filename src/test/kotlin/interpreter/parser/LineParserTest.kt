@@ -90,8 +90,8 @@ const testProp = 4
   a = testProp
         """.trimIndent().toLowerCase()
         val lp = LineParser()
-        // val ws = lp.create(t.toLines()).first()
-        // todo assertEquals(4, ws.a)
+        val ws = lp.create(t.toLines()).first()
+        assertEquals(4, ws.a)
     }
 
     @Test
@@ -103,8 +103,8 @@ fun f(x) = x+testProp
   a = f(10)
         """.trimIndent().toLowerCase()
         val lp = LineParser()
-        // val ws = lp.create(t.toLines()).first()
-        // todo assertEquals(20, ws.a)
+        val ws = lp.create(t.toLines()).first()
+        assertEquals(20, ws.a)
     }
 
     @Test

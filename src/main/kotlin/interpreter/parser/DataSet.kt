@@ -19,7 +19,7 @@ data class DataSet(
     val interfaces: HashMap<String, BwInterface> = hashMapOf("default" to BwInterface()),
 
     // stores all user-defined Constants
-    // TODO val constantList: HashMap<String, Constant> = hashMapOf(),
+    val constantList: HashMap<String, Double> = hashMapOf(),
 
     // stores all user-defined Functions
     // todoval functionList: HashMap<String, Function> = hashMapOf(),

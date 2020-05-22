@@ -44,11 +44,11 @@ abstract class BwProperty{
             .functions(BwSwitch2(),BwSwitch3(),BwSwitch4(),BwSwitch5())
             .variables(wallVariables.keys)
             .variables(bwPropNames.toMutableSet())
+            .variables(wsRef?.variables?.keys)
             .build()
     }
 
     fun setVariables(e: Expression, ws: WallStructure): Expression {
-
         e.variableNames.forEach{
             val name = it
             val value = variableValue(it,ws)?: throw NullPointerException("$it returns null")
@@ -60,6 +60,7 @@ abstract class BwProperty{
     fun variableValue(s:String,ws: WallStructure): Double? = when (s){
         in buildInVariables.keys -> buildInVariables[s]
         in wallVariables.keys -> wallVariables[s]?.invoke(ws.activeWall)
+        in ws.variables.keys -> ws.variables[s]
         "i" -> wsRef?.i?:0.0
         else -> throw UnknownFunctionOrVariableException(s,0,0)
     }

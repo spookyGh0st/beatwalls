@@ -1,8 +1,10 @@
 package interpreter.property
 
+import assetFile.propOfName
 import interpreter.parser.bwPropNames
 import interpreter.property.functions.*
 import interpreter.property.variables.buildInVariables
+import interpreter.property.variables.valueOfProperty
 import interpreter.property.variables.wallVariables
 import net.objecthunter.exp4j.Expression
 import net.objecthunter.exp4j.ExpressionBuilder
@@ -42,6 +44,7 @@ abstract class BwProperty{
             .functions(BwRandom0(wsRef),BwRandom1(wsRef),BwRandom2(wsRef))
             .functions(easingFunctions(wsRef))
             .functions(BwSwitch2(),BwSwitch3(),BwSwitch4(),BwSwitch5())
+            .variables(wsRef?.repeatNeu?.map { it.name }?.toMutableSet())
             .variables(wallVariables.keys)
             .variables(bwPropNames.toMutableSet())
             .variables(wsRef?.variables?.keys)
@@ -58,10 +61,12 @@ abstract class BwProperty{
     }
 
     fun variableValue(s:String,ws: WallStructure): Double? = when (s){
+        "i" -> wsRef?.i?:0.0
+        in ws.variables.keys -> ws.variables[s]
         in buildInVariables.keys -> buildInVariables[s]
         in wallVariables.keys -> wallVariables[s]?.invoke(ws.activeWall)
-        in ws.variables.keys -> ws.variables[s]
-        "i" -> wsRef?.i?:0.0
+        in ws.repeatNeu.map { it.name } -> ws.repeatNeu.find { it.name == s }?.value?.toDouble()
+        in bwPropNames -> valueOfProperty(ws,s)
         else -> throw UnknownFunctionOrVariableException(s,0,0)
     }
 

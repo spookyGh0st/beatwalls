@@ -7,7 +7,6 @@ import structure.helperClasses.SpookyWall
 
 fun WallStructure.repeat(x: (ws: WallStructure) -> List<SpookyWall>): List<SpookyWall> {
     val r  = repeatNeu.reversed()
-    val i = r.iterator()
     return if(r.isEmpty())
         x(this)
     else

@@ -11,7 +11,7 @@ class BwDouble(expression: String = "0.0"): BwNumber(expression) {
 
     override fun getValue(thisRef: WallStructure, property: KProperty<*>): Double {
         wsRef = thisRef // this is needed so we pass the right ws in the functions
-        return expression.evaluate()
+        return setVarsAndCalcExprForWs(expression,thisRef)
     }
 }
 
@@ -21,6 +21,6 @@ class BwDoubleOrNull(e: String = "null"): BwNumber(e) {
     override fun getValue(thisRef: WallStructure, property: KProperty<*>): Double? {
         wsRef = thisRef // this is needed so we pass the right ws in the functions
         if (expressionString == "null") return null
-        return expression.evaluate()
+        return setVarsAndCalcExprForWs(expression,thisRef)
     }
 }

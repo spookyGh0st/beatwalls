@@ -107,28 +107,28 @@ sealed class WallStructure:Serializable
     /**
      * change The x of all Walls in the structure to the given Value. Random possible with random(min,max). Default: null
      */
-    val x by BwDouble(0.0)//"wall${SpookyWall::x.name}")
+    val x by BwDouble("wall${SpookyWall::x.name}")
     /**
      * change The y of all Walls in the structure to the given Value. Random possible with random(min,max). Default: null
      */
-    val y by BwDouble(0.0)//"wall${SpookyWall::y.name}")
+    val y by BwDouble("wall${SpookyWall::y.name}")
     /**
      * change The StartTime of all Walls in the structure to the given Value. Random possible with random(min,max). Default: null
      */
-    val z by BwDouble(0.0)//"wall${SpookyWall::z.name}")
+    val z by BwDouble("wall${SpookyWall::z.name}")
 
     /**
      * change The Duration of all Walls in the structure to the given Value. Random possible with random(min,max). Default: null
      */
-    val d by BwDouble(0.0)//"wall${SpookyWall::duration.name}") // todo rename to duration
+    val d by BwDouble("wall${SpookyWall::duration.name}") // todo rename to duration
     /**
      * change The Height of all Walls in the structure to the given Value. Random possible with random(min,max). Default: null
      */
-    val height by BwDouble(0.0)//"wall${SpookyWall::height.name}")
+    val height by BwDouble("wall${SpookyWall::height.name}")
     /**
      * change the Width of all Walls in the structure to the given Value. Random possible with random(min,max). Default: null
      */
-    val width by BwDouble(0.0)//"wall${SpookyWall::width.name}")
+    val width by BwDouble("wall${SpookyWall::width.name}")
 
     /**
      * increases or decreases the width of all walls until they have the the specific X. Random possible with random(min,max). default: null (does nothing)

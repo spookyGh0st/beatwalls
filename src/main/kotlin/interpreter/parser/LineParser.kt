@@ -79,13 +79,17 @@ class LineParser {
         if (dataSet.inKeys(name) && name != "default") throw NameAlreadyExistException(name)
     }
 
-    fun isRepeat(l: Line) = l.sBefore(" ") == keyRepeat
+    fun isRepeat(l: Line) = Assign(l.sAfter(keyRepeat)).name in dataSet.wsPropsNames
 
     fun addRepeat(l: Line){
-        val name = l.sBetween(keyRepeat, keyAssignment)
+        val s = "${l.sAfter(keyRepeat)}*repeatcounter"
+        val a = Assign(s)
         val max = l.sAfter(keyAssignment).toIntOrNull()?: throw  InvalidLineExpression(l,"Could not get the max value")
         lastStructure.operations.add{
-            it.repeatNeu.add(Repeat(name,max))
+            val bwProp = it.delOfPropName(a.name)?: throw InvalidLineExpression(l,"Property ${a.name} does not exist")
+            bwProp.repeatCounter = it.repeatCounter
+            val f = a.assignBwProp()
+            f(bwProp)
         }
     }
 

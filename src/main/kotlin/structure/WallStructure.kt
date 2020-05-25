@@ -38,6 +38,8 @@ sealed class WallStructure:Serializable
     val r: Random by lazy {  Random(seed?: Random.nextInt()) }
     // local variables
     var variables: HashMap<String,Double> = hashMapOf()
+    // repeatCounter used for repeats in WallStructures. Neded because of nested Properties
+    var repeatCounter = RepeatCounter()
 
     /**
      * some Wallstructures use Random walls. This is the seed for them
@@ -204,7 +206,7 @@ sealed class WallStructure:Serializable
     /**
      * how often you want to repeat the Structure.
      */
-    var repeat: Int = Default.repeat
+    val repeat: Int by BwInt(1) //= Default.repeat
 
     /**
      * how often you want to repeat the walls of the Structure. This copy pastes the walls, while (repeat) generates a new one.

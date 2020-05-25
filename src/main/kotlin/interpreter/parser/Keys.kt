@@ -1,4 +1,4 @@
 package interpreter.parser
 
-const val keyRepeat = "for"
+const val keyRepeat = "repeat"
 const val keyAssignment = "="

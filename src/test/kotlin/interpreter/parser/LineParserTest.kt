@@ -254,35 +254,31 @@ struct w4: w1,w2,w3
     fun `test repeat`(){
         val t = """
 10 testStructure
-  $keyRepeat j = 5
-  $keyRepeat k = 2
-  testInt = 2 + j + k
+  repeat testInt += 10
         """.trimIndent().toLowerCase().toLines()
         val lp = LineParser()
         val ws = lp.create(t).first() as TestStructure
-        assertEquals(2,ws.testInt)
-        ws.repeatNeu.first().value = 1
-        assertEquals(3,ws.testInt)
-        ws.repeatNeu[1].value = 2
-        assertEquals(5,ws.testInt)
+        assertEquals(0,ws.testInt)
+        ws.repeatCounter.value = 1
+        assertEquals(10,ws.testInt)
+        ws.repeatCounter.value = 2
+        assertEquals(20,ws.testInt)
     }
     @Test
     fun `test repeat in custom Structure`(){
         val t = """
 struct myStruct: testStructure
-  $keyRepeat j = 5
-  $keyRepeat k = 2
-  testInt = 2 + j + k
+  repeat testInt += 10
 10 myStruct
         """.trimIndent().toLowerCase().toLines()
         val lp = LineParser()
         val ws = lp.create(t).first() as Define
         val ts = ws.structures.first() as TestStructure
-        assertEquals(2,ts.testInt)
-        ws.repeatNeu.first().value = 1
-        assertEquals(3,ts.testInt)
-        ws.repeatNeu[1].value = 2
-        assertEquals(5,ts.testInt)
+        assertEquals(0,ts.testInt)
+        ws.repeatCounter.value = 1
+        assertEquals(10,ts.testInt)
+        ws.repeatCounter.value = 2
+        assertEquals(20,ts.testInt)
     }
 
     @Test

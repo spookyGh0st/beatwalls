@@ -910,12 +910,12 @@ class Line: WallStructure(){
     /**
      * The startPoint
      */
-    var p1 = Point(0, 0, 0)
+    val p1 by BwPoint(0, 0, 0)
 
     /**
      * the End Point
      */
-    var p2 = Point(0, 0, 1)
+    val p2 by BwPoint(0, 0, 0)
 
     /**
      * generating the Walls

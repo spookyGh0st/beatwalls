@@ -23,8 +23,6 @@ data class Difficulty(
         // saves the old obstacles in a list
         val oldObstacles = mutableListOf<_obstacles>()
         for (w in list) {
-            //skips lower level define structures
-            if (w is Define && !w.isTopLevel) { continue }
 
             // generates the obstacles
             val generatedObjects = BpmAdjuster(this).generate(w)

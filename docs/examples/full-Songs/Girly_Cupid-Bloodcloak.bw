@@ -1,0 +1,3333 @@
+# General Guide: https://github.com/spookyGh0st/beatwalls
+# documentation: https://spookygh0st.github.io/beatwalls/structure/-wall-structure/index.html
+# Bloodcloak - Girly Cupid for Building Blocks 2020
+# Learning how to do this a day before competition is :blobsweat:
+
+# Created the W by only doing half and then mirroring it to the other side to save time. I colored each bit a different color to easily track in game as I made adjustments
+define: _wLetter1
+    structures: Wall
+    height: 1.5
+    width: 0.0
+    changeDuration: 0.01
+    startRow: -3.5
+    startHeight: 3.5
+    localRotZ: -90
+
+define: _wLetter2
+    structures: Wall
+    height: 4
+    width: 0.0
+    changeDuration: 0.01
+    startRow: -1.5
+    startHeight: 0
+    localRotZ: 30
+
+define: _wLetter3
+    structures: Wall
+    height: 1.7
+    width: 0.0
+    changeDuration: 0.01
+    startRow: -1.5
+    startHeight: 0
+    localRotZ: -35
+
+define: _wLetter4
+    structures: Wall
+    height: 1.75
+    width: 0.0
+    changeDuration: 0.01
+    startRow: -1.2
+    startHeight: 2
+    localRotZ: 30
+
+define: _wLetter5
+    structures: Wall
+    height: 1.5
+    width: 0.0
+    changeDuration: 0.01
+    startRow: -1.2
+    startHeight: 2
+    localRotZ: -25
+
+# offset since the previous parts ended up not being center for mirroring.
+define: _wLetterAssemblyHalf
+    structures: _wLetter1,_wLetter2,_wLetter3,_wLetter4,_wLetter5
+    color: white
+    addStartRow: 0.55
+
+define: _fullWassembly
+    structures: _wLetterAssemblyHalf
+    mirror: 2
+
+# a letter similar process to w
+
+define: _aLetter1
+    structures: Wall
+    height: 1.25
+    width: 0.0
+    changeDuration: 0.01
+    startRow: -3.5
+    startHeight: 0
+    localRotZ: -90
+
+define: _aLetter2
+    structures: Wall
+    height: 4
+    width: 0.0
+    changeDuration: 0.01
+    startRow: -3.5
+    startHeight: 0
+    localRotZ: -30
+
+define: _aLetter3
+    structures: Wall
+    height: 1.6
+    width: 0.0
+    changeDuration: 0.01
+    startRow: -2.25
+    startHeight: 0
+    localRotZ: -27
+
+define: _aLetterAssemblyHalf
+    structures: _aLetter1,_aLetter2,_aLetter3
+    color: white
+    addStartRow: 1.5
+
+define: _fullAassembly
+    structures: _aLetterAssemblyHalf
+    mirror: 2
+
+define: _wLetterPlacement
+    structures: _fullWassembly
+    addStartRow: -2
+
+define: _aLetterPlacement
+    structures: _fullAassembly
+    addStartRow: 2
+
+define: waAssembly
+    structures: _wLetterPlacement,_aLetterPlacement
+
+# Tiny Pixel Heart ====================================================================================================================================
+# Used this to leverage the random structures structure
+define: _heartLeft
+    structures: Wall
+    height: 0.7
+    width: 0.4
+    duration: 0.0
+    localRotZ: 45
+    startRow: 0.1
+    color: red
+
+define: _heartRight
+    structures: Wall
+    height: 0.3
+    width: 0.4
+    duration: 0.0
+    localRotZ: -45
+    startRow: 0.09
+    startHeight: 0.28
+
+define: pixelHeart
+    structures: _heartLeft,_heartRight
+
+# WA Letters ========================================================================================================================================================
+# This was my old attempt at creating the WA until it was discovered that a 0 width wall pivoted on the bottom instead of the center of the wall face.
+define: wLetter1
+    structures: Wall
+    height: 2
+    width: 0.5
+    duration 0.0
+    localRotZ: 20
+    startRow: -0.5
+
+define: wLetter2
+    structures: Wall
+    height: 1.5
+    width: 0.5
+    duration 0.0
+    localRotZ: -20
+    startRow: -0.5
+
+define: wLetter3
+    structures: Wall
+    height: 1.5
+    width: 0.5
+    duration 0.0
+    localRotZ: 20
+    startRow: 0.5
+
+define: wLetter4
+    structures: Wall
+    height: 2
+    width: 0.5
+    duration 0.0
+    localRotZ: -20
+    startRow: 0.5
+
+define: aLetter1
+    structures: Wall
+    height: 2
+    width: 0.5
+    duration 0.0
+    localRotZ: -20
+    startRow: -0.67
+define: aLetter2
+    structures: Wall
+    height: 2
+    width: 0.5
+    duration 0.0
+    localRotZ: 20
+    startRow: 0.67
+
+define: aLetter3
+    structures: Wall
+    height: 0.2
+    width: 0.5
+    duration 0.0
+    startHeight: 1.74
+
+define: wLetterAssembly
+    structures:wLetter1,wLetter2,wLetter3,wLetter4
+    addStartRow: -1.25
+
+define: aLetterAssembly
+    structures: aLetter1,aLetter2,aLetter3
+    addStartRow: 1.25
+
+define: OLD_waAssembly
+    structures: wLetterAssembly,aLetterAssembly
+    changeDuration: 0.02
+    addStartHeight: 2
+    color: white
+
+# Bell Intro ======================================================================================================================================================
+# The rainbow walls during the intro sequence
+
+define: _bellLinesRot
+    structures: Wall
+    height: 0.1
+    width: 0.1
+    startHeight: 5
+    startRow: 0
+    duration: -2.5
+    repeat: 20
+    repeatAddZ: 0.05
+
+define: _bellLinesRotAssemb
+    structures: _bellLinesRot
+    #rotation: ease(0,-50)
+    rotation: ease(180,230)
+    addStartHeight: 1
+    mirror: 4
+
+define: _bellLinesTop
+    structures: Steadycurve
+    p1: 4,5,0
+    p4: -4,5,1.5
+    amount: 15
+    changeDuration: -2
+    addStartTime: 3.3
+    mirror: 6
+
+define: _bellLinesSides
+    structures: Steadycurve
+    p1: 4,5,0
+    p4: 4,-5,1.5
+    amount: 15
+    changeDuration: -2
+    addStartTime: 5.25
+    mirror: 6
+
+define: bellLines
+    structures: _bellLinesRotAssemb,_bellLinesTop,_bellLinesSides
+    color: rainbow
+
+define: _revBellLinesRotAss
+    structures: _bellLinesRotAssemb
+    reverse: true
+
+define: bellLinesRev
+    structures: _revBellLinesRotAss,_bellLinesTop,_bellLinesSides
+    color: rainbow
+
+# Intro Sequence ========================================================================================================
+
+5: bellLines
+5: RandomNoise
+    p1: -15,-2,0
+    p2: 15,10,30
+    color: white
+    amount: 375
+    rotation: random(-25,25)
+
+# the colors in the flash were in pairs since the pixelheart struct counted as 2 separate walls
+7: RandomStructures
+    structures: pixelHeart
+    p1: -15,-2,0
+    p2: 15,10,28
+    color: flash(237,37,18,237,37,18, 153,95,235,153,95,235, green,green, 237,139,19,237,139,19, 35,38,212,35,38,212)
+    amount: 105
+
+13: bellLinesRev
+21: bellLines
+    mirror: 1
+29: bellLinesRev
+    mirror: 1
+
+
+# Wall Drop ======================================================================================================
+# The shhhhhhhhhh fade out bit
+
+define: wallDrops
+    structures: Steadycurve
+    p1: 2,5
+    p2: 5,5
+    p3: 2.5,0
+    p4: 12,0
+    fitStartHeight: 0
+    changeWidth: 2
+    amount: 64
+    mirror: 2
+    scale: 8
+    changeDuration: -3
+    color: gradient(153,95,235,237,139,19)
+
+# Beat Wave ========================================================================================================
+# The baaam part
+
+define: _BeatWaveTop
+    structures: Steadycurve
+    p1: 13,0
+    p2: 6,0
+    p3: 3.6,7.8
+    p4: 2,0
+    fitStartHeight: 0
+    changeWidth: 2
+    mirror: 2
+    amount: 60
+    scale: 1.5
+    changeDuration: -3
+    reverse: true
+
+define: _BeatWaveBottom
+    structures: Steadycurve
+    p1: 13,0
+    p2: 6,0
+    p3: 3.6,-7.8
+    p4: 2,0
+    fitStartHeight: 0
+    changeWidth: 2
+    mirror: 2
+    amount: 60
+    scale: 1.5
+    changeDuration: -3
+    reverse: true
+
+define: BeatWaves
+    structures: _BeatWaveTop,_BeatWaveBottom
+
+# Big WUBS =========================================================================================================================================================
+# These are the 4 lines going with the bassline
+
+define: bigWubSeqFloorBase
+    structures:Wall
+    height: 0.3
+    width: 2
+    startHeight: -0.5
+    changeDuration: 1
+
+define: _bigWubSeq1
+    # Straight Line
+    structures: curve
+    p1: 4,3,0
+    p4: 4,3,3.25
+    amount: 35
+    color: 237,139,19
+define: _bigWubSeq2
+    # Wub Down
+    structures: curve
+    p1: 4,3,3.25
+    p4: 4,1,3.75
+    amount: 30
+    color: 237,139,19
+define: _bigWubSeq3
+    # Straight Line
+    structures: curve
+    p1: 4,1,3.75
+    p4: 4,1,5.25
+    amount: 35
+    color: 237,139,19
+define: _bigWubSeq4
+    # Wub Up
+    structures: curve
+    p1: 4,1,5.25
+    p4: 4,7,5.75
+    amount: 30
+    color: gradient(237,139,19,yellow)
+define: _bigWubSeq5
+    # Straight Line
+    structures: curve
+    p1: 4,7,5.75
+    p4: 4,7,7.75
+    amount: 35
+    color: yellow
+define: _bigWubSeq7
+    # Straight Line
+    structures: curve
+    p1: 4,3,8
+    p4: 4,3,11.25
+    amount: 35
+    color: 153,95,235
+define: _bigWubSeq8
+    # Wub Down
+    structures: curve
+    p1: 4,3,11.25
+    p4: 4,1,11.75
+    amount: 30
+    color: 35,38,212
+define: _bigWubSeq9
+    # Straight Line
+    structures: curve
+    p1: 4,1,11.75
+    p4: 4,1,13
+    amount: 35
+    color: gradient(35,38,212,yellow)
+define: _bigWubSeq10
+    # Wub Down
+    structures: curve
+    p1: 4,1,13
+    p4: 2,-1,13.75
+    amount: 30
+    color: gradient(yellow, 237,37,18)
+define: _bigWubSeq11
+    # Straight Line
+    structures: curve
+    p1: 2,-1,13.75
+    p4: 10,-1,15.5
+    amount: 40
+    color: 237,37,18
+
+define: bigWubSeq
+    structures: _bigWubSeq1,_bigWubSeq9,_bigWubSeq2,_bigWubSeq3,_bigWubSeq4,_bigWubSeq5,_bigWubSeq7,_bigWubSeq8,_bigWubSeq9,_bigWubSeq10,_bigWubSeq11
+    mirror: 8
+    changeHeight: 0.5
+    changeWidth: 0.5
+    changeDuration: -3
+
+# White Noise build ==========================================================================================================
+# base of the white tunnel
+define: whiteNoiseBuild
+    structures: Wall
+    height: 1
+    width: 3
+    startHeight: 0
+    startRow: 4
+    mirror: 2
+
+define: whiteNoiseBuildFloor
+    structures:Wall
+    height: 0.3
+    width: 2
+    startHeight: 6
+    startRow: -1
+    changeDuration: -2
+    mirror: 4
+
+# Lyrics Start =============================================================================================================================================================
+30: whiteNoiseBuild
+    changeDuration: -2
+    repeat: 7
+    repeatAddZ: 1
+    repeatAddHeight: 0.5
+    color: gray
+    #color: gradient(white,153,95,235)
+
+30: whiteNoiseBuildFloor
+    changeDuration: -2
+    repeat: 7
+    repeatAddZ: 1
+    repeatAddWidth: 1
+    repeatAddStartRow: -0.5
+    color: gray
+
+37: wallDrops
+37: bigWubSeq
+
+37: Line
+    p1: 0,-0.5,0
+    p2: 0,-0.5,55
+    amount: 55
+    color: white
+37: bigWubSeqFloorBase
+    repeat: 28
+    repeatAddZ: 2
+    mirror: 2
+    color: magenta
+38: bigWubSeqFloorBase
+    repeat: 27
+    repeatAddZ: 2
+    color: blue
+    addStartRow: 1
+    mirror: 2
+
+45: BeatWaves
+    color: 35,38,212
+    changeStartHeight: 2
+53: BeatWaves
+    color: 237,37,18
+    changeStartHeight: 2
+53: bigWubSeq
+
+61: BeatWaves
+    color: 35,38,212
+    changeStartHeight: 2
+64.5: BeatWaves
+    color: 237,37,18
+    changeStartHeight: -2
+66.5: BeatWaves
+    color: 35,38,212
+
+69: bigWubSeq
+69: BeatWaves
+    color: 237,37,18
+    changeStartHeight: 2
+77: BeatWaves
+    color: 35,38,212
+    changeStartHeight: 2
+
+85: bigWubSeq
+85: BeatWaves
+    color: 237,37,18
+    changeStartHeight: 2
+93: BeatWaves
+    color: 35,38,212
+    changeStartHeight: 2
+96.5: BeatWaves
+    color: 237,37,18
+    changeStartHeight: -2
+98.5: BeatWaves
+    color: 35,38,212
+
+# Transition -=======================================================================================================================================
+# This is the spinning square tunnel to the helix portion
+
+define: fastTransitionSquare
+    structures: NoodleHelix
+    count: 4
+    radius: 3
+    rotationAmount: 90
+    scale: 4
+    amount: 8
+    changeWidth: 5
+    changeHeight: 0.3
+    center: -2,2,0
+    #changeWidth: 4.5
+    #changeHeight: 1
+    #center: -1.5,2,0
+
+define: superFastTransitionSquare
+    structures: NoodleHelix
+    count: 4
+    radius: 3
+    rotationAmount: 90
+    scale: 2
+    amount: 8
+    changeWidth: 5
+    changeHeight: 0.3
+    center: -2,2,0
+    #changeWidth: 4.5
+    #changeHeight: 1
+    #center: -1.5,2,0
+
+# 93 - 100
+93: fastTransitionSquare
+    changeDuration: -3
+    color: gradient(white,black)
+97: superFastTransitionSquare
+    changeDuration: -3
+    color: black
+
+100: NoodleHelix
+    count: 16
+    radius: 5
+    scale: 1.5
+    amount: 1
+    rotationAmount: 1
+    changeDuration: -2
+    changeWidth: 3
+    center: -1,2,0
+    color: white
+
+# Transition Helix to transport to the calm tunnel
+99.5: NoodleHelix
+    count: 8
+    radius: 2
+    endRadius: 10
+    scale: 1.5
+    amount: 15
+    rotationAmount: 90
+    changeDuration: -0.5
+    #changeHeight: 1
+    color: gradient(white,black)
+    # gradient(red,153,95,235)
+
+# Calm Section ==================================================================================================
+
+define: calmBuildHelixA
+    structures: NoodleHelix
+    count: 4
+    radius: 15
+    scale: 4
+    rotationAmount: 180
+    amount: 60
+    color: gradient(237,139,19,153,95,235)
+define: calmBuildHelixB
+    structures: NoodleHelix
+    count: 6
+    radius: 8
+    scale: 4
+    rotationAmount: -180
+    amount: 60
+    color: gradient(237,139,19,153,95,235)
+
+# This is the white line following the A helix change directions
+define: calmCurveCenter
+    structures: Curve
+    amount: 20
+    p1: 3,0,0
+    p2: 1,0,0
+    p3: 0.8,0,2.3
+    p4: 3,0,4
+
+#initial center curve leadin ---------------------
+100: Curve
+    amount: 20
+    p1: 0,-2,0
+    p2: 0.5,0,3
+    p3: 3,0,2
+    p4: 3,0,5
+    mirror: 2
+    color: white
+
+101: RandomNoise
+    p1: -15,-2,0
+    p2: 15,10,23
+    color: white
+    amount: 50
+    rotation: circle(22)
+101: RandomNoise
+    p1: -15,-2,0
+    p2: 15,10,23
+    color: white
+    amount: 50
+    rotation: circle(-22)
+
+101: calmBuildHelixA
+101: calmBuildHelixB
+
+105: calmCurveCenter
+    repeat: 5
+    repeatAddZ: 4
+    color: gradient(white,gray)
+    mirror: 2
+
+105: calmBuildHelixA
+    reverse: true
+    color: 153,95,235
+105: calmBuildHelixB
+    color: 153,95,235
+
+109: calmBuildHelixA
+    color: gradient(153,95,235,237,139,19)
+109: calmBuildHelixB
+    color: gradient(153,95,235,237,139,19)
+
+113: calmBuildHelixA
+    reverse: true
+    color: gradient(237,139,19,237,37,18)
+113: calmBuildHelixB
+    color: gradient(237,139,19,237,37,18)
+
+117: calmBuildHelixA
+    color: gradient(237,37,18,153,95,235)
+117: calmBuildHelixB
+    color: gradient(237,37,18,153,95,235)
+
+121: calmBuildHelixA
+    reverse: true
+    color: gradient(35,38,212,153,95,235)
+121: calmBuildHelixB
+    color: gradient(35,38,212,153,95,235)
+
+# Helix Build to Lyric Build ========================================
+# Helix A fadeout
+125: NoodleHelix
+    count: 4
+    radius: 15
+    endRadius: 25
+    scale: 4
+    rotationAmount: 270
+    amount: 100
+    color: gradient(153,95,235,red)
+# Helix B expand
+125: NoodleHelix
+    count: 6
+    radius: 8
+    endRadius: 10
+    scale: 3
+    rotationAmount: -180
+    amount: 60
+    color: gradient(153,95,235,red)
+
+# Fadeout Curve --------------------------------
+125: Curve
+    amount: 20
+    p1: 3,0,0
+    p4: 0,-2,3
+    color: gradient(white, black)
+    mirror: 2
+
+128: NoodleHelix
+    count: 6
+    radius: 10
+    scale: 1
+    rotationAmount: 1
+    amount: 20
+    changeWidth: 0.25
+    color: red
+
+129: NoodleHelix
+    count: 6
+    radius: 10
+    endRadius: 6
+    scale: 2.5
+    rotationAmount: -180
+    amount: 40
+    color: gradient(red,35,38,212)
+
+131: NoodleHelix
+    count: 6
+    radius: 9
+    endRadius: 6
+    scale: 2
+    rotationAmount: -360
+    amount: 10
+    changeWidth: 2.5
+    center: 1.9,2,0
+    color: gradient(35,38,212,white)
+    changeDuration: -1.5
+
+# WA WA flood ========================================
+# Black White Random Helix Section
+define: whiteRandHelix
+    structures: NoodleHelix
+    count: 8
+    radius: 30
+    scale: 2
+    rotationAmount: 200
+    amount: 10
+    changeHeight: random(10,18)
+    #changeWidth: random(5,10)
+    changeDuration: -2
+    color: white
+    center: 1.65,3,0
+define: greyRandHelix
+    structures: whiteRandHelix
+    color: black
+
+define: whiteTunnel
+    structures: NoodleHelix
+    radius: 6
+    center: 0.15,2,0
+    amount: 16
+    scale: 0.0
+    color: white
+    changeDuration: -3
+
+define: accentRandHelix
+    structures: NoodleHelix
+    count: 3
+    radius: 32
+    scale: 2
+    rotationAmount: 180
+    amount: 9
+    changeHeight: random(5,15)
+    changeWidth: random(5,10)
+    changeDuration: -3
+    color: white
+    #center: -1.5,2,0
+
+define: waSirenFloor
+    structures: Curve
+    amount: 10
+    p1: 0,0,0
+    p2: 4,0,3
+    p3: 1.6,0,0.4
+    p4: 0,0,1
+    color: white
+    changeDuration: -2.5
+
+133: waSirenFloor
+    color: black
+    repeat: 3
+    repeatAddZ: 4
+
+133: whiteTunnel
+133: whiteRandHelix
+    localRotX: random(-12,12)
+    localRotY: random(-5,5)
+    localRotZ: random(-12,12)
+    repeat: 4
+    repeatAddZ: 4
+133: accentRandHelix
+    localRotX: random(-12,12)
+    localRotY: random(-5,5)
+    localRotZ: random(-12,12)
+    repeat: 4
+    repeatAddZ: 4
+    color: black
+
+135: waSirenFloor
+    mirror: 1
+    repeat: 3
+    repeatAddZ: 4
+
+135: greyRandHelix
+    localRotX: random(-12,12)
+    localRotY: random(-5,5)
+    localRotZ: random(-12,12)
+    repeat: 3
+    repeatAddZ: 4
+135: accentRandHelix
+    localRotX: random(-12,12)
+    localRotY: random(-5,5)
+    localRotZ: random(-12,12)
+    repeat: 4
+    repeatAddZ: 4
+    color: white
+
+147: whiteRandHelix
+    localRotX: random(-12,12)
+    localRotY: random(-5,5)
+    localRotZ: random(-12,12)
+147: accentRandHelix
+    localRotX: random(-12,12)
+    localRotY: random(-5,5)
+    localRotZ: random(-12,12)
+    color: black
+
+149: waAssembly
+    repeat: 3
+    repeatAddZ: 4
+    addStartRow: 6
+    color: black
+151: waAssembly
+    repeat: 3
+    repeatAddZ: 4
+    addStartRow: -5
+
+149: greyRandHelix
+    localRotX: random(-12,12)
+    localRotY: random(-5,5)
+    localRotZ: random(-12,12)
+    repeat: 3
+    repeatAddZ: 4
+149: accentRandHelix
+    localRotX: random(-12,12)
+    localRotY: random(-5,5)
+    localRotZ: random(-12,12)
+    repeat: 3
+    repeatAddZ: 4
+    color: black
+151: whiteRandHelix
+    localRotX: random(-12,12)
+    localRotY: random(-5,5)
+    localRotZ: random(-12,12)
+    repeat: 3
+    repeatAddZ: 4
+151: accentRandHelix
+    localRotX: random(-12,12)
+    localRotY: random(-5,5)
+    localRotZ: random(-12,12)
+    repeat: 3
+    repeatAddZ: 4
+    color: white
+161: whiteTunnel
+    color: black
+
+161: NoodleHelix
+    count: 4
+    radius: 3
+    rotationAmount: 200
+    scale: 1.5
+    amount: 15
+    changeWidth: 5
+    changeHeight: 0.3
+    center: -2.5,2,0
+    changeDuration: -2
+    color: white
+    rotation: 180
+
+163.25: whiteTunnel
+    changeDuration: -2
+
+# Fade Rect In Front of Ya =========================================================================
+# the 6 rectangles that go across infront of the player
+
+define: _fadeRectA1
+    structures: Wall
+    height: 2
+    width: 1
+    startHeight: 7
+    rotation: -90
+
+define: _fadeRectA2
+    structures: Wall
+    height: 2
+    width: 1
+    startHeight: -3
+    rotation: -90
+
+define: _fadeRectB
+    structures: Wall
+    height: 1
+    width: 1
+    startHeight: 3
+    rotation: -90
+
+define: _fadeRectC1
+    structures: Wall
+    height: 2
+    width: 1
+    startHeight: 8
+    rotation: 90
+
+define: _fadeRectC2
+    structures: Wall
+    height: 2
+    width: 1
+    startHeight: -4
+    rotation: 90
+
+define: _fadeRectD
+    structures: Wall
+    height: 1
+    width: 1
+    startHeight: 4
+    rotation: 90
+
+define: fadeRectInFrontA
+    structures: _fadeRectA1,_fadeRectA2,_fadeRectB
+    changeStartRow: 28
+    changeDuration: -2
+    color: black
+
+define: fadeRectInFrontB
+    structures: _fadeRectC1,_fadeRectC2,_fadeRectD
+    changeStartRow: -30
+    changeDuration: -2
+    addStartHeight: 1
+    color: white
+
+# First Drop section  ==========================================================================================================================================
+
+164: fadeRectInFrontA
+164: fadeRectInFrontB
+
+164: NoodleHelix
+    count: 2
+    endRadius: 30
+    rotationAmount: 330
+    scale: 1
+    changeDuration: -3
+    amount: 25
+    color: gradient(white,orange)
+
+# Beat Wave BIG BOI ========================================================================================================
+
+define: _BeatWaveTopBoi
+    structures: Steadycurve
+    p1: 13,0
+    p2: 6,3
+    p3: 3.6,20
+    p4: 2,0
+    fitStartHeight: 0
+    changeWidth: 2
+    amount: 60
+    scale: 1.25
+    changeDuration: -3
+    reverse: true
+
+define: _BeatWaveBottomBoi
+    structures: Steadycurve
+    p1: 13,0
+    p2: 6,-3
+    p3: 3.6,-15
+    p4: 2,0
+    fitStartHeight: 0
+    changeWidth: 2
+    amount: 60
+    scale: 1.25
+    changeDuration: -3
+    reverse: true
+
+define: BeatWavesBigBoi
+    structures: _BeatWaveTopBoi,_BeatWaveBottomBoi
+    mirror: 2
+
+define: BeatWavesBigBoiFartherAway
+    structures: _BeatWaveTopBoi,_BeatWaveBottomBoi
+    addStartRow: -0.05
+    mirror: 2
+
+165: BeatWavesBigBoi
+    color: gradient(orange,153,95,235)
+
+# Double Cross Hatch ================================================================================================
+
+define: crossHatchA
+    structures:Wall
+    height: 0.3
+    width: 10
+    startHeight: 6
+    startRow: -5
+    changeDuration: -2
+    mirror: 4
+    color: 237,139,19
+
+define: crossHatchB
+    structures:Wall
+    height: 8
+    width: 0.3
+    startHeight: -2
+    startRow: 5
+    changeDuration: -2
+    repeat: 5
+    repeatAddZ: 0.1
+    repeatAddX: 1
+
+167: crossHatchA
+167.5: crossHatchB
+    localRotZ: ease(-20,-60)
+    color: gradient(237,37,18,blue)
+    mirror: 2
+    reverse: true
+
+
+# Electric Zap ================================================================================================
+
+define: electricZapA
+    structures: RandomNoise
+    amount: 40
+    p1: 30,-15,0
+    p2: 38,20,0.25
+    changeDuration: -3
+    changeHeight: random(0.1,0.25)
+    rotation: ease(-45,-90)
+    color: gradient(yellow,orange)
+
+define: electricZapB
+    structures: RandomNoise
+    amount: 40
+    p1: -30,-15,0
+    p2: -38,20,0.25
+    changeDuration: -3
+    changeHeight: random(0.1,0.25)
+    rotation: ease(45,90)
+    color: gradient(yellow,orange)
+
+168.5: electricZapA
+168.5: electricZapB
+
+# Double Burst ==================================================
+define: _doubleBurstLineRot
+    structures: Wall
+    height: 0.1
+    width: 0.1
+    startHeight: 0
+    startRow: 0
+    duration: -2.5
+    repeat: 10
+    repeatAddZ: 0.05
+    repeatAddStartHeight: -1
+
+define: doubleBurstLineRot
+    structures: _doubleBurstLineRot
+    rotation: ease(120,170)
+    mirror: 4
+
+# Double Burst Tri Helix ====================================================
+169.5: NoodleHelix
+    count: 3
+    radius: 4
+    endRadius: 10
+    rotationAmount: 1
+    scale: 0.5
+    changeDuration: -3
+    startRotation: 45
+    changeWidth: 2
+    amount: 3
+    center: -0.7,2,0
+    color: 35,38,212
+170: NoodleHelix
+    count: 3
+    radius: 4
+    endRadius: 10
+    rotationAmount: 1
+    scale: 0.5
+    changeDuration: -3
+    startRotation: 80
+    changeWidth: 2
+    amount: 3
+    center: -0.7,2,0
+    color: 153,95,235
+
+# Double burst Top to Square ---------------------------------------
+170.75: doubleBurstLineRot
+    color: gradient(237,37,18,237,139,19)
+    mirror: 2
+171: Wall
+    height: 0.3
+    width: 2
+    startHeight: 6
+    startRow: -1
+    changeDuration: -2
+    mirror: 4
+    color: 237,37,18
+171.5: Wall
+    height: 0.3
+    width: 8
+    startHeight: 6
+    startRow: -4
+    changeDuration: -2
+    mirror: 4
+    color: 237,139,19
+171.5:Wall
+    height: 8
+    width: 0.3
+    startHeight: -2
+    startRow: 4
+    changeDuration: -2
+    mirror: 2
+    color: 237,139,19
+
+173: BeatWavesBigBoi
+    color: gradient(237,139,19,black)
+
+# Soundwave =====================================================================
+# the stuff that wiggles in front of the player
+
+define: _soundwaveAPre
+    structures: Steadycurve
+    p1: 30,0,0
+    p2: 30,-3,2
+    p3: 30,4,1
+    p4: 30,0,3
+    amount: 60
+    scale: 0.2
+    changeDuration: -3
+    rotation: -90
+
+define: _soundwaveBPre
+    structures: Steadycurve
+    p1: -30,0,0
+    p2: -30,-4,2.5
+    p3: -30,10,1
+    p4: -30,0,3
+    amount: 60
+    scale: 0.2
+    changeDuration: -3
+    rotation: 90
+
+define: _soundwaveA
+    structures: _soundwaveAPre
+    repeat: 3
+    repeatAddZ: 0.2
+    addStartHeight: 6.5
+    repeatAddStartHeight: 2
+
+define: _soundwaveB
+    structures: _soundwaveBPre
+    repeat: 3
+    repeatAddZ: 0.2
+    repeatAddStartHeight: -2
+    addStartHeight: -4
+
+define: _soundwaveCenter
+    structures: _bellLinesRot
+    rotation: ease(180,60)
+    mirror: 6
+    changeDuration: -2.5
+    addStartTime: -0.3
+
+define: soundwave
+    structures: _soundwaveA,_soundwaveB,_soundwaveCenter
+    color: gradient(153,95,235,white)
+
+174.5: soundwave
+
+# Loading Thing ====================================================================
+define: bigLoadCircle
+    structures: NoodleHelix
+    count: 2
+    radius: 10
+    scale: 0.5
+    rotationAmount: -180
+    changeWidth: 2
+    amount: 12
+    color: gradient(white,black)
+    changeDuration: -2
+
+define: zoomUp
+    structures: Curve
+    p1: 4,-2,0
+    p4: 4,5,0.25
+    amount: 15
+    changeDuration: -2.5
+    mirror: 2
+    color: gradient(black,white)
+
+define: zoomDown
+    structures: Curve
+    p1: 4,5,0
+    p2: 4,5,0.15
+    p4: 4,-2,0.3
+    amount: 15
+    changeDuration: -2.5
+    mirror: 2
+    color: gradient(white,black)
+
+define: whiteTunnelDwing
+    structures: NoodleHelix
+    radius: 15
+    center: 0,2,0
+    amount: 16
+    scale: 0.0
+    color: white
+    changeDuration: -3
+
+175.25: zoomUp
+175.5: zoomDown
+177: bigLoadCircle
+177.5: whiteTunnelDwing
+
+# Bicolor Diamond ---------------------------------------------------
+178: NoodleHelix
+    count: 4
+    radius: 8
+    rotationAmount: 1
+    startRotation: 45
+    scale: 0.5
+    amount: 1
+    changeWidth: 14
+    changeHeight: 0
+    center: -7,2,0
+    changeDuration: -2
+    color: flash(237,37,18,153,95,235)
+
+
+179: Curve
+    p1: 4,3,0
+    p4: 1,-2,0.5
+    amount: 20
+    changeDuration: -2.5
+    mirror: 2
+    color: gradient(237,37,18,black)
+180: Curve
+    p1: 4,3,0
+    p4: 1,-2,0.5
+    amount: 20
+    changeDuration: -2.5
+    mirror: 6
+    color: gradient(35,38,212,black)
+
+# 180.5 Double Helix around stopping at 160 diag after full rot ------------------------
+180.5: NoodleHelix
+    count: 2
+    radius: 6
+    rotationAmount: 220
+    scale: 1
+    amount: 20
+    #center: -7,2,0
+    changeDuration: -2
+    color: flash(35,38,212,153,95,235,237,37,18,237,139,19)
+
+# 181.5 and 182 Double Drums ----------------------------------------------------------
+define: triangleBurst
+    structures: NoodleHelix
+    count: 3
+    radius: 6
+    rotationAmount: 1
+    scale: 0.5
+    amount: 1
+    changeWidth: 20
+    changeHeight: 0.5
+    center: -9.7,2,0
+    changeDuration: -3
+    color: white
+
+181.5: triangleBurst
+    startRotation: 90
+182: triangleBurst
+    startRotation: 270
+    color: gray
+
+# Drop Repeat Section -----------------------------------------------------------------
+183: crossHatchA
+183.5: crossHatchB
+    localRotZ: ease(-10,-50)
+    color: gradient(237,37,18,blue)
+    mirror: 2
+    reverse: true
+184.5: electricZapA
+184.5: electricZapB
+
+185.5: NoodleHelix
+    count: 3
+    radius: 4
+    endRadius: 10
+    rotationAmount: 1
+    scale: 0.5
+    changeDuration: -3
+    startRotation: -45
+    changeWidth: 2
+    amount: 3
+    center: -0.7,2,0
+    color: 35,38,212
+186: NoodleHelix
+    count: 3
+    radius: 4
+    endRadius: 10
+    rotationAmount: 1
+    scale: 0.5
+    changeDuration: -3
+    startRotation: -80
+    changeWidth: 2
+    amount: 3
+    center: -0.7,2,0
+    color: 153,95,235
+
+186.75: doubleBurstLineRot
+    color: gradient(237,37,18,237,139,19)
+    mirror: 2
+187: Wall
+    height: 0.3
+    width: 2
+    startHeight: 6
+    startRow: -1
+    changeDuration: -2
+    mirror: 4
+    color: 237,37,18
+187.5: Wall
+    height: 0.3
+    width: 8
+    startHeight: 6
+    startRow: -4
+    changeDuration: -2
+    mirror: 4
+    color: 237,139,19
+187.5:Wall
+    height: 8
+    width: 0.3
+    startHeight: -2
+    startRow: 4
+    changeDuration: -2
+    mirror: 2
+    color: 237,139,19
+
+# 188 Wub Soundwave that goes down to 188.5 then up to 189 -----------------------
+188: Curve
+    p1: 4,0,0
+    p2: 4.5,0,0.15
+    p3: 4.2,0,0.3
+    p4: 4,0,0.5
+    amount: 15
+    changeDuration: -2.5
+    mirror: 2
+    color: gradient(white,black)
+188.5: Curve
+    p1: 4,0,0
+    p4: 4,6,0.5
+    amount: 15
+    changeDuration: -2.5
+    mirror: 2
+    color: gradient(white, 237,139,19)
+
+189: BeatWavesBigBoi
+    color: gradient(237,139,19,black)
+190: Wall
+    height: 0.3
+    width: 8
+    startHeight: 6
+    startRow: -4
+    changeDuration: -2
+    mirror: 4
+    color: black
+190: BeatWavesBigBoiFartherAway
+    color: gradient(black,237,139,19)
+    reverse: true
+    addStartTime: -0.4
+
+191.5: triangleBurst
+    startRotation: 240
+    color: 237,37,18
+
+# 192 tunnel fadeout
+192: NoodleHelix
+    count: 3
+    radius: 6
+    endRadius: 30
+    rotationAmount: 1
+    scale: 1
+    amount: 5
+    startRotation: 90
+    changeWidth: 20
+    changeHeight: 0.5
+    center: -9.7,2,0
+    changeDuration: -3
+    color: gradient(153,95,235, white)
+
+# 193.5 double cross hatch
+193.5: NoodleHelix
+    count: 3
+    radius: 4
+    endRadius: 10
+    rotationAmount: 1
+    scale: 0.5
+    changeDuration: -3
+    startRotation: 45
+    changeWidth: 2
+    amount: 3
+    center: -0.7,2,0
+    color: 35,38,212
+194: NoodleHelix
+    count: 3
+    radius: 4
+    endRadius: 10
+    rotationAmount: 1
+    scale: 0.5
+    changeDuration: -3
+    startRotation: 80
+    changeWidth: 2
+    amount: 3
+    center: -0.7,2,0
+    color: 153,95,235
+195: Wall
+    height: 0.3
+    width: 10
+    startHeight: 1
+    startRow: 2
+    changeDuration: -2
+    mirror: 2
+    localRotZ: -60
+    color: yellow
+
+# Random Noises wub thingies ======================================================
+196: RandomNoise
+    p1: 20,-20,0
+    p2: 40,20,1
+    color: rainbow
+    amount: 30
+    rotation: -130
+    changeHeight: 2
+    changeWidth: 2
+    changeDuration: -3
+
+196.75: RandomNoise
+    p1: 20,-20,0
+    p2: 40,20,1
+    color: flash(black,gray,white)
+    amount: 30
+    changeDuration: -2.5
+    changeHeight: random(0.5,1)
+    rotation: ease(-90,-160)
+
+198: Curve
+    p1: 4,3,0
+    p4: 1,-2,0.5
+    amount: 10
+    changeDuration: -2
+    mirror: 2
+    color: gradient(white,black)
+198.5: Curve
+    p1: 4,-5,0
+    p4: 4,5,0.5
+    amount: 10
+    changeDuration: -2
+    mirror: 2
+    color: gradient(white,black)
+
+# 199 double burst
+199: Curve
+    p1: 4,5,0
+    p4: 4,-5,0.5
+    amount: 10
+    changeDuration: -2
+    mirror: 2
+    color: gradient(black,white)
+199.5: Curve
+    p1: 4,7,0
+    p4: 1,-2,0.5
+    amount: 10
+    changeDuration: -2
+    mirror: 1
+    addStartRow: -5
+    reverse: true
+    color: gradient(black,white)
+
+# 200 has ray gun
+200: RandomNoise
+    amount: 40
+    p1: -30,-15,0
+    p2: -38,20,0.25
+    changeDuration: -3
+    changeHeight: random(0.1,0.25)
+    rotation: ease(-225,-270)
+    color: gradient(yellow,orange)
+
+201: NoodleHelix
+    count: 2
+    radius: 4
+    endRadius: 14
+    rotationAmount: 1
+    scale: 0.5
+    changeDuration: -2
+    changeWidth: 3
+    amount: 5
+    center: -1.5,2,0
+    color: gradient(black, white)
+
+# 202.5 waves pull out burst
+202.25: doubleBurstLineRot
+    color: gradient(white,153,95,235)
+    mirror: 2
+202.5: Wall
+    height: 0.3
+    width: 8
+    startHeight: 6
+    startRow: -4
+    changeDuration: -2
+    mirror: 4
+    color: 153,95,235
+202.5: Wall
+    height: 8
+    width: 0.3
+    startHeight: -2
+    startRow: 4
+    changeDuration: -2
+    mirror: 2
+    color: 153,95,235
+203: Wall
+    height: 0.3
+    width: 2
+    startHeight: 6
+    startRow: -1
+    changeDuration: -2
+    mirror: 4
+    color: 35,38,212
+
+# 203 double burst
+203: Wall
+    height: 8
+    width: 0.3
+    startHeight: -2
+    startRow: 4
+    changeDuration: -2
+    mirror: 2
+    color: white
+203.5: NoodleHelix
+    count: 2
+    radius: 4
+    endRadius: 14
+    rotationAmount: 1
+    startRotation: 135
+    scale: 0.5
+    changeDuration: -2
+    changeWidth: 3
+    amount: 5
+    center: -1.5,2,0
+    color: gradient(white,237,37,18)
+
+# 204.5 Low Ray Gun.
+204.5: Curve
+    p1: 0,0,0
+    p4: 20,0,0.5
+    changeDuration: -3
+    amount: 20
+    color: gradient(237,37,18,black)
+    mirror: 2
+
+# 205 big wave
+205: BeatWavesBigBoi
+    color: gradient(orange,153,95,235)
+206: soundwave
+
+# 207 crossHatch useage with 207.5
+define: inGroundCircle
+    structures: Steadycurve
+    p1: 0,0,0
+    p2: 1.4,0,0
+    p3: 1.4,0,1
+    p4: 0,0,1
+    amount: 10
+    mirror: 2
+    changeDuration: -3
+    color: white
+
+207: inGroundCircle
+    addStartRow: -10
+    repeat: 3
+    repeatAddStartRow: 10
+207.5: inGroundCircle
+    addStartRow: -5
+    repeat: 2
+    repeatAddStartRow: 10
+
+# 208.5 another ray gun sound
+208.5: RandomNoise
+    amount: 40
+    p1: 30,-15,0
+    p2: 38,20,0.25
+    changeDuration: -3
+    changeHeight: random(0.1,0.25)
+    rotation: ease(225,270)
+    color: gradient(yellow,orange)
+
+
+# 209.5 Double burst with 210
+209.5: Curve
+    p1: -4,3,0
+    p4: -4,3,0.5
+    amount: 10
+    color: 237,139,19
+    changeHeight: 1
+    changeWidth: 1
+    changeDuration: -3
+210: Curve
+    p1: 4,-3,0
+    p4: 4,-3,0.5
+    amount: 10
+    color: 35,38,212
+    changeHeight: 1
+    changeWidth: 1
+    changeDuration: -3
+
+# 211 Dun > 0.5 Dun /\
+211: Curve
+    p1: 4,7,0
+    p4: 4,7,0.5
+    amount: 10
+    color: yellow
+    changeHeight: 1
+    changeWidth: 1
+    changeDuration: -3
+    mirror: 6
+211.5: Curve
+    p1: 4,7,0
+    p4: 4,7,0.5
+    amount: 10
+    color: 153,95,235
+    changeHeight: 1
+    changeWidth: 1
+    changeDuration: -3
+    mirror: 8
+
+# 212 Guitar solo at 0.5 to 213.5 with crash at 214
+213.5: NoodleHelix
+    count: 4
+    radius: 8
+    rotationAmount: 1
+    startRotation: 45
+    scale: 0.5
+    amount: 1
+    changeWidth: 14
+    changeHeight: 0
+    center: -7,2,0
+    changeDuration: -2
+    color: flash(237,37,18,153,95,235)
+214: NoodleHelix
+    count: 4
+    radius: 8
+    rotationAmount: 1
+    startRotation: 45
+    scale: 0.5
+    amount: 1
+    changeWidth: 14
+    changeHeight: 0
+    center: -7,2,0
+    changeDuration: -2
+    color: flash(153,95,235,237,37,18)
+
+# 214.5 lone dun /\
+214.5: NoodleHelix
+    count: 2
+    radius: 4
+    rotationAmount: 1
+    startRotation: 45
+    scale: 0.5
+    changeDuration: -2
+    changeWidth: 3
+    amount: 1
+    center: -1.5,2,0
+    color: white
+
+# 215 double Burst with 215.5
+215: Wall
+    height: 0.3
+    width: 10
+    startHeight: 1
+    startRow: 2
+    changeDuration: -2
+    mirror: 2
+    localRotZ: -60
+    color: 153,95,235
+215.5: Wall
+    height: 0.3
+    width: 10
+    startHeight: 1
+    startRow: 2
+    changeDuration: -2
+    mirror: 2
+    localRotZ: -150
+    color: 35,38,212
+
+# 216.5 High sound paired with 217.5 double burst to 218
+216.5: NoodleHelix
+    count: 2
+    radius: 4
+    endRadius: 14
+    rotationAmount: 1
+    scale: 0.5
+    changeDuration: -2
+    changeWidth: 3
+    amount: 5
+    center: -1.5,2,0
+    color: gradient(white,black)
+
+217.5: NoodleHelix
+    count: 4
+    radius: 8
+    rotationAmount: 1
+    startRotation: 45
+    scale: 0.5
+    amount: 1
+    changeWidth: 14
+    changeHeight: 0
+    center: -7,2,0
+    changeDuration: -2
+    color: flash(white,black)
+218: NoodleHelix
+    count: 4
+    radius: 8
+    rotationAmount: 1
+    startRotation: 90
+    scale: 0.5
+    amount: 1
+    changeWidth: 14
+    changeHeight: 0
+    center: -7,2,0
+    changeDuration: -2
+    color: flash(black,white)
+
+218.5: soundwave
+    mirror: 1
+
+# 219 double burst 219.5
+219: NoodleHelix
+    count: 4
+    radius: 5
+    rotationAmount: 1
+    startRotation: 90
+    scale: 0.5
+    amount: 1
+    changeWidth: 10
+    changeHeight: 0
+    center: -5,2,0
+    changeDuration: -2
+    color: black
+219.5: NoodleHelix
+    count: 4
+    radius: 8
+    rotationAmount: 1
+    startRotation: 45
+    scale: 0.5
+    amount: 1
+    changeWidth: 14
+    changeHeight: 0
+    center: -7,2,0
+    changeDuration: -2
+    color: white
+
+# 220 whine up
+220: Wall
+    height: 0.3
+    width: 10
+    startHeight: 1
+    startRow: 2
+    changeDuration: -2
+    mirror: 2
+    localRotZ: -150
+    color: white
+220.5: bigLoadCircle
+221: whiteTunnelDwing
+
+# 221 Big wubs at 1 beat transition to bell intro
+221: BeatWavesBigBoi
+    color: gradient(237,139,19,black)
+222: Wall
+    height: 0.3
+    width: 8
+    startHeight: 6
+    startRow: -4
+    changeDuration: -2
+    mirror: 4
+    color: black
+222: BeatWavesBigBoiFartherAway
+    color: gradient(black,237,139,19)
+    reverse: true
+    addStartTime: -0.4
+
+224: NoodleHelix
+    count: 3
+    radius: 6
+    endRadius: 30
+    rotationAmount: 1
+    scale: 1
+    amount: 5
+    startRotation: 90
+    changeWidth: 20
+    changeHeight: 0.5
+    center: -9.7,2,0
+    changeDuration: -3
+    color: gradient(153,95,235, white)
+
+225: Curve
+    p1: 0,0,0
+    p4: 20,0,0.5
+    changeDuration: -3
+    amount: 20
+    color: gradient(white,black)
+    mirror: 2
+
+# Random shapes appearing at 225.5 in 0.5 intervals to 228 in video
+# Ended up with a triangle shrinking coming at the player
+define: triangleCircle
+    structures: NoodleHelix
+    count: 3
+    radius: 6
+    endRadius: 10
+    rotationAmount: 1
+    scale: 0.75
+    amount: 5
+    changeDuration: -2.5
+    startRotation: 270
+    changeWidth: 20
+    changeHeight: 0.5
+    center: -9.7,2,0
+    reverse: true
+
+225.5: triangleCircle
+    color: black
+
+226.5: triangleCircle
+    color: white
+
+227.5: triangleCircle
+    color: black
+
+# 228 Glitch 0.5 to a wipe ending
+228: RandomNoise
+    p1: 20,-20,0
+    p2: 40,20,1
+    color: rainbow
+    amount: 30
+    rotation: -130
+    changeHeight: 2
+    changeWidth: 2
+    changeDuration: -3
+
+229: wallDrops
+
+# Intro Sequence Again ===========================------------------------------================
+229: bellLines
+229: RandomNoise
+    p1: -15,-2,0
+    p2: 15,10,30
+    color: white
+    amount: 375
+    rotation: random(-25,25)
+231: RandomStructures
+    structures: pixelHeart
+    p1: -15,-2,0
+    p2: 15,10,28
+    color: flash(237,37,18,237,37,18, 153,95,235,153,95,235, green,green, 237,139,19,237,139,19, 35,38,212,35,38,212)
+    amount: 105
+
+237: bellLinesRev
+245: bellLines
+    mirror: 1
+253: bellLinesRev
+    mirror: 1
+
+253: whiteNoiseBuild
+    changeDuration: -2
+    repeat: 7
+    repeatAddZ: 1
+    repeatAddHeight: 0.5
+    color: gray
+253: whiteNoiseBuildFloor
+    changeDuration: -2
+    repeat: 7
+    repeatAddZ: 1
+    repeatAddWidth: 1
+    repeatAddStartRow: -0.5
+    color: gray
+
+260: whiteTunnel
+
+# Modified bell lines =========================================================================
+define: _bellLineModHelix
+    structures: NoodleHelix
+    count: 2
+    radius: 8
+    rotationAmount: 90
+    startRotation: 180
+    scale: 1
+    changeDuration: -2
+    changeWidth: 3
+    amount: 10
+    center: -1.5,2,0
+
+define: _bellLineModSideA
+    structures: Steadycurve
+    p1: 4,5,0
+    p4: 4,-5,1.5
+    amount: 15
+    changeDuration: -2
+    addStartTime: 3.3
+
+define: _bellLineModSideB
+    structures: Steadycurve
+    p1: -4,-5,0
+    p4: -4,5,1.5
+    amount: 15
+    changeDuration: -2
+    addStartTime: 5.25
+
+define: bellLineMod
+    structures: _bellLineModHelix,_bellLineModSideA,_bellLineModSideB
+    color: rainbow
+
+define: _bellLineModHelixRev
+    structures: NoodleHelix
+    count: 2
+    radius: 6
+    rotationAmount: -90
+    scale: 1
+    changeDuration: -2
+    changeWidth: 3
+    amount: 10
+    center: -1.5,2,0
+
+define: _bellLineModSideARev
+    structures: Steadycurve
+    p1: -4,-5,0
+    p4: -4,5,1.5
+    amount: 15
+    changeDuration: -2
+    addStartTime: 3.3
+
+define: _bellLineModSideBRev
+    structures: Steadycurve
+    p1: 4,5,0
+    p4: 4,-5,1.5
+    amount: 15
+    changeDuration: -2
+    addStartTime: 5.25
+
+define: bellLineModRev
+    structures: _bellLineModHelixRev,_bellLineModSideARev,_bellLineModSideBRev
+    color: rainbow
+
+# 261 where Repeat lyrics doesn't have big wub lines tho so need other filler with bursts
+260: RandomNoise
+    p1: -15,-2,0
+    p2: 15,10,60
+    color: white
+    amount: 700
+    rotation: random(155,205)
+261: bellLineMod
+269: bellLineModRev
+277: bellLineMod
+    mirror: 1
+285: bellLineModRev
+    mirror: 1
+
+261: Line
+    p1: 0,-0.5,0
+    p2: 0,-0.5,59
+    amount: 59
+    color: white
+261: bigWubSeqFloorBase
+    repeat: 30
+    repeatAddZ: 2
+    mirror: 2
+    color: magenta
+262: bigWubSeqFloorBase
+    repeat: 29
+    repeatAddZ: 2
+    color: blue
+    addStartRow: 1
+    mirror: 2
+
+293: bellLineMod
+301: bellLineModRev
+309: bellLineMod
+    mirror: 1
+317: bellLineModRev
+    mirror: 1
+
+321: NoodleHelix
+    count: 16
+    radius: 5
+    scale: 1.5
+    amount: 1
+    rotationAmount: 1
+    changeDuration: -2
+    changeWidth: 3
+    center: -1.5,2,0
+    color: white
+    repeat: 4
+    repeatAddZ: 1
+    rotation: 180
+
+# 325 Helix Calm Build =====================================
+323.5: NoodleHelix
+    count: 8
+    radius: 2
+    endRadius: 10
+    scale: 1.5
+    amount: 15
+    rotationAmount: 90
+    changeDuration: -0.5
+    color: gradient(white,black)
+
+324: Curve
+    amount: 20
+    p1: 0,-2,0
+    p2: 0.5,0,3
+    p3: 3,0,2
+    p4: 3,0,5
+    mirror: 2
+    color: white
+
+325: RandomNoise
+    p1: -15,-2,0
+    p2: 15,10,23
+    color: white
+    amount: 50
+    rotation: circle(22)
+325: RandomNoise
+    p1: -15,-2,0
+    p2: 15,10,23
+    color: white
+    amount: 50
+    rotation: circle(-22)
+
+325: calmBuildHelixA
+325: calmBuildHelixB
+
+329: calmCurveCenter
+    repeat: 5
+    repeatAddZ: 4
+    color: gradient(white,gray)
+    mirror: 2
+
+329: calmBuildHelixA
+    reverse: true
+    color: 153,95,235
+329: calmBuildHelixB
+    color: 153,95,235
+
+333: calmBuildHelixA
+    color: gradient(153,95,235,237,139,19)
+333: calmBuildHelixB
+    color: gradient(153,95,235,237,139,19)
+
+337: calmBuildHelixA
+    reverse: true
+    color: gradient(237,139,19,237,37,18)
+337: calmBuildHelixB
+    color: gradient(237,139,19,237,37,18)
+
+341: calmBuildHelixA
+    color: gradient(237,37,18,153,95,235)
+341: calmBuildHelixB
+    color: gradient(237,37,18,153,95,235)
+
+345: calmBuildHelixA
+    reverse: true
+    color: gradient(35,38,212,153,95,235)
+345: calmBuildHelixB
+    color: gradient(35,38,212,153,95,235)
+
+# Helix Build to Lyric Build ========================================
+# Helix A fadeout
+349: NoodleHelix
+    count: 4
+    radius: 15
+    endRadius: 25
+    scale: 4
+    rotationAmount: 270
+    amount: 100
+    color: gradient(153,95,235,red)
+# Helix B expand
+349: NoodleHelix
+    count: 6
+    radius: 8
+    endRadius: 10
+    scale: 3
+    rotationAmount: -180
+    amount: 60
+    color: gradient(153,95,235,red)
+
+# Fadeout Curve --------------------------------
+349: Curve
+    amount: 20
+    p1: 3,0,0
+    p4: 0,-2,3
+    color: gradient(white, black)
+    mirror: 2
+
+352: NoodleHelix
+    count: 6
+    radius: 10
+    scale: 1
+    rotationAmount: 1
+    amount: 20
+    changeWidth: 0.25
+    color: red
+
+353: NoodleHelix
+    count: 6
+    radius: 10
+    endRadius: 6
+    scale: 2.5
+    rotationAmount: -180
+    amount: 40
+    color: gradient(red,35,38,212)
+
+355: NoodleHelix
+    count: 6
+    radius: 9
+    endRadius: 6
+    scale: 2
+    rotationAmount: -360
+    amount: 10
+    changeWidth: 2.5
+    center: 1.9,2,0
+    color: gradient(35,38,212,white)
+    changeDuration: -1.5
+
+# 357 Wa Wa Build but square instead of circle
+define: _whiteRandSquareTop
+    structures: RandomNoise
+    p1: -24,20,0
+    p2: 10,20,2
+    amount: 20
+    changeHeight: random(1,10)
+    addStartHeight: random(-8,0)
+    changeWidth: random(10,20)
+    color: white
+    changeDuration: -2
+
+define: _whiteRandSquareBottom
+    structures: RandomNoise
+    p1: -24,-15,0
+    p2: 10,-15,2
+    amount: 20
+    changeHeight: random(1,10)
+    addStartHeight: random(-8,0)
+    changeWidth: random(10,20)
+    color: white
+    changeDuration: -2
+
+define: _whiteRandSquareSides
+    structures: RandomNoise
+    p1: 22,-18,0
+    p2: 22,18,2
+    amount: 20
+    changeHeight: random(10,20)
+    changeWidth: random(1,10)
+    color: white
+    changeDuration: -2
+    mirror:2
+
+define: whiteRandSquare
+    structures: _whiteRandSquareTop,_whiteRandSquareBottom,_whiteRandSquareSides
+
+define: blackRandSquare
+    structures: whiteRandSquare
+    color: black
+357: whiteTunnel
+357: waSirenFloor
+    mirror: 1
+    color: black
+    repeat: 3
+    repeatAddZ: 4
+
+359: waSirenFloor
+    repeat: 3
+    repeatAddZ: 4
+
+357: whiteRandSquare
+    repeat: 4
+    repeatAddZ: 4
+359: blackRandSquare
+    repeat: 3
+    repeatAddZ: 4
+371: whiteRandSquare
+
+373: waAssembly
+    repeat: 3
+    repeatAddZ: 4
+    addStartRow: -5
+375: waAssembly
+    repeat: 3
+    repeatAddZ: 4
+    addStartRow: 6
+    color: black
+
+373: blackRandSquare
+    repeat: 3
+    repeatAddZ: 4
+375: whiteRandSquare
+    repeat: 3
+    repeatAddZ: 4
+385: whiteTunnel
+    color: black
+
+# Intrumental 2 --------------===============================---------------------
+# Pretty much the same as the first instrumental sequence
+
+385: NoodleHelix
+    count: 4
+    radius: 3
+    rotationAmount: 200
+    scale: 1.5
+    amount: 15
+    changeWidth: 5
+    changeHeight: 0.3
+    center: -2.5,2,0
+    changeDuration: -2
+    color: white
+    rotation: 180
+
+387.25: whiteTunnel
+    changeDuration: -2
+
+388: fadeRectInFrontA
+388: fadeRectInFrontB
+
+388: NoodleHelix
+    count: 2
+    endRadius: 30
+    rotationAmount: -330
+    scale: 1
+    changeDuration: -3
+    amount: 25
+    color: gradient(white,orange)
+
+389: BeatWavesBigBoi
+    color: gradient(orange,153,95,235)
+
+391.125: crossHatchA
+391.5: crossHatchB
+    localRotZ: ease(-20,-60)
+    color: gradient(237,37,18,blue)
+    mirror: 2
+    reverse: true
+
+392.5: electricZapA
+392.5: electricZapB
+
+393.5: NoodleHelix
+    count: 3
+    radius: 4
+    endRadius: 10
+    rotationAmount: 1
+    scale: 0.5
+    changeDuration: -3
+    startRotation: 45
+    changeWidth: 2
+    amount: 3
+    center: -0.7,2,0
+    color: 35,38,212
+394: NoodleHelix
+    count: 3
+    radius: 4
+    endRadius: 10
+    rotationAmount: 1
+    scale: 0.5
+    changeDuration: -3
+    startRotation: 80
+    changeWidth: 2
+    amount: 3
+    center: -0.7,2,0
+    color: 153,95,235
+
+395.25: triangleBurst
+    startRotation: 90
+395.5: triangleBurst
+    startRotation: 270
+    color: gray
+
+397: BeatWavesBigBoi
+    color: gradient(237,139,19,black)
+
+398: soundwave
+
+399.25: zoomUp
+399.5: zoomDown
+401: bigLoadCircle
+401.5: whiteTunnelDwing
+
+# Bicolor Diamond ---------------------------------------------------
+402: NoodleHelix
+    count: 4
+    radius: 8
+    rotationAmount: 1
+    startRotation: 45
+    scale: 0.5
+    amount: 1
+    changeWidth: 14
+    changeHeight: 0
+    center: -7,2,0
+    changeDuration: -2
+    color: flash(237,37,18,153,95,235)
+
+403: Curve
+    p1: 4,3,0
+    p4: 1,-2,0.5
+    amount: 20
+    changeDuration: -2.5
+    mirror: 2
+    color: gradient(237,37,18,black)
+404: Curve
+    p1: 4,3,0
+    p4: 1,-2,0.5
+    amount: 20
+    changeDuration: -2.5
+    mirror: 6
+    color: gradient(35,38,212,black)
+
+404.5: NoodleHelix
+    count: 2
+    radius: 6
+    rotationAmount: 220
+    scale: 1
+    amount: 20
+    #center: -7,2,0
+    changeDuration: -2
+    color: flash(35,38,212,153,95,235,237,37,18,237,139,19)
+
+405.5: triangleBurst
+    startRotation: 270
+    color: gray
+406: triangleBurst
+    startRotation: 90
+    changeDuration: -2
+
+# Drop Repeat Section -----------------------------------------------------------------
+407: crossHatchA
+407.5: crossHatchB
+    localRotZ: ease(-10,-50)
+    color: gradient(237,37,18,blue)
+    mirror: 2
+    reverse: true
+408.5: electricZapA
+408.5: electricZapB
+
+409.5: NoodleHelix
+    count: 3
+    radius: 4
+    endRadius: 10
+    rotationAmount: 1
+    scale: 0.5
+    changeDuration: -3
+    startRotation: -45
+    changeWidth: 2
+    amount: 3
+    center: -0.7,2,0
+    color: 35,38,212
+410: NoodleHelix
+    count: 3
+    radius: 4
+    endRadius: 10
+    rotationAmount: 1
+    scale: 0.5
+    changeDuration: -3
+    startRotation: -80
+    changeWidth: 2
+    amount: 3
+    center: -0.7,2,0
+    color: 153,95,235
+
+
+410.75: doubleBurstLineRot
+    color: gradient(237,37,18,237,139,19)
+    mirror: 2
+411: Wall
+    height: 0.3
+    width: 2
+    startHeight: 6
+    startRow: -1
+    changeDuration: -2
+    mirror: 4
+    color: 237,37,18
+411.5: Wall
+    height: 0.3
+    width: 8
+    startHeight: 6
+    startRow: -4
+    changeDuration: -2
+    mirror: 4
+    color: 237,139,19
+411.5:Wall
+    height: 8
+    width: 0.3
+    startHeight: -2
+    startRow: 4
+    changeDuration: -2
+    mirror: 2
+    color: 237,139,19
+
+412: Curve
+    p1: 4,0,0
+    p2: 4.5,0,0.15
+    p3: 4.2,0,0.3
+    p4: 4,0,0.5
+    amount: 15
+    changeDuration: -2.5
+    mirror: 6
+    color: gradient(white,black)
+
+412.5: Curve
+    p1: 4,0,0
+    p4: 4,6,0.5
+    amount: 15
+    changeDuration: -2.5
+    mirror: 6
+    color: gradient(white, 237,139,19)
+
+
+413: BeatWavesBigBoi
+    color: gradient(237,139,19,black)
+414: Wall
+    height: 0.3
+    width: 8
+    startHeight: 6
+    startRow: -4
+    changeDuration: -2
+    mirror: 4
+    color: black
+414: BeatWavesBigBoiFartherAway
+    color: gradient(black,237,139,19)
+    reverse: true
+    addStartTime: -0.4
+
+415.5: triangleBurst
+    startRotation: 240
+    color: 237,37,18
+# 192 tunnel fadeout
+416: NoodleHelix
+    count: 3
+    radius: 6
+    endRadius: 30
+    rotationAmount: 1
+    scale: 1
+    amount: 5
+    startRotation: 90
+    changeWidth: 20
+    changeHeight: 0.5
+    center: -9.7,2,0
+    changeDuration: -3
+    color: gradient(153,95,235, white)
+
+417.5: NoodleHelix
+    count: 3
+    radius: 4
+    endRadius: 10
+    rotationAmount: 1
+    scale: 0.5
+    changeDuration: -3
+    startRotation: 45
+    changeWidth: 2
+    amount: 3
+    center: -0.7,2,0
+    color: 35,38,212
+418: NoodleHelix
+    count: 3
+    radius: 4
+    endRadius: 10
+    rotationAmount: 1
+    scale: 0.5
+    changeDuration: -3
+    startRotation: 80
+    changeWidth: 2
+    amount: 3
+    center: -0.7,2,0
+    color: 153,95,235
+419: Wall
+    height: 0.3
+    width: 10
+    startHeight: 1
+    startRow: 2
+    changeDuration: -2
+    mirror: 2
+    localRotZ: -60
+    color: yellow
+
+# Glitch Noise
+420: RandomNoise
+    p1: -20,-20,0
+    p2: -40,20,1
+    color: rainbow
+    amount: 30
+    rotation: 130
+    changeHeight: 2
+    changeWidth: 2
+    changeDuration: -3
+
+420.75: RandomNoise
+    p1: -20,-20,0
+    p2: -40,20,1
+    color: flash(black,gray,white)
+    amount: 30
+    changeDuration: -2.5
+    changeHeight: random(0.5,1)
+    rotation: ease(90,160)
+
+# Dun /\ Dun \/ at 0.5
+422: Curve
+    p1: 4,3,0
+    p4: 1,-2,0.5
+    amount: 10
+    changeDuration: -2
+    mirror: 2
+    color: gradient(white,black)
+422.5: Curve
+    p1: 4,-5,0
+    p4: 4,5,0.5
+    amount: 10
+    changeDuration: -2
+    mirror: 2
+    color: gradient(white,black)
+
+# double burst
+423: Curve
+    p1: 4,5,0
+    p4: 4,-5,0.5
+    amount: 10
+    changeDuration: -2
+    mirror: 2
+    color: gradient(black,white)
+423.5: Curve
+    p1: 4,7,0
+    p4: 1,-2,0.5
+    amount: 10
+    changeDuration: -2
+    mirror: 0
+    addStartRow: -5
+    reverse: true
+    color: gradient(black,white)
+
+# ray gun
+424: RandomNoise
+    amount: 40
+    p1: 30,-15,0
+    p2: 38,20,0.25
+    changeDuration: -3
+    changeHeight: random(0.1,0.25)
+    rotation: ease(225,270)
+    color: gradient(yellow,orange)
+
+425: NoodleHelix
+    count: 2
+    radius: 4
+    endRadius: 14
+    rotationAmount: 1
+    scale: 0.5
+    changeDuration: -2
+    changeWidth: 3
+    amount: 5
+    center: -1.5,2,0
+    color: gradient(black, white)
+
+# waves pull out burst
+426.25: doubleBurstLineRot
+    color: gradient(white,153,95,235)
+    mirror: 2
+426.5: Wall
+    height: 0.3
+    width: 8
+    startHeight: 6
+    startRow: -4
+    changeDuration: -2
+    mirror: 4
+    color: 153,95,235
+426.5: Wall
+    height: 8
+    width: 0.3
+    startHeight: -2
+    startRow: 4
+    changeDuration: -2
+    mirror: 2
+    color: 153,95,235
+427: Wall
+    height: 0.3
+    width: 2
+    startHeight: 6
+    startRow: -1
+    changeDuration: -2
+    mirror: 4
+    color: 35,38,212
+
+# double burst
+427: Wall
+    height: 8
+    width: 0.3
+    startHeight: -2
+    startRow: 4
+    changeDuration: -2
+    mirror: 2
+    color: white
+427.5: NoodleHelix
+    count: 2
+    radius: 4
+    endRadius: 14
+    rotationAmount: 1
+    startRotation: 45
+    scale: 0.5
+    changeDuration: -2
+    changeWidth: 3
+    amount: 5
+    center: -1.5,2,0
+    color: gradient(white,237,37,18)
+
+# Low Ray Gun.
+428.5: Curve
+    p1: 0,0,0
+    p4: 20,0,0.5
+    changeDuration: -3
+    amount: 20
+    color: gradient(237,37,18,black)
+    mirror: 2
+
+429: BeatWavesBigBoi
+    color: gradient(orange,153,95,235)
+430: soundwave
+
+431: inGroundCircle
+    addStartRow: -10
+    repeat: 3
+    repeatAddStartRow: 10
+431.5: inGroundCircle
+    addStartRow: -5
+    repeat: 2
+    repeatAddStartRow: 10
+
+# another ray gun sound
+432.5: RandomNoise
+    amount: 40
+    p1: 30,-15,0
+    p2: 38,20,0.25
+    changeDuration: -3
+    changeHeight: random(0.1,0.25)
+    rotation: ease(225,270)
+    color: gradient(yellow,orange)
+
+433.5: Curve
+    p1: -4,3,0
+    p4: -4,3,0.5
+    amount: 10
+    color: 237,139,19
+    changeHeight: 1
+    changeWidth: 1
+    changeDuration: -3
+434: Curve
+    p1: 4,-3,0
+    p4: 4,-3,0.5
+    amount: 10
+    color: 35,38,212
+    changeHeight: 1
+    changeWidth: 1
+    changeDuration: -3
+
+435: Curve
+    p1: 4,7,0
+    p4: 4,7,0.5
+    amount: 10
+    color: yellow
+    changeHeight: 1
+    changeWidth: 1
+    changeDuration: -3
+    mirror: 6
+435.5: Curve
+    p1: 4,7,0
+    p4: 4,7,0.5
+    amount: 10
+    color: 153,95,235
+    changeHeight: 1
+    changeWidth: 1
+    changeDuration: -3
+    mirror: 8
+
+437.5: NoodleHelix
+    count: 4
+    radius: 8
+    rotationAmount: 1
+    startRotation: 135
+    scale: 0.5
+    amount: 1
+    changeWidth: 14
+    changeHeight: 0
+    center: -7,2,0
+    changeDuration: -2
+    color: flash(237,37,18,153,95,235)
+438: NoodleHelix
+    count: 4
+    radius: 8
+    rotationAmount: 1
+    startRotation: 45
+    scale: 0.5
+    amount: 1
+    changeWidth: 14
+    changeHeight: 0
+    center: -7,2,0
+    changeDuration: -2
+    color: flash(153,95,235,237,37,18)
+
+438.5: NoodleHelix
+    count: 2
+    radius: 4
+    rotationAmount: 1
+    startRotation: 45
+    scale: 0.5
+    changeDuration: -2
+    changeWidth: 3
+    amount: 1
+    center: -1.5,2,0
+    color: white
+
+439: Wall
+    height: 0.3
+    width: 10
+    startHeight: 1
+    startRow: 2
+    changeDuration: -2
+    mirror: 2
+    localRotZ: -60
+    color: 153,95,235
+439.5: Wall
+    height: 0.3
+    width: 10
+    startHeight: 1
+    startRow: 2
+    changeDuration: -2
+    mirror: 2
+    localRotZ: -150
+    color: 35,38,212
+
+# High sound
+440.5: NoodleHelix
+    count: 2
+    radius: 4
+    endRadius: 14
+    rotationAmount: 1
+    scale: 0.5
+    changeDuration: -2
+    changeWidth: 3
+    amount: 5
+    center: -1.5,2,0
+    color: gradient(white,black)
+
+441.5: NoodleHelix
+    count: 4
+    radius: 8
+    rotationAmount: 1
+    startRotation: 45
+    scale: 0.5
+    amount: 1
+    changeWidth: 14
+    changeHeight: 0
+    center: -7,2,0
+    changeDuration: -2
+    color: flash(white,black)
+442: NoodleHelix
+    count: 4
+    radius: 8
+    rotationAmount: 1
+    startRotation: 90
+    scale: 0.5
+    amount: 1
+    changeWidth: 14
+    changeHeight: 0
+    center: -7,2,0
+    changeDuration: -2
+    color: flash(black,white)
+
+442.5: soundwave
+    mirror: 1
+
+# double burst
+443: NoodleHelix
+    count: 4
+    radius: 5
+    rotationAmount: 1
+    startRotation: 90
+    scale: 0.5
+    amount: 1
+    changeWidth: 10
+    changeHeight: 0
+    center: -5,2,0
+    changeDuration: -2
+    color: black
+443.5: NoodleHelix
+    count: 4
+    radius: 8
+    rotationAmount: 1
+    startRotation: 45
+    scale: 0.5
+    amount: 1
+    changeWidth: 14
+    changeHeight: 0
+    center: -7,2,0
+    changeDuration: -2
+    color: white
+
+# whine up
+444: Wall
+    height: 0.3
+    width: 10
+    startHeight: 1
+    startRow: 2
+    changeDuration: -2
+    mirror: 2
+    localRotZ: -150
+    color: white
+444.5: bigLoadCircle
+445: whiteTunnelDwing
+
+
+# Big wubs
+445: BeatWavesBigBoi
+    color: gradient(237,139,19,black)
+446: Wall
+    height: 0.3
+    width: 8
+    startHeight: 6
+    startRow: -4
+    changeDuration: -2
+    mirror: 4
+    color: black
+446: BeatWavesBigBoiFartherAway
+    color: gradient(black,237,139,19)
+    reverse: true
+    addStartTime: -0.4
+
+447: NoodleHelix
+    count: 2
+    radius: 4
+    rotationAmount: 1
+    startRotation: 45
+    scale: 0.5
+    changeDuration: -2
+    changeWidth: 3
+    amount: 1
+    center: -1.5,2,0
+    color: white
+
+447.5: NoodleHelix
+    count: 2
+    radius: 4
+    rotationAmount: 1
+    startRotation: 135
+    scale: 0.5
+    changeDuration: -2
+    changeWidth: 3
+    amount: 1
+    center: -1.5,2,0
+    color: white
+
+448: NoodleHelix
+    count: 3
+    radius: 6
+    endRadius: 30
+    rotationAmount: 1
+    scale: 1
+    amount: 5
+    startRotation: 90
+    changeWidth: 20
+    changeHeight: 0.5
+    center: -9.7,2,0
+    changeDuration: -3
+    color: gradient(153,95,235, white)
+
+449: Curve
+    p1: 0,0,0
+    p4: 20,0,0.5
+    changeDuration: -3
+    amount: 20
+    color: gradient(white,black)
+    mirror: 2
+
+449.5: triangleCircle
+    color: black
+
+450.5: triangleCircle
+    color: white
+
+451.5: triangleCircle
+    color: black
+
+# Itsumo Lyrics to end of song ====================================================================
+define: wubLinesTop
+    structures: Steadycurve
+    p1: -4,5,0
+    p4: 4,5,0.5
+    amount: 10
+    changeDuration: -2
+    mirror: 4
+
+define: wubLinesSides
+    structures: Steadycurve
+    p1: 4,-5,0
+    p4: 4,5,0.5
+    amount: 10
+    changeDuration: -2
+    mirror: 6
+define: helixPairXthingy
+    structures: NoodleHelix
+    count: 2
+    radius: 4
+    endRadius: 14
+    rotationAmount: 1
+    scale: 0.5
+    changeDuration: -2
+    changeWidth: 3
+    amount: 5
+    center: -1.5,2,0
+    color: gradient(white,black)
+
+define: halfHelixA
+    structures: _bellLineModHelix
+    color: gradient(white,black)
+define: halfHelixB
+    structures: _bellLineModHelixRev
+    color: gradient(white,black)
+
+453: Curve
+    p1: 4,0,0
+    p2: 4,7,0.3
+    p3: 6,2,0.5
+    p4: 10,0,1.25
+    fitStartHeight: 0
+    mirror: 2
+    amount: 15
+    changeDuration: -3
+    color: white
+
+# >> Wub
+454.5: Curve
+    p1: 0,0,0
+    p4: 20,0,0.5
+    changeDuration: -3
+    amount: 20
+    color: gradient(white,black)
+    mirror: 2
+# << wub
+455.5: Curve
+    p1: 0,0,0
+    p4: 20,0,0.5
+    changeDuration: -3
+    amount: 20
+    color: gradient(white,black)
+    mirror: 2
+    reverse: true
+
+# double wub 0.5
+
+457: helixPairXthingy
+    startRotation: 45
+457.5: helixPairXthingy
+    startRotation: 90
+    color: black
+
+458.5: halfHelixA
+459.5: halfHelixB
+
+461: Curve
+    p1: 4,0,0
+    p2: 4,7,0.3
+    p3: 6,2,0.5
+    p4: 10,0,1.25
+    fitStartHeight: 0
+    mirror: 2
+    amount: 15
+    changeDuration: -3
+    color: white
+
+462.5: halfHelixB
+463.5: halfHelixA
+# double wub at 0.5
+464.25: helixPairXthingy
+    startRotation: 90
+464.75: helixPairXthingy
+    startRotation: 45
+    color: black
+
+# double wub at 0.5 > \/
+465: NoodleHelix
+    count: 4
+    radius: 8
+    rotationAmount: 1
+    startRotation: 45
+    scale: 0.5
+    amount: 1
+    changeWidth: 14
+    changeHeight: 0
+    center: -7,2,0
+    changeDuration: -2
+    color: flash(black,white)
+465.5: NoodleHelix
+    count: 4
+    radius: 8
+    rotationAmount: 1
+    startRotation: 135
+    scale: 0.5
+    amount: 1
+    changeWidth: 14
+    changeHeight: 0
+    center: -7,2,0
+    changeDuration: -2
+    color: flash(black,white)
+#  double wub at 0.5 /\ >
+
+467: wubLinesTop
+    color: gradient(white,black)
+467.5: wubLinesSides
+    color: gradient(black,white)
+
+468: NoodleHelix
+    count: 16
+    radius: 5
+    scale: 0.5
+    amount: 1
+    rotationAmount: 1
+    changeDuration: -2
+    changeWidth: 3
+    center: -1.5,2,0
+    color: white
+    repeat: 2
+    repeatAddZ: 0.5
+    rotation: 180
+
+# repeats sequence
+469: Curve
+    p1: 4,0,0
+    p2: 4,7,0.3
+    p3: 6,2,0.5
+    p4: 10,0,1.25
+    fitStartHeight: 0
+    mirror: 2
+    amount: 15
+    changeDuration: -3
+    color: white
+
+470.5: Curve
+    p1: 0,0,0
+    p4: 20,0,0.5
+    changeDuration: -3
+    amount: 20
+    color: gradient(white,black)
+    mirror: 2
+# << wub
+471.5: Curve
+    p1: 0,0,0
+    p4: 20,0,0.5
+    changeDuration: -3
+    amount: 20
+    color: gradient(white,black)
+    mirror: 2
+    reverse: true
+
+473: helixPairXthingy
+    startRotation: 45
+473.5: helixPairXthingy
+    startRotation: 90
+    color: black
+
+474.5: halfHelixA
+475.5: halfHelixB
+
+477: Curve
+    p1: 4,0,0
+    p2: 4,7,0.3
+    p3: 6,2,0.5
+    p4: 10,0,1.25
+    fitStartHeight: 0
+    mirror: 2
+    amount: 15
+    changeDuration: -3
+    color: white
+
+478.5: halfHelixB
+479.5: halfHelixA
+
+480.5: helixPairXthingy
+
+481: Curve
+    p1: 0,0,0
+    p4: 20,0,1
+    changeDuration: -3
+    amount: 20
+    color: gradient(white,black)
+    mirror: 2
+# << wub
+482: Curve
+    p1: 0,0,0
+    p4: 20,0,1
+    changeDuration: -3
+    amount: 20
+    color: gradient(white,black)
+    mirror: 2
+    reverse: true
+
+483: Steadycurve
+    p1: 4,5,0
+    p4: -4,5,1
+    amount: 10
+    changeDuration: -2
+    mirror: 6
+    color: gradient(black,white)
+
+484: Steadycurve
+    p1: 4,5,0
+    p4: 4,-5,1
+    amount: 10
+    changeDuration: -2
+    mirror: 6
+    color: gradient(white,black)
+
+# 485 wub \/ ============== Repeat Section ------------==========
+485: Curve
+    p1: 4,0,0
+    p2: 4,7,0.3
+    p3: 6,2,0.5
+    p4: 10,0,1.25
+    fitStartHeight: 0
+    mirror: 2
+    amount: 15
+    changeDuration: -3
+    color: white
+
+# 486.5 >> Wub
+486.5: Curve
+    p1: 0,0,0
+    p4: 20,0,0.5
+    changeDuration: -3
+    amount: 20
+    color: gradient(white,black)
+    mirror: 2
+# 487.5 << wub
+487.5: Curve
+    p1: 0,0,0
+    p4: 20,0,0.5
+    changeDuration: -3
+    amount: 20
+    color: gradient(white,black)
+    mirror: 2
+    reverse: true
+
+# 489 double wub 0.5
+
+489: helixPairXthingy
+    startRotation: 45
+489.5: helixPairXthingy
+    startRotation: 90
+    color: black
+
+490.5: halfHelixA
+491.5: halfHelixB
+# 493 wub \/
+493: Curve
+    p1: 4,0,0
+    p2: 4,7,0.3
+    p3: 6,2,0.5
+    p4: 10,0,1.25
+    fitStartHeight: 0
+    mirror: 2
+    amount: 15
+    changeDuration: -3
+    color: white
+
+494.5: halfHelixB
+495.5: halfHelixA
+# 496.25 double wub at 0.5
+496.25: helixPairXthingy
+    startRotation: 90
+496.75: helixPairXthingy
+    startRotation: 45
+    color: black
+
+# 497 double wub at 0.5 > \/
+497: NoodleHelix
+    count: 4
+    radius: 8
+    rotationAmount: 1
+    startRotation: 45
+    scale: 0.5
+    amount: 1
+    changeWidth: 14
+    changeHeight: 0
+    center: -7,2,0
+    changeDuration: -2
+    color: flash(black,white)
+497.5: NoodleHelix
+    count: 4
+    radius: 8
+    rotationAmount: 1
+    startRotation: 135
+    scale: 0.5
+    amount: 1
+    changeWidth: 14
+    changeHeight: 0
+    center: -7,2,0
+    changeDuration: -2
+    color: flash(black,white)
+# 499 double wub at 0.5 /\ >
+
+499: wubLinesTop
+    color: gradient(white,black)
+499.5: wubLinesSides
+    color: gradient(black,white)
+
+500: NoodleHelix
+    count: 16
+    radius: 5
+    scale: 0.5
+    amount: 1
+    rotationAmount: 1
+    changeDuration: -2
+    changeWidth: 3
+    center: -1.5,2,0
+    color: white
+    repeat: 2
+    repeatAddZ: 0.5
+    rotation: 180
+
+# 501 repeats sequence
+501: Curve
+    p1: 4,0,0
+    p2: 4,7,0.3
+    p3: 6,2,0.5
+    p4: 10,0,1.25
+    fitStartHeight: 0
+    mirror: 2
+    amount: 15
+    changeDuration: -3
+    color: white
+
+502.5: Curve
+    p1: 0,0,0
+    p4: 20,0,0.5
+    changeDuration: -3
+    amount: 20
+    color: gradient(white,black)
+    mirror: 2
+# 487.5 << wub
+503.5: Curve
+    p1: 0,0,0
+    p4: 20,0,0.5
+    changeDuration: -3
+    amount: 20
+    color: gradient(white,black)
+    mirror: 2
+    reverse: true
+
+505: helixPairXthingy
+    startRotation: 45
+505.5: helixPairXthingy
+    startRotation: 90
+    color: black
+
+506.5: halfHelixA
+507.5: halfHelixB
+
+509: Curve
+    p1: 4,0,0
+    p2: 4,7,0.3
+    p3: 6,2,0.5
+    p4: 10,0,1.25
+    fitStartHeight: 0
+    mirror: 2
+    amount: 15
+    changeDuration: -3
+    color: white
+
+510.5: halfHelixB
+511.5: halfHelixA
+
+512.5: helixPairXthingy
+
+# 513 Difference >
+513: Curve
+    p1: 0,0,0
+    p4: 20,0,1
+    changeDuration: -3
+    amount: 20
+    color: gradient(white,black)
+    mirror: 2
+# 487.5 << wub
+514: Curve
+    p1: 0,0,0
+    p4: 20,0,1
+    changeDuration: -3
+    amount: 20
+    color: gradient(white,black)
+    mirror: 2
+    reverse: true
+
+515: Steadycurve
+    p1: 4,5,0
+    p4: -4,5,1
+    amount: 10
+    changeDuration: -2
+    mirror: 6
+    color: gradient(black,white)
+
+516: Steadycurve
+    p1: 4,5,0
+    p4: 4,-5,1
+    amount: 10
+    changeDuration: -2
+    mirror: 6
+    color: gradient(white,black)
+
+# Ending floor breakaway
+517: Curve
+    p1: 0,0,0
+    p4: 20,0,8
+    changeDuration: -2
+    amount: 60
+    color: gradient(153,95,235,black)
+    mirror: 2
+
+517: RandomNoise
+    p1: -15,-2,0
+    p2: 15,10,14
+    color: flash(white,35,38,212,237,37,18,black)
+    amount: 100
+    rotation: ease(-60,70,easeInSine)

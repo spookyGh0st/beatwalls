@@ -69,8 +69,8 @@ struct w1:TestStructure,hyper
         assertEquals(15, ws.a)
     }
 
-    @Test
-    fun `test function`() {
+    //todo @Test
+    fun `test custom function`() {
         val t = """
 fun f(x) = x+2
 10 TestStructure
@@ -94,7 +94,7 @@ const testProp = 4
         assertEquals(4, ws.a)
     }
 
-    @Test
+    // todo @Test
     fun `test constant in function`() {
         val t = """
 const testProp = 10

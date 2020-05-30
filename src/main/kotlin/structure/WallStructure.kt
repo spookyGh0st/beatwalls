@@ -814,38 +814,39 @@ class Wall: WallStructure() {
 
 /**
  * spinning time! make walls spin around the player
+ * Also check out noodlehelix, its propably better.
  */
 class Helix: WallStructure() {
 
     /**
      * how many spirals will be created
      */
-    var count = 2
+    val count by BwInt(2)
 
     /**
      * The radius of the Helix
      */
-    var radius = 2.0
+    val radius by BwDouble(2.0)
 
     /**
      * does not reflect the actual amount of walls, instead is more of an multiplier (will be changed with version 1.0)
      */
-    var amount = 10
+    val amount by BwInt(10)
 
     /**
      * the start in degree
      */
-    var startRotation = 0.0
+    val startRotation by BwDouble( 0.0)
 
     /**
      * describes, how many "Spins" the helix has
      */
-    var rotationAmount = 1.0
+    val rotationAmount by BwDouble(1.0)
 
     /**
      * Point of the center, defaults to 0,2,0
      */
-    var center = Point(0, 2, 0)
+    val center by BwPoint(0, 2, 0)
 
     /**
      * generating the Walls
@@ -857,40 +858,40 @@ class NoodleHelix: WallStructure(){
     /**
      * how many spirals will be created
      */
-    var count = 1
+    val count by BwInt(2)
 
     /**
      * The radius of the Helix
      */
-    var radius = 2.0
+    val radius by BwDouble(2)
 
     /**
      * the endradius. default: null (normal radius)
      */
-    var endRadius:Double? = null
+    val endRadius:Double by BwDouble("radius")
     /**
      *  the amount of walls created. Default: 8*scaleZ
      */
-    var amount = 8*(scaleZ?:1.0).toInt()
+    val amount by BwInt("8*scale)")
 
     /**
      * spins every wall additionally this amount
      */
-    var localRotationOffset = 0.0
+    val localRotationOffset by BwDouble(0)
     /**
      * the start in degree
      */
-    var startRotation = 0.0
+    val startRotation by BwDouble(0)
 
     /**
      * describes in degree, how many "Spins" the helix has. default: 360
      */
-    var rotationAmount = 360.0
+    val rotationAmount by BwDouble(360)
 
     /**
      * Point of the center, defaults to 0,2,0
      */
-    var center = Point(0, 2, 0)
+    val center by BwPoint(0,2,0)
 
     /**
      * generating the Walls

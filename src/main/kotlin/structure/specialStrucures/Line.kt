@@ -6,8 +6,6 @@ import structure.helperClasses.SpookyWall
 import kotlin.math.*
 
 fun Line.run(): List<SpookyWall> {
-    if (amount == null)
-        amount = (6 * abs(p2.z - p1.z)).toInt()
     return (line(p1, p2, amount)).toList()
 }
 

@@ -80,17 +80,10 @@ data class SpookyWall(
         val tempStartTime = obs.z.toFloat()
         val tempDuration = obs.duration.toFloat()
 
-        var tempLineIndex = obs.calculateLineIndex()
-        var tempWidth = obs.calculateWidth()
+        val tempLineIndex = obs.calculateLineIndex()
+        val tempWidth = obs.calculateWidth()
 
-
-        var tempType = obs.type()
-
-        if(GlobalConfig.neValues && !bomb){
-            tempType = 0
-            tempWidth = 0
-            tempLineIndex = 0
-        }
+        val tempType = obs.type()
 
         val customData: _obstacleCustomData? = obs.customData()
 

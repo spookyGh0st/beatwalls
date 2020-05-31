@@ -7,28 +7,9 @@ import java.lang.Double.min
 import kotlin.random.Random
 
 
+// only here for now until i implemented everything
 interface RotationMode:Serializable{
     fun getValue(index: Int,amount: Int) : Double
-    fun localRotX(walls: Collection<SpookyWall>){
-        for((i,w) in walls.withIndex()){
-            w.localRotX+=getValue(i,walls.size)
-        }
-    }
-    fun localRotY(walls: Collection<SpookyWall>){
-        for((i,w) in walls.withIndex()){
-            w.localRotY+=getValue(i,walls.size)
-        }
-    }
-    fun localRotZ(walls: Collection<SpookyWall>){
-        for((i,w) in walls.withIndex()){
-            w.localRotZ+=getValue(i,walls.size)
-        }
-    }
-    fun rotation(walls: Collection<SpookyWall>){
-        for((i,w) in walls.withIndex()){
-            w.rotation += getValue(i,walls.size)
-        }
-    }
 }
 
 data class StaticRotation(val rotation: Double): RotationMode {

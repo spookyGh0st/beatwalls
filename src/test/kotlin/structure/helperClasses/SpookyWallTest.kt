@@ -37,7 +37,7 @@ class SpookyWallTest {
             y = -1.0,
             z = 1.0,
             color = blue,
-            rotation = -180.0
+            rotationY = -180.0
 
         )
         val expected = SpookyWall(
@@ -48,7 +48,7 @@ class SpookyWallTest {
             y = -2.0,
             z = 1.0,
             color = blue,
-            rotation = -180.0 % 360
+            rotationY = -180.0 % 360
 
         )
         val actual = w.toValidWall()

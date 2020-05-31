@@ -44,7 +44,7 @@ sealed class WallStructure:Serializable
     /**
      * some Wallstructures use Random walls. This is the seed for them
      */
-    var seed: Int? = Default.seed
+    val seed: Int? by BwIntOrNull()
 
     /**
      * This is needed for all the functions and properties.
@@ -104,7 +104,7 @@ sealed class WallStructure:Serializable
     /**
      * times the SpookyWall by adding the njsOffset, default: true
      */
-    var time: Boolean = Default.time
+    val timeToNjsOffset by BwBoolean(true)
 
     /**
      * change The x of all Walls in the structure to the given Value. Random possible with random(min,max). Default: null
@@ -179,17 +179,17 @@ sealed class WallStructure:Serializable
     /**
      * reverses the WallStructure on the Starttime/duration
      */
-    var reverse: Boolean = Default.reverse
+    val reverse: Boolean by BwBoolean(false)
 
     /**
      * basically mirrors the Wallstructure in itself on the x-Achsis if set to true
      */
-    var reverseX: Boolean = Default.reverseX
+    val reverseX by BwBoolean(false)
 
     /**
      * basically mirrors the Wallstructure in itself on the x-Achsis if set to true
      */
-    var reverseY: Boolean = Default.reverseY
+    val reverseY: Boolean by BwBoolean(false)
 
     /**
      * speeds up the wallstructure over time. the duration of the whole structure. Remains. \n
@@ -200,66 +200,13 @@ sealed class WallStructure:Serializable
      *
      * The closer the value is to 1, the more stale it gets.
      */
-    var speeder: Double? = Default.speeder
+    val speeder: Double? by BwDoubleOrNull()
 
 
     /**
      * how often you want to repeat the Structure.
      */
     val repeat: Int by BwInt(1) //= Default.repeat
-
-    /**
-     * how often you want to repeat the walls of the Structure. This copy pastes the walls, while (repeat) generates a new one.
-     */
-    var repeatWalls: Int = Default.repeatWalls
-
-    /**
-     * The Gap between each Repeat. Default: 0
-     */
-    var repeatAddZ: Double = Default.repeatAddZ
-
-    /**
-     * shifts each repeat in x. Default: 0
-     */
-    var repeatAddX: Double = Default.repeatAddX
-
-    /**
-     * shifts each repeated Structure in y. Default: 0
-     */
-    var repeatAddY: Double = Default.repeatAddY
-
-    /**
-     * adds this value to the Duration to each repeated Structure
-     */
-    var repeatAddDuration: Double = Default.repeatAddDuration
-
-    /**
-     * adds this value to the Height to each repeated Structure
-     */
-    var repeatAddHeight: Double = Default.repeatAddHeight
-
-    /**
-     * adds this value to the Width to each repeated Structure
-     */
-    var repeatAddWidth: Double = Default.repeatAddWidth
-
-    /**
-     * adds this value to the StartRow to each repeated Structure
-     */
-    var repeatAddStartRow: Double = Default.repeatAddStartRow
-
-    /**
-     * adds this value to the StartHeight to each repeated Structure
-     */
-    var repeatAddStartHeight: Double = Default.repeatAddStartHeight
-    /**
-     * adds this value to the StartTime to each repeated Structure
-     */
-    var repeatAddStartTime: Double = Default.repeatAddStartTime
-    /**
-     * adds this value to the rotation to each repeated Structure
-     */
-    var repeatAddRotation: Double = Default.repeatAddRotation
 
     /**
      * The Color of the Wallstructure. Click me to see examples
@@ -293,44 +240,28 @@ sealed class WallStructure:Serializable
     var color: ColorMode = Default.color
 
     /**
-     * The rotation of the wallstructure around the player, think 360 maps. click me.
-     * ```
-     * # rotates the entire Wallstructure 90 degrees
-     * rotation: 90
-     *
-     * # also rotates the entire Wallstructure 90 degrees. You can use negative values as well
-     * rotation: 450
-     *
-     * # rotates the walls linear from 45 to 90.
-     * rotation: ease(45,90)
-     *
-     * # rotates the walls from 180 to 90 degrees using easeInOutQuad.
-     * # all Easing methods can be found here https://easings.net/en
-     * rotation: ease(180,90,easeInOutQuad)
-     *
-     * # switches the rotation between the given values. here the first wall will have rotation 24, ththe second one 48 the third one 50, the fourth 24  and so forth
-     * rotation: switch(24,48,50)
-     *
-     * # rotates all the way around the player (360 degrees)
-     * rotation: circle
-     *
-     * # rotates twice all the way around the player backwards
-     * rotation: circle(-2)
-     * ```
-     *
-     * default: noRotation
-     *
-     *  Other interesting Properties: mirrorRotation -> controls if mirror also effects the rotation(true,false)
+     * The rotationY of the track of this wallstructure around the player on the X-Axis, think walls coming from the ground/sky
+     * Other interesting Properties: mirrorRotation -> controls if mirror also effects the rotationY(true,false)
      */
-    var rotation: RotationMode = Default.rotation
+    val rotationX: Double by BwDouble()
+    /**
+     * The rotationY of the track of this wallstructure around the player on the y-Axis, think 360 maps.
+     * Other interesting Properties: mirrorRotation -> controls if mirror also effects the rotationY(true,false)
+     */
+    val rotationY: Double by BwDouble()
+    /**
+     * The rotationY of the track of this wallstructure around the player on the z-Axis, not used much..
+     * Other interesting Properties: mirrorRotation -> controls if mirror also effects the rotationY(true,false)
+     */
+    val rotationZ: Double by BwDouble()
 
     /**
-     * Defines, if mirror also effects the rotation. Can be true or false. Default: true
+     * Defines, if mirror also effects the rotationY. Can be true or false. Default: true
      */
-    var mirrorRotation: Boolean = Default.mirrorRotation
+    val mirrorRotation: Boolean by BwBoolean(true)
 
     /**
-     * localRotX controls the rotation on the x-axis for each individual wall in degree. allows random. Default: 0
+     * localRotX controls the rotationY on the x-axis for each individual wall in degree. allows random. Default: 0
      *
      *  example:
      *
@@ -339,10 +270,10 @@ sealed class WallStructure:Serializable
      *  localRotX: random(-20,20) # rotates each wall on the x axis randomnly between -20 and 20.
      *  ```
      */
-    var localRotX: RotationMode = Default.localRotX
+    val localRotX by BwDouble()
 
     /**
-     * localRotY controls the rotation on the y-axis for each individual Wall in degree. allows random. Default: 0
+     * localRotY controls the rotationY on the y-axis for each individual Wall in degree. allows random. Default: 0
      *
      *  example:
      *
@@ -351,9 +282,9 @@ sealed class WallStructure:Serializable
      *  localRotY: random(-20,20) # rotates each wall on the x axis randomnly between -20 and 20.
      *  ```
      */
-    var localRotY: RotationMode = Default.localRotY
+    val localRotY by BwDouble()
     /**
-     * * localRotZ controls the rotation on the x-axis for each individual Wall in degree. allows random. Default: 0
+     * * localRotZ controls the rotationY on the x-axis for each individual Wall in degree. allows random. Default: 0
      *
      *  example:
      *
@@ -362,59 +293,33 @@ sealed class WallStructure:Serializable
      *  localRotZ: random(-20,20) # rotates each wall on the x axis randomnly between -20 and 20.
      *  ```
      */
-    var localRotZ: RotationMode = Default.localRotZ
+    val localRotZ by BwDouble()
 
 
     /**
+     * todo
      * used for some internal stuff, dont touch
      */
-    var track: String? = Default.track
+    val track: String? = Default.track
 
     /**
      * turns the entire WallStructure into bombs. only available, if deleteAllPrevious is set.
      */
-    var bombs: Boolean = Default.bombs
-
-    val repeatNeu: MutableList<Repeat>  = mutableListOf()
+    val bombs by BwBoolean(false)
 
     /**
      * I have no idea, ask cyan
      */
-    var noteJumpMovementSpeed: (() -> Double)? = null
+    val noteJumpMovementSpeed by BwDoubleOrNull()
 
     /**
      * I have no idea, ask cyan
      */
-    var noteJumpMovementSpeedOffset: (() -> Double)? = null
+    val noteJumpMovementSpeedOffset by BwDoubleOrNull()
 
     companion object Default {
-        var mirror: Int = 0
-        var time: Boolean = true
-        var reverse: Boolean = false
-        var reverseX: Boolean = false
-        var reverseY: Boolean = false
-        var speeder: Double? = null
-        var repeat: Int = 1
-        var repeatWalls: Int = 1
-        var repeatAddZ: Double = 0.0
-        var repeatAddX: Double = 0.0
-        var repeatAddY: Double = 0.0
-        var repeatAddWidth: Double = 0.0
-        var repeatAddStartRow: Double = 0.0
-        var repeatAddStartHeight: Double = 0.0
-        var repeatAddHeight: Double = 0.0
-        var repeatAddStartTime: Double = 0.0
-        var repeatAddDuration: Double = 0.0
-        var repeatAddRotation: Double = 0.0
         var color: ColorMode = NoColor
-        var rotation: RotationMode = NoRotation
-        var mirrorRotation: Boolean = true
-        var localRotX : RotationMode = NoRotation
-        var localRotY : RotationMode = NoRotation
-        var localRotZ : RotationMode = NoRotation
-        var seed: Int? = null
         var track: String? = null
-        var bombs: Boolean = false
     }
 
     /** generates the walls */
@@ -422,41 +327,6 @@ sealed class WallStructure:Serializable
 
     /** returns the name of the structure */
     open fun name() = this::class.simpleName ?: throw ClassNotFoundException("class does not have a name")
-
-    override fun equals(other: Any?): Boolean {
-        if (this === other) return true
-        if (javaClass != other?.javaClass) return false
-
-        other as WallStructure
-
-        if (spookyWalls != other.spookyWalls) return false
-        if (beat != other.beat) return false
-        if (mirror != other.mirror) return false
-        if (time != other.time) return false
-        if (z != other.z) return false
-        if (d != other.d) return false
-        if (height != other.height) return false
-        if (y != other.y) return false
-        if (x != other.x) return false
-        if (width != other.width) return false
-        if (repeat != other.repeat) return false
-        if (repeatAddZ != other.repeatAddZ) return false
-        if (repeatAddX != other.repeatAddX) return false
-        if (repeatAddY != other.repeatAddY) return false
-
-        return true
-    }
-
-    override fun hashCode(): Int {
-        var result = spookyWalls.hashCode()
-        result = 31 * result + beat.hashCode()
-        result = 31 * result + time.hashCode()
-        result = 31 * result + repeat
-        result = 31 * result + repeatAddZ.hashCode()
-        result = 31 * result + repeatAddX.hashCode()
-        result = 31 * result + repeatAddY.hashCode()
-        return result
-    }
 }
 
 

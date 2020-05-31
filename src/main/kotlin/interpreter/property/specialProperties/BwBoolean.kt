@@ -7,6 +7,7 @@ import kotlin.reflect.KProperty
 //since we only cast true and false at the end, this is basically a number
 class BwBoolean(expression: String = "0.0"): BwNumber(expression) {
     constructor(default: Number): this(default.toString())
+    constructor(default: Boolean): this("$default")
 
     override fun getValue(thisRef: WallStructure, property: KProperty<*>): Boolean {
         wsRef = thisRef

@@ -3,42 +3,47 @@ package structure.wallbender
 import structure.WallStructure
 import structure.helperClasses.SpookyWall
 
-internal fun WallStructure.reverse(l:List<SpookyWall>): List<SpookyWall> {
+internal fun WallStructure.reverse(l:List<SpookyWall>) {
     if (reverse) {
         val last = l.maxBy { spookyWall ->
             spookyWall.z + (spookyWall.duration.takeIf { it > 0 } ?: 0.0)
         }?.z ?: 0.0
-        l.forEach { spookyWall ->
+        l.forEachIndexed { index,spookyWall ->
+            activeWall = spookyWall
+            this.i = index.toDouble()/l.size
             spookyWall.z = last - (spookyWall.z + (spookyWall.duration.takeIf { it > 0 } ?: 0.0))
         }
     }
 
     if (reverseX) {
-        l.reverseX()
+        reverseX(l)
     }
 
     if (reverseY) {
-        l.reverseY()
+        reverseY(l)
     }
-    return l
 }
-fun List<SpookyWall>.reverseX(){
-    val min = this.minXOrZero()
-    val max = this.maxXOrZero()
+fun WallStructure.reverseX(l: List<SpookyWall>) {
+    val min = l.minXOrZero()
+    val max = l.maxXOrZero()
     val center = min + ((max-min )/ 2)
-    this.forEach {
-        it.x = center + (center - it.x)
-        it.width *= -1
+    l.forEachIndexed { index, w ->
+        activeWall = w
+        this.i = index.toDouble()/l.size
+        w.x = center + (center - w.x)
+        w.width *= -1
     }
 }
 
-fun List<SpookyWall>.reverseY() {
-    val min = this.minYOrZero()
-    val max = this.maxYOrZero()
+fun WallStructure.reverseY(l: List<SpookyWall>) {
+    val min = l.minYOrZero()
+    val max = l.maxYOrZero()
     val center = min + ((max - min) / 2)
-    this.forEach {
-        it.y = center + (center - it.y)
-        it.height *= -1
+    l.forEachIndexed { index, w ->
+        activeWall = w
+        this.i = index.toDouble()/l.size
+        w.y = center + (center - w.y)
+        w.height *= -1
     }
 }
 

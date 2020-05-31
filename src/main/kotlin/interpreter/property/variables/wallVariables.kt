@@ -12,7 +12,7 @@ val wallVariables: HashMap<String,(wall: SpookyWall)->Double?> = hashMapOf(
     "wallcolorr" to { ws: SpookyWall -> ws.color?.red },
     "wallcolorg" to { ws: SpookyWall -> ws.color?.green },
     "wallcolorb" to { ws: SpookyWall -> ws.color?.red },
-    "wallrotation" to { ws: SpookyWall -> ws.rotation },
+    "wallrotation" to { ws: SpookyWall -> ws.rotationY },
     "walllocalrotx" to { ws: SpookyWall -> ws.localRotX },
     "walllocalrotx" to { ws: SpookyWall -> ws.localRotY },
     "walllocalrotx" to { ws: SpookyWall -> ws.localRotZ }

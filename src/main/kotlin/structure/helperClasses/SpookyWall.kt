@@ -10,7 +10,6 @@ import chart.difficulty._obstacles
 import java.io.Serializable
 import kotlin.math.max
 import kotlin.math.min
-import kotlin.reflect.full.memberProperties
 
 
 data class SpookyWall(
@@ -29,7 +28,11 @@ data class SpookyWall(
     @Expose
     @SerializedName("color") var color: Color? = null,
     @Expose
-    @SerializedName("rotation") var rotation: Double = 0.0,
+    @SerializedName("rotationX") var rotationX: Double = 0.0,
+    @Expose
+    @SerializedName("rotationY") var rotationY: Double = 0.0,
+    @Expose
+    @SerializedName("rotationZ") var rotationZ: Double = 0.0,
     @Expose
     @SerializedName("localRotX") var localRotX: Double = 0.0,
     @Expose
@@ -137,8 +140,7 @@ data class SpookyWall(
         }
         t.width = t.width.coerceAtLeast(minValue)
         t.height = t.height.coerceAtLeast(minValue)
-
-        t.rotation = t.rotation % 360
+        t.rotationY = t.rotationY % 360
         t.localRotX = t.localRotX % 360
         t.localRotY = t.localRotY % 360
         t.localRotZ = t.localRotZ % 360
@@ -187,7 +189,9 @@ data class SpookyWall(
             color != null -> listOf(color!!.red, color!!.green, color!!.blue)
             else -> null }
 
-        val tRotation = if (rotation == 0.0) null else rotation
+        val tRotationx = if (rotationX == 0.0) null else rotationX
+        val tRotation = if (rotationY == 0.0) null else rotationY
+        val tRotationZ = if (rotationZ == 0.0) null else rotationZ
         val tLocalRotation = if (localRotX == 0.0 && localRotY == 0.0 && localRotZ == 0.0) null
             else listOf(localRotX,localRotY,localRotZ)
 

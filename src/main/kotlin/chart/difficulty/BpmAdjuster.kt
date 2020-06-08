@@ -39,7 +39,7 @@ class BpmAdjuster(diff: Difficulty) {
         walls.forEach { it.addOffset() }
 
         // adds the njsOffset if time is true
-        if (w.time)
+        if (w.timeToNjsOffset)
             walls.forEach { it.z += GlobalConfig.hjsDuration }
 
         if (w !is Define || w.isTopLevel)

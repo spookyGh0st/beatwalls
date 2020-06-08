@@ -218,26 +218,26 @@ sealed class WallStructure:Serializable
      * color: 255,0,0
      * # also turns the entire WallStructure red, but uses rgb values.
      *
-     * color: rainbow
+     * color: rainbow(1.0)
      * # creates a rainbow :)
      *
      * color: rainbow(1.5)
      * # also creates a rainbow :), but this one changes 1.5 times as fast as the default one
      *
-     * color: flash(green)
-     * # Flashes between green and the default color
+     * color: flash2(green, black)
+     * # Flashes between green and black. You need to specify the number of colors
      *
-     * color: flash(128,128,128,Green)
-     * # Flashes between Dark Gray (128,128,128) and Green.
+     * color: flash3(black, 128,128,128,Green)
+     * # Flashes between black, Dark Gray (128,128,128) and Green.
      *
-     * color: flash(red, green, blue, yellow)
+     * color: flash4(red, green, blue, yellow)
      * # changes color in the order red, green, blue, yellow.
      *
      * color: gradient(Red,Cyan)
      * # gradient from Red to Furry (Cyan))
      *
      */
-    var color: ColorMode = Default.color
+    val color by BwColor()
 
     /**
      * The rotationY of the track of this wallstructure around the player on the X-Axis, think walls coming from the ground/sky

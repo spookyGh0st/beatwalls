@@ -20,6 +20,7 @@ fun WallStructure.extraStuff(l: List<SpookyWall>) {
     for ((i, wall) in l.withIndex()) {
         this.activeWall = wall
         this.i = i.toDouble() / l.size
+        if (color != null) wall.color = color
         if (track != null) wall.track = track
         if (noteJumpMovementSpeed != null) wall.noteJumpStartBeat = noteJumpMovementSpeed
         if (noteJumpMovementSpeedOffset != null) wall.noteJumpStartBeatOffset = noteJumpMovementSpeedOffset

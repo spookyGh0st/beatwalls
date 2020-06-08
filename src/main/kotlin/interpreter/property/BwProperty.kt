@@ -1,15 +1,14 @@
 package interpreter.property
 
-import assetFile.propOfName
 import interpreter.parser.bwPropNames
 import interpreter.property.functions.*
-import interpreter.property.specialProperties.Repeat
 import interpreter.property.specialProperties.RepeatCounter
 import interpreter.property.variables.buildInVariables
 import interpreter.property.variables.valueOfProperty
 import interpreter.property.variables.wallVariables
 import net.objecthunter.exp4j.Expression
 import net.objecthunter.exp4j.ExpressionBuilder
+import net.objecthunter.exp4j.function.Function
 import net.objecthunter.exp4j.tokenizer.UnknownFunctionOrVariableException
 import structure.WallStructure
 import java.lang.NullPointerException
@@ -42,7 +41,7 @@ abstract class BwProperty{
      */
     abstract fun powExpr(e: String)
 
-    fun buildExpression(expressionString: String): Expression {
+    fun prepareExpression(expressionString: String): ExpressionBuilder {
         return ExpressionBuilder(expressionString)
             .functions(BwRandom0(wsRef),BwRandom1(wsRef),BwRandom2(wsRef))
             .functions(easingFunctions(wsRef))
@@ -51,7 +50,10 @@ abstract class BwProperty{
             .variables(wallVariables.keys)
             .variables(bwPropNames.toMutableSet())
             .variables(wsRef?.variables?.keys)
-            .build()
+    }
+
+    fun buildExpression(expressionString: String): Expression {
+        return prepareExpression(expressionString).build()
     }
 
     fun setVariables(e: Expression, ws: WallStructure): Expression {

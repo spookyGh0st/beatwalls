@@ -4,6 +4,7 @@ import interpreter.parser.bwPropNames
 import interpreter.property.functions.*
 import interpreter.property.specialProperties.RepeatCounter
 import interpreter.property.variables.buildInVariables
+import interpreter.property.variables.pointVariables
 import interpreter.property.variables.valueOfProperty
 import interpreter.property.variables.wallVariables
 import net.objecthunter.exp4j.Expression
@@ -47,6 +48,7 @@ abstract class BwProperty{
             .functions(easingFunctions(wsRef))
             .functions(BwSwitch2(),BwSwitch3(),BwSwitch4(),BwSwitch5())
             .variable("repeatcounter")
+            .variables(pointVariables)
             .variables(wallVariables.keys)
             .variables(bwPropNames.toMutableSet())
             .variables(wsRef?.variables?.keys)
@@ -71,6 +73,7 @@ abstract class BwProperty{
         in ws.variables.keys -> ws.variables[s]
         in buildInVariables.keys -> buildInVariables[s]
         in wallVariables.keys -> wallVariables[s]?.invoke(ws.activeWall)
+        in pointVariables -> valueOfProperty(ws,s)
         in bwPropNames -> valueOfProperty(ws,s)
         else -> throw UnknownFunctionOrVariableException(s,0,0)
     }

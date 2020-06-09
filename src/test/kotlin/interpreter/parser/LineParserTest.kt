@@ -69,19 +69,6 @@ struct w1:TestStructure,hyper
         assertEquals(15, ws.a)
     }
 
-    //todo @Test
-    fun `test custom function`() {
-        val t = """
-fun f(x) = x+2
-10 TestStructure
-  a = f(2)
-        """.trimIndent().toLowerCase()
-        val lp = LineParser()
-        val ws = lp.create(t.toLines()).first()
-        //TODO add custom Functions
-        //assertEquals(4, ws.a)
-    }
-
     @Test
     fun `test constant`() {
         val t = """
@@ -92,19 +79,6 @@ const testProp = 4
         val lp = LineParser()
         val ws = lp.create(t.toLines()).first()
         assertEquals(4, ws.a)
-    }
-
-    // todo @Test
-    fun `test constant in function`() {
-        val t = """
-const testProp = 10
-fun f(x) = x+testProp
-10 TestStructure
-  a = f(10)
-        """.trimIndent().toLowerCase()
-        val lp = LineParser()
-        val ws = lp.create(t.toLines()).first()
-        assertEquals(20, ws.a)
     }
 
     @Test
@@ -139,13 +113,13 @@ interface fast
         val t = """
 10 testStructure
   testPoint = 1,3,5
-  testInt = testPointX + testPointY + testPointZ
+  testInt = testPoint.X + testPoint.Y + testPoint.Z
         """.trimIndent().toLowerCase().toLines()
         // todo find a way for this
-        // val lp = LineParser()
-        // val ws = lp.create(t).first() as TestStructure
-        // assertEquals(Point(1,3,5), ws.testPoint)
-        // assertEquals(9,ws.testInt)
+        val lp = LineParser()
+        val ws = lp.create(t).first() as TestStructure
+        assertEquals(Point(1,3,5), ws.testPoint)
+        assertEquals(9,ws.testInt)
     }
 
     @Test

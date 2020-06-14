@@ -2,17 +2,19 @@
 
 ## planned Features
 
+- More Noodle Wallstructures
+- better logging and feedback of errors
 - better map loading
 - name globbing
 - faster runtime 
-- More Noodle Wallstructures
 - better curve
 - modules
 - vsc plugin
-- syntax checker
 - formatter
 
 ## v1.0.0
+
+__TONS OF STUFF, REREAD THE DOCUMENTATION
 
 __Fancy new Documentations__
 - it looks good now and hopefully is helpful
@@ -24,13 +26,14 @@ __New Language Features__
 - constants
  
 __New Syntax__
-- spaces instead of `:` for faster writting
-- expressions instead of old add names
+- spaces instead of `:` for wallstructures 
+- expressions instead of old add names, e.g. `x +=`
 - renamed StartWidth/StartHeight/StartTime to x,y,z
 
 __WallStructure changes__
 - Wall now uses Points instead of single Variables
 - Some default Values have been changed
+- 
 
 ## Older
 

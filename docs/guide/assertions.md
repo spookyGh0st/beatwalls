@@ -29,7 +29,7 @@ Beatwalls supports math expressions.
 Functions in Beatwalls take some numbers as input and return one. 
 They can and should not assign properties. 
 
-Beatwalls features [build-in](http://mathparser.org/api/org/mariuszgromada/math/mxparser/mathcollection/MathFunctions.html)
+Beatwalls features [build-in](https://www.objecthunter.net/exp4j/#Built-in_functions)
 functions for more advanced use cases.
 
 ::: tip
@@ -48,40 +48,30 @@ When you have a wallstructure with 4 beats, i will be 0 on the first wall, 0.25 
 They have also been enhanced by some functions I found lacking.
 - all easing methods [here](https://easings.net/)
 - random Functions
+- switch, to switch between mutliple values 
 
 ```
 10 wall
     height = easeInSin(0,20)
     height += random(-2,2)
+    height *= switch2(1,2) # you need to have the argument size here atm, e.g. switch3(1,3,4)
 ```
 
 ::: danger
 Not all properties that are used to __create__ wallstructures do not have access to easing functions. 
-You can only use easing functions on properties that are used to __change__ existing wallstructures.
+You can only use easing functions on properties that are used to __change__ existing wallstructures or some custom ones. Best to try it out.
 :::
-
-## User-defined Functions
-
-User-defined functions can be created with the keyword `fun`.
-
-```
-fun myFunction(x,y) = sin(x) + 2 * y
-10 wall
-    height = myFunction(1,2) # we will talk about i later
-```
 
 ## Constants
 
-all build-in Constants can be found in [this list](https://mathparser.org/mxparser-tutorial/build-in-constants) e.g. `pi`
-
-## User-defined Constants
-
-User-defined constants can be created with the keyword `const`.
+Constants can be used just like any Variable. There are some build in Functions like `pi, e, true, false`.
+User-defined constants can also be created with the keyword `const`.
 
 ```
 const offset = 20
 10 wall
     height = offset + 10
+    y += sin(i*2* PI)
 ```
 
 ## Beatwalls specific Elements

@@ -7,7 +7,9 @@ To help you with this Beatwalls has some features you might recognized when you 
 ## Custom Wallstructures
 
 You can combine and build on top of existing Wallstructures
-This is a good way to reduce duplicated Code.
+This is a good way to reduce duplicated Code. 
+However Beatwalls is __NOT__ a scripting Language.
+It was written so you dont have to kill yourself making custom Walls and it is perfectly fine if the file gets messy and you copy paste Stuff.
 
 ```
 # Bottom and top Wall of the tunel
@@ -89,4 +91,39 @@ interface default
     duration = -3
 # will have its duration set to -3
 10 wall
+```
+
+
+## Repeating Wallstructures
+
+Since writing A wallstructure multiple way gets annoying there is a way to repeat it.
+Lets first make our WallStructure, which will be half an helix going from the right to the left side.
+
+```text
+struct myH: NoodleHelix
+    radius = 10
+    rotationAmount = 180
+    count = 1
+```
+
+The way repeat works is that an Variable `repeatCounter` is added which counts up as we repeat.
+Lets make our Wallstructure repeat every second Beat for example.
+
+```text
+10 myH
+    repeat = 8
+    z += repeatCounter * 2
+```
+
+Because can get annoying there is also a build in way for better readability:
+
+```text
+# this is the same as above
+10 myH
+    repeat = 8
+    repeat z += 2
+
+11 myH
+    repeat = 8
+    repeat z += 2
 ```

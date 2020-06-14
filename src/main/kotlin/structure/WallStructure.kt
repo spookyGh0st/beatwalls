@@ -2,11 +2,19 @@
 
 package structure
 
+import chart.difficulty._obstacles
+import chart.difficulty.toSpookyWall
+import com.google.gson.Gson
+import com.google.gson.reflect.TypeToken
 import interpreter.property.specialProperties.*
-import structure.helperClasses.*
-import structure.specialStrucures.*
+import structure.helperClasses.ColorMode
+import structure.helperClasses.NoColor
+import structure.helperClasses.Point
+import structure.helperClasses.SpookyWall
+import structure.specialStrucures.run
 import java.io.Serializable
 import kotlin.random.Random
+
 
 /*
 This is the relevant File for the creation of all WallStructures
@@ -469,6 +477,22 @@ class RandomCuboidLines : WallStructure() {
      * generating the Walls
      */
     override fun generateWalls() = run()
+}
+
+/**
+ *  Use a json Array of NE Walls and have them be an WallStructure
+ */
+class RawWs: WallStructure(){
+    /**
+     * An Array of Walls in NE-Form
+     */
+    val json: String by BwString("")
+    val walls by lazy {
+        val collectionType  = object : TypeToken<Collection<_obstacles?>?>() {}.type
+        Gson().fromJson<Collection<_obstacles>>(json,collectionType)
+        .map { it.toSpookyWall() }
+    }
+    override fun generateWalls(): List<SpookyWall> = walls
 }
 
 /**

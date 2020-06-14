@@ -1,5 +1,6 @@
 package structure.helperClasses
 
+import interpreter.property.functions.getOrZero
 import java.io.Serializable
 import kotlin.math.PI
 import kotlin.math.sin
@@ -8,6 +9,7 @@ import kotlin.math.sin
 data class Color(val red: Double, val green: Double, val blue: Double):Serializable{
     constructor(singleColor: java.awt.Color):this(singleColor.red/255.0, singleColor.green/255.0, singleColor.blue/255.0)
     constructor(red: Int, green: Int, blue: Int):this(red/255.0, green/255.0, blue/255.0)
+    constructor(l: List<Double>):this(l.getOrZero(0), l.getOrZero(1) , l.getOrZero(2))
 }
 
 internal val red = Color(java.awt.Color.RED)

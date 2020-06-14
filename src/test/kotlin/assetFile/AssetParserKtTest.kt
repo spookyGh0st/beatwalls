@@ -2,9 +2,7 @@ package assetFile
 
 import junit.framework.TestCase
 import structure.*
-import structure.helperClasses.Color
 import structure.helperClasses.Point
-import structure.helperClasses.SingleColor
 import kotlin.random.Random
 import kotlin.test.assertNotEquals
 
@@ -64,25 +62,25 @@ class AssetParserKtTest : TestCase() {
         val p = propOfName(w,"changeDuration")
 
         fillProperty(p!!, "1.0", listOf(),w)
-        val actual = w.d
+        val actual = w.duration
         assertEquals(actual,1.0)
         assertNotEquals(actual, 0.0)
 
         fillProperty(p, "random(0,1)", listOf(), w)
-        assertNotEquals(w.d, w.d)
+        assertNotEquals(w.duration, w.duration)
         repeat(100) {
-            assert(w.d in 0.0..1.0)
+            assert(w.duration in 0.0..1.0)
         }
         fillProperty(p, "random(-2,-1)", listOf(), w)
-        assertNotEquals(w.d, w.d)
+        assertNotEquals(w.duration, w.duration)
         repeat(100) {
-            assert(w.d in -2.0..-1.0)
+            assert(w.duration in -2.0..-1.0)
         }
         RandomSeed = Random(10)
         val r = Random(10)
         fillProperty(p, "random(0,1)", listOf(), w)
         repeat(100) {
-            assertEquals(w.d, r.nextDouble(0.0, 1.0))
+            assertEquals(w.duration, r.nextDouble(0.0, 1.0))
         }
     }
 

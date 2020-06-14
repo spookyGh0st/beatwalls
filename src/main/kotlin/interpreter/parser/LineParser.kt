@@ -84,7 +84,6 @@ class LineParser {
     fun addRepeat(l: Line){
         val s = "${l.sAfter(keyRepeat)}*repeatcounter"
         val a = Assign(s)
-        val max = l.sAfter(keyAssignment).toIntOrNull()?: throw  InvalidLineExpression(l,"Could not get the max value")
         lastStructure.operations.add{
             val bwProp = it.delOfPropName(a.name)?: throw InvalidLineExpression(l,"Property ${a.name} does not exist")
             bwProp.repeatCounter = it.repeatCounter
@@ -129,7 +128,7 @@ class LineParser {
 
         val structList: List<WallStructure> = ohList.filterIsInstance<WsFactory>().map { it.create() }
         val interfaceOp: MutableList<operation> = ohList.filterIsInstance<BwInterface>().flatMap { it.operations }.toMutableList()
-        val wsGenerator: () -> Define ={ Define().also { it.structures = structList }}
+        val wsGenerator: () -> Define ={ Define().also { it.structures = structList; it.name = name }}
         val wsFactory = WsFactory(wsGenerator, interfaceOp)
         dataSet.wsFactories[name]=wsFactory
         lastStructure = wsFactory

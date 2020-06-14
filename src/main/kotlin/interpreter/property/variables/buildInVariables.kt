@@ -8,3 +8,9 @@ val buildInVariables = hashMapOf(
     "false" to 0.0,
     "true" to 1.0
 )
+val buildInVariablesNames = mutableSetOf(
+    "pi" ,
+    "e",
+    "false",
+    "true"
+)

@@ -122,7 +122,7 @@ sealed class WallStructure:Serializable
     /**
      * change The Duration of all Walls in the structure to the given Value. Random possible with random(min,max). Default: null
      */
-    val d by BwDouble("wall${SpookyWall::duration.name}") // todo rename to duration
+    val duration by BwDouble("wall${SpookyWall::duration.name}") // todo rename to duration
     /**
      * change The Height of all Walls in the structure to the given Value. Random possible with random(min,max). Default: null
      */
@@ -243,17 +243,17 @@ sealed class WallStructure:Serializable
      * The rotationY of the track of this wallstructure around the player on the X-Axis, think walls coming from the ground/sky
      * Other interesting Properties: mirrorRotation -> controls if mirror also effects the rotationY(true,false)
      */
-    val rotationX: Double by BwDouble()
+    val rotationX: Double by BwDouble("wall${SpookyWall::rotationX.name}")
     /**
      * The rotationY of the track of this wallstructure around the player on the y-Axis, think 360 maps.
      * Other interesting Properties: mirrorRotation -> controls if mirror also effects the rotationY(true,false)
      */
-    val rotationY: Double by BwDouble()
+    val rotationY: Double by BwDouble("wall${SpookyWall::rotationY.name}")
     /**
      * The rotationY of the track of this wallstructure around the player on the z-Axis, not used much..
      * Other interesting Properties: mirrorRotation -> controls if mirror also effects the rotationY(true,false)
      */
-    val rotationZ: Double by BwDouble()
+    val rotationZ: Double by BwDouble("wall${SpookyWall::rotationZ.name}")
 
     /**
      * Defines, if mirror also effects the rotationY. Can be true or false. Default: true
@@ -270,7 +270,7 @@ sealed class WallStructure:Serializable
      *  localRotX: random(-20,20) # rotates each wall on the x axis randomnly between -20 and 20.
      *  ```
      */
-    val localRotX by BwDouble()
+    val localRotX by BwDouble("wall${SpookyWall::localRotX.name}")
 
     /**
      * localRotY controls the rotationY on the y-axis for each individual Wall in degree. allows random. Default: 0
@@ -282,7 +282,7 @@ sealed class WallStructure:Serializable
      *  localRotY: random(-20,20) # rotates each wall on the x axis randomnly between -20 and 20.
      *  ```
      */
-    val localRotY by BwDouble()
+    val localRotY by BwDouble("wall${SpookyWall::localRotY.name}")
     /**
      * * localRotZ controls the rotationY on the x-axis for each individual Wall in degree. allows random. Default: 0
      *
@@ -293,7 +293,7 @@ sealed class WallStructure:Serializable
      *  localRotZ: random(-20,20) # rotates each wall on the x axis randomnly between -20 and 20.
      *  ```
      */
-    val localRotZ by BwDouble()
+    val localRotZ by BwDouble("wall${SpookyWall::localRotZ.name}")
 
 
     /**
@@ -855,7 +855,7 @@ class ContinuousCurve : WallStructure(){
     /**
      * The duration of each wall
      */
-    var duration: Double = -3.0
+    var indWallDuration: Double = -3.0
     /**
      * The amount of Walls per beat
      */

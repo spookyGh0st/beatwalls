@@ -15,6 +15,7 @@ fun WallStructure.bendWalls(walls: List<SpookyWall>): List<SpookyWall> {
 }
 
 fun WallStructure.generateBendAndRepeatWalls(): List<SpookyWall> {
+    this.repeatCounter.value = 0
     var l = this.generateWalls()
     l= this.bendWalls(l)
     l = this.repeatStruct(l)

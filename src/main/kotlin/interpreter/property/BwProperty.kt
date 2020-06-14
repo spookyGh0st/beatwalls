@@ -3,10 +3,7 @@ package interpreter.property
 import interpreter.parser.bwPropNames
 import interpreter.property.functions.*
 import interpreter.property.specialProperties.RepeatCounter
-import interpreter.property.variables.buildInVariables
-import interpreter.property.variables.pointVariables
-import interpreter.property.variables.valueOfProperty
-import interpreter.property.variables.wallVariables
+import interpreter.property.variables.*
 import net.objecthunter.exp4j.Expression
 import net.objecthunter.exp4j.ExpressionBuilder
 import net.objecthunter.exp4j.function.Function
@@ -19,7 +16,7 @@ import kotlin.reflect.KProperty
 abstract class BwProperty{
 
     var wsRef: WallStructure? = null
-    lateinit var repeatCounter: RepeatCounter
+    var repeatCounter: RepeatCounter? = null
     abstract operator fun getValue(thisRef: WallStructure, property: KProperty<*>): Any?
 
     /**
@@ -43,15 +40,16 @@ abstract class BwProperty{
     abstract fun powExpr(e: String)
 
     fun prepareExpression(expressionString: String): ExpressionBuilder {
-        return ExpressionBuilder(expressionString)
+        return ExpressionBuilder(expressionString.toLowerCase())
             .functions(BwRandom0(wsRef),BwRandom1(wsRef),BwRandom2(wsRef))
             .functions(easingFunctions(wsRef))
             .functions(BwSwitch2(),BwSwitch3(),BwSwitch4(),BwSwitch5())
             .variable("repeatcounter")
+            .variables(buildInVariablesNames)
             .variables(pointVariables)
             .variables(wallVariables.keys)
             .variables(bwPropNames.toMutableSet())
-            .variables(wsRef?.variables?.keys)
+            .variables(wsRef?.variables?.keys?: emptySet())
     }
 
     fun buildExpression(expressionString: String): Expression {
@@ -69,7 +67,7 @@ abstract class BwProperty{
 
     fun variableValue(s:String,ws: WallStructure): Double? = when (s){
         "i" -> wsRef?.i?:0.0
-        "repeatcounter" -> repeatCounter.value.toDouble()
+        "repeatcounter" -> repeatCounter?.value?.toDouble()?: 0.0
         in ws.variables.keys -> ws.variables[s]
         in buildInVariables.keys -> buildInVariables[s]
         in wallVariables.keys -> wallVariables[s]?.invoke(ws.activeWall)

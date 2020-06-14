@@ -16,7 +16,7 @@ internal fun WallStructure.adjust(l: List<SpookyWall>){
         wall.z = z
         wall.width = width
         wall.height = height
-        wall.duration = d
+        wall.duration = duration
 
         wall.z *= scaleZ
         if (wall.duration > 0)

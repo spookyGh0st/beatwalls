@@ -42,7 +42,6 @@ class BpmAdjuster(diff: Difficulty) {
         if (w.timeToNjsOffset)
             walls.forEach { it.z += GlobalConfig.hjsDuration }
 
-        if (w !is Define || w.isTopLevel)
             logger.info { "Added ${w.name()} with ${walls.size} walls on beat ${w.beat}." }
         // creates Obstacles
         return walls

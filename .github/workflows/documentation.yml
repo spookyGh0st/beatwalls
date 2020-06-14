@@ -1,0 +1,26 @@
+on:
+  push:
+    paths:
+      - 'docs/**'
+      - '.github/workflows/documentation.yml'
+      - 'src/main/kotlin/structure/WallStructure.kt'
+
+jobs:
+  deploy_docs:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@master
+      - name: Build Reference
+        run: |
+          mvn -B site --file pom.xml
+          mv target/dokka/beatwalls/structure docs/reference
+      - name: Build Documentation
+        run: |
+          yarn install --frozen-lockfile
+          yarn build
+      - name: Deploy
+        uses: JamesIves/github-pages-deploy-action@releases/v3
+        with:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}.
+          BRANCH: gh-pages
+          FOLDER: docs/.vuepress/dist

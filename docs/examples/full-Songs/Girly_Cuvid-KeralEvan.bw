@@ -1,0 +1,8594 @@
+# starting to learn using beatwalls a day after the building block contest song pool release.
+# should there be warning if anyone gonna read this and gone wtf?
+# after countless of breakdown and sanity break, here's the result.
+# i wish to never do this again.
+# no script were used in these processes.
+
+#  --  SONG SECTIONS  --
+#	   5 - 37    >   Start
+#	0:02 - 0:16
+#  ------ ------
+#	  37 - 69    >   Intro 1
+#	0:16 - 0:31
+#  ------ ------
+#	  69 - 101   >   Intro 2
+#	0:31 - 0:45
+#  ------ ------
+#	 101 - 133   >   Pre-build
+#	0:45 - 1:00
+#  ------ ------
+#	 133 - 165   >   Build
+#	1:00 - 1:14
+#  ------ ------
+#	 165 - 197   >   Drop 1-1
+#	1:14 - 1:28
+#  ------ ------
+#	 197 - 229   >   Drop 1-2
+#	1:28 - 1:43
+#  ------ ------
+#	 229 - 261   >   Cooldown
+#	1:43 - 1:57
+#  ------ ------
+#	 261 - 293   >   Bridge 1-1
+#	1:57 - 2:12
+#  ------ ------
+#	 293 - 325   >   Bridge 1-2
+#	2:12 - 2:26
+#  ------ ------
+#	 325 - 357   >   Pre-build
+#	2:26 - 2:41
+#  ------ ------
+#	 357 - 389   >   Build
+#	2:41 - 2:55
+#  ------ ------
+#	 389 - 421   >   Drop 2-1
+#	2:55 - 3:09
+#  ------ ------
+#	 421 - 453   >   Drop 2-2
+#	3:09 - 3:24
+#  ------ ------
+#	 453 - 485   >   Outro 1
+#	3:24 - 3:38
+#  ------ ------
+#	 485 - 517   >   Outro 2
+#	3:38 - 3:53
+#  ------ ------
+#    517 - 541   >   End
+#	3:53 - 4:04
+#  --  END SONG SECTIONS  --
+
+
+
+#  --  DEFINED STRUCTURES  --
+# > Rotating Spiral Tile with Gap
+# this was the first one i did and it is horrifyingly bad way to do it, don't do this.
+define: _spiralTile1
+	structures: NoodleHelix
+	radius: 16
+	center: 0,5,0
+	amount: 12
+	startRotation: 0
+	rotationAmount: -360
+define: _spiralTile2
+	structures: NoodleHelix
+	radius: 16
+	center: 0,5,0
+	amount: 12
+	startRotation: 45
+	rotationAmount: -360
+define: _spiralTile3
+	structures: NoodleHelix
+	radius: 16
+	center: 0,5,0
+	amount: 12
+	startRotation: 90
+	rotationAmount: -360
+define: _spiralTile4
+	structures: NoodleHelix
+	radius: 16
+	center: 0,5,0
+	amount: 12
+	startRotation: 135
+	rotationAmount: -360
+define: _spiralTile5
+	structures: NoodleHelix
+	radius: 16
+	center: 0,5,0
+	amount: 12
+	startRotation: 180
+	rotationAmount: -360
+define: _spiralTile6
+	structures: NoodleHelix
+	radius: 16
+	center: 0,5,0
+	amount: 12
+	startRotation: 225
+	rotationAmount: -360
+define: _spiralTile7
+	structures: NoodleHelix
+	radius: 16
+	center: 0,5,0
+	amount: 12
+	startRotation: 270
+	rotationAmount: -360
+define: _spiralTile8
+	structures: NoodleHelix
+	radius: 16
+	center: 0,5,0
+	amount: 12
+	startRotation: 315
+	rotationAmount: -360
+define: SpiralTile
+	structures: _spiralTile1,_spiralTile2,_spiralTile3,_spiralTile4,_spiralTile5,_spiralTile6,_spiralTile7,_spiralTile8
+define: SpiralTileT
+	structures: _spiralTile1,_spiralTile4
+
+# > Spiral Tile Background
+define: SpiralTileBG
+	structures: NoodleHelix
+	radius: 32
+	center: 0,5,0
+	amount: 1
+	count: 8
+	startRotation: 0
+	rotationAmount: 45
+
+# > Horizontal Hyper Wall
+# unused, scrapped idea
+define: _horizontalWall1
+	structures: Wall
+	height: 0
+	width: 0
+	startRow: 32
+	changeDuration: -2.5
+	rotation: 270
+	repeat: 48
+	repeatAddZ: 0.00390625
+define: _horizontalWall2
+	structures: Wall
+	height: 0
+	width: 0
+	startRow: -32
+	changeDuration: -2.5
+	rotation: 90
+	repeat: 48
+	repeatAddZ: 0.00390625
+define: HorizontalHyperWall
+	structures: _horizontalWall1,_horizontalWall2
+
+# > Space Block
+define: _spaceBlock1
+	structures: RandomNoise
+	p1: -12,8,0
+	p2: 0,12,1
+	amount: 1
+define: _spaceBlock2
+	structures: RandomNoise
+	p1: 0,8,0
+	p2: 12,12,1
+	amount: 1
+define: _spaceBlock3
+	structures: RandomNoise
+	p1: -16,-8,0
+	p2: -12,8,1
+	amount: 1
+define: _spaceBlock4
+	structures: RandomNoise
+	p1: 12,-8,0
+	p2: 16,8,1
+	amount: 1
+define: SpaceBlock
+	structures: _spaceBlock1,_spaceBlock2,_spaceBlock3,_spaceBlock4
+
+# > Lil Side Cube
+define: _sideLilCube1
+	structures: RandomNoise
+	p1: -2,-12,0
+	p2: 18,-6,0.125
+	amount: 6
+	changeDuration: 0.0625
+	changeHeight: 0.75
+	changeWidth: 0.75
+	color: 32,32,32
+define: _sideLilCube2
+	structures: RandomNoise
+	p1: -2,-12,0
+	p2: 18,-6,0.0625
+	amount: 2
+	changeDuration: 0.109375
+	changeHeight: 1.25
+	changeWidth: 1.25
+	color: 32,32,32
+define: _sideLilCube3
+	structures: RandomNoise
+	p1: 8,-6,0.0625
+	p2: 20,2,0.3125
+	amount: 6
+	changeDuration: 0.0625
+	changeHeight: 0.75
+	changeWidth: 0.75
+	color: 32,32,32
+define: _sideLilCube4
+	structures: RandomNoise
+	p1: 8,-6,0.0625
+	p2: 20,2,0.125
+	amount: 2
+	changeDuration: 0.109375
+	changeHeight: 1.25
+	changeWidth: 1.25
+	color: 32,32,32
+define: _sideLilCube5
+	structures: RandomNoise
+	p1: 16,0,0.125
+	p2: 24,16,0.625
+	amount: 6
+	changeDuration: 0.0625
+	changeHeight: 0.75
+	changeWidth: 0.75
+	color: 32,32,32
+define: _sideLilCube6
+	structures: RandomNoise
+	p1: 16,0,0.125
+	p2: 24,16,0.1875
+	amount: 2
+	changeDuration: 0.109375
+	changeHeight: 1.25
+	changeWidth: 1.25
+	color: 32,32,32
+define: SideLilCube
+	structures: _sideLilCube1,_sideLilCube2,_sideLilCube3,_sideLilCube4,_sideLilCube5,_sideLilCube6
+
+# > Letter W for Text WA
+define: _textWA_W1
+	structures: Wall
+	width: 0
+	height: 4
+	startRow: -0.75
+	startHeight: 0
+	localRotZ: 30
+define: _textWA_W2
+	structures: Wall
+	width: 0
+	height: 1.5
+	startRow: -0.75
+	startHeight: 0
+	localRotZ: -30
+define: _textWA_W3
+	structures: Wall
+	width: 0
+	height: 1.5
+	startRow: 0.75
+	startHeight: 0
+	localRotZ: 30
+define: _textWA_W4
+	structures: Wall
+	width: 0
+	height: 4
+	startRow: 0.75
+	startHeight: 0
+	localRotZ: -30
+define: _textWA_W5
+	structures: Wall
+	width: 0
+	height: 1.5
+	startRow: -0.75
+	startHeight: 2.15625
+	localRotZ: -30
+define: _textWA_W6
+	structures: Wall
+	width: 0
+	height: 1.5
+	startRow: -0.75
+	startHeight: 2.15625
+	localRotZ: 30
+define: _textWA_W7
+	structures: Wall
+	width: 0
+	height: 1.5
+	startRow: 0.75
+	startHeight: 2.15625
+	localRotZ: -30
+define: _textWA_W8
+	structures: Wall
+	width: 0
+	height: 1.5
+	startRow: 0.75
+	startHeight: 2.15625
+	localRotZ: 30
+define: _textWA_W9
+	structures: Wall
+	width: 1.25
+	height: 0
+	startRow: -2.75
+	startHeight: 3.4375
+define: _textWA_W10
+	structures: Wall
+	width: 1.25
+	height: 0
+	startRow: 1.5
+	startHeight: 3.4375
+define: TextWA_W
+	structures: _textWA_W1,_textWA_W2,_textWA_W3,_textWA_W4,_textWA_W5,_textWA_W6,_textWA_W7,_textWA_W8,_textWA_W9,_textWA_W10
+	addStartRow: -1.6875
+
+# > Letter A for Text WA
+define: _textWA_A1
+	structures: Wall
+	width: 0
+	height: 4
+	startRow: -2
+	startHeight: 0
+	localRotZ: -30
+define: _textWA_A2
+	structures: Wall
+	width: 0
+	height: 4
+	startRow: 2
+	startHeight: 0
+	localRotZ: 30
+define: _textWA_A3
+	structures: Wall
+	width: 1.25
+	height: 0
+	startRow: -2
+	startHeight: 0
+define: _textWA_A4
+	structures: Wall
+	width: 1.25
+	height: 0
+	startRow: 0.75
+	startHeight: 0
+define: _textWA_A5
+	structures: Wall
+	width: 0
+	height: 1.5
+	startRow: -0.75
+	startHeight: 0
+	localRotZ: -30
+define: _textWA_A6
+	structures: Wall
+	width: 0
+	height: 1.5
+	startRow: 0.75
+	startHeight: 0
+	localRotZ: 30
+define: TextWA_A
+	structures: _textWA_A1,_textWA_A2,_textWA_A3,_textWA_A4,_textWA_A5,_textWA_A6
+	addStartRow: 2.1875
+
+# > Text WA
+define: Text_WA
+	structures: TextWA_W,TextWA_A
+	addStartHeight: 0.75
+	changeDuration: 0.0078125
+	scaleWidth: 1.5
+	scaleHeight: 1.5
+	scaleStartRow: 1.5
+	scaleStartHeight: 1.5
+
+# > Side Colourful Block
+define: _sideColourfulBlock1
+	structures: RandomNoise
+	p1: -18,-5,0
+	p2: -6,2.5,0.25
+	color: flash(255,128,32,96,32,224)
+	amount: 2
+define: _sideColourfulBlock2
+	structures: RandomNoise
+	p1: 6,-5,0
+	p2: 18,2.5,0.25
+	color: flash(255,128,32,96,32,224)
+	amount: 2
+define: _sideColourfulBlock3
+	structures: RandomNoise
+	p1: -12,2.5,0
+	p2: -5,10,0.25
+	color: flash(255,128,32,96,32,224)
+	amount: 2
+define: _sideColourfulBlock4
+	structures: RandomNoise
+	p1: 5,2.5,0
+	p2: 12,10,0.25
+	color: flash(255,128,32,96,32,224)
+	amount: 2
+define: SideColourfulBlock
+	structures: _sideColourfulBlock1,_sideColourfulBlock2,_sideColourfulBlock3,_sideColourfulBlock4
+define: _sideColourfulBlockA1
+	structures: RandomNoise
+	p1: 4,-1,0
+	p2: 6,1,0
+	amount: 1
+define: _sideColourfulBlockA2
+	structures: RandomNoise
+	p1: -16,-1,0.0625
+	p2: -13,1,0.0625
+	amount: 1
+define: _sideColourfulBlockA3
+	structures: RandomNoise
+	p1: 13,8,0.125
+	p2: 10,10,0.125
+	amount: 1
+define: _sideColourfulBlockA4
+	structures: RandomNoise
+	p1: -6,8,0
+	p2: -8,10,0
+	amount: 1
+
+# > Distant Whoosh Effect
+define: _distantWhooshFadeIn1
+	structures: Line
+	p1: 60,-72,0
+	p2: 156,-104,4
+	amount: 32
+	changeDuration: -2.5
+	changeWidth: 32
+	changeHeight: 64
+	fitHeight: 28
+	mirror: 2
+	color: gradient(0,0,0,255,255,255)
+define: _distantWhooshFadeIn2
+	structures: Line
+	p1: 52,-56,0
+	p2: 148,-88,4
+	amount: 32
+	changeDuration: -2.5
+	changeWidth: 32
+	changeHeight: 64
+	fitHeight: 36
+	mirror: 2
+	addStartTime: 1
+	color: gradient(0,0,0,255,255,255)
+define: _distantWhooshFadeIn3
+	structures: Line
+	p1: 44,-40,0
+	p2: 140,-72,4
+	amount: 32
+	changeDuration: -2.5
+	changeWidth: 32
+	changeHeight: 64
+	fitHeight: 44
+	mirror: 2
+	addStartTime: 2
+	color: gradient(0,0,0,255,255,255)
+define: _distantWhooshFadeIn4
+	structures: Line
+	p1: 36,-24,0
+	p2: 132,-56,4
+	amount: 32
+	changeDuration: -2.5
+	changeWidth: 32
+	changeHeight: 64
+	fitHeight: 52
+	mirror: 2
+	addStartTime: 3
+	color: gradient(0,0,0,255,255,255)
+define: DistantWhooshFadeIn
+	structures: _distantWhooshFadeIn1,_distantWhooshFadeIn2,_distantWhooshFadeIn3,_distantWhooshFadeIn4
+define: _distantWhooshFadeOut1
+	structures: Line
+	p1: 32,-16,0
+	p2: 128,-48,4
+	amount: 32
+	changeDuration: -2.5
+	changeWidth: 32
+	changeHeight: 64
+	fitHeight: 56
+	mirror: 2
+	color: gradient(255,255,255,0,0,0)
+define: _distantWhooshFadeOut2
+	structures: Line
+	p1: 36,-24,0
+	p2: 132,-56,4
+	amount: 32
+	changeDuration: -2.5
+	changeWidth: 32
+	changeHeight: 64
+	fitHeight: 52
+	mirror: 2
+	addStartTime: 1
+	color: gradient(255,255,255,0,0,0)
+define: _distantWhooshFadeOut3
+	structures: Line
+	p1: 40,-32,0
+	p2: 136,-64,4
+	amount: 32
+	changeDuration: -2.5
+	changeWidth: 32
+	changeHeight: 64
+	fitHeight: 48
+	mirror: 2
+	addStartTime: 2
+	color: gradient(255,255,255,0,0,0)
+define: _distantWhooshFadeOut4
+	structures: Line
+	p1: 44,-40,0
+	p2: 140,-72,4
+	amount: 32
+	changeDuration: -2.5
+	changeWidth: 32
+	changeHeight: 64
+	fitHeight: 44
+	mirror: 2
+	addStartTime: 3
+	color: gradient(255,255,255,0,0,0)
+define: _distantWhooshFadeOut5
+	structures: Line
+	p1: 48,-48,0
+	p2: 144,-80,4
+	amount: 32
+	changeDuration: -2.5
+	changeWidth: 32
+	changeHeight: 64
+	fitHeight: 40
+	mirror: 2
+	addStartTime: 4
+	color: gradient(255,255,255,0,0,0)
+define: DistantWhooshFadeOut
+	structures: _distantWhooshFadeOut1,_distantWhooshFadeOut2,_distantWhooshFadeOut3,_distantWhooshFadeOut4,_distantWhooshFadeOut5
+
+# > Shape: Square
+define: _square1
+	structures: Wall
+	width: 4
+	height: 0
+	startRow: -2
+	startHeight: -2
+define: _square2
+	structures: Wall
+	width: 4
+	height: 0
+	startRow: -2
+	startHeight: 2
+define: _square3
+	structures: Wall
+	width: 0
+	height: 4
+	startRow: -2
+	startHeight: -2
+define: _square4
+	structures: Wall
+	width: 0
+	height: 4
+	startRow: 2
+	startHeight: -2
+define: ShapeSquare
+	structures: _square1,_square2,_square3,_square4
+	changeDuration: 0.0078125
+
+# > Shape: Diamond
+# because rotating square is hard
+define: ShapeDiamond
+	structures: NoodleHelix
+	radius: 2
+	center: 0,0,0
+	amount: 1
+	count: 4
+	startRotation: 0
+	rotationAmount: 90
+	changeDuration: 0.0078125
+
+# lmao fuck this
+define: _shapeHalfDiamond1
+	structures: NoodleHelix
+	radius: 2
+	center: 0,0,0
+	amount: 1
+	startRotation: 0
+	rotationAmount: 90
+	changeDuration: 0.0078125
+define: _shapeHalfDiamond2
+	structures: NoodleHelix
+	radius: 2
+	center: 0,0,0
+	amount: 1
+	startRotation: 270
+	rotationAmount: 90
+	changeDuration: 0.0078125
+define: ShapeHalfDiamond
+	structures: _shapeHalfDiamond1,_shapeHalfDiamond2
+
+# > Shape: Triangle
+define: _triangle1
+	structures: Wall
+	width: 4
+	height: 0
+	startRow: -2
+	startHeight: -2
+define: _triangle2
+	structures: Wall
+	width: 0
+	height: 4
+	startRow: -2
+	startHeight: -2
+	localRotZ: -30
+define: _triangle3
+	structures: Wall
+	width: 0
+	height: 4
+	startRow: 2
+	startHeight: -2
+	localRotZ: 30
+define: ShapeTriangle
+	structures: _triangle1,_triangle2,_triangle3
+	changeDuration: 0.0078125
+
+# > Shape: Circle
+# count indicate how smooth you want the curve to be
+# rotationAmount uses 360/count value
+define: ShapeCircle
+	structures: NoodleHelix
+	radius: 2
+	center: 0,0,0
+	amount: 1
+	count: 12
+	startRotation: 0
+	rotationAmount: 30
+	changeDuration: 0.0078125
+# fukin end me
+define: ShapeCircleQ1
+	structures: NoodleHelix
+	radius: 2
+	center: 0,0,0
+	amount: 3
+	startRotation: 45
+	rotationAmount: 90
+	scale: 0.0078125
+	changeDuration: 0.0078125
+define: ShapeCircleQ2
+	structures: NoodleHelix
+	radius: 2
+	center: 0,0,0
+	amount: 3
+	startRotation: 135
+	rotationAmount: 90
+	scale: 0.0078125
+	changeDuration: 0.0078125
+define: ShapeCircleQ3
+	structures: NoodleHelix
+	radius: 2
+	center: 0,0,0
+	amount: 3
+	startRotation: 225
+	rotationAmount: 90
+	scale: 0.0078125
+	changeDuration: 0.0078125
+define: ShapeCircleQ4
+	structures: NoodleHelix
+	radius: 2
+	center: 0,0,0
+	amount: 3
+	startRotation: 315
+	rotationAmount: 90
+	scale: 0.0078125
+	changeDuration: 0.0078125
+
+# > Shape: Heart
+define: _heart1
+	structures: Wall
+	width: 0
+	height: 2.5
+	startRow: 0
+	startHeight: -2
+	localRotZ: 52.5
+	mirror: 2
+define: _heart2
+	structures: Wall
+	width: 0
+	height: 1.75
+	startRow: 2
+	startHeight: -0.5
+	localRotZ: 40
+	mirror: 2
+define: _heart3
+	structures: Wall
+	width: 0
+	height: 1.125
+	startRow: 0
+	startHeight: 0.125
+	localRotZ: 52.5
+	mirror: 2
+define: _heart4
+	structures: Wall
+	width: 0
+	height: 0.75
+	startRow: 0
+	startHeight: 0.75
+	localRotZ: 52.5
+define: _heart5
+	structures: Wall
+	width: 0
+	height: 1.28125
+	startRow: 0
+	startHeight: 0.75
+	localRotZ: -47.5
+define: _heart6
+	structures: Wall
+	width: 0
+	height: 2.28125
+	startRow: 2.5
+	startHeight: 0
+	localRotZ: 45
+define: _heart7
+	structures: Wall
+	width: 0
+	height: 3
+	startRow: -2.5
+	startHeight: 0
+	localRotZ: -45
+define: _heart8
+	structures: NoodleHelix
+	radius: 1.46875
+	center: 1.4375,1.0625,0
+	amount: 8
+	startRotation: 0
+	scale: 0.001
+	startRotation: 315
+	rotationAmount: 180
+	mirror: 2
+define: _heart9
+	structures: Wall
+	width: 0
+	height: 1.4375
+	startRow: -0.59375
+	startHeight: 1.1875
+	localRotZ: -47.5
+define: ShapeHeart
+	structures: _heart1,_heart2,_heart3,_heart4,_heart5,_heart6,_heart7,_heart8,_heart9
+	changeDuration: 0.0078125
+	addStartHeight: 3
+
+# > Circle Floor
+# "circle" btw; i completely gave up, hf with this scuffed floor circle
+define: _circleBase1
+	structures: SteadyCurve
+	p1: 0,0,0
+	p2: 1,0,0
+	p3: 1,0,0
+	p4: 1,0,1
+	amount: 8
+	scale: 0.09375
+	mirror: 2
+define: _circleBase2
+	structures: SteadyCurve
+	p1: 1,0,0
+	p2: 1,0,0
+	p3: 1,0,0
+	p4: 0,0,1
+	amount: 8
+	scale: 0.09375
+	addStartTime: 1.0
+	mirror: 2
+define: CircleTrail
+	structures: _circleBase1,_circleBase2
+	scaleWidth: 3
+	scaleStartRow: 3
+	scaleStartTime: 3
+	changeHeight: 1
+	changeStartHeight: -1.25
+	changeDuration: -2.5
+define: _circleTrailV1a
+	structures: CircleTrail
+	addStartRow: -11
+	rotation: 180
+	color: 0,0,0
+define: _circleTrailV1b
+	structures: CircleTrail
+	addStartRow: -11
+	addStartTime: 0.3125
+	rotation: 180
+	color: 96,32,224
+define: _circleTrailV1c
+	structures: CircleTrail
+	addStartRow: -11
+	addStartTime: 0.25
+	color: 0,0,0
+define: _circleTrailV1d
+	structures: CircleTrail
+	addStartRow: -11
+	addStartTime: 0.5625
+	color: 96,32,224
+define: _circleTrailV2a
+	structures: CircleTrail
+	addStartRow: -5
+	addStartTime: 1
+	rotation: 180
+	color: 0,0,0
+define: _circleTrailV2b
+	structures: CircleTrail
+	addStartRow: -5
+	addStartTime: 1.3125
+	rotation: 180
+	color: 255,128,32
+define: _circleTrailV2c
+	structures: CircleTrail
+	addStartRow: -5
+	addStartTime: 1.25
+	color: 0,0,0
+define: _circleTrailV2d
+	structures: CircleTrail
+	addStartRow: -5
+	addStartTime: 1.5625
+	color: 255,128,32
+define: _circleTrailV3a
+	structures: CircleTrail
+	addStartRow: 5
+	addStartTime: 2
+	rotation: 180
+	color: 0,0,0
+define: _circleTrailV3b
+	structures: CircleTrail
+	addStartRow: 5
+	addStartTime: 2.3125
+	rotation: 180
+	color: 96,32,224
+define: _circleTrailV3c
+	structures: CircleTrail
+	addStartRow: 5
+	addStartTime: 2.25
+	color: 0,0,0
+define: _circleTrailV3d
+	structures: CircleTrail
+	addStartRow: 5
+	addStartTime: 2.5625
+	color: 96,32,224
+define: _circleTrailV4a
+	structures: CircleTrail
+	addStartRow: 11
+	addStartTime: 3
+	rotation: 180
+	color: 0,0,0
+define: _circleTrailV4b
+	structures: CircleTrail
+	addStartRow: 11
+	addStartTime: 3.3125
+	rotation: 180
+	color: 255,128,32
+define: _circleTrailV4c
+	structures: CircleTrail
+	addStartRow: 11
+	addStartTime: 3.25
+	color: 0,0,0
+define: _circleTrailV4d
+	structures: CircleTrail
+	addStartRow: 11
+	addStartTime: 3.5625
+	color: 255,128,32
+define: CircleTrailV
+	structures: _circleTrailV1a,_circleTrailV1b,_circleTrailV1c,_circleTrailV1d,_circleTrailV2a,_circleTrailV2b,_circleTrailV2c,_circleTrailV2d,_circleTrailV3a,_circleTrailV3b,_circleTrailV3c,_circleTrailV3d,_circleTrailV4a,_circleTrailV4b,_circleTrailV4c,_circleTrailV4d
+define: _circleTrailV21
+	structures: CircleTrail
+	addStartRow: -11
+	addStartTime: 0
+	rotation: 180
+	color: 96,32,224
+define: _circleTrailV22
+	structures: CircleTrail
+	addStartRow: -5
+	addStartTime: 1
+	rotation: 180
+	color: 255,128,32
+define: _circleTrailV23
+	structures: CircleTrail
+	addStartRow: 5
+	addStartTime: 2
+	rotation: 180
+	color: 96,32,224
+define: _circleTrailV24
+	structures: CircleTrail
+	addStartRow: 11
+	addStartTime: 3
+	rotation: 180
+	color: 255,128,32
+define: _circleTrailV25
+	structures: CircleTrail
+	addStartRow: 11
+	addStartTime: 4
+	rotation: 180
+	color: 96,32,224
+define: _circleTrailV26
+	structures: CircleTrail
+	addStartRow: 5
+	addStartTime: 5
+	rotation: 180
+	color: 255,128,32
+define: _circleTrailV27
+	structures: CircleTrail
+	addStartRow: -5
+	addStartTime: 6
+	rotation: 180
+	color: 96,32,224
+define: _circleTrailV28
+	structures: CircleTrail
+	addStartRow: -11
+	addStartTime: 7
+	rotation: 180
+	color: 255,128,32
+define: CircleTrailV2
+	structures: _circleTrailV21,_circleTrailV22,_circleTrailV23,_circleTrailV24,_circleTrailV25,_circleTrailV26,_circleTrailV27,_circleTrailV28
+define: _circleTrailH1a
+	structures: CircleTrail
+	addStartRow: 5
+	rotation: 270
+	color: 0,0,0
+define: _circleTrailH1b
+	structures: CircleTrail
+	addStartRow: 5
+	addStartTime: 0.3125
+	rotation: 270
+	color: 96,32,224
+define: _circleTrailH1c
+	structures: CircleTrail
+	addStartRow: -23
+	rotation: 90
+	color: 0,0,0
+define: _circleTrailH1d
+	structures: CircleTrail
+	addStartRow: -23
+	addStartTime: 0.3125
+	rotation: 90
+	color: 96,32,224
+define: _circleTrailH2a
+	structures: CircleTrail
+	addStartRow: 11
+	addStartTime: 1
+	rotation: 270
+	color: 0,0,0
+define: _circleTrailH2b
+	structures: CircleTrail
+	addStartRow: 11
+	addStartTime: 1.3125
+	rotation: 270
+	color: 255,128,32
+define: _circleTrailH2c
+	structures: CircleTrail
+	addStartRow: -17
+	addStartTime: 1
+	rotation: 90
+	color: 0,0,0
+define: _circleTrailH2d
+	structures: CircleTrail
+	addStartRow: -17
+	addStartTime: 1.3125
+	rotation: 90
+	color: 255,128,32
+define: _circleTrailH3a
+	structures: CircleTrail
+	addStartRow: 17
+	addStartTime: 2
+	rotation: 270
+	color: 0,0,0
+define: _circleTrailH3b
+	structures: CircleTrail
+	addStartRow: 17
+	addStartTime: 2.3125
+	rotation: 270
+	color: 96,32,224
+define: _circleTrailH3c
+	structures: CircleTrail
+	addStartRow: -11
+	addStartTime: 2
+	rotation: 90
+	color: 0,0,0
+define: _circleTrailH3d
+	structures: CircleTrail
+	addStartRow: -11
+	addStartTime: 2.3125
+	rotation: 90
+	color: 96,32,224
+define: _circleTrailH4a
+	structures: CircleTrail
+	addStartRow: 23
+	addStartTime: 3
+	rotation: 270
+	color: 0,0,0
+define: _circleTrailH4b
+	structures: CircleTrail
+	addStartRow: 23
+	addStartTime: 3.3125
+	rotation: 270
+	color: 255,128,32
+define: _circleTrailH4c
+	structures: CircleTrail
+	addStartRow: -5
+	addStartTime: 3
+	rotation: 90
+	color: 0,0,0
+define: _circleTrailH4d
+	structures: CircleTrail
+	addStartRow: -5
+	addStartTime: 3.3125
+	rotation: 90
+	color: 255,128,32
+define: CircleTrailH
+	structures: _circleTrailH1a,_circleTrailH1b,_circleTrailH1c,_circleTrailH1d,_circleTrailH2a,_circleTrailH2b,_circleTrailH2c,_circleTrailH2d,_circleTrailH3a,_circleTrailH3b,_circleTrailH3c,_circleTrailH3d,_circleTrailH4a,_circleTrailH4b,_circleTrailH4c,_circleTrailH4d
+define: _circleTrailH21
+	structures: CircleTrail
+	addStartRow: 23
+	addStartTime: 0
+	rotation: 270
+	color: 96,32,224
+define: _circleTrailH22
+	structures: CircleTrail
+	addStartRow: 17
+	addStartTime: 1
+	rotation: 270
+	color: 255,128,32
+define: _circleTrailH23
+	structures: CircleTrail
+	addStartRow: 11
+	addStartTime: 2
+	rotation: 270
+	color: 96,32,224
+define: _circleTrailH24
+	structures: CircleTrail
+	addStartRow: 5
+	addStartTime: 3
+	rotation: 270
+	color: 255,128,32
+define: _circleTrailH25
+	structures: CircleTrail
+	addStartRow: -23
+	addStartTime: 4
+	rotation: 90
+	color: 96,32,224
+define: _circleTrailH26
+	structures: CircleTrail
+	addStartRow: -17
+	addStartTime: 5
+	rotation: 90
+	color: 255,128,32
+define: _circleTrailH27
+	structures: CircleTrail
+	addStartRow: -11
+	addStartTime: 6
+	rotation: 90
+	color: 96,32,224
+define: _circleTrailH28
+	structures: CircleTrail
+	addStartRow: -5
+	addStartTime: 7
+	rotation: 90
+	color: 255,128,32
+define: CircleTrailH2
+	structures: _circleTrailH21,_circleTrailH22,_circleTrailH23,_circleTrailH24,_circleTrailH25,_circleTrailH26,_circleTrailH27,_circleTrailH28
+
+# > Tile Trail
+define: _tileTrailBase
+	structures: Wall
+	width: 3
+	height: 0.25
+	startHeight: 0
+	changeDuration: -2.5
+define: _tileTrail1
+	structures: _tileTrailBase
+	changeStartRow: 9
+	rotation: 180
+	mirror: 2
+	color: 0,0,0
+define: _tileTrail2
+	structures: _tileTrailBase
+	addStartTime: 0.166
+	changeStartRow: 6
+	rotation: 180
+	mirror: 2
+	color: 0,0,0
+define: _tileTrail3
+	structures: _tileTrailBase
+	addStartTime: 0.333
+	changeStartRow: 3
+	rotation: 180
+	mirror: 2
+	color: 0,0,0
+define: _tileTrail4
+	structures: _tileTrailBase
+	addStartTime: 0.5
+	changeStartRow: 3
+	rotation: 180
+	mirror: 2
+	color: 0,0,0
+define: _tileTrail5
+	structures: _tileTrailBase
+	addStartTime: 0.667
+	changeStartRow: 6
+	rotation: 180
+	mirror: 2
+	color: 0,0,0
+define: _tileTrail6
+	structures: _tileTrailBase
+	addStartTime: 0.833
+	changeStartRow: 9
+	rotation: 180
+	mirror: 2
+	color: 0,0,0
+define: TileTrail
+	structures: _tileTrail1,_tileTrail2,_tileTrail3,_tileTrail4,_tileTrail5,_tileTrail6
+
+# > Square Tunnel
+# oh my god, this actually takes some times to actually get this right
+# for debug purpose, put this in SquareTunnel defined structures
+define: _squareTunnelDebug
+	structures: Wall
+	width: 10
+	height: 10
+	startRow: -5
+	startHeight: -3
+	color: 255,0,0
+define: _squareTunnel1
+	structures: RandomNoise
+	p1: -6,6,0
+	p2: -4,7,0
+	amount: 1
+	changeWidth: random(8,10)
+	changeHeight: random(1,2)
+define: _squareTunnel2
+	structures: RandomNoise
+	p1: -7,6,0
+	p2: -2,7,0
+	amount: 1
+	changeWidth: random(3,6)
+	changeHeight: random(1,2)
+define: _squareTunnel3
+	structures: RandomNoise
+	p1: -1,6,0
+	p2: 4,7,0
+	amount: 1
+	changeWidth: random(3,6)
+	changeHeight: random(1,2)
+define: _squareTunnel4
+	structures: RandomNoise
+	p1: -6,-3,0
+	p2: -4,-4,0
+	amount: 1
+	changeWidth: random(8,10)
+	changeHeight: random(1,2)
+define: _squareTunnel5
+	structures: RandomNoise
+	p1: -7,-3,0
+	p2: -2,-4,0
+	amount: 1
+	changeWidth: random(3,6)
+	changeHeight: random(1,2)
+define: _squareTunnel6
+	structures: RandomNoise
+	p1: -1,-3,0
+	p2: 4,-4,0
+	amount: 1
+	changeWidth: random(3,6)
+	changeHeight: random(1,2)
+define: _squareTunnel7
+	structures: RandomNoise
+	p1: -6,-4,0
+	p2: -6,-2,0
+	amount: 1
+	changeWidth: random(1,2)
+	changeHeight: random(9,10)
+define: _squareTunnel8
+	structures: RandomNoise
+	p1: -6,-5,0
+	p2: -6,-2,0
+	amount: 1
+	changeWidth: random(1,2)
+	changeHeight: random(3,6)
+define: _squareTunnel9
+	structures: RandomNoise
+	p1: -6,0,0
+	p2: -6,4,0
+	amount: 1
+	changeWidth: random(1,2)
+	changeHeight: random(3,6)
+define: _squareTunnel10
+	structures: RandomNoise
+	p1: 4,-4,0
+	p2: 5,-2,0
+	amount: 1
+	changeWidth: random(1,2)
+	changeHeight: random(9,10)
+define: _squareTunnel11
+	structures: RandomNoise
+	p1: 4,-5,0
+	p2: 5,-2,0
+	amount: 1
+	changeWidth: random(1,2)
+	changeHeight: random(3,6)
+define: _squareTunnel12
+	structures: RandomNoise
+	p1: 4,0,0
+	p2: 5,4,0
+	amount: 1
+	changeWidth: random(1,2)
+	changeHeight: random(3,6)
+define: SquareTunnel
+	structures: _squareTunnel1,_squareTunnel2,_squareTunnel3,_squareTunnel4,_squareTunnel5,_squareTunnel6,_squareTunnel7,_squareTunnel8,_squareTunnel9,_squareTunnel10,_squareTunnel11,_squareTunnel12
+	scaleWidth: 2.5
+	scaleHeight: 2.5
+	scaleStartRow: 2.5
+	scaleStartHeight: 2.5
+	changeDuration: random(0.5,0.75)
+
+# > Diamond with Coloured Border
+define: _diamondWithColouredBorder1
+	structures: ShapeDiamond
+	addStartHeight: 4
+	scaleWidth: 2.5
+	scaleHeight: 2.5
+	scaleStartRow: 2.5
+	scaleStartHeight: 2.5
+	changeDuration: -2.5
+	rotation: 180
+	color: 0,0,0
+define: _diamondWithColouredBorder2
+	structures: ShapeHalfDiamond
+	addStartHeight: 4
+	addStartTime: -2
+	addHeight: 1
+	scaleWidth: 3.5
+	scaleHeight: 3.5
+	scaleStartRow: 3.5
+	scaleStartHeight: 3.5
+	rotation: 180
+	color: 32,32,224
+define: _diamondWithColouredBorder3
+	structures: ShapeHalfDiamond
+	addStartHeight: 4
+	addStartTime: -2
+	addHeight: 1
+	scaleWidth: 3.5
+	scaleHeight: 3.5
+	scaleStartRow: 3.5
+	scaleStartHeight: 3.5
+	rotation: 180
+	mirror: 1
+	color: 255,32,32
+define: DiamondWithColouredBorder
+	structures: _diamondWithColouredBorder1,_diamondWithColouredBorder2,_diamondWithColouredBorder3
+
+# > Circle with Coloured Border
+define: _circleWithColouredBorder1
+	structures: ShapeCircle
+	addStartHeight: 4
+	addStartTime: 0.875
+	scaleWidth: 2
+	scaleHeight: 2
+	scaleStartRow: 2
+	scaleStartHeight: 2
+	changeDuration: -2.5
+	rotation: 180
+	color: 0,0,0
+define: _circleWithColouredBorder2
+	structures: ShapeCircleQ1
+	addStartHeight: 4
+	addHeight: 1
+	scaleWidth: 2.5
+	scaleHeight: 2.5
+	scaleStartRow: 2.5
+	scaleStartHeight: 2.5
+	color: gradient(255,32,32,255,96,192)
+define: _circleWithColouredBorder3
+	structures: ShapeCircleQ2
+	addStartHeight: 4
+	addHeight: 1
+	scaleWidth: 2.5
+	scaleHeight: 2.5
+	scaleStartRow: 2.5
+	scaleStartHeight: 2.5
+	color: gradient(255,96,192,32,32,255)
+define: _circleWithColouredBorder4
+	structures: ShapeCircleQ3
+	addStartHeight: 4
+	addHeight: 1
+	scaleWidth: 2.5
+	scaleHeight: 2.5
+	scaleStartRow: 2.5
+	scaleStartHeight: 2.5
+	color: gradient(32,32,255,255,96,192)
+define: _circleWithColouredBorder5
+	structures: ShapeCircleQ4
+	addStartHeight: 4
+	addHeight: 1
+	scaleWidth: 2.5
+	scaleHeight: 2.5
+	scaleStartRow: 2.5
+	scaleStartHeight: 2.5
+	color: gradient(255,96,192,255,32,32)
+define: CircleWithColouredBorder
+	structures: _circleWithColouredBorder1,_circleWithColouredBorder2,_circleWithColouredBorder3,_circleWithColouredBorder4,_circleWithColouredBorder5
+
+# > Black Bar Splash
+define: _blackBarSplash1
+	structures: Wall
+	width: 12
+	height: 1.25
+	startRow: 12
+	startHeight: 8
+	changeDuration: -2.5
+	repeat: 4
+	repeatAddZ: 0.125
+	rotation: -7.5
+	color: 0,0,0
+define: _blackBarSplash2
+	structures: Wall
+	width: 12
+	height: 0.625
+	startRow: 8
+	startHeight: 4
+	changeDuration: -2.5
+	repeat: 4
+	repeatAddZ: 0.125
+	rotation: -7.5
+	color: 0,0,0
+define: _blackBarSplash3
+	structures: Wall
+	width: 12
+	height: 1.25
+	startRow: 16
+	startHeight: 0
+	changeDuration: -2.5
+	repeat: 4
+	repeatAddZ: 0.125
+	rotation: -7.5
+	color: 0,0,0
+define: _blackBarSplash4
+	structures: Wall
+	width: 12
+	height: 1.25
+	startRow: -24
+	startHeight: 9.5
+	changeDuration: -2.5
+	repeat: 4
+	repeatAddZ: 0.125
+	rotation: 7.5
+	color: 0,0,0
+define: _blackBarSplash5
+	structures: Wall
+	width: 12
+	height: 0.625
+	startRow: -20
+	startHeight: 5.5
+	changeDuration: -2.5
+	repeat: 4
+	repeatAddZ: 0.125
+	rotation: 7.5
+	color: 0,0,0
+define: _blackBarSplash6
+	structures: Wall
+	width: 12
+	height: 1.25
+	startRow: -28
+	startHeight: 1.5
+	changeDuration: -2.5
+	repeat: 4
+	repeatAddZ: 0.125
+	rotation: 7.5
+	color: 0,0,0
+define: BlackBarSplash
+	structures: _blackBarSplash1,_blackBarSplash2,_blackBarSplash3,_blackBarSplash4,_blackBarSplash5,_blackBarSplash6
+
+# > Thicc Circle
+# because noodlehelix height is still broken
+define: ThiccCircle
+	structures: ShapeCircle
+	addStartHeight: 3
+	addHeight: 1.75
+	changeDuration: 0.125
+	scaleWidth: 3
+	scaleHeight: 3
+	scaleStartRow: 3
+	scaleStartHeight: 3
+	color: 0,0,0
+
+# > Glitchy Floor
+define: GlitchyFloor
+	structures: Wall
+	width: 64
+	height: 0
+	startRow: -32
+	startHeight: -1
+	changeDuration: -2.5
+	rotation: 180
+	repeat: 4
+	repeatAddZ: 0.125
+	color: 0,0,0
+
+# > Ending Shape Transition
+# fairly long because im too lazy to recalibrate again for the 2nd one
+define: _endingShape1
+	structures: ShapeCircle
+	addStartHeight: 4
+	scaleWidth: 1.5
+	scaleHeight: 1.5
+	scaleStartRow: 1.5
+	scaleStartHeight: 1.5
+	rotation: 180
+	color: 0,0,0
+define: _endingShape2
+	structures: ShapeTriangle
+	addStartHeight: 4
+	addStartTime: 0.5
+	scaleWidth: 1.5
+	scaleHeight: 1.5
+	scaleStartRow: 1.5
+	scaleStartHeight: 1.5
+	rotation: 180
+	color: 0,0,0
+define: _endingShape3
+	structures: ShapeCircle
+	addStartHeight: 4
+	addStartTime: 1
+	scaleWidth: 1.5
+	scaleHeight: 1.5
+	scaleStartRow: 1.5
+	scaleStartHeight: 1.5
+	rotation: 180
+	color: 0,0,0
+define: _endingShape4
+	structures: ShapeSquare
+	addStartHeight: 4
+	addStartTime: 1.5
+	scaleWidth: 1.5
+	scaleHeight: 1.5
+	scaleStartRow: 1.5
+	scaleStartHeight: 1.5
+	rotation: 180
+	color: 0,0,0
+define: _endingShape5
+	structures: ShapeCircle
+	addStartHeight: 4
+	addStartTime: 2
+	scaleWidth: 1.5
+	scaleHeight: 1.5
+	scaleStartRow: 1.5
+	scaleStartHeight: 1.5
+	rotation: 180
+	color: 0,0,0
+define: _endingShape6
+	structures: ShapeTriangle
+	addStartHeight: 4
+	addStartTime: 2.5
+	scaleWidth: 1.5
+	scaleHeight: 1.5
+	scaleStartRow: 1.5
+	scaleStartHeight: 1.5
+	rotation: 180
+	color: 0,0,0
+define: _endingShape1a
+	structures: _sideColourfulBlockA4
+	addStartTime: 2
+	changeDuration: -2.25
+	changeWidth: random(2,4)
+	changeHeight: random(2,3)
+	localRotZ: 10
+	mirror: 1
+	color: 96,32,224
+define: _endingShape1b
+	structures: _sideColourfulBlockA2
+	addStartTime: 2
+	changeDuration: -2.25
+	changeWidth: random(6,9)
+	changeHeight: random(3,5)
+	localRotZ: 10
+	mirror: 1
+	color: 96,32,224
+define: _endingShape1c
+	structures: _sideColourfulBlockA2
+	addStartTime: 2
+	changeDuration: -2.25
+	changeWidth: random(6,9)
+	changeHeight: random(3,5)
+	localRotZ: 10
+	color: 255,128,32
+define: _endingShape2a
+	structures: _sideColourfulBlockA1
+	addStartTime: 2.5
+	changeDuration: -2.25
+	changeWidth: random(2,4)
+	changeHeight: random(2,3)
+	localRotZ: 10
+	mirror: 1
+	color: 96,32,224
+define: _endingShape2b
+	structures: _sideColourfulBlockA3
+	addStartTime: 2.5
+	changeDuration: -2.25
+	changeWidth: random(6,9)
+	changeHeight: random(3,5)
+	localRotZ: 10
+	mirror: 1
+	color: 255,128,32
+define: _endingShape2c
+	structures: _sideColourfulBlockA3
+	addStartTime: 2.5
+	changeDuration: -2.25
+	changeWidth: random(6,9)
+	changeHeight: random(3,5)
+	localRotZ: 10
+	color: 255,128,32
+define: _endingShape3a
+	structures: _sideColourfulBlockA4
+	addStartTime: 3
+	changeDuration: -2.25
+	changeWidth: random(2,4)
+	changeHeight: random(2,3)
+	localRotZ: 10
+	color: 96,32,224
+define: _endingShape3b
+	structures: _sideColourfulBlockA3
+	addStartTime: 3
+	changeDuration: -2.25
+	changeWidth: random(6,9)
+	changeHeight: random(3,5)
+	localRotZ: 10
+	color: 255,128,32
+define: _endingShape3c
+	structures: _sideColourfulBlockA2
+	addStartTime: 3
+	changeDuration: -2.25
+	changeWidth: random(6,9)
+	changeHeight: random(3,5)
+	localRotZ: 10
+	color: 96,32,224
+define: _endingShape4a
+	structures: _sideColourfulBlockA4
+	addStartTime: 3.5
+	changeDuration: -2.25
+	changeWidth: random(2,4)
+	changeHeight: random(2,3)
+	localRotZ: 10
+	mirror: 1
+	color: 96,32,224
+define: _endingShape4b
+	structures: _sideColourfulBlockA2
+	addStartTime: 3.5
+	changeDuration: -2.25
+	changeWidth: random(6,9)
+	changeHeight: random(3,5)
+	localRotZ: 10
+	mirror: 1
+	color: 96,32,224
+define: _endingShape4c
+	structures: _sideColourfulBlockA3
+	addStartTime: 3.5
+	changeDuration: -2.25
+	changeWidth: random(6,9)
+	changeHeight: random(3,5)
+	localRotZ: 10
+	mirror: 1
+	color: 255,128,32
+define: _endingShape5a
+	structures: _sideColourfulBlockA1
+	addStartTime: 4
+	changeDuration: -2.25
+	changeWidth: random(2,4)
+	changeHeight: random(2,3)
+	localRotZ: 10
+	mirror: 1
+	color: 255,128,32
+define: _endingShape5b
+	structures: _sideColourfulBlockA2
+	addStartTime: 4
+	changeDuration: -2.25
+	changeWidth: random(6,9)
+	changeHeight: random(3,5)
+	localRotZ: 10
+	mirror: 1
+	color: 255,128,32
+define: _endingShape5c
+	structures: _sideColourfulBlockA3
+	addStartTime: 4
+	changeDuration: -2.25
+	changeWidth: random(6,9)
+	changeHeight: random(3,5)
+	localRotZ: 10
+	mirror: 1
+	color: 96,32,224
+define: _endingShape6a
+	structures: _sideColourfulBlockA1
+	addStartTime: 4.5
+	changeDuration: -2.25
+	changeWidth: random(2,4)
+	changeHeight: random(2,3)
+	localRotZ: 10
+	mirror: 1
+	color: 96,32,224
+define: _endingShape6b
+	structures: _sideColourfulBlockA2
+	addStartTime: 4.5
+	changeDuration: -2.25
+	changeWidth: random(6,9)
+	changeHeight: random(3,5)
+	localRotZ: 10
+	mirror: 1
+	color: 96,32,224
+define: _endingShape6c
+	structures: _sideColourfulBlockA3
+	addStartTime: 4.5
+	changeDuration: -2.25
+	changeWidth: random(6,9)
+	changeHeight: random(3,5)
+	localRotZ: 10
+	mirror: 1
+	color: 255,128,32
+define: _endingShape6d
+	structures: _sideColourfulBlockA4
+	addStartTime: 4.5
+	changeDuration: -2.25
+	changeWidth: random(2,4)
+	changeHeight: random(2,3)
+	localRotZ: 10
+	mirror: 1
+	color: 255,128,32
+define: _endingShapeNoise
+	structures: RandomNoise
+	p1: -16,0.5,2
+	p2: 16,6.5,4
+	amount: 20
+	color: 0,0,0
+define: EndingShapeTransition
+	structures: _endingShapeNoise,_endingShape1,_endingShape1a,_endingShape1b,_endingShape1c,_endingShape2,_endingShape2a,_endingShape2b,_endingShape2c,_endingShape3,_endingShape3a,_endingShape3b,_endingShape3c,_endingShape4,_endingShape4a,_endingShape4b,_endingShape4c,_endingShape5,_endingShape5a,_endingShape5b,_endingShape5c,_endingShape6,_endingShape6a,_endingShape6b,_endingShape6c,_endingShape6d
+	addStartTime: 0.5
+
+# > Some Wub Sound
+define: SomeWubSound
+	structures: Line
+	p1: 2,-2,0
+	p2: 16,0,0.25
+	amount: 4
+	changeDuration: -2.5
+	mirror: 2
+	rotation: -7.5
+	color: gradient(255,255,255,0,64,64)
+
+# > Diamond Circle Thingy
+define: _diamondCircle1
+	structures: ShapeCircle
+	addStartHeight: 4
+	addStartTime: -0.125
+	scaleWidth: 4
+	scaleHeight: 4
+	scaleStartRow: 4
+	scaleStartHeight: 4
+	changeDuration: -2.5
+	rotation: 180
+	color: 0,0,0
+define: _diamondCircle2
+	structures: ShapeDiamond
+	addStartHeight: 4
+	scaleWidth: 2
+	scaleHeight: 2
+	scaleStartRow: 2
+	scaleStartHeight: 2
+	color: 0,0,0
+define: _diamondCircle3
+	structures: ShapeCircle
+	addStartHeight: 4
+	scaleWidth: 1.5625
+	scaleHeight: 1.5625
+	scaleStartRow: 1.5625
+	scaleStartHeight: 1.5625
+	color: 0,0,0
+define: _diamondCircle4
+	structures: ShapeCircle
+	addStartHeight: 4
+	addStartTime: 0.03125
+	scaleWidth: 4.125
+	scaleHeight: 4.125
+	scaleStartRow: 4.125
+	scaleStartHeight: 4.125
+	color: 0,0,0
+define: _diamondCircle5
+	structures: ShapeCircle
+	addStartHeight: 4
+	addStartTime: 0.0625
+	scaleWidth: 4
+	scaleHeight: 4
+	scaleStartRow: 4
+	scaleStartHeight: 4
+	color: 0,0,0
+define: DiamondCircleThingy
+	structures: _diamondCircle1,_diamondCircle2,_diamondCircle3,_diamondCircle4,_diamondCircle5
+
+# > Shape Combination Heart
+define: _shapeCombine1
+	structures: ShapeCircle
+	addStartHeight: 4
+	addStartTime: -0.125
+	scaleWidth: 4
+	scaleHeight: 4
+	scaleStartRow: 4
+	scaleStartHeight: 4
+	changeDuration: -2.5
+	rotation: 180
+	color: 0,0,0
+define: _shapeCombine2
+	structures: ShapeCircle
+	addStartHeight: 4
+	scaleWidth: 2
+	scaleHeight: 2
+	scaleStartRow: 2
+	scaleStartHeight: 2
+	color: 0,0,0
+define: _shapeCombine3
+	structures: ShapeCircle
+	addStartHeight: 4
+	scaleWidth: 3.5
+	scaleHeight: 3.5
+	scaleStartRow: 3.5
+	scaleStartHeight: 3.5
+	color: 0,0,0
+define: _shapeCombine4
+	structures: ShapeDiamond
+	addStartHeight: 4
+	addStartTime: -1
+	scaleWidth: 2
+	scaleHeight: 2
+	scaleStartRow: 2
+	scaleStartHeight: 2
+	rotation: 180
+	color: 0,0,0
+define: _shapeCombine5
+	structures: ShapeDiamond
+	addStartHeight: 4
+	addStartTime: -1
+	scaleWidth: 4
+	scaleHeight: 4
+	scaleStartRow: 4
+	scaleStartHeight: 4
+	rotation: 180
+	color: 0,0,0
+define: _shapeCombine6
+	structures: ShapeHeart
+	rotation: 180
+	mirror: 1
+	color: 0,0,0
+define: ShapeCombineHeartIDFK
+	structures: _shapeCombine1,_shapeCombine2,_shapeCombine3,_shapeCombine4,_shapeCombine5,_shapeCombine6
+
+# > Waveform Line
+define: _waveformLine1
+	structures: Wall
+	width: 2.5
+	height: 0
+	startRow: -1.25
+	startHeight: -1
+	changeDuration: -2.5
+	repeat: 8
+	repeatAddZ: 0.125
+	repeatAddWidth: -0.125
+	repeatAddStartRow: 0.0625
+	color: 64,128,128
+define: _waveformLine2
+	structures: Wall
+	width: 4
+	height: 33.5
+	startRow: 4
+	startHeight: -33.5
+	changeDuration: -2.5
+	repeat: 8
+	repeatAddZ: 0.125
+	repeatAddHeight: -0.125
+	repeatAddStartRow: 0.03125
+	rotation: 12.5
+	mirror: 2
+	color: 255,255,255
+define: _waveformLine3
+	structures: Wall
+	width: 1
+	height: 0
+	startRow: -0.5
+	startHeight: -1
+	addStartTime: 1
+	changeDuration: -2.5
+	changeWidth: random(0.75,1)
+	changeStartRow: random(-0.53125,-0.46875)
+	repeat: 8
+	mirror: 2
+	repeatAddZ: 0.125
+	color: 64,128,128
+define: _waveformLine4
+	structures: RandomCurve
+	p1: 0.75,0,0
+	p2: 5,0.25,1
+	amount: 4
+	scale: 0.5
+	addStartTime: 4
+	changeDuration: -2.5
+	mirror: 2
+	color: 64,128,128
+define: _waveformLine5
+	structures: RandomCurve
+	p1: 5,0.25,0
+	p2: 10,-4,1
+	amount: 4
+	scale: 0.5
+	addStartTime: 5
+	changeDuration: -2.5
+	mirror: 2
+	color: gradient(64,128,128,0,0,0)
+define: WaveformLine
+	structures: _waveformLine1,_waveformLine2,_waveformLine3,_waveformLine4,_waveformLine5
+
+# > Three Synth Sound
+define: _threeSynth1
+	structures: Wall
+	width: 1
+	height: 0.25
+	startRow: 4
+	startHeight: -0.25
+	changeDuration: -2.5
+	mirror: 2
+define: _threeSynth2
+	structures: Wall
+	width: 1
+	height: 0.375
+	startRow: 3
+	startHeight: -0.25
+	addStartTime: 0.25
+	changeDuration: -2.5
+	mirror: 2
+define: _threeSynth3
+	structures: Wall
+	width: 1
+	height: 0.5
+	startRow: 5
+	startHeight: -0.25
+	addStartTime: 0.5
+	changeDuration: -2.5
+	mirror: 2
+define: ThreeSynthSound
+	structures: _threeSynth1,_threeSynth2,_threeSynth3
+	color: 64,128,128
+
+# > Fast Blue and Orange Wall
+define: _fastOrangeWall1
+	structures: Wall
+	width: 5
+	height: 5
+	startRow: 3
+	startHeight: -0.25
+	changeDuration: -2.5
+	repeat: 4
+	repeatAddZ: 0.0625
+	color: 255,128,32
+define: _fastBlueWall1
+	structures: Wall
+	width: 5
+	height: 5
+	startRow: -8
+	startHeight: -0.25
+	changeDuration: -2.5
+	repeat: 4
+	repeatAddZ: 0.0625
+	color: 96,32,224
+define: _fastOrangeWall2
+	structures: Wall
+	width: 7.5
+	height: 7.5
+	startRow: 5
+	startHeight: -0.25
+	addStartTime: 0.5
+	changeDuration: -2.5
+	repeat: 4
+	repeatAddZ: 0.0625
+	color: 255,128,32
+define: _fastBlueWall2
+	structures: Wall
+	width: 7.5
+	height: 7.5
+	startRow: -12.5
+	startHeight: -0.25
+	addStartTime: 0.5
+	changeDuration: -2.5
+	repeat: 4
+	repeatAddZ: 0.0625
+	color: 96,32,224
+define: FastBlueOrangeWall
+	structures: _fastBlueWall1,_fastBlueWall2,_fastOrangeWall1,_fastOrangeWall2
+
+# > Solid Circle Jump
+define: _solidCircleJump1
+	structures: ShapeCircle
+	addStartHeight: 3
+	addStartTime: -1
+	scaleWidth: 3
+	scaleHeight: 3
+	scaleStartRow: 3
+	scaleStartHeight: 3
+	rotation: 180
+	color: 0,0,0
+define: _solidCircleJump2
+	structures: ShapeCircle
+	addStartHeight: 3
+	scaleWidth: 2.5
+	scaleHeight: 2.5
+	scaleStartRow: 2.5
+	scaleStartHeight: 2.5
+	changeDuration: -2.5
+	repeat: 2
+	repeatAddZ: 0.5
+	color: 0,0,0
+define: SolidCircleJump
+	structures: _solidCircleJump1,_solidCircleJump2
+
+# > Marpril Circle
+define: _marprilCircle1
+	structures: ShapeCircle
+	addStartHeight: 4
+	scaleWidth: 4
+	scaleHeight: 4
+	scaleStartRow: 4
+	scaleStartHeight: 4
+	changeDuration: -2.5
+	color: 0,0,0
+define: _marprilCircle2
+	structures: ShapeCircle
+	addStartHeight: 4
+	addStartTime: 0.125
+	addHeight: 1
+	scaleWidth: 4
+	scaleHeight: 4
+	scaleStartRow: 4
+	scaleStartHeight: 4
+	changeDuration: -2.5
+	rotation: 180
+	color: 0,0,0
+define: _marprilCircle3
+	structures: ShapeCircle
+	addStartHeight: 4
+	addStartTime: 0.25
+	scaleWidth: 2
+	scaleHeight: 2
+	scaleStartRow: 2
+	scaleStartHeight: 2
+	color: 0,0,0
+define: _marprilCircle4
+	structures: ShapeCircle
+	addStartHeight: 4
+	addStartTime: 0.25
+	scaleWidth: 3.5
+	scaleHeight: 3.5
+	scaleStartRow: 3.5
+	scaleStartHeight: 3.5
+	color: 0,0,0
+define: MarprilCircle
+	structures: _marprilCircle1,_marprilCircle2,_marprilCircle3,_marprilCircle4
+
+# ah shit, here we go wall mapping a lyrics
+# > Text NIGHT
+define: _textNIGHT_N1
+	structures: Wall
+	width: 0.5
+	height: 2.25
+	startRow: -1
+	startHeight: 0
+define: _textNIGHT_N2
+	structures: Wall
+	width: 0.5
+	height: 2.25
+	startRow: 0.5
+	startHeight: 0
+define: _textNIGHT_N3
+	structures: Wall
+	width: 0.5
+	height: 2.40675
+	startRow: 0.5
+	startHeight: 0.125
+	localRotZ: 36.75
+define: Text_NIGHT_N
+	structures: _textNIGHT_N1,_textNIGHT_N2,_textNIGHT_N3
+	addStartRow: -4.125
+define: Text_NIGHT_I
+	structures: Wall
+	width: 0.5
+	height: 2.25
+	startRow: 0
+	startHeight: 0
+	addStartRow: -2.25
+define: _textNIGHT_G1
+	structures: NoodleHelix
+	radius: 1.125
+	center: 0,1.125,0
+	amount: 9
+	startRotation: 45
+	rotationAmount: 270
+	scale: 0.0078125
+	changeHeight: 0.5
+define: _textNIGHT_G2
+	structures: Wall
+	width: 0.5
+	height: 0.5
+	startRow: 0.3125
+	startHeight: 0.3125
+define: _textNIGHT_G3
+	structures: Wall
+	width: 0.8125
+	height: 0.5
+	startRow: 0
+	startHeight: 0.75
+define: Text_NIGHT_G
+	structures: _textNIGHT_G1,_textNIGHT_G2,_textNIGHT_G3
+	addStartRow: 0
+define: _textNIGHT_H1
+	structures: Wall
+	width: 0.5
+	height: 2.25
+	startRow: -1
+	startHeight: 0
+define: _textNIGHT_H2
+	structures: Wall
+	width: 0.5
+	height: 2.25
+	startRow: 0.5
+	startHeight: 0
+define: _textNIGHT_H3
+	structures: Wall
+	width: 1
+	height: 0.5
+	startRow: -0.5
+	startHeight: 0.875
+define: Text_NIGHT_H
+	structures: _textNIGHT_H1,_textNIGHT_H2,_textNIGHT_H3
+	addStartRow: 2.5
+define: _textNIGHT_T1
+	structures: Wall
+	width: 0.5
+	height: 1.75
+define: _textNIGHT_T2
+	structures: Wall
+	width: 1.75
+	height: 0.5
+	startRow: -0.625
+	startHeight: 1.75
+define: Text_NIGHT_T
+	structures: _textNIGHT_T1,_textNIGHT_T2
+	addStartRow: 5
+define: Text_NIGHT
+	structures: Text_NIGHT_N,Text_NIGHT_I,Text_NIGHT_G,Text_NIGHT_H,Text_NIGHT_T
+	changeDuration: 0.0078125
+
+# > Text AND
+define: _textAND_A1
+	structures: Wall
+	width: 0.5
+	height: 2.375
+	startRow: -1.25
+	startHeight: 0
+	localRotZ: -22.5
+define: _textAND_A2
+	structures: Wall
+	width: 1.125
+	height: 0.5
+	startRow: -0.53125
+	startHeight: 0.5
+define: _textAND_A3
+	structures: Wall
+	width: 0.5
+	height: 2.375
+	startRow: 0.75
+	startHeight: 0
+	localRotZ: 22.5
+define: _textAND_A4
+	structures: Wall
+	width: 0.6875
+	height: 0.5
+	startRow: -0.34375
+	startHeight: 1.75
+define: Text_AND_A
+	structures: _textAND_A1,_textAND_A2,_textAND_A3,_textAND_A4
+	addStartRow: -2.625
+define: _textAND_N1
+	structures: Wall
+	width: 0.5
+	height: 2.25
+	startRow: -1
+	startHeight: 0
+define: _textAND_N2
+	structures: Wall
+	width: 0.5
+	height: 2.25
+	startRow: 0.5
+	startHeight: 0
+define: _textAND_N3
+	structures: Wall
+	width: 0.5
+	height: 2.40675
+	startRow: 0.5
+	startHeight: 0.125
+	localRotZ: 36.75
+define: Text_AND_N
+	structures: _textAND_N1,_textAND_N2,_textAND_N3
+	addStartRow: 0
+define: _textAND_D1
+	structures: Wall
+	width: 0.5
+	height: 2.25
+	startRow: -0.5
+	startHeight: 0
+define: _textAND_D2
+	structures: Wall
+	width: 0.5
+	height: 0.5
+	startRow: 0
+	startHeight: 0
+define: _textAND_D3
+	structures: Wall
+	width: 0.5
+	height: 0.5
+	startRow: 0
+	startHeight: 1.75
+define: _textAND_D4
+	structures: NoodleHelix
+	radius: 1.125
+	center: 0.5,1.125,0
+	amount: 8
+	startRotation: 270
+	rotationAmount: 180
+	scale: 0.0078125
+	changeHeight: 0.5
+define: Text_AND_D
+	structures: _textAND_D1,_textAND_D2,_textAND_D3,_textAND_D4
+	addStartRow: 2
+define: Text_AND
+	structures: Text_AND_A,Text_AND_N,Text_AND_D
+	changeDuration: 0.0078125
+
+# > Text DAY
+define: _textDAY_D1
+	structures: Wall
+	width: 0.5
+	height: 2.25
+	startRow: -0.5
+	startHeight: 0
+define: _textDAY_D2
+	structures: Wall
+	width: 0.5
+	height: 0.5
+	startRow: 0
+	startHeight: 0
+define: _textDAY_D3
+	structures: Wall
+	width: 0.5
+	height: 0.5
+	startRow: 0
+	startHeight: 1.75
+define: _textDAY_D4
+	structures: NoodleHelix
+	radius: 1.125
+	center: 0.5,1.125,0
+	amount: 8
+	startRotation: 270
+	rotationAmount: 180
+	scale: 0.0078125
+	changeHeight: 0.5
+define: Text_DAY_D
+	structures: _textDAY_D1,_textDAY_D2,_textDAY_D3,_textDAY_D4
+	addStartRow: -3
+define: _textDAY_A1
+	structures: Wall
+	width: 0.5
+	height: 2.375
+	startRow: -1.25
+	startHeight: 0
+	localRotZ: -22.5
+define: _textDAY_A2
+	structures: Wall
+	width: 1.125
+	height: 0.5
+	startRow: -0.53125
+	startHeight: 0.5
+define: _textDAY_A3
+	structures: Wall
+	width: 0.5
+	height: 2.375
+	startRow: 0.75
+	startHeight: 0
+	localRotZ: 22.5
+define: _textDAY_A4
+	structures: Wall
+	width: 0.6875
+	height: 0.5
+	startRow: -0.34375
+	startHeight: 1.75
+define: Text_DAY_A
+	structures: _textDAY_A1,_textDAY_A2,_textDAY_A3,_textDAY_A4
+define: _textDAY_Y1
+	structures: Wall
+	width: 0.5
+	height: 1.25
+	startRow: -0.25
+	startHeight: 0
+define: _textDAY_Y2
+	structures: Wall
+	width: 0.5
+	height: 1.25
+	startRow: -0.25
+	startHeight: 1.125
+	localRotZ: 36
+define: _textDAY_Y3
+	structures: Wall
+	width: 0.5
+	height: 1.25
+	startRow: -0.25
+	startHeight: 1.125
+	localRotZ: -36
+define: Text_DAY_Y
+	structures: _textDAY_Y1,_textDAY_Y2,_textDAY_Y3
+	addStartRow: 2.25
+define: Text_DAY
+	structures: Text_DAY_D,Text_DAY_A,Text_DAY_Y
+	changeDuration: 0.0078125
+
+# > Text TUNE
+define: _textTUNE_T1
+	structures: Wall
+	width: 0.5
+	height: 1.75
+define: _textTUNE_T2
+	structures: Wall
+	width: 1.75
+	height: 0.5
+	startRow: -0.625
+	startHeight: 1.75
+define: Text_TUNE_T
+	structures: _textTUNE_T1,_textTUNE_T2
+	addStartRow: -6
+define: _textTUNE_U1
+	structures: Wall
+	width: 0.5
+	height: 1.5
+	startRow: -1
+	startHeight: 0.75
+define: _textTUNE_U2
+	structures: Wall
+	width: 0.5
+	height: 1.5
+	startRow: 0.5
+	startHeight: 0.75
+define: _textTUNE_U3
+	structures: NoodleHelix
+	radius: 1
+	center: 0,0.75,0
+	amount: 4
+	startRotation: 180
+	rotationAmount: 180
+	scale: 0.0078125
+	changeHeight: 0.5
+define: Text_TUNE_U
+	structures: _textTUNE_U1,_textTUNE_U2,_textTUNE_U3
+	addStartRow: -2
+define: _textTUNE_N1
+	structures: Wall
+	width: 0.5
+	height: 2.25
+	startRow: -1
+	startHeight: 0
+define: _textTUNE_N2
+	structures: Wall
+	width: 0.5
+	height: 2.25
+	startRow: 0.5
+	startHeight: 0
+define: _textTUNE_N3
+	structures: Wall
+	width: 0.5
+	height: 2.40675
+	startRow: 0.5
+	startHeight: 0.125
+	localRotZ: 36.75
+define: Text_TUNE_N
+	structures: _textTUNE_N1,_textTUNE_N2,_textTUNE_N3
+	addStartRow: 2
+define: _textTUNE_E1
+	structures: Wall
+	width: 0.5
+	height: 2.25
+	startRow: -1
+	startHeight: 0
+define: _textTUNE_E2
+	structures: Wall
+	width: 1.25
+	height: 0.5
+	startRow: -0.5
+	startHeight: 0
+define: _textTUNE_E3
+	structures: Wall
+	width: 1
+	height: 0.5
+	startRow: -0.5
+	startHeight: 0.875
+define: _textTUNE_E4
+	structures: Wall
+	width: 1.25
+	height: 0.5
+	startRow: -0.5
+	startHeight: 1.75
+define: Text_TUNE_E
+	structures: _textTUNE_E1,_textTUNE_E2,_textTUNE_E3,_textTUNE_E4
+	addStartRow: 6
+define: Text_TUNE
+	structures: Text_TUNE_T,Text_TUNE_U,Text_TUNE_N,Text_TUNE_E
+	changeDuration: 0.0078125
+
+# > Text heart
+# honestly, what the fuck
+define: _textheart_h1
+	structures: Wall
+	width: 0
+	height: 2.25
+define: _textheart_h2
+	structures: Wall
+	width: 0
+	height: 0.5
+	startRow: 1
+define: _textheart_h3
+	structures: NoodleHelix
+	radius: 0.5
+	center: 0.5,0.5,0
+	amount: 4
+	startRotation: 0
+	rotationAmount: 180
+	scale: 0.0078125
+define: Text_heart_h
+	structures: _textheart_h1,_textheart_h2,_textheart_h3
+	addStartRow: -4.125
+define: _textheart_e1
+	structures: Wall
+	width: 1.34375
+	height: 0
+	startRow: 0.09375
+	startHeight: 1.0625
+define: _textheart_e2
+	structures: NoodleHelix
+	radius: 0.75
+	center: 0.75,0.75,0
+	amount: 10
+	startRotation: 30
+	rotationAmount: 300
+	scale: 0.0078125
+define: Text_heart_e
+	structures: _textheart_e1,_textheart_e2
+	addStartRow: -2.5
+define: _textheart_a1
+	structures: Wall
+	width: 0
+	height: 1.5
+	startRow: 1.375
+	startHeight: 0
+define: _textheart_a2
+	structures: NoodleHelix
+	radius: 0.75
+	center: 0.75,0.75,0
+	amount: 10
+	startRotation: 30
+	rotationAmount: 300
+	scale: 0.0078125
+define: Text_heart_a
+	structures: _textheart_a1,_textheart_a2
+	addStartRow: -0.5
+define: _textheart_r1
+	structures: Wall
+	width: 0
+	height: 1.5
+	startRow: 0
+	startHeight: 0
+define: _textheart_r2
+	structures: NoodleHelix
+	radius: 0.75
+	center: 0.75,0.75,0
+	amount: 3
+	startRotation: 90
+	rotationAmount: 90
+	scale: 0.0078125
+define: Text_heart_r
+	structures: _textheart_r1,_textheart_r2
+	addStartRow: 1.5
+define: _textheart_t1
+	structures: Wall
+	width: 0
+	height: 2
+	startRow: 0.5
+	startHeight: 0
+define: _textheart_t2
+	structures: Wall
+	width: 1
+	height: 0
+	startRow: 0
+	startHeight: 1.5
+define: _textheart_t3
+	structures: Wall
+	width: 0.5
+	height: 0
+	startRow: 0.5
+	startHeight: 0
+define: Text_heart_t
+	structures: _textheart_t1,_textheart_t2,_textheart_t3
+	addStartRow: 2.875
+define: Text_heart
+	structures: Text_heart_h,Text_heart_e,Text_heart_a,Text_heart_r,Text_heart_t
+	changeDuration: 0.0078125
+
+# > Text Move me
+define: _textMove_me_M11
+	structures: Wall
+	width: 0
+	height: 3
+	startRow: -0.75
+	startHeight: 0
+define: _textMove_me_M12
+	structures: Wall
+	width: 0
+	height: 3
+	startRow: 0.75
+	startHeight: 0
+define: _textMove_me_M13
+	structures: Wall
+	width: 0
+	height: 3
+	startRow: 0
+	startHeight: 0.1875
+	localRotZ: -15
+define: _textMove_me_M14
+	structures: Wall
+	width: 0
+	height: 3
+	startRow: 0
+	startHeight: 0.1875
+	localRotZ: 15
+define: Text_Move_me_M1
+	structures: _textMove_me_M11,_textMove_me_M12,_textMove_me_M13,_textMove_me_M14
+	addStartRow: -6.25
+define: _textMove_me_m21
+	structures: Wall
+	width: 0
+	height: 2.5
+	startRow: -0.75
+	startHeight: 0
+define: _textMove_me_m22
+	structures: Wall
+	width: 0
+	height: 2.125
+	startRow: 0
+	startHeight: 0
+define: _textMove_me_m23
+	structures: Wall
+	width: 0
+	height: 2.125
+	startRow: 0.75
+	startHeight: 0
+define: _textMove_me_m24
+	structures: NoodleHelix
+	radius: 0.375
+	center: -0.375,2.125,0
+	amount: 4
+	startRotation: 0
+	rotationAmount: 180
+	scale: 0.0078125
+define: _textMove_me_m25
+	structures: NoodleHelix
+	radius: 0.375
+	center: 0.375,2.125,0
+	amount: 4
+	startRotation: 0
+	rotationAmount: 180
+	scale: 0.0078125
+define: Text_Move_me_m2
+	structures: _textMove_me_m21,_textMove_me_m22,_textMove_me_m23,_textMove_me_m24,_textMove_me_m25
+	addStartRow: 3.5
+define: _textMove_me_o1
+	structures: Wall
+	width: 0
+	height: 1
+	startRow: -0.75
+	startHeight: 0.75
+define: _textMove_me_o2
+	structures: Wall
+	width: 0
+	height: 1
+	startRow: 0.75
+	startHeight: 0.75
+define: _textMove_me_o3
+	structures: NoodleHelix
+	radius: 0.75
+	center: 0,1.75,0
+	amount: 4
+	startRotation: 0
+	rotationAmount: 180
+	scale: 0.0078125
+define: _textMove_me_o4
+	structures: NoodleHelix
+	radius: 0.75
+	center: 0,0.75,0
+	amount: 4
+	startRotation: 180
+	rotationAmount: 180
+	scale: 0.0078125
+define: Text_Move_me_o
+	structures: _textMove_me_o1,_textMove_me_o2,_textMove_me_o3,_textMove_me_o4
+	addStartRow: -4
+define: _textMove_me_V1
+	structures: Wall
+	width: 0
+	height: 2.5
+	startRow: 0
+	startHeight: 0
+	localRotZ: -15
+define: _textMove_me_V2
+	structures: Wall
+	width: 0
+	height: 2.5
+	startRow: 0
+	startHeight: 0
+	localRotZ: 15
+define: Text_Move_me_V
+	structures: _textMove_me_V1,_textMove_me_V2
+	addStartRow: -2
+define: _textMove_me_e1
+	structures: Wall
+	width: 0
+	height: 1
+	startRow: -0.75
+	startHeight: 0.75
+define: _textMove_me_e2
+	structures: Wall
+	width: 0
+	height: 0.5
+	startRow: 0.75
+	startHeight: 1.25
+define: _textMove_me_e3
+	structures: Wall
+	width: 1.5
+	height: 0
+	startRow: -0.75
+	startHeight: 1.25
+define: _textMove_me_e4
+	structures: NoodleHelix
+	radius: 0.75
+	center: 0,1.75,0
+	amount: 4
+	startRotation: 0
+	rotationAmount: 180
+	scale: 0.0078125
+define: _textMove_me_e5
+	structures: NoodleHelix
+	radius: 0.75
+	center: 0,0.75,0
+	amount: 4
+	startRotation: 180
+	rotationAmount: 180
+	scale: 0.0078125
+define: Text_Move_me_e1
+	structures: _textMove_me_e1,_textMove_me_e2,_textMove_me_e3,_textMove_me_e4,_textMove_me_e5
+	addStartRow: 0
+define: Text_Move_me_e2
+	structures: _textMove_me_e1,_textMove_me_e2,_textMove_me_e3,_textMove_me_e4,_textMove_me_e5
+	addStartRow: 5.75
+define: Text_Move_me
+	structures: Text_Move_me_M1,Text_Move_me_o,Text_Move_me_v,Text_Move_me_e1,Text_Move_me_m2,Text_Move_me_e2
+	changeDuration: 0.0078125
+
+# > Text YOUR BODY
+# hot
+# also end me, this took the longest
+define: _textYOUR_BODY_Y1
+	structures: Wall
+	width: 0.5
+	height: 1.375
+	startRow: -0.25
+	startHeight: 0
+define: _textYOUR_BODY_Y2
+	structures: Wall
+	width: 0.5
+	height: 1.375
+	startRow: -0.25
+	startHeight: 1.25
+	localRotZ: 30
+define: _textYOUR_BODY_Y3
+	structures: Wall
+	width: 0.5
+	height: 1.375
+	startRow: -0.25
+	startHeight: 1.25
+	localRotZ: -30
+define: Text_YOUR_BODY_Y1
+	structures: _textYOUR_BODY_Y1,_textYOUR_BODY_Y2,_textYOUR_BODY_Y3
+	addStartRow: -14
+define: Text_YOUR_BODY_Y2
+	structures: _textYOUR_BODY_Y1,_textYOUR_BODY_Y2,_textYOUR_BODY_Y3
+	addStartRow: 14
+define: _textYOUR_BODY_O1
+	structures: Wall
+	width: 0.5
+	height: 1
+	startRow: -0.75
+	startHeight: 0.75
+define: _textYOUR_BODY_O2
+	structures: Wall
+	width: 0.5
+	height: 1
+	startRow: 0.5
+	startHeight: 0.75
+define: _textYOUR_BODY_O3
+	structures: NoodleHelix
+	radius: 0.75
+	center: 0.25,1.75,0
+	amount: 2
+	startRotation: 0
+	rotationAmount: 90
+	changeHeight: 0.5
+	scale: 0.0078125
+define: _textYOUR_BODY_O4
+	structures: NoodleHelix
+	radius: 0.75
+	center: 0,1.75,0
+	amount: 2
+	startRotation: 90
+	rotationAmount: 90
+	changeHeight: 0.5
+	scale: 0.0078125
+define: _textYOUR_BODY_O5
+	structures: NoodleHelix
+	radius: 0.75
+	center: 0,0.75,0
+	amount: 2
+	startRotation: 180
+	rotationAmount: 90
+	changeHeight: 0.5
+	scale: 0.0078125
+define: _textYOUR_BODY_O6
+	structures: NoodleHelix
+	radius: 0.75
+	center: 0.25,0.75,0
+	amount: 2
+	startRotation: 270
+	rotationAmount: 90
+	changeHeight: 0.5
+	scale: 0.0078125
+define: _textYOUR_BODY_O7
+	structures: Wall
+	width: 0.25
+	height: 0.5
+	startRow: 0
+	startHeight: 0
+define: _textYOUR_BODY_O8
+	structures: Wall
+	width: 0.25
+	height: 0.5
+	startRow: 0
+	startHeight: 2
+define: Text_YOUR_BODY_O1
+	structures: _textYOUR_BODY_O1,_textYOUR_BODY_O2,_textYOUR_BODY_O3,_textYOUR_BODY_O4,_textYOUR_BODY_O5,_textYOUR_BODY_O6,_textYOUR_BODY_O7,_textYOUR_BODY_O8
+	addStartRow: -10
+define: Text_YOUR_BODY_O2
+	structures: _textYOUR_BODY_O1,_textYOUR_BODY_O2,_textYOUR_BODY_O3,_textYOUR_BODY_O4,_textYOUR_BODY_O5,_textYOUR_BODY_O6,_textYOUR_BODY_O7,_textYOUR_BODY_O8
+	addStartRow: 6
+define: _textYOUR_BODY_U1
+	structures: Wall
+	width: 0.5
+	height: 1.75
+	startRow: -0.75
+	startHeight: 0.75
+define: _textYOUR_BODY_U2
+	structures: Wall
+	width: 0.5
+	height: 1.75
+	startRow: 0.5
+	startHeight: 0.75
+define: _textYOUR_BODY_U3
+	structures: NoodleHelix
+	radius: 0.75
+	center: 0,0.75,0
+	amount: 2
+	startRotation: 180
+	rotationAmount: 90
+	scale: 0.0078125
+	changeHeight: 0.5
+define: _textYOUR_BODY_U4
+	structures: NoodleHelix
+	radius: 0.75
+	center: 0.25,0.75,0
+	amount: 2
+	startRotation: 270
+	rotationAmount: 90
+	scale: 0.0078125
+	changeHeight: 0.5
+define: _textYOUR_BODY_U5
+	structures: Wall
+	width: 0.25
+	height: 0.5
+	startRow: 0
+	startHeight: 0
+define: Text_YOUR_BODY_U
+	structures: _textYOUR_BODY_U1,_textYOUR_BODY_U2,_textYOUR_BODY_U3,_textYOUR_BODY_U4,_textYOUR_BODY_U5
+	addStartRow: -6
+define: _textYOUR_BODY_R1
+	structures: Wall
+	width: 0.5
+	height: 2.5
+	startRow: -0.75
+	startHeight: 0
+define: _textYOUR_BODY_R2
+	structures: Wall
+	width: 0.5
+	height: 1.3125
+	startRow: 0.5
+	startHeight: 0
+	localRotZ: 30
+define: _textYOUR_BODY_R3
+	structures: Wall
+	width: 0.75
+	height: 0.5
+	startRow: -0.25
+	startHeight: 2
+define: _textYOUR_BODY_R4
+	structures: Wall
+	width: 0.75
+	height: 0.5
+	startRow: -0.25
+	startHeight: 1
+define: _textYOUR_BODY_R5
+	structures: Wall
+	width: 0.5
+	height: 0.5
+	startRow: 0.5
+	startHeight: 1.5
+define: _textYOUR_BODY_R6
+	structures: NoodleHelix
+	radius: 0.5
+	center: 0.5,1.5,0
+	amount: 2
+	startRotation: 270
+	rotationAmount: 90
+	scale: 0.0078125
+	changeHeight: 0.5
+define: _textYOUR_BODY_R7
+	structures: NoodleHelix
+	radius: 0.5
+	center: 0.5,2,0
+	amount: 2
+	startRotation: 0
+	rotationAmount: 90
+	scale: 0.0078125
+	changeHeight: 0.5
+define: Text_YOUR_BODY_R
+	structures: _textYOUR_BODY_R1,_textYOUR_BODY_R2,_textYOUR_BODY_R3,_textYOUR_BODY_R4,_textYOUR_BODY_R5,_textYOUR_BODY_R6,_textYOUR_BODY_R7
+	addStartRow: -2
+define: _textYOUR_BODY_B1
+	structures: Wall
+	width: 0.5
+	height: 2.5
+	startRow: -0.75
+	startHeight: 0
+define: _textYOUR_BODY_B2
+	structures: Wall
+	width: 0.75
+	height: 0.5
+	startRow: -0.25
+	startHeight: 2
+define: _textYOUR_BODY_B3
+	structures: Wall
+	width: 0.75
+	height: 0.5
+	startRow: -0.25
+	startHeight: 1.125
+define: _textYOUR_BODY_B4
+	structures: Wall
+	width: 0.75
+	height: 0.5
+	startRow: -0.25
+	startHeight: 0
+define: _textYOUR_BODY_B5
+	structures: Wall
+	width: 0.5
+	height: 0.375
+	startRow: 0.5
+	startHeight: 1.625
+define: _textYOUR_BODY_B6
+	structures: Wall
+	width: 0.5
+	height: 0.125
+	startRow: 0.75
+	startHeight: 0.75
+define: _textYOUR_BODY_B7
+	structures: NoodleHelix
+	radius: 0.5
+	center: 0.5,1.625,0
+	amount: 2
+	startRotation: 270
+	rotationAmount: 90
+	scale: 0.0078125
+	changeHeight: 0.5
+define: _textYOUR_BODY_B8
+	structures: NoodleHelix
+	radius: 0.5
+	center: 0.5,2,0
+	amount: 2
+	startRotation: 0
+	rotationAmount: 90
+	scale: 0.0078125
+	changeHeight: 0.5
+define: _textYOUR_BODY_B9
+	structures: NoodleHelix
+	radius: 0.75
+	center: 0.5,0.75,0
+	amount: 2
+	startRotation: 270
+	rotationAmount: 90
+	scale: 0.0078125
+	changeHeight: 0.5
+define: _textYOUR_BODY_B10
+	structures: NoodleHelix
+	radius: 0.75
+	center: 0.5,0.875,0
+	amount: 2
+	startRotation: 0
+	rotationAmount: 90
+	scale: 0.0078125
+	changeHeight: 0.5
+define: Text_YOUR_BODY_B
+	structures: _textYOUR_BODY_B1,_textYOUR_BODY_B2,_textYOUR_BODY_B3,_textYOUR_BODY_B4,_textYOUR_BODY_B5,_textYOUR_BODY_B6,_textYOUR_BODY_B7,_textYOUR_BODY_B8,_textYOUR_BODY_B9,_textYOUR_BODY_B10
+	addStartRow: 2
+define: _textYOUR_BODY_D1
+	structures: Wall
+	width: 0.5
+	height: 2.5
+	startRow: -0.75
+	startHeight: 0
+define: _textYOUR_BODY_D2
+	structures: Wall
+	width: 0.5
+	height: 0.5
+	startRow: -0.25
+	startHeight: 2
+define: _textYOUR_BODY_D3
+	structures: Wall
+	width: 0.5
+	height: 0.5
+	startRow: -0.25
+	startHeight: 0
+define: _textYOUR_BODY_D4
+	structures: Wall
+	width: 0.5
+	height: 1.125
+	startRow: 0.5
+	startHeight: 0.75
+define: _textYOUR_BODY_D5
+	structures: NoodleHelix
+	radius: 0.75
+	center: 0.25,0.75,0
+	amount: 2
+	startRotation: 270
+	rotationAmount: 90
+	scale: 0.0078125
+	changeHeight: 0.5
+define: _textYOUR_BODY_D6
+	structures: NoodleHelix
+	radius: 0.75
+	center: 0.25,1.75,0
+	amount: 2
+	startRotation: 0
+	rotationAmount: 90
+	scale: 0.0078125
+	changeHeight: 0.5
+define: Text_YOUR_BODY_D
+	structures: _textYOUR_BODY_D1,_textYOUR_BODY_D2,_textYOUR_BODY_D3,_textYOUR_BODY_D4,_textYOUR_BODY_D5,_textYOUR_BODY_D6
+	addStartRow: 10
+define: Text_YOUR_BODY
+	structures: Text_YOUR_BODY_Y1,Text_YOUR_BODY_O1,Text_YOUR_BODY_U,Text_YOUR_BODY_R,Text_YOUR_BODY_B,Text_YOUR_BODY_O2,Text_YOUR_BODY_D,Text_YOUR_BODY_Y2
+	changeDuration: 0.0078125
+
+# > Text Jump around
+# this somehow took shorter than i anticipated
+define: _textJump_around_J1
+	structures: Wall
+	width: 0.5
+	height: 2.5
+	startRow: 0.5
+	startHeight: 1
+define: _textJump_around_J2
+	structures: NoodleHelix
+	radius: 1
+	center: 0,1,0
+	amount: 4
+	startRotation: 180
+	rotationAmount: 180
+	scale: 0.0078125
+	changeHeight: 0.5
+define: Text_Jump_around_J
+	structures: _textJump_around_J1,_textJump_around_J2
+	addStartRow: -14
+define: _textJump_around_u1
+	structures: Wall
+	width: 0.5
+	height: 1
+	startRow: 0.5
+	startHeight: 1
+define: _textJump_around_u2
+	structures: Wall
+	width: 0.5
+	height: 1
+	startRow: -1
+	startHeight: 1
+define: _textJump_around_u3
+	structures: NoodleHelix
+	radius: 1
+	center: 0,1,0
+	amount: 4
+	startRotation: 180
+	rotationAmount: 180
+	scale: 0.0078125
+	changeHeight: 0.5
+define: Text_Jump_around_u1
+	structures: _textJump_around_u1,_textJump_around_u2,_textJump_around_u3
+	addStartRow: -11
+	addStartTime: 0.0625
+define: Text_Jump_around_u2
+	structures: _textJump_around_u1,_textJump_around_u2,_textJump_around_u3
+	addStartRow: 6.5
+	addStartTime: 0.4375
+define: _textJump_around_m1
+	structures: Wall
+	width: 0.5
+	height: 1
+	startRow: -1.75
+	startHeight: 0
+define: _textJump_around_m2
+	structures: Wall
+	width: 0.5
+	height: 1
+	startRow: -0.25
+	startHeight: 0
+define: _textJump_around_m3
+	structures: Wall
+	width: 0.5
+	height: 1
+	startRow: 1.25
+	startHeight: 0
+define: _textJump_around_m4
+	structures: NoodleHelix
+	radius: 1
+	center: -0.75,1,0
+	amount: 4
+	startRotation: 0
+	rotationAmount: 180
+	scale: 0.0078125
+	changeHeight: 0.5
+define: _textJump_around_m5
+	structures: NoodleHelix
+	radius: 1
+	center: 0.75,1,0
+	amount: 4
+	startRotation: 0
+	rotationAmount: 180
+	scale: 0.0078125
+	changeHeight: 0.5
+define: Text_Jump_around_m
+	structures: _textJump_around_m1,_textJump_around_m2,_textJump_around_m3,_textJump_around_m4,_textJump_around_m5
+	addStartRow: -7.5
+	addStartTime: 0.125
+define: _textJump_around_p1
+	structures: Wall
+	width: 0.5
+	height: 2
+	startRow: -1
+	startHeight: -1
+define: _textJump_around_p2
+	structures: NoodleHelix
+	radius: 1
+	center: 0,1,0
+	amount: 8
+	startRotation: 0
+	rotationAmount: 360
+	scale: 0.0078125
+	changeHeight: 0.5
+define: Text_Jump_around_p
+	structures: _textJump_around_p1,_textJump_around_p2
+	addStartRow: -4
+	addStartTime: 0.1875
+define: _textJump_around_a1
+	structures: Wall
+	width: 0.5
+	height: 1
+	startRow: 0.5
+	startHeight: 0
+define: _textJump_around_a2
+	structures: NoodleHelix
+	radius: 1
+	center: 0,1,0
+	amount: 8
+	startRotation: 0
+	rotationAmount: 360
+	scale: 0.0078125
+	changeHeight: 0.5
+define: Text_Jump_around_a
+	structures: _textJump_around_a1,_textJump_around_a2
+	addStartRow: 0
+	addStartTime: 0.25
+define: _textJump_around_r1
+	structures: Wall
+	width: 0.5
+	height: 1.25
+	startRow: -1
+	startHeight: 0
+define: _textJump_around_r2
+	structures: NoodleHelix
+	radius: 0.75
+	center: -0.25,1.25,0
+	amount: 3
+	startRotation: 90
+	rotationAmount: 90
+	scale: 0.0078125
+	changeHeight: 0.5
+define: Text_Jump_around_r
+	structures: _textJump_around_r1,_textJump_around_r2
+	addStartRow: 2.5
+	addStartTime: 0.3125
+define: Text_Jump_around_o
+	structures: NoodleHelix
+	radius: 1
+	center: 0,1,0
+	amount: 1
+	count: 8
+	startRotation: 0
+	rotationAmount: 45
+	changeHeight: 0.5
+	addStartRow: 4
+	addStartTime: 0.375
+define: _textJump_around_n1
+	structures: Wall
+	width: 0.5
+	height: 1
+	startRow: 0.5
+	startHeight: 0
+define: _textJump_around_n2
+	structures: Wall
+	width: 0.5
+	height: 1
+	startRow: -1
+	startHeight: 0
+define: _textJump_around_n3
+	structures: NoodleHelix
+	radius: 1
+	center: 0,1,0
+	amount: 4
+	startRotation: 0
+	rotationAmount: 180
+	scale: 0.0078125
+	changeHeight: 0.5
+define: Text_Jump_around_n
+	structures: _textJump_around_n1,_textJump_around_n2,_textJump_around_n3
+	addStartRow: 9
+	addStartTime: 0.5
+define: _textJump_around_d1
+	structures: Wall
+	width: 0.5
+	height: 2
+	startRow: 0.5
+	startHeight: 1
+define: _textJump_around_d2
+	structures: NoodleHelix
+	radius: 1
+	center: 0,1,0
+	amount: 8
+	startRotation: 0
+	rotationAmount: 360
+	scale: 0.0078125
+	changeHeight: 0.5
+define: Text_Jump_around_d
+	structures: _textJump_around_d1,_textJump_around_d2
+	addStartRow: 11.5
+	addStartTime: 0.5625
+define: Text_Jump_around
+	structures: Text_Jump_around_J,Text_Jump_around_u1,Text_Jump_around_m,Text_Jump_around_p,Text_Jump_around_a,Text_Jump_around_r,Text_Jump_around_o,Text_Jump_around_u2,Text_Jump_around_n,Text_Jump_around_d
+	changeDuration: 0.0078125
+
+#  --  END DEFINED STRUCTURES  --
+
+
+
+#  --  WALL MAPPING  --
+#	   5 - 37    >   Start
+#	0:02 - 0:16
+#  ------ ------
+2.0: RandomNoise
+	p1: -16,0.5,0
+	p2: 16,6.5,34
+	amount: 200
+	color: 160,160,160
+2.0: RandomNoise
+	p1: -12,-0.5,0
+	p2: 12,7,34
+	amount: 400
+	rotation: random(-7.5,7.5)
+	color: 192,192,192
+5.0: SideLilCube
+	repeat: 6
+	repeatAddZ: 16
+8.5: SideLilCube
+	mirror: 1
+	repeat: 6
+	repeatAddZ: 16
+10.5: SideLilCube
+	repeat: 6
+	repeatAddZ: 16
+13.0: SideLilCube
+	mirror: 1
+	repeat: 5
+	repeatAddZ: 16
+16.5: SideLilCube
+	repeat: 5
+	repeatAddZ: 16
+18.5: SideLilCube
+	mirror: 1
+	repeat: 5
+	repeatAddZ: 16
+33.0: DistantWhooshFadeIn
+
+#  ------ ------
+#	  37 - 69    >   Intro 1
+#	0:16 - 0:31
+#  ------ ------
+37.0: DistantWhooshFadeOut
+37.0: RandomNoise
+	p1: -24,-3,0
+	p2: 0,-1,56
+	amount: 224
+	changeDuration: 0.0625
+	changeHeight: 0.75
+	changeWidth: 0.75
+	localRotZ: random(0,-7.5)
+	color: 0,32,32
+37.0: RandomNoise
+	p1: 0,-3,0
+	p2: 24,-1,56
+	amount: 224
+	changeDuration: 0.0625
+	changeHeight: 0.75
+	changeWidth: 0.75
+	localRotZ: random(0,7.5)
+	color: 0,32,32
+37.0: SideColourfulBlock
+	changeDuration: random(0.0625,0.25)
+	changeWidth: random(1,2)
+	changeHeight: random(1,2)
+	localRotZ: random(0,90)
+	repeat: 7
+	repeatAddZ: 8
+64.5: SideColourfulBlock
+	changeDuration: random(0.0625,0.25)
+	changeWidth: random(1,2)
+	changeHeight: random(1,2)
+	localRotZ: random(0,90)
+66.5: SideColourfulBlock
+	changeDuration: random(0.0625,0.25)
+	changeWidth: random(1,2)
+	changeHeight: random(1,2)
+	localRotZ: random(0,90)
+
+# lyrics wall (sorry cyan, had to be done)
+37.0: Text_NIGHT
+	addStartHeight: 3.75
+	addStartRow: -4
+	color: 0,0,0
+38.0: Text_AND
+	addStartHeight: 3
+	scaleWidth: 0.5
+	scaleHeight: 0.5
+	scaleStartRow: 0.5
+	scaleStartHeight: 0.5
+	color: 0,0,0
+39.0: Text_DAY
+	addStartHeight: 1.25
+	addStartRow: 5
+	color: 0,0,0
+43.5: Text_TUNE
+	addStartHeight: 3.25
+	color: 0,0,0
+43.25: RandomNoise
+	p1: -16,0.5,0
+	p2: 16,6.5,1.5
+	amount: 24
+	color: 0,0,0
+43.75: Text_heart
+	addStartHeight: 3.25
+	rotation: 180
+	mirror: 1
+	color: 0,0,0
+46.5: Text_heart
+	addStartHeight: 3.25
+	color: 0,0,0
+53.25: Text_Move_me
+	addStartHeight: 3
+	color: 0,0,0
+63.0: Text_YOUR_BODY
+	addStartHeight: 3.25
+	color: 0,0,0
+
+# road line
+37.0: Line
+	p1: 2.5,0,0
+	p2: 3.5,0,3.5
+	amount: 28
+	changeDuration: -2.5
+	changeWidth: random(0.25,0.5)
+	mirror: 2
+	repeat: 8
+	repeatAddZ: 8
+	color: gradient(255,255,255,64,128,128)
+40.5: Line
+	p1: 3.5,0,0
+	p2: 2.75,0,2
+	amount: 16
+	changeDuration: -2.5
+	changeWidth: random(0.25,0.5)
+	mirror: 2
+	repeat: 2
+	repeatAddZ: 16
+	color: 64,128,128
+42.5: Line
+	p1: 2.75,0,0
+	p2: 4,0,2.5
+	amount: 20
+	changeDuration: -2.5
+	changeWidth: random(0.25,0.5)
+	mirror: 2
+	repeat: 2
+	repeatAddZ: 16
+	color: 64,128,128
+48.5: Line
+	p1: 3.5,0,0
+	p2: 3.25,0,2
+	amount: 16
+	changeDuration: -2.5
+	changeWidth: random(0.25,0.5)
+	mirror: 2
+	color: 64,128,128
+50.5: Line
+	p1: 3.25,0,0
+	p2: 2,0,2.5
+	amount: 20
+	changeDuration: -2.5
+	changeWidth: random(0.25,0.5)
+	mirror: 2
+	color: 64,128,128
+64.5: Line
+	p1: 2.25,0,0
+	p2: 3.5,0,2
+	amount: 16
+	changeDuration: -2.5
+	changeWidth: random(0.25,0.5)
+	mirror: 2
+	repeat: 2
+	repeatAddZ: 32
+	color: gradient(255,255,255,64,128,128)
+66.5: Line
+	p1: 2.75,0,0
+	p2: 4,0,2.5
+	amount: 20
+	changeDuration: -2.5
+	changeWidth: random(0.25,0.5)
+	mirror: 2
+	repeat: 2
+	repeatAddZ: 32
+	color: gradient(255,255,255,64,128,128)
+72.5: Line
+	p1: 3.5,0,0
+	p2: 2.75,0,2
+	amount: 16
+	changeDuration: -2.5
+	changeWidth: random(0.25,0.5)
+	mirror: 2
+	repeat: 2
+	repeatAddZ: 16
+	color: 64,128,128
+74.5: Line
+	p1: 2.75,0,0
+	p2: 4,0,2.5
+	amount: 20
+	changeDuration: -2.5
+	changeWidth: random(0.25,0.5)
+	mirror: 2
+	repeat: 2
+	repeatAddZ: 16
+	color: 64,128,128
+80.5: Line
+	p1: 3.5,0,0
+	p2: 3.25,0,2
+	amount: 16
+	changeDuration: -2.5
+	changeWidth: random(0.25,0.5)
+	mirror: 2
+	color: 64,128,128
+82.5: Line
+	p1: 3.25,0,0
+	p2: 2,0,2.5
+	amount: 20
+	changeDuration: -2.5
+	changeWidth: random(0.25,0.5)
+	mirror: 2
+	color: 64,128,128
+
+#  ------ ------
+#	  69 - 101   >   Intro 2
+#	0:31 - 0:45
+#  ------ ------
+69.0: DistantWhooshFadeOut
+69.0: Line
+	p1: 192,-192,0
+	p2: 32,-90,24
+	amount: 96
+	changeDuration: -2.5
+	changeHeight: 128
+	changeWidth: 24
+	localRotZ: ease(45,0,InExpo)
+	mirror:2
+	color: gradient(0,0,0,255,255,255)
+69.0: Line
+	p1: -30,-192,0
+	p2: -30,-90,24
+	amount: 96
+	changeDuration: -2.5
+	changeHeight: 64
+	changeWidth: 60
+	fitStartHeight: -192
+	color: gradient(0,0,0,255,255,255)
+69.0: RandomNoise
+	p1: 4,-3.5,0
+	p2: 16,0.5,1
+	amount: 4
+	changeDuration: random(0.03125,0.0625)
+	changeWidth: random(0.25,0.5)
+	changeHeight: random(0.25,0.5)
+	localRotZ: random(0,90)
+	repeat: 30
+	repeatAddZ: 1
+	color: flash(255,128,32,96,32,224)
+69.0: RandomNoise
+	p1: -4,-3.5,0
+	p2: -16,0.5,1
+	amount: 4
+	changeDuration: random(0.03125,0.0625)
+	changeWidth: random(0.25,0.5)
+	changeHeight: random(0.25,0.5)
+	localRotZ: random(0,90)
+	repeat: 30
+	repeatAddZ: 1
+	color: flash(255,128,32,96,32,224)
+
+69.0: Text_NIGHT
+	addStartHeight: 3.75
+	addStartRow: -4
+	color: 0,0,0
+70.0: Text_AND
+	addStartHeight: 3
+	scaleWidth: 0.5
+	scaleHeight: 0.5
+	scaleStartRow: 0.5
+	scaleStartHeight: 0.5
+	color: 0,0,0
+71.0: Text_DAY
+	addStartHeight: 1.25
+	addStartRow: 5
+	color: 0,0,0
+75.5: Text_TUNE
+	addStartHeight: 3.25
+	color: 0,0,0
+75.3125: Wall
+	width: 2
+	height: 0.125
+	startRow: 5
+	startHeight: 0.125
+	changeDuration: -2.5
+	mirror: 2
+	rotation: 180
+	color: 0,0,0
+75.25: Wall
+	width: 2
+	height: 0.125
+	startRow: 1
+	startHeight: 0.125
+	changeDuration: -2.5
+	mirror: 2
+	rotation: 180
+	color: 0,0,0
+75.75: Text_heart
+	addStartHeight: 3.25
+	rotation: 180
+	mirror: 1
+	color: 0,0,0
+78.5: Text_heart
+	addStartHeight: 3.25
+	color: 0,0,0
+85.25: Text_Jump_around
+	addStartHeight: 3.5
+	repeat: 3
+	repeatAddZ: 2
+	color: 0,0,0
+
+# slow background build
+91.0: RandomNoise
+	p1: -8,-0.5,0
+	p2: 8,5.5,1
+	amount: 5
+	color: 0,0,0
+92.0: RandomNoise
+	p1: -12,-0.5,0
+	p2: 12,5.5,1
+	amount: 7
+	color: 0,0,0
+93.0: RandomNoise
+	p1: -16,-0.5,0
+	p2: 16,5.5,1
+	amount: 8
+	color: 0,0,0
+94.0: RandomNoise
+	p1: -16,-0.5,0
+	p2: 16,5.5,1
+	amount: 10
+	color: 0,0,0
+95.0: RandomNoise
+	p1: -16,-0.5,0
+	p2: 16,5.5,1
+	amount: 12
+	color: 0,0,0
+96.0: RandomNoise
+	p1: -16,-0.5,0
+	p2: 16,5.5,1
+	amount: 15
+	color: 0,0,0
+97.0: RandomNoise
+	p1: -16,-0.5,0
+	p2: 16,5.5,1
+	amount: 18
+	color: flash(0,0,0,255,128,32,96,32,224)
+98.0: RandomNoise
+	p1: -16,-4,0
+	p2: 16,8,1
+	amount: 24
+	color: flash(0,0,0,255,128,32,0,0,0,96,32,224)
+98.0: RandomNoise
+	p1: -16,-4,0
+	p2: -4,8,1
+	amount: 3
+	changeDuration: -2.5
+	changeWidth: random(1,2)
+	changeHeight: random(1,2)
+	localRotZ: random(0,90)
+	color: flash(128,128,128,255,128,32,96,32,224)
+98.0: RandomNoise
+	p1: 4,-4,0
+	p2: 16,8,1
+	amount: 3
+	changeDuration: -2.5
+	changeWidth: random(1,2)
+	changeHeight: random(1,2)
+	localRotZ: random(0,90)
+	color: flash(128,128,128,255,128,32,96,32,224)
+98.5: RandomNoise
+	p1: -16,-1.5,0
+	p2: -4,6,2
+	amount: 6
+	changeDuration: -2.5
+	changeWidth: random(1,2)
+	changeHeight: random(1,2)
+	localRotZ: random(0,90)
+	color: flash(255,128,32,96,32,224)
+98.5: RandomNoise
+	p1: 4,-1.5,0
+	p2: 16,6.5,2
+	amount: 6
+	changeDuration: -2.5
+	changeWidth: random(1,2)
+	changeHeight: random(1,2)
+	localRotZ: random(0,90)
+	color: flash(255,128,32,96,32,224)
+
+# manual NoodleHelix for rotating and decreasing in radius circle, end me
+93.0: NoodleHelix
+	radius: 48
+	center: 0,4,0
+	amount: 4
+	scale: 0.0078125
+	changeDuration: -2.5
+	startRotation: 45
+	rotationAmount: 360
+	color: 255,255,255
+93.125: NoodleHelix
+	radius: 47.5
+	center: 0,4,0
+	amount: 4
+	scale: 0.0078125
+	changeDuration: -2.5
+	startRotation: 45
+	rotationAmount: 360
+	color: 252,252,252
+93.25: NoodleHelix
+	radius: 47
+	center: 0,4,0
+	amount: 4
+	scale: 0.0078125
+	changeDuration: -2.5
+	startRotation: 42.5
+	rotationAmount: 360
+	color: 248,248,248
+93.375: NoodleHelix
+	radius: 46.5
+	center: 0,4,0
+	amount: 4
+	scale: 0.0078125
+	changeDuration: -2.5
+	startRotation: 40
+	rotationAmount: 360
+	color: 244,244,244
+93.5: NoodleHelix
+	radius: 46
+	center: 0,4,0
+	amount: 4
+	scale: 0.0078125
+	changeDuration: -2.5
+	startRotation: 37.5
+	rotationAmount: 360
+	color: 240,240,240
+93.625: NoodleHelix
+	radius: 45.5
+	center: 0,4,0
+	amount: 4
+	scale: 0.0078125
+	changeDuration: -2.5
+	startRotation: 35
+	rotationAmount: 360
+	color: 236,236,236
+93.75: NoodleHelix
+	radius: 45
+	center: 0,4,0
+	amount: 4
+	scale: 0.0078125
+	changeDuration: -2.5
+	startRotation: 32.5
+	rotationAmount: 360
+	color: 232,232,232
+93.875: NoodleHelix
+	radius: 44.5
+	center: 0,4,0
+	amount: 4
+	scale: 0.0078125
+	changeDuration: -2.5
+	startRotation: 30
+	rotationAmount: 360
+	color: 228,228,228
+94.0: NoodleHelix
+	radius: 44
+	center: 0,4,0
+	amount: 4
+	scale: 0.0078125
+	changeDuration: -2.5
+	startRotation: 27.5
+	rotationAmount: 360
+	color: 224,224,224
+94.125: NoodleHelix
+	radius: 43.5
+	center: 0,4,0
+	amount: 4
+	scale: 0.0078125
+	changeDuration: -2.5
+	startRotation: 25
+	rotationAmount: 360
+	color: 220,220,220
+94.25: NoodleHelix
+	radius: 43
+	center: 0,4,0
+	amount: 4
+	scale: 0.0078125
+	changeDuration: -2.5
+	startRotation: 22.5
+	rotationAmount: 360
+	color: 216,216,216
+94.375: NoodleHelix
+	radius: 42.5
+	center: 0,4,0
+	amount: 4
+	scale: 0.0078125
+	changeDuration: -2.5
+	startRotation: 20
+	rotationAmount: 360
+	color: 212,212,212
+94.5: NoodleHelix
+	radius: 42
+	center: 0,4,0
+	amount: 4
+	scale: 0.0078125
+	changeDuration: -2.5
+	startRotation: 17.5
+	rotationAmount: 360
+	color: 208,208,208
+94.625: NoodleHelix
+	radius: 41.5
+	center: 0,4,0
+	amount: 4
+	scale: 0.0078125
+	changeDuration: -2.5
+	startRotation: 15
+	rotationAmount: 360
+	color: 204,204,204
+94.75: NoodleHelix
+	radius: 41
+	center: 0,4,0
+	amount: 4
+	scale: 0.0078125
+	changeDuration: -2.5
+	startRotation: 12.5
+	rotationAmount: 360
+	color: 200,200,200
+94.875: NoodleHelix
+	radius: 40.5
+	center: 0,4,0
+	amount: 4
+	scale: 0.0078125
+	changeDuration: -2.5
+	startRotation: 10
+	rotationAmount: 360
+	color: 196,196,196
+95.0: NoodleHelix
+	radius: 40
+	center: 0,4,0
+	amount: 4
+	scale: 0.0078125
+	changeDuration: -2.5
+	startRotation: 7.5
+	rotationAmount: 360
+	color: 192,192,192
+95.125: NoodleHelix
+	radius: 39.5
+	center: 0,4,0
+	amount: 4
+	scale: 0.0078125
+	changeDuration: -2.5
+	startRotation: 5
+	rotationAmount: 360
+	color: 188,188,188
+95.25: NoodleHelix
+	radius: 39
+	center: 0,4,0
+	amount: 4
+	scale: 0.0078125
+	changeDuration: -2.5
+	startRotation: 2.5
+	rotationAmount: 360
+	color: 184,184,184
+95.375: NoodleHelix
+	radius: 38.5
+	center: 0,4,0
+	amount: 4
+	scale: 0.0078125
+	changeDuration: -2.5
+	startRotation: 0
+	rotationAmount: 360
+	color: 180,180,180
+95.5: NoodleHelix
+	radius: 38
+	center: 0,4,0
+	amount: 4
+	scale: 0.0078125
+	changeDuration: -2.5
+	startRotation: -2.5
+	rotationAmount: 360
+	color: 176,176,176
+95.625: NoodleHelix
+	radius: 37.5
+	center: 0,4,0
+	amount: 4
+	scale: 0.0078125
+	changeDuration: -2.5
+	startRotation: -5
+	rotationAmount: 360
+	color: 172,172,172
+95.75: NoodleHelix
+	radius: 37
+	center: 0,4,0
+	amount: 4
+	scale: 0.0078125
+	changeDuration: -2.5
+	startRotation: -7.5
+	rotationAmount: 360
+	color: 168,168,168
+95.875: NoodleHelix
+	radius: 36.5
+	center: 0,4,0
+	amount: 4
+	scale: 0.0078125
+	changeDuration: -2.5
+	startRotation: -10
+	rotationAmount: 360
+	color: 164,164,164
+96.0: NoodleHelix
+	radius: 36
+	center: 0,4,0
+	amount: 4
+	scale: 0.0078125
+	changeDuration: -2.5
+	startRotation: -12.5
+	rotationAmount: 360
+	color: 160,160,160
+96.125: NoodleHelix
+	radius: 35.5
+	center: 0,4,0
+	amount: 4
+	scale: 0.0078125
+	changeDuration: -2.5
+	startRotation: -15
+	rotationAmount: 360
+	color: 156,156,156
+96.25: NoodleHelix
+	radius: 35
+	center: 0,4,0
+	amount: 4
+	scale: 0.0078125
+	changeDuration: -2.5
+	startRotation: -17.5
+	rotationAmount: 360
+	color: 152,152,152
+96.375: NoodleHelix
+	radius: 34.5
+	center: 0,4,0
+	amount: 4
+	scale: 0.0078125
+	changeDuration: -2.5
+	startRotation: -20
+	rotationAmount: 360
+	color: 148,148,148
+96.5: NoodleHelix
+	radius: 34
+	center: 0,4,0
+	amount: 4
+	scale: 0.0078125
+	changeDuration: -2.5
+	startRotation: -22.5
+	rotationAmount: 360
+	color: 144,144,144
+96.625: NoodleHelix
+	radius: 33.5
+	center: 0,4,0
+	amount: 4
+	scale: 0.0078125
+	changeDuration: -2.5
+	startRotation: -25
+	rotationAmount: 360
+	color: 140,140,140
+96.75: NoodleHelix
+	radius: 33
+	center: 0,4,0
+	amount: 4
+	scale: 0.0078125
+	changeDuration: -2.5
+	startRotation: -27.5
+	rotationAmount: 360
+	color: 136,136,136
+96.875: NoodleHelix
+	radius: 32.5
+	center: 0,4,0
+	amount: 4
+	scale: 0.0078125
+	changeDuration: -2.5
+	startRotation: -30
+	rotationAmount: 360
+	color: 132,132,132
+97.0: NoodleHelix
+	radius: 32
+	center: 0,4,0
+	amount: 4
+	scale: 0.0078125
+	changeDuration: -2.5
+	startRotation: -32.5
+	rotationAmount: 360
+	color: 128,128,128
+97.125: NoodleHelix
+	radius: 31.5
+	center: 0,4,0
+	amount: 4
+	scale: 0.0078125
+	changeDuration: -2.5
+	startRotation: -35
+	rotationAmount: 360
+	color: 124,124,124
+97.25: NoodleHelix
+	radius: 31
+	center: 0,4,0
+	amount: 4
+	scale: 0.0078125
+	changeDuration: -2.5
+	startRotation: -37.5
+	rotationAmount: 360
+	color: 120,120,120
+97.375: NoodleHelix
+	radius: 30.5
+	center: 0,4,0
+	amount: 4
+	scale: 0.0078125
+	changeDuration: -2.5
+	startRotation: -40
+	rotationAmount: 360
+	color: 116,116,116
+97.5: NoodleHelix
+	radius: 30
+	center: 0,4,0
+	amount: 4
+	scale: 0.0078125
+	changeDuration: -2.5
+	startRotation: -42.5
+	rotationAmount: 360
+	color: 112,112,112
+97.625: NoodleHelix
+	radius: 29.5
+	center: 0,4,0
+	amount: 4
+	scale: 0.0078125
+	changeDuration: -2.5
+	startRotation: -45
+	rotationAmount: 360
+	color: 108,108,108
+97.75: NoodleHelix
+	radius: 29
+	center: 0,4,0
+	amount: 4
+	scale: 0.0078125
+	changeDuration: -2.5
+	startRotation: -47.5
+	rotationAmount: 360
+	color: 104,104,104
+97.875: NoodleHelix
+	radius: 28.5
+	center: 0,4,0
+	amount: 4
+	scale: 0.0078125
+	changeDuration: -2.5
+	startRotation: -50
+	rotationAmount: 360
+	color: 100,100,100
+98.0: NoodleHelix
+	radius: 28
+	center: 0,4,0
+	amount: 4
+	scale: 0.0078125
+	changeDuration: -2.5
+	startRotation: -52.5
+	rotationAmount: 360
+	color: 96,96,96
+98.125: NoodleHelix
+	radius: 27.5
+	center: 0,4,0
+	amount: 4
+	scale: 0.0078125
+	changeDuration: -2.5
+	startRotation: -55
+	rotationAmount: 360
+	color: 92,92,92
+98.25: NoodleHelix
+	radius: 27
+	center: 0,4,0
+	amount: 4
+	scale: 0.0078125
+	changeDuration: -2.5
+	startRotation: -57.5
+	rotationAmount: 360
+	color: 88,88,88
+98.375: NoodleHelix
+	radius: 26.5
+	center: 0,4,0
+	amount: 4
+	scale: 0.0078125
+	changeDuration: -2.5
+	startRotation: -60
+	rotationAmount: 360
+	color: 84,84,84
+98.5: NoodleHelix
+	radius: 26
+	center: 0,4,0
+	amount: 4
+	scale: 0.0078125
+	changeDuration: -2.5
+	startRotation: -62.5
+	rotationAmount: 360
+	color: 80,80,80
+98.625: NoodleHelix
+	radius: 25.5
+	center: 0,4,0
+	amount: 4
+	scale: 0.0078125
+	changeDuration: -2.5
+	startRotation: -65
+	rotationAmount: 360
+	color: 76,76,76
+98.75: NoodleHelix
+	radius: 25
+	center: 0,4,0
+	amount: 4
+	scale: 0.0078125
+	changeDuration: -2.5
+	startRotation: -67.5
+	rotationAmount: 360
+	color: 72,72,72
+98.875: NoodleHelix
+	radius: 24.5
+	center: 0,4,0
+	amount: 4
+	scale: 0.0078125
+	changeDuration: -2.5
+	startRotation: -70
+	rotationAmount: 360
+	color: 68,68,68
+99.0: NoodleHelix
+	radius: 24
+	center: 0,4,0
+	amount: 4
+	scale: 0.0078125
+	changeDuration: -2.5
+	startRotation: -72.5
+	rotationAmount: 360
+	color: 64,64,64
+99.125: NoodleHelix
+	radius: 23.5
+	center: 0,4,0
+	amount: 4
+	scale: 0.0078125
+	changeDuration: -2.5
+	startRotation: -75
+	rotationAmount: 360
+	color: 60,60,60
+99.25: NoodleHelix
+	radius: 23
+	center: 0,4,0
+	amount: 4
+	scale: 0.0078125
+	changeDuration: -2.5
+	startRotation: -77.5
+	rotationAmount: 360
+	color: 56,56,56
+99.375: NoodleHelix
+	radius: 22.5
+	center: 0,4,0
+	amount: 4
+	scale: 0.0078125
+	changeDuration: -2.5
+	startRotation: -80
+	rotationAmount: 360
+	color: 52,52,52
+99.5: NoodleHelix
+	radius: 22
+	center: 0,4,0
+	amount: 4
+	scale: 0.0078125
+	changeDuration: -2.5
+	startRotation: -82.5
+	rotationAmount: 360
+	color: 48,48,48
+99.625: NoodleHelix
+	radius: 21.5
+	center: 0,4,0
+	changeDuration: -2.5
+	amount: 4
+	scale: 0.0078125
+	startRotation: -85
+	rotationAmount: 360
+	color: 44,44,44
+99.75: NoodleHelix
+	radius: 21
+	center: 0,4,0
+	changeDuration: -2.5
+	amount: 4
+	scale: 0.0078125
+	startRotation: -87.5
+	rotationAmount: 360
+	color: 40,40,40
+99.875: NoodleHelix
+	radius: 20.5
+	center: 0,4,0
+	changeDuration: -2.5
+	amount: 4
+	scale: 0.0078125
+	startRotation: -90
+	rotationAmount: 360
+	color: 36,36,36
+100.0: NoodleHelix
+	radius: 20
+	center: 0,4,0
+	amount: 4
+	scale: 0.0078125
+	changeDuration: -2.5
+	startRotation: -90
+	rotationAmount: 360
+	color: 32,32,32
+
+# spiral transitioning
+100.0: NoodleHelix
+	radius: 4
+	endRadius: 24
+	amount: 32
+	changeDuration: -2.5
+	startRotation: -120
+	rotationAmount: 360
+	color: gradient(255,255,255,0,64,64)
+100.0: NoodleHelix
+	radius: 4
+	endRadius: 24
+	amount: 32
+	changeDuration: -2.5
+	startRotation: -60
+	rotationAmount: -360
+	color: gradient(255,255,255,0,64,64)
+100.0: Line
+	p1: 16,-1,0
+	p2: -8,0,1
+	amount: 32
+	mirror: 2
+	changeDuration: -2.5
+	color: gradient(0,4,4,64,255,255)
+100.625: Line
+	p1: 8,0,0
+	p2: 0,0,0.5
+	amount: 16
+	mirror: 2
+	color: gradient(160,224,224,128,128,128)
+
+#  ------ ------
+#	 101 - 133   >   Pre-build
+#	0:45 - 1:00
+#  ------ ------
+101.0: DistantWhooshFadeOut
+100.75: RandomNoise
+	p1: -16,0.5,0
+	p2: 16,6.5,31
+	amount: 200
+	color: flash(128,128,128,0,192,192)
+100.75: RandomNoise
+	p1: -12,-0.5,0
+	p2: 12,7,31
+	amount: 400
+	rotation: random(-7.5,7.5)
+	color: 192,192,192
+100.875: SpaceBlock
+	changeDuration: 0.25
+	changeHeight: 3
+	changeWidth: 3
+	repeat: 61
+	repeatAddZ: 0.5
+	color: 32,32,32
+100.5: Wall
+	duration: 0.125
+	height: 32
+	width: 2
+	startHeight: -31
+	startRow: 8
+	mirror: 2
+	color: black
+100.625: Wall
+	duration: 28.375
+	height: 0
+	width: 2
+	startRow: 8
+	localRotZ: 30
+	mirror: 2
+	color: black
+129.0: Wall
+	duration: 0.25
+	height: 32
+	width: 2
+	startRow: 8
+	startHeight: -31
+	repeat: 16
+	repeatAddWidth: -0.0625
+	repeatAddHeight: -0.1875
+	repeatAddZ: 0.25
+	repeatAddStartRow: 0.40625
+	color: 128,128,128
+129.0: Wall
+	duration: 0.25
+	height: 32
+	width: 2
+	startRow: -10
+	startHeight: -31
+	repeat: 16
+	repeatAddWidth: -0.0625
+	repeatAddHeight: -0.1875
+	repeatAddZ: 0.25
+	repeatAddStartRow: -0.5
+	color: 128,128,128
+
+# approaching block increasing in size
+101.0: Line
+	p1: 96,-96,0
+	p2: 20,-32,32
+	amount: 32
+	changeWidth: 32
+	changeHeight: 64
+	fitHeight: 56
+	mirror: 2
+	color: gradient(0,0,0,255,255,255)
+
+# that road line thingy again
+101.0: Line
+	p1: 2,0,0
+	p2: 3,0,4
+	amount: 8
+	changeDuration: 1
+	mirror: 2
+	color: 0,0,0
+105.0: Line
+	p1: 3,0,0
+	p2: 2,0,4
+	amount: 8
+	changeDuration: 1
+	mirror: 2
+	color: 0,0,0
+109.0: Line
+	p1: 2,0,0
+	p2: 3.5,0,4
+	amount: 8
+	changeDuration: 1
+	mirror: 2
+	color: 0,0,0
+113.0: Line
+	p1: 3.5,0,0
+	p2: 2.25,0,4
+	amount: 8
+	changeDuration: 1
+	mirror: 2
+	color: 0,0,0
+117.0: Line
+	p1: 2.25,0,0
+	p2: 4.25,0,4
+	amount: 8
+	changeDuration: 1
+	mirror: 2
+	color: 0,0,0
+121.0: Line
+	p1: 4.25,0,0
+	p2: 2.75,0,4
+	amount: 8
+	changeDuration: 1
+	mirror: 2
+	color: 0,0,0
+125.0: Line
+	p1: 2.75,0,0
+	p2: 6,0,4
+	amount: 8
+	changeDuration: 1
+	mirror: 2
+	color: 0,0,0
+129.0: SteadyCurve
+	p1: 6,0,0
+	p2: 8,0,8
+	p3: 12,0,0
+	p4: 16,4,8
+	scale: 4
+	amount: 8
+	mirror: 2
+	color: gradient(0,0,0,255,255,255)
+
+# spiral tunnel transition
+129.0: NoodleHelix
+	radius: 8
+	endRadius: -6
+	amount: 32
+	count: 4
+	scale: 2
+	changeDuration: -2.5
+	startRotation: -45
+	rotationAmount: 45
+	color: black
+131.0: NoodleHelix
+	radius: 2
+	endRadius: 24
+	count: 4
+	amount: 32
+	scale: 2
+	changeDuration: -2.5
+	startRotation: 0
+	color: gradient(black,white)
+
+#  ------ ------
+#	 133 - 165   >   Build
+#	1:00 - 1:14
+#  ------ ------
+# spiral tile tunnel
+132.9375: NoodleHelix
+	radius: 24
+	center: 0,5,0
+	amount: 8
+	scale: 0.0078125
+	startRotation: 0
+	rotationAmount: 360
+	changeDuration: 12
+	changeHeight: 8
+	color: 255,255,255
+133.0: SpiralTile
+	scale: 4
+	changeHeight: random(2.5,5)
+	changeDuration: random(0.0625,0.125)
+	repeat: 7
+	repeatAddZ: 4
+	color: flash(gray,white)
+133.0: SpiralTileT
+	scale: 4
+	changeHeight: random(2,3)
+	changeWidth: random(2,3)
+	changeDuration: random(0.0625,0.125)
+	localRotZ: random(0,360)
+	repeat: 7
+	repeatAddZ: 4
+	color: flash(255,255,255,128,255,255,255,255,255)
+160.9375: NoodleHelix
+	radius: 24
+	center: 0,5,0
+	amount: 8
+	scale: 0.0078125
+	startRotation: 0
+	rotationAmount: 360
+	changeDuration: 12
+	changeHeight: 12
+	color: 255,255,255
+
+# unused spiral tile background for performance
+#133.0: SpiralTileBG
+#	scale: 2
+#	repeat: 3
+#	repeatAddZ: 4
+#	color: white
+#135.0: SpiralTileBG
+#	scale: 2
+#	repeat: 3
+#	repeatAddZ: 4
+#	color: black
+#145.0: SpiralTileBG
+#	scale: 4
+#	color: white
+#149.0: SpiralTileBG
+#	scale: 2
+#	repeat: 3
+#	repeatAddZ: 4
+#	color: black
+#151.0: SpiralTileBG
+#	scale: 2
+#	repeat: 3
+#	repeatAddZ: 4
+#	color: white
+
+# unused spiral tunnel for performance
+#133.0: NoodleHelix
+#	radius: 10
+#	center: 0,4,0
+#	amount: 8
+#	startRotation: 270
+#	rotationAmount: 180
+#	repeat: 7
+#	repeatAddZ: 4
+#	mirror: 2
+#	color: gradient(black,black)
+#134.0: NoodleHelix
+#	radius: 10
+#	center: 0,4,0
+#	amount: 8
+#	startRotation: 90
+#	rotationAmount: 180
+#	repeat: 7
+#	repeatAddZ: 4
+#	mirror: 2
+#	color: gradient(black,white)
+#135.0: NoodleHelix
+#	radius: 10
+#	center: 0,4,0
+#	amount: 8
+#	startRotation: 270
+#	rotationAmount: 180
+#	repeat: 7
+#	repeatAddZ: 4
+#	mirror: 2
+#	color: gradient(255,255,255,160,255,255)
+#136.0: NoodleHelix
+#	radius: 10
+#	center: 0,4,0
+#	amount: 8
+#	startRotation: 90
+#	rotationAmount: 180
+#	repeat: 7
+#	repeatAddZ: 4
+#	mirror: 2
+#	color: gradient(160,255,255,0,0,0)
+
+# girly cupid~
+145.0: RandomCurve
+	p1: 4,-1,0
+	p2: 8,2.5,1
+	amount: 8
+	mirror: 2
+	color: gradient(32,32,32,255,255,255)
+146.0: RandomCurve
+	p1: 8,2.5,0
+	p2: 16,-2.5,1
+	amount: 8
+	mirror: 2
+	color: gradient(255,255,255,0,0,0)
+147.0: RandomCurve
+	p1: 12,1,0
+	p2: 8,-3,1
+	amount: 8
+	mirror: 2
+	color: gradient(64,64,64,255,255,255)
+148.0: RandomCurve
+	p1: 8,-3,0
+	p2: 20,0,1
+	amount: 8
+	mirror: 2
+	color: gradient(255,255,255,0,0,0)
+149.0: Text_WA
+	repeat: 3
+	repeatAddZ: 4
+	color: 255,255,255
+151.0: Text_WA
+	repeat: 3
+	repeatAddZ: 4
+	color: 0,0,0
+
+# expanding sound thingy
+161.0: Wall
+	height: 16
+	width: 8
+	startRow: 0
+	startHeight: -17.25
+	changeDuration: -1
+	localRotZ: -8
+	mirror: 2
+	color: 192,192,192
+161.0: Wall
+	height: 16
+	width: 8
+	startRow: -4
+	startHeight: -19
+	changeDuration: -1
+	color: 128,128,128
+#161.0: Line
+#	p1: -16,5,0
+#	p2: -16,8,0.375
+#	changeWidth: 32
+#	changeDuration: -2.5
+#	amount: 6
+#	color: gradient(0,0,0,255,255,255)
+#161.0: Line
+#	p1: -16,-3,0
+#	p2: -16,-6,0.375
+#	changeWidth: 32
+#	changeDuration: -2.5
+#	amount: 6
+#	color: gradient(0,0,0,255,255,255)
+161.0: Line
+	p1: 3,-16,0
+	p2: 7,-16,0.375
+	changeHeight: 32
+	changeDuration: -2.5
+	localRotZ: -7.5
+	amount: 6
+	mirror: 2
+	color: gradient(0,0,0,255,255,255)
+
+# scrapped for better wall and performance
+#161.0: Line
+#	p1: -8,-16,0
+#	p2: -10,-20,0.5
+#	changeHeight: 16.25
+#	changeDuration: -2.5
+#	localRotX: 0
+#	rotation: 90
+#	amount: 16
+#	color: gradient(0,0,0,255,255,255)
+#161.0: Line
+#	p1: 8,-16,0
+#	p2: 10,-20,0.5
+#	changeHeight: 16.25
+#	changeDuration: -2.5
+#	localRotX: 0
+#	rotation: 270
+#	amount: 16
+#	color: gradient(0,0,0,255,255,255)
+#161.0: Line
+#	p1: 8,4,0
+#	p2: 10,8,0.5
+#	changeHeight: 16
+#	changeDuration: -2.5
+#	localRotX: 0
+#	rotation: 270
+#	amount: 16
+#	color: gradient(0,0,0,255,255,255)
+#161.0: Line
+#	p1: -8,4,0
+#	p2: -10,8,0.5
+#	changeHeight: 16
+#	changeDuration: -2.5
+#	localRotX: 0
+#	rotation: 90
+#	amount: 16
+#	color: gradient(0,0,0,255,255,255)
+
+# whatever that drum sound is
+161.75: Wall
+	width: 2
+	height: 2
+	startRow: 2
+	startHeight: -1
+	changeDuration: -2.5
+	mirror: 2
+	color: 192,224,224
+162.0: Wall
+	width: 5
+	height: 2.5
+	startRow: 3
+	startHeight: 0
+	changeDuration: -2.5
+	mirror: 2
+	color: 128,160,160
+162.333: Wall
+	width: 1
+	height: 1
+	startRow: 2
+	startHeight: -2
+	changeDuration: -2.5
+	mirror: 2
+	color: 64,128,128
+162.5: Wall
+	width: 1.5
+	height: 1
+	startRow: 3
+	startHeight: -1.875
+	changeDuration: -2.5
+	mirror: 2
+	color: 64,128,128
+162.666: Wall
+	width: 2.5
+	height: 1
+	startRow: 4.5
+	startHeight: -1.75
+	changeDuration: -2.5
+	mirror: 2
+	color: 64,128,128
+162.833: Wall
+	width: 4
+	height: 1
+	startRow: 6.5
+	startHeight: -1.625
+	changeDuration: -2.5
+	mirror: 2
+	color: 64,128,128
+163.0: Wall
+	width: 8
+	height: 1
+	startRow: 10.5
+	startHeight: -1.5
+	changeDuration: -2.5
+	mirror: 2
+	color: 64,128,128
+
+# spiral diamond transitioning
+163.5: NoodleHelix
+	radius: 14
+	center: 0,3,0
+	amount: 4
+	scale: 0.015625
+	changeDuration: -2.5
+	startRotation: -6
+	rotationAmount: 360
+	rotation: 180
+	color: 255,255,255
+163.5625: NoodleHelix
+	radius: 13
+	center: 0,2.875,0
+	amount: 4
+	scale: 0.015625
+	changeDuration: -2.5
+	startRotation: 6
+	rotationAmount: 360
+	rotation: 180
+	color: 240,240,240
+163.625: NoodleHelix
+	radius: 12
+	center: 0,2.75,0
+	amount: 4
+	scale: 0.015625
+	changeDuration: -2.5
+	startRotation: 18
+	rotationAmount: 360
+	rotation: 180
+	color: 224,224,224
+163.6875: NoodleHelix
+	radius: 11
+	center: 0,2.625,0
+	amount: 4
+	scale: 0.015625
+	changeDuration: -2.5
+	startRotation: 30
+	rotationAmount: 360
+	rotation: 180
+	color: 208,208,208
+163.75: NoodleHelix
+	radius: 10
+	center: 0,2.5,0
+	amount: 4
+	scale: 0.015625
+	changeDuration: -2.5
+	startRotation: 42
+	rotationAmount: 360
+	rotation: 180
+	color: 192,192,192
+163.8125: NoodleHelix
+	radius: 9
+	center: 0,2.375,0
+	amount: 4
+	scale: 0.015625
+	changeDuration: -2.5
+	startRotation: 54
+	rotationAmount: 360
+	rotation: 180
+	color: 176,176,176
+163.875: NoodleHelix
+	radius: 8
+	center: 0,2.25,0
+	amount: 4
+	scale: 0.015625
+	changeDuration: -2.5
+	startRotation: 66
+	rotationAmount: 360
+	rotation: 180
+	color: 160,160,160
+163.9375: NoodleHelix
+	radius: 7
+	center: 0,2.125,0
+	amount: 4
+	scale: 0.015625
+	changeDuration: -2.5
+	startRotation: 78
+	rotationAmount: 360
+	rotation: 180
+	color: 144,144,144
+164: NoodleHelix
+	radius: 6
+	center: 0,2,0
+	amount: 4
+	scale: 0.015625
+	changeDuration: -2.5
+	startRotation: 90
+	rotationAmount: 360
+	rotation: 180
+	color: 128,128,128
+
+# unused spiral square background for performance
+#164: NoodleHelix
+#	radius: 24
+#	center: 0,3,0
+#	amount: 4
+#	scale: 0.03125
+#	changeDuration: -2.5
+#	startRotation: 6
+#	rotationAmount: 360
+#	color: black
+#164.0625: NoodleHelix
+#	radius: 23
+#	center: 0,2.875,0
+#	amount: 4
+#	scale: 0.03125
+#	changeDuration: -2.5
+#	startRotation: -6
+#	rotationAmount: 360
+#	color: black
+#164.125: NoodleHelix
+#	radius: 22
+#	center: 0,2.75,0
+#	amount: 4
+#	scale: 0.03125
+#	changeDuration: -2.5
+#	startRotation: -18
+#	rotationAmount: 360
+#	color: black
+#164.1875: NoodleHelix
+#	radius: 21
+#	center: 0,2.625,0
+#	amount: 4
+#	scale: 0.03125
+#	changeDuration: -2.5
+#	startRotation: -30
+#	rotationAmount: 360
+#	color: black
+#164.25: NoodleHelix
+#	radius: 20
+#	center: 0,2.5,0
+#	amount: 4
+#	scale: 0.03125
+#	changeDuration: -2.5
+#	startRotation: -42
+#	rotationAmount: 360
+#	color: black
+#164.3125: NoodleHelix
+#	radius: 19
+#	center: 0,2.375,0
+#	amount: 4
+#	scale: 0.03125
+#	changeDuration: -2.5
+#	startRotation: -54
+#	rotationAmount: 360
+#	color: black
+#164.375: NoodleHelix
+#	radius: 18
+#	center: 0,2.25,0
+#	amount: 4
+#	scale: 0.03125
+#	changeDuration: -2.5
+#	startRotation: -66
+#	rotationAmount: 360
+#	color: black
+#164.4375: NoodleHelix
+#	radius: 17
+#	center: 0,2.125,0
+#	amount: 4
+#	scale: 0.03125
+#	changeDuration: -2.5
+#	startRotation: -78
+#	rotationAmount: 360
+#	color: black
+#164.5: NoodleHelix
+#	radius: 16
+#	center: 0,2,0
+#	amount: 4
+#	scale: 0.03125
+#	changeDuration: -2.5
+#	startRotation: -90
+#	rotationAmount: 360
+#	color: black
+# scrapped because it's bad for performance
+#164.5625: HorizontalHyperWall
+#	changeStartHeight: random(-48,48)
+#	color: flash(0,0,0,128,128,128,64,64,64,160,0,0,0,160,0,0,0,160,128,128,0,0,128,128,128,0,128,0,0,0,128,128,128,64,64,64)
+
+#  ------ ------
+#	 165 - 197   >   Drop 1-1
+#	1:14 - 1:28
+#  ------ ------
+164.75: RandomNoise
+	p1: -16,0.5,0
+	p2: 16,6.5,4
+	amount: 10
+	color: 160,160,160
+164.75: RandomNoise
+	p1: -12,-0.5,0
+	p2: 12,7,4
+	amount: 20
+	rotation: random(-7.5,7.5)
+	color: 192,192,192
+
+# big colourful blocks popping in n stuff
+165.0: _sideColourfulBlockA1
+	changeDuration: random(0.25,0.5)
+	changeWidth: random(2,4)
+	changeHeight: random(2,3)
+	localRotZ: random(-15,15)
+	repeat: 2
+	repeatAddZ: 2
+	color: 96,32,224
+165.0: _sideColourfulBlockA2
+	changeDuration: random(0.5,0.75)
+	changeWidth: random(6,9)
+	changeHeight: random(3,5)
+	localRotZ: random(-15,15)
+	repeat: 2
+	repeatAddZ: 2
+	color: 96,32,224
+165.0: _sideColourfulBlockA3
+	changeDuration: random(0.5,0.75)
+	changeWidth: random(6,9)
+	changeHeight: random(3,5)
+	localRotZ: random(-15,15)
+	repeat: 2
+	repeatAddZ: 2
+	color: 255,128,32
+169.75: _sideColourfulBlockA1
+	changeDuration: -2.5
+	changeWidth: random(2,4)
+	changeHeight: random(2,3)
+	localRotZ: random(-15,15)
+	repeat: 4
+	repeatAddZ: 0.125
+	color: 64,64,64
+169.75: _sideColourfulBlockA2
+	changeDuration: -2.5
+	changeWidth: random(6,9)
+	changeHeight: random(3,5)
+	localRotZ: random(-15,15)
+	repeat: 4
+	repeatAddZ: 0.125
+	color: 64,64,64
+169.75: _sideColourfulBlockA3
+	changeDuration: -2.5
+	changeWidth: random(6,9)
+	changeHeight: random(3,5)
+	localRotZ: random(-15,15)
+	repeat: 4
+	repeatAddZ: 0.125
+	color: 64,64,64
+
+# black bar from the side
+165.25: BlackBarSplash
+
+# this three tile thing like in the MV
+166.75: TileTrail
+
+# that triangle + circle thing
+165.03125: ThiccCircle
+165.0: ShapeCircle
+	addStartHeight: 3
+	addHeight: 0.25
+	scaleWidth: 2.125
+	scaleHeight: 2.125
+	scaleStartRow: 2.125
+	scaleStartHeight: 2.125
+	rotation: 180
+	color: 0,0,0
+165.0: ShapeTriangle
+	addStartHeight: 4.4375
+	scaleWidth: 1.6875
+	scaleHeight: 1.6875
+	scaleStartRow: 1.6875
+	scaleStartHeight: 1.6875
+	rotation: 180
+	color: 0,0,0
+167.25: ShapeCircle
+	addStartHeight: 3
+	scaleWidth: 4
+	scaleHeight: 4
+	scaleStartRow: 4
+	scaleStartHeight: 4
+	changeDuration: -2.5
+	rotation: 180
+	color: 0,0,0
+
+# BVRVRRV
+168.5: SomeWubSound
+
+# glitchy floor going front
+169.5: GlitchyFloor
+
+# diamond + circle inside and big circle outside
+171.0: DiamondCircleThingy
+
+172.0: Wall
+	width: 2.5
+	height: 1
+	startRow: 8
+	startHeight: -0.5
+	changeDuration: -2.5
+	mirror: 2
+	color: 64,128,128
+
+# not this again
+172.75: RandomNoise
+	p1: -16,0.5,0
+	p2: 16,6.5,4
+	amount: 10
+	color: 160,160,160
+172.75: RandomNoise
+	p1: -12,-0.5,0
+	p2: 12,7,4
+	amount: 20
+	rotation: random(-7.5,7.5)
+	color: 192,192,192
+
+# colourful blocks popping in again
+173.0: _sideColourfulBlockA1
+	changeDuration: random(0.25,0.5)
+	changeWidth: random(2,4)
+	changeHeight: random(2,3)
+	localRotZ: random(-15,15)
+	repeat: 3
+	repeatAddZ: 2
+	color: 255,128,32
+173.0: _sideColourfulBlockA2
+	changeDuration: random(0.5,0.75)
+	changeWidth: random(6,9)
+	changeHeight: random(3,5)
+	localRotZ: random(-15,15)
+	repeat: 3
+	repeatAddZ: 2
+	color: 96,32,224
+173.0: _sideColourfulBlockA3
+	changeDuration: random(0.5,0.75)
+	changeWidth: random(6,9)
+	changeHeight: random(3,5)
+	localRotZ: random(-15,15)
+	repeat: 3
+	repeatAddZ: 2
+	color: 255,128,32
+173.0: _sideColourfulBlockA4
+	changeDuration: random(0.25,0.5)
+	changeWidth: random(2,4)
+	changeHeight: random(2,3)
+	localRotZ: random(-15,15)
+	repeat: 3
+	repeatAddZ: 2
+	color: 64,64,64
+
+# this line thingy AAAAAAAAAAAAAAAAAA
+173.0: WaveformLine
+
+177.0: Wall
+	width: 5
+	height: 1
+	startRow: 4
+	startHeight: -1.25
+	changeDuration: -2.5
+	mirror: 2
+	repeat: 2
+	repeatAddZ: 2
+	color: 64,128,128
+178.0: Wall
+	width: 5
+	height: 1
+	startRow: 8
+	startHeight: -0.5
+	changeDuration: -2.5
+	mirror: 2
+	color: 64,128,128
+
+# god this is not so fun to make
+177.0: ShapeCombineHeartIDFK
+
+# glithcvihcv whatsy
+180.0: _sideColourfulBlockA1
+	changeDuration: -2.5
+	changeWidth: random(2,4)
+	changeHeight: random(2,3)
+	localRotZ: random(-15,15)
+	repeat: 4
+	repeatAddZ: 0.125
+	color: 64,64,64
+180.0: _sideColourfulBlockA2
+	changeDuration: -2.5
+	changeWidth: random(6,9)
+	changeHeight: random(3,5)
+	localRotZ: random(-15,15)
+	repeat: 4
+	repeatAddZ: 0.125
+	color: 64,64,64
+180.0: _sideColourfulBlockA3
+	changeDuration: -2.5
+	changeWidth: random(6,9)
+	changeHeight: random(3,5)
+	localRotZ: random(-15,15)
+	repeat: 4
+	repeatAddZ: 0.125
+	color: 64,64,64
+180.0: _sideColourfulBlockA1
+	changeDuration: -2.5
+	changeWidth: random(2,4)
+	changeHeight: random(2,3)
+	localRotZ: random(-15,15)
+	repeat: 4
+	repeatAddZ: 0.125
+	mirror: 1
+	color: 64,64,64
+180.0: _sideColourfulBlockA2
+	changeDuration: -2.5
+	changeWidth: random(6,9)
+	changeHeight: random(3,5)
+	localRotZ: random(-15,15)
+	repeat: 4
+	repeatAddZ: 0.125
+	mirror: 1
+	color: 64,64,64
+180.0: _sideColourfulBlockA3
+	changeDuration: -2.5
+	changeWidth: random(6,9)
+	changeHeight: random(3,5)
+	localRotZ: random(-15,15)
+	repeat: 4
+	repeatAddZ: 0.125
+	mirror: 1
+	color: 64,64,64
+
+# glitchy floor going front
+180.0: GlitchyFloor
+
+# fast blue and orange thing
+181.5: FastBlueOrangeWall
+
+# pls
+182.75: RandomNoise
+	p1: -16,0.5,0
+	p2: 16,6.5,4
+	amount: 10
+	color: 160,160,160
+182.75: RandomNoise
+	p1: -12,-0.5,0
+	p2: 12,7,4
+	amount: 20
+	rotation: random(-7.5,7.5)
+	color: 192,192,192
+
+# colourful blocks popping in again, this time switch side
+183.0: _sideColourfulBlockA1
+	changeDuration: random(0.25,0.5)
+	changeWidth: random(2,4)
+	changeHeight: random(2,3)
+	localRotZ: random(-15,15)
+	color: 96,32,224
+183.0: _sideColourfulBlockA2
+	changeDuration: random(0.5,0.75)
+	changeWidth: random(6,9)
+	changeHeight: random(3,5)
+	localRotZ: random(-15,15)
+	color: 255,128,32
+183.0: _sideColourfulBlockA3
+	changeDuration: random(0.5,0.75)
+	changeWidth: random(6,9)
+	changeHeight: random(3,5)
+	localRotZ: random(-15,15)
+	color: 96,32,224
+185.0: _sideColourfulBlockA1
+	changeDuration: random(0.25,0.5)
+	changeWidth: random(2,4)
+	changeHeight: random(2,3)
+	localRotZ: random(-15,15)
+	mirror: 1
+	color: 96,32,224
+185.0: _sideColourfulBlockA2
+	changeDuration: random(0.5,0.75)
+	changeWidth: random(6,9)
+	changeHeight: random(3,5)
+	localRotZ: random(-15,15)
+	mirror: 1
+	color: 255,128,32
+185.0: _sideColourfulBlockA3
+	changeDuration: random(0.5,0.75)
+	changeWidth: random(6,9)
+	changeHeight: random(3,5)
+	localRotZ: random(-15,15)
+	mirror: 1
+	color: 96,32,224
+184.5: SomeWubSound
+185.5: Wall
+	width: 1
+	height: 0.25
+	startRow: 5
+	startHeight: -0.25
+	changeDuration: -2.5
+	repeat: 2
+	repeatAddZ: 0.5
+	repeatAddStartRow: 1
+	color: 64,128,128
+185.5: Wall
+	width: 1
+	height: 0.25
+	startRow: 8
+	startHeight: -0.25
+	changeDuration: -2.5
+	repeat: 2
+	repeatAddZ: 0.5
+	repeatAddStartRow: 1
+	color: 64,128,128
+185.5: Wall
+	width: 1
+	height: 0.25
+	startRow: 5
+	startHeight: -0.25
+	changeDuration: -2.5
+	repeat: 2
+	repeatAddZ: 0.5
+	repeatAddStartRow: -1
+	mirror: 1
+	color: 64,128,128
+185.5: Wall
+	width: 1
+	height: 0.25
+	startRow: 8
+	startHeight: -0.25
+	changeDuration: -2.5
+	repeat: 2
+	repeatAddZ: 0.5
+	repeatAddStartRow: -1
+	mirror: 1
+	color: 64,128,128
+
+# circle aaaa
+183.0: SolidCircleJump
+187.0: MarprilCircle
+188.0: ThreeSynthSound
+
+# this ball floor thinig again gdsgsdg
+188.75: CircleTrailV
+
+193.0: DiamondWithColouredBorder
+# idfk
+193.0: Line
+	p1: 2,-0.5,0
+	p2: 18,-0.5,0.5
+	amount: 8
+	changeDuration: -2.5
+	changeHeight: 0.25
+	rotation: -5
+	color: gradient(0,0,0,255,32,32)
+193.0: Line
+	p1: -2,-0.5,0
+	p2: -18,-0.5,0.5
+	amount: 8
+	changeDuration: -2.5
+	changeHeight: 0.25
+	rotation: 5
+	color: gradient(0,0,0,32,32,255)
+194.0: CircleWithColouredBorder
+# this blocky thing around circle
+195.0: RandomNoise
+	p1: 6,0,0
+	p2: 7,0.5,0
+	amount: 1
+	changeDuration: -1.5
+	changeWidth: random(4,5)
+	changeHeight: random(2.5,3)
+	localRotZ: random(0,45)
+	color: 0,0,0
+195.0: RandomNoise
+	p1: 6,0,0
+	p2: 7,0.5,0
+	amount: 1
+	changeDuration: -1.5
+	changeWidth: random(4,5)
+	changeHeight: random(2.5,3)
+	localRotZ: random(0,45)
+	mirror: 1
+	color: 0,0,0
+195.0: RandomNoise
+	p1: 4,5,0
+	p2: 5,5.5,0
+	amount: 1
+	changeDuration: -1.5
+	changeWidth: random(2,3)
+	changeHeight: random(1.5,2)
+	localRotZ: random(0,45)
+	color: 0,0,0
+195.0: RandomNoise
+	p1: 4,5,0
+	p2: 5,5.5,0
+	amount: 1
+	changeDuration: -1.5
+	changeWidth: random(2,3)
+	changeHeight: random(1.5,2)
+	localRotZ: random(0,45)
+	mirror: 1
+	color: 0,0,0
+
+# glitchy floor going front
+196.0: GlitchyFloor
+# glithcvihcv whatsy
+197.0: _sideColourfulBlockA1
+	changeDuration: -2.5
+	changeWidth: random(2,4)
+	changeHeight: random(2,3)
+	localRotZ: random(-15,15)
+	repeat: 4
+	repeatAddZ: 0.125
+	color: 64,64,64
+197.0: _sideColourfulBlockA2
+	changeDuration: -2.5
+	changeWidth: random(6,9)
+	changeHeight: random(3,5)
+	localRotZ: random(-15,15)
+	repeat: 4
+	repeatAddZ: 0.125
+	color: 64,64,64
+197.0: _sideColourfulBlockA3
+	changeDuration: -2.5
+	changeWidth: random(6,9)
+	changeHeight: random(3,5)
+	localRotZ: random(-15,15)
+	repeat: 4
+	repeatAddZ: 0.125
+	color: 64,64,64
+197.0: _sideColourfulBlockA1
+	changeDuration: -2.5
+	changeWidth: random(2,4)
+	changeHeight: random(2,3)
+	localRotZ: random(-15,15)
+	repeat: 4
+	repeatAddZ: 0.125
+	mirror: 1
+	color: 64,64,64
+197.0: _sideColourfulBlockA2
+	changeDuration: -2.5
+	changeWidth: random(6,9)
+	changeHeight: random(3,5)
+	localRotZ: random(-15,15)
+	repeat: 4
+	repeatAddZ: 0.125
+	mirror: 1
+	color: 64,64,64
+197.0: _sideColourfulBlockA3
+	changeDuration: -2.5
+	changeWidth: random(6,9)
+	changeHeight: random(3,5)
+	localRotZ: random(-15,15)
+	repeat: 4
+	repeatAddZ: 0.125
+	mirror: 1
+	color: 64,64,64
+
+#  ------ ------
+#	 197 - 229   >   Drop 1-2
+#	1:28 - 1:43
+#  ------ ------
+198.0: _sideColourfulBlockA1
+	changeDuration: -2.0
+	changeWidth: random(2,4)
+	changeHeight: random(2,3)
+	localRotZ: random(-15,15)
+	repeat: 2
+	repeatAddZ: 2
+	color: 64,64,64
+198.0: _sideColourfulBlockA2
+	changeDuration: -2.0
+	changeWidth: random(6,9)
+	changeHeight: random(3,5)
+	localRotZ: random(-15,15)
+	repeat: 2
+	repeatAddZ: 2
+	color: 64,64,64
+198.0: _sideColourfulBlockA3
+	changeDuration: -2.0
+	changeWidth: random(6,9)
+	changeHeight: random(3,5)
+	localRotZ: random(-15,15)
+	repeat: 2
+	repeatAddZ: 2
+	color: 64,64,64
+198.0: _sideColourfulBlockA4
+	changeDuration: -2.0
+	changeWidth: random(2,4)
+	changeHeight: random(2,3)
+	localRotZ: random(-15,15)
+	repeat: 2
+	repeatAddZ: 2
+	color: 64,64,64
+199.0: _sideColourfulBlockA1
+	changeDuration: -2.0
+	changeWidth: random(2,4)
+	changeHeight: random(2,3)
+	localRotZ: random(-15,15)
+	mirror: 1
+	color: 64,64,64
+199.0: _sideColourfulBlockA2
+	changeDuration: -2.0
+	changeWidth: random(6,9)
+	changeHeight: random(3,5)
+	localRotZ: random(-15,15)
+	mirror: 1
+	color: 64,64,64
+199.0: _sideColourfulBlockA3
+	changeDuration: -2.0
+	changeWidth: random(6,9)
+	changeHeight: random(3,5)
+	localRotZ: random(-15,15)
+	mirror: 1
+	color: 64,64,64
+199.0: _sideColourfulBlockA4
+	changeDuration: -2.0
+	changeWidth: random(2,4)
+	changeHeight: random(2,3)
+	localRotZ: random(-15,15)
+	mirror: 1
+	color: 64,64,64
+200.0: GlitchyFloor
+# heart circle whateit ge b ntrd
+201.0: ShapeCombineHeartIDFK
+202.5: GlitchyFloor
+
+# the f is this ball doin
+203.0: CircleTrail
+	addStartRow: 4
+	rotation: 165
+	color: 0,0,0
+203.0: CircleTrail
+	addStartRow: 4
+	addStartTime: 0.3125
+	rotation: 165
+	color: 96,32,224
+203.0: CircleTrail
+	addStartRow: -4
+	rotation: 195
+	color: 0,0,0
+203.0: CircleTrail
+	addStartRow: -4
+	addStartTime: 0.3125
+	rotation: 195
+	color: 255,128,32
+204.0: CircleTrail
+	addStartRow: -24
+	rotation: 105
+	color: 0,0,0
+204.0: CircleTrail
+	addStartRow: -24
+	addStartTime: 0.3125
+	rotation: 105
+	color: 255,128,32
+204.0: CircleTrail
+	addStartRow: 24
+	rotation: 255
+	color: 0,0,0
+204.0: CircleTrail
+	addStartRow: 24
+	addStartTime: 0.3125
+	rotation: 255
+	color: 96,32,224
+
+# we bacc to beginning
+204.75: RandomNoise
+	p1: -16,0.5,0
+	p2: 16,6.5,4
+	amount: 10
+	color: 160,160,160
+204.75: RandomNoise
+	p1: -12,-0.5,0
+	p2: 12,7,4
+	amount: 20
+	rotation: random(-7.5,7.5)
+	color: 192,192,192
+205.0: _sideColourfulBlockA1
+	changeDuration: random(0.25,0.5)
+	changeWidth: random(2,4)
+	changeHeight: random(2,3)
+	localRotZ: random(-15,15)
+	repeat: 2
+	repeatAddZ: 2
+	color: 96,32,224
+205.0: _sideColourfulBlockA2
+	changeDuration: random(0.5,0.75)
+	changeWidth: random(6,9)
+	changeHeight: random(3,5)
+	localRotZ: random(-15,15)
+	repeat: 2
+	repeatAddZ: 2
+	color: 96,32,224
+205.0: _sideColourfulBlockA3
+	changeDuration: random(0.5,0.75)
+	changeWidth: random(6,9)
+	changeHeight: random(3,5)
+	localRotZ: random(-15,15)
+	repeat: 2
+	repeatAddZ: 2
+	color: 255,128,32
+209.75: _sideColourfulBlockA1
+	changeDuration: -2.5
+	changeWidth: random(2,4)
+	changeHeight: random(2,3)
+	localRotZ: random(-15,15)
+	repeat: 4
+	repeatAddZ: 0.125
+	color: 64,64,64
+209.75: _sideColourfulBlockA2
+	changeDuration: -2.5
+	changeWidth: random(6,9)
+	changeHeight: random(3,5)
+	localRotZ: random(-15,15)
+	repeat: 4
+	repeatAddZ: 0.125
+	color: 64,64,64
+209.75: _sideColourfulBlockA3
+	changeDuration: -2.5
+	changeWidth: random(6,9)
+	changeHeight: random(3,5)
+	localRotZ: random(-15,15)
+	repeat: 4
+	repeatAddZ: 0.125
+	color: 64,64,64
+205.0: WaveformLine
+205.25: BlackBarSplash
+206.75: TileTrail
+205.03125: ThiccCircle
+206.0: SolidCircleJump
+208.5: SomeWubSound
+209.0: GlitchyFloor
+209.0: Wall
+	width: 5
+	height: 1
+	startRow: 4
+	startHeight: -1.25
+	changeDuration: -2.5
+	repeat: 2
+	repeatAddZ: 2
+	mirror: 2
+	color: 64,128,128
+210.0: Wall
+	width: 5
+	height: 1
+	startRow: 8
+	startHeight: -0.5
+	changeDuration: -2.5
+	repeat: 2
+	repeatAddZ: 2
+	mirror: 2
+	color: 64,128,128
+210.0: DiamondCircleThingy
+212.0: GlitchyFloor
+212.0: _sideColourfulBlockA1
+	changeDuration: -2.5
+	changeWidth: random(2,4)
+	changeHeight: random(2,3)
+	localRotZ: random(-15,15)
+	repeat: 4
+	repeatAddZ: 0.125
+	color: 64,64,64
+212.0: _sideColourfulBlockA2
+	changeDuration: -2.5
+	changeWidth: random(6,9)
+	changeHeight: random(3,5)
+	localRotZ: random(-15,15)
+	repeat: 4
+	repeatAddZ: 0.125
+	color: 64,64,64
+212.0: _sideColourfulBlockA3
+	changeDuration: -2.5
+	changeWidth: random(6,9)
+	changeHeight: random(3,5)
+	localRotZ: random(-15,15)
+	repeat: 4
+	repeatAddZ: 0.125
+	color: 64,64,64
+212.0: _sideColourfulBlockA1
+	changeDuration: -2.5
+	changeWidth: random(2,4)
+	changeHeight: random(2,3)
+	localRotZ: random(-15,15)
+	repeat: 4
+	repeatAddZ: 0.125
+	mirror: 1
+	color: 64,64,64
+212.0: _sideColourfulBlockA2
+	changeDuration: -2.5
+	changeWidth: random(6,9)
+	changeHeight: random(3,5)
+	localRotZ: random(-15,15)
+	repeat: 4
+	repeatAddZ: 0.125
+	mirror: 1
+	color: 64,64,64
+212.0: _sideColourfulBlockA3
+	changeDuration: -2.5
+	changeWidth: random(6,9)
+	changeHeight: random(3,5)
+	localRotZ: random(-15,15)
+	repeat: 4
+	repeatAddZ: 0.125
+	mirror: 1
+	color: 64,64,64
+213.5: FastBlueOrangeWall
+
+# pls
+214.75: RandomNoise
+	p1: -16,0.5,0
+	p2: 16,6.5,4
+	amount: 10
+	color: 160,160,160
+214.75: RandomNoise
+	p1: -12,-0.5,0
+	p2: 12,7,4
+	amount: 20
+	rotation: random(-7.5,7.5)
+	color: 192,192,192
+
+# again, colourful blocks popping in, this time switch side
+215.0: _sideColourfulBlockA1
+	changeDuration: random(0.25,0.5)
+	changeWidth: random(2,4)
+	changeHeight: random(2,3)
+	localRotZ: random(-15,15)
+	color: 96,32,224
+215.0: _sideColourfulBlockA2
+	changeDuration: random(0.5,0.75)
+	changeWidth: random(6,9)
+	changeHeight: random(3,5)
+	localRotZ: random(-15,15)
+	color: 255,128,32
+215.0: _sideColourfulBlockA3
+	changeDuration: random(0.5,0.75)
+	changeWidth: random(6,9)
+	changeHeight: random(3,5)
+	localRotZ: random(-15,15)
+	color: 96,32,224
+217.0: _sideColourfulBlockA1
+	changeDuration: random(0.25,0.5)
+	changeWidth: random(2,4)
+	changeHeight: random(2,3)
+	localRotZ: random(-15,15)
+	mirror: 1
+	color: 96,32,224
+217.0: _sideColourfulBlockA2
+	changeDuration: random(0.5,0.75)
+	changeWidth: random(6,9)
+	changeHeight: random(3,5)
+	localRotZ: random(-15,15)
+	mirror: 1
+	color: 255,128,32
+217.0: _sideColourfulBlockA3
+	changeDuration: random(0.5,0.75)
+	changeWidth: random(6,9)
+	changeHeight: random(3,5)
+	localRotZ: random(-15,15)
+	mirror: 1
+	color: 96,32,224
+217.5: Wall
+	width: 1
+	height: 0.25
+	startRow: 5
+	startHeight: -0.25
+	changeDuration: -2.5
+	repeat: 2
+	repeatAddZ: 0.5
+	repeatAddStartRow: 1
+	color: 64,128,128
+217.5: Wall
+	width: 1
+	height: 0.25
+	startRow: 8
+	startHeight: -0.25
+	changeDuration: -2.5
+	repeat: 2
+	repeatAddZ: 0.5
+	repeatAddStartRow: 1
+	color: 64,128,128
+217.5: Wall
+	width: 1
+	height: 0.25
+	startRow: 5
+	startHeight: -0.25
+	changeDuration: -2.5
+	repeat: 2
+	repeatAddZ: 0.5
+	repeatAddStartRow: -1
+	mirror: 1
+	color: 64,128,128
+217.5: Wall
+	width: 1
+	height: 0.25
+	startRow: 8
+	startHeight: -0.25
+	changeDuration: -2.5
+	repeat: 2
+	repeatAddZ: 0.5
+	repeatAddStartRow: -1
+	mirror: 1
+	color: 64,128,128
+
+# finally, the end
+215.0: SolidCircleJump
+219.0: MarprilCircle
+220.0: ThreeSynthSound
+220.75: CircleTrailV
+
+# whatever that ending shape is
+222.25: EndingShapeTransition
+228.0: GlitchyFloor
+228.0: _sideColourfulBlockA1
+	changeDuration: -2.5
+	changeWidth: random(2,4)
+	changeHeight: random(2,3)
+	localRotZ: random(-15,15)
+	repeat: 4
+	repeatAddZ: 0.125
+	color: 64,64,64
+228.0: _sideColourfulBlockA2
+	changeDuration: -2.5
+	changeWidth: random(6,9)
+	changeHeight: random(3,5)
+	localRotZ: random(-15,15)
+	repeat: 4
+	repeatAddZ: 0.125
+	color: 64,64,64
+228.0: _sideColourfulBlockA3
+	changeDuration: -2.5
+	changeWidth: random(6,9)
+	changeHeight: random(3,5)
+	localRotZ: random(-15,15)
+	repeat: 4
+	repeatAddZ: 0.125
+	color: 64,64,64
+228.0: _sideColourfulBlockA1
+	changeDuration: -2.5
+	changeWidth: random(2,4)
+	changeHeight: random(2,3)
+	localRotZ: random(-15,15)
+	repeat: 4
+	repeatAddZ: 0.125
+	mirror: 1
+	color: 64,64,64
+228.0: _sideColourfulBlockA2
+	changeDuration: -2.5
+	changeWidth: random(6,9)
+	changeHeight: random(3,5)
+	localRotZ: random(-15,15)
+	repeat: 4
+	repeatAddZ: 0.125
+	mirror: 1
+	color: 64,64,64
+228.0: _sideColourfulBlockA3
+	changeDuration: -2.5
+	changeWidth: random(6,9)
+	changeHeight: random(3,5)
+	localRotZ: random(-15,15)
+	repeat: 4
+	repeatAddZ: 0.125
+	mirror: 1
+	color: 64,64,64
+
+#  ------ ------
+#	 229 - 261   >   Cooldown
+#	1:43 - 1:57
+#  ------ ------
+227.0: _distantWhooshFadeOut3
+229.0: RandomNoise
+	p1: -16,0.5,0
+	p2: 16,6.5,31
+	amount: 200
+	color: 160,160,160
+229.0: RandomNoise
+	p1: -12,-0.5,0
+	p2: 12,7,31
+	amount: 400
+	rotation: random(-7.5,7.5)
+	color: 192,192,192
+229.0: SideLilCube
+	repeat: 6
+	repeatAddZ: 16
+232.5: SideLilCube
+	mirror: 1
+	repeat: 6
+	repeatAddZ: 16
+234.5: SideLilCube
+	repeat: 6
+	repeatAddZ: 16
+237.0: SideLilCube
+	mirror: 1
+	repeat: 5
+	repeatAddZ: 16
+240.5: SideLilCube
+	repeat: 5
+	repeatAddZ: 16
+242.5: SideLilCube
+	mirror: 1
+	repeat: 5
+	repeatAddZ: 16
+257.0: DistantWhooshFadeIn
+
+# bonk
+260: Wall
+	width: 1
+	height: 6
+	startRow: 2.25
+	startHeight: -0.5
+	changeDuration: -2
+	mirror: 2
+	color: 192,192,192
+
+#  ------ ------
+#	 261 - 293   >   Bridge 1-1
+#	1:57 - 2:12
+#  ------ ------
+259.0: _distantWhooshFadeOut3
+261.0: RandomNoise
+	p1: 4,-3.5,0
+	p2: 16,0.5,1
+	amount: 4
+	changeDuration: random(0.03125,0.0625)
+	changeWidth: random(0.25,0.5)
+	changeHeight: random(0.25,0.5)
+	localRotZ: random(0,90)
+	repeat: 62
+	repeatAddZ: 1
+	color: flash(255,128,32,96,32,224)
+261.0: RandomNoise
+	p1: -4,-3.5,0
+	p2: -16,0.5,1
+	amount: 4
+	changeDuration: random(0.03125,0.0625)
+	changeWidth: random(0.25,0.5)
+	changeHeight: random(0.25,0.5)
+	localRotZ: random(0,90)
+	repeat: 62
+	repeatAddZ: 1
+	color: flash(255,128,32,96,32,224)
+261.0: RandomNoise
+	p1: -24,-3,0
+	p2: 0,-1,56
+	amount: 224
+	changeDuration: 0.0625
+	changeHeight: 0.75
+	changeWidth: 0.75
+	localRotZ: random(0,-7.5)
+	color: 0,32,32
+261.0: RandomNoise
+	p1: 0,-3,0
+	p2: 24,-1,56
+	amount: 224
+	changeDuration: 0.0625
+	changeHeight: 0.75
+	changeWidth: 0.75
+	localRotZ: random(0,7.5)
+	color: 0,32,32
+261.0: SideColourfulBlock
+	changeDuration: random(0.0625,0.25)
+	changeWidth: random(1,2)
+	changeHeight: random(1,2)
+	localRotZ: random(0,90)
+	repeat: 7
+	repeatAddZ: 8
+288.5: SideColourfulBlock
+	changeDuration: random(0.0625,0.25)
+	changeWidth: random(1,2)
+	changeHeight: random(1,2)
+	localRotZ: random(0,90)
+290.5: SideColourfulBlock
+	changeDuration: random(0.0625,0.25)
+	changeWidth: random(1,2)
+	changeHeight: random(1,2)
+	localRotZ: random(0,90)
+
+261.0: Text_NIGHT
+	addStartHeight: 3.75
+	addStartRow: -4
+	color: 0,0,0
+262.0: Text_AND
+	addStartHeight: 3
+	scaleWidth: 0.5
+	scaleHeight: 0.5
+	scaleStartRow: 0.5
+	scaleStartHeight: 0.5
+	color: 0,0,0
+263.0: Text_DAY
+	addStartHeight: 1.25
+	addStartRow: 5
+	color: 0,0,0
+267.5: Text_TUNE
+	addStartHeight: 3.25
+	color: 0,0,0
+267.25: RandomNoise
+	p1: -16,0.5,0
+	p2: 16,6.5,1.5
+	amount: 24
+	color: 0,0,0
+267.75: Text_heart
+	addStartHeight: 3.25
+	rotation: 180
+	mirror: 1
+	color: 0,0,0
+270.5: Text_heart
+	addStartHeight: 3.25
+	color: 0,0,0
+277.25: Text_Move_me
+	addStartHeight: 3
+	color: 0,0,0
+287.0: Text_YOUR_BODY
+	addStartHeight: 3.25
+	color: 0,0,0
+
+#  ------ ------
+#	 293 - 325   >   Bridge 1-2
+#	2:12 - 2:26
+#  ------ ------
+293.0: DistantWhooshFadeOut
+293.0: Line
+	p1: 192,-192,0
+	p2: 32,-90,24
+	amount: 96
+	changeDuration: -2.5
+	changeHeight: 128
+	changeWidth: 24
+	localRotZ: ease(45,0,InExpo)
+	mirror:2
+	color: gradient(0,0,0,255,255,255)
+293.0: Line
+	p1: -30,-192,0
+	p2: -30,-90,24
+	amount: 96
+	changeDuration: -2.5
+	changeHeight: 64
+	changeWidth: 60
+	fitStartHeight: -192
+	color: gradient(0,0,0,255,255,255)
+
+# slow background build
+319.0: RandomNoise
+	p1: -16,-4,0
+	p2: -4,8,6
+	amount: 6
+	changeDuration: -2.5
+	changeWidth: random(1,2)
+	changeHeight: random(1,2)
+	localRotZ: random(0,90)
+	color: 128,128,128
+319.0: RandomNoise
+	p1: 4,-4,0
+	p2: 16,8,6
+	amount: 6
+	changeDuration: -2.5
+	changeWidth: random(1,2)
+	changeHeight: random(1,2)
+	localRotZ: random(0,90)
+	color: 128,128,128
+318.0: RandomNoise
+	p1: -16,-1.5,0
+	p2: -4,6,6.5
+	amount: 13
+	changeDuration: -2.5
+	changeWidth: random(1,2)
+	changeHeight: random(1,2)
+	localRotZ: random(0,90)
+	color: flash(255,128,32,96,32,224)
+318.0: RandomNoise
+	p1: 4,-1.5,0
+	p2: 16,6.5,6.5
+	amount: 13
+	changeDuration: -2.5
+	changeWidth: random(1,2)
+	changeHeight: random(1,2)
+	localRotZ: random(0,90)
+	color: flash(255,128,32,96,32,224)
+319.0: RandomNoise
+	p1: -16,-2,0
+	p2: 16,8,5.5
+	amount: 80
+	changeDuration: -2.5
+	color: flash(255,32,32,32,32,255)
+315.0: RandomNoise
+	p1: -8,-0.5,0
+	p2: 8,5.5,1
+	amount: 5
+	color: 0,0,0
+316.0: RandomNoise
+	p1: -12,-0.5,0
+	p2: 12,5.5,1
+	amount: 7
+	color: 0,0,0
+317.0: RandomNoise
+	p1: -16,-0.5,0
+	p2: 16,5.5,1
+	amount: 8
+	color: 0,0,0
+318.0: RandomNoise
+	p1: -16,-0.5,0
+	p2: 16,5.5,1
+	amount: 10
+	color: 0,0,0
+319.0: RandomNoise
+	p1: -16,-0.5,0
+	p2: 16,5.5,1
+	amount: 12
+	color: 0,0,0
+320.0: RandomNoise
+	p1: -16,-0.5,0
+	p2: 16,5.5,1
+	amount: 15
+	color: 0,0,0
+321.0: RandomNoise
+	p1: -16,-0.5,0
+	p2: 16,5.5,1
+	amount: 18
+	color: flash(0,0,0,255,128,32,96,32,224)
+322.0: RandomNoise
+	p1: -16,-4,0
+	p2: 16,8,1
+	amount: 24
+	color: flash(0,0,0,255,128,32,0,0,0,96,32,224)
+
+293.0: Text_NIGHT
+	addStartHeight: 3.75
+	addStartRow: -4
+	color: 0,0,0
+294.0: Text_AND
+	addStartHeight: 3
+	scaleWidth: 0.5
+	scaleHeight: 0.5
+	scaleStartRow: 0.5
+	scaleStartHeight: 0.5
+	color: 0,0,0
+295.0: Text_DAY
+	addStartHeight: 1.25
+	addStartRow: 5
+	color: 0,0,0
+299.5: Text_TUNE
+	addStartHeight: 3.25
+	color: 0,0,0
+299.3125: Wall
+	width: 2
+	height: 0.125
+	startRow: 5
+	startHeight: 0.125
+	changeDuration: -2.5
+	mirror: 2
+	rotation: 180
+	color: 0,0,0
+299.25: Wall
+	width: 2
+	height: 0.125
+	startRow: 1
+	startHeight: 0.125
+	changeDuration: -2.5
+	mirror: 2
+	rotation: 180
+	color: 0,0,0
+299.75: Text_heart
+	addStartHeight: 3.25
+	rotation: 180
+	mirror: 1
+	color: 0,0,0
+302.5: Text_heart
+	addStartHeight: 3.25
+	color: 0,0,0
+309.25: Text_Jump_around
+	addStartHeight: 3.5
+	repeat: 3
+	repeatAddZ: 2
+	color: 0,0,0
+
+# another one, at least this time it's finalised and i just have to change time
+317.0: NoodleHelix
+	radius: 48
+	center: 0,4,0
+	amount: 4
+	scale: 0.0078125
+	changeDuration: -2.5
+	startRotation: 45
+	rotationAmount: 360
+	color: 255,255,255
+317.125: NoodleHelix
+	radius: 47.5
+	center: 0,4,0
+	amount: 4
+	scale: 0.0078125
+	changeDuration: -2.5
+	startRotation: 45
+	rotationAmount: 360
+	color: 252,252,252
+317.25: NoodleHelix
+	radius: 47
+	center: 0,4,0
+	amount: 4
+	scale: 0.0078125
+	changeDuration: -2.5
+	startRotation: 42.5
+	rotationAmount: 360
+	color: 248,248,248
+317.375: NoodleHelix
+	radius: 46.5
+	center: 0,4,0
+	amount: 4
+	scale: 0.0078125
+	changeDuration: -2.5
+	startRotation: 40
+	rotationAmount: 360
+	color: 244,244,244
+317.5: NoodleHelix
+	radius: 46
+	center: 0,4,0
+	amount: 4
+	scale: 0.0078125
+	changeDuration: -2.5
+	startRotation: 37.5
+	rotationAmount: 360
+	color: 240,240,240
+317.625: NoodleHelix
+	radius: 45.5
+	center: 0,4,0
+	amount: 4
+	scale: 0.0078125
+	changeDuration: -2.5
+	startRotation: 35
+	rotationAmount: 360
+	color: 236,236,236
+317.75: NoodleHelix
+	radius: 45
+	center: 0,4,0
+	amount: 4
+	scale: 0.0078125
+	changeDuration: -2.5
+	startRotation: 32.5
+	rotationAmount: 360
+	color: 232,232,232
+317.875: NoodleHelix
+	radius: 44.5
+	center: 0,4,0
+	amount: 4
+	scale: 0.0078125
+	changeDuration: -2.5
+	startRotation: 30
+	rotationAmount: 360
+	color: 228,228,228
+318.0: NoodleHelix
+	radius: 44
+	center: 0,4,0
+	amount: 4
+	scale: 0.0078125
+	changeDuration: -2.5
+	startRotation: 27.5
+	rotationAmount: 360
+	color: 224,224,224
+318.125: NoodleHelix
+	radius: 43.5
+	center: 0,4,0
+	amount: 4
+	scale: 0.0078125
+	changeDuration: -2.5
+	startRotation: 25
+	rotationAmount: 360
+	color: 220,220,220
+318.25: NoodleHelix
+	radius: 43
+	center: 0,4,0
+	amount: 4
+	scale: 0.0078125
+	changeDuration: -2.5
+	startRotation: 22.5
+	rotationAmount: 360
+	color: 216,216,216
+318.375: NoodleHelix
+	radius: 42.5
+	center: 0,4,0
+	amount: 4
+	scale: 0.0078125
+	changeDuration: -2.5
+	startRotation: 20
+	rotationAmount: 360
+	color: 212,212,212
+318.5: NoodleHelix
+	radius: 42
+	center: 0,4,0
+	amount: 4
+	scale: 0.0078125
+	changeDuration: -2.5
+	startRotation: 17.5
+	rotationAmount: 360
+	color: 208,208,208
+318.625: NoodleHelix
+	radius: 41.5
+	center: 0,4,0
+	amount: 4
+	scale: 0.0078125
+	changeDuration: -2.5
+	startRotation: 15
+	rotationAmount: 360
+	color: 204,204,204
+318.75: NoodleHelix
+	radius: 41
+	center: 0,4,0
+	amount: 4
+	scale: 0.0078125
+	changeDuration: -2.5
+	startRotation: 12.5
+	rotationAmount: 360
+	color: 200,200,200
+318.875: NoodleHelix
+	radius: 40.5
+	center: 0,4,0
+	amount: 4
+	scale: 0.0078125
+	changeDuration: -2.5
+	startRotation: 10
+	rotationAmount: 360
+	color: 196,196,196
+319.0: NoodleHelix
+	radius: 40
+	center: 0,4,0
+	amount: 4
+	scale: 0.0078125
+	changeDuration: -2.5
+	startRotation: 7.5
+	rotationAmount: 360
+	color: 192,192,192
+319.125: NoodleHelix
+	radius: 39.5
+	center: 0,4,0
+	amount: 4
+	scale: 0.0078125
+	changeDuration: -2.5
+	startRotation: 5
+	rotationAmount: 360
+	color: 188,188,188
+319.25: NoodleHelix
+	radius: 39
+	center: 0,4,0
+	amount: 4
+	scale: 0.0078125
+	changeDuration: -2.5
+	startRotation: 2.5
+	rotationAmount: 360
+	color: 184,184,184
+319.375: NoodleHelix
+	radius: 38.5
+	center: 0,4,0
+	amount: 4
+	scale: 0.0078125
+	changeDuration: -2.5
+	startRotation: 0
+	rotationAmount: 360
+	color: 180,180,180
+319.5: NoodleHelix
+	radius: 38
+	center: 0,4,0
+	amount: 4
+	scale: 0.0078125
+	changeDuration: -2.5
+	startRotation: -2.5
+	rotationAmount: 360
+	color: 176,176,176
+319.625: NoodleHelix
+	radius: 37.5
+	center: 0,4,0
+	amount: 4
+	scale: 0.0078125
+	changeDuration: -2.5
+	startRotation: -5
+	rotationAmount: 360
+	color: 172,172,172
+319.75: NoodleHelix
+	radius: 37
+	center: 0,4,0
+	amount: 4
+	scale: 0.0078125
+	changeDuration: -2.5
+	startRotation: -7.5
+	rotationAmount: 360
+	color: 168,168,168
+319.875: NoodleHelix
+	radius: 36.5
+	center: 0,4,0
+	amount: 4
+	scale: 0.0078125
+	changeDuration: -2.5
+	startRotation: -10
+	rotationAmount: 360
+	color: 164,164,164
+320.0: NoodleHelix
+	radius: 36
+	center: 0,4,0
+	amount: 4
+	scale: 0.0078125
+	changeDuration: -2.5
+	startRotation: -12.5
+	rotationAmount: 360
+	color: 160,160,160
+320.125: NoodleHelix
+	radius: 35.5
+	center: 0,4,0
+	amount: 4
+	scale: 0.0078125
+	changeDuration: -2.5
+	startRotation: -15
+	rotationAmount: 360
+	color: 156,156,156
+320.25: NoodleHelix
+	radius: 35
+	center: 0,4,0
+	amount: 4
+	scale: 0.0078125
+	changeDuration: -2.5
+	startRotation: -17.5
+	rotationAmount: 360
+	color: 152,152,152
+320.375: NoodleHelix
+	radius: 34.5
+	center: 0,4,0
+	amount: 4
+	scale: 0.0078125
+	changeDuration: -2.5
+	startRotation: -20
+	rotationAmount: 360
+	color: 148,148,148
+320.5: NoodleHelix
+	radius: 34
+	center: 0,4,0
+	amount: 4
+	scale: 0.0078125
+	changeDuration: -2.5
+	startRotation: -22.5
+	rotationAmount: 360
+	color: 144,144,144
+320.625: NoodleHelix
+	radius: 33.5
+	center: 0,4,0
+	amount: 4
+	scale: 0.0078125
+	changeDuration: -2.5
+	startRotation: -25
+	rotationAmount: 360
+	color: 140,140,140
+320.75: NoodleHelix
+	radius: 33
+	center: 0,4,0
+	amount: 4
+	scale: 0.0078125
+	changeDuration: -2.5
+	startRotation: -27.5
+	rotationAmount: 360
+	color: 136,136,136
+320.875: NoodleHelix
+	radius: 32.5
+	center: 0,4,0
+	amount: 4
+	scale: 0.0078125
+	changeDuration: -2.5
+	startRotation: -30
+	rotationAmount: 360
+	color: 132,132,132
+321.0: NoodleHelix
+	radius: 32
+	center: 0,4,0
+	amount: 4
+	scale: 0.0078125
+	changeDuration: -2.5
+	startRotation: -32.5
+	rotationAmount: 360
+	color: 128,128,128
+321.125: NoodleHelix
+	radius: 31.5
+	center: 0,4,0
+	amount: 4
+	scale: 0.0078125
+	changeDuration: -2.5
+	startRotation: -35
+	rotationAmount: 360
+	color: 124,124,124
+321.25: NoodleHelix
+	radius: 31
+	center: 0,4,0
+	amount: 4
+	scale: 0.0078125
+	changeDuration: -2.5
+	startRotation: -37.5
+	rotationAmount: 360
+	color: 120,120,120
+321.375: NoodleHelix
+	radius: 30.5
+	center: 0,4,0
+	amount: 4
+	scale: 0.0078125
+	changeDuration: -2.5
+	startRotation: -40
+	rotationAmount: 360
+	color: 116,116,116
+321.5: NoodleHelix
+	radius: 30
+	center: 0,4,0
+	amount: 4
+	scale: 0.0078125
+	changeDuration: -2.5
+	startRotation: -42.5
+	rotationAmount: 360
+	color: 112,112,112
+321.625: NoodleHelix
+	radius: 29.5
+	center: 0,4,0
+	amount: 4
+	scale: 0.0078125
+	changeDuration: -2.5
+	startRotation: -45
+	rotationAmount: 360
+	color: 108,108,108
+321.75: NoodleHelix
+	radius: 29
+	center: 0,4,0
+	amount: 4
+	scale: 0.0078125
+	changeDuration: -2.5
+	startRotation: -47.5
+	rotationAmount: 360
+	color: 104,104,104
+321.875: NoodleHelix
+	radius: 28.5
+	center: 0,4,0
+	amount: 4
+	scale: 0.0078125
+	changeDuration: -2.5
+	startRotation: -50
+	rotationAmount: 360
+	color: 100,100,100
+322.0: NoodleHelix
+	radius: 28
+	center: 0,4,0
+	amount: 4
+	scale: 0.0078125
+	changeDuration: -2.5
+	startRotation: -52.5
+	rotationAmount: 360
+	color: 96,96,96
+322.125: NoodleHelix
+	radius: 27.5
+	center: 0,4,0
+	amount: 4
+	scale: 0.0078125
+	changeDuration: -2.5
+	startRotation: -55
+	rotationAmount: 360
+	color: 92,92,92
+322.25: NoodleHelix
+	radius: 27
+	center: 0,4,0
+	amount: 4
+	scale: 0.0078125
+	changeDuration: -2.5
+	startRotation: -57.5
+	rotationAmount: 360
+	color: 88,88,88
+322.375: NoodleHelix
+	radius: 26.5
+	center: 0,4,0
+	amount: 4
+	scale: 0.0078125
+	changeDuration: -2.5
+	startRotation: -60
+	rotationAmount: 360
+	color: 84,84,84
+322.5: NoodleHelix
+	radius: 26
+	center: 0,4,0
+	amount: 4
+	scale: 0.0078125
+	changeDuration: -2.5
+	startRotation: -62.5
+	rotationAmount: 360
+	color: 80,80,80
+322.625: NoodleHelix
+	radius: 25.5
+	center: 0,4,0
+	amount: 4
+	scale: 0.0078125
+	changeDuration: -2.5
+	startRotation: -65
+	rotationAmount: 360
+	color: 76,76,76
+322.75: NoodleHelix
+	radius: 25
+	center: 0,4,0
+	amount: 4
+	scale: 0.0078125
+	changeDuration: -2.5
+	startRotation: -67.5
+	rotationAmount: 360
+	color: 72,72,72
+322.875: NoodleHelix
+	radius: 24.5
+	center: 0,4,0
+	amount: 4
+	scale: 0.0078125
+	changeDuration: -2.5
+	startRotation: -70
+	rotationAmount: 360
+	color: 68,68,68
+323.0: NoodleHelix
+	radius: 24
+	center: 0,4,0
+	amount: 4
+	scale: 0.0078125
+	changeDuration: -2.5
+	startRotation: -72.5
+	rotationAmount: 360
+	color: 64,64,64
+323.125: NoodleHelix
+	radius: 23.5
+	center: 0,4,0
+	amount: 4
+	scale: 0.0078125
+	changeDuration: -2.5
+	startRotation: -75
+	rotationAmount: 360
+	color: 60,60,60
+323.25: NoodleHelix
+	radius: 23
+	center: 0,4,0
+	amount: 4
+	scale: 0.0078125
+	changeDuration: -2.5
+	startRotation: -77.5
+	rotationAmount: 360
+	color: 56,56,56
+323.375: NoodleHelix
+	radius: 22.5
+	center: 0,4,0
+	amount: 4
+	scale: 0.0078125
+	changeDuration: -2.5
+	startRotation: -80
+	rotationAmount: 360
+	color: 52,52,52
+323.5: NoodleHelix
+	radius: 22
+	center: 0,4,0
+	amount: 4
+	scale: 0.0078125
+	changeDuration: -2.5
+	startRotation: -82.5
+	rotationAmount: 360
+	color: 48,48,48
+323.625: NoodleHelix
+	radius: 21.5
+	center: 0,4,0
+	changeDuration: -2.5
+	amount: 4
+	scale: 0.0078125
+	startRotation: -85
+	rotationAmount: 360
+	color: 44,44,44
+323.75: NoodleHelix
+	radius: 21
+	center: 0,4,0
+	changeDuration: -2.5
+	amount: 4
+	scale: 0.0078125
+	startRotation: -87.5
+	rotationAmount: 360
+	color: 40,40,40
+323.875: NoodleHelix
+	radius: 20.5
+	center: 0,4,0
+	changeDuration: -2.5
+	amount: 4
+	scale: 0.0078125
+	startRotation: -90
+	rotationAmount: 360
+	color: 36,36,36
+324.0: NoodleHelix
+	radius: 20
+	center: 0,4,0
+	amount: 4
+	scale: 0.0078125
+	changeDuration: -2.5
+	startRotation: -90
+	rotationAmount: 360
+	color: 32,32,32
+
+# no big sound for transition sadface
+324.0: Line
+	p1: 20,-4,0
+	p2: 9.5,-20,0.5
+	amount: 8
+	changeDuration: -2.5
+	color: gradient(64,128,128,160,160,160)
+	repeat: 4
+	repeatAddZ: 0.25
+	repeatAddStartRow: -2
+	repeatAddStartHeight: 4
+324.0: Line
+	p1: -20,-4,0
+	p2: -9.5,-20,0.5
+	amount: 8
+	changeDuration: -2.5
+	color: gradient(64,128,128,160,160,160)
+	repeat: 4
+	repeatAddZ: 0.25
+	repeatAddStartRow: 2
+	repeatAddStartHeight: 4
+324.0: Line
+	p1: 16,-1,0
+	p2: -8,0,1
+	amount: 32
+	mirror: 2
+	changeDuration: -2.5
+	color: gradient(0,4,4,64,192,192)
+325.0: Line
+	p1: 12,-2,0
+	p2: 44,-18,4
+	changeDuration: -2.5
+	changeWidth: 4
+	changeHeight: 16
+	fitHeight: 8
+	color: gradient(64,128,128,0,0,0)
+325.0: Line
+	p1: -16,-2,0
+	p2: -48,-18,4
+	changeDuration: -2.5
+	changeWidth: 4
+	changeHeight: 16
+	fitHeight: 8
+	color: gradient(64,128,128,0,0,0)
+
+#  ------ ------
+#	 325 - 357   >   Pre-build
+#	2:26 - 2:41
+#  ------ ------
+325.0: DistantWhooshFadeOut
+
+# idk what this is
+325.0: RandomNoise
+	p1: -1,6,0
+	p2: 1,6,14
+	amount: 224
+	changeDuration: random(0.03125,0.0625)
+	changeWidth: random(0.25,1)
+	addStartRow: random(-1,1)
+	color: flash(192,224,224,160,192,192)
+325.25: RandomNoise
+	p1: -7,6,0
+	p2: -9,6,14
+	amount: 224
+	changeDuration: random(0.03125,0.0625)
+	changeWidth: random(0.25,1)
+	addStartRow: random(-1,1)
+	color: flash(192,224,224,160,192,192)
+325.25: RandomNoise
+	p1: 7,6,0
+	p2: 9,6,14
+	amount: 224
+	changeDuration: random(0.03125,0.0625)
+	changeWidth: random(0.5,1)
+	addStartRow: random(-1,1)
+	color: flash(192,224,224,160,192,192)
+327.0: Wall
+	width: 4
+	height: 0.25
+	startRow: -2
+	startHeight: 5.875
+	changeDuration: 0.25
+	repeat: 3
+	repeatAddZ: 6
+	color: 255,255,255
+327.5: Wall
+	width: 4
+	height: 0.25
+	startRow: 6
+	startHeight: 5.875
+	changeDuration: 0.25
+	mirror: 2
+	repeat: 3
+	repeatAddZ: 6
+	color: 255,255,255
+
+340.25: RandomNoise
+	p1: -16,0.5,0
+	p2: 16,6.5,16
+	amount: 80
+	color: flash(128,128,128,0,192,192)
+340.25: RandomNoise
+	p1: -12,-0.5,0
+	p2: 12,7,16
+	amount: 160
+	rotation: random(-7.5,7.5)
+	color: 192,192,192
+
+# unused; approaching block increasing in size
+#325.0: Line
+#	p1: 96,-96,0
+#	p2: 20,-32,32
+#	amount: 32
+#	changeWidth: 32
+#	changeHeight: 64
+#	fitHeight: 56
+#	mirror: 2
+#	color: gradient(0,0,0,255,255,255)
+356.875: Wall
+	width: 40
+	height: 80
+	startRow: 15
+	startHeight: -40
+	mirror: 2
+	color: 255,255,255
+356.875: Wall
+	width: 30
+	height: 15
+	startRow: -15
+	startHeight: 15
+	color: 255,255,255
+
+# that road line thingy again
+325.0: Line
+	p1: -3,0,0
+	p2: -4,0,4
+	amount: 8
+	changeDuration: 1
+	mirror: 2
+	rotation: ease(150,155,OutSine)
+	color: 0,0,0
+329.0: Line
+	p1: -4,0,0
+	p2: -3,0,4
+	amount: 8
+	changeDuration: 1
+	mirror: 2
+	rotation: ease(155,150,OutSine)
+	color: 0,0,0
+333.0: Line
+	p1: -3,0,0
+	p2: -4.5,0,4
+	amount: 8
+	changeDuration: 1
+	mirror: 2
+	rotation: ease(150,142.5,OutSine)
+	color: 0,0,0
+337.0: Line
+	p1: -4.5,0,0
+	p2: -3.25,0,4
+	amount: 8
+	changeDuration: 1
+	mirror: 2
+	rotation: ease(142.5,150,OutSine)
+	color: 0,0,0
+341.0: Line
+	p1: -3.25,0,0
+	p2: -5.25,0,4
+	amount: 8
+	changeDuration: 1
+	mirror: 2
+	rotation: ease(150,160,OutSine)
+	color: 0,0,0
+345.0: Line
+	p1: -5.25,0,0
+	p2: -3.75,0,4
+	amount: 8
+	changeDuration: 1
+	mirror: 2
+	rotation: ease(160,150,OutSine)
+	color: 0,0,0
+349.0: Line
+	p1: -3.75,0,0
+	p2: -7,0,4
+	amount: 8
+	changeDuration: 1
+	mirror: 2
+	rotation: ease(150,135,OutSine)
+	color: 0,0,0
+353.0: Line
+	p1: 12,-80,0
+	p2: 16,-40,4
+	amount: 32
+	changeDuration: -2.5
+	changeWidth: 4
+	changeHeight: 64
+	color: gradient(0,0,0,192,192,192)
+353.0: Line
+	p1: -16,-80,0
+	p2: -20,-40,4
+	amount: 32
+	changeDuration: -2.5
+	changeWidth: 4
+	changeHeight: 64
+	color: gradient(0,0,0,192,192,192)
+
+# AAAAAAAAAAAA
+352.75: Wall
+	width: 0
+	height: 0
+	startRow: 8
+	startHeight: -0.75
+	changeDuration: -2.5
+	repeat: 4
+	repeatAddZ: 0.125
+	repeatAddWidth: 1.6
+	repeatAddStartRow: -0.8
+	color: 255,255,255
+353.25: Wall
+	width: 8
+	height: 0
+	startRow: 4
+	startHeight: -0.75
+	changeDuration: -2.5
+	repeat: 32
+	repeatAddZ: 0.125
+	repeatAddWidth: 0.0625
+	repeatAddStartRow: -0.03125
+	color: 255,255,255
+352.75: Wall
+	width: 0
+	height: 0
+	startRow: 8
+	startHeight: 6.75
+	changeDuration: -2.5
+	repeat: 4
+	repeatAddZ: 0.125
+	repeatAddWidth: 1.6
+	repeatAddStartRow: -0.8
+	color: 255,255,255
+353.25: Wall
+	width: 8
+	height: 0
+	startRow: 4
+	startHeight: 6.75
+	changeDuration: -2.5
+	repeat: 32
+	repeatAddZ: 0.125
+	repeatAddWidth: 0.0625
+	repeatAddStartRow: -0.03125
+	color: 255,255,255
+353.0: ShapeHeart
+	addStartRow: 8
+	addStartHeight: -0.5
+	color: 0,0,0
+354.75: Wall
+	width: 0
+	height: 0
+	startRow: -8
+	startHeight: -0.75
+	changeDuration: -2.5
+	repeat: 4
+	repeatAddZ: 0.125
+	repeatAddWidth: 1.6
+	repeatAddStartRow: -0.8
+	color: 255,255,255
+355.25: Wall
+	width: 8
+	height: 0
+	startRow: -12
+	startHeight: -0.75
+	changeDuration: -2.5
+	repeat: 16
+	repeatAddZ: 0.125
+	repeatAddWidth: 0.0625
+	repeatAddStartRow: -0.03125
+	color: 255,255,255
+354.75: Wall
+	width: 0
+	height: 0
+	startRow: -8
+	startHeight: 6.75
+	changeDuration: -2.5
+	repeat: 4
+	repeatAddZ: 0.125
+	repeatAddWidth: 1.6
+	repeatAddStartRow: -0.8
+	color: 255,255,255
+355.25: Wall
+	width: 8
+	height: 0
+	startRow: -12
+	startHeight: 6.75
+	changeDuration: -2.5
+	repeat: 16
+	repeatAddZ: 0.125
+	repeatAddWidth: 0.0625
+	repeatAddStartRow: -0.03125
+	color: 255,255,255
+355.0: ShapeHeart
+	addStartRow: -8
+	addStartHeight: -0.5
+	color: 0,0,0
+
+#  ------ ------
+#	 357 - 389   >   Build
+#	2:41 - 2:55
+#  ------ ------
+# PLLSSSSS LET ME REST ALREADY!!123!#
+357.0: SquareTunnel
+	repeat: 4
+	repeatAddZ: 0.5
+	color: 255,255,255
+359.0: SquareTunnel
+	repeat: 4
+	repeatAddZ: 0.5
+	color: 0,0,0
+361.0: SquareTunnel
+	repeat: 4
+	repeatAddZ: 0.5
+	color: 255,255,255
+363.0: SquareTunnel
+	repeat: 4
+	repeatAddZ: 0.5
+	color: 0,0,0
+365.0: SquareTunnel
+	repeat: 4
+	repeatAddZ: 0.5
+	color: 255,255,255
+367.0: SquareTunnel
+	repeat: 4
+	repeatAddZ: 0.5
+	color: 0,0,0
+369.0: SquareTunnel
+	repeat: 8
+	repeatAddZ: 0.5
+	color: 255,255,255
+373.0: SquareTunnel
+	repeat: 4
+	repeatAddZ: 0.5
+	color: 0,0,0
+375.0: SquareTunnel
+	repeat: 4
+	repeatAddZ: 0.5
+	color: 255,255,255
+377.0: SquareTunnel
+	repeat: 4
+	repeatAddZ: 0.5
+	color: 0,0,0
+379.0: SquareTunnel
+	repeat: 4
+	repeatAddZ: 0.5
+	color: 255,255,255
+381.0: SquareTunnel
+	repeat: 4
+	repeatAddZ: 0.5
+	color: 0,0,0
+383.0: SquareTunnel
+	repeat: 4
+	repeatAddZ: 0.5
+	color: 255,255,255
+385.0: Wall
+	width: 28
+	height: 6
+	startRow: -14
+	startHeight: 10
+	changeDuration: -1
+	color: 192,192,192
+385.0: Wall
+	width: 4
+	height: 16
+	startRow: 10
+	startHeight: -2
+	changeDuration: -1
+	localRotZ: -3
+	mirror: 2
+	color: 192,192,192
+385.0: Wall
+	height: 16
+	width: 8
+	startRow: 0
+	startHeight: -17.25
+	changeDuration: -1
+	localRotZ: -8
+	mirror: 2
+	color: 192,192,192
+385.0: Wall
+	height: 16
+	width: 8
+	startRow: -4
+	startHeight: -19
+	changeDuration: -1
+	color: 128,128,128
+385.0: Line
+	p1: 3,-16,0
+	p2: 7,-16,0.375
+	changeHeight: 32
+	changeDuration: -2.5
+	localRotZ: -7.5
+	amount: 6
+	mirror: 2
+	color: gradient(0,0,0,255,255,255)
+385.75: Wall
+	width: 2
+	height: 2
+	startRow: 2
+	startHeight: -1
+	changeDuration: -2.5
+	mirror: 2
+	color: 192,224,224
+386.0: Wall
+	width: 5
+	height: 2.5
+	startRow: 3
+	startHeight: 0
+	changeDuration: -2.5
+	mirror: 2
+	color: 128,160,160
+386.333: Wall
+	width: 1
+	height: 1
+	startRow: 2
+	startHeight: -2
+	changeDuration: -2.5
+	mirror: 2
+	color: 64,128,128
+386.5: Wall
+	width: 1.5
+	height: 1
+	startRow: 3
+	startHeight: -1.875
+	changeDuration: -2.5
+	mirror: 2
+	color: 64,128,128
+386.666: Wall
+	width: 2.5
+	height: 1
+	startRow: 4.5
+	startHeight: -1.75
+	changeDuration: -2.5
+	mirror: 2
+	color: 64,128,128
+386.833: Wall
+	width: 4
+	height: 1
+	startRow: 6.5
+	startHeight: -1.625
+	changeDuration: -2.5
+	mirror: 2
+	color: 64,128,128
+387.0: Wall
+	width: 8
+	height: 1
+	startRow: 10.5
+	startHeight: -1.5
+	changeDuration: -2.5
+	mirror: 2
+	color: 64,128,128
+
+# garlic cubid~
+369.0: RandomCurve
+	p1: 4,0,0
+	p2: 8,2.5,1
+	amount: 8
+	mirror: 2
+	color: gradient(32,32,32,255,255,255)
+370.0: RandomCurve
+	p1: 8,2.5,0
+	p2: 16,-2.5,1
+	amount: 8
+	mirror: 2
+	color: gradient(255,255,255,0,0,0)
+371.0: RandomCurve
+	p1: 12,1,0
+	p2: 8,-2,1
+	amount: 8
+	mirror: 2
+	color: gradient(64,64,64,255,255,255)
+372.0: RandomCurve
+	p1: 8,-2,0
+	p2: 20,0,1
+	amount: 8
+	mirror: 2
+	color: gradient(255,255,255,0,0,0)
+373.0: Text_WA
+	repeat: 3
+	repeatAddZ: 4
+	color: 255,255,255
+375.0: Text_WA
+	repeat: 3
+	repeatAddZ: 4
+	color: 0,0,0
+387.5: GlitchyFloor
+
+#  ------ ------
+#	 389 - 421   >   Drop 2-1
+#	2:55 - 3:09
+#  ------ ------
+# copypasta time exccept for this frist ifeew oobtire
+389.0: NoodleHelix
+	radius: 14
+	center: 0,3,0
+	amount: 4
+	scale: 0.015625
+	changeDuration: -2.5
+	startRotation: -6
+	rotationAmount: 360
+	color: 0,0,0
+389.0625: NoodleHelix
+	radius: 13
+	center: 0,2.875,0
+	amount: 4
+	scale: 0.015625
+	changeDuration: -2.5
+	startRotation: 6
+	rotationAmount: 360
+	color: 0,0,0
+389.125: NoodleHelix
+	radius: 12
+	center: 0,2.75,0
+	amount: 4
+	scale: 0.015625
+	changeDuration: -2.5
+	startRotation: 18
+	rotationAmount: 360
+	color: 0,0,0
+389.1875: NoodleHelix
+	radius: 11
+	center: 0,2.625,0
+	amount: 4
+	scale: 0.015625
+	changeDuration: -2.5
+	startRotation: 30
+	rotationAmount: 360
+	color: 0,0,0
+389.25: NoodleHelix
+	radius: 10
+	center: 0,2.5,0
+	amount: 4
+	scale: 0.015625
+	changeDuration: -2.5
+	startRotation: 42
+	rotationAmount: 360
+	color: 0,0,0
+389.3125: NoodleHelix
+	radius: 9
+	center: 0,2.375,0
+	amount: 4
+	scale: 0.015625
+	changeDuration: -2.5
+	startRotation: 54
+	rotationAmount: 360
+	color: 0,0,0
+389.375: NoodleHelix
+	radius: 8
+	center: 0,2.25,0
+	amount: 4
+	scale: 0.015625
+	changeDuration: -2.5
+	startRotation: 66
+	rotationAmount: 360
+	color: 0,0,0
+389.4375: NoodleHelix
+	radius: 7
+	center: 0,2.125,0
+	amount: 4
+	scale: 0.015625
+	changeDuration: -2.5
+	startRotation: 78
+	rotationAmount: 360
+	color: 0,0,0
+389.5: NoodleHelix
+	radius: 6
+	center: 0,2,0
+	amount: 4
+	scale: 0.015625
+	changeDuration: -2.5
+	startRotation: 90
+	rotationAmount: 360
+	color: 0,0,0
+389.25: NoodleHelix
+	radius: 4
+	center: 0,2,0
+	amount: 4
+	scale: 0.015625
+	startRotation: 90
+	rotationAmount: 360
+	repeat: 4
+	repeatAddZ: 1
+	color: 0,0,0
+389.5: SideColourfulBlock
+	changeDuration: random(0.0625,0.25)
+	changeWidth: random(1,2)
+	changeHeight: random(1,2)
+	localRotZ: random(0,90)
+	repeat: 5
+	repeatAddZ: 1
+388.75: RandomNoise
+	p1: -16,0.5,0
+	p2: 16,6.5,4
+	amount: 10
+	color: 160,160,160
+388.75: RandomNoise
+	p1: -12,-0.5,0
+	p2: 12,7,4
+	amount: 20
+	rotation: random(-7.5,7.5)
+	color: 192,192,192
+395.0: _sideColourfulBlockA1
+	changeDuration: -2.5
+	changeWidth: random(2,4)
+	changeHeight: random(2,3)
+	localRotZ: random(-15,15)
+	repeat: 4
+	repeatAddZ: 0.125
+	color: 64,64,64
+395.0: _sideColourfulBlockA2
+	changeDuration: -2.5
+	changeWidth: random(6,9)
+	changeHeight: random(3,5)
+	localRotZ: random(-15,15)
+	repeat: 4
+	repeatAddZ: 0.125
+	color: 64,64,64
+395.0: _sideColourfulBlockA3
+	changeDuration: -2.5
+	changeWidth: random(6,9)
+	changeHeight: random(3,5)
+	localRotZ: random(-15,15)
+	repeat: 4
+	repeatAddZ: 0.125
+	color: 64,64,64
+395.0: _sideColourfulBlockA1
+	changeDuration: -2.5
+	changeWidth: random(2,4)
+	changeHeight: random(2,3)
+	localRotZ: random(-15,15)
+	repeat: 4
+	repeatAddZ: 0.125
+	mirror: 1
+	color: 64,64,64
+395.0: _sideColourfulBlockA2
+	changeDuration: -2.5
+	changeWidth: random(6,9)
+	changeHeight: random(3,5)
+	localRotZ: random(-15,15)
+	repeat: 4
+	repeatAddZ: 0.125
+	mirror: 1
+	color: 64,64,64
+395.0: _sideColourfulBlockA3
+	changeDuration: -2.5
+	changeWidth: random(6,9)
+	changeHeight: random(3,5)
+	localRotZ: random(-15,15)
+	repeat: 4
+	repeatAddZ: 0.125
+	mirror: 1
+	color: 64,64,64
+395.0: GlitchyFloor
+396.0: NoodleHelix
+	radius: 14
+	center: 0,3,0
+	amount: 4
+	scale: 0.015625
+	changeDuration: -2.5
+	startRotation: -6
+	rotationAmount: 360
+	rotation: 180
+	color: 0,0,0
+396.0625: NoodleHelix
+	radius: 13
+	center: 0,2.875,0
+	amount: 4
+	scale: 0.015625
+	changeDuration: -2.5
+	startRotation: 6
+	rotationAmount: 360
+	rotation: 180
+	color: 0,0,0
+396.125: NoodleHelix
+	radius: 12
+	center: 0,2.75,0
+	amount: 4
+	scale: 0.015625
+	changeDuration: -2.5
+	startRotation: 18
+	rotationAmount: 360
+	rotation: 180
+	color: 0,0,0
+396.1875: NoodleHelix
+	radius: 11
+	center: 0,2.625,0
+	amount: 4
+	scale: 0.015625
+	changeDuration: -2.5
+	startRotation: 30
+	rotationAmount: 360
+	rotation: 180
+	color: 0,0,0
+396.25: NoodleHelix
+	radius: 10
+	center: 0,2.5,0
+	amount: 4
+	scale: 0.015625
+	changeDuration: -2.5
+	startRotation: 42
+	rotationAmount: 360
+	rotation: 180
+	color: 0,0,0
+396.3125: NoodleHelix
+	radius: 9
+	center: 0,2.375,0
+	amount: 4
+	scale: 0.015625
+	changeDuration: -2.5
+	startRotation: 54
+	rotationAmount: 360
+	rotation: 180
+	color: 0,0,0
+396.375: NoodleHelix
+	radius: 8
+	center: 0,2.25,0
+	amount: 4
+	scale: 0.015625
+	changeDuration: -2.5
+	startRotation: 66
+	rotationAmount: 360
+	rotation: 180
+	color: 0,0,0
+396.4375: NoodleHelix
+	radius: 7
+	center: 0,2.125,0
+	amount: 4
+	scale: 0.015625
+	changeDuration: -2.5
+	startRotation: 78
+	rotationAmount: 360
+	rotation: 180
+	color: 0,0,0
+396.5: NoodleHelix
+	radius: 6
+	center: 0,2,0
+	amount: 4
+	scale: 0.015625
+	changeDuration: -2.5
+	startRotation: 90
+	rotationAmount: 360
+	rotation: 180
+	color: 0,0,0
+396.875: ShapeCircle
+	addStartHeight: 4
+	scaleWidth: 2.5
+	scaleHeight: 2.5
+	scaleStartRow: 2.5
+	scaleStartHeight: 2.5
+	changeDuration: -2.5
+	color: 255,255,255
+392.5: SomeWubSound
+396.0: Wall
+	width: 2.5
+	height: 1
+	startRow: 8
+	startHeight: -0.5
+	changeDuration: -2.5
+	mirror: 2
+	color: 64,128,128
+396.75: RandomNoise
+	p1: -16,0.5,0
+	p2: 16,6.5,4
+	amount: 10
+	color: 160,160,160
+396.75: RandomNoise
+	p1: -12,-0.5,0
+	p2: 12,7,4
+	amount: 20
+	rotation: random(-7.5,7.5)
+	color: 192,192,192
+397.0: _sideColourfulBlockA1
+	changeDuration: random(0.25,0.5)
+	changeWidth: random(2,4)
+	changeHeight: random(2,3)
+	localRotZ: random(-15,15)
+	repeat: 3
+	repeatAddZ: 2
+	color: 255,128,32
+397.0: _sideColourfulBlockA2
+	changeDuration: random(0.5,0.75)
+	changeWidth: random(6,9)
+	changeHeight: random(3,5)
+	localRotZ: random(-15,15)
+	repeat: 3
+	repeatAddZ: 2
+	color: 96,32,224
+397.0: _sideColourfulBlockA3
+	changeDuration: random(0.5,0.75)
+	changeWidth: random(6,9)
+	changeHeight: random(3,5)
+	localRotZ: random(-15,15)
+	repeat: 3
+	repeatAddZ: 2
+	color: 255,128,32
+397.0: _sideColourfulBlockA4
+	changeDuration: random(0.25,0.5)
+	changeWidth: random(2,4)
+	changeHeight: random(2,3)
+	localRotZ: random(-15,15)
+	repeat: 3
+	repeatAddZ: 2
+	color: 64,64,64
+397.0: WaveformLine
+401.0: Wall
+	width: 5
+	height: 1
+	startRow: 4
+	startHeight: -1.25
+	changeDuration: -2.5
+	mirror: 2
+	repeat: 2
+	repeatAddZ: 2
+	color: 64,128,128
+402.0: Wall
+	width: 5
+	height: 1
+	startRow: 8
+	startHeight: -0.5
+	changeDuration: -2.5
+	mirror: 2
+	color: 64,128,128
+401.0: ShapeCombineHeartIDFK
+404.0: _sideColourfulBlockA1
+	changeDuration: -2.5
+	changeWidth: random(2,4)
+	changeHeight: random(2,3)
+	localRotZ: random(-15,15)
+	repeat: 4
+	repeatAddZ: 0.125
+	color: 64,64,64
+404.0: _sideColourfulBlockA2
+	changeDuration: -2.5
+	changeWidth: random(6,9)
+	changeHeight: random(3,5)
+	localRotZ: random(-15,15)
+	repeat: 4
+	repeatAddZ: 0.125
+	color: 64,64,64
+404.0: _sideColourfulBlockA3
+	changeDuration: -2.5
+	changeWidth: random(6,9)
+	changeHeight: random(3,5)
+	localRotZ: random(-15,15)
+	repeat: 4
+	repeatAddZ: 0.125
+	color: 64,64,64
+404.0: _sideColourfulBlockA1
+	changeDuration: -2.5
+	changeWidth: random(2,4)
+	changeHeight: random(2,3)
+	localRotZ: random(-15,15)
+	repeat: 4
+	repeatAddZ: 0.125
+	mirror: 1
+	color: 64,64,64
+404.0: _sideColourfulBlockA2
+	changeDuration: -2.5
+	changeWidth: random(6,9)
+	changeHeight: random(3,5)
+	localRotZ: random(-15,15)
+	repeat: 4
+	repeatAddZ: 0.125
+	mirror: 1
+	color: 64,64,64
+404.0: _sideColourfulBlockA3
+	changeDuration: -2.5
+	changeWidth: random(6,9)
+	changeHeight: random(3,5)
+	localRotZ: random(-15,15)
+	repeat: 4
+	repeatAddZ: 0.125
+	mirror: 1
+	color: 64,64,64
+404.0: GlitchyFloor
+405.5: FastBlueOrangeWall
+406.75: RandomNoise
+	p1: -16,0.5,0
+	p2: 16,6.5,4
+	amount: 10
+	color: 160,160,160
+406.75: RandomNoise
+	p1: -12,-0.5,0
+	p2: 12,7,4
+	amount: 20
+	rotation: random(-7.5,7.5)
+	color: 192,192,192
+407.0: _sideColourfulBlockA1
+	changeDuration: random(0.25,0.5)
+	changeWidth: random(2,4)
+	changeHeight: random(2,3)
+	localRotZ: random(-15,15)
+	color: 96,32,224
+407.0: _sideColourfulBlockA2
+	changeDuration: random(0.5,0.75)
+	changeWidth: random(6,9)
+	changeHeight: random(3,5)
+	localRotZ: random(-15,15)
+	color: 255,128,32
+407.0: _sideColourfulBlockA3
+	changeDuration: random(0.5,0.75)
+	changeWidth: random(6,9)
+	changeHeight: random(3,5)
+	localRotZ: random(-15,15)
+	color: 96,32,224
+409.0: _sideColourfulBlockA1
+	changeDuration: random(0.25,0.5)
+	changeWidth: random(2,4)
+	changeHeight: random(2,3)
+	localRotZ: random(-15,15)
+	mirror: 1
+	color: 96,32,224
+409.0: _sideColourfulBlockA2
+	changeDuration: random(0.5,0.75)
+	changeWidth: random(6,9)
+	changeHeight: random(3,5)
+	localRotZ: random(-15,15)
+	mirror: 1
+	color: 255,128,32
+409.0: _sideColourfulBlockA3
+	changeDuration: random(0.5,0.75)
+	changeWidth: random(6,9)
+	changeHeight: random(3,5)
+	localRotZ: random(-15,15)
+	mirror: 1
+	color: 96,32,224
+408.5: SomeWubSound
+409.5: Wall
+	width: 1
+	height: 0.25
+	startRow: 5
+	startHeight: -0.25
+	changeDuration: -2.5
+	repeat: 2
+	repeatAddZ: 0.5
+	repeatAddStartRow: 1
+	color: 64,128,128
+409.5: Wall
+	width: 1
+	height: 0.25
+	startRow: 8
+	startHeight: -0.25
+	changeDuration: -2.5
+	repeat: 2
+	repeatAddZ: 0.5
+	repeatAddStartRow: 1
+	color: 64,128,128
+409.5: Wall
+	width: 1
+	height: 0.25
+	startRow: 5
+	startHeight: -0.25
+	changeDuration: -2.5
+	repeat: 2
+	repeatAddZ: 0.5
+	repeatAddStartRow: -1
+	mirror: 1
+	color: 64,128,128
+409.5: Wall
+	width: 1
+	height: 0.25
+	startRow: 8
+	startHeight: -0.25
+	changeDuration: -2.5
+	repeat: 2
+	repeatAddZ: 0.5
+	repeatAddStartRow: -1
+	mirror: 1
+	color: 64,128,128
+407.0: SolidCircleJump
+411.0: MarprilCircle
+412.0: ThreeSynthSound
+412.75: CircleTrailH
+417.0: DiamondWithColouredBorder
+417.0: Line
+	p1: 2,-0.5,0
+	p2: 18,-0.5,0.5
+	amount: 8
+	changeDuration: -2.5
+	changeHeight: 0.25
+	rotation: -5
+	color: gradient(0,0,0,255,32,32)
+417.0: Line
+	p1: -2,-0.5,0
+	p2: -18,-0.5,0.5
+	amount: 8
+	changeDuration: -2.5
+	changeHeight: 0.25
+	rotation: 5
+	color: gradient(0,0,0,32,32,255)
+418.0: CircleWithColouredBorder
+419.0: RandomNoise
+	p1: 6,0,0
+	p2: 7,0.5,0
+	amount: 1
+	changeDuration: -1.5
+	changeWidth: random(4,5)
+	changeHeight: random(2.5,3)
+	localRotZ: random(0,45)
+	color: 0,0,0
+419.0: RandomNoise
+	p1: 6,0,0
+	p2: 7,0.5,0
+	amount: 1
+	changeDuration: -1.5
+	changeWidth: random(4,5)
+	changeHeight: random(2.5,3)
+	localRotZ: random(0,45)
+	mirror: 1
+	color: 0,0,0
+419.0: RandomNoise
+	p1: 4,5,0
+	p2: 5,5.5,0
+	amount: 1
+	changeDuration: -1.5
+	changeWidth: random(2,3)
+	changeHeight: random(1.5,2)
+	localRotZ: random(0,45)
+	color: 0,0,0
+419.0: RandomNoise
+	p1: 4,5,0
+	p2: 5,5.5,0
+	amount: 1
+	changeDuration: -1.5
+	changeWidth: random(2,3)
+	changeHeight: random(1.5,2)
+	localRotZ: random(0,45)
+	mirror: 1
+	color: 0,0,0
+420.0: GlitchyFloor
+421.0: _sideColourfulBlockA1
+	changeDuration: -2.5
+	changeWidth: random(2,4)
+	changeHeight: random(2,3)
+	localRotZ: random(-15,15)
+	repeat: 4
+	repeatAddZ: 0.125
+	color: 64,64,64
+421.0: _sideColourfulBlockA2
+	changeDuration: -2.5
+	changeWidth: random(6,9)
+	changeHeight: random(3,5)
+	localRotZ: random(-15,15)
+	repeat: 4
+	repeatAddZ: 0.125
+	color: 64,64,64
+421.0: _sideColourfulBlockA3
+	changeDuration: -2.5
+	changeWidth: random(6,9)
+	changeHeight: random(3,5)
+	localRotZ: random(-15,15)
+	repeat: 4
+	repeatAddZ: 0.125
+	color: 64,64,64
+421.0: _sideColourfulBlockA1
+	changeDuration: -2.5
+	changeWidth: random(2,4)
+	changeHeight: random(2,3)
+	localRotZ: random(-15,15)
+	repeat: 4
+	repeatAddZ: 0.125
+	mirror: 1
+	color: 64,64,64
+421.0: _sideColourfulBlockA2
+	changeDuration: -2.5
+	changeWidth: random(6,9)
+	changeHeight: random(3,5)
+	localRotZ: random(-15,15)
+	repeat: 4
+	repeatAddZ: 0.125
+	mirror: 1
+	color: 64,64,64
+421.0: _sideColourfulBlockA3
+	changeDuration: -2.5
+	changeWidth: random(6,9)
+	changeHeight: random(3,5)
+	localRotZ: random(-15,15)
+	repeat: 4
+	repeatAddZ: 0.125
+	mirror: 1
+	color: 64,64,64
+
+#  ------ ------
+#	 421 - 453   >   Drop 2-2
+#	3:09 - 3:24
+#  ------ ------
+422.0: _sideColourfulBlockA1
+	changeDuration: -2.0
+	changeWidth: random(2,4)
+	changeHeight: random(2,3)
+	localRotZ: random(-15,15)
+	repeat: 3
+	repeatAddZ: 1
+	color: 64,64,64
+422.0: _sideColourfulBlockA2
+	changeDuration: -2.0
+	changeWidth: random(6,9)
+	changeHeight: random(3,5)
+	localRotZ: random(-15,15)
+	repeat: 2
+	repeatAddZ: 2
+	color: 64,64,64
+422.0: _sideColourfulBlockA3
+	changeDuration: -2.0
+	changeWidth: random(6,9)
+	changeHeight: random(3,5)
+	localRotZ: random(-15,15)
+	repeat: 2
+	repeatAddZ: 2
+	color: 64,64,64
+422.0: _sideColourfulBlockA4
+	changeDuration: -2.0
+	changeWidth: random(2,4)
+	changeHeight: random(2,3)
+	localRotZ: random(-15,15)
+	repeat: 2
+	repeatAddZ: 2
+	color: 64,64,64
+423.0: _sideColourfulBlockA1
+	changeDuration: -2.0
+	changeWidth: random(2,4)
+	changeHeight: random(2,3)
+	localRotZ: random(-15,15)
+	mirror: 1
+	color: 64,64,64
+423.0: _sideColourfulBlockA2
+	changeDuration: -2.0
+	changeWidth: random(6,9)
+	changeHeight: random(3,5)
+	localRotZ: random(-15,15)
+	mirror: 1
+	color: 64,64,64
+423.0: _sideColourfulBlockA3
+	changeDuration: -2.0
+	changeWidth: random(6,9)
+	changeHeight: random(3,5)
+	localRotZ: random(-15,15)
+	mirror: 1
+	color: 64,64,64
+423.0: _sideColourfulBlockA4
+	changeDuration: -2.0
+	changeWidth: random(2,4)
+	changeHeight: random(2,3)
+	localRotZ: random(-15,15)
+	mirror: 1
+	color: 64,64,64
+424.0: GlitchyFloor
+425.0: ShapeCombineHeartIDFK
+426.5: GlitchyFloor
+427.0: CircleTrail
+	addStartRow: 4
+	rotation: 165
+	color: 0,0,0
+427.0: CircleTrail
+	addStartRow: 4
+	addStartTime: 0.3125
+	rotation: 165
+	color: 96,32,224
+427.0: CircleTrail
+	addStartRow: -4
+	rotation: 195
+	color: 0,0,0
+427.0: CircleTrail
+	addStartRow: -4
+	addStartTime: 0.3125
+	rotation: 195
+	color: 255,128,32
+428.0: CircleTrail
+	addStartRow: -24
+	rotation: 105
+	color: 0,0,0
+428.0: CircleTrail
+	addStartRow: -24
+	addStartTime: 0.3125
+	rotation: 105
+	color: 255,128,32
+428.0: CircleTrail
+	addStartRow: 24
+	rotation: 255
+	color: 0,0,0
+428.0: CircleTrail
+	addStartRow: 24
+	addStartTime: 0.3125
+	rotation: 255
+	color: 96,32,224
+428.75: RandomNoise
+	p1: -16,0.5,0
+	p2: 16,6.5,4
+	amount: 10
+	color: 160,160,160
+428.75: RandomNoise
+	p1: -12,-0.5,0
+	p2: 12,7,4
+	amount: 20
+	rotation: random(-7.5,7.5)
+	color: 192,192,192
+429.0: _sideColourfulBlockA1
+	changeDuration: random(0.25,0.5)
+	changeWidth: random(2,4)
+	changeHeight: random(2,3)
+	localRotZ: random(-15,15)
+	repeat: 2
+	repeatAddZ: 2
+	color: 96,32,224
+429.0: _sideColourfulBlockA2
+	changeDuration: random(0.5,0.75)
+	changeWidth: random(6,9)
+	changeHeight: random(3,5)
+	localRotZ: random(-15,15)
+	repeat: 2
+	repeatAddZ: 2
+	color: 96,32,224
+429.0: _sideColourfulBlockA3
+	changeDuration: random(0.5,0.75)
+	changeWidth: random(6,9)
+	changeHeight: random(3,5)
+	localRotZ: random(-15,15)
+	repeat: 2
+	repeatAddZ: 2
+	color: 255,128,32
+433.75: _sideColourfulBlockA1
+	changeDuration: -2.5
+	changeWidth: random(2,4)
+	changeHeight: random(2,3)
+	localRotZ: random(-15,15)
+	repeat: 4
+	repeatAddZ: 0.125
+	color: 64,64,64
+433.75: _sideColourfulBlockA2
+	changeDuration: -2.5
+	changeWidth: random(6,9)
+	changeHeight: random(3,5)
+	localRotZ: random(-15,15)
+	repeat: 4
+	repeatAddZ: 0.125
+	color: 64,64,64
+433.75: _sideColourfulBlockA3
+	changeDuration: -2.5
+	changeWidth: random(6,9)
+	changeHeight: random(3,5)
+	localRotZ: random(-15,15)
+	repeat: 4
+	repeatAddZ: 0.125
+	color: 64,64,64
+429.0: WaveformLine
+429.25: BlackBarSplash
+430.75: TileTrail
+429.03125: ThiccCircle
+430.0: SolidCircleJump
+432.5: SomeWubSound
+423.0: GlitchyFloor
+423.0: Wall
+	width: 5
+	height: 1
+	startRow: 4
+	startHeight: -1.25
+	changeDuration: -2.5
+	repeat: 2
+	repeatAddZ: 2
+	mirror: 2
+	color: 64,128,128
+434.0: Wall
+	width: 5
+	height: 1
+	startRow: 8
+	startHeight: -0.5
+	changeDuration: -2.5
+	repeat: 2
+	repeatAddZ: 2
+	mirror: 2
+	color: 64,128,128
+434.0: DiamondCircleThingy
+436.0: GlitchyFloor
+436.0: _sideColourfulBlockA1
+	changeDuration: -2.5
+	changeWidth: random(2,4)
+	changeHeight: random(2,3)
+	localRotZ: random(-15,15)
+	repeat: 4
+	repeatAddZ: 0.125
+	color: 64,64,64
+436.0: _sideColourfulBlockA2
+	changeDuration: -2.5
+	changeWidth: random(6,9)
+	changeHeight: random(3,5)
+	localRotZ: random(-15,15)
+	repeat: 4
+	repeatAddZ: 0.125
+	color: 64,64,64
+436.0: _sideColourfulBlockA3
+	changeDuration: -2.5
+	changeWidth: random(6,9)
+	changeHeight: random(3,5)
+	localRotZ: random(-15,15)
+	repeat: 4
+	repeatAddZ: 0.125
+	color: 64,64,64
+436.0: _sideColourfulBlockA1
+	changeDuration: -2.5
+	changeWidth: random(2,4)
+	changeHeight: random(2,3)
+	localRotZ: random(-15,15)
+	repeat: 4
+	repeatAddZ: 0.125
+	mirror: 1
+	color: 64,64,64
+436.0: _sideColourfulBlockA2
+	changeDuration: -2.5
+	changeWidth: random(6,9)
+	changeHeight: random(3,5)
+	localRotZ: random(-15,15)
+	repeat: 4
+	repeatAddZ: 0.125
+	mirror: 1
+	color: 64,64,64
+436.0: _sideColourfulBlockA3
+	changeDuration: -2.5
+	changeWidth: random(6,9)
+	changeHeight: random(3,5)
+	localRotZ: random(-15,15)
+	repeat: 4
+	repeatAddZ: 0.125
+	mirror: 1
+	color: 64,64,64
+# uncoloured this time
+437.5: FastBlueOrangeWall
+	color: 64,64,64
+438.75: RandomNoise
+	p1: -16,0.5,0
+	p2: 16,6.5,4
+	amount: 10
+	color: 160,160,160
+438.75: RandomNoise
+	p1: -12,-0.5,0
+	p2: 12,7,4
+	amount: 20
+	rotation: random(-7.5,7.5)
+	color: 192,192,192
+439.0: _sideColourfulBlockA1
+	changeDuration: random(0.25,0.5)
+	changeWidth: random(2,4)
+	changeHeight: random(2,3)
+	localRotZ: random(-15,15)
+	color: 96,32,224
+439.0: _sideColourfulBlockA2
+	changeDuration: random(0.5,0.75)
+	changeWidth: random(6,9)
+	changeHeight: random(3,5)
+	localRotZ: random(-15,15)
+	color: 255,128,32
+439.0: _sideColourfulBlockA3
+	changeDuration: random(0.5,0.75)
+	changeWidth: random(6,9)
+	changeHeight: random(3,5)
+	localRotZ: random(-15,15)
+	color: 96,32,224
+441.0: _sideColourfulBlockA1
+	changeDuration: random(0.25,0.5)
+	changeWidth: random(2,4)
+	changeHeight: random(2,3)
+	localRotZ: random(-15,15)
+	mirror: 1
+	color: 96,32,224
+441.0: _sideColourfulBlockA2
+	changeDuration: random(0.5,0.75)
+	changeWidth: random(6,9)
+	changeHeight: random(3,5)
+	localRotZ: random(-15,15)
+	mirror: 1
+	color: 255,128,32
+441.0: _sideColourfulBlockA3
+	changeDuration: random(0.5,0.75)
+	changeWidth: random(6,9)
+	changeHeight: random(3,5)
+	localRotZ: random(-15,15)
+	mirror: 1
+	color: 96,32,224
+441.5: Wall
+	width: 1
+	height: 0.25
+	startRow: 5
+	startHeight: -0.25
+	changeDuration: -2.5
+	repeat: 2
+	repeatAddZ: 0.5
+	repeatAddStartRow: 1
+	color: 64,128,128
+441.5: Wall
+	width: 1
+	height: 0.25
+	startRow: 8
+	startHeight: -0.25
+	changeDuration: -2.5
+	repeat: 2
+	repeatAddZ: 0.5
+	repeatAddStartRow: 1
+	color: 64,128,128
+441.5: Wall
+	width: 1
+	height: 0.25
+	startRow: 5
+	startHeight: -0.25
+	changeDuration: -2.5
+	repeat: 2
+	repeatAddZ: 0.5
+	repeatAddStartRow: -1
+	mirror: 1
+	color: 64,128,128
+441.5: Wall
+	width: 1
+	height: 0.25
+	startRow: 8
+	startHeight: -0.25
+	changeDuration: -2.5
+	repeat: 2
+	repeatAddZ: 0.5
+	repeatAddStartRow: -1
+	mirror: 1
+	color: 64,128,128
+439.0: SolidCircleJump
+443.0: MarprilCircle
+444.0: ThreeSynthSound
+444.75: CircleTrailH
+446.25: EndingShapeTransition
+452.0: GlitchyFloor
+452.0: _sideColourfulBlockA1
+	changeDuration: -2.5
+	changeWidth: random(2,4)
+	changeHeight: random(2,3)
+	localRotZ: random(-15,15)
+	repeat: 4
+	repeatAddZ: 0.125
+	color: 64,64,64
+452.0: _sideColourfulBlockA2
+	changeDuration: -2.5
+	changeWidth: random(6,9)
+	changeHeight: random(3,5)
+	localRotZ: random(-15,15)
+	repeat: 4
+	repeatAddZ: 0.125
+	color: 64,64,64
+452.0: _sideColourfulBlockA3
+	changeDuration: -2.5
+	changeWidth: random(6,9)
+	changeHeight: random(3,5)
+	localRotZ: random(-15,15)
+	repeat: 4
+	repeatAddZ: 0.125
+	color: 64,64,64
+452.0: _sideColourfulBlockA1
+	changeDuration: -2.5
+	changeWidth: random(2,4)
+	changeHeight: random(2,3)
+	localRotZ: random(-15,15)
+	repeat: 4
+	repeatAddZ: 0.125
+	mirror: 1
+	color: 64,64,64
+452.0: _sideColourfulBlockA2
+	changeDuration: -2.5
+	changeWidth: random(6,9)
+	changeHeight: random(3,5)
+	localRotZ: random(-15,15)
+	repeat: 4
+	repeatAddZ: 0.125
+	mirror: 1
+	color: 64,64,64
+452.0: _sideColourfulBlockA3
+	changeDuration: -2.5
+	changeWidth: random(6,9)
+	changeHeight: random(3,5)
+	localRotZ: random(-15,15)
+	repeat: 4
+	repeatAddZ: 0.125
+	mirror: 1
+	color: 64,64,64
+
+#  ------ ------
+#	 453 - 485   >   Outro 1
+#	3:24 - 3:38
+#  ------ ------
+# is it the end yet?
+453.0: Wall
+	width: 5
+	height: 1
+	startRow: 4
+	startHeight: -1.25
+	changeDuration: -2.5
+	mirror: 2
+	repeat: 2
+	repeatAddZ: 2
+	color: 64,128,128
+454.0: Wall
+	width: 5
+	height: 1
+	startRow: 8
+	startHeight: -0.5
+	changeDuration: -2.5
+	mirror: 2
+	repeat: 2
+	repeatAddZ: 2
+	color: 64,128,128
+453.0: _sideColourfulBlockA1
+	changeDuration: -2
+	changeWidth: random(2,4)
+	changeHeight: random(2,3)
+	localRotZ: random(-15,15)
+	repeat: 2
+	repeatAddZ: 2
+	rotation: 7.5
+	mirror: 1
+	color: 128,128,128
+453.0: _sideColourfulBlockA2
+	changeDuration: -2
+	changeWidth: random(6,9)
+	changeHeight: random(3,5)
+	localRotZ: random(-15,15)
+	repeat: 2
+	repeatAddZ: 2
+	rotation: -7.5
+	mirror: 1
+	color: 128,128,128
+453.0: _sideColourfulBlockA3
+	changeDuration: -2
+	changeWidth: random(6,9)
+	changeHeight: random(3,5)
+	localRotZ: random(-15,15)
+	repeat: 2
+	repeatAddZ: 2
+	rotation: 7.5
+	mirror: 1
+	color: 128,128,128
+453.0: _sideColourfulBlockA4
+	changeDuration: -2
+	changeWidth: random(2,4)
+	changeHeight: random(2,3)
+	localRotZ: random(-15,15)
+	repeat: 2
+	repeatAddZ: 2
+	rotation: -7.5
+	mirror: 1
+	color: 128,128,128
+454.0: _sideColourfulBlockA1
+	changeDuration: -2
+	changeWidth: random(2,4)
+	changeHeight: random(2,3)
+	localRotZ: random(-15,15)
+	repeat: 2
+	repeatAddZ: 2
+	rotation: 7.5
+	color: 128,128,128
+454.0: _sideColourfulBlockA2
+	changeDuration: -2
+	changeWidth: random(6,9)
+	changeHeight: random(3,5)
+	localRotZ: random(-15,15)
+	repeat: 2
+	repeatAddZ: 2
+	rotation: -7.5
+	color: 128,128,128
+454.0: _sideColourfulBlockA3
+	changeDuration: -2
+	changeWidth: random(6,9)
+	changeHeight: random(3,5)
+	localRotZ: random(-15,15)
+	repeat: 2
+	repeatAddZ: 2
+	rotation: 7.5
+	color: 128,128,128
+454.0: _sideColourfulBlockA4
+	changeDuration: -2
+	changeWidth: random(2,4)
+	changeHeight: random(2,3)
+	localRotZ: random(-15,15)
+	repeat: 2
+	repeatAddZ: 2
+	rotation: -7.5
+	color: 128,128,128
+457.0: Wall
+	width: 0.25
+	height: 0.25
+	changeDuration: -2.5
+	changeStartRow: -2
+	changeStartHeight: -0.25
+	repeat: 4
+	repeatAddZ: 0.125
+	color: 255,128,32
+	rotation: 135
+458.0: Wall
+	width: 0.25
+	height: 0.25
+	changeDuration: -2.5
+	changeStartRow: -7
+	changeStartHeight: -0.25
+	repeat: 4
+	repeatAddZ: 0.125
+	color: 255,128,32
+	rotation: 135
+459.0: Wall
+	width: 0.25
+	height: 0.25
+	changeDuration: -2.5
+	changeStartRow: -14
+	changeStartHeight: -0.25
+	repeat: 4
+	repeatAddZ: 0.125
+	color: 255,128,32
+	rotation: 135
+460.0: Wall
+	width: 0.25
+	height: 0.25
+	changeDuration: -2.5
+	changeStartRow: -12
+	changeStartHeight: -0.25
+	repeat: 4
+	repeatAddZ: 0.125
+	color: 255,128,32
+	rotation: 135
+457.0: _sideColourfulBlockA1
+	changeDuration: -2
+	changeWidth: random(2,4)
+	changeHeight: random(2,3)
+	localRotZ: random(-15,15)
+	repeat: 2
+	repeatAddZ: 2
+	mirror: 1
+	color: 128,128,128
+457.0: _sideColourfulBlockA2
+	changeDuration: -2
+	changeWidth: random(6,9)
+	changeHeight: random(3,5)
+	localRotZ: random(-15,15)
+	repeat: 2
+	repeatAddZ: 2
+	mirror: 1
+	color: 255,128,32
+457.0: _sideColourfulBlockA3
+	changeDuration: -2
+	changeWidth: random(6,9)
+	changeHeight: random(3,5)
+	localRotZ: random(-15,15)
+	repeat: 2
+	repeatAddZ: 2
+	mirror: 1
+	color: 255,128,32
+457.0: _sideColourfulBlockA4
+	changeDuration: -2
+	changeWidth: random(2,4)
+	changeHeight: random(2,3)
+	localRotZ: random(-15,15)
+	repeat: 2
+	repeatAddZ: 2
+	mirror: 1
+	color: 128,128,128
+458.0: _sideColourfulBlockA1
+	changeDuration: -2
+	changeWidth: random(2,4)
+	changeHeight: random(2,3)
+	localRotZ: random(-15,15)
+	repeat: 2
+	repeatAddZ: 2
+	color: 255,128,32
+458.0: _sideColourfulBlockA2
+	changeDuration: -2
+	changeWidth: random(6,9)
+	changeHeight: random(3,5)
+	localRotZ: random(-15,15)
+	repeat: 2
+	repeatAddZ: 2
+	color: 128,128,128
+458.0: _sideColourfulBlockA3
+	changeDuration: -2
+	changeWidth: random(6,9)
+	changeHeight: random(3,5)
+	localRotZ: random(-15,15)
+	repeat: 2
+	repeatAddZ: 2
+	color: 128,128,128
+458.0: _sideColourfulBlockA4
+	changeDuration: -2
+	changeWidth: random(2,4)
+	changeHeight: random(2,3)
+	localRotZ: random(-15,15)
+	repeat: 2
+	repeatAddZ: 2
+	color: 255,128,32
+461.0: Wall
+	width: 5
+	height: 1
+	startRow: 4
+	startHeight: -1.25
+	changeDuration: -2.5
+	mirror: 2
+	repeat: 2
+	repeatAddZ: 2
+	color: 64,128,128
+462.0: Wall
+	width: 5
+	height: 1
+	startRow: 8
+	startHeight: -0.5
+	changeDuration: -2.5
+	mirror: 2
+	repeat: 2
+	repeatAddZ: 2
+	color: 64,128,128
+461.0: _sideColourfulBlockA1
+	changeDuration: -2
+	changeWidth: random(2,4)
+	changeHeight: random(2,3)
+	localRotZ: random(-15,15)
+	repeat: 2
+	repeatAddZ: 2
+	rotation: 7.5
+	mirror: 1
+	color: 128,128,128
+461.0: _sideColourfulBlockA2
+	changeDuration: -2
+	changeWidth: random(6,9)
+	changeHeight: random(3,5)
+	localRotZ: random(-15,15)
+	repeat: 2
+	repeatAddZ: 2
+	rotation: -7.5
+	mirror: 1
+	color: 128,128,128
+461.0: _sideColourfulBlockA3
+	changeDuration: -2
+	changeWidth: random(6,9)
+	changeHeight: random(3,5)
+	localRotZ: random(-15,15)
+	repeat: 2
+	repeatAddZ: 2
+	rotation: 7.5
+	mirror: 1
+	color: 128,128,128
+461.0: _sideColourfulBlockA4
+	changeDuration: -2
+	changeWidth: random(2,4)
+	changeHeight: random(2,3)
+	localRotZ: random(-15,15)
+	repeat: 2
+	repeatAddZ: 2
+	rotation: -7.5
+	mirror: 1
+	color: 128,128,128
+462.0: _sideColourfulBlockA1
+	changeDuration: -2
+	changeWidth: random(2,4)
+	changeHeight: random(2,3)
+	localRotZ: random(-15,15)
+	repeat: 2
+	repeatAddZ: 2
+	rotation: 7.5
+	color: 128,128,128
+462.0: _sideColourfulBlockA2
+	changeDuration: -2
+	changeWidth: random(6,9)
+	changeHeight: random(3,5)
+	localRotZ: random(-15,15)
+	repeat: 2
+	repeatAddZ: 2
+	rotation: -7.5
+	color: 128,128,128
+462.0: _sideColourfulBlockA3
+	changeDuration: -2
+	changeWidth: random(6,9)
+	changeHeight: random(3,5)
+	localRotZ: random(-15,15)
+	repeat: 2
+	repeatAddZ: 2
+	rotation: 7.5
+	color: 128,128,128
+462.0: _sideColourfulBlockA4
+	changeDuration: -2
+	changeWidth: random(2,4)
+	changeHeight: random(2,3)
+	localRotZ: random(-15,15)
+	repeat: 2
+	repeatAddZ: 2
+	rotation: -7.5
+	color: 128,128,128
+465.0: Wall
+	width: 0.25
+	height: 0.25
+	changeDuration: -2.5
+	changeStartRow: 5
+	changeStartHeight: -0.25
+	repeat: 4
+	repeatAddZ: 0.125
+	rotation: 225
+	color: 96,32,224
+466.0: Wall
+	width: 0.25
+	height: 0.25
+	changeDuration: -2.5
+	changeStartRow: 12
+	changeStartHeight: -0.25
+	repeat: 4
+	repeatAddZ: 0.125
+	rotation: 225
+	color: 96,32,224
+467.0: Wall
+	width: 0.25
+	height: 0.25
+	changeDuration: -2.5
+	changeStartRow: 2
+	changeStartHeight: -0.25
+	repeat: 4
+	repeatAddZ: 0.125
+	rotation: 225
+	color: 96,32,224
+468.0: Wall
+	width: 0.25
+	height: 0.25
+	changeDuration: -2.5
+	changeStartRow: 9
+	changeStartHeight: -0.25
+	repeat: 4
+	repeatAddZ: 0.125
+	rotation: 225
+	color: 96,32,224
+465.0: _sideColourfulBlockA1
+	changeDuration: -2
+	changeWidth: random(2,4)
+	changeHeight: random(2,3)
+	localRotZ: random(-15,15)
+	repeat: 2
+	repeatAddZ: 2
+	mirror: 1
+	color: 128,128,128
+465.0: _sideColourfulBlockA2
+	changeDuration: -2
+	changeWidth: random(6,9)
+	changeHeight: random(3,5)
+	localRotZ: random(-15,15)
+	repeat: 2
+	repeatAddZ: 2
+	mirror: 1
+	color: 96,32,224
+465.0: _sideColourfulBlockA3
+	changeDuration: -2
+	changeWidth: random(6,9)
+	changeHeight: random(3,5)
+	localRotZ: random(-15,15)
+	repeat: 2
+	repeatAddZ: 2
+	mirror: 1
+	color: 96,32,224
+465.0: _sideColourfulBlockA4
+	changeDuration: -2
+	changeWidth: random(2,4)
+	changeHeight: random(2,3)
+	localRotZ: random(-15,15)
+	repeat: 2
+	repeatAddZ: 2
+	mirror: 1
+	color: 128,128,128
+466.0: _sideColourfulBlockA1
+	changeDuration: -2
+	changeWidth: random(2,4)
+	changeHeight: random(2,3)
+	localRotZ: random(-15,15)
+	repeat: 2
+	repeatAddZ: 2
+	color: 96,32,224
+466.0: _sideColourfulBlockA2
+	changeDuration: -2
+	changeWidth: random(6,9)
+	changeHeight: random(3,5)
+	localRotZ: random(-15,15)
+	repeat: 2
+	repeatAddZ: 2
+	color: 128,128,128
+466.0: _sideColourfulBlockA3
+	changeDuration: -2
+	changeWidth: random(6,9)
+	changeHeight: random(3,5)
+	localRotZ: random(-15,15)
+	repeat: 2
+	repeatAddZ: 2
+	color: 128,128,128
+466.0: _sideColourfulBlockA4
+	changeDuration: -2
+	changeWidth: random(2,4)
+	changeHeight: random(2,3)
+	localRotZ: random(-15,15)
+	repeat: 2
+	repeatAddZ: 2
+	color: 96,32,224
+468.5: GlitchyFloor
+
+469.0: ShapeDiamond
+	addStartHeight: 4
+	scaleWidth: 3
+	scaleHeight: 3
+	scaleStartRow: 3
+	scaleStartHeight: 3
+	repeat: 8
+	repeatAddZ: 1
+	color: 255,255,255
+468.875: ShapeDiamond
+	addStartHeight: 4
+	scaleWidth: 3
+	scaleHeight: 3
+	scaleStartRow: 3
+	scaleStartHeight: 3
+	changeDuration: -2.5
+	rotation: 180
+	color: 0,0,0
+469.125: SideColourfulBlock
+	changeDuration: random(0.0625,0.25)
+	changeWidth: random(1,2)
+	changeHeight: random(1,2)
+	localRotZ: random(0,90)
+	repeat: 5
+	repeatAddZ: 2
+#469.0: RandomNoise
+#	p1: 4,-3.5,0
+#	p2: 16,0.5,1
+#	amount: 4
+#	changeDuration: random(0.03125,0.0625)
+#	changeWidth: random(0.25,0.5)
+#	changeHeight: random(0.25,0.5)
+#	localRotZ: random(0,90)
+#	repeat: 6
+#	repeatAddZ: 1
+#	color: flash(255,128,32,96,32,224)
+#469.0: RandomNoise
+#	p1: -4,-3.5,0
+#	p2: -16,0.5,1
+#	amount: 4
+#	changeDuration: random(0.03125,0.0625)
+#	changeWidth: random(0.25,0.5)
+#	changeHeight: random(0.25,0.5)
+#	localRotZ: random(0,90)
+#	repeat: 6
+#	repeatAddZ: 1
+#	color: flash(255,128,32,96,32,224)
+469.0: RandomNoise
+	p1: -16,0.5,0
+	p2: 16,6.5,8
+	amount: 10
+	color: flash(255,128,32,96,32,224)
+469.0: RandomNoise
+	p1: -12,-0.5,0
+	p2: 12,7,8
+	amount: 20
+	rotation: random(-7.5,7.5)
+	color: flash(255,128,32,96,32,224)
+469.0: Wall
+	width: 5
+	height: 1
+	startRow: 4
+	startHeight: -1.25
+	changeDuration: -2.5
+	mirror: 2
+	repeat: 6
+	repeatAddZ: 2
+	color: 64,128,128
+470.0: Wall
+	width: 5
+	height: 1
+	startRow: 8
+	startHeight: -0.5
+	changeDuration: -2.5
+	mirror: 2
+	repeat: 6
+	repeatAddZ: 2
+	color: 64,128,128
+
+477.0: ShapeCircle
+	addStartHeight: 4
+	scaleWidth: 3
+	scaleHeight: 3
+	scaleStartRow: 3
+	scaleStartHeight: 3
+	repeat: 4
+	repeatAddZ: 1
+	color: 255,255,255
+476.875: ShapeCircle
+	addStartHeight: 4
+	scaleWidth: 3
+	scaleHeight: 3
+	scaleStartRow: 3
+	scaleStartHeight: 3
+	changeDuration: -2.5
+	rotation: 180
+	color: 0,0,0
+476.75: RandomNoise
+	p1: -16,0.5,0
+	p2: 16,6.5,4
+	amount: 10
+	color: 160,160,160
+476.75: RandomNoise
+	p1: -12,-0.5,0
+	p2: 12,7,4
+	amount: 20
+	rotation: random(-7.5,7.5)
+	color: 192,192,192
+
+480.5: GlitchyFloor
+481.0: _sideColourfulBlockA1
+	changeDuration: -2
+	changeWidth: random(2,4)
+	changeHeight: random(2,3)
+	localRotZ: random(-15,15)
+	repeat: 2
+	repeatAddZ: 2
+	rotation: 7.5
+	mirror: 1
+	color: 96,32,224
+481.0: _sideColourfulBlockA2
+	changeDuration: -2
+	changeWidth: random(6,9)
+	changeHeight: random(3,5)
+	localRotZ: random(-15,15)
+	repeat: 2
+	repeatAddZ: 2
+	rotation: -7.5
+	mirror: 1
+	color: 128,128,128
+481.0: _sideColourfulBlockA3
+	changeDuration: -2
+	changeWidth: random(6,9)
+	changeHeight: random(3,5)
+	localRotZ: random(-15,15)
+	repeat: 2
+	repeatAddZ: 2
+	rotation: 7.5
+	mirror: 1
+	color: 128,128,128
+481.0: _sideColourfulBlockA4
+	changeDuration: -2
+	changeWidth: random(2,4)
+	changeHeight: random(2,3)
+	localRotZ: random(-15,15)
+	repeat: 2
+	repeatAddZ: 2
+	rotation: -7.5
+	mirror: 1
+	color: 255,128,32
+482.0: _sideColourfulBlockA1
+	changeDuration: -2
+	changeWidth: random(2,4)
+	changeHeight: random(2,3)
+	localRotZ: random(-15,15)
+	repeat: 2
+	repeatAddZ: 2
+	rotation: 7.5
+	color: 128,128,128
+482.0: _sideColourfulBlockA2
+	changeDuration: -2
+	changeWidth: random(6,9)
+	changeHeight: random(3,5)
+	localRotZ: random(-15,15)
+	repeat: 2
+	repeatAddZ: 2
+	rotation: -7.5
+	color: 96,32,224
+482.0: _sideColourfulBlockA3
+	changeDuration: -2
+	changeWidth: random(6,9)
+	changeHeight: random(3,5)
+	localRotZ: random(-15,15)
+	repeat: 2
+	repeatAddZ: 2
+	rotation: 7.5
+	color: 255,128,32
+482.0: _sideColourfulBlockA4
+	changeDuration: -2
+	changeWidth: random(2,4)
+	changeHeight: random(2,3)
+	localRotZ: random(-15,15)
+	repeat: 2
+	repeatAddZ: 2
+	rotation: -7.5
+	color: 128,128,128
+
+#  ------ ------
+#	 485 - 517   >   Outro 2
+#	3:38 - 3:53
+#  ------ ------
+484.75: RandomNoise
+	p1: -16,0.5,0
+	p2: 16,6.5,16
+	amount: 40
+	color: 0,0,0
+484.75: RandomNoise
+	p1: -12,-0.5,0
+	p2: 12,7,16
+	amount: 80
+	rotation: random(-7.5,7.5)
+	color: 64,64,64
+485.0: CircleTrailV2
+493.0: CircleTrailH2
+501.125: SideColourfulBlock
+	changeDuration: random(0.0625,0.25)
+	changeWidth: random(1,2)
+	changeHeight: random(1,2)
+	localRotZ: random(0,90)
+	repeat: 5
+	repeatAddZ: 2
+501.0: RandomNoise
+	p1: -24,-3,0
+	p2: 0,-1,8
+	amount: 32
+	changeDuration: 0.0625
+	changeHeight: 0.75
+	changeWidth: 0.75
+	localRotZ: random(0,-7.5)
+	color: 0,32,32
+501.0: RandomNoise
+	p1: 0,-3,0
+	p2: 24,-1,8
+	amount: 32
+	changeDuration: 0.0625
+	changeHeight: 0.75
+	changeWidth: 0.75
+	localRotZ: random(0,7.5)
+	color: 0,32,32
+501.125: ShapeCircle
+	addStartHeight: 4
+	scaleWidth: 2.5
+	scaleHeight: 2.5
+	scaleStartRow: 2.5
+	scaleStartHeight: 2.5
+	changeHeight: 0.25
+	repeat: 2
+	repeatAddZ: 4
+	color: 128,128,128
+508.5: GlitchyFloor
+508.75: RandomNoise
+	p1: -16,0.5,0
+	p2: 16,6.5,2
+	amount: 10
+	color: 0,0,0
+508.875: ShapeCircle
+	addStartHeight: 4
+	scaleWidth: 3
+	scaleHeight: 3
+	scaleStartRow: 3
+	scaleStartHeight: 3
+	changeDuration: -2.5
+	rotation: 180
+	color: 0,0,0
+509.125: ShapeCircle
+	addStartHeight: 4
+	scaleWidth: 3
+	scaleHeight: 3
+	scaleStartRow: 3
+	scaleStartHeight: 3
+	changeHeight: 0.125
+	color: 0,0,0
+508.75: RandomNoise
+	p1: -12,-0.5,0
+	p2: 12,7,2
+	amount: 20
+	rotation: random(-7.5,7.5)
+	color: 64,64,64
+
+510.0: ShapeDiamond
+	addStartHeight: 4
+	addStartRow: -1.75
+	scaleWidth: 3
+	scaleHeight: 3
+	scaleStartRow: 3
+	scaleStartHeight: 3
+	changeHeight: 0.0625
+	rotation: 180
+	color: 96,32,224
+510.0: ShapeDiamond
+	addStartHeight: 4
+	addStartRow: 1.75
+	scaleWidth: 3
+	scaleHeight: 3
+	scaleStartRow: 3
+	scaleStartHeight: 3
+	changeHeight: 0.0625
+	rotation: 180
+	color: 255,128,32
+
+510.333: ShapeDiamond
+	addStartHeight: 4
+	addStartRow: -0.5
+	scaleWidth: 2.75
+	scaleHeight: 2.75
+	scaleStartRow: 2.75
+	scaleStartHeight: 2.75
+	changeHeight: 0.0625
+	rotation: 180
+	color: 96,32,224
+510.333: ShapeDiamond
+	addStartHeight: 4
+	addStartRow: 0.5
+	scaleWidth: 2.75
+	scaleHeight: 2.75
+	scaleStartRow: 2.75
+	scaleStartHeight: 2.75
+	changeHeight: 0.0625
+	rotation: 180
+	color: 255,128,32
+
+510.75: ShapeDiamond
+	addStartHeight: 4
+	addStartRow: -0.125
+	scaleWidth: 2.25
+	scaleHeight: 2.25
+	scaleStartRow: 2.25
+	scaleStartHeight: 2.25
+	changeHeight: 0.0625
+	rotation: 180
+	color: 96,32,224
+510.75: ShapeDiamond
+	addStartHeight: 4
+	addStartRow: 0.125
+	scaleWidth: 2.25
+	scaleHeight: 2.25
+	scaleStartRow: 2.25
+	scaleStartHeight: 2.25
+	changeHeight: 0.0625
+	rotation: 180
+	color: 255,128,32
+
+#  ------ ------
+#    517 - 541   >   End
+#	3:53 - 4:04
+#  ------ ------
+517.0: RandomNoise
+	p1: -16,0.5,0
+	p2: 16,6.5,16
+	amount: 64
+	color: 160,160,160
+517.0: RandomNoise
+	p1: -12,-0.5,0
+	p2: 12,7,16
+	amount: 128
+	rotation: random(-7.5,7.5)
+	color: 192,192,192
+517.0: SideLilCube
+525.0: SideLilCube
+	mirror: 1
+
+#  --  END WALL MAPPING  --
+# and that's the story of my sanity.

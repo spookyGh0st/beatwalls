@@ -9,8 +9,8 @@ import kotlin.random.Random
 fun RandomNoise.run(): List<SpookyWall> {
     val l = mutableListOf<SpookyWall>()
     val c = CuboidConstrains(p1, p2,seed?: Random.nextInt())
-    amount = amount ?: (8 * (c.ez - c.sz)).roundToInt()
-    repeat(amount!!) {
+    val tAmount = amount ?: (8 * (c.ez - c.sz)).roundToInt()
+    repeat(tAmount) {
         val p = c.random(true)
         val w = SpookyWall(
             x = p.x,

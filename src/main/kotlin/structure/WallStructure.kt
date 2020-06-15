@@ -360,22 +360,22 @@ class RandomNoise:WallStructure(){
     /**
      * the amount of the created Walls, if no value is given creates 8x the beatcount
      */
-    var amount: Int? = null
+    val amount: Int? by BwIntOrNull()
 
     /**
      * controls one corner of the Area
      */
-    var p1 = Point(-6, 0, 0)
+    val p1 by BwPoint(-6, 0, 0)
 
     /**
      * controls the other corner of the Area
      */
-    var p2 = Point(6, 5, 1)
+    val p2 by BwPoint(6, 5, 1)
 
     /**
      * avoids spawning structures in the playspace. default: true
      */
-    var avoidCenter: Boolean = true
+    val avoidCenter by BwBoolean(true)
     /**
      * generating the Walls
      */
@@ -766,7 +766,7 @@ class NoodleHelix: WallStructure(){
     /**
      *  the amount of walls created. Default: 8*scaleZ
      */
-    val amount by BwInt("8*scale)")
+    val amount by BwInt("8*scaleZ)")
 
     /**
      * spins every wall additionally this amount
@@ -827,27 +827,14 @@ class Line: WallStructure(){
 class RandomCurve: WallStructure(){
 
     /**
-     * dont touch
-     */
-    private var randomSideChooser = Random.nextBoolean()
-
-    /**
      * first Point that controls the cubic, in which section walls are created. defaults to a random side
      */
-    var p1: Point = if (randomSideChooser) Point(
-        1,
-        0,
-        0
-    ) else Point(-1, 0, 0)
+    val p1: Point by BwPoint(1,0,0)
 
     /**
      * second Point that crontrols in which section walls are created. z must be higher than p1
      */
-    var p2: Point = if (randomSideChooser) Point(
-        4,
-        0,
-        1
-    ) else Point(-4, 4, 1)
+    val p2: Point by BwPoint(4,4,4)
 
     /**
      * the amount of Walls per beat

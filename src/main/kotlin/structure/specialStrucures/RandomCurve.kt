@@ -11,20 +11,21 @@ fun RandomCurve.run(): List<SpookyWall> {
     val l= mutableListOf<SpookyWall>()
     val r = Random(seed?: Random.nextInt())
     val mult: Double
+    var tp = p2.copy()
     if((p2.z-p1.z) < 1){
         mult = 1 / (p2.z-p1.z)
-        p2  = p2.copy(z=p1.z+1)
+        tp  = p2.copy(z=p1.z+1)
     }else{
         mult = 1.0
     }
     var tp3 = randomTimedPoint(r, -0.33 * mult)
     var tp4 = p1
-    for(i in p1.z.toInt() until p2.z.toInt()) {
+    for(i in tp.z.toInt() until tp.z.toInt()) {
         val tp1 = tp4.copy()
         val tp2 = tp4.mirrored(tp3)
         tp3 = randomTimedPoint(r, i + 0.66 * mult)
-        tp4 = if (i + 1 == p2.z.toInt())
-            p2.copy()
+        tp4 = if (i + 1 == tp.z.toInt())
+            tp.copy()
         else
             randomTimedPoint(r, i + 1.0 * mult)
         l.addAll(curve(tp1, tp2, tp3, tp4, amount))

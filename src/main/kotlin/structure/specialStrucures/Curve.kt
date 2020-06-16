@@ -12,10 +12,10 @@ fun Curve.run(): List<SpookyWall> {
 }
 
 fun SteadyCurve.run(): List<SpookyWall> {
-    p1=p1.copy(z=0.0)
-    p2= p2?.copy(z=0.3333)
-    p3= p3?.copy(z=0.6666)
-    p4=p4.copy(z=1.0)
+    p1.z = 0.0
+    p2.z = 0.333333
+    p3.z = 0.666666
+    p4.z = 1.0
     return (curve(p1, p2 ?: p1, p3 ?: p4, p4, amount))
 }
 

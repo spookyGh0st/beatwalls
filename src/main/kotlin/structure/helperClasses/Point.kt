@@ -2,7 +2,7 @@ package structure.helperClasses
 
 import java.io.Serializable
 
-data class Point(val x:Double, val y:Double, val z:Double):Serializable {
+data class Point(val x:Double, val y:Double, var z:Double):Serializable {
     constructor(x:Number,y:Number,z:Number):this(x.toDouble(),y.toDouble(),z.toDouble())
     fun mirrored(other: Point): Point {
         return Point(

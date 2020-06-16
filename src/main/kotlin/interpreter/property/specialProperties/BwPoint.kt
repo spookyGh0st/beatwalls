@@ -1,6 +1,5 @@
 package interpreter.property.specialProperties
 
-import com.sun.org.apache.xpath.internal.operations.Bool
 import interpreter.property.BwProperty
 import interpreter.property.strPlusExprStr
 import interpreter.property.strPowExprStr

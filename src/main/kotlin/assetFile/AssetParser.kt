@@ -69,7 +69,6 @@ fun parseStructures(mutableList: MutableList<Pair<String, String>>): ArrayList<W
 
                 //hacky
                 if (struct is Define) {
-                    struct.isTopLevel = true
                 }
 
                 if (struct is WallStructure) {

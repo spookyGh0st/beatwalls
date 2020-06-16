@@ -360,7 +360,7 @@ class RandomNoise:WallStructure(){
     /**
      * the amount of the created Walls, if no value is given creates 8x the beatcount
      */
-    val amount: Int? by BwIntOrNull()
+    val amount: Int by BwInt("(p2.z-p1.z)*8")
 
     /**
      * controls one corner of the Area
@@ -389,32 +389,32 @@ class FurryGrid : WallStructure() {
     /**
      * the X-Size of one panel in the grid
      */
-    var panelX = 1.0
+    val panelX by BwDouble(1.0)
 
     /**
      * the Y-Size of one panel in the grid
      */
-    var panelY = 0.0
+    val panelY by BwDouble(0.0)
 
     /**
      * the Z-Size of one panel in the grid
      */
-    var panelZ = 1.0
+    val panelZ by BwDouble(1.0)
 
     /**
      * the X-Size of the whole grid, aka how often it will repeat in the X-direction
      */
-    var gridX = 8
+    val gridX by BwInt(8)
 
     /**
      * the Y-Size of the whole grid, aka how often it will repeat in the Y-direction
      */
-    var gridY = 1
+    val gridY by BwInt(1)
 
     /**
      * the Z-Size of the whole grid aka how often it will repeat in the Z-direction
      */
-    var gridZ = 8
+    val gridZ by BwInt(8)
 
     /**
      * different modes of walls
@@ -425,13 +425,12 @@ class FurryGrid : WallStructure() {
      *
      * want more? write me
      */
-    var mode = 0
+    val mode by BwInt(0)
 
     /**
      * the start Point of the grid
      */
-    var p1: Point =
-        Point(-4, 0, 0)
+    val p1: Point by BwPoint(-4, 0, 0)
 
     /**
      * generating the Walls
@@ -446,33 +445,32 @@ class RandomCuboidLines : WallStructure() {
     /**
      * the first corner of the cuboid. Default is -2,0,0
      */
-    var p1: Point =
-        Point(-2, 0, 0)
+    val p1: Point by BwPoint(-2, 0, 0)
 
     /**
      * the second corner of the cuboid. Default is 2,4,8
      */
-    var p2: Point = Point(2, 4, 4)
+    val p2: Point by BwPoint(2, 4, 4)
 
     /**
      * The amount of walls per line. Default is 8
      */
-    var amount: Int = 8
+    val amount: Int by BwInt(8)
 
     /**
      * The amount of lines that will be created. Defaults to the duration
      */
-    var count: Int? = null
+    val count: Int  by BwInt("p2.z-p1.z")
 
     /**
      * In how many sections will each side/floor be splitted. Must be at least 3. Default: 4
      */
-    var sections: Int = 4
+    val sections: Int by BwInt(4)
 
     /**
      * 2 = only sides, 4 - bottom and top aswell
      */
-    var randomSidePicker: Int = 4
+    val randomSidePicker: Int by BwInt(4)
     /**
      * generating the Walls
      */
@@ -502,27 +500,27 @@ class Curve : WallStructure() {
     /**
      * the start Point of the Curve
      */
-    var p1: Point = Point(0, 0, 0)
+    val p1: Point by BwPoint(0, 0, 0)
 
     /**
-     * the first Controllpoint, defaults to the startPoint
+     * the first Controllpoint, defaults to the startPoint offset by 0.33 beats
      */
-    var p2: Point? = null
+    val p2 by BwPoint("p1.x,p2.y,p3.z + 0.33")
 
     /**
-     * second ControlPoint, defaults to the end point
+     * second ControlPoint, defaults to the end point offset by -0.33 beats
      */
-    var p3: Point? = null
+    val p3: Point by BwPoint("p4.x,p4.y,p4.z-0.33")
 
     /**
      * The EndPoint of the Curve
      */
-    var p4: Point = Point(0, 0, 0)
+    val p4: Point by BwPoint(0, 0, 0)
 
     /**
      * amount of Walls
      */
-    var amount: Int = 8
+    val amount: Int by BwInt(8)
 
     /**
      * generating the Walls
@@ -537,27 +535,27 @@ class SteadyCurve:WallStructure(){
     /**
      * the start Point of the Curve
      */
-    var p1: Point = Point(0, 0, 0)
+    val p1: Point by BwPoint(0, 0, 0)
 
     /**
      * the first Controllpoint, defaults to the startPoint
      */
-    var p2: Point? = null
+    val p2 by BwPoint("p1.x,p2.y,p3.z + 0.33")
 
     /**
      * second ControlPoint, defaults to the end point
      */
-    var p3: Point? = null
+    val p3: Point by BwPoint("p4.x,p4.y,p4.z-0.33")
 
     /**
      * The EndPoint of the Curve
      */
-    var p4: Point = Point(0, 0, 1)
+    val p4: Point by BwPoint(0, 0, 0)
 
     /**
      * amount of Walls
      */
-    var amount: Int = 8
+    val amount: Int by BwInt(8)
 
     /**
      * generating the Walls
@@ -604,44 +602,11 @@ class Define: WallStructure() {
     var structures: List<WallStructure> = listOf()
 
     /**
-     * dont touch
-     */
-    var isTopLevel = false
-
-    /**
      * generating the Walls
      */
     override fun generateWalls() = run()
 
-    override fun name(): String {
-        if (isTopLevel)
-            return structures.first().name()
-        return name
-    }
-
-    override fun equals(other: Any?): Boolean {
-        if (this === other) return true
-        if (javaClass != other?.javaClass) return false
-        if (!super.equals(other)) return false
-
-        other as Define
-
-        if (name != other.name) return false
-        if (structures != other.structures) return false
-        if (isTopLevel != other.isTopLevel) return false
-
-        return true
-    }
-
-    override fun hashCode(): Int {
-        var result = super.hashCode()
-        result = 31 * result + name.hashCode()
-        result = 31 * result + structures.hashCode()
-        result = 31 * result + isTopLevel.hashCode()
-        return result
-    }
-
-
+    override fun name(): String = name
 }
 
 
@@ -660,22 +625,22 @@ class RandomStructures: WallStructure() {
     /**
      * The first point of the area which your structures get placed into
      */
-    var p1 = Point(-8,0,0)
+    val p1 by BwPoint(-8,0,0)
 
     /**
      * The first point of the area which your structures get placed into
      */
-    var p2 = Point(8,0,8)
+    val p2 by BwPoint(8,0,8)
 
     /**
      * How many structures you want to place. default: 8
      */
-    var amount: Int = 8
+    val amount: Int by BwInt(8)
 
     /**
-     * avoids spawning structures in the playspace. default: true
+     * avoids spawning structures in the playspace. default: false
      */
-    var avoidCenter: Boolean = true
+    val avoidCenter: Boolean by BwBoolean(false)
 
 
     /**
@@ -863,334 +828,331 @@ class ContinuousCurve : WallStructure(){
      * dont touch
      */
     val creationAmount = 32
-    /**
-     * The duration of each wall
-     */
-    var indWallDuration: Double = -3.0
+
     /**
      * The amount of Walls per beat
      */
-    var amount: Int = 8
+    val amount by BwInt(8)
 
     /**
      * The 1 Point. use this to set an exact Point the wall will go through
      */
-    var p1: Point? = null
+    val p1 by BwPointOrNull()
 
     /**
      * The ControllPoint for the 1 Point. Use this to guide the curve to his direction
      */
-    var c1: Point? = null
+    val c1: Point? by BwPointOrNull()
 
     /**
      * The 2 Point. use this to set an exact Point the wall will go through
      */
-    var p2: Point? = null
+    val p2: Point? by BwPointOrNull()
 
     /**
      * The ControllPoint for the 2 Point. Use this to guide the curve to his direction
      */
-    var c2: Point? = null
+    val c2: Point? by BwPointOrNull()
 
     /**
      * The 3 Point. use this to set an exact Point the wall will go through
      */
-    var p3: Point? = null
+    val p3: Point? by BwPointOrNull()
 
     /**
      * The ControllPoint for the 3 Point. Use this to guide the curve to his direction
      */
-    var c3: Point? = null
+    val c3: Point? by BwPointOrNull()
 
     /**
      * The 4 Point. use this to set an exact Point the wall will go through
      */
-    var p4: Point? = null
+    val p4: Point? by BwPointOrNull()
 
     /**
      * The ControllPoint for the 4 Point. Use this to guide the curve to his direction
      */
-    var c4: Point? = null
+    val c4: Point? by BwPointOrNull()
 
     /**
      * The 5 Point. use this to set an exact Point the wall will go through
      */
-    var p5: Point? = null
+    val p5: Point? by BwPointOrNull()
 
     /**
      * The ControllPoint for the 5 Point. Use this to guide the curve to his direction
      */
-    var c5: Point? = null
+    val c5: Point? by BwPointOrNull()
 
     /**
      * The 6 Point. use this to set an exact Point the wall will go through
      */
-    var p6: Point? = null
+    val p6: Point? by BwPointOrNull()
 
     /**
      * The ControllPoint for the 6 Point. Use this to guide the curve to his direction
      */
-    var c6: Point? = null
+    val c6: Point? by BwPointOrNull()
 
     /**
      * The 7 Point. use this to set an exact Point the wall will go through
      */
-    var p7: Point? = null
+    val p7: Point? by BwPointOrNull()
 
     /**
      * The ControllPoint for the 7 Point. Use this to guide the curve to his direction
      */
-    var c7: Point? = null
+    val c7: Point? by BwPointOrNull()
 
     /**
      * The 8 Point. use this to set an exact Point the wall will go through
      */
-    var p8: Point? = null
+    val p8: Point? by BwPointOrNull()
 
     /**
      * The ControllPoint for the 8 Point. Use this to guide the curve to his direction
      */
-    var c8: Point? = null
+    val c8: Point? by BwPointOrNull()
 
     /**
      * The 9 Point. use this to set an exact Point the wall will go through
      */
-    var p9: Point? = null
+    val p9: Point? by BwPointOrNull()
 
     /**
      * The ControllPoint for the 9 Point. Use this to guide the curve to his direction
      */
-    var c9: Point? = null
+    val c9: Point? by BwPointOrNull()
 
     /**
      * The 10 Point. use this to set an exact Point the wall will go through
      */
-    var p10: Point? = null
+    val p10: Point? by BwPointOrNull()
 
     /**
      * The ControllPoint for the 10 Point. Use this to guide the curve to his direction
      */
-    var c10: Point? = null
+    val c10: Point? by BwPointOrNull()
 
     /**
      * The 11 Point. use this to set an exact Point the wall will go through
      */
-    var p11: Point? = null
+    val p11: Point? by BwPointOrNull()
 
     /**
      * The ControllPoint for the 11 Point. Use this to guide the curve to his direction
      */
-    var c11: Point? = null
+    val c11: Point? by BwPointOrNull()
 
     /**
      * The 12 Point. use this to set an exact Point the wall will go through
      */
-    var p12: Point? = null
+    val p12: Point? by BwPointOrNull()
 
     /**
      * The ControllPoint for the 12 Point. Use this to guide the curve to his direction
      */
-    var c12: Point? = null
+    val c12: Point? by BwPointOrNull()
 
     /**
      * The 13 Point. use this to set an exact Point the wall will go through
      */
-    var p13: Point? = null
+    val p13: Point? by BwPointOrNull()
 
     /**
      * The ControllPoint for the 13 Point. Use this to guide the curve to his direction
      */
-    var c13: Point? = null
+    val c13: Point? by BwPointOrNull()
 
     /**
      * The 14 Point. use this to set an exact Point the wall will go through
      */
-    var p14: Point? = null
+    val p14: Point? by BwPointOrNull()
 
     /**
      * The ControllPoint for the 14 Point. Use this to guide the curve to his direction
      */
-    var c14: Point? = null
+    val c14: Point? by BwPointOrNull()
 
     /**
      * The 15 Point. use this to set an exact Point the wall will go through
      */
-    var p15: Point? = null
+    val p15: Point? by BwPointOrNull()
 
     /**
      * The ControllPoint for the 15 Point. Use this to guide the curve to his direction
      */
-    var c15: Point? = null
+    val c15: Point? by BwPointOrNull()
 
     /**
      * The 16 Point. use this to set an exact Point the wall will go through
      */
-    var p16: Point? = null
+    val p16: Point? by BwPointOrNull()
 
     /**
      * The ControllPoint for the 16 Point. Use this to guide the curve to his direction
      */
-    var c16: Point? = null
+    val c16: Point? by BwPointOrNull()
 
     /**
      * The 17 Point. use this to set an exact Point the wall will go through
      */
-    var p17: Point? = null
+    val p17: Point? by BwPointOrNull()
 
     /**
      * The ControllPoint for the 17 Point. Use this to guide the curve to his direction
      */
-    var c17: Point? = null
+    val c17: Point? by BwPointOrNull()
 
     /**
      * The 18 Point. use this to set an exact Point the wall will go through
      */
-    var p18: Point? = null
+    val p18: Point? by BwPointOrNull()
 
     /**
      * The ControllPoint for the 18 Point. Use this to guide the curve to his direction
      */
-    var c18: Point? = null
+    val c18: Point? by BwPointOrNull()
 
     /**
      * The 19 Point. use this to set an exact Point the wall will go through
      */
-    var p19: Point? = null
+    val p19: Point? by BwPointOrNull()
 
     /**
      * The ControllPoint for the 19 Point. Use this to guide the curve to his direction
      */
-    var c19: Point? = null
+    val c19: Point? by BwPointOrNull()
 
     /**
      * The 20 Point. use this to set an exact Point the wall will go through
      */
-    var p20: Point? = null
+    val p20: Point? by BwPointOrNull()
 
     /**
      * The ControllPoint for the 20 Point. Use this to guide the curve to his direction
      */
-    var c20: Point? = null
+    val c20: Point? by BwPointOrNull()
 
     /**
      * The 21 Point. use this to set an exact Point the wall will go through
      */
-    var p21: Point? = null
+    val p21: Point? by BwPointOrNull()
 
     /**
      * The ControllPoint for the 21 Point. Use this to guide the curve to his direction
      */
-    var c21: Point? = null
+    val c21: Point? by BwPointOrNull()
 
     /**
      * The 22 Point. use this to set an exact Point the wall will go through
      */
-    var p22: Point? = null
+    val p22: Point? by BwPointOrNull()
 
     /**
      * The ControllPoint for the 22 Point. Use this to guide the curve to his direction
      */
-    var c22: Point? = null
+    val c22: Point? by BwPointOrNull()
 
     /**
      * The 23 Point. use this to set an exact Point the wall will go through
      */
-    var p23: Point? = null
+    val p23: Point? by BwPointOrNull()
 
     /**
      * The ControllPoint for the 23 Point. Use this to guide the curve to his direction
      */
-    var c23: Point? = null
+    val c23: Point? by BwPointOrNull()
 
     /**
      * The 24 Point. use this to set an exact Point the wall will go through
      */
-    var p24: Point? = null
+    val p24: Point? by BwPointOrNull()
 
     /**
      * The ControllPoint for the 24 Point. Use this to guide the curve to his direction
      */
-    var c24: Point? = null
+    val c24: Point? by BwPointOrNull()
 
     /**
      * The 25 Point. use this to set an exact Point the wall will go through
      */
-    var p25: Point? = null
+    val p25: Point? by BwPointOrNull()
 
     /**
      * The ControllPoint for the 25 Point. Use this to guide the curve to his direction
      */
-    var c25: Point? = null
+    val c25: Point? by BwPointOrNull()
 
     /**
      * The 26 Point. use this to set an exact Point the wall will go through
      */
-    var p26: Point? = null
+    val p26: Point? by BwPointOrNull()
 
     /**
      * The ControllPoint for the 26 Point. Use this to guide the curve to his direction
      */
-    var c26: Point? = null
+    val c26: Point? by BwPointOrNull()
 
     /**
      * The 27 Point. use this to set an exact Point the wall will go through
      */
-    var p27: Point? = null
+    val p27: Point? by BwPointOrNull()
 
     /**
      * The ControllPoint for the 27 Point. Use this to guide the curve to his direction
      */
-    var c27: Point? = null
+    val c27: Point? by BwPointOrNull()
 
     /**
      * The 28 Point. use this to set an exact Point the wall will go through
      */
-    var p28: Point? = null
+    val p28: Point? by BwPointOrNull()
 
     /**
      * The ControllPoint for the 28 Point. Use this to guide the curve to his direction
      */
-    var c28: Point? = null
+    val c28: Point? by BwPointOrNull()
 
     /**
      * The 29 Point. use this to set an exact Point the wall will go through
      */
-    var p29: Point? = null
+    val p29: Point? by BwPointOrNull()
 
     /**
      * The ControllPoint for the 29 Point. Use this to guide the curve to his direction
      */
-    var c29: Point? = null
+    val c29: Point? by BwPointOrNull()
 
     /**
      * The 30 Point. use this to set an exact Point the wall will go through
      */
-    var p30: Point? = null
+    val p30: Point? by BwPointOrNull()
 
     /**
      * The ControllPoint for the 30 Point. Use this to guide the curve to his direction
      */
-    var c30: Point? = null
+    val c30: Point? by BwPointOrNull()
 
     /**
      * The 31 Point. use this to set an exact Point the wall will go through
      */
-    var p31: Point? = null
+    val p31: Point? by BwPointOrNull()
 
     /**
      * The ControllPoint for the 31 Point. Use this to guide the curve to his direction
      */
-    var c31: Point? = null
+    val c31: Point? by BwPointOrNull()
 
     /**
      * The 32 Point. use this to set an exact Point the wall will go through
      */
-    var p32: Point? = null
+    val p32: Point? by BwPointOrNull()
 
     /**
      * The ControllPoint for the 32 Point. Use this to guide the curve to his direction
      */
-    var c32: Point? = null
+    val c32: Point? by BwPointOrNull()
 
     /**
      * generating the Walls

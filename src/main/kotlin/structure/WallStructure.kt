@@ -308,7 +308,7 @@ sealed class WallStructure:Serializable
      * todo
      * used for some internal stuff, dont touch
      */
-    val track: String? = Default.track
+    val track: String? by BwString("")
 
     /**
      * turns the entire WallStructure into bombs. only available, if deleteAllPrevious is set.

@@ -104,7 +104,7 @@ class SpookyWallTest {
                 _color = null,
                 _localRotation = null,
                 _rotation = null,
-                track = null
+                _track = null
             )
         )
         assertEquals(expected, actual)

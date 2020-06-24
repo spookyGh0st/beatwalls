@@ -1,52 +1,33 @@
 package structure.helperClasses
 
 import beatwalls.GlobalConfig
-import chart.difficulty._noteCustomData
-import chart.difficulty._notes
-import chart.difficulty._obstacleCustomData
+import chart.difficulty.*
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
-import chart.difficulty._obstacles
 import java.io.Serializable
 import kotlin.math.max
 import kotlin.math.min
 
 
 data class SpookyWall(
-    @Expose
     @SerializedName("x") var x: Double,
-    @Expose
     @SerializedName("duration") var duration: Double,
-    @Expose
     @SerializedName("width") var width: Double,
-    @Expose
     @SerializedName("height") var height: Double,
-    @Expose
     @SerializedName("y") var y: Double,
-    @Expose
     @SerializedName("z") var z: Double,
-    @Expose
     @SerializedName("color") var color: Color? = null,
-    @Expose
     @SerializedName("rotationX") var rotationX: Double = 0.0,
-    @Expose
     @SerializedName("rotationY") var rotationY: Double = 0.0,
-    @Expose
     @SerializedName("rotationZ") var rotationZ: Double = 0.0,
-    @Expose
     @SerializedName("localRotX") var localRotX: Double = 0.0,
-    @Expose
     @SerializedName("localRotY") var localRotY: Double = 0.0,
-    @Expose
     @SerializedName("localRotZ") var localRotZ: Double = 0.0,
-    @Expose
     @SerializedName("track") var track: String? = null,
-    @Expose
     @SerializedName("bomb") var bomb: Boolean = false,
-    @Expose
     @SerializedName("noteJumpStartBeat") var noteJumpStartBeat: Double? = null,
-    @Expose
-    @SerializedName("noteJumpStartBeatOffset") var noteJumpStartBeatOffset: Double? = null
+    @SerializedName("noteJumpStartBeatOffset") var noteJumpStartBeatOffset: Double? = null,
+    @SerializedName("animation") var animation: _objectAnimation? = null
 ):Serializable{
 
     constructor(
@@ -115,7 +96,7 @@ data class SpookyWall(
         val ncd = _noteCustomData(
             _position = listOf(x,y),
             _color = cd?._color,
-            track = cd?.track)
+            track = cd?._track)
 
         return _notes(
             _time = tempStartTime.toDouble(),
@@ -200,15 +181,16 @@ data class SpookyWall(
                 _color = cdColor,
                 _localRotation = tLocalRotation,
                 _rotation = tRotation,
-                track = track,
+                _track = track,
                 _noteJumpStartBeat = noteJumpStartBeat,
-                _noteJumpStartBeatOffset = noteJumpStartBeatOffset
+                _noteJumpStartBeatOffset = noteJumpStartBeatOffset,
+                _animation = this.animation
             )
             track != null || color != null || tRotation != null -> _obstacleCustomData(
                 _color = cdColor,
                 _rotation = tRotation,
                 _localRotation = null,
-                track = track
+                _track = track
             )
             else ->
                 null

@@ -325,6 +325,41 @@ sealed class WallStructure:Serializable
      */
     val noteJumpMovementSpeedOffset by BwDoubleOrNull()
 
+    /**
+     * alpha NE values, documentation coming soonTm (Point)
+     */
+    val animationPos by BwPointDefinition()
+
+    /**
+     * alpha NE values, documentation coming soonTm (Point)
+     */
+    val animationRotation by BwPointDefinition()
+
+    /**
+     * alpha NE values, documentation coming soonTm (Point)
+     */
+    val animationScale by BwPointDefinition()
+
+    /**
+     * alpha NE values, documentation coming soonTm (Point)
+     */
+    val animationLocalRot by BwPointDefinition()
+
+    /**
+     * alpha NE values, documentation coming soonTm (Point)
+     */
+    val animationDefPos by BwPointDefinition()
+
+    /**
+     * alpha NE values, documentation coming soonTm (Point)
+     */
+    val animationDissolve by BwPointDefinition()
+
+    /**
+     * alpha NE values, documentation coming soonTm (Point)
+     */
+    val animationDissolveArrow by BwPointDefinition()
+
     companion object Default {
         var color: ColorMode = NoColor
         var track: String? = null

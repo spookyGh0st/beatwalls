@@ -94,17 +94,17 @@ class SpookyWallTest {
         val actual = w.to_obstacle()
         val expected = _obstacles(
             _time = 1.0F,
-            _lineIndex =  3000,
-            _type = 5001,
+            _lineIndex =  0,
+            _type =0,
             _duration = 1.0E-4F,
-            _width = 1005,
+            _width = 0,
             _obstacleCustomData = _obstacleCustomData(
                 _position = listOf(0.0, 0.0),
                 _scale = listOf(0.005, 0.005),
                 _color = null,
                 _localRotation = null,
                 _rotation = null,
-                track = null
+                _track = null
             )
         )
         assertEquals(expected, actual)

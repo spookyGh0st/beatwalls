@@ -5,7 +5,7 @@ import com.google.gson.annotations.SerializedName
 data class _noteCustomData(
     @SerializedName("scale") var scale: Double? = null,
     @SerializedName("sineMovement") var sineMovement: sineMovement? = null,
-    @SerializedName("track") var track: String? = null,
+    @SerializedName("_track") var track: String? = null,
     @SerializedName("_position") val _position: List<Double>? = null,
     @SerializedName("_color") val _color: List<Double>? = null,
     @SerializedName("_rotation") val _rotation: Double? = null,
@@ -18,5 +18,5 @@ data class _noteCustomData(
 data class sineMovement(
     @SerializedName("amplitude") var amplitude: Double?,
     @SerializedName("frequency") var frequency: Double?,
-    @SerializedName("track") var track: String?
+    @SerializedName("track") var _track: String?
 )

@@ -9,7 +9,7 @@ data class _obstacleCustomData(
     @SerializedName("_color") val _color: List<Double>? = null,
     @SerializedName("_rotation") val _rotation: Double? = null,
     @SerializedName("_localRotation") val _localRotation: List<Double>? = null,
-    @SerializedName("track") var track: String? = null,
-    @SerializedName("_noteJumpStartBeat") var _noteJumpStartBeat: Double? = null,
-    @SerializedName("_noteJumpStartBeatOffset") var _noteJumpStartBeatOffset: Double? = null
+    @SerializedName("_track") var _track: String? = null,
+    @SerializedName("_noteJumpMovementSpeed") var _noteJumpMovementSpeed: Double? = null,
+    @SerializedName("_noteJumpStartBeatOffset  ") var _noteJumpStartBeatOffset: Double? = null
 )

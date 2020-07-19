@@ -4,6 +4,7 @@ import beatwalls.GlobalConfig
 import chart.difficulty.*
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
+import javafx.animation.Animation
 import java.io.Serializable
 import kotlin.math.max
 import kotlin.math.min
@@ -184,13 +185,13 @@ data class SpookyWall(
                 _track = track,
                 _noteJumpStartBeat = noteJumpStartBeat,
                 _noteJumpStartBeatOffset = noteJumpStartBeatOffset,
-                _animation = this.animation
+                _animation = this.animation.takeIf { it != emptyAnimation }
             )
             track != null || color != null || tRotation != null -> _obstacleCustomData(
                 _color = cdColor,
                 _rotation = tRotation,
                 _localRotation = null,
-                _track = track
+                _track = track.takeIf { !it.isNullOrEmpty() }
             )
             else ->
                 null
@@ -198,5 +199,6 @@ data class SpookyWall(
     }
 
 }
+val emptyAnimation = _objectAnimation()
 
 internal const val minValue = 0.005

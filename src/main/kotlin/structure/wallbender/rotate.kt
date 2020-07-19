@@ -22,18 +22,18 @@ fun WallStructure.extraStuff(l: List<SpookyWall>) {
         this.activeWall = wall
         this.i = i.toDouble() / l.size
         if (color != null) wall.color = color
-        if (track != null) wall.track = track
+        if (!track.isNullOrBlank()) wall.track = track
         if (noteJumpMovementSpeed != null) wall.noteJumpStartBeat = noteJumpMovementSpeed
         if (noteJumpMovementSpeedOffset != null) wall.noteJumpStartBeatOffset = noteJumpMovementSpeedOffset
         if (bombs) wall.bomb = bombs
         if (wall.animation == null && ( this.animationPos != null || this.animationRotation != null || this.animationScale != null || this.animationLocalRot != null))
             wall.animation = _objectAnimation()
-        if (this.animationPos!= null) wall.animation?._position = animationPos
-        if (this.animationRotation!= null) wall.animation?._rotation = animationRotation
-        if (this.animationLocalRot!= null) wall.animation?._localRotation = animationLocalRot
-        if (this.animationDefPos!= null) wall.animation?._definitePosition = animationDefPos
-        if (this.animationScale!= null) wall.animation?._scale = animationScale
-        if (this.animationDissolve!= null) wall.animation?._dissolve = animationDissolve
-        if (this.animationDissolveArrow!= null) wall.animation?._dissolve = animationDissolveArrow
+        if (!this.animationPos.isNullOrEmpty()) wall.animation?._position = animationPos
+        if (!this.animationRotation.isNullOrEmpty()) wall.animation?._rotation = animationRotation
+        if (!this.animationLocalRot.isNullOrEmpty()) wall.animation?._localRotation = animationLocalRot
+        if (!this.animationDefPos.isNullOrEmpty()) wall.animation?._definitePosition = animationDefPos
+        if (!this.animationScale.isNullOrEmpty()) wall.animation?._scale = animationScale
+        if (!this.animationDissolve.isNullOrEmpty()) wall.animation?._dissolve = animationDissolve
+        if (!this.animationDissolveArrow.isNullOrEmpty()) wall.animation?._dissolve = animationDissolveArrow
     }
 }

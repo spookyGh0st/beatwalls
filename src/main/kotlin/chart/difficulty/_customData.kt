@@ -1,6 +1,9 @@
-package chart.difficulty
+package model.difficulty
 
+import chart.difficulty._BPMChanges
+import chart.difficulty._bookmarks
 import com.google.gson.annotations.SerializedName
+
 
 /*
 Copyright (c) 2019 Kotlin Data Classes Generated from JSON powered by http://www.json2kotlin.com
@@ -15,8 +18,8 @@ For support, please feel free to contact me at https://www.linkedin.com/in/syeda
 
 
 data class _customData (
-
-	@SerializedName("_time") val _time : Number?,
-	@SerializedName("_BPMChanges") val _BPMChanges : ArrayList<_BPMChanges>?,
-	@SerializedName("_bookmarks") val _bookmarks : ArrayList<_bookmarks>?
+        @SerializedName("_time") val _time : Double?,
+        @SerializedName("_BPMChanges") val _BPMChange : List<_BPMChanges>?,
+        @SerializedName("_bookmarks") val _bookmarks : List<_bookmarks>?,
+        @SerializedName("_customEvents") var _customEvents: List<_customEvents>? = null
 )

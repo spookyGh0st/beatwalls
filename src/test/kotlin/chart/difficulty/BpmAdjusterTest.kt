@@ -1,6 +1,7 @@
 package chart.difficulty
 
 import beatwalls.GlobalConfig
+import model.difficulty._customData
 import org.junit.Assert.assertEquals
 import org.junit.Test
 
@@ -12,7 +13,7 @@ class BpmAdjusterTest {
         GlobalConfig.bpm = 120.0
         GlobalConfig.hjsDuration = 2.0
         GlobalConfig.offset = 0.0
-        val c = _customData(1, arrayListOf(
+        val c = _customData(1.0, arrayListOf(
             _BPMChanges(120.0, 3.0,4,4),
             _BPMChanges(130.0, 5.0,4,4),
             _BPMChanges(80.0, 6.615384101867676,4,4),

@@ -3,6 +3,8 @@ package chart.difficulty
 import beatwalls.AssetReader
 import beatwalls.GlobalConfig
 import com.google.gson.annotations.SerializedName
+import model.difficulty._customData
+import model.difficulty._customEvents
 import structure.Define
 import structure.WallStructure
 

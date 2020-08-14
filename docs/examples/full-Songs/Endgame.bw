@@ -1,0 +1,2065 @@
+## intro
+
+# colors
+# for slower section
+# r: red, cyan, white, black
+# b: greenÖ 0,64,0
+# single line on the ground on the ground
+0.0: default
+    repeat: 8
+    repeatAddZ: 16
+
+10: wall
+    startRow: 2
+    duration: 8
+    localRotY: 1.25
+    width: -0.2
+    mirror: 8
+    color: red
+
+
+# bottom right
+10: line
+    p1: 2,0.5,0
+    p2: 4,1,8
+    amount: 8
+    changeWidth: 0
+    fitStartHeight: 0
+    localRotZ: -25
+    mirror: 2
+    localRotY: 1.25
+    color: red
+
+# top right
+10: line
+    p1: 2,3.5,0
+    p2: 4,3,8
+    amount: 8
+    changeWidth: 0
+    fitStartHeight: 4
+    localRotZ: 25
+    mirror: 2
+    localRotY: 1.3
+    color: red
+
+
+
+18: wall
+    startRow: 3.85
+    duration: 8
+    localRotY: -1.25
+    width: -0.2
+    mirror: 8
+    color: black
+
+18: line
+    p1: 4.2,1,0
+    p2: 2.2,0.5,8
+    amount: 8
+    changeWidth: 0
+    fitStartHeight: 0
+    localRotZ: -25
+    mirror: 2
+    localRotY: -1.25
+    color: red
+
+
+18: line
+    p1: 4.2,3,0
+    p2: 2.2,3.5,8
+    amount: 8
+    changeWidth: 0
+    fitStartHeight: 4
+    localRotZ: 25
+    mirror: 2
+    localRotY: -1.25
+    color: red
+
+0.0: default
+   repeat: 7
+    repeatAddZ: 16
+
+# bottom right
+26: line
+    p1: 1.9,0.5,0
+    p2: 3.9,1,8
+    amount: 8
+    changeWidth: 0
+    fitStartHeight: 0
+    localRotZ: 125
+    mirror: 2
+    localRotY: 1.25
+    color: red
+
+
+# top right
+26: line
+    p1: 1.9,4.5,0
+    p2: 3.9,5,8
+    amount: 8
+    changeWidth: 0
+    fitStartHeight: 4
+    localRotZ: 45
+    mirror: 2
+    localRotY: 1.25
+    color: red
+
+
+# AAAND BACK
+# bottom right
+34: line
+    p1: 3.9,1,0
+    p2: 1.9,0.5,8
+    amount: 8
+    changeWidth: 0
+    fitStartHeight: 0
+    localRotZ: 125
+    mirror: 2
+    localRotY: -1.25
+    color: red
+
+
+# top right
+34: line
+    p1: 3.9,5,0
+    p2: 1.9,4.5,8
+    amount: 8
+    changeWidth: 0
+    fitStartHeight: 4
+    localRotZ: 45
+    mirror: 2
+    localRotY: -1.25
+    color: red
+
+
+# as requested thine long walls to fit to the high pitch
+0.0: default
+    repeat: 1
+    repeatAddZ: 0
+    speeder: 0.9
+    color: black
+
+
+# noodleHelix on both side
+10: noodleHelix
+    amount: 64
+    scale: 8
+    repeat: 16
+    repeatAddZ: 8
+    center: 0,0,0
+    startRotation: 0
+    radius: 32
+    changeDuration: -3
+10: noodleHelix
+    amount: 64
+    scale: 8
+    repeat: 16
+    repeatAddZ: 8
+    startRotation: 180
+    center: 0,0,0
+    radius: 32
+    changeDuration: -3
+# second 32 beats later
+42: noodleHelix
+    startRotation: 120
+    amount: 53
+    scale: 8
+    repeat: 12
+    repeatAddZ: 8
+    center: 0,0,0
+    radius: 24
+    changeDuration: -3
+    rotationAmount: -360
+
+42: noodleHelix
+    amount: 53
+    scale: 8
+    repeat: 12
+    repeatAddZ: 8
+    startRotation: 300
+    center: 0,0,0
+    radius: 24
+    changeDuration: -3
+    rotationAmount: -360
+
+
+74: noodleHelix
+    amount: 42
+    scale: 8
+    repeat: 8
+    repeatAddZ: 8
+    center: 0,0,0
+    startRotation: 60
+    radius: 16
+    changeDuration: -3
+74: noodleHelix
+    amount: 42
+    scale: 8
+    repeat: 8
+    repeatAddZ: 8
+    startRotation: 240
+    center: 0,0,0
+    radius: 16
+    changeDuration: -3
+106: noodleHelix
+    amount: 32
+    scale: 8
+    repeat: 4
+    repeatAddZ: 8
+    center: 0,0,0
+    radius: 8
+    changeDuration: -3
+    rotationAmount: -360
+106: noodleHelix
+    amount: 32
+    scale: 8
+    repeat: 4
+    repeatAddZ: 8
+    startRotation: 180
+    center: 0,0,0
+    radius: 8
+    changeDuration: -3
+    rotationAmount: -360
+
+0.0: default
+    speeder: null
+    color: nocolor
+
+define: 2hitLine
+    structures: line
+    amount: 2
+    p1: 4,2,0
+    p2: 4,0.5,1
+    mirror: 8
+    rotation: 5
+    changeDuration: -3
+    changeWidth: 0
+    color: black
+
+133: 2hitLine
+
+134.5: wall
+    startRow: 4
+    startHeight: 1
+    mirror: 8
+    height: 0.5
+    duration: -3
+    color: black
+
+135.5: 2hitLine
+
+137: 2hitLine
+
+
+# shit starts to get more serious
+138: noodleHelix
+    amount: 16
+    scale: 2
+    rotationAmount: -180
+    startRotation: 90
+    center: 0,0,0
+    mirror: 2
+    radius: 6
+    changeDuration: -3
+    repeat: 8
+    repeatAddZ: 2
+    speeder: 1.5
+    color: gradient(cyan, white)
+
+138: randomNoise
+    p1: -8,0,0
+    p2: 8,0,32
+    changeWidth: random(0.5,1)
+    changeDuration: random(0.125,0.25)
+    localRotY: random(-90,90)
+    color: flash(cyan,white)
+
+138: line
+    p1: 8,-40,0
+    p2: 7,-40,16
+    changeHeight: 80
+    changeDuration: -3
+    mirror: 2
+    color: black
+    localRotZ: -10
+
+154: line
+    p1: 8,-40,0
+    p2: 7,-40,16
+    changeHeight: 80
+    changeDuration: -3
+    mirror: 2
+    localRotZ: -5
+    color: black
+
+154: noodleHelix
+    amount: 16
+    scale: 2
+    rotationAmount: -140
+    startRotation: 80
+    center: -2,0,0
+    mirror: 2
+    radius: 8
+    changeDuration: -3
+    repeat: 8
+    repeatAddZ: 2
+    speeder: 1.5
+    color: gradient(cyan,white)
+
+
+# you lift me up
+
+170: line
+    p1: 8,-40,0
+    p2: 7,-40,32
+    changeHeight: 80
+    changeDuration: -3
+    mirror: 2
+    color: black
+
+
+170: randomNoise
+    p1: 3,0,0
+    p2: 8,0,32
+    amount: 128
+    changeWidth: random(0.5,1)
+    changeDuration: random(0.125,0.25)
+    localRotY: random(-90,90)
+    localRotZ: random(-90,90)
+    localRotX: random(-90,90)
+    changeStartHeight: random(0,5)
+    repeat: 2
+    repeatAddX: -12
+    color: flash(cyan,white)
+
+
+170: randomNoise
+    p1: -8,0,0
+    p2: 8,-3,32
+    amount: 128
+    changeWidth: random(0.5,1)
+    changeDuration: random(0.125,0.25)
+    localRotY: random(-90,90)
+    localRotZ: random(-90,90)
+    localRotX: random(-90,90)
+    color: flash(cyan,white)
+
+
+202: line
+    p1: 7,40,0
+    p2: 7,-40,2
+    changeDuration: -3
+    fitSTartHeight: -40
+    amount: 32
+    mirror: 2
+    color: black
+
+
+# second time
+
+
+# shit starts to get more serious
+204: noodleHelix
+    amount: 16
+    scale: 2
+    center: 0,0,0
+    radius: 6
+    changeDuration: -3
+    repeat: 7
+    repeatAddZ: 2
+    speeder: 0.6
+    rotationAmount: 180
+    color: gradient(cyan,white)
+
+204: noodleHelix
+    startRotation: 180
+    amount: 16
+    scale: 2
+    center: 0,0,0
+    radius: 6
+    changeDuration: -3
+    repeat: 7
+    repeatAddZ: 2
+    speeder: 0.7
+    rotationAmount: 180
+    color: gradient(cyan,white)
+
+
+
+204: randomNoise
+    p1: -8,0,0
+    p2: 8,0,30
+    changeWidth: random(0.5,1)
+    changeDuration: random(0.125,0.25)
+    localRotY: random(-90,90)
+    color: flash(cyan,white)
+
+
+204: line
+    p1: 8,-40,0
+    p2: 7,-40,14
+    changeHeight: 80
+    changeDuration: -3
+    mirror: 2
+    localRotZ: -10
+    color: black
+
+218: line
+    p1: 8,-40,0
+    p2: 7,-40,16
+    changeHeight: 80
+    changeDuration: -3
+    mirror: 2
+    localRotZ: -5
+    color: black
+218: noodleHelix
+    amount: 16
+    scale: 2
+    center: 0,0,0
+    radius: 6
+    changeDuration: -3
+    repeat: 8
+    repeatAddZ: 2
+    speeder: 0.7
+    rotationAmount: -180
+    color: gradient(cyan,white)
+
+
+218: noodleHelix
+    startRotation: 180
+    amount: 16
+    scale: 2
+    center: 0,0,0
+    radius: 6
+    changeDuration: -3
+    repeat: 8
+    repeatAddZ: 2
+    speeder: 0.7
+    rotationAmount: -180
+    color: gradient(cyan,white)
+
+
+# you lift me up
+
+234: line
+    p1: 8,-40,0
+    p2: 7,-40,32
+    changeHeight: 80
+    changeDuration: -3
+    mirror: 2
+    color: black
+
+234: randomNoise
+    p1: 3,0,0
+    p2: 8,0,32
+    amount: 128
+    changeWidth: random(0.5,1)
+    changeDuration: random(0.125,0.25)
+    localRotY: random(-90,90)
+    localRotZ: random(-90,90)
+    localRotX: random(-90,90)
+    changeStartHeight: random(0,5)
+    repeat: 2
+    repeatAddX: -12
+    color: flash(cyan,white)
+
+
+234: randomNoise
+    p1: -8,0,0
+    p2: 8,-3,32
+    amount: 128
+    changeWidth: random(0.5,1)
+    changeDuration: random(0.125,0.25)
+    localRotY: random(-90,90)
+    localRotZ: random(-90,90)
+    localRotX: random(-90,90)
+    color: flash(cyan,white)
+
+
+266: randomCurve
+    p1: 7,40,0
+    p2: 14,10,4
+    scale: 8
+    amount: 64
+    changeDuration: -3
+    fitSTartHeight: -40
+    amount: 32
+    mirror: 2
+    color: gradient(black, white)
+    rotation: ease(0,45,easeInSine)
+
+
+
+    # localRotationOffset: 90
+
+
+
+    # GRAVEYARD
+
+
+# clouds
+266: randomNoise
+    p1: -15,15,0
+    p2: 15,30,32
+    changeheight: random(0,1)
+    changewidth: random(1,2)
+    changestartHeight: random(10,20)
+    changeduration: random (-1,-3)
+    color: gradient(white,red)
+    addStartRow: random(0,1)
+
+298: randomNoise
+    p1: -15,15,0
+    p2: 15,30,24
+    changeheight: random(0,1)
+    changewidth: random(1,2)
+    changestartHeight: random(10,20)
+    changeduration: random (-1,-3)
+    color: gradient(red,black)
+    addStartRow: random(0,1)
+
+define: _grave1
+        structures: wall
+        height: 2
+        startRow: 0.4
+        width: 0.2
+        duration: 0.1
+    define: _grave2
+        structures: wall
+        height: 0.2
+        startHeight: 1.5
+        width: 1
+        duration: 0.1
+
+    define: grave
+        structures: _grave1, _grave2
+    color: gray
+
+define: _tree1
+    structures: wall
+    height: 8
+    startRow: -0.5
+    width: 0.5
+    duration: 0.125
+    startTime: 0.125
+    color: darkGray
+
+define: _tree2
+    structures: wall
+    startHeight: 6
+    height: 4
+    startRow: -2
+    width: 4
+    duration: 0.5
+    color: green
+define: tree
+    structures: _tree1, _tree2
+
+
+266: randomStructures
+    structures: grave, tree
+    p1: 2,0,0
+    p2: 7,0,32
+    amount: 16
+    rotation: ease(0,45,easeInSine)
+
+267: randomStructures
+    structures: grave, tree
+    p1: -2,0,0
+    p2: -7,0,32
+    amount: 16
+    rotation: ease(0,-45,easeInSine)
+
+
+298: grave
+    addStartRow: 2
+    mirror: 2
+    rotation: 20
+    repeat: 4
+    repeatAddRotation: -5
+    repeatAddZ: 4
+    color: cyan
+314: grave
+    addStartRow: 2
+    mirror: 2
+    rotation: 10
+    repeat: 4
+    repeatAddZ: 1
+    color: cyan
+
+318: grave
+    addStartRow: 2
+    mirror: 2
+    rotation: 5
+    repeat: 8
+    repeatAddZ: 0.5
+    color: cyan
+
+define: centerline
+    structures: line
+    p1: 0,0,0
+    p2: 0,0,30
+    amount: 128
+    changeDuration: -3
+    fitStartHeight: -60
+    color: white
+    changeWidth: 8
+
+
+266: centerline
+    color: gradient(black, white)
+    rotation: ease(0,45,easeInSine)
+    mirror: 2
+
+
+# Emerging new floor
+266: steadyCurve
+    amount: 128
+    scale: 32
+    p1: 0,-20,20
+    p2: 0,-20
+    p3: -10.8,0
+    p4: -10.8,0
+    changeWidth: 20
+    fitStartHeight: -60
+    changeDuration: -3
+    color: gradient(black,red)
+    mirror: 2
+    localRotZ: -10
+
+298: line
+    amount: 128
+    p1: -10.8,0,0
+    p2: -10.0,0,24
+    mirror: 2
+    localRotZ: ease(-10,0,easeInOutQuad)
+    color: gradient(red,black)
+    changeWidth: 20
+    fitStartHeight: -60
+    changeDuration: -3
+
+298: line
+    color: gradient(red,black)
+    p1: 10,0,0
+    p2: 10,30,24
+    localRotZ: ease(0,-20)
+    mirror: 2
+    changeDuration: -3
+    fitStartheight: -30
+
+0.0: default
+    changeDuration: -3
+
+# glitch effect
+295: line
+    p1: 6,0,0
+    p2: 3,4,1
+    color: white
+    rotation: ease(0,20)
+    addStartRow: random(0,1)
+    mirror: 2
+
+295: line
+    addStartRow: random(0,1)
+    p1: 2,0,0
+    p2: 4,2,1
+    color: white
+    mirror: 2
+    rotation: ease(10,-10)
+    localRotZ: random(-90,90)
+
+295: noodleHelix
+    rotationAmount: 40
+    startRotation: 90
+    mirror: 2
+    color: white
+296: randomNoise
+    p1: -6,0,0
+    p2: 6,8,2
+    amount: 4
+    repeat: 8
+    color: white
+    rotation: random(-5,5)
+    changeWidth: 0.2
+    changeHeight: 0.2
+298: noodleHelix
+    center: 0,0,0
+    mirror: 2
+    rotationAmount: -90
+    startRotation: 90
+    mirror: 2
+    radius: 4
+    color: white
+298: noodleHelix
+    center: 0,0,0
+    mirror: 2
+    rotationAmount: 90
+    mirror: 2
+    color: white
+    radius: 6
+298: noodleHelix
+    center: 0,0,0
+    mirror: 2
+    rotationAmount: -90
+    startRotation: 90
+    mirror: 2
+    radius: 8
+    color: white
+0.0: default
+    changeDuration: null
+
+define: _3Hit1
+    structures: line
+    p1: 4,2,0
+    p2: 3,0,1.5
+    amount: 3
+    mirror: 4
+    changeHeight: 0
+    changeDuration: -3
+    changeWidth: 0
+    color: red
+
+define: _3Hit2
+    structures: line
+    p1: 0,0.1,0
+    p2: 2,0.1,1.5
+    amount: 3
+    mirror: 4
+    changeHeight: 0
+    changeDuration: -3
+    changeWidth: 0
+    color: red
+
+
+define: _3Hit3
+    structures: noodleHelix
+    center: 0,0,0
+    amount: 3
+    rotationAmount: 80
+    amount: 16
+    radius: 8
+    scale: 1.5
+    changeDuration: -3
+    color: red
+
+define: _3hit4
+    structures: line
+    p1: 0,0,0
+    p2: 10,0,2
+    amount: 16
+    changeDuration: -3
+    fitStartHeight: -30
+    mirror: 2
+    mirrorX: 5
+    color: black
+
+define: _3hit5
+    structures: line
+    p1: 10,30,0
+    p2: 10,10,2
+    amount: 16
+    changeDuration: -3
+    fitStartHeight: -30
+    localRotZ: -20
+    color: black
+
+
+
+define: 3Hit
+    structures: _3Hit1, _3hit3, _3hit4, _3hit5
+    mirror: 2
+    repeat: 3
+    repeatAddZ: 2
+
+322: 3Hit
+
+
+
+define: _fightPow1
+    structures: line
+    p1: 2,0,0
+    p2: 2,2,2
+    amount: 16
+    changeHeight: 3
+    localRotZ: ease(-80,20,easeOutQuad)
+    mirror: 2
+    color: red
+
+define: _fightPow2
+    structures: line
+    p1: 10,4,0
+    p2: 25,40,2
+    changeWidth: 80
+    fitStartHeight: -40
+    mirror: 2
+    color: black
+define: _fightPow3
+    structures: line
+    p1: -0.5,-1,0
+    p2: -0.2,0,2
+    changeWidth: 20
+    localRotZ: ease(-5,0,easeOutQuad)
+    mirror: 2
+    color: black
+
+
+define: fightPow
+    structures: _fightPow1, _fightPow2, _fightPow3
+    changeDuration: -3
+
+# triple over 2 beats
+define: _fightTripple1
+    structures: line
+    p1: 4,0,0
+    p2: 0,0,2
+    amount: 16
+    localRotZ: 10
+    mirror: 2
+    color: black
+    fitStartHeight: -40
+define: _fightTripple2
+    structures: line
+    p1: 6,4,0
+    p2: 4,0,2
+    changeHeight: 0
+    changeWidth: 0
+    amount: 8
+    mirror: 2
+    color: gradient(red,black)
+define: _fightTripple3
+    structures: noodleHelix
+    amount: 8
+    mirror: 2
+    center: 0,6
+    radius: 6
+    rotationAmount: 180
+    startRotation: -90
+    color: gradient(black,red)
+    scale: 2
+
+define: _fightTripple4
+    structures: line
+    fitStartHeight: -40
+    amount: 4
+    p1: 20,40,0
+    p2: 20,40,0.5
+    localRotZ: ease(10,15)
+    mirror: 2
+    color: black
+
+
+define: _fightTripple5
+    structures: randomNoise
+    p1: -8,0,0
+    p2: 8,8,2
+    amount: 8
+    color: flash(red,black)
+
+define: _fight2Beat
+    structures: randomNoise
+    p1: 6,0,0
+    p2: 12,12,2
+    amount: 4
+    mirror: 2
+    changeHeight: random(1,2)
+    changeWidth: random(1,2)
+    color: flash(black,white,lightgray,gray,darkgray)
+
+
+define: fightTripple
+    structures: _fightTripple1, _fightTripple2, _fightTripple3 , _fightTripple4, _fightTripple5, _fight2Beat
+    changeDuration: -3
+
+
+define: _fightfirstHeavy1
+    structures: line
+    p1: 10,6,0
+    p2: 0,0,2
+    color: gradient(black,red)
+    amount: 8
+    mirror: 8
+    mirrorY: 6
+define: fightFirstHeavy
+    structures: _fightTripple3, _fightfirstHeavy1,  _fight2Beat, _fightTripple4
+    changeDuration: -3
+
+define: fightFirstHeavyBeat2
+    structures: _fightTripple3, _fightfirstHeavy1,  _fight2Beat, _fightTripple4
+    beat: 2
+    changeDuration: -3
+
+
+
+
+
+define: _fightSecondHeavy
+    structures: _fightTripple3, _fightfirstHeavy1,  _fight2Beat
+    reverse: true
+define: fightSecondHeavy
+    structures: _fightSecondHeavy, _fightTripple4
+    changeDuration: -3
+define: fightSecondHeavyBeat2
+    structures: _fightSecondHeavy, _fightTripple4
+    beat: 2
+    changeDuration: -3
+
+
+# curve and line from reft to right
+define: _bridge1
+    structures: line
+    p1: 8,0,0
+    p2: -8,0,4
+    amount: 16
+    mirror: 6
+    color: black
+define: _bridge2
+    structures: noodleHelix
+    count: 2
+    radius: 8
+    amount: 32
+    rotationAmount: 180
+    scale: 4
+    color: red
+define: _bridge3
+    structures: randomNoise
+    p1: -4,0,0
+    p2: 4,6,4
+    amount: 32
+    color: flash(red,255,68,0,244,0,119)
+define: _bridge4
+    structures: steadyCurve
+    p1: 6,4
+    p2: 4,-2
+    p3: -3,0
+    p4: 6,4
+    amount: 32
+    scale: 4
+    mirror: 8
+    color: gradient(255,68,0,244,0,119)
+define: _bridge5
+    structures: line
+    p1: 10,20,0
+    p2: 10,0,4
+    fitStartHeight: -20
+    mirror: 2
+    localRotZ: ease(20,0)
+    amount: 32
+    color: black
+define: bridge1
+    structures: _bridge1, _bridge2, _bridge3
+    changeDuration: -3
+define: bridge2
+    structures: _bridge3, _bridge4
+    changeDuration: -3
+define: bridge3
+    structures: _bridge4, _bridge5
+    changeDuration: -3
+
+define: fight4beat1
+    structures: fightFirstHeavy, fightSecondHeavyBeat2
+define: fight4beat2
+    structures: fightFirstHeavyBeat2, fightSecondHeavy
+
+
+
+330: fightPow
+    repeat: 4
+    repeatAddZ: 16
+332: fightTripple
+334: fight4beat1
+338: fight4beat2
+342: bridge1
+
+348: fightTripple
+350: fight4beat1
+354: bridge2
+358: bridge1
+    mirror: 2
+
+364: fightTripple
+366: fight4beat1
+370: fight4beat2
+374: bridge1
+    mirror: 1
+
+380: fightTripple
+382: fight4beat1
+386: bridge3
+390: bridge2
+
+394: fightPow
+    reverse: true
+396: fightTripple
+    color: white
+398: fightFirstHeavy
+    color: black
+400: fightFirstHeavy
+    color: white
+402: fightFirstHeavy
+    color: black
+404: fightFirstHeavy
+    color: white
+406: bridge1
+    color: red
+
+410: fightPow
+    color: black
+412: fightSecondHeavy
+    color: white
+414: fightSecondHeavy
+    color: black
+416: fightSecondHeavy
+    color: white
+418: bridge2
+422: bridge3
+    reverse: true
+# special
+426: noodleHelix
+    count: 3
+    scale: 2
+    changeDuration: -3
+    color: gradient(white, black)
+    rotationAmount: 90
+
+
+428: fightSecondHeavy
+    color: white
+430: fight4beat1
+    color: gradient(black,white)
+434: fight4beat2
+    color: gradient(black,white)
+438: bridge1
+    mirror: 1
+
+442: fightPow
+    color: black
+444: fightTripple
+446: fight4beat1
+
+
+
+# END OF FIGHT
+# END OF FIGHT
+# END OF FIGHT
+# END OF FIGHT
+# END OF FIGHT
+# END OF FIGHT
+# END OF FIGHT
+
+450: line
+    p1: 0,0,0
+    p2: 0,0,8
+    amount: 4
+    changeDuration: -3
+    rotation: ease(40,0)
+    changeWidth: 2
+    mirror: 8
+    repeat: 16
+    repeatAddZ: 0.125
+    color: gradient(red,cyan)
+
+
+define: plate
+    structures: line
+    p1: -10,0,0
+    p2: -10,0,2
+    changeWidth: 40
+    changeDuration: -3
+    color: black
+450: plate
+    mirror: 2
+    localRotZ: 60
+    rotation: 40
+452: plate
+    mirror: 2
+    localRotZ: 70
+    rotation: 30
+454: plate
+      mirror: 2
+  localRotZ: 80
+  rotation: 20
+456: plate
+     mirror: 2
+   localRotZ: 90
+   rotation: 10
+
+
+# CHORUS
+# CHORUS
+# CHORUS
+# CHORUS
+
+# shit starts to get more serious
+458: noodleHelix
+    amount: 16
+    scale: 2
+    rotationAmount: -180
+    startRotation: 90
+    center: 0,0,0
+    mirror: 2
+    radius: 6
+    changeDuration: -3
+    repeat: 8
+    repeatAddZ: 2
+    speeder: 1.5
+    color: gradient(cyan, white)
+
+458: noodleHelix
+    amount: 16
+    scale: 2
+    rotationAmount: 180
+    startRotation: -90
+    center: 0,0,0
+    mirror: 2
+    radius: 10
+    changeDuration: -3
+    repeat: 8
+    repeatAddZ: 2
+    speeder: 1.5
+    color: gradient(cyan, white)
+
+
+458: randomNoise
+    p1: -16,-4,0
+    p2: 16,10,48
+    changeWidth: random(0.5,1)
+    addStartRow: random(-1,-0.5)
+    changeDuration: random(0.125,0.25)
+    localRotY: random(0,360)
+    localRotX: random(0,360)
+    localRotZ: random(0,360)
+    color: flash(cyan,white)
+    repeat: 2
+458: steadyCurve
+    amount: 16
+    color: white
+    scale: 2
+    repeat: 24
+    repeatAddZ: 2
+    speeder: 1.5
+    changeDuration: -3
+    changeWidth: 0
+    p1: 16,2
+    p2: 26,12
+    p3: 26,12
+    p4: 16,12
+    mirror: 2
+    localRotZ: -5
+    fitStartHeight: -40
+
+
+474: noodleHelix
+    amount: 16
+    scale: 2
+    rotationAmount: -140
+    startRotation: 80
+    center: -2,0,0
+    mirror: 2
+    radius: 8
+    changeDuration: -3
+    repeat: 8
+    repeatAddZ: 2
+    speeder: 1.5
+    color: gradient(cyan,white)
+
+
+
+474: noodleHelix
+    amount: 16
+    scale: 2
+    rotationAmount: 180
+    startRotation: -90
+    center: 0,0,0
+    count: 2
+    radius: 10
+    changeDuration: -3
+    repeat: 4
+    repeatAddZ: 4
+    speeder: 1.5
+    color: gradient(cyan, white)
+476: noodleHelix
+    amount: 16
+    scale: 2
+    rotationAmount: -180
+    startRotation: -90
+    center: 0,0,0
+    count: 2
+    radius: 10
+    changeDuration: -3
+    repeat: 4
+    repeatAddZ: 4
+    speeder: 1.5
+    color: gradient(cyan, white)
+
+
+
+# you lift me up
+
+490: noodleHelix
+    amount: 8
+    scale: 2
+    rotationAmount: 90
+    startRotation: 0
+    center: 0,0,0
+    count: 2
+    radius: 8
+    changeDuration: -3
+    repeat: 4
+    repeatAddZ: 4
+    speeder: 1.5
+    color: gradient(cyan, white)
+490: noodleHelix
+    amount: 8
+    scale: 2
+    rotationAmount: -90
+    startRotation: 90
+    center: 0,0,0
+    count: 2
+    radius: 10
+    changeDuration: -3
+    repeat: 4
+    repeatAddZ: 4
+    speeder: 1.5
+    color: gradient(cyan, white)
+
+492: noodleHelix
+    amount: 8
+    scale: 2
+    rotationAmount: 90
+    startRotation: -90
+    center: 0,0,0
+    count: 2
+    radius: 8
+    changeDuration: -3
+    repeat: 4
+    repeatAddZ: 4
+    speeder: 1.5
+    color: gradient(cyan, white)
+492: noodleHelix
+    amount: 8
+    scale: 2
+    rotationAmount: -90
+    startRotation: 0
+    center: 0,0,0
+    count: 2
+    radius: 10
+    changeDuration: -3
+    repeat: 4
+    repeatAddZ: 4
+    speeder: 1.5
+    color: gradient(cyan, white)
+
+490: noodleHelix
+    amount: 16
+    scale: 2
+    rotationAmount: -180
+    startRotation: -45
+    center: 0,0,0
+    count: 2
+    radius: 16
+    changeDuration: -3
+    repeat: 4
+    repeatAddZ: 4
+    speeder: 1.5
+    color: gradient(cyan, white)
+492: noodleHelix
+    amount: 16
+    scale: 2
+    rotationAmount: 180
+    startRotation: -45
+    center: 0,0,0
+    count: 2
+    radius: 16
+    changeDuration: -3
+    repeat: 4
+    repeatAddZ: 4
+    speeder: 1.5
+    color: gradient(cyan, white)
+
+
+506: randomNoise
+    p1: -16,-4,0
+    p2: 16,10,16
+    amount: 32
+    changeDuration: -3
+    repeat: 4
+    color: flash(cyan,white)
+506: noodleHelix
+    amount: 32
+    scale: 16
+    count: 8
+    radius: 32
+    changeDuration: -3
+    color: white
+
+506: noodleHelix
+    amount: 4
+    scale: 2
+    rotationAmount: 90
+    startRotation: -45
+    center: 0,0,0
+    count: 2
+    radius: 8
+    changeDuration: -3
+    repeat: 4
+    repeatAddZ: 4
+    color: gradient(cyan, white)
+506: noodleHelix
+    amount: 4
+    scale: 2
+    rotationAmount: -90
+    startRotation: 45
+    center: 0,0,0
+    count: 2
+    radius: 10
+    changeDuration: -3
+    repeat: 4
+    repeatAddZ: 4
+    color: gradient(cyan, white)
+
+508: noodleHelix
+    amount: 4
+    scale: 2
+    rotationAmount: 90
+    startRotation: -135
+    center: 0,0,0
+    count: 2
+    radius: 8
+    changeDuration: -3
+    repeat: 4
+    repeatAddZ: 4
+    color: gradient(cyan, white)
+508: noodleHelix
+    amount: 4
+    scale: 2
+    rotationAmount: -90
+    startRotation: -45
+    center: 0,0,0
+    count: 2
+    radius: 10
+    changeDuration: -3
+    repeat: 4
+    repeatAddZ: 4
+    color: gradient(cyan, white)
+
+506: noodleHelix
+    amount: 4
+    scale: 2
+    rotationAmount: -180
+    startRotation: 90
+    center: 0,0,0
+    count: 2
+    radius: 16
+    changeDuration: -3
+    repeat: 4
+    repeatAddZ: 4
+    color: gradient(cyan, white)
+508: noodleHelix
+    amount: 4
+    scale: 2
+    rotationAmount: 180
+    startRotation: 90
+    center: 0,0,0
+    count: 2
+    radius: 16
+    changeDuration: -3
+    repeat: 4
+    repeatAddZ: 4
+    color: gradient(cyan, white)
+
+
+
+# whoup
+522: noodleHelix
+    amount: 8
+    rotationAmount: 180
+    scale: 2
+    changeDuration: -3
+    color: gradient(white,black)
+    radius: 10
+    endRadius: 20
+    count: 4
+522: noodleHelix
+    amount: 8
+    rotationAmount: -180
+    startRotation: 45
+    scale: 2
+    changeDuration: -3
+    color: gradient(white,black)
+    radius: 10
+    endRadius: 20
+    count: 4
+
+
+
+# second chorus
+# you lift me up
+
+# CHORUS
+# CHORUS
+# CHORUS
+# CHORUS
+
+# shit starts to get more serious
+524: noodleHelix
+    amount: 16
+    scale: 2
+    rotationAmount: -180
+    startRotation: 45
+    center: 0,0,0
+    mirror: 2
+    radius: 6
+    changeDuration: -3
+    repeat: 7
+    repeatAddZ: 2
+    speeder: 1.5
+    color: gradient(cyan, white)
+
+524: noodleHelix
+    amount: 16
+    scale: 2
+    rotationAmount: 180
+    startRotation: -45
+    center: 0,0,0
+    mirror: 2
+    radius: 10
+    changeDuration: -3
+    repeat: 7
+    repeatAddZ: 2
+    speeder: 1.5
+    color: gradient(cyan, white)
+
+
+524: randomNoise
+    p1: -16,-4,0
+    p2: 16,10,46
+    changeWidth: random(0.5,1)
+    addStartRow: random(-1,-0.5)
+    changeDuration: random(0.125,0.25)
+    localRotY: random(0,360)
+    localRotX: random(0,360)
+    localRotZ: random(0,360)
+    color: flash(cyan,white)
+    repeat: 2
+524: steadyCurve
+    amount: 16
+    color: white
+    scale: 2
+    repeat: 22
+    repeatAddZ: 2
+    speeder: 1.2
+    changeDuration: -3
+    changeWidth: 0
+    p1: 16,2
+    p2: 26,12
+    p3: 26,12
+    p4: 16,12
+    mirror: 2
+    localRotZ: -5
+    fitStartHeight: -40
+
+
+538: noodleHelix
+    amount: 16
+    scale: 2
+    rotationAmount: -140
+    startRotation: 80
+    center: -2,0,0
+    mirror: 2
+    radius: 8
+    changeDuration: -3
+    repeat: 8
+    repeatAddZ: 2
+    speeder: 1.5
+    color: gradient(cyan,white)
+
+
+
+538: noodleHelix
+    amount: 16
+    scale: 2
+    rotationAmount: 180
+    startRotation: -90
+    center: 0,0,0
+    count: 2
+    radius: 12
+    endRadius: 8
+    changeDuration: -3
+    repeat: 4
+    repeatAddZ: 4
+    speeder: 1.5
+    color: gradient(cyan, white)
+540: noodleHelix
+    amount: 16
+    scale: 2
+    rotationAmount: -180
+    startRotation: -90
+    center: 0,0,0
+    count: 2
+    radius: 8
+    endRadius: 12
+    changeDuration: -3
+    repeat: 4
+    repeatAddZ: 4
+    speeder: 1.5
+    color: gradient(cyan, white)
+
+
+
+# you lift me up
+
+554: noodleHelix
+    amount: 8
+    scale: 2
+    rotationAmount: 90
+    startRotation: 0
+    center: 0,0,0
+    count: 2
+    radius: 8
+    endradius: 12
+    changeDuration: -3
+    repeat: 4
+    repeatAddZ: 4
+    speeder: 1.5
+    color: gradient(cyan, white)
+554: noodleHelix
+    amount: 8
+    scale: 2
+    rotationAmount: -90
+    startRotation: 90
+    center: 0,0,0
+    count: 2
+    radius: 12
+    endradius: 8
+    changeDuration: -3
+    repeat: 4
+    repeatAddZ: 4
+    speeder: 1.5
+    color: gradient(cyan, white)
+
+556: noodleHelix
+    amount: 8
+    scale: 2
+    rotationAmount: 90
+    startRotation: -90
+    center: 0,0,0
+    count: 2
+    radius: 8
+    endradius: 12
+    changeDuration: -3
+    repeat: 4
+    repeatAddZ: 4
+    speeder: 1.5
+    color: gradient(cyan, white)
+556: noodleHelix
+    amount: 8
+    scale: 2
+    rotationAmount: -90
+    startRotation: 0
+    center: 0,0,0
+    count: 2
+    radius: 8
+    endradius: 12
+    changeDuration: -3
+    repeat: 4
+    repeatAddZ: 4
+    speeder: 1.5
+    color: gradient(cyan, white)
+
+554: noodleHelix
+    amount: 16
+    scale: 2
+    rotationAmount: -180
+    startRotation: -45
+    center: 0,0,0
+    count: 2
+    radius: 16
+    endRadius: 20
+    changeDuration: -3
+    repeat: 4
+    repeatAddZ: 4
+    speeder: 1.5
+    color: gradient(cyan, white)
+556: noodleHelix
+    amount: 16
+    scale: 2
+    rotationAmount: 180
+    startRotation: -45
+    center: 0,0,0
+    count: 2
+    radius: 16
+    endRadius: 20
+    changeDuration: -3
+    repeat: 4
+    repeatAddZ: 4
+    speeder: 1.5
+    color: gradient(cyan, white)
+
+
+570: noodleHelix
+    amount: 64
+    rotationAmount: 740
+    scale: 8
+    radius: 6
+    endradius: 20
+    count: 3
+    color: gradient(white,red)
+    changeDuration: -3
+
+570: noodleHelix
+    rotationAmount: 740
+    amount: 64
+    scale: 8
+    radius: 6
+    startRotation: 60
+    endradius: 20
+    count: 3
+    color: gradient(white,orange)
+    changeDuration: -3
+
+578: randomNoise
+    p1: -16,-10,0
+    p2: 16,10,6
+    changeDuration: -3
+    color: gradient(orange,black)
+    rotation: 180
+578: randomNoise
+    p1: -16,-10,0
+    p2: 16,10,6
+    changeDuration: -3
+    color: gradient(red,black)
+    rotation: 180
+
+
+578: noodleHelix
+    amount: 64
+    rotationAmount: -740
+    scale: 6
+    radius: 20
+    endradius: 4
+    count: 3
+    color: gradient(orange,black)
+    changeDuration: -3
+    rotation: 180
+
+
+578: noodleHelix
+    rotationAmount: -740
+    amount: 64
+    scale: 6
+    radius: 20
+    startRotation: 60
+    endradius: 4
+    count: 3
+    color: gradient(red,white)
+    changeDuration: -3
+
+# AAAAAAAAAAAAAAAAh
+# AAAAAAAAAAAAAAAAh
+# AAAAAAAAAAAAAAAAh
+# AAAAAAAAAAAAAAAAh
+# AAAAAAAAAAAAAAAAh
+
+584: line
+    p1: 2,0,0
+    p2: 1.5,0,2
+    changeWidth: 40
+    changeHeight: 5
+    changeDuration: -3
+    mirror: 2
+    color: white
+
+584: line
+    mirrorY: 2.5
+    p1: -40,0,0
+    p2: -40,1,2
+    changeWidth: 80
+    changeHeight: -40
+    changeDuration: -3
+    mirror: 4
+    color: white
+
+# FIGHT
+# FIGHT
+
+586: noodleHelix
+    rotationAmount: 2080
+    amount: 896
+    radius: 16
+    endRadius: 5
+    count: 3
+    color: gradient(red,orange)
+    bombs: true
+    scale: 56
+
+586: randomCurve
+    p1: -10,-2,0
+    p2: -6,6,28
+    scale: 2
+    mirror: 6
+    bombs: true
+    color: gradient(red,orange)
+
+586: randomCurve
+    p1: -6,-6,0
+    p2: 6,-2,28
+    scale: 2
+    mirror: 6
+    bombs: true
+    color: gradient(red,orange)
+
+650: noodleHelix
+    rotationAmount: 10080
+    amount: 896
+    radius: 5
+    endRadius: 1
+    count: 3
+    color: gradient(red,yellow)
+    bombs: true
+    scale: 56
+
+650: randomNoise
+    p1: -30,-20,0
+    p2: -4,20,56
+    mirror: 6
+    bombs: true
+    color: gradient(red,yellow)
+650: randomCurve
+    p1: -10,-2,0
+    p2: -6,6,28
+    scale: 2
+    mirror: 6
+    bombs: true
+    color: gradient(red,yellow)
+
+650: randomCurve
+    p1: -6,-6,0
+    p2: 6,-2,28
+    scale: 2
+    mirror: 6
+    bombs: true
+    color: gradient(red,yellow)
+
+
+586: fightPow
+    repeat: 4
+    repeatAddZ: 16
+588: fightTripple
+590: fight4beat1
+594: fight4beat2
+598: bridge1
+
+604: fightTripple
+606: fight4beat1
+610: bridge2
+614: bridge1
+    mirror: 2
+
+620: fightTripple
+622: fight4beat1
+626: fight4beat2
+630: bridge1
+    mirror: 1
+
+636: fightTripple
+638: fight4beat1
+642: bridge3
+646: bridge2
+
+650: fightPow
+    reverse: true
+652: fightTripple
+    color: white
+654: fightFirstHeavy
+    color: black
+656: fightFirstHeavy
+    color: white
+658: fightFirstHeavy
+    color: black
+660: fightFirstHeavy
+    color: white
+662: bridge1
+    color: red
+
+666: fightPow
+    color: black
+668: fightSecondHeavy
+    color: white
+670: fightSecondHeavy
+    color: black
+672: fightSecondHeavy
+    color: white
+674: bridge2
+678: bridge3
+    reverse: true
+# special
+682: noodleHelix
+    count: 3
+    scale: 2
+    changeDuration: -3
+    color: gradient(white, black)
+    rotationAmount: 90
+
+
+684: fightSecondHeavy
+    color: white
+686: fight4beat1
+    color: gradient(black,white)
+690: fight4beat2
+    color: gradient(black,white)
+694: bridge1
+    mirror: 1
+
+698: fightPow
+    color: black
+700: fightTripple
+702: fight4beat1
+
+
+
+
+
+# OUTRO
+# OUTRO
+# OUTRO
+# OUTRO
+# OUTRO
+define: inLine
+    structures: line
+    p1: 10,0,0
+    p2: 5,0,4
+    mirror: 4
+    color: blue
+
+define: upCurve
+    structures: steadyCurve
+    p1: 10,0,0
+    p2: 10,20
+    p3: 10,20
+    p4: 10,20
+    fitStartHeight: -60
+    scale: 4
+    amount: 64
+    color: black
+define: upAndIn
+    structures: inLine, upCurve
+    changeDuration: -3
+
+706: upAndIn
+    mirror: 2
+    rotation: ease(0,20,easeInSine)
+708: upAndIn
+    addStartRow: -2
+    mirror: 2
+    rotation: ease(0,20,easeInSine)
+710: upAndIn
+    addStartRow: -4
+    mirror: 2
+    amount: 64
+    rotation: ease(0,20,easeInOutSine)
+
+
+# really relaxed
+
+714: randomNoise
+    p1: -20,-20,0
+    p2: 20,20,112
+    repeat: 2
+    color: flash(cyan,blue,white)
+714: randomNoise
+    p1: -20,0,0
+    p2: 20,0,112
+    repeat: 4
+    color: flash(cyan,blue,white)
+
+714: curve
+    p1: 20,0,0
+    p2: 20,0,16
+    p3: 20,0,32
+    p4: 20,8,48.25
+    amount: 193
+    mirror: 2
+    fitStartHeight: 0
+    changeDuration: 0
+    mirror: 2
+    color: gradient(white,cyan)
+762: wall
+    startRow: 20
+    duration: 64
+    mirror: 8
+    mirrorY: 4
+    color: cyan
+
+
+776: RandomCuboidLines
+    p1: -20,0,0
+    p2: 20,6,2
+    changeDuration: -3
+    color: cyan
+    count: 4
+    sections: 8
+    repeat: 2
+    amount: 4
+    randomSidePicker: 2
+
+
+define: 5da
+    structures: line
+    p1: 20,0,0
+    p2: 20,8,2.5
+    amount: 5
+    changeDuration: -2
+    mirror: 2
+    color: cyan
+define: drum
+    structures: line
+    p1: 20,8,0
+    p2: 20,0,2
+    amount: 16
+    changeDuration: -2
+    color: cyan
+    mirror: 2
+define: 25da
+    structures: 5da
+    repeat: 2
+    repeatAddZ: 3
+778: 25da
+    repeat: 6
+    repeatAddZ: 8
+792: drum
+808: drum
+824: drum
+
+826: wall
+    startRow: -20
+    width: 40
+    color: black
+    mirror: 4
+    mirrorY: 4
+    duration: 0
+826: wall
+    startRow: -20
+    height: 8
+    color: black
+    mirror: 2
+    duration: 0
+
+826: randomNoise
+    p1: -20,0,0
+    p2: -10,8,16
+    color: black
+    repeat: 2
+    repeatAddX: 30
+    amount: 96
+826: randomNoise
+    p1: -20,-10,0
+    p2: 20,0,16
+    color: black
+    repeat: 2
+    amount: 96
+
+826: randomNoise
+    p1: -20,8,0
+    p2: 20,18,16
+    color: black
+    repeat: 2
+    amount: 96
+
+
+838: noodleHelix
+    amount: 3
+    scale: 6
+    startRotation: 60
+    rotationAmount: -120
+    count: 3
+    color: blue
+    radius: 60
+
+838: noodleHelix
+    amount: 32
+    scale: 2
+    startRotation: 90
+    rotationAmount: 180
+    count: 2
+    color: gradient(cyan,blue)
+    radius: 30
+    changeDuration: -3
+840: noodleHelix
+    amount: 32
+    scale: 2
+    startRotation: 90
+    rotationAmount: -180
+    count: 2
+    color: gradient(cyan,blue)
+    radius: 30
+    changeDuration: -3
+
+842: noodleHelix
+    amount: 32
+    scale: 2
+    startRotation: 90
+    rotationAmount: 180
+    count: 2
+    color: gradient(cyan,blue)
+    radius: 30
+    changeDuration: -3
+
+define: bigOhHelix
+    structures: noodleHelix
+    color: cyan
+    scale: 128
+    amount: 512
+    count: 2
+    changeduration: -3
+
+
+842: bigOhHelix
+    rotationAmount: 2000
+    radius: 60
+    startRotation: 120
+    color: rainbow(17)
+
+842: bigOhHelix
+    rotationAmount: -2500
+    radius: 50
+    color: rainbow(15)
+
+842: bigOhHelix
+    rotationAmount: 3000
+    radius: 40
+    startRotation: 60
+    color: rainbow(13)
+
+
+842: bigOhHelix
+    rotationAmount: 3500
+    startRotation: 120
+    radius: 30
+    color: rainbow(20)
+
+
+842: randomNoise
+    p1: -40,-40,0
+    p2: 40,40,128
+    repeat: 4
+    color: flash(cyan,blue,white)
+842: randomNoise
+    p1: -40,-40,0
+    p2: 40,40,128
+    repeat: 4
+    color: flash(cyan,blue,white)
+    changeDuration: random(0,-3)
+
+
+970: randomNoise
+    p1: -40,-40,0
+    p2: 40,40,44
+    repeat: 4
+    color: flash(cyan,blue,white)
+
+970: randomNoise
+    p1: -40,-40,0
+    p2: 40,40,44
+    amount: 349
+    color: flash(cyan,blue,white)
+

@@ -44,11 +44,4 @@ jobs:
           asset_path: /home/runner/work/beatwalls/beatwalls/target/Beatwalls.exe
           asset_name: beatwalls.exe
           asset_content_type: application/exe
-      - name: prepare pages
-        run: mv /home/runner/work/beatwalls/beatwalls/target/dokka/style.css /home/runner/work/beatwalls/beatwalls/target/dokka/beatwalls/style.css && sed -i 's/\.\./\./g' /home/runner/work/beatwalls/beatwalls/target/dokka/beatwalls/index.html
-      - name: GitHub Pages Deploy
-        uses: maxheld83/ghpages@v0.2.1
-        env:
-          BUILD_DIR: /home/runner/work/beatwalls/beatwalls/target/dokka/beatwalls
-          GH_PAT: ${{ secrets.GH_PAT }}
 

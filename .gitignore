@@ -17,3 +17,8 @@ target/
 /src/test/resources/Chart.song/
 /test.sh
 /src/main/kotlin/chart/difficulty/tempScripts.kt
+/.temp/
+/node_modules/
+/website/
+/docs/.vuepress/dist/
+/docs/reference/

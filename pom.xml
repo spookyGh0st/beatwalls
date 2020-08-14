@@ -204,6 +204,10 @@
                         </goals>
                     </execution>
                 </executions>
+                <configuration>
+                    <reportUndocumented>false</reportUndocumented>
+                    <outputFormat>gfm</outputFormat>
+                </configuration>
             </plugin>
         </plugins>
     </build>

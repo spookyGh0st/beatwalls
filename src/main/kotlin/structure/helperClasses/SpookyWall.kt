@@ -75,10 +75,17 @@ data class SpookyWall(
         val tempStartTime = obs.startTime.toFloat()
         val tempDuration = obs.duration.toFloat()
 
-        val tempLineIndex = obs.calculateLineIndex()
-        val tempWidth = obs.calculateWidth()
+        var tempLineIndex = obs.calculateLineIndex()
+        var tempWidth = obs.calculateWidth()
 
-        val tempType = obs.type()
+
+        var tempType = obs.type()
+
+        if(GlobalConfig.neValues && !bomb){
+            tempType = 0
+            tempWidth = 0
+            tempLineIndex = 0
+        }
 
         val customData: _obstacleCustomData? = obs.customData()
 
@@ -108,7 +115,7 @@ data class SpookyWall(
             _position = listOf(x,y),
             _color = cd?._color,
             _rotation = cd?._rotation,
-            track = cd?.track)
+            track = cd?._track)
 
         return _notes(
             _time = tempStartTime.toDouble(),
@@ -132,6 +139,7 @@ data class SpookyWall(
         }
         t.width = t.width.coerceAtLeast(minValue)
         t.height = t.height.coerceAtLeast(minValue)
+
         t.rotation = t.rotation % 360
         t.localRotation = t.localRotation.map { it % 360 }.toTypedArray()
 
@@ -189,15 +197,15 @@ data class SpookyWall(
                 _color = cdColor,
                 _localRotation = tLocalRotation,
                 _rotation = tRotation,
-                track = track,
-                _noteJumpStartBeat = noteJumpStartBeat,
+                _track =  track,
+                _noteJumpMovementSpeed = noteJumpStartBeat,
                 _noteJumpStartBeatOffset = noteJumpStartBeatOffset
             )
             track != null || color != null || tRotation != null -> _obstacleCustomData(
                 _color = cdColor,
                 _rotation = tRotation,
                 _localRotation = null,
-                track = track
+                _track = track
             )
             else ->
                 null

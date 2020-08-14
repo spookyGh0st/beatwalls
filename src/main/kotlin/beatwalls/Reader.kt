@@ -5,11 +5,11 @@ import com.worldturner.medeia.api.UrlSchemaSource
 import com.worldturner.medeia.api.gson.MedeiaGsonApi
 import com.worldturner.medeia.schema.validation.SchemaValidator
 import chart.difficulty.Difficulty
-import chart.difficulty._customEvents
 import chart.difficulty._obstacles
 import mu.KotlinLogging
 import chart.song.Info
 import com.google.gson.reflect.TypeToken
+import model.difficulty._customEvents
 import java.io.File
 
 

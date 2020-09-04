@@ -187,7 +187,7 @@ data class SpookyWall(
             color != null -> listOf(color!!.red, color!!.green, color!!.blue)
             else -> null }
 
-        val tRotation = if (rotation == 0.0) null else rotation
+        val tRotation = if (rotation == 0.0) null else listOf(rotation)
         val tLocalRotation = if (localRotation.all { it == 0.0 }) null else localRotation.toList()
 
         return when {

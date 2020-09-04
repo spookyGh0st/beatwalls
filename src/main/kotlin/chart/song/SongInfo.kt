@@ -30,5 +30,5 @@ data class Info(
 )
 
 fun File.isSongInfo() =
-    this.isDirectory && this.list()?.contains("info.dat") ?: false
+    this.isDirectory && this.list()?.contains("Info.dat") ?: false
 

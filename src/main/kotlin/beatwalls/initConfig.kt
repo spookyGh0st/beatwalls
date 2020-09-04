@@ -10,11 +10,11 @@ fun initConfig(songPath:String){
     val file = File(songPath)
     if (!file.isSongInfo())
         errorExit { "Please drag in the Whole Folder for the initial Config" }
-    val infoJson = File(file,"info.dat").readText()
+    val infoJson = File(file,"Info.dat").readText()
     val info = try {
         Gson().fromJson(infoJson, Info::class.java)
     }catch (e:Exception){
-        errorExit(e) { "Failed to parse info.dat, is your json correct?" }
+        errorExit(e) { "Failed to parse Info.dat, is your json correct?" }
     }
     val diff = pickDifficulty(info)
     val diffName = diff.first

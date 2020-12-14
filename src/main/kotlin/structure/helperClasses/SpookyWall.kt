@@ -8,6 +8,7 @@ import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
 import chart.difficulty._obstacles
 import java.io.Serializable
+import java.util.ArrayList
 import kotlin.math.max
 import kotlin.math.min
 
@@ -29,6 +30,12 @@ data class SpookyWall(
     @SerializedName("color") var color: Color? = null,
     @Expose
     @SerializedName("rotation") var rotation: Double = 0.0,
+    @Expose
+    @SerializedName("rotationX") var rotationX: Double = 0.0,
+    @Expose
+    @SerializedName("rotationY") var rotationY: Double = 0.0,
+    @Expose
+    @SerializedName("rotationZ") var rotationZ: Double = 0.0,
     @Expose
     @SerializedName("localRotation") var localRotation: Array<Double> = arrayOf(0.0, 0.0, 0.0),
     @Expose
@@ -141,6 +148,9 @@ data class SpookyWall(
         t.height = t.height.coerceAtLeast(minValue)
 
         t.rotation = t.rotation % 360
+        t.rotationX = t.rotationX % 360
+        t.rotationY = t.rotationY % 360
+        t.rotationZ = t.rotationZ % 360
         t.localRotation = t.localRotation.map { it % 360 }.toTypedArray()
 
         if (t.duration in -0.0001 .. 0.0001)
@@ -187,7 +197,13 @@ data class SpookyWall(
             color != null -> listOf(color!!.red, color!!.green, color!!.blue)
             else -> null }
 
-        val tRotation = if (rotation == 0.0) null else listOf(rotation)
+        var tRotation: ArrayList<Double>? = arrayListOf(rotationX, rotationY, rotationZ)
+        tRotation?.set(1, rotation)
+        if (tRotation != null) {
+            if (tRotation.all { it == 0.0 })
+                tRotation = null
+        }
+
         val tLocalRotation = if (localRotation.all { it == 0.0 }) null else localRotation.toList()
 
         return when {

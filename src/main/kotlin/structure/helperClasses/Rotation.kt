@@ -28,6 +28,21 @@ interface RotationMode:Serializable{
             w.rotation += getValue(i,walls.size)
         }
     }
+    fun rotationX(walls: Collection<SpookyWall>){
+        for((i,w) in walls.withIndex()){
+            w.rotationX += getValue(i,walls.size)
+        }
+    }
+    fun rotationY(walls: Collection<SpookyWall>){
+        for((i,w) in walls.withIndex()){
+            w.rotationY += getValue(i,walls.size)
+        }
+    }
+    fun rotationZ(walls: Collection<SpookyWall>){
+        for((i,w) in walls.withIndex()){
+            w.rotationZ += getValue(i,walls.size)
+        }
+    }
 }
 
 data class StaticRotation(val rotation: Double): RotationMode {

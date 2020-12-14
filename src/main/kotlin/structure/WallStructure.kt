@@ -325,6 +325,9 @@ sealed class WallStructure:Serializable
 
     /**
      * The rotation of the wallstructure around the player, think 360 maps. click me.
+     * This rotates on the Y Axe and is left in for backwards compability.
+     * Use rotation(X/Y/Z) from now on.
+     *
      * ```
      * # rotates the entire Wallstructure 90 degrees
      * rotation: 90
@@ -354,6 +357,105 @@ sealed class WallStructure:Serializable
      *  Other interesting Properties: mirrorRotation -> controls if mirror also effects the rotation(true,false)
      */
     var rotation: RotationMode = Default.rotation
+
+    /**
+     * The rotation of the wallstructure around the player, think 360 maps around the X Achsis.
+     *
+     * ```
+     * # rotates the entire Wallstructure 90 degrees
+     * rotationX: 90
+     *
+     * # also rotates the entire Wallstructure 90 degrees. You can use negative values as well
+     * rotationX: 450
+     *
+     * # rotates the walls linear from 45 to 90.
+     * rotationX: ease(45,90)
+     *
+     * # rotates the walls from 180 to 90 degrees using easeInOutQuad.
+     * # all Easing methods can be found here https://easings.net/en
+     * rotationX: ease(180,90,easeInOutQuad)
+     *
+     * # switches the rotationX between the given values. here the first wall will have rotationX 24, ththe second one 48 the third one 50, the fourth 24  and so forth
+     * rotationX: switch(24,48,50)
+     *
+     * # rotates all the way around the player (360 degrees)
+     * rotationX: circle
+     *
+     * # rotates twice all the way around the player backwards
+     * rotationX: circle(-2)
+     * ```
+     *
+     * default: noRotation
+     *
+     *  Other interesting Properties: mirrorRotation -> controls if mirror also effects the rotation(true,false)
+     */
+    var rotationX: RotationMode = Default.rotation
+
+    /**
+     * The rotation of the wallstructure around the player, think 360 maps around the X Achsis.
+     *
+     * ```
+     * # rotates the entire Wallstructure 90 degrees
+     * rotationY: 90
+     *
+     * # also rotates the entire Wallstructure 90 degrees. You can use negative values as well
+     * rotationY: 450
+     *
+     * # rotates the walls linear from 45 to 90.
+     * rotationY: ease(45,90)
+     *
+     * # rotates the walls from 180 to 90 degrees using easeInOutQuad.
+     * # all Easing methods can be found here https://easings.net/en
+     * rotationY: ease(180,90,easeInOutQuad)
+     *
+     * # switches the rotationY between the given values. here the first wall will have rotationY 24, ththe second one 48 the third one 50, the fourth 24  and so forth
+     * rotationY: switch(24,48,50)
+     *
+     * # rotates all the way around the player (360 degrees)
+     * rotationY: circle
+     *
+     * # rotates twice all the way around the player backwards
+     * rotationY: circle(-2)
+     * ```
+     *
+     * default: noRotation
+     *
+     *  Other interesting Properties: mirrorRotation -> controls if mirror also effects the rotation(true,false)
+     */
+    var rotationY: RotationMode = Default.rotation
+
+    /**
+     * The rotation of the wallstructure around the player, think 360 maps around the X Achsis.
+     *
+     * ```
+     * # rotates the entire Wallstructure 90 degrees
+     * rotationZ: 90
+     *
+     * # also rotates the entire Wallstructure 90 degrees. You can use negative values as well
+     * rotationZ: 450
+     *
+     * # rotates the walls linear from 45 to 90.
+     * rotationZ: ease(45,90)
+     *
+     * # rotates the walls from 180 to 90 degrees using easeInOutQuad.
+     * # all Easing methods can be found here https://easings.net/en
+     * rotationZ: ease(180,90,easeInOutQuad)
+     *
+     * # switches the rotationZ between the given values. here the first wall will have rotationZ 24, ththe second one 48 the third one 50, the fourth 24  and so forth
+     * rotationZ: switch(24,48,50)
+     *
+     * # rotates all the way around the player (360 degrees)
+     * rotationZ: circle
+     *
+     * # rotates twice all the way around the player backwards
+     * rotationZ: circle(-2)
+     * ```
+     *
+     * default: noRotation
+     *
+     *  Other interesting Properties: mirrorRotation -> controls if mirror also effects the rotation(true,false)
+     */
+    var rotationZ: RotationMode = Default.rotation
 
     /**
      * Defines, if mirror also effects the rotation. Can be true or false. Default: true

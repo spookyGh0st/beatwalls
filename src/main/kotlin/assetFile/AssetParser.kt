@@ -3,13 +3,16 @@ package assetFile
 import beatwalls.errorExit
 import mu.KotlinLogging
 import structure.*
+import structure.helperClasses.ColorMode
 import structure.helperClasses.Point
+import structure.helperClasses.RotationMode
 import kotlin.random.Random
 import kotlin.reflect.*
 import kotlin.reflect.full.createInstance
 import kotlin.reflect.full.createType
 import kotlin.reflect.full.memberProperties
 import kotlin.reflect.full.withNullability
+import kotlin.reflect.jvm.reflect
 
 //   ____  ____   __   ____  ____  ____
 //  (  _ \(  __) / _\ (    \(  __)(  _ \
@@ -154,6 +157,7 @@ fun findProperty(lastObject: Any, key:String): KProperty1<out Any, Any?>? {
 
 }
 
+@UseExperimental(ExperimentalStdlibApi::class)
 fun fillProperty(
     property: KProperty1<out Any, Any?>,
     value: String,
@@ -161,28 +165,29 @@ fun fillProperty(
     lastObject: Any
 ){
     val valueType:Any?
-    val type = property.returnType.withNullability(false).toString()
+    //todo add nullability check
+    val returnType = property.returnType.withNullability(false)
 
-
-    valueType = when (type) {
-        "kotlin.Boolean" -> value.toBoolean()
-        "kotlin.Int"-> value.toIntOrNull()
-        "kotlin.Double"-> value.toDoubleOrNull()
-        "() -> kotlin.Double" -> value.toDoubleFunc()
-        "kotlin.String" -> value
-        "structure.helperClasses.Point" -> value.toPoint()
-        "structure.helperClasses.ColorMode" -> value.toColorMode()
-        "structure.helperClasses.RotationMode" -> value.toRotationMode()
-        "structure.WallStructure" -> value.toWallStructure(definedStructure)
-        "kotlin.collections.List<structure.WallStructure>" -> value.toWallStructureList(definedStructure)
-        else -> null
+    valueType = when (returnType) {
+        typeOf<Boolean>() -> value.toBoolean()
+        typeOf<Int>() -> value.toIntOrNull()
+        typeOf<Double>()-> value.toDoubleOrNull()
+        typeOf<()->Double>() -> value.toDoubleFunc()
+        typeOf<String>() -> value
+        typeOf<Point>() -> value.toPoint()
+        typeOf<ColorMode>() -> value.toColorMode()
+        typeOf<RotationMode>() -> value.toRotationMode()
+        typeOf<WallStructure>() -> value.toWallStructure(definedStructure)
+        typeOf<List<WallStructure>>() -> value.toWallStructureList(definedStructure)
+        typeOf<BwDouble>() -> value.toBwDouble()
+        else -> errorExit { "Unknown type: $returnType" }
     }
 
     try {
         lastObject.writeProperty(property, valueType)
     } catch (e: Exception) {
         val beat = if (lastObject is WallStructure) lastObject.beat.toString() else "COULDNOTFIND"
-        errorExit(e) { "Failed to parse value $value of property ${property.name} with type $type of wallstructure $lastObject at beat $beat . Perhaps in your syntax you have some typos?" }
+        errorExit(e) { "Failed to parse value $value of property ${property.name} with type $returnType of wallstructure $lastObject at beat $beat . Perhaps in your syntax you have some typos?" }
     }
 
 }

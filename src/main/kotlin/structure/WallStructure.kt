@@ -21,11 +21,10 @@ add the run Function in the relevant file in the specialStructures folder You ca
 submit a pull request and wait for approval.
  */
 
-//    _   __                           __   _____ __                  __
-//   / | / /___  _________ ___  ____ _/ /  / ___// /________  _______/ /___  __________  _____
-//  /  |/ / __ \/ ___/ __ `__ \/ __ `/ /   \__ \/ __/ ___/ / / / ___/ __/ / / / ___/ _ \/ ___/
-// / /|  / /_/ / /  / / / / / / /_/ / /   ___/ / /_/ /  / /_/ / /__/ /_/ /_/ / /  /  __(__  )
-///_/ |_/\____/_/  /_/ /_/ /_/\__,_/_/   /____/\__/_/   \__,_/\___/\__/\__,_/_/   \___/____/
+// Use this type to allow functions like easing and random
+typealias BwDouble = (progress: Double, ws: WallStructure) -> Double
+fun bwDouble(d: Number):BwDouble = {_,_ -> d.toDouble()}
+typealias BwInt = (progress: Double, ws: WallStructure) -> Int
 
 sealed class WallStructure:Serializable
 {
@@ -37,12 +36,6 @@ sealed class WallStructure:Serializable
      * dont touch
      */
     var beat: Double = 0.0
-
-    //    ____  ___    _   ______  ____  __  ___   _____________  ______________
-    //   / __ \/   |  / | / / __ \/ __ \/  |/  /  / ___/_  __/ / / / ____/ ____/
-    //  / /_/ / /| | /  |/ / / / / / / / /|_/ /   \__ \ / / / / / / /_  / /_
-    // / _, _/ ___ |/ /|  / /_/ / /_/ / /  / /   ___/ // / / /_/ / __/ / __/
-    ///_/ |_/_/  |_/_/ |_/_____/\____/_/  /_/   /____//_/  \____/_/   /_/
 
     /**
      * mirrors the SpookyWall. Default: 0. click me:
@@ -247,7 +240,7 @@ sealed class WallStructure:Serializable
     /**
      * The Gap between each Repeat. Default: 0
      */
-    var repeatAddZ: Double = Default.repeatAddZ
+    var repeatAddZ: BwDouble = Default.repeatAddZ
 
     /**
      * shifts each repeat in x. Default: 0
@@ -558,7 +551,7 @@ sealed class WallStructure:Serializable
         var speeder: Double? = null
         var repeat: Int = 1
         var repeatWalls: Int = 1
-        var repeatAddZ: Double = 0.0
+        var repeatAddZ: BwDouble = bwDouble(0)
         var repeatAddX: Double = 0.0
         var repeatAddY: Double = 0.0
         var repeatAddWidth: Double = 0.0

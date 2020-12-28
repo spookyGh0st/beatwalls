@@ -12,9 +12,10 @@ fun WallStructure.repeat(walls: List<SpookyWall>): List<SpookyWall> {
 fun WallStructure.repeatWalls(walls: List<SpookyWall>): List<SpookyWall> {
     val l = walls.toMutableList()
     for (i in 1 until repeatWalls){
-        val temp = walls.map {
+        val temp = walls.mapIndexed { j, it ->
+            val p = j.toDouble()/walls.size
             it.copy(
-                startTime=it.startTime+repeatAddZ*i+repeatAddStartTime*i,
+                startTime=it.startTime+repeatAddZ(p,this)*i+repeatAddStartTime*i,
                 duration = it.duration+repeatAddDuration*i,
                 startRow = it.startRow + repeatAddX*i+repeatAddStartRow*i,
                 width = it.width+repeatAddWidth*i,
@@ -33,9 +34,10 @@ fun WallStructure.repeatStruct(walls:List<SpookyWall>): List<SpookyWall>{
     for(i in 1 until repeat){
         var temp = this.generateWalls()
         temp = this.bendWalls(temp)
-        temp = temp.map {
+        temp = temp.mapIndexed { j, it ->
+            val p = j.toDouble()/walls.size
             it.copy(
-                startTime = it.startTime + repeatAddZ * i + repeatAddStartTime * i,
+                startTime = it.startTime + repeatAddZ(p, this) * i + repeatAddStartTime * i,
                 duration = it.duration + repeatAddDuration * i,
                 startRow = it.startRow + repeatAddX * i + repeatAddStartRow * i,
                 width = it.width + repeatAddWidth * i,

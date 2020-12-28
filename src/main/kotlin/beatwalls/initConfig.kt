@@ -71,11 +71,8 @@ fun pickHjd(): Double {
     print("input: ")
     return readLine()?.toDoubleOrNull() ?: pickHjd()
 }
-private fun defaultCEStr() =
-    """
-# to be added
-    """.trimIndent() //todo add defautlCEStr
 
+// todo make this variable
 private fun defaultBWStr() =
     """
 # This is an example File of a .bw file. 

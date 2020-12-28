@@ -6,6 +6,7 @@ import org.junit.Assert.*
 import org.junit.Before
 import structure.RandomNoise
 import structure.Wall
+import structure.bwDouble
 import structure.helperClasses.SpookyWall
 import kotlin.random.Random
 
@@ -22,7 +23,7 @@ class RepeatKtTest {
         ws.repeatAddWidth = 1.0
         ws.repeatAddStartHeight = 1.0
         ws.repeatAddHeight = 1.0
-        ws.repeatAddZ = 0.0
+        ws.repeatAddZ = bwDouble(0)
         ws.repeatAddY = 0.0
         ws.repeatAddX = 0.0
         ws.startRow = 0.0

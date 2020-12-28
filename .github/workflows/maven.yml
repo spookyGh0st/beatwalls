@@ -13,7 +13,7 @@ jobs:
       - name: debug
         run: echo ${GITHUB_REF:10}
       - name: Prepare files
-        run: sed -i "s/CyanIsAFurry/${GITHUB_REF:10}/g" src/main/kotlin/beatwalls/Updater.kt
+        run: sed -i "s/CyanIsAFurry/${GITHUB_REF:10}/g" src/main/kotlin/beatwalls/Update.kt
       - name: Prepare pom
         run: sed -i "s/<version>0.0.0.0<\/version>/<version>${GITHUB_REF:11}.0<\/version>/g" pom.xml
       - name: Set up JDK 1.8
@@ -21,7 +21,7 @@ jobs:
         with:
           java-version: 1.8
       - name: Build with Maven
-        run: cat src/main/kotlin/beatwalls/Updater.kt && mvn -B package --file pom.xml
+        run: cat src/main/kotlin/beatwalls/Update.kt && mvn -B package --file pom.xml
       - name: create Documentation with maven
         run: mvn -B site --file pom.xml
       - name: Create Release

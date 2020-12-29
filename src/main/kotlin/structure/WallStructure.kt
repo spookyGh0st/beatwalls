@@ -31,10 +31,6 @@ fun bwInt(num: Number):BwInt = { num.toInt()}
 
 sealed class WallStructure:Serializable
 {
-    /**
-     * soon to be outdated element that holds all walls
-     */
-    internal var spookyWalls: ArrayList<SpookyWall> = arrayListOf()
 
     /**
      * This holds the state that get's shared to Expressions.
@@ -596,7 +592,6 @@ sealed class WallStructure:Serializable
 
         other as WallStructure
 
-        if (spookyWalls != other.spookyWalls) return false
         if (beat != other.beat) return false
         if (mirror != other.mirror) return false
         if (time != other.time) return false
@@ -628,8 +623,7 @@ sealed class WallStructure:Serializable
     }
 
     override fun hashCode(): Int {
-        var result = spookyWalls.hashCode()
-        result = 31 * result + beat.hashCode()
+        var result = beat.hashCode()
         result = 31 * result + mirror
         result = 31 * result + time.hashCode()
         result = 31 * result + (changeStartTime?.hashCode() ?: 0)

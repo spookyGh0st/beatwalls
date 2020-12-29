@@ -38,7 +38,7 @@ internal fun WallStructure.adjustScale(l: List<SpookyWall>) {
     l.forEach { it.width *= scaleWidth?.invoke() ?: 1.0 }
 
     if (scale != null) {
-        spookyWalls.forEach {
+        l.forEach {
             it.startTime *= scale as Double
             if (it.duration > 0)
                 it.duration *= scale as Double

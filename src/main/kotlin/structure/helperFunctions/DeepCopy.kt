@@ -3,8 +3,6 @@ package structure
 import structure.helperClasses.SpookyWall
 import java.io.*
 
-// copies the Wall of one Wallstructure. Used in Repeat
-fun WallStructure.copyWalls() :ArrayList<SpookyWall> = ArrayList((spookyWalls.map { it.copy() }))
 
 // deepcopies the Wallstructure
 fun WallStructure.deepCopy(): WallStructure =

@@ -2,6 +2,8 @@
 
 package structure
 
+import assetFile.BwDouble
+import assetFile.BwInt
 import structure.helperClasses.*
 import structure.specialStrucures.*
 import java.io.Serializable
@@ -19,19 +21,29 @@ so how do i add a structure
 Define the parameters and documentation of the structure here as usual. You dont need to define the parameters already defined in the Wallstructure class
 add the run Function in the relevant file in the specialStructures folder You can create Walls with SpookyWall and add them with add(Wall) or add(Collection of walls).
 submit a pull request and wait for approval.
- */
 
-// Use this type to allow functions like easing and random
-typealias BwDouble = (progress: Double, ws: WallStructure) -> Double
-fun bwDouble(d: Number):BwDouble = {_,_ -> d.toDouble()}
-typealias BwInt = (progress: Double, ws: WallStructure) -> Int
+To allow for stuff like easing you need to use the Types BwDouble/Int/Point/etc.
+To set them to a default single value use the functions below
+*/
+
+fun bwDouble(num: Number):BwDouble = { num.toDouble()}
+fun bwInt(num: Number):BwInt = { num.toInt()}
 
 sealed class WallStructure:Serializable
 {
     /**
-     * dont touch
+     * soon to be outdated element that holds all walls
      */
     internal var spookyWalls: ArrayList<SpookyWall> = arrayListOf()
+
+    /**
+     * This holds the state that get's shared to Expressions.
+     * It can be used to transfer the progression in easing (0-1),
+     * the count (numbers of elements created)
+     * or a seeded Random Element
+     */
+    internal val structureState: StructureState = StructureState()
+
     /**
      * dont touch
      */

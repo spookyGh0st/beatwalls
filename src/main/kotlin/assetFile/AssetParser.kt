@@ -168,6 +168,13 @@ fun fillProperty(
     //todo add nullability check
     val returnType = property.returnType.withNullability(false)
 
+    // todo refactor default
+    // curently it does not allow easing
+    val ss = if (lastObject is WallStructure)
+        lastObject.structureState
+    else
+        StructureState()
+
     valueType = when (returnType) {
         typeOf<Boolean>() -> value.toBoolean()
         typeOf<Int>() -> value.toIntOrNull()
@@ -179,7 +186,10 @@ fun fillProperty(
         typeOf<RotationMode>() -> value.toRotationMode()
         typeOf<WallStructure>() -> value.toWallStructure(definedStructure)
         typeOf<List<WallStructure>>() -> value.toWallStructureList(definedStructure)
-        typeOf<BwDouble>() -> value.toBwDouble()
+        typeOf<BwDouble>()  -> bwDouble(value,ss)
+        typeOf<BwDouble?>() -> bwDoubleOrNull(value,ss)
+        typeOf<BwInt>()  -> bwInt(value,ss)
+        typeOf<BwInt?>() -> bwIntOrNull(value,ss)
         else -> errorExit { "Unknown type: $returnType" }
     }
 

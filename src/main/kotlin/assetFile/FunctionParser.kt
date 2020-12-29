@@ -1,7 +1,6 @@
 package assetFile
 
 import beatwalls.errorExit
-import structure.BwDouble
 import structure.Define
 import structure.EmptyWallStructure
 import structure.WallStructure
@@ -52,13 +51,6 @@ internal fun String.toBwFunction(): BwFunction {
 data class BwFunction(val name: String,val args: List<String> = emptyList())
 
 
-internal fun String.toBwDouble(): BwDouble{
-    val s = this.toLowerCase()
-    when {
-        s.toDoubleOrNull() != null -> return { _, _ -> this.toDouble() }
-        else -> errorExit { "Currently only direct values are allowed" }
-    }
-}
 
 internal fun String.toDoubleFunc(): Function<Double>? {
     val s = this.toLowerCase()

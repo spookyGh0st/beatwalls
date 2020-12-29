@@ -3,7 +3,6 @@ package structure.wallbender
 import org.junit.Test
 
 import org.junit.Assert.*
-import org.junit.Before
 import structure.RandomNoise
 import structure.Wall
 import structure.bwDouble

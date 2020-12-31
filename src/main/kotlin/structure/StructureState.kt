@@ -9,6 +9,6 @@ import kotlin.random.Random
 // It gets adjusted when looping through it's generated Elements
 data class StructureState(
     var progress: Double = 0.0,
-    var count: Int = 0,
+    var repeatCounter: Int = 0,
     var R:Random = Random
 )

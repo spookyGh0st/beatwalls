@@ -24,7 +24,7 @@ class Scanner(val source: String, val bw: Beatwalls, val file: File) {
             0 -> Unit
             1 -> scanTokenBlock(words[0])
             2 -> scanTokenPair(words[0], words[1])
-            else -> bw.error(currentLine, "Unexpected Character")
+            else -> bw.error(file, currentLine, "Unexpected Character")
         }
         currentLine++
     }
@@ -64,12 +64,12 @@ class Scanner(val source: String, val bw: Beatwalls, val file: File) {
                     name = w[1]
                 }
                 else -> {
-                    bw.error(currentLine, "Unexpected Identifiere")
+                    bw.error(file, currentLine, "Unexpected Identifiere")
                     return
                 }
             }
             else -> {
-                bw.error(currentLine, "Unexpected char")
+                bw.error(file, currentLine, "Unexpected char")
                 return
             }
         }
@@ -80,7 +80,21 @@ class Scanner(val source: String, val bw: Beatwalls, val file: File) {
 
     private fun scanTokenPair(k: String, v: String){
         val tp = TokenPair(k.trim(), v.trim(), file, currentLine)
-        tokenBlocks.last().properties.add(tp)
+        if (tp.k.toLowerCase() == "include"){
+            includeFile(tp.v)
+        }else{
+            tokenBlocks.last().properties.add(tp)
+        }
+    }
+
+    private fun includeFile(fileName: String){
+        val f = File(bw.options.workingDir,fileName)
+        try {
+            val s = Scanner(f.readText(), bw, f)
+            tokenBlocks.addAll(s.scan().filterNot { it.type == BlockType.Options })
+        }catch (e:Error){
+            bw.error(file, currentLine, "Could not include File. Have you made a type?")
+        }
     }
 }
 

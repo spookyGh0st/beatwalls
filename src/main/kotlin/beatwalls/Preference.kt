@@ -13,6 +13,13 @@ private const val ne = ""
 class Main
 val prefs: Preferences = Preferences.userNodeForPackage(Main::class.java)
 
+fun saveWorkingDirectory(wd: File) {
+    prefs.put("workingDirectory", wd.absolutePath)
+}
+fun readWorkingDirectory(): File {
+    return File(prefs.get("workingDirectory", ""))
+}
+
 fun savePath(path: File) {
     prefs.put("path", path.absolutePath)
 }

@@ -167,10 +167,6 @@ fun WallStructure.reset(){
      */
     speeder= WallStructure.speeder
 
-    /**
-     * how often you want to repeat the Structure.
-     */
-    repeat= WallStructure.repeat
 
     /**
      * how often you want to repeat the walls of the Structure. This copy pastes the walls, while (repeat) generates a new one.

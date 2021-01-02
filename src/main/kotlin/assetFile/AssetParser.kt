@@ -77,7 +77,7 @@ fun parseStructures(mutableList: MutableList<Pair<String, String>>): ArrayList<W
                 }
 
                 if (struct is WallStructure) {
-                    struct.beat = beat
+                    struct.beat = { beat }
                     list.add(struct)
                 }
 

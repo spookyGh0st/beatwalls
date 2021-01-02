@@ -6,7 +6,6 @@ import assetFile.BwDouble
 import assetFile.BwInt
 import structure.helperClasses.*
 import structure.specialStrucures.*
-import java.io.Serializable
 import kotlin.random.Random
 
 /*
@@ -29,22 +28,8 @@ To set them to a default single value use the functions below
 fun bwDouble(num: Number):BwDouble = { num.toDouble()}
 fun bwInt(num: Number):BwInt = { num.toInt()}
 
-sealed class WallStructure:Serializable
+sealed class WallStructure:Structure()
 {
-
-    /**
-     * This holds the state that get's shared to Expressions.
-     * It can be used to transfer the progression in easing (0-1),
-     * the count (numbers of elements created)
-     * or a seeded Random Element
-     */
-    internal val structureState: StructureState = StructureState()
-
-    /**
-     * dont touch
-     */
-    var beat: Double = 0.0
-
     /**
      * mirrors the SpookyWall. Default: 0. click me:
      *
@@ -238,7 +223,6 @@ sealed class WallStructure:Serializable
     /**
      * how often you want to repeat the Structure.
      */
-    var repeat: Int = Default.repeat
 
     /**
      * how often you want to repeat the walls of the Structure. This copy pastes the walls, while (repeat) generates a new one.
@@ -581,7 +565,7 @@ sealed class WallStructure:Serializable
     }
 
     /** generates the walls */
-    abstract fun generateWalls():List<SpookyWall>
+    abstract override fun generate():List<SpookyWall>
 
     /** returns the name of the structure */
     open fun name() = this::class.simpleName ?: throw ClassNotFoundException("class does not have a name")
@@ -645,7 +629,7 @@ sealed class WallStructure:Serializable
         result = 31 * result + (addStartRow?.hashCode() ?: 0)
         result = 31 * result + (addWidth?.hashCode() ?: 0)
         result = 31 * result + (scale?.hashCode() ?: 0)
-        result = 31 * result + repeat
+        result = 31 * result + repeat()
         result = 31 * result + repeatAddZ.hashCode()
         result = 31 * result + repeatAddX.hashCode()
         result = 31 * result + repeatAddY.hashCode()
@@ -656,7 +640,7 @@ sealed class WallStructure:Serializable
 /**
  * dont touch
  */
-object EmptyWallStructure:WallStructure() { override fun generateWalls() = emptyList<SpookyWall>() }
+object EmptyWallStructure:WallStructure() { override fun generate() = emptyList<SpookyWall>() }
 
 //   _____                 _       __   _       __      _________ __                  __
 //  / ___/____  ___  _____(_)___ _/ /  | |     / /___ _/ / / ___// /________  _______/ /___  __________  _____
@@ -665,6 +649,18 @@ object EmptyWallStructure:WallStructure() { override fun generateWalls() = empty
 ///____/ .___/\___/\___/_/\__,_/_/     |__/|__/\__,_/_/_//____/\__/_/   \__,_/\___/\__/\__,_/_/   \___/____/
 //    /_/
 
+/**
+ * Cannot be directly called, but instead must be called using the Define: Parameter
+ */
+class CustomWsStructure(
+    override val name: String,
+    override val superStructure: WallStructure,
+    override val structures: List<WallStructure>
+) : WallStructure(), CustomStructInterface{
+    override fun generate(): List<SpookyWall> {
+        return superStructure.generate() + structures.flatMap { it.generate() }
+    }
+}
 /**
  * Random Noise (small mini cubes)
  */
@@ -691,7 +687,7 @@ class RandomNoise:WallStructure(){
     /**
      * generating the Walls
      */
-    override fun generateWalls() = run()
+    override fun generate() = run()
 }
 
 /**
@@ -748,7 +744,7 @@ class FurryGrid : WallStructure() {
     /**
      * generating the Walls
      */
-    override fun generateWalls() = run()
+    override fun generate() = run()
 }
 
 /**
@@ -788,7 +784,7 @@ class RandomCuboidLines : WallStructure() {
     /**
      * generating the Walls
      */
-    override fun generateWalls() = run()
+    override fun generate() = run()
 }
 
 /**
@@ -823,7 +819,7 @@ class Curve : WallStructure() {
     /**
      * generating the Walls
      */
-    override fun generateWalls() = run()
+    override fun generate() = run()
 }
 
 /**
@@ -858,7 +854,7 @@ class SteadyCurve:WallStructure(){
     /**
      * generating the Walls
      */
-     override fun generateWalls()  = run() 
+     override fun generate()  = run()
 }
 
 /**
@@ -885,7 +881,7 @@ class Define: WallStructure() {
     /**
      * generating the Walls
      */
-    override fun generateWalls() = run()
+    override fun generate() = run()
 
     override fun name(): String {
         if (isTopLevel)
@@ -955,7 +951,7 @@ class RandomStructures: WallStructure() {
     /**
      * generating the Walls
      */
-    override fun generateWalls()  = run()
+    override fun generate()  = run()
 }
 
 /**
@@ -998,7 +994,7 @@ class Wall: WallStructure() {
     /**
      * generating the Walls
      */
-     override fun generateWalls()  = run() 
+     override fun generate()  = run()
 }
 
 /**
@@ -1039,7 +1035,7 @@ class Helix: WallStructure() {
     /**
      * generating the Walls
      */
-     override fun generateWalls()  = run() 
+     override fun generate()  = run()
 }
 
 class NoodleHelix: WallStructure(){
@@ -1084,7 +1080,7 @@ class NoodleHelix: WallStructure(){
     /**
      * generating the Walls
      */
-     override fun generateWalls()  = run() 
+     override fun generate()  = run()
 }
 
 /**
@@ -1105,7 +1101,7 @@ class Loop: WallStructure(){
      */
     var amount: Int = 8
 
-    override fun generateWalls() = run()
+    override fun generate() = run()
 }
 
 /**
@@ -1131,7 +1127,7 @@ class Line: WallStructure(){
     /**
      * generating the Walls
      */
-    override fun generateWalls() = run()
+    override fun generate() = run()
 }
 
 /**
@@ -1148,7 +1144,7 @@ class RandomBlocks: WallStructure(){
     /**
      * generating the Walls
      */
-     override fun generateWalls()  = run() 
+     override fun generate()  = run()
 }
 
 /**
@@ -1187,7 +1183,7 @@ class RandomCurve: WallStructure(){
     /**
      * generating the Walls
      */
-     override fun generateWalls()  = run() 
+     override fun generate()  = run()
 }
 
 /**
@@ -1231,7 +1227,7 @@ class HelixCurve: WallStructure() {
     /**
      * generating the Walls
      */
-     override fun generateWalls()  = run() 
+     override fun generate()  = run()
 }
 
 //                                               _                _      ____               _
@@ -1579,7 +1575,7 @@ class ContinuesCurve : WallStructure(){
      */
     var c32: Point? = null
 
-    override fun generateWalls(): List<SpookyWall> {
+    override fun generate(): List<SpookyWall> {
         val l = mutableListOf<SpookyWall>()
         for(i in 1 until creationAmount){
             val point = readPoint("p$i")
@@ -1944,6 +1940,6 @@ class ContinuousCurve : WallStructure(){
     /**
      * generating the Walls
      */
-     override fun generateWalls()  = run() 
+     override fun generate()  = run()
 }
 

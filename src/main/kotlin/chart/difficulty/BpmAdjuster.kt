@@ -34,7 +34,7 @@ class BpmAdjuster(diff: Difficulty) {
         val walls = w.generateBendAndRepeatWalls()
 
         // adjusts the neccesary values
-        walls.forEach { it.startTime += w.beat }
+        walls.forEach { it.startTime += w.beat() }
         walls.forEach { it.adjustToBPM() }
         walls.forEach { it.addOffset() }
 

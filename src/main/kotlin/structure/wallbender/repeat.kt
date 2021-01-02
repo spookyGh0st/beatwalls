@@ -32,8 +32,8 @@ fun WallStructure.repeatWalls(walls: List<SpookyWall>): List<SpookyWall> {
 
 fun WallStructure.repeatStruct(walls:List<SpookyWall>): List<SpookyWall>{
     val l = walls.toMutableList()
-    for(i in 1 until repeat){
-        var temp = this.generateWalls()
+    for(i in 1 until repeat()){
+        var temp = this.generate()
         temp = this.bendWalls(temp)
         temp = temp.mapIndexed { j, it ->
             val p = j.toDouble()/walls.size

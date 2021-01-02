@@ -5,8 +5,7 @@ import java.io.*
 
 
 // deepcopies the Wallstructure
-fun WallStructure.deepCopy(): WallStructure =
-    deepCopyBySer(this)
+fun WallStructure.deepCopy(): WallStructure = TODO()
 
 /**
  * workaround for deep copy

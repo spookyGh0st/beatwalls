@@ -18,7 +18,7 @@ fun RandomStructures.run(): MutableList<SpookyWall> {
     for(i in 0 until amount){
         for(w in structures){
             val t = w.generateBendAndRepeatWalls()
-            t.forEach { it.startTime += (w.beat) }
+            t.forEach { it.startTime += (w.beat()) }
             val rp = cc.random(avoidCenter)
             t.forEach { it.startRow += rp.x }
             t.forEach { it.startHeight += rp.y }

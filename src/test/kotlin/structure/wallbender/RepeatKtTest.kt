@@ -6,6 +6,7 @@ import org.junit.Assert.*
 import structure.RandomNoise
 import structure.Wall
 import structure.bwDouble
+import structure.bwInt
 import structure.helperClasses.SpookyWall
 import kotlin.random.Random
 
@@ -14,7 +15,7 @@ class RepeatKtTest {
     @Test
     fun repeatStaticWalls() {
         val ws = Wall()
-        ws.repeat = 2
+        ws.repeat = bwInt(2)
         ws.repeatWalls = 2
         ws.repeatAddStartTime = 1.0
         ws.repeatAddDuration = 1.0
@@ -44,8 +45,8 @@ class RepeatKtTest {
     fun repeatRandomWS() {
         val w = RandomNoise()
         w.repeatWalls = 2
-        w.repeat = 2
-        val wl = w.generateWalls()
+        w.repeat = bwInt(2)
+        val wl = w.generate()
         val l1 = w.repeatWalls(wl)
         val l2 = w.repeatStruct(wl)
         assertNotEquals(l1,l2)
@@ -57,9 +58,9 @@ class RepeatKtTest {
     fun repeatRandomAddWS() {
         val w = Wall()
         w.repeatWalls = 2
-        w.repeat = 2
+        w.repeat = bwInt(2)
         w.addDuration = { Random.nextDouble()}
-        val wl = w.generateWalls()
+        val wl = w.generate()
         val l1 = w.repeatWalls(wl)
         val l2 = w.repeatStruct(wl)
         assertNotEquals(l1,l2)

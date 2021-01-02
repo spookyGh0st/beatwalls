@@ -1,0 +1,35 @@
+# some global options
+modtype: ME
+clearNotes: true
+
+line: # now comes my cool line
+# and here is a comment
+
+     beat: 10
+     p1: 0,0,0
+
+default:
+  addStartRow: 5 / 23+random(0,13)
+  changeDuration: 2
+
+Interface     foo:
+  x: 5 / 23+random(0,13)
+  y: 2
+
+define IntroLine:
+  structures: line
+  p1: 10,0,0
+
+IntroLine:
+  beat: 20
+  p2: 20,0,8
+
+IntroLine:
+  beat: 20
+  p2: 30,0,8
+
+include: Start.bw
+
+start:
+  beat: 30
+  changeStartRow: 10

@@ -1,0 +1,11 @@
+define _start1:
+    structures: wall
+    addStartRow: 10
+
+define _start2:
+    structures: wall
+    addStartRow: 20
+
+define start:
+    structures: _start1, _start2
+    addStartRow: 10

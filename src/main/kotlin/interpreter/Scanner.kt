@@ -4,7 +4,7 @@ import java.io.File
 
 class Scanner(val source: String, val bw: Beatwalls, val file: File) {
     private val tokenBlocks = mutableListOf(TokenBlock(BlockType.Options,"global",file, 0))
-    private var currentLine = 0
+    private var currentLine = 1
     private val lines = source.lines()
 
     // mathces all comments

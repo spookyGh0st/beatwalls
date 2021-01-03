@@ -219,5 +219,5 @@ internal fun String.toWallStructureList(definedStructure: List<Define>): List<Wa
     return this
         .split(",")
         .map { it.trim() }
-        .map { val a = findStructure(it, definedStructure); if(a is WallStructure) a else EmptyWallStructure }
+        .map { val a = findStructure(it, definedStructure); if(a is WallStructure) a else EmptyWallStructure() }
 }

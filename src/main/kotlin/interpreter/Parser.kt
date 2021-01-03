@@ -95,7 +95,7 @@ class Parser(val blocks: List<TokenBlock>, val bw: Beatwalls) {
             val inh = facts[0]()
             val ws = when {
                 inh is WallStructure && strcts.all { it is WallStructure }  ->
-                    CustomWsStructure(name,inh, strcts as List<WallStructure>) // this is not unsave you bodo compiler
+                    CustomWallStructure(name,inh, strcts as List<WallStructure>) // this is not unsave you bodo compiler
                 inh is Lighstructure && strcts.all { it is Lighstructure }  ->
                     CustomLsStructure(name,inh, strcts as List<Lighstructure>) // this is not unsave you bodo compiler
                 else -> CustomStructure(name, inh, strcts)
@@ -138,7 +138,6 @@ class Parser(val blocks: List<TokenBlock>, val bw: Beatwalls) {
             typeOf<Boolean>() -> tp.v.toBoolean()
             typeOf<Int>() -> tp.v.toIntOrNull()
             typeOf<Double>()-> tp.v.toDoubleOrNull()
-            typeOf<()->Double>() -> tp.v.toDoubleFunc()
             typeOf<String>() -> tp.v
             typeOf<List<String>>() -> tp.v.toLowerCase().replace(" ","").split(',')
             typeOf<Point>() -> tp.v.toPoint()
@@ -148,7 +147,7 @@ class Parser(val blocks: List<TokenBlock>, val bw: Beatwalls) {
             typeOf<BwDouble?>() -> bwDoubleOrNull(tp.v,ss)
             typeOf<BwInt>()  -> bwInt(tp.v,ss)
             typeOf<BwInt?>() -> bwIntOrNull(tp.v,ss)
-            else -> errorExit { "Unknown type: ${p.returnType}" }
+            else -> bw.error(tp.file,tp.line, "Unknown type: ${p.returnType}")
         }
         writeProb(ws, p, value)
     }

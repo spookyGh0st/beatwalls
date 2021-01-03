@@ -51,163 +51,163 @@ sealed class WallStructure:Structure()
      *
      *  8-> mirror on the center and on the other side and duplicate all 4
      */
-    var mirror: Int = Default.mirror
+    var mirror: BwInt = bwInt(0)
 
     /**
      * The x Position used for mirror. Default: 0
      */
-    var mirrorX: Double = Default.mirrorX
+    var mirrorX: BwDouble = bwDouble(0)
 
     /**
-     * The x Position used for mirror. Default: 0
+     * The Y Position used for mirror. Default: 2
      */
-    var mirrorY: Double = Default.mirrorY
+    var mirrorY: BwDouble = bwDouble(2)
 
     /**
-     * times the SpookyWall by adding the njsOffset, default: true
+     * makes the Wall appear right on the beat by adding the njsOffset, default: true
      */
-    var time: Boolean = Default.time
-
-    /**
-     * change The StartTime of all Walls in the structure to the given Value. Random possible with random(min,max). Default: null
-     */
-    var changeStartTime: (() -> Double)? = Default.changeStartTime
-
-    /**
-     * change The Duration of all Walls in the structure to the given Value. Random possible with random(min,max). Default: null
-     */
-    var changeDuration: (() -> Double)? = Default.changeDuration
-
-    /**
-     * change The Height of all Walls in the structure to the given Value. Random possible with random(min,max). Default: null
-     */
-    var changeHeight: (() -> Double)? = Default.changeHeight
-
-    /**
-     * change The StartHeight of all Walls in the structure to the given Value. Random possible with random(min,max). Default: null
-     */
-    var changeStartHeight: (() -> Double)? = Default.changeStartHeight
+    var time: Boolean = true
 
     /**
      * change The StartRow of all Walls in the structure to the given Value. Random possible with random(min,max). Default: null
      */
-    var changeStartRow: (() -> Double)? = Default.changeStartRow
+    var changeX: BwDouble? = null
 
     /**
      * change the Width of all Walls in the structure to the given Value. Random possible with random(min,max). Default: null
      */
-    var changeWidth: (() -> Double)? = Default.changeWidth
+    var changeWidth: BwDouble? = null
 
     /**
-     * multiplies the StartTime of all Walls in the structure by the given Value. Random possible with random(min,max). Default: null (does nothing)
+     * change The StartHeight of all Walls in the structure to the given Value. Random possible with random(min,max). Default: null
      */
-    var scaleStartTime: (() -> Double)? = Default.scaleStartTime
+    var changeY: BwDouble? = null
 
     /**
-     * multiplies the Duration of all Walls in the structure by the given Value. Random possible with random(min,max). Default: null (does nothing)
+     * change The Height of all Walls in the structure to the given Value. Random possible with random(min,max). Default: null
      */
-    var scaleDuration: (() -> Double)? = Default.scaleDuration
+    var changeHeight: BwDouble? = null
 
     /**
-     * multiplies the Height of all Walls in the structure by the given Value. Random possible with random(min,max). Default: null (does nothing)
+     * change The StartTime of all Walls in the structure to the given Value. Random possible with random(min,max). Default: null
      */
-    var scaleHeight: (() -> Double)? = Default.scaleHeight
+    var changeZ: BwDouble? = null
 
     /**
-     * multiplies the StartHeight of all Walls in the structure by the given Value. Random possible with random(min,max). Default: null (does nothing)
+     * change The Duration of all Walls in the structure to the given Value. Random possible with random(min,max). Default: null
      */
-    var scaleStartHeight: (() -> Double)? = Default.scaleStartHeight
+    var changeDuration: BwDouble? = null
 
     /**
      * multiplies the StartRow of all Walls in the structure by the given Value. Random possible with random(min,max). Default: null (does nothing)
      */
-    var scaleStartRow: (() -> Double)? = Default.scaleStartRow
+    var scaleX: BwDouble = bwDouble(1)
 
     /**
      * multiplies the Width of all Walls in the structure by the given Value. Random possible with random(min,max). Default: null (does nothing)
      */
-    var scaleWidth: (() -> Double)? = Default.scaleWidth
+    var scaleWidth: BwDouble = bwDouble(1)
+
+    /**
+     * multiplies the StartHeight of all Walls in the structure by the given Value. Random possible with random(min,max). Default: null (does nothing)
+     */
+    var scaleY: BwDouble = bwDouble(1)
+
+    /**
+     * multiplies the Height of all Walls in the structure by the given Value. Random possible with random(min,max). Default: null (does nothing)
+     */
+    var scaleHeight: BwDouble = bwDouble(1)
+
+    /**
+     * multiplies the StartTime of all Walls in the structure by the given Value. Random possible with random(min,max). Default: null (does nothing)
+     */
+    var scaleZ: BwDouble = bwDouble(1)
+
+    /**
+     * multiplies the Duration of all Walls in the structure by the given Value. Random possible with random(min,max). Default: null (does nothing)
+     */
+    var scaleDuration: BwDouble = bwDouble(1)
 
     /**
      * adds the given Value. Random possible with random(min,max). Default: null (does nothing)
      */
-    var addStartTime: (() -> Double)? = Default.addStartTime
+    var addX: BwDouble = bwDouble(0)
 
     /**
      * adds the given Value. Random possible with random(min,max). Default: null (does nothing)
      */
-    var addDuration: (() -> Double)? = Default.addDuration
+    var addWidth: BwDouble = bwDouble(0)
 
     /**
      * adds the given Value. Random possible with random(min,max). Default: null (does nothing)
      */
-    var addHeight: (() -> Double)? = Default.addHeight
+    var addY: BwDouble = bwDouble(0)
 
     /**
      * adds the given Value. Random possible with random(min,max). Default: null (does nothing)
      */
-    var addStartHeight: (() -> Double)? = Default.addStartHeight
+    var addHeight: BwDouble = bwDouble(0)
 
     /**
      * adds the given Value. Random possible with random(min,max). Default: null (does nothing)
      */
-    var addStartRow: (() -> Double)? = Default.addStartRow
+    var addZ: BwDouble = bwDouble(0)
 
     /**
      * adds the given Value. Random possible with random(min,max). Default: null (does nothing)
      */
-    var addWidth: (() -> Double)? = Default.addWidth
-
-    /**
-     * increases or decreases the duration of all walls until they have the the specific startTime. Random possible with random(min,max). default: null (does nothing)
-     */
-    var fitStartTime: (() -> Double)? = Default.fitStartTime
-
-    /**
-     * increases or decreases the StartTime of all walls until they have the the specific duration. Random possible with random(min,max). default: null (does nothing)
-     */
-    var fitDuration: (() -> Double)? = Default.fitDuration
-
-    /**
-     * increases or decreases the StartHeight of all walls until they have the the specific Height. Random possible with random(min,max). default: null (does nothing)
-     */
-    var fitHeight: (() -> Double)? = Default.fitHeight
-
-    /**
-     * increases or decreases the height of all walls until they have the the specific startHeight. Random possible with random(min,max). default: null (does nothing)
-     */
-    var fitStartHeight: (() -> Double)? = Default.fitStartHeight
+    var addDuration: BwDouble = bwDouble(0)
 
     /**
      * increases or decreases the width of all walls until they have the the specific startTime. Random possible with random(min,max). default: null (does nothing)
      */
-    var fitStartRow: (() -> Double)? = Default.fitStartRow
+    var fitX: BwDouble? = null
 
     /**
      * increases or decreases the StartRow of all walls until they have the the specific Width. Random possible with random(min,max). default: null (does nothing)
      */
-    var fitWidth: (() -> Double)? = Default.fitWidth
+    var fitWidth: BwDouble? = null
+
+    /**
+     * increases or decreases the height of all walls until they have the the specific startHeight. Random possible with random(min,max). default: null (does nothing)
+     */
+    var fitY: BwDouble? = null
+
+    /**
+     * increases or decreases the StartHeight of all walls until they have the the specific Height. Random possible with random(min,max). default: null (does nothing)
+     */
+    var fitHeight: BwDouble? = null
+
+    /**
+     * increases or decreases the duration of all walls until they have the the specific startTime. Random possible with random(min,max). default: null (does nothing)
+     */
+    var fitZ: BwDouble? = null
+
+    /**
+     * increases or decreases the StartTime of all walls until they have the the specific duration. Random possible with random(min,max). default: null (does nothing)
+     */
+    var fitDuration: BwDouble? = null
 
     /**
      * scales the Duration and startTime, (duration only for positive duration).
      * This is useful for making a structure, that is one beat long longer or shorter
      */
-    var scale: Double? = Default.scale
+    var scale: BwDouble? = null
 
     /**
-     * reverses the WallStructure on the Starttime/duration
+     * reverses the WallStructure on the Starttime/duration. Default: false
      */
-    var reverse: Boolean = Default.reverse
+    var reverse: Boolean = false
+
+    /**
+     * basically mirrors the Wallstructure in itself on the x-Achsis if set to true.
+     */
+    var reverseX: Boolean = false
 
     /**
      * basically mirrors the Wallstructure in itself on the x-Achsis if set to true
      */
-    var reverseX: Boolean = Default.reverseX
-
-    /**
-     * basically mirrors the Wallstructure in itself on the x-Achsis if set to true
-     */
-    var reverseY: Boolean = Default.reverseY
+    var reverseY: Boolean = false
 
     /**
      * speeds up the wallstructure over time. the duration of the whole structure. Remains. \n
@@ -218,64 +218,7 @@ sealed class WallStructure:Structure()
      *
      * The closer the value is to 1, the more stale it gets.
      */
-    var speeder: Double? = Default.speeder
-
-    /**
-     * how often you want to repeat the Structure.
-     */
-
-    /**
-     * how often you want to repeat the walls of the Structure. This copy pastes the walls, while (repeat) generates a new one.
-     */
-    var repeatWalls: Int = Default.repeatWalls
-
-    /**
-     * The Gap between each Repeat. Default: 0
-     */
-    var repeatAddZ: BwDouble = Default.repeatAddZ
-
-    /**
-     * shifts each repeat in x. Default: 0
-     */
-    var repeatAddX: Double = Default.repeatAddX
-
-    /**
-     * shifts each repeated Structure in y. Default: 0
-     */
-    var repeatAddY: Double = Default.repeatAddY
-
-    /**
-     * adds this value to the Duration to each repeated Structure
-     */
-    var repeatAddDuration: Double = Default.repeatAddDuration
-
-    /**
-     * adds this value to the Height to each repeated Structure
-     */
-    var repeatAddHeight: Double = Default.repeatAddHeight
-
-    /**
-     * adds this value to the Width to each repeated Structure
-     */
-    var repeatAddWidth: Double = Default.repeatAddWidth
-
-    /**
-     * adds this value to the StartRow to each repeated Structure
-     */
-    var repeatAddStartRow: Double = Default.repeatAddStartRow
-
-    /**
-     * adds this value to the StartHeight to each repeated Structure
-     */
-    var repeatAddStartHeight: Double = Default.repeatAddStartHeight
-    /**
-     * adds this value to the StartTime to each repeated Structure
-     */
-    var repeatAddStartTime: Double = Default.repeatAddStartTime
-    /**
-     * adds this value to the rotation to each repeated Structure
-     */
-    var repeatAddRotation: Double = Default.repeatAddRotation
+    var speeder: BwDouble? = null
 
     /**
      * The Color of the Wallstructure. Click me to see examples
@@ -306,7 +249,7 @@ sealed class WallStructure:Structure()
      * # gradient from Red to Furry (Cyan))
      *
      */
-    var color: ColorMode = Default.color
+    var color: ColorMode = NoColor
 
     /**
      * The rotation of the wallstructure around the player, think 360 maps. click me.
@@ -341,7 +284,7 @@ sealed class WallStructure:Structure()
      *
      *  Other interesting Properties: mirrorRotation -> controls if mirror also effects the rotation(true,false)
      */
-    var rotation: RotationMode = Default.rotation
+    var rotation: RotationMode = NoRotation
 
     /**
      * The rotation of the wallstructure around the player, think 360 maps around the X Achsis.
@@ -374,7 +317,7 @@ sealed class WallStructure:Structure()
      *
      *  Other interesting Properties: mirrorRotation -> controls if mirror also effects the rotation(true,false)
      */
-    var rotationX: RotationMode = Default.rotation
+    var rotationX: RotationMode = NoRotation
 
     /**
      * The rotation of the wallstructure around the player, think 360 maps around the X Achsis.
@@ -407,7 +350,7 @@ sealed class WallStructure:Structure()
      *
      *  Other interesting Properties: mirrorRotation -> controls if mirror also effects the rotation(true,false)
      */
-    var rotationY: RotationMode = Default.rotation
+    var rotationY: RotationMode = NoRotation
 
     /**
      * The rotation of the wallstructure around the player, think 360 maps around the X Achsis.
@@ -440,12 +383,12 @@ sealed class WallStructure:Structure()
      *
      *  Other interesting Properties: mirrorRotation -> controls if mirror also effects the rotation(true,false)
      */
-    var rotationZ: RotationMode = Default.rotation
+    var rotationZ: RotationMode = NoRotation
 
     /**
      * Defines, if mirror also effects the rotation. Can be true or false. Default: true
      */
-    var mirrorRotation: Boolean = Default.mirrorRotation
+    var mirrorRotation: Boolean = true
 
     /**
      * localRotX controls the rotation on the x-axis for each individual wall in degree. allows random. Default: 0
@@ -457,7 +400,7 @@ sealed class WallStructure:Structure()
      *  localRotX: random(-20,20) # rotates each wall on the x axis randomnly between -20 and 20.
      *  ```
      */
-    var localRotX: RotationMode = Default.localRotX
+    var localRotX: RotationMode = NoRotation
 
     /**
      * localRotY controls the rotation on the y-axis for each individual Wall in degree. allows random. Default: 0
@@ -469,7 +412,7 @@ sealed class WallStructure:Structure()
      *  localRotY: random(-20,20) # rotates each wall on the x axis randomnly between -20 and 20.
      *  ```
      */
-    var localRotY: RotationMode = Default.localRotY
+    var localRotY: RotationMode = NoRotation
     /**
      * * localRotZ controls the rotation on the x-axis for each individual Wall in degree. allows random. Default: 0
     *
@@ -480,167 +423,45 @@ sealed class WallStructure:Structure()
     *  localRotZ: random(-20,20) # rotates each wall on the x axis randomnly between -20 and 20.
      *  ```
     */
-    var localRotZ: RotationMode = Default.localRotZ
+    var localRotZ: RotationMode = NoRotation
 
     /**
      * some Wallstructures use Random walls. This is the seed for them
      */
-    var seed: Int? = Default.seed
+    var seed: BwInt? = null
 
     /**
-     * used for some internal stuff, dont touch
+     * Assign all Walls in this Wallstructure to a specific Track
      */
-    var track: String? = Default.track
+    var track: String? = null
 
     /**
      * turns the entire WallStructure into bombs. only available, if deleteAllPrevious is set.
      */
-    var bombs: Boolean = Default.bombs
+    var bombs: Boolean = false
+
+    /**
+     * changes the NJMS of a single specific wall.
+     * This wil change the speed a wall will have
+     */
+    var noteJumpMovementSpeed: BwDouble? = null
 
     /**
      * I have no idea, ask cyan
      */
-    var noteJumpMovementSpeed: (() -> Double)? = null
-
-    /**
-     * I have no idea, ask cyan
-     */
-    var noteJumpMovementSpeedOffset: (() -> Double)? = null
-
-    companion object Default {
-        var mirror: Int = 0
-        var mirrorX: Double = 0.0
-        var mirrorY: Double = 2.0
-        var time: Boolean = true
-        var changeStartTime: (() -> Double)? = null
-        var changeDuration: (() -> Double)? = null
-        var changeHeight: (() -> Double)? = null
-        var changeStartHeight: (() -> Double)? = null
-        var changeStartRow: (() -> Double)? = null
-        var changeWidth: (() -> Double)? = null
-        var scaleStartTime: (() -> Double)? = null
-        var scaleDuration: (() -> Double)? = null
-        var scaleHeight: (() -> Double)? = null
-        var scaleStartHeight: (() -> Double)? = null
-        var scaleStartRow: (() -> Double)? = null
-        var scaleWidth: (() -> Double)? = null
-        var addStartTime: (() -> Double)? = null
-        var addDuration: (() -> Double)? = null
-        var addHeight: (() -> Double)? = null
-        var addStartHeight: (() -> Double)? = null
-        var addStartRow: (() -> Double)? = null
-        var addWidth: (() -> Double)? = null
-        var fitStartTime: (() -> Double)? = null
-        var fitDuration: (() -> Double)? = null
-        var fitHeight: (() -> Double)? = null
-        var fitStartHeight: (() -> Double)? = null
-        var fitStartRow: (() -> Double)? = null
-        var fitWidth: (() -> Double)? = null
-        var scale: Double? = null
-        var reverse: Boolean = false
-        var reverseX: Boolean = false
-        var reverseY: Boolean = false
-        var speeder: Double? = null
-        var repeat: Int = 1
-        var repeatWalls: Int = 1
-        var repeatAddZ: BwDouble = bwDouble(0)
-        var repeatAddX: Double = 0.0
-        var repeatAddY: Double = 0.0
-        var repeatAddWidth: Double = 0.0
-        var repeatAddStartRow: Double = 0.0
-        var repeatAddStartHeight: Double = 0.0
-        var repeatAddHeight: Double = 0.0
-        var repeatAddStartTime: Double = 0.0
-        var repeatAddDuration: Double = 0.0
-        var repeatAddRotation: Double = 0.0
-        var color: ColorMode = NoColor
-        var rotation: RotationMode = NoRotation
-        var mirrorRotation: Boolean = true
-        var localRotX : RotationMode = NoRotation
-        var localRotY : RotationMode = NoRotation
-        var localRotZ : RotationMode = NoRotation
-        var seed: Int? = null
-        var track: String? = null
-        var bombs: Boolean = false
-    }
+    var noteJumpMovementSpeedOffset: BwDouble? = null
 
     /** generates the walls */
     abstract override fun generate():List<SpookyWall>
 
     /** returns the name of the structure */
     open fun name() = this::class.simpleName ?: throw ClassNotFoundException("class does not have a name")
-
-    override fun equals(other: Any?): Boolean {
-        if (this === other) return true
-        if (javaClass != other?.javaClass) return false
-
-        other as WallStructure
-
-        if (beat != other.beat) return false
-        if (mirror != other.mirror) return false
-        if (time != other.time) return false
-        if (changeStartTime != other.changeStartTime) return false
-        if (changeDuration != other.changeDuration) return false
-        if (changeHeight != other.changeHeight) return false
-        if (changeStartHeight != other.changeStartHeight) return false
-        if (changeStartRow != other.changeStartRow) return false
-        if (changeWidth != other.changeWidth) return false
-        if (scaleStartTime != other.scaleStartTime) return false
-        if (scaleDuration != other.scaleDuration) return false
-        if (scaleHeight != other.scaleHeight) return false
-        if (scaleStartHeight != other.scaleStartHeight) return false
-        if (scaleStartRow != other.scaleStartRow) return false
-        if (scaleWidth != other.scaleWidth) return false
-        if (addStartTime != other.addStartTime) return false
-        if (addDuration != other.addDuration) return false
-        if (addHeight != other.addHeight) return false
-        if (addStartHeight != other.addStartHeight) return false
-        if (addStartRow != other.addStartRow) return false
-        if (addWidth != other.addWidth) return false
-        if (scale != other.scale) return false
-        if (repeat != other.repeat) return false
-        if (repeatAddZ != other.repeatAddZ) return false
-        if (repeatAddX != other.repeatAddX) return false
-        if (repeatAddY != other.repeatAddY) return false
-
-        return true
-    }
-
-    override fun hashCode(): Int {
-        var result = beat.hashCode()
-        result = 31 * result + mirror
-        result = 31 * result + time.hashCode()
-        result = 31 * result + (changeStartTime?.hashCode() ?: 0)
-        result = 31 * result + (changeDuration?.hashCode() ?: 0)
-        result = 31 * result + (changeHeight?.hashCode() ?: 0)
-        result = 31 * result + (changeStartHeight?.hashCode() ?: 0)
-        result = 31 * result + (changeStartRow?.hashCode() ?: 0)
-        result = 31 * result + (changeWidth?.hashCode() ?: 0)
-        result = 31 * result + (scaleStartTime?.hashCode() ?: 0)
-        result = 31 * result + (scaleDuration?.hashCode() ?: 0)
-        result = 31 * result + (scaleHeight?.hashCode() ?: 0)
-        result = 31 * result + (scaleStartHeight?.hashCode() ?: 0)
-        result = 31 * result + (scaleStartRow?.hashCode() ?: 0)
-        result = 31 * result + (scaleWidth?.hashCode() ?: 0)
-        result = 31 * result + (addStartTime?.hashCode() ?: 0)
-        result = 31 * result + (addDuration?.hashCode() ?: 0)
-        result = 31 * result + (addHeight?.hashCode() ?: 0)
-        result = 31 * result + (addStartHeight?.hashCode() ?: 0)
-        result = 31 * result + (addStartRow?.hashCode() ?: 0)
-        result = 31 * result + (addWidth?.hashCode() ?: 0)
-        result = 31 * result + (scale?.hashCode() ?: 0)
-        result = 31 * result + repeat()
-        result = 31 * result + repeatAddZ.hashCode()
-        result = 31 * result + repeatAddX.hashCode()
-        result = 31 * result + repeatAddY.hashCode()
-        return result
-    }
 }
 
 /**
  * dont touch
  */
-object EmptyWallStructure:WallStructure() { override fun generate() = emptyList<SpookyWall>() }
+class EmptyWallStructure:WallStructure() { override fun generate() = emptyList<SpookyWall>() }
 
 //   _____                 _       __   _       __      _________ __                  __
 //  / ___/____  ___  _____(_)___ _/ /  | |     / /___ _/ / / ___// /________  _______/ /___  __________  _____
@@ -652,7 +473,7 @@ object EmptyWallStructure:WallStructure() { override fun generate() = emptyList<
 /**
  * Cannot be directly called, but instead must be called using the Define: Parameter
  */
-class CustomWsStructure(
+class CustomWallStructure(
     override val name: String,
     override val superStructure: WallStructure,
     override val structures: List<WallStructure>
@@ -1056,7 +877,7 @@ class NoodleHelix: WallStructure(){
     /**
      *  the amount of walls created. Default: 8*scale
      */
-    var amount = 8*(scale?:1.0).toInt()
+    var amount = 8*(scale?.invoke()?:1).toInt()
 
     /**
      * spins every wall additionally this amount

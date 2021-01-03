@@ -9,7 +9,7 @@ line: # now comes my cool line
      p1: 0,0,0
 
 default:
-  addStartRow: 5 / 23+random(0,13)
+  addX: 5 / 23+random(0,13)
   changeDuration: 2
 
 Interface     foo:
@@ -32,4 +32,4 @@ include: Start.bw
 
 start:
   beat: 30
-  changeStartRow: 10
+  changeX: 10

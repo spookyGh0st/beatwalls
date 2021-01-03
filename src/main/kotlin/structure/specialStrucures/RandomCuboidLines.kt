@@ -11,7 +11,7 @@ fun RandomCuboidLines.run(): List<SpookyWall> {
     val l= mutableListOf<SpookyWall>()
     val c = CuboidConstrains(p1, p2)
     val trueCount = count ?: c.duration.roundToInt()
-    val r = Random(seed?: Random.nextInt())
+    val r = Random(seed?.invoke()?: Random.nextInt())
     repeat(trueCount) {
         val z1 = c.sz + it.toDouble() / trueCount * c.duration
         val z2 = z1 + 1.0 / trueCount * c.duration

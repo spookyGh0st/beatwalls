@@ -44,7 +44,7 @@ fun parseAsset(s: String): ArrayList<WallStructure> {
 fun parseStructures(mutableList: MutableList<Pair<String, String>>): ArrayList<WallStructure>{
     val list = arrayListOf<WallStructure>()
 
-    var lastStruct: Any = EmptyWallStructure
+    var lastStruct: Any = EmptyWallStructure()
     val definedStructures = mutableListOf<Define>()
 
     for (i in 0 until mutableList.size) {
@@ -105,7 +105,6 @@ fun findStructure(name: String, definedStructure: List<Define>): Any {
     struct = when (structName) {
         in definedStructureNames -> findDefinedStruct(structName,definedStructure)
         in specialStructsNames -> findSpecialStruct(structName,specialStructs)
-        "default" -> WallStructure.Default
         else -> {
             errorExit { "structure $structName not found" }
         }
@@ -157,7 +156,7 @@ fun findProperty(lastObject: Any, key:String): KProperty1<out Any, Any?>? {
 
 }
 
-@UseExperimental(ExperimentalStdlibApi::class)
+@OptIn(ExperimentalStdlibApi::class)
 fun fillProperty(
     property: KProperty1<out Any, Any?>,
     value: String,
@@ -179,6 +178,10 @@ fun fillProperty(
         typeOf<Boolean>() -> value.toBoolean()
         typeOf<Int>() -> value.toIntOrNull()
         typeOf<Double>()-> value.toDoubleOrNull()
+        typeOf<BwDouble>()  -> bwDouble(value,ss)
+        typeOf<BwDouble?>() -> bwDoubleOrNull(value,ss)
+        typeOf<BwInt>()  -> bwInt(value,ss)
+        typeOf<BwInt?>() -> bwIntOrNull(value,ss)
         typeOf<()->Double>() -> value.toDoubleFunc()
         typeOf<String>() -> value
         typeOf<Point>() -> value.toPoint()
@@ -186,10 +189,6 @@ fun fillProperty(
         typeOf<RotationMode>() -> value.toRotationMode()
         typeOf<WallStructure>() -> value.toWallStructure(definedStructure)
         typeOf<List<WallStructure>>() -> value.toWallStructureList(definedStructure)
-        typeOf<BwDouble>()  -> bwDouble(value,ss)
-        typeOf<BwDouble?>() -> bwDoubleOrNull(value,ss)
-        typeOf<BwInt>()  -> bwInt(value,ss)
-        typeOf<BwInt?>() -> bwIntOrNull(value,ss)
         else -> errorExit { "Unknown type: $returnType" }
     }
 

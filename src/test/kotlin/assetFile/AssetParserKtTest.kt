@@ -13,29 +13,6 @@ class AssetParserKtTest : TestCase() {
 
     fun testParseAsset() {}
 
-    fun testParseStructures() {
-        val mutList = mutableListOf(
-            "0.0" to "default",
-            "changeDuration" to "-3",
-            "Define" to "hallo",
-            "beat" to "4.5",
-            "0.0" to "hallo",
-            "10" to "Wall",
-            "randomSeed" to "10",
-            "0.0" to "default",
-            "changeDuration" to "null"
-        )
-        val list = parseStructures(mutList)
-        assertTrue(list.first() is Define)
-        list.first() as Define
-        assertEquals((list.first() as Define).structures.first().beat, 4.5)
-        assertTrue(list[1] is Wall)
-        list[1] as Wall
-        val r = Random(10)
-        repeat(10) {
-            assertEquals(RandomSeed.nextDouble(), r.nextDouble())
-        }
-    }
 
     fun testFindStructure() {}
 

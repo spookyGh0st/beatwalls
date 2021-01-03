@@ -9,7 +9,7 @@ import kotlin.random.Random
 
 fun RandomCurve.run(): List<SpookyWall> {
     val l= mutableListOf<SpookyWall>()
-    val r = Random(seed?: Random.nextInt())
+    val r = Random(seed?.invoke()?: Random.nextInt())
     val mult: Double
     if((p2.z-p1.z) < 1){
         mult = 1 / (p2.z-p1.z)

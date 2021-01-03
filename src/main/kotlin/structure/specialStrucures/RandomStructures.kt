@@ -14,7 +14,7 @@ fun RandomStructures.run(): MutableList<SpookyWall> {
     }
     val l= mutableListOf<SpookyWall>()
 
-    val cc = CuboidConstrains(p1,p2,seed?: Random.nextInt())
+    val cc = CuboidConstrains(p1,p2,seed?.invoke()?: Random.nextInt())
     for(i in 0 until amount){
         for(w in structures){
             val t = w.generateBendAndRepeatWalls()

@@ -5,7 +5,7 @@ import structure.WallStructure
 import structure.helperClasses.SpookyWall
 
 fun WallStructure.mirror(l: List<SpookyWall>) =
-    when(mirror){
+    when(mirror()){
         0-> l
         1-> mirrorX(l)
         2-> l + mirrorX(l)
@@ -21,7 +21,7 @@ fun WallStructure.mirror(l: List<SpookyWall>) =
 internal fun WallStructure.mirrorX(list: List<SpookyWall>) =
     list.map { wall ->
         wall.copy(
-        startRow = 2*mirrorX-wall.startRow,
+        startRow = 2*mirrorX()-wall.startRow,
         width = -wall.width,
         rotation = if(mirrorRotation) -wall.rotation else wall.rotation,
         rotationY = if(mirrorRotation) -wall.rotationY else wall.rotationY,
@@ -35,6 +35,6 @@ internal fun WallStructure.mirrorX(list: List<SpookyWall>) =
 
 internal fun WallStructure.mirrorY(list: List<SpookyWall>) =
     list.map { it.copy(
-        startHeight = 2*mirrorY-it.startHeight,
+        startHeight = 2*mirrorY()-it.startHeight,
         height = -it.height
     ) }

@@ -4,7 +4,7 @@ import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse
 import org.junit.Before
 import org.junit.Test
-import structure.CustomWsStructure
+import structure.CustomWallStructure
 import structure.Line
 import structure.Structure
 import structure.helperClasses.Point
@@ -92,8 +92,8 @@ class FullTest {
     fun `Test if the Properties have been set correctly`(){
         val t = listOf<Pair<(Structure)-> Any, Any>>(
             {ws:Structure -> ws.beat()} to 10.0,
-            {ws:Structure -> ws as CustomWsStructure; (ws.superStructure as Line).p2} to Point(20,0,8),
-            {ws:Structure -> ws as CustomWsStructure; (ws.superStructure as Line).p2} to Point(30,0,8),
+            {ws:Structure -> ws as CustomWallStructure; (ws.superStructure as Line).p2} to Point(20,0,8),
+            {ws:Structure -> ws as CustomWallStructure; (ws.superStructure as Line).p2} to Point(30,0,8),
             {ws:Structure -> ws.beat()} to 30.0,
         )
         for ((i, element) in t.withIndex()){

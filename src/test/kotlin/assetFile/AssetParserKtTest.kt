@@ -55,12 +55,9 @@ class AssetParserKtTest : TestCase() {
         repeat(100) {
             assert(w.changeDuration!!.invoke() in -2.0..-1.0)
         }
-        RandomSeed = Random(10)
-        val r = Random(10)
-        fillProperty(p, "random(0,1)", listOf(), w)
-        repeat(100) {
-            assertEquals(w.changeDuration!!(), r.nextDouble(0.0, 1.0))
-        }
+    }
+    fun testSeededRandomPropertyy() {
+        TODO()
     }
 
     fun testPointProperty() {

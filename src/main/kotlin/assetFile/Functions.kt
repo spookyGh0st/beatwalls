@@ -35,7 +35,8 @@ fun allFunctions(ss: StructureState) = listOf(
     EaseInOutElastic(ss),
     EaseInBounce(ss),
     EaseOutBounce(ss),
-    EaseInOutBounce(ss)
+    EaseInOutBounce(ss),
+    Random(ss)
 )
 
 class Random(val ss: StructureState) : Function("random", 2 ) {

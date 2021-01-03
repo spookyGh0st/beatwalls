@@ -56,7 +56,8 @@ class Parser(val blocks: List<TokenBlock>, val bw: Beatwalls) {
     fun parseInterface(){
         val p = currentBlock.properties
         val i = { s: Structure ->
-            p.forEach { parseProperty(s, it) }
+            val sp = ExpressionParser(s, bw)
+            p.forEach { sp.parse(it) }
         }
         interfaces[currentBlock.name.toLowerCase()] = i
     }
@@ -120,36 +121,12 @@ class Parser(val blocks: List<TokenBlock>, val bw: Beatwalls) {
 
     fun parseStructureProperties(struct: Structure, properties: List<TokenPair>){
         for (tp in properties){
-            parseProperty(struct, tp)
+            val sp = ExpressionParser(struct, bw)
+            sp.parse(tp)
         }
         for (i in struct.interfaces + "default"){
             interfaces[i]?.invoke(struct)?: error("Interface $i does not exist")
         }
-    }
-
-    @OptIn(ExperimentalStdlibApi::class)
-    fun parseProperty(ws: Structure, tp: TokenPair){
-        val p: KProperty1<out Structure, *>? = property(ws, tp.k)
-        if (p == null && ws is CustomStructInterface) return parseProperty(ws.superStructure,tp)
-        if (p == null){ bw.error(tp.file, tp.line, "Property ${tp.k} does not exist"); return }
-
-        val ss = ws.structureState
-        val value: Any? = when (p.returnType) {
-            typeOf<Boolean>() -> tp.v.toBoolean()
-            typeOf<Int>() -> tp.v.toIntOrNull()
-            typeOf<Double>()-> tp.v.toDoubleOrNull()
-            typeOf<String>() -> tp.v
-            typeOf<List<String>>() -> tp.v.toLowerCase().replace(" ","").split(',')
-            typeOf<Point>() -> tp.v.toPoint()
-            typeOf<ColorMode>() -> tp.v.toColorMode()
-            typeOf<RotationMode>() -> tp.v.toRotationMode()
-            typeOf<BwDouble>()  -> bwDouble(tp.v,ss)
-            typeOf<BwDouble?>() -> bwDoubleOrNull(tp.v,ss)
-            typeOf<BwInt>()  -> bwInt(tp.v,ss)
-            typeOf<BwInt?>() -> bwIntOrNull(tp.v,ss)
-            else -> bw.error(tp.file,tp.line, "Unknown type: ${p.returnType}")
-        }
-        writeProb(ws, p, value)
     }
 
     // From here once there shall be dragons
@@ -195,22 +172,5 @@ class Parser(val blocks: List<TokenBlock>, val bw: Beatwalls) {
 
     private fun error(message: String){
         bw.error(currentBlock.file, currentBlock.line, message)
-    }
-
-    // wrapper of the property functions
-    // has the define-logic of WallStructures
-    private fun writeProb(struct: Structure, p: KProperty1<out Structure, *>, value: Any?) {
-        when (p) {
-            !is KMutableProperty<*> -> error("Property is is not mutable")
-            else -> p.setter.call(struct, value)
-        }
-    }
-
-    // gets the property of a Structure of a given name
-    private fun property(struct: Structure, name: String): KProperty1<out Structure, *>? {
-        val props = struct::class.memberProperties
-        val p = props.find { it.name.equals(name, ignoreCase = true) }?: return null
-        p.isAccessible = true
-        return p
     }
 }

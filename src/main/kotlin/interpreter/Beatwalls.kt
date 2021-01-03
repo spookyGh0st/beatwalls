@@ -2,9 +2,9 @@ package interpreter
 
 import java.io.File
 
-class Beatwalls {
+class Beatwalls(workingDirectory: File) {
     var hadError = false
-    val options = Options()
+    val options = Options(workingDirectory)
 
     fun run(f: File){
         val s = Scanner(f.readText(), this, f)

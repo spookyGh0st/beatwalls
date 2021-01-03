@@ -20,8 +20,7 @@ class FullTest {
         val uri = this::class.java.getResource("/map").toURI()
         val wd = File(uri)
         val mainFile = File(wd,"main.bw")
-        val bw = Beatwalls()
-        bw.options.workingDir = wd
+        val bw = Beatwalls(wd)
 
         val s = Scanner(mainFile.readText(), bw, mainFile)
         blocks = s.scan()

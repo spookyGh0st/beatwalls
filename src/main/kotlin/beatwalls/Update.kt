@@ -4,13 +4,27 @@ import com.google.gson.Gson
 import com.google.gson.annotations.SerializedName
 import java.net.URL
 import java.net.UnknownHostException
+import java.time.LocalDateTime
+import java.time.Month
 
 
 // This get's overwritten in the build pipeline
 const val currentVersion = "CyanIsAFurry"
 const val apiURL = "https://api.github.com/repos/spookygh0st/beatwalls/releases/latest"
 
-fun update(){
+fun hello(){
+    println("""
+__________  __      __ 
+\______   \/  \    /  \
+ |    |  _/\   \/\/   /
+ |    |   \ \        / 
+ |______  /  \__/\  /  
+        \/        \/   
+        
+    """.trimIndent())
+    println(welcomeMessage())
+    println()
+
     //retrieves the latest version
     println("trying to retrieve latest version from github")
     val latestVersion = getLatestVersion()
@@ -39,4 +53,38 @@ fun getLatestVersion(): String {
 
 data class GithubApi (
     @SerializedName("tag_name") val tag_name : String
+)
+
+
+fun welcomeMessage(): String{
+    val t = LocalDateTime.now()
+    return when{
+        t.dayOfYear == 1                                        -> "Happy new Year! I hope you had a great year!"
+        t.month == Month.DECEMBER && t.dayOfMonth in 24..25     -> "Merry Christmas! Go call your mother, she cares (:"
+        t.month == Month.JULY && t.dayOfMonth == 18             -> "It is Beatwalls Birthday! It is now ${t.year - 2018} years old!"
+        else -> loadingMessages.random()
+    }
+}
+
+val loadingMessages = listOf(
+    "Beatwalls has now Welcome too!",
+    "Did you know that Cyan is a cat?",
+    "Cat's are better then Dogs",
+    "Now with even more bugs!",
+    "get some ice cream. NOW!",
+    "(╯°□°）╯︵ ┻━┻",
+    "ppinbutt",
+    "Go donate some money to a animal shelter!",
+    "Go donate some money to you favourite mod author!",
+    "You gotta pump those up, those are rookie numbers in this racket",
+    "Go ahead, call the cops. They can't un-Vengeful Spirit Nailsmith",
+    "No cost too great",
+    "NoodleExtensions.dll? More like NoodleGAYtensions.dickll - JohnIsDie",
+    "I need to stop sucking - Me everytime I code",
+    "Keep me informed on the behaviour of this Program.  As the \"BugFree(tm)\" series didn't turn out too well, I'm starting a new series called the \"ItWorksForMe(tm)\" series, of which Beatwalls is yet another shining example.",
+    "Now with extra spice!",
+    "DRINK MOAR WATA",
+    "Random anime recommendation! Go watch Space Dandy",
+    "I'm sad about Facebook"
+
 )

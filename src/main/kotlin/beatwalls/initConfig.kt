@@ -4,51 +4,35 @@ import com.google.gson.Gson
 import chart.song.Info
 import chart.song.isSongInfo
 import java.io.File
+import java.lang.StringBuilder
 
 
-fun initConfig(songPath:String){
-    val file = File(songPath)
-    if (!file.isSongInfo())
-        errorExit { "Please drag in the Whole Folder for the initial Config" }
-    val infoJson = File(file,"Info.dat").readText()
+fun initConfig(wd: File){
+    val infoJson = File(wd,"Info.dat").readText()
     val info = try {
         Gson().fromJson(infoJson, Info::class.java)
     }catch (e:Exception){
-        errorExit(e) { "Failed to parse Info.dat, is your json correct?" }
+        errorExit(e) { "Failed to parse Info.dat. Did you create it using an old editor??" }
     }
-    val diff = pickDifficulty(info)
-    val diffName = diff.first
-    val diffOffset = diff.second
 
-    val bwFile = writeIfNotExist(songPath,diffName,"bw", defaultBWStr())
+    val diff = pickDifficulty(info)
+    val diffOffset = diff.second
 
     val hjd = pickHjd()
     val bpm = info._beatsPerMinute
     val offset = info._songTimeOffset+diffOffset
 
-    val neExt = pickNe()
+    val modType = if (pickNe()) "NE" else "ME"
 
-    savePath(bwFile)
-    saveHjsDuration(hjd)
-    saveBpm(bpm)
-    saveOffset(offset)
-    saveNeValues(neExt)
-}
+    val text = exampleMainFile(diff.first,hjd,bpm,modType)
 
-fun writeIfNotExist(songPath: String, diffName:String,suffix:String, defaultText: String): File {
-    val name = diffName.replace(".dat",".$suffix")
-    val path = File(songPath,name)
-    if(path.exists()){
-        logger.info { "$suffix File already exist under $path, not creating Default file" }
-    }else{
-        path.writeText(defaultText)
-        logger.info { "written default $suffix file to $path" }
-    }
-    return path
+    val mainFile = File(wd, "main.bw")
+    logInfo("Creating example File under $mainFile")
+    mainFile.writeText(text)
 }
 
 fun pickNe(): Boolean {
-    println("Create values for noodle-Extension? this allows for walls in the ground and sky. default: y")
+    println("Do you want to use Noodle Instead of Mapping Extensions? Noodle Extensions allows for way cooler stuff, but is not supported on Quest")
     print("(y/n) input: ")
     return (readLine()?:"y") in listOf("","y","Y","Yes","yes","true","True")
 }
@@ -72,9 +56,24 @@ fun pickHjd(): Double {
     return readLine()?.toDoubleOrNull() ?: pickHjd()
 }
 
-// todo make this variable
-private fun defaultBWStr() =
-    """
+private fun exampleMainFile(difficulty: String, hjd: Double, bpm: Double, Modtype: String): String {
+    val s = StringBuilder()
+    s.appendLine("# The first Section are global Options.\n")
+    s.appendLine("# This sets the Mod Support. Remember to also set the Requirements in the Info.dat")
+    s.appendLine("modtype: $Modtype")
+    s.appendLine("# This sets the target Difficulty.")
+    s.appendLine("Difficulty: $difficulty")
+    s.appendLine("# This sets the characteristic (The Tabs in a Map)")
+    s.appendLine("Difficulty: Lightshow")
+    s.appendLine("# This will tell Beatwalls to remove all existing Walls in the difficulty before creating new ones")
+    s.appendLine("ClearWalls: true")
+    s.appendLine("# This is the HJD. It allows Beatwalls to automatically time walls to the Beat")
+    s.appendLine("halfJumpDuration: 2.0")
+    s.append(standardText)
+    return s.toString()
+}
+
+const val standardText = """
 # This is an example File of a .bw file. 
 # General Guide: https://github.com/spookyGh0st/beatwalls
 # documentation: https://spookygh0st.github.io/beatwalls/structure/-wall-structure/index.html
@@ -167,4 +166,4 @@ define: upDownCurve
 # consult the documentation for this.
 0.0: default
     changeDuration: null
-    """.trimIndent()
+    """

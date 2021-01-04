@@ -19,22 +19,6 @@ object GlobalConfig{
     var offset = 0.0
 
 
-    operator fun invoke(args: Array<String>){
-        val charFolder = args.find { File(it).exists() }
-        if (charFolder != null) {
-            initConfig(charFolder)
-            logger.info { "finished Setup, open the file at ${readPath()} now." }
-        }
-        if (args.contains("--clearAll"))
-            clearAll = true
-        if (args.contains("--deleteAllPrevious"))
-            deleteAllPrevious = true
-        if (args.contains("--noUpdate"))
-            noUpdate = true
-
-        reload()
-    }
-
     fun reload() {
         try {
             bwFile = readPath()

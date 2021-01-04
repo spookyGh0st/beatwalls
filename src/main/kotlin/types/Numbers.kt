@@ -1,14 +1,16 @@
-package assetFile
+package types
 
 import beatwalls.errorExit
 import net.objecthunter.exp4j.ExpressionBuilder
 import structure.StructureState
 import kotlin.math.roundToInt
 
-
 typealias BwDouble = () -> Double
 typealias BwInt = () -> Int
 typealias BwNumber = () -> Number
+
+fun bwDouble(num: Number):BwDouble = { num.toDouble()}
+fun bwInt(num: Number):BwInt = { num.toInt()}
 
 const val keyRepeatCount: String = "count"
 
@@ -28,14 +30,3 @@ internal fun bwDouble(s: String, ss: StructureState): BwDouble=
 
 internal fun bwInt(s: String, ss: StructureState): BwInt=
     { bwNumber(s, ss).invoke().toDouble().roundToInt() }
-
-
-internal fun bwDoubleOrNull(s: String, ss: StructureState): BwDouble? {
-    if (s == "null") return null
-    return { bwNumber(s, ss).invoke().toDouble() }
-}
-
-internal fun bwIntOrNull(s: String, ss: StructureState): BwInt? {
-    if (s == "null") return null
-    return { bwNumber(s, ss).invoke().toDouble().roundToInt() }
-}

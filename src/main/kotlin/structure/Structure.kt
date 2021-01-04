@@ -1,7 +1,9 @@
 package structure
 
-import assetFile.BwDouble
-import assetFile.BwInt
+import types.BwDouble
+import types.BwInt
+import types.bwDouble
+import types.bwInt
 import kotlin.random.Random
 
 abstract class Structure {
@@ -61,6 +63,7 @@ interface CustomStructInterface{
 /**
  * The Default Custom Structure can hold all types, but only has limited Structure Attributes.
  * This get's used when the Types of the superStructures and structures are different
+ * todo This should be solved with Types, check custom Section in the Parser.
  */
 class CustomStructure(
     override val name: String,

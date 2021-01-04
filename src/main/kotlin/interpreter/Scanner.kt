@@ -63,6 +63,10 @@ class Scanner(val source: String, val bw: Beatwalls, val file: File) {
                     type = BlockType.Interface
                     name = w[1]
                 }
+                "color" -> {
+                    type = BlockType.Color
+                    name = w[1]
+                }
                 else -> {
                     bw.error(file, currentLine, "Unexpected Identifiere")
                     return

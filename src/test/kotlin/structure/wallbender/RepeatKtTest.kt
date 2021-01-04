@@ -1,14 +1,13 @@
 package structure.wallbender
 
-import assetFile.bwDouble
-import assetFile.keyRepeatCount
+import org.junit.Assert.assertEquals
 import org.junit.Test
-
-import org.junit.Assert.*
 import structure.RandomNoise
 import structure.Wall
-import structure.bwInt
 import structure.helperClasses.SpookyWall
+import types.bwDouble
+import types.bwInt
+import types.keyRepeatCount
 import kotlin.random.Random
 
 class RepeatKtTest {

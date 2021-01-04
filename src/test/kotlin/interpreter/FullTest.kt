@@ -1,5 +1,6 @@
 package interpreter
 
+import interpreter.parser.Parser
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse
 import org.junit.Before
@@ -33,7 +34,7 @@ class FullTest {
 
     @Test
     fun `Test if all Blocks were scanned`() {
-        assertEquals(11, blocks.size)
+        assertEquals(12, blocks.size)
         blocks.forEach {
             val expect = 2
             val act = it.properties.size
@@ -46,6 +47,7 @@ class FullTest {
         val types = listOf(
             BlockType.Options,
             BlockType.Structure,
+            BlockType.Color,
             BlockType.Interface,
             BlockType.Interface,
             BlockType.CustomStructure,
@@ -66,6 +68,7 @@ class FullTest {
         val names = listOf(
             "global",
             "line",
+            "mycolor",
             "default",
             "foo",
             "introline",

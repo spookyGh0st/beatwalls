@@ -2,11 +2,14 @@
 modtype: ME
 clearNotes: true
 
+# Here comes the line
 line: # now comes my cool line
-# and here is a comment
+     beat : 10
+     p1   : 0,0,0
 
-     beat: 10
-     p1: 0,0,0
+color mycolor:
+    r: 0.3
+    a: 0.15
 
 default:
   addX: 5 / 23+random(0,13)
@@ -32,4 +35,4 @@ include: Start.bw
 
 start:
   beat: 30
-  changeX: 10
+  color: gradient(red, myColor)

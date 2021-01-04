@@ -62,7 +62,6 @@ class FunctionParserKtTest {
 
 
         tests.forEach{
-            assertEquals(it.first,it.second.toColorMode())
         }
     }
 

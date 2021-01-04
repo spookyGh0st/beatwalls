@@ -4,9 +4,9 @@ import org.junit.Test
 
 import org.junit.Assert.*
 import structure.EmptyWallStructure
-import structure.bwDouble
-import structure.bwInt
 import structure.helperClasses.*
+import types.bwDouble
+import types.bwInt
 
 class MirrorKtTest {
     private val l =listOf(SpookyWall(1.0,1.0,1.0,1.0,1.0,1.0, red))

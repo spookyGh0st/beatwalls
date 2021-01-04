@@ -2,10 +2,9 @@
 
 package structure
 
-import assetFile.BwDouble
-import assetFile.BwInt
 import structure.helperClasses.*
 import structure.specialStrucures.*
+import types.*
 import kotlin.random.Random
 
 /*
@@ -25,8 +24,6 @@ To allow for stuff like easing you need to use the Types BwDouble/Int/Point/etc.
 To set them to a default single value use the functions below
 */
 
-fun bwDouble(num: Number):BwDouble = { num.toDouble()}
-fun bwInt(num: Number):BwInt = { num.toInt()}
 
 sealed class WallStructure:Structure()
 {
@@ -223,33 +220,29 @@ sealed class WallStructure:Structure()
     /**
      * The Color of the Wallstructure. Click me to see examples
      *
+     * ```yaml
      * color: red
      * # turns the entire Wallstructure red.
      * All available colors are here: https://docs.oracle.com/javase/7/docs/api/java/awt/Color.html
      *
-     * color: 255,0,0
-     * # also turns the entire WallStructure red, but uses rgb values.
-     *
-     * color: rainbow
      * # creates a rainbow :)
+     * color: rainbow
      *
-     * color: rainbow(1.5)
      * # also creates a rainbow :), but this one changes 1.5 times as fast as the default one
+     * color: rainbow(1.5)
      *
-     * color: flash(green)
-     * # Flashes between green and the default color
+     * # Picks a random color for each wall
+     * color: random(blue,Green,cyan)
      *
-     * color: flash(128,128,128,Green)
-     * # Flashes between Dark Gray (128,128,128) and Green.
-     *
-     * color: flash(red, green, blue, yellow)
      * # changes color in the order red, green, blue, yellow.
+     * color: flash(red, green, blue, yellow)
      *
+     * # gradient from Red to Furry))
      * color: gradient(Red,Cyan)
-     * # gradient from Red to Furry (Cyan))
+     * ```
      *
      */
-    var color: ColorMode = NoColor
+    var color: BwColor? = null
 
     /**
      * The rotation of the wallstructure around the player, think 360 maps. click me.

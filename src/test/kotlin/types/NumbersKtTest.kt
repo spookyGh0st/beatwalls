@@ -1,4 +1,4 @@
-package assetFile
+package types
 
 import org.junit.Test
 
@@ -58,15 +58,5 @@ class NumbersKtTest {
             ss.progress = i*0.1
             assertEquals(i-5,e.invoke().toInt())
         }
-    }
-
-    @Test
-    fun `Test nullable Number`() {
-        val ss = StructureState()
-        val s = "null"
-        val nullI = bwIntOrNull(s,ss)
-        val nullD = bwDoubleOrNull(s,ss)
-        assertEquals(null, nullI)
-        assertEquals(null, nullD)
     }
 }

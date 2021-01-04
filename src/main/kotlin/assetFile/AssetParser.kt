@@ -6,6 +6,9 @@ import structure.*
 import structure.helperClasses.ColorMode
 import structure.helperClasses.Point
 import structure.helperClasses.RotationMode
+import types.*
+import types.bwDouble
+import types.bwInt
 import kotlin.random.Random
 import kotlin.reflect.*
 import kotlin.reflect.full.createInstance
@@ -179,13 +182,10 @@ fun fillProperty(
         typeOf<Int>() -> value.toIntOrNull()
         typeOf<Double>()-> value.toDoubleOrNull()
         typeOf<BwDouble>()  -> bwDouble(value,ss)
-        typeOf<BwDouble?>() -> bwDoubleOrNull(value,ss)
         typeOf<BwInt>()  -> bwInt(value,ss)
-        typeOf<BwInt?>() -> bwIntOrNull(value,ss)
         typeOf<()->Double>() -> value.toDoubleFunc()
         typeOf<String>() -> value
         typeOf<Point>() -> value.toPoint()
-        typeOf<ColorMode>() -> value.toColorMode()
         typeOf<RotationMode>() -> value.toRotationMode()
         typeOf<WallStructure>() -> value.toWallStructure(definedStructure)
         typeOf<List<WallStructure>>() -> value.toWallStructureList(definedStructure)

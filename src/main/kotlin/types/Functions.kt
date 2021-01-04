@@ -1,11 +1,8 @@
-package assetFile
+package types
 
 import net.objecthunter.exp4j.function.Function
 import structure.StructureState
 import kotlin.math.*
-
-
-
 
 fun allFunctions(ss: StructureState) = listOf(
     Linear(ss),

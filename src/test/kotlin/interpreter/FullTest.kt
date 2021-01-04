@@ -10,6 +10,7 @@ import structure.Line
 import structure.Structure
 import structure.helperClasses.Point
 import java.io.File
+import kotlin.test.assertTrue
 
 
 class FullTest {
@@ -34,11 +35,11 @@ class FullTest {
 
     @Test
     fun `Test if all Blocks were scanned`() {
-        assertEquals(12, blocks.size)
+        assertEquals(13, blocks.size)
         blocks.forEach {
-            val expect = 2
+            val expect = 1
             val act = it.properties.size
-            assertEquals("[${it.file.name} line: ${it.line}] name: ${it.name} should have 2 properties",expect, act)
+            assertTrue(act >= expect,"${it.name} on ${it.file.name} on line ${it.line} does not have at least 1 Property")
         }
     }
 
@@ -56,6 +57,7 @@ class FullTest {
             BlockType.CustomStructure,
             BlockType.CustomStructure,
             BlockType.CustomStructure,
+            BlockType.Variable,
             BlockType.Structure,
         )
         for ((i, t) in types.withIndex()){
@@ -77,6 +79,7 @@ class FullTest {
             "_start1",
             "_start2",
             "start",
+            "bar",
             "start",
         )
 

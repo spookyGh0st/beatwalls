@@ -9,13 +9,14 @@ import structure.Structure
  */
 fun Parser.parseStructure(){
     val func = structFactories[currentBlock.name]
-    if (func == null) { error("Structure ${currentBlock.name} does not exist"); return }
-    val ws = func()
-    parseStructureProperties(ws, currentBlock.properties)
-    structures.add(ws)
+    if (func == null) { errorBlock("Structure ${currentBlock.name} does not exist"); return }
+    val struct = func()
+    parseStructureProperties(struct, currentBlock.properties)
+    structures.add(struct)
 }
 
 fun Parser.parseStructureProperties(struct: Structure, properties: List<TokenPair>){
+    struct.structureState.variables = variables
     for (tp in properties){
         currentTP = tp
         parseStructureProperty(struct)

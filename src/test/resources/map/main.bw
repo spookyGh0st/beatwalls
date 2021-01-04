@@ -34,5 +34,5 @@ IntroLine:
 include: Start.bw
 
 start:
-  beat: 30
+  beat: bar
   color: gradient(red, myColor)

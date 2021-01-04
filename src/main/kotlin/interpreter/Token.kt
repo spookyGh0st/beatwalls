@@ -18,6 +18,7 @@ enum class BlockType{
     Options,
     Interface,
     Color,
+    Variable,
 }
 
 data class TokenPair(

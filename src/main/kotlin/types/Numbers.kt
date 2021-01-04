@@ -15,8 +15,13 @@ fun bwInt(num: Number):BwInt = { num.toInt()}
 const val keyRepeatCount: String = "count"
 
 internal fun bwNumber(s: String, ss: StructureState):BwNumber{
-    val e = ExpressionBuilder(s).functions(allFunctions(ss)).variable(keyRepeatCount).build()
-    e.setVariable(keyRepeatCount, ss.count.toDouble())
+    val e = ExpressionBuilder(s)
+        .functions(allFunctions(ss))
+        .variable(keyRepeatCount)
+        .variables(ss.variables.keys)
+        .build()
+    e.setVariable(keyRepeatCount, 0.0)
+    e.setVariables(ss.variables)
     if (!e.validate().isValid)
         errorExit { "The expression $s has errors:\n ${e.validate().errors}" }
     return {

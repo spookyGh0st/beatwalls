@@ -9,3 +9,6 @@ define _start2:
 define start:
     structures: _start1, _start2
     addY: 10
+
+var bar:
+    value: 30

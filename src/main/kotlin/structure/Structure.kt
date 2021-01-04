@@ -47,7 +47,8 @@ abstract class Structure {
 data class StructureState(
     var progress: Double = 0.0,
     var count: Int = 0,
-    var R: Random = Random
+    var R: Random = Random,
+    var variables: Map<String,Double> = mapOf()
 )
 
 /**

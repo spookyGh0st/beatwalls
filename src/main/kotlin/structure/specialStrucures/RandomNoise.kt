@@ -1,7 +1,7 @@
 package structure.specialStrucures
 
 import structure.helperClasses.CuboidConstrains
-import structure.RandomNoise
+import structure.wallStructures.RandomNoise
 import structure.helperClasses.SpookyWall
 import kotlin.math.roundToInt
 import kotlin.random.Random

@@ -1,7 +1,7 @@
 package structure.specialStrucures
 
 import structure.helperClasses.SpookyWall
-import structure.Wall
+import structure.wallStructures.Wall
 
 fun Wall.run(): List<SpookyWall> {
     return listOf(

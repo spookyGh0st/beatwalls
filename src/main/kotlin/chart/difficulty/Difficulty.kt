@@ -5,8 +5,8 @@ import beatwalls.GlobalConfig
 import com.google.gson.annotations.SerializedName
 import model.difficulty._customData
 import model.difficulty._customEvents
-import structure.Define
-import structure.WallStructure
+import structure.wallStructures.Define
+import structure.wallStructures.WallStructure
 
 data class Difficulty(
 

@@ -3,7 +3,7 @@ package structure.wallbender
 import org.junit.Test
 
 import org.junit.Assert.*
-import structure.EmptyWallStructure
+import structure.wallStructures.EmptyWallStructure
 import structure.helperClasses.*
 import types.bwDouble
 import types.bwInt

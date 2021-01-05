@@ -1,6 +1,6 @@
 package structure
 
-import structure.helperClasses.SpookyWall
+import structure.wallStructures.WallStructure
 import java.io.*
 
 

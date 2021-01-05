@@ -1,9 +1,9 @@
 package structure.specialStrucures
 
-import structure.*
 import structure.helperClasses.CuboidConstrains
 import structure.helperClasses.Point
 import structure.helperClasses.SpookyWall
+import structure.wallStructures.RandomCuboidLines
 import kotlin.math.roundToInt
 import kotlin.random.Random
 

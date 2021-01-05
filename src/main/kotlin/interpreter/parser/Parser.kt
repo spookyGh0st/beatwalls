@@ -3,11 +3,10 @@ import interpreter.Beatwalls
 import interpreter.BlockType
 import interpreter.TokenBlock
 import interpreter.TokenPair
-import structure.*
+import structure.Structure
+import structure.baseStructures
 import types.BwColor
 import types.baseColors
-import kotlin.reflect.KClass
-import kotlin.reflect.full.createInstance
 
 
 typealias BwInterface   = (Structure) -> Unit
@@ -16,7 +15,7 @@ typealias StructFactory = () -> Structure
 class Parser(val blocks: List<TokenBlock>, val bw: Beatwalls) {
     val interfaces: MutableMap<String, BwInterface> = mutableMapOf("default" to {})
     val variables: MutableMap<String, Double> = mutableMapOf()
-    val structFactories: MutableMap<String, StructFactory> = baseStructs()
+    val structFactories: MutableMap<String, StructFactory> = baseStructures.toMutableMap()
     val colors: MutableMap<String, BwColor> = baseColors()
 
     lateinit var currentTP: TokenPair
@@ -50,29 +49,6 @@ class Parser(val blocks: List<TokenBlock>, val bw: Beatwalls) {
         BlockType.Structure         -> parseStructure()
         BlockType.Color             -> parseColor()
         BlockType.Variable          -> parseVariable()
-    }
-
-
-    fun baseStructs() = (
-            sealedClassFacts<WallStructure>() + sealedClassFacts<LightStructure>() + sealedClassFacts<NoteStructure>()
-            ).toMutableMap()
-
-
-    // returns Factories of all available Structures
-    private inline fun<reified T: Structure> sealedClassFacts(): HashMap<String, () -> T> {
-        val l = T::class.recursiveWsClasses()
-        val hm = hashMapOf<String, () -> T>()
-        l.forEach {
-            val n = it.simpleName?.toLowerCase() ?: ""
-            hm[n] = { it.createInstance() }
-        }
-        return hm
-    }
-    private fun<E:Any> KClass<E>.recursiveWsClasses(): List<KClass<out E>> {
-        return if (this.isSealed)
-            this::sealedSubclasses.get().flatMap { it.recursiveWsClasses() }
-        else
-            listOf(this)
     }
 }
 

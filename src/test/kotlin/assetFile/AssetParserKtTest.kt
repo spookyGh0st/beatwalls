@@ -1,11 +1,10 @@
 package assetFile
 
 import junit.framework.TestCase
-import structure.*
-import structure.helperClasses.Color
 import structure.helperClasses.Point
-import structure.helperClasses.SingleColor
-import kotlin.random.Random
+import structure.wallStructures.Curve
+import structure.wallStructures.Define
+import structure.wallStructures.Wall
 import kotlin.test.assertNotEquals
 
 

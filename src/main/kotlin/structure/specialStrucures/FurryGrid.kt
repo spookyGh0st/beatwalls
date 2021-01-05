@@ -1,6 +1,6 @@
 package structure.specialStrucures
 
-import structure.FurryGrid
+import structure.wallStructures.FurryGrid
 import structure.helperClasses.SpookyWall
 
 // for now this is sufficiant, might want to add more in the future

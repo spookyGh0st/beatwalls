@@ -1,6 +1,12 @@
 package interpreter.parser
 
 import structure.*
+import structure.lightStructure.CustomLightStructure
+import structure.lightStructure.LightStructure
+import structure.noteStructure.CustomNoteStructure
+import structure.noteStructure.NoteStructure
+import structure.wallStructures.CustomWallStructure
+import structure.wallStructures.WallStructure
 
 /**
  * A Custom Structure is a structure designed to hold other structures

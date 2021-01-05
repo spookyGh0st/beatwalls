@@ -13,6 +13,9 @@ import kotlin.math.max
 import kotlin.math.min
 
 
+interface BwElement{
+
+}
 data class SpookyWall(
     @Expose
     @SerializedName("startRow") var startRow: Double,
@@ -46,7 +49,7 @@ data class SpookyWall(
     @SerializedName("noteJumpStartBeat") var noteJumpStartBeat: Double? = null,
     @Expose
     @SerializedName("noteJumpStartBeatOffset") var noteJumpStartBeatOffset: Double? = null
-):Serializable{
+): BwElement{
 
     constructor(
         startRow: Int=0,

@@ -1,5 +1,6 @@
 package interpreter
 
+import beatwalls.logInfo
 import interpreter.parser.Parser
 import java.io.File
 
@@ -14,6 +15,10 @@ class Beatwalls(val workingDirectory: File) {
         val blocks = s.scan()
         val p = Parser(blocks,this)
         val structs = p.parse()
+        if (hadError){
+            logInfo("Looks like you have some Errors. Come back if you fixed them")
+            return
+        }
     }
 
     fun error(file: File, line: Int, message: String) {

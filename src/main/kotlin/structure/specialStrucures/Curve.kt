@@ -1,8 +1,10 @@
 package structure.specialStrucures
 
-import structure.*
 import structure.helperClasses.Point
 import structure.helperClasses.SpookyWall
+import structure.wallStructures.Curve
+import structure.wallStructures.HelixCurve
+import structure.wallStructures.SteadyCurve
 import kotlin.math.abs
 import kotlin.math.min
 import kotlin.math.pow

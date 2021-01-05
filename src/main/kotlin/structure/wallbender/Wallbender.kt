@@ -1,6 +1,6 @@
 package structure.wallbender
 
-import structure.WallStructure
+import structure.wallStructures.WallStructure
 import structure.helperClasses.SpookyWall
 
 fun WallStructure.bendWalls(walls: List<SpookyWall>): List<SpookyWall> {
@@ -22,10 +22,4 @@ fun WallStructure.bendWalls(walls: List<SpookyWall>): List<SpookyWall> {
     return l
 }
 
-fun WallStructure.generateBendAndRepeatWalls(): List<SpookyWall> {
-    var l = this.generate()
-    l= this.bendWalls(l)
-    l = this.repeat(l)
-    return l
-}
 

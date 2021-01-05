@@ -1,7 +1,7 @@
 package structure.specialStrucures
 
 import structure.helperClasses.Point
-import structure.RandomCurve
+import structure.wallStructures.RandomCurve
 import structure.helperClasses.SpookyWall
 import kotlin.math.max
 import kotlin.math.min

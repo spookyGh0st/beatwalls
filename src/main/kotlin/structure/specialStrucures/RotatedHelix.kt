@@ -1,6 +1,6 @@
 package structure.specialStrucures
 
-import structure.NoodleHelix
+import structure.wallStructures.NoodleHelix
 import structure.helperClasses.CuboidConstrains
 import structure.helperClasses.Point
 import structure.helperClasses.SpookyWall

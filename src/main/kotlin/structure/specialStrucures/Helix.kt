@@ -1,6 +1,6 @@
 package structure.specialStrucures
 
-import structure.Helix
+import structure.wallStructures.Helix
 import structure.helperClasses.SpookyWall
 import kotlin.math.*
 

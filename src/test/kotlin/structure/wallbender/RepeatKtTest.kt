@@ -2,8 +2,8 @@ package structure.wallbender
 
 import org.junit.Assert.assertEquals
 import org.junit.Test
-import structure.RandomNoise
-import structure.Wall
+import structure.wallStructures.RandomNoise
+import structure.wallStructures.Wall
 import structure.helperClasses.SpookyWall
 import types.bwDouble
 import types.bwInt

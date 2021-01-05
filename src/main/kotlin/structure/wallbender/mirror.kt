@@ -1,7 +1,7 @@
 package structure.wallbender
 
 import beatwalls.errorExit
-import structure.WallStructure
+import structure.wallStructures.WallStructure
 import structure.helperClasses.SpookyWall
 
 fun WallStructure.mirror(l: List<SpookyWall>) =

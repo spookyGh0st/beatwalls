@@ -1,6 +1,6 @@
 package structure.specialStrucures
 
-import structure.Line
+import structure.wallStructures.Line
 import structure.helperClasses.Point
 import structure.helperClasses.SpookyWall
 import kotlin.math.*

@@ -5,8 +5,8 @@ import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse
 import org.junit.Before
 import org.junit.Test
-import structure.CustomWallStructure
-import structure.Line
+import structure.wallStructures.CustomWallStructure
+import structure.wallStructures.Line
 import structure.Structure
 import structure.helperClasses.Point
 import java.io.File

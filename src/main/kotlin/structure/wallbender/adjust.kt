@@ -1,6 +1,6 @@
 package structure.wallbender
 
-import structure.WallStructure
+import structure.wallStructures.WallStructure
 import structure.helperClasses.SpookyWall
 
 /**

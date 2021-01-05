@@ -1,9 +1,9 @@
 package assetFile
 
 import beatwalls.errorExit
-import structure.Define
-import structure.EmptyWallStructure
-import structure.WallStructure
+import structure.wallStructures.Define
+import structure.wallStructures.EmptyWallStructure
+import structure.wallStructures.WallStructure
 import structure.helperClasses.*
 import java.lang.Double.parseDouble
 import java.lang.Integer.parseInt

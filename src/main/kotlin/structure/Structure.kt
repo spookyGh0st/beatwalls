@@ -1,10 +1,15 @@
 package structure
 
+import interpreter.parser.StructFactory
+import structure.helperClasses.BwElement
 import types.BwDouble
 import types.BwInt
 import types.bwDouble
 import types.bwInt
 import kotlin.random.Random
+import kotlin.reflect.KClass
+import kotlin.reflect.full.createInstance
+import kotlin.reflect.jvm.jvmName
 
 abstract class Structure {
     /**
@@ -13,19 +18,18 @@ abstract class Structure {
      * the count (numbers of elements created)
      * or a seeded Random Element
      */
-    val structureState: StructureState = StructureState()
+    internal val structureState: StructureState = StructureState()
+
+    /**
+     * A List of Interfaces that get applied to the Structure
+     */
+    internal var interfaces = listOf<String>()
 
     /**
      * Beat the of the structure in the map.
      * This takes BPM changes into account
      */
     var beat: BwDouble = bwDouble(0)
-
-    /**
-     * A List of Interfaces that get applied to the Structure
-     *
-     */
-    var interfaces = listOf<String>()
 
     /**
      * Repeats the Structure c times.
@@ -35,7 +39,26 @@ abstract class Structure {
      */
     var repeat: BwInt = bwInt(0)
 
-    abstract fun generate(): List<*>
+    internal abstract fun createElements(): List<BwElement>
+
+    internal fun elements(): MutableList<BwElement> {
+        val l = mutableListOf<BwElement>()
+        for (count in 0..repeat()){
+            l.addAll(createElements())
+        }
+        return l
+    }
+}
+
+
+fun baseStructs(vararg structs: KClass<out Structure>): Map<String, StructFactory> {
+    val m = mutableMapOf<String,StructFactory>()
+    structs.forEach {
+        val name = (it.simpleName?: it.jvmName).toLowerCase()
+        val fact = { it.createInstance() }
+        m[name] = fact
+    }
+    return m.toMap()
 }
 
 /**
@@ -71,8 +94,7 @@ class CustomStructure(
     override val superStructure: Structure,
     override val structures: List<Structure>
 ): Structure(), CustomStructInterface{
-    override fun generate(): List<*> {
-        return superStructure.generate() + structures.flatMap { it.generate() }
-    }
+    override fun createElements(): List<BwElement> =
+        superStructure.createElements() + structures.flatMap { it.createElements() }
 }
 

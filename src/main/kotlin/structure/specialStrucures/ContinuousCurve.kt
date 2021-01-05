@@ -2,9 +2,10 @@ package structure.specialStrucures
 
 import assetFile.findProperty
 import assetFile.readProperty
-import structure.*
 import structure.helperClasses.Point
 import structure.helperClasses.SpookyWall
+import structure.wallStructures.ContinuousCurve
+import structure.wallStructures.WallStructure
 
 fun ContinuousCurve.run(): List<SpookyWall> {
     val l= mutableListOf<SpookyWall>()

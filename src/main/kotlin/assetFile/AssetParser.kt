@@ -3,9 +3,11 @@ package assetFile
 import beatwalls.errorExit
 import mu.KotlinLogging
 import structure.*
-import structure.helperClasses.ColorMode
 import structure.helperClasses.Point
 import structure.helperClasses.RotationMode
+import structure.wallStructures.Define
+import structure.wallStructures.EmptyWallStructure
+import structure.wallStructures.WallStructure
 import types.*
 import types.bwDouble
 import types.bwInt
@@ -15,7 +17,6 @@ import kotlin.reflect.full.createInstance
 import kotlin.reflect.full.createType
 import kotlin.reflect.full.memberProperties
 import kotlin.reflect.full.withNullability
-import kotlin.reflect.jvm.reflect
 
 //   ____  ____   __   ____  ____  ____
 //  (  _ \(  __) / _\ (    \(  __)(  _ \

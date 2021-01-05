@@ -1,10 +1,9 @@
 package structure.specialStrucures
 
 import beatwalls.errorExit
-import structure.RandomStructures
+import structure.wallStructures.RandomStructures
 import structure.helperClasses.CuboidConstrains
 import structure.helperClasses.SpookyWall
-import structure.wallbender.generateBendAndRepeatWalls
 import kotlin.random.Random
 
 fun RandomStructures.run(): MutableList<SpookyWall> {
@@ -17,7 +16,7 @@ fun RandomStructures.run(): MutableList<SpookyWall> {
     val cc = CuboidConstrains(p1,p2,seed?.invoke()?: Random.nextInt())
     for(i in 0 until amount){
         for(w in structures){
-            val t = w.generateBendAndRepeatWalls()
+            val t = w.generate()
             t.forEach { it.startTime += (w.beat()) }
             val rp = cc.random(avoidCenter)
             t.forEach { it.startRow += rp.x }

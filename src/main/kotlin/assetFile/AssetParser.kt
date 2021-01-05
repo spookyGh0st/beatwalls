@@ -26,76 +26,9 @@ import kotlin.reflect.full.withNullability
 // I basically wrote a new script language.
 // Below is what needed to go automatically set all the values for all the parameters.
 
-private val logger = KotlinLogging.logger {}
 
 //global variables
 var RandomSeed = Random(Random.nextInt())
-
-/**
- * reads in a String and returns the corresponding SongAssetFile
- */
-fun parseAsset(s: String): ArrayList<WallStructure> {
-    // creates the list of key-Value
-    val lines = parseAssetString(s)
-    val structures = parseStructures(lines)
-    logger.info { "Read DifficultyAsset Succesfull with ${structures.size} structures" }
-    return structures
-}
-
-/**
- * reads the Structures from the list
- */
-fun parseStructures(mutableList: MutableList<Pair<String, String>>): ArrayList<WallStructure>{
-    val list = arrayListOf<WallStructure>()
-
-    var lastStruct: Any = EmptyWallStructure()
-    val definedStructures = mutableListOf<Define>()
-
-    for (i in 0 until mutableList.size) {
-        val key = mutableList[i].key().toLowerCase()
-        val value = mutableList[i].value()
-        //hacky
-        when {
-            key == "define" -> {
-                val struct = Define()
-                struct.name = value.toLowerCase()
-                definedStructures.add(struct)
-                logger.info { "defined Structure ${struct.name}" }
-                lastStruct = struct
-            }
-            key == "randomseed" -> {
-                val v = value.toIntOrNull()
-                if (v != null)
-                    RandomSeed = Random(v)
-            }
-            key.toDoubleOrNull() != null -> {
-                if (value.toLowerCase() == "define")
-                    errorExit { "Old Defined Structure detected. New one is define: \$name" }
-                val structName = mutableList[i].value().toLowerCase()
-                val beat = mutableList[i].key().toDouble()
-                val struct: Any = findStructure(structName, definedStructures)
-
-                //hacky
-                if (struct is Define) {
-                    struct.isTopLevel = true
-                }
-
-                if (struct is WallStructure) {
-                    struct.beat = { beat }
-                    list.add(struct)
-                }
-
-                logger.info { "adding $structName" }
-                lastStruct = struct
-            }
-            else -> {
-                readWallStructOptions(lastStruct, mutableList[i], definedStructures)
-            }
-        }
-    }
-    val l =list.filterNot { it is EmptyWallStructure }
-    return ArrayList(l)
-}
 
 fun findStructure(name: String, definedStructure: List<Define>): Any {
     val structName = name.toLowerCase()
@@ -117,10 +50,11 @@ fun findStructure(name: String, definedStructure: List<Define>): Any {
 }
 
 fun findDefinedStruct(structName: String, definedStructure: List<Define>): Define {
-    val found = definedStructure.findLast { it.name.toLowerCase() == structName }!!.deepCopy()
-    val def = Define()
-    def.structures = listOf(found)
-    return def
+    return TODO("Old and busted")
+    //val found = definedStructure.findLast { it.name.toLowerCase() == structName }!!.deepCopy()
+    //val def = Define()
+    //def.structures = listOf(found)
+    // return def
 }
 
 fun findSpecialStruct(structName: String,specialStructs: List<KClass<out WallStructure>>): WallStructure {

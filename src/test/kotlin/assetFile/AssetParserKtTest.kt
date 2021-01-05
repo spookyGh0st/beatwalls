@@ -79,6 +79,8 @@ class AssetParserKtTest : TestCase() {
     }
 
     fun testDefineWallFillProperty() {
+        // old, todo remove
+        TODO()
         val wall = Define()
         wall.structures = listOf()
         val property = findProperty(wall, "structures")

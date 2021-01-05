@@ -1,7 +1,10 @@
 package structure.wallStructures
 
+import structure.helperClasses.CuboidConstrains
 import structure.helperClasses.Point
-import structure.specialStrucures.run
+import structure.helperClasses.SpookyWall
+import kotlin.math.roundToInt
+import kotlin.random.Random
 
 /**
  * Random Noise (small mini cubes)
@@ -29,5 +32,22 @@ class RandomNoise: WallStructure(){
     /**
      * generating the Walls
      */
-    override fun generate() = run()
+    override fun generate(): List<SpookyWall> {
+        val l = mutableListOf<SpookyWall>()
+        val c = CuboidConstrains(p1, p2, seed?.invoke()?: Random.nextInt())
+        amount = amount ?: (8 * (c.ez - c.sz)).roundToInt()
+        repeat(amount!!) {
+            val p = c.random(true)
+            val w = SpookyWall(
+                startRow = p.x,
+                duration = 0.0,
+                width = 0.0,
+                height = 0.0,
+                startHeight = p.y,
+                startTime = c.sz + (it.toDouble() / amount!! * (c.ez - c.sz))
+            )
+            l.add(w)
+        }
+        return l.toList()
+    }
 }

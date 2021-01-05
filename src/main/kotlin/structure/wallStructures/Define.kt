@@ -1,7 +1,5 @@
 package structure.wallStructures
 
-import structure.specialStrucures.run
-
 /**
  * Define your own WallStructure from existing WallStructures.
  */
@@ -27,7 +25,7 @@ class Define: WallStructure() {
     /**
      * generating the Walls
      */
-    override fun generate() = run()
+    override fun generate() = TODO("Remove")
 
     override fun name(): String {
         if (isTopLevel)

@@ -1,6 +1,6 @@
 package structure.wallStructures
 
-import structure.specialStrucures.run
+import structure.helperClasses.SpookyWall
 
 /**
  * create a single Wall
@@ -42,5 +42,14 @@ class Wall: WallStructure() {
     /**
      * generating the Walls
      */
-     override fun generate()  = run()
+     override fun generate()  = listOf<SpookyWall>(
+         SpookyWall(
+             startRow = this.startRow,
+             duration = this.duration,
+             width = this.width,
+             height = this.height,
+             startHeight = this.startHeight,
+             startTime = this.startTime
+         )
+     )
 }

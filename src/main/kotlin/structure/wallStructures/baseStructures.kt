@@ -8,7 +8,7 @@ val baseStructures = baseStructs(
     EmptyWallStructure::class,
     FurryGrid::class,
     Helix::class,
-    HelixCurve::class,
+    // HelixCurve::class,
     Line::class,
     NoodleHelix::class,
     RandomBlocks::class,

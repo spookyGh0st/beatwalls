@@ -1,7 +1,6 @@
 package structure.wallStructures
 
 import structure.helperClasses.Point
-import structure.specialStrucures.run
 
 /**
  * NOT IMPLEMENTED YET
@@ -44,5 +43,6 @@ class HelixCurve: WallStructure() {
     /**
      * generating the Walls
      */
-     override fun generate()  = run()
+     override fun generate()  =
+         TODO()
 }

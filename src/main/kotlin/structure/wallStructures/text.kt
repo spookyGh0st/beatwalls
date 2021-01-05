@@ -1,4 +1,4 @@
-package structure.specialStrucures
+package structure.wallStructures
 
 import structure.helperClasses.SpookyWall
 

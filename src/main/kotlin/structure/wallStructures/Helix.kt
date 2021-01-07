@@ -42,7 +42,7 @@ class Helix: WallStructure() {
     /**
      * generating the Walls
      */
-     override fun generate()  = (
+     override fun create()  = (
          circle(
              count = this.count,
              fineTuning = this.amount,

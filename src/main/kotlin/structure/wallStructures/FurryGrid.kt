@@ -57,7 +57,7 @@ class FurryGrid : WallStructure() {
     /**
      * generating the Walls
      */
-    override fun generate(): List<SpookyWall> {
+    override fun create(): List<SpookyWall> {
         val l = mutableListOf<SpookyWall>()
         var x = p1.x
         var y = p1.y

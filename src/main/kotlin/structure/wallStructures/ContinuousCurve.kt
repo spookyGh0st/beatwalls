@@ -345,7 +345,7 @@ class ContinuousCurve : WallStructure(){
     /**
      * generating the Walls
      */
-     override fun generate()  = run()
+     override fun create()  = run()
 }
 
 fun ContinuousCurve.run(): List<SpookyWall> {

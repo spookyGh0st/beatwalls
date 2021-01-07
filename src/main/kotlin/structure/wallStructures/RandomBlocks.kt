@@ -17,7 +17,7 @@ class RandomBlocks: WallStructure(){
     /**
      * generating the Walls
      */
-     override fun generate()  = run()
+     override fun create()  = run()
 }
 
 fun RandomBlocks.run(): List<SpookyWall> {

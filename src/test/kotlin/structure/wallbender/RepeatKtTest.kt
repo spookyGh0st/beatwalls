@@ -34,7 +34,7 @@ class RepeatKtTest {
     fun repeatRandomWS() {
         val w = RandomNoise()
         w.repeat = bwInt(2)
-        val wl = w.generate()
+        val wl = w.create()
         val l2 = w.repeatStruct(wl)
         //todo
     }
@@ -43,7 +43,7 @@ class RepeatKtTest {
         val w = Wall()
         w.repeat = bwInt(2)
         w.addDuration = { Random.nextDouble()}
-        val wl = w.generate()
+        val wl = w.create()
         val l2 = w.repeatStruct(wl)
         //todo
 

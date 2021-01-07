@@ -41,7 +41,7 @@ abstract class Structure {
 
     internal abstract fun createElements(): List<BwElement>
 
-    internal fun elements(): MutableList<BwElement> {
+    internal fun run(): MutableList<BwElement> {
         val l = mutableListOf<BwElement>()
         for (count in 0..repeat()){
             l.addAll(createElements())

@@ -38,7 +38,7 @@ class Curve : WallStructure() {
     /**
      * generating the Walls
      */
-    override fun generate() = curve(p1, p2 ?: p1, p3 ?: p4, p4, amount)
+    override fun create() = curve(p1, p2 ?: p1, p3 ?: p4, p4, amount)
 }
 
 fun curve(startPoint: Point, p1: Point, p2: Point, endPoint: Point, amount: Int): List<SpookyWall> {

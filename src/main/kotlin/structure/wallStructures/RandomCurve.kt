@@ -43,7 +43,7 @@ class RandomCurve: WallStructure(){
     /**
      * generating the Walls
      */
-     override fun generate()  = run()
+     override fun create()  = run()
 }
 
 fun RandomCurve.run(): List<SpookyWall> {

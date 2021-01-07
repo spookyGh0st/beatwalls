@@ -25,7 +25,7 @@ class Define: WallStructure() {
     /**
      * generating the Walls
      */
-    override fun generate() = TODO("Remove")
+    override fun create() = TODO("Remove")
 
     override fun name(): String {
         if (isTopLevel)

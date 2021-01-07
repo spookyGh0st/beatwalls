@@ -4,9 +4,11 @@ package structure.wallStructures
 
 import structure.Structure
 import structure.helperClasses.NoRotation
+import structure.helperClasses.Point
 import structure.helperClasses.RotationMode
 import structure.helperClasses.SpookyWall
 import types.*
+import kotlin.math.pow
 
 /*
 This is the relevant File for the creation of all WallStructures
@@ -26,8 +28,7 @@ To set them to a default single value use the functions below
 */
 
 
-abstract class WallStructure: Structure()
-{
+abstract class WallStructure: Structure() {
     /**
      * mirrors the SpookyWall. Default: 0. click me:
      *
@@ -190,7 +191,7 @@ abstract class WallStructure: Structure()
      * scales the Duration and startTime, (duration only for positive duration).
      * This is useful for making a structure, that is one beat long longer or shorter
      */
-    var scale: BwDouble? = null
+    var scale: BwDouble = bwDouble(1)
 
     /**
      * reverses the WallStructure on the Starttime/duration. Default: false
@@ -246,138 +247,22 @@ abstract class WallStructure: Structure()
     var color: BwColor? = null
 
     /**
-     * The rotation of the wallstructure around the player, think 360 maps. click me.
-     * This rotates on the Y Axe and is left in for backwards compability.
-     * Use rotation(X/Y/Z) from now on.
-     *
-     * ```
-     * # rotates the entire Wallstructure 90 degrees
-     * rotation: 90
-     *
-     * # also rotates the entire Wallstructure 90 degrees. You can use negative values as well
-     * rotation: 450
-     *
-     * # rotates the walls linear from 45 to 90.
-     * rotation: ease(45,90)
-     *
-     * # rotates the walls from 180 to 90 degrees using easeInOutQuad.
-     * # all Easing methods can be found here https://easings.net/en
-     * rotation: ease(180,90,easeInOutQuad)
-     *
-     * # switches the rotation between the given values. here the first wall will have rotation 24, ththe second one 48 the third one 50, the fourth 24  and so forth
-     * rotation: switch(24,48,50)
-     *
-     * # rotates all the way around the player (360 degrees)
-     * rotation: circle
-     *
-     * # rotates twice all the way around the player backwards
-     * rotation: circle(-2)
-     * ```
-     *
-     * default: noRotation
-     *
+     * The rotation of the wallstructure around the player, think 360 maps around the X Achsis.
      *  Other interesting Properties: mirrorRotation -> controls if mirror also effects the rotation(true,false)
      */
-    var rotation: RotationMode = NoRotation
+    var rotationX: BwDouble = bwDouble(0)
 
     /**
      * The rotation of the wallstructure around the player, think 360 maps around the X Achsis.
-     *
-     * ```
-     * # rotates the entire Wallstructure 90 degrees
-     * rotationX: 90
-     *
-     * # also rotates the entire Wallstructure 90 degrees. You can use negative values as well
-     * rotationX: 450
-     *
-     * # rotates the walls linear from 45 to 90.
-     * rotationX: ease(45,90)
-     *
-     * # rotates the walls from 180 to 90 degrees using easeInOutQuad.
-     * # all Easing methods can be found here https://easings.net/en
-     * rotationX: ease(180,90,easeInOutQuad)
-     *
-     * # switches the rotationX between the given values. here the first wall will have rotationX 24, ththe second one 48 the third one 50, the fourth 24  and so forth
-     * rotationX: switch(24,48,50)
-     *
-     * # rotates all the way around the player (360 degrees)
-     * rotationX: circle
-     *
-     * # rotates twice all the way around the player backwards
-     * rotationX: circle(-2)
-     * ```
-     *
-     * default: noRotation
-     *
      *  Other interesting Properties: mirrorRotation -> controls if mirror also effects the rotation(true,false)
      */
-    var rotationX: RotationMode = NoRotation
+    var rotationY: BwDouble = bwDouble(0)
 
     /**
      * The rotation of the wallstructure around the player, think 360 maps around the X Achsis.
-     *
-     * ```
-     * # rotates the entire Wallstructure 90 degrees
-     * rotationY: 90
-     *
-     * # also rotates the entire Wallstructure 90 degrees. You can use negative values as well
-     * rotationY: 450
-     *
-     * # rotates the walls linear from 45 to 90.
-     * rotationY: ease(45,90)
-     *
-     * # rotates the walls from 180 to 90 degrees using easeInOutQuad.
-     * # all Easing methods can be found here https://easings.net/en
-     * rotationY: ease(180,90,easeInOutQuad)
-     *
-     * # switches the rotationY between the given values. here the first wall will have rotationY 24, ththe second one 48 the third one 50, the fourth 24  and so forth
-     * rotationY: switch(24,48,50)
-     *
-     * # rotates all the way around the player (360 degrees)
-     * rotationY: circle
-     *
-     * # rotates twice all the way around the player backwards
-     * rotationY: circle(-2)
-     * ```
-     *
-     * default: noRotation
-     *
      *  Other interesting Properties: mirrorRotation -> controls if mirror also effects the rotation(true,false)
      */
-    var rotationY: RotationMode = NoRotation
-
-    /**
-     * The rotation of the wallstructure around the player, think 360 maps around the X Achsis.
-     *
-     * ```
-     * # rotates the entire Wallstructure 90 degrees
-     * rotationZ: 90
-     *
-     * # also rotates the entire Wallstructure 90 degrees. You can use negative values as well
-     * rotationZ: 450
-     *
-     * # rotates the walls linear from 45 to 90.
-     * rotationZ: ease(45,90)
-     *
-     * # rotates the walls from 180 to 90 degrees using easeInOutQuad.
-     * # all Easing methods can be found here https://easings.net/en
-     * rotationZ: ease(180,90,easeInOutQuad)
-     *
-     * # switches the rotationZ between the given values. here the first wall will have rotationZ 24, ththe second one 48 the third one 50, the fourth 24  and so forth
-     * rotationZ: switch(24,48,50)
-     *
-     * # rotates all the way around the player (360 degrees)
-     * rotationZ: circle
-     *
-     * # rotates twice all the way around the player backwards
-     * rotationZ: circle(-2)
-     * ```
-     *
-     * default: noRotation
-     *
-     *  Other interesting Properties: mirrorRotation -> controls if mirror also effects the rotation(true,false)
-     */
-    var rotationZ: RotationMode = NoRotation
+    var rotationZ: BwDouble = bwDouble(0)
 
     /**
      * Defines, if mirror also effects the rotation. Can be true or false. Default: true
@@ -386,38 +271,18 @@ abstract class WallStructure: Structure()
 
     /**
      * localRotX controls the rotation on the x-axis for each individual wall in degree. allows random. Default: 0
-     *
-     *  example:
-     *
-     *  ```yaml
-     *  localRotX: 20 # rotates each wall 20 degree to the right
-     *  localRotX: random(-20,20) # rotates each wall on the x axis randomnly between -20 and 20.
-     *  ```
      */
-    var localRotX: RotationMode = NoRotation
+    var localRotX: BwDouble = bwDouble(0)
 
     /**
      * localRotY controls the rotation on the y-axis for each individual Wall in degree. allows random. Default: 0
-     *
-     *  example:
-     *
-     *  ```yaml
-     *  localRotY: 20 # rotates each wall 20 degree to the right
-     *  localRotY: random(-20,20) # rotates each wall on the x axis randomnly between -20 and 20.
-     *  ```
      */
-    var localRotY: RotationMode = NoRotation
+    var localRotY: BwDouble = bwDouble(0)
+
     /**
      * * localRotZ controls the rotation on the x-axis for each individual Wall in degree. allows random. Default: 0
-    *
-    *  example:
-    *
-    *  ```yaml
-    *  localRotZ: 20 # rotates each wall 20 degree to the right
-    *  localRotZ: random(-20,20) # rotates each wall on the x axis randomnly between -20 and 20.
-     *  ```
-    */
-    var localRotZ: RotationMode = NoRotation
+     */
+    var localRotZ: BwDouble = bwDouble(0)
 
     /**
      * some Wallstructures use Random walls. This is the seed for them
@@ -448,8 +313,129 @@ abstract class WallStructure: Structure()
     /** returns the name of the structure */
     open fun name() = this::class.simpleName ?: throw ClassNotFoundException("class does not have a name")
 
+    abstract fun create(): List<SpookyWall>
+
     override fun createElements(): List<SpookyWall> {
-        TODO("Not yet implemented")
+        val c = create()
+        val l = mutableListOf<SpookyWall>()
+        val center = center(c)
+
+        speedUp(c)
+        for ((i, w) in c.withIndex()) {
+            // Set the progress Variable so easing works
+            structureState.progress = i.toDouble() / c.size
+
+            adjust(w)
+            reverse(w, center)
+        }
+        return l.toMutableList()
     }
-    abstract fun generate(): List<SpookyWall>
+
+    private fun adjust(w: SpookyWall) {
+        w.startRow = changeX?.invoke() ?: w.startRow
+        w.width = changeWidth?.invoke() ?: w.width
+        w.startHeight = changeY?.invoke() ?: w.startHeight
+        w.height = changeHeight?.invoke() ?: w.height
+        w.startTime = changeZ?.invoke() ?: w.startTime
+        w.duration = changeDuration?.invoke() ?: w.duration
+
+        w.duration *= scaleDuration.invoke()
+        w.startTime *= scaleZ.invoke()
+        w.height *= scaleHeight.invoke()
+        w.startHeight *= scaleY.invoke()
+        w.startRow *= scaleZ.invoke()
+        w.width *= scaleWidth.invoke()
+
+        w.startTime *= scale.invoke()
+        if (w.duration > 0)
+            w.duration *= scale.invoke()
+
+        w.startRow += addX.invoke()
+        w.width += addWidth.invoke()
+        w.startHeight += addY.invoke()
+        w.height += addHeight.invoke()
+        w.startTime += addZ.invoke()
+        w.duration += addDuration.invoke()
+
+
+
+        if (fitX != null) {
+            w.width = (w.startRow + (w.width.takeIf { i -> i > 0 } ?: 0.0)) - fitX!!.invoke()
+            w.startRow = fitX!!.invoke()
+        }
+        if (fitWidth != null) {
+            w.startRow = (w.startRow + (w.width.takeIf { i -> i > 0 } ?: 0.0)) - fitWidth!!.invoke()
+            w.width = fitWidth!!.invoke()
+        }
+        if (fitY != null) {
+            w.height = (w.startHeight + (w.height.takeIf { i -> i > 0 } ?: 0.0)) - fitY!!.invoke()
+            w.startHeight = fitY!!.invoke()
+        }
+        if (fitHeight != null) {
+            w.startHeight = (w.startHeight + (w.height.takeIf { i -> i > 0 } ?: 0.0)) - fitHeight!!.invoke()
+            w.height = fitHeight!!.invoke()
+        }
+        if (fitZ != null) {
+            w.duration = (w.startTime + (w.duration.takeIf { i -> i > 0 } ?: 0.0)) - fitZ!!.invoke()
+            w.startTime = fitZ!!.invoke()
+        }
+        if (fitDuration != null) {
+            w.startTime = (w.startTime + (w.duration.takeIf { i -> i > 0 } ?: 0.0)) - fitDuration!!.invoke()
+            w.duration = fitDuration!!.invoke()
+        }
+    }
+
+    private fun reverse(w: SpookyWall, center: Point){
+        if (reverseX){
+            w.startRow = 2* center.x -w.startRow
+            w.width = -w.width
+        }
+        if (reverseY){
+            w.startHeight = 2* center.y - w.startHeight
+            w.height *= -1
+        }
+        if (reverse){
+            w.startTime = 2 * center.z - w.startTime
+            w.height *= -1
+        }
+    }
+
+
+    // im not changing that, fuck you, math is hard.
+    private fun speedUp(l: List<SpookyWall>){
+        if(speeder != null){
+            val maxZ = l.maxBy { it.trueMaxPoint.z }?.trueMaxPoint?.z ?: 0.0
+            l.forEach { wall ->
+                wall.startTime = wall.startTime.pow(speeder!!())
+                if (wall.duration > 0)
+                    wall.duration = wall.duration.pow(speeder!!())
+            }
+
+            val newMaxZ = l.maxByOrNull { it.trueMaxPoint.z }?.trueMaxPoint?.z ?: 0.0
+            val mult = 1/(newMaxZ)*maxZ
+            l.forEach {
+                it.startTime *= mult
+                if(it.duration > 0)
+                    it.duration *= mult
+            }
+        }
+    }
+
+    private fun rotate(w: SpookyWall){
+        w.rotation = arrayOf(rotationX(), rotationY(), rotationZ())
+        w.localRotation = arrayOf(localRotX(), localRotY(), localRotZ())
+    }
+
+    private fun center(l: List<SpookyWall>): Point {
+        val minX = l.minByOrNull { spookyWall -> spookyWall.trueMinPoint.x }?.trueMinPoint?.x?: 0.0
+        val maxX = l.maxByOrNull { spookyWall -> spookyWall.trueMaxPoint.x }?.trueMaxPoint?.x?: 0.0
+        val minY = l.minByOrNull { spookyWall -> spookyWall.trueMinPoint.y }?.trueMinPoint?.y?: 0.0
+        val maxY = l.maxByOrNull { spookyWall -> spookyWall.trueMaxPoint.y }?.trueMaxPoint?.y?: 0.0
+        val minZ = l.minByOrNull { spookyWall -> spookyWall.trueMinPoint.z }?.trueMinPoint?.z?: 0.0
+        val maxZ = l.maxByOrNull { spookyWall -> spookyWall.trueMaxPoint.z }?.trueMaxPoint?.z?: 0.0
+        val centerX = minX + ((maxX-minX )/ 2)
+        val centerY = minY + ((maxY-minY )/ 2)
+        val centerZ = minZ + ((maxZ-minZ )/ 2)
+        return Point(centerX, centerY, centerZ)
+    }
 }

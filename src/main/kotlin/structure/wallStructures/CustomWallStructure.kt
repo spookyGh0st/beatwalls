@@ -11,6 +11,6 @@ class CustomWallStructure(
     override val superStructure: WallStructure,
     override val structures: List<WallStructure>
 ) : WallStructure(), CustomStructInterface {
-        override fun generate(): List<SpookyWall> =
-            superStructure.generate() + structures.flatMap { it.generate() }
+        override fun create(): List<SpookyWall> =
+            superStructure.create() + structures.flatMap { it.create() }
 }

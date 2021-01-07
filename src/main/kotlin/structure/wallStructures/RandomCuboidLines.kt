@@ -43,7 +43,7 @@ class RandomCuboidLines : WallStructure() {
     /**
      * generating the Walls
      */
-    override fun generate(): List<SpookyWall> {
+    override fun create(): List<SpookyWall> {
         val l= mutableListOf<SpookyWall>()
         val c = CuboidConstrains(p1, p2)
         val trueCount = count ?: c.duration.roundToInt()

@@ -42,7 +42,7 @@ class RandomStructures: WallStructure() {
     /**
      * generating the Walls
      */
-    override fun generate(): MutableList<SpookyWall> {
+    override fun create(): MutableList<SpookyWall> {
         when {
             structures.isEmpty() -> errorExit { "The structureList of this at beat $beat is empty, check if you have a typo " }
             structures.contains(this) -> errorExit { "NO RECURSION, BAD BOY" }
@@ -51,7 +51,7 @@ class RandomStructures: WallStructure() {
         val cc = CuboidConstrains(p1, p2, seed?.invoke()?: Random.nextInt())
         for(i in 0 until amount){
             for(w in structures){
-                val t = w.generate()
+                val t = w.create()
                 t.forEach { it.startTime += (w.beat()) }
                 val rp = cc.random(avoidCenter)
                 t.forEach { it.startRow += rp.x }

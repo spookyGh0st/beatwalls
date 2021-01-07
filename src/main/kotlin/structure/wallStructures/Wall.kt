@@ -42,7 +42,7 @@ class Wall: WallStructure() {
     /**
      * generating the Walls
      */
-     override fun generate()  = listOf<SpookyWall>(
+     override fun create()  = listOf<SpookyWall>(
          SpookyWall(
              startRow = this.startRow,
              duration = this.duration,

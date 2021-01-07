@@ -47,7 +47,7 @@ class NoodleHelix: WallStructure(){
     /**
      * generating the Walls
      */
-     override fun generate(): List<SpookyWall> {
+     override fun create(): List<SpookyWall> {
         val l = mutableListOf<SpookyWall>()
         for(ci in 0 until count){
              val points = arrayOfNulls<Point>(amount +1)

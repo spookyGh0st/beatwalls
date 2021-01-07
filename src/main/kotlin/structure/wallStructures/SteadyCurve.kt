@@ -35,7 +35,7 @@ class SteadyCurve: WallStructure(){
     /**
      * generating the Walls
      */
-     override fun generate(): List<SpookyWall> {
+     override fun create(): List<SpookyWall> {
         p1 = p1.copy(z=0.0)
         p2 = p2?.copy(z=0.3333)
         p3 = p3?.copy(z=0.6666)

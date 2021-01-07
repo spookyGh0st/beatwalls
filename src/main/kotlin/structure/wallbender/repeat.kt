@@ -14,7 +14,7 @@ fun WallStructure.repeatStruct(walls:List<SpookyWall>): List<SpookyWall>{
     val l = walls.toMutableList()
     for(i in 1 until repeat()){
         this.structureState.count ++
-        var temp = this.generate()
+        var temp = this.create()
         temp = this.bendWalls(temp)
         l+=temp
     }

@@ -32,13 +32,7 @@ data class SpookyWall(
     @Expose
     @SerializedName("color") var color: Color? = null,
     @Expose
-    @SerializedName("rotation") var rotation: Double = 0.0,
-    @Expose
-    @SerializedName("rotationX") var rotationX: Double = 0.0,
-    @Expose
-    @SerializedName("rotationY") var rotationY: Double = 0.0,
-    @Expose
-    @SerializedName("rotationZ") var rotationZ: Double = 0.0,
+    @SerializedName("rotation") var rotation: Array<Double> = arrayOf(0.0, 0.0, 0.0),
     @Expose
     @SerializedName("localRotation") var localRotation: Array<Double> = arrayOf(0.0, 0.0, 0.0),
     @Expose
@@ -73,7 +67,7 @@ data class SpookyWall(
             max(startHeight, startHeight + height),
             max(startTime, startTime + duration)
         )
-    val trueLowestPoint
+    val trueMinPoint
         get() = Point(
             min(startRow, startRow + width),
             min(startHeight, startHeight + height),
@@ -150,11 +144,8 @@ data class SpookyWall(
         t.width = t.width.coerceAtLeast(minValue)
         t.height = t.height.coerceAtLeast(minValue)
 
-        t.rotation = t.rotation % 360
-        t.rotationX = t.rotationX % 360
-        t.rotationY = t.rotationY % 360
-        t.rotationZ = t.rotationZ % 360
         t.localRotation = t.localRotation.map { it % 360 }.toTypedArray()
+        t.rotation = t.rotation.map { it % 360 }.toTypedArray()
 
         if (t.duration in -0.0001 .. 0.0001)
             t.duration = 0.0001
@@ -200,12 +191,7 @@ data class SpookyWall(
             color != null -> listOf(color!!.red, color!!.green, color!!.blue)
             else -> null }
 
-        var tRotation: ArrayList<Double>? = arrayListOf(rotationX, rotationY, rotationZ)
-        tRotation?.set(1, rotation)
-        if (tRotation != null) {
-            if (tRotation.all { it == 0.0 })
-                tRotation = null
-        }
+        val tRotation = if (rotation.all { it == 0.0 }) null else rotation.toList()
 
         val tLocalRotation = if (localRotation.all { it == 0.0 }) null else localRotation.toList()
 

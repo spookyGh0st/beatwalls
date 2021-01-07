@@ -30,7 +30,7 @@ class BpmAdjuster(diff: Difficulty) {
     }
 
     fun generate(w: WallStructure): List<SpookyWall> {
-        val walls = w.generate()
+        val walls = w.create()
 
         // adjusts the neccesary values
         walls.forEach { it.startTime += w.beat() }

@@ -7,7 +7,7 @@ import structure.helperClasses.SpookyWall
  * Why should you use it? idk, i need it for some internal stuff.
  */
 class EmptyWallStructure: WallStructure() {
-    override fun generate() = emptyList<SpookyWall>()
+    override fun create() = emptyList<SpookyWall>()
 }
 
 

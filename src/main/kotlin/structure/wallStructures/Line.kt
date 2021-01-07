@@ -27,7 +27,7 @@ class Line: WallStructure(){
     /**
      * generating the Walls
      */
-    override fun generate(): List<SpookyWall> {
+    override fun create(): List<SpookyWall> {
         if (amount == null)
             amount = (6 * abs(p2.z - p1.z)).toInt()
         return (line(p1, p2, amount)).toList()

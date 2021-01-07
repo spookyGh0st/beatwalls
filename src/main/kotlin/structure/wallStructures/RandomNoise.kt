@@ -32,7 +32,7 @@ class RandomNoise: WallStructure(){
     /**
      * generating the Walls
      */
-    override fun generate(): List<SpookyWall> {
+    override fun create(): List<SpookyWall> {
         val l = mutableListOf<SpookyWall>()
         val c = CuboidConstrains(p1, p2, seed?.invoke()?: Random.nextInt())
         amount = amount ?: (8 * (c.ez - c.sz)).roundToInt()

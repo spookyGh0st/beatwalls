@@ -4,20 +4,13 @@ import beatwalls.GlobalConfig
 import chart.difficulty._noteCustomData
 import chart.difficulty._notes
 import chart.difficulty._obstacleCustomData
+import chart.difficulty._obstacles
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
-import chart.difficulty._obstacles
-import java.io.Serializable
-import java.util.ArrayList
 import kotlin.math.max
 import kotlin.math.min
 
-
-interface BwElement{
-
-}
 data class SpookyWall(
-    @Expose
     @SerializedName("startRow") var startRow: Double,
     @Expose
     @SerializedName("duration") var duration: Double,
@@ -243,4 +236,6 @@ data class SpookyWall(
 }
 
 internal const val minValue = 0.005
+
+
 

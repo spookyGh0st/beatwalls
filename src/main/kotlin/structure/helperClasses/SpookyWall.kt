@@ -32,9 +32,9 @@ data class SpookyWall(
     @Expose
     @SerializedName("color") var color: Color? = null,
     @Expose
-    @SerializedName("rotation") var rotation: Array<Double> = arrayOf(0.0, 0.0, 0.0),
+    @SerializedName("rotation") var rotation: List<Double> = arrayListOf(0.0, 0.0, 0.0),
     @Expose
-    @SerializedName("localRotation") var localRotation: Array<Double> = arrayOf(0.0, 0.0, 0.0),
+    @SerializedName("localRotation") var localRotation: List<Double> = arrayListOf(0.0, 0.0, 0.0),
     @Expose
     @SerializedName("track") var track: String? = null,
     @Expose
@@ -43,6 +43,7 @@ data class SpookyWall(
     @SerializedName("noteJumpStartBeat") var noteJumpStartBeat: Double? = null,
     @Expose
     @SerializedName("noteJumpStartBeatOffset") var noteJumpStartBeatOffset: Double? = null
+// TODO add NE elements
 ): BwElement{
 
     constructor(
@@ -144,8 +145,8 @@ data class SpookyWall(
         t.width = t.width.coerceAtLeast(minValue)
         t.height = t.height.coerceAtLeast(minValue)
 
-        t.localRotation = t.localRotation.map { it % 360 }.toTypedArray()
-        t.rotation = t.rotation.map { it % 360 }.toTypedArray()
+        t.localRotation = t.localRotation.map { it % 360 }
+        t.rotation = t.rotation.map { it % 360 }
 
         if (t.duration in -0.0001 .. 0.0001)
             t.duration = 0.0001

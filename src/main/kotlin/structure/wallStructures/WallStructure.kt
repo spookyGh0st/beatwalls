@@ -3,11 +3,9 @@
 package structure.wallStructures
 
 import structure.Structure
-import structure.helperClasses.NoRotation
-import structure.helperClasses.Point
-import structure.helperClasses.RotationMode
-import structure.helperClasses.SpookyWall
+import structure.helperClasses.*
 import types.*
+import java.lang.Exception
 import kotlin.math.pow
 
 /*
@@ -300,15 +298,37 @@ abstract class WallStructure: Structure() {
     var bombs: Boolean = false
 
     /**
-     * changes the NJMS of a single specific wall.
-     * This wil change the speed a wall will have
+     * Set the NJS of all walls.
+     * Part of NE: https://github.com/Aeroluna/NoodleExtensions/blob/master/README.md
      */
     var noteJumpMovementSpeed: BwDouble? = null
 
     /**
-     * I have no idea, ask cyan
+     * Set the spawn offset of an individual object
+     * Part of NE: https://github.com/Aeroluna/NoodleExtensions/blob/master/README.md
      */
-    var noteJumpMovementSpeedOffset: BwDouble? = null
+    var noteJumpStartBeatOffset: BwDouble? = null
+
+    /**
+     * When true, causes the note/wall to not show up in the note/wall count and to not count towards score in any way
+     * Part of NE: https://github.com/Aeroluna/NoodleExtensions/blob/master/README.md
+     */
+    var fake: Boolean = false
+
+    /**
+     * When false, the note/wall cannot be interacted with.
+     * This means notes cannot be cut and walls will not interact with sabers/putting your head in the wall.
+     * Notes will still count towards your score.
+     * Part of NE: https://github.com/Aeroluna/NoodleExtensions/blob/master/README.md
+     */
+    var interactable: Boolean = true
+
+    /**
+     * When true, notes will no longer do their animation where they float up.
+     * Part of NE: https://github.com/Aeroluna/NoodleExtensions/blob/master/README.md
+     */
+    var disableNoteGravity: Boolean = false
+
 
     /** returns the name of the structure */
     open fun name() = this::class.simpleName ?: throw ClassNotFoundException("class does not have a name")
@@ -326,7 +346,12 @@ abstract class WallStructure: Structure() {
             structureState.progress = i.toDouble() / c.size
 
             adjust(w)
+            fit(w)
             reverse(w, center)
+            rotate(w)
+            color(w)
+            noodle(w)
+            l.addAll(mirror(w))
         }
         return l.toMutableList()
     }
@@ -356,9 +381,8 @@ abstract class WallStructure: Structure() {
         w.height += addHeight.invoke()
         w.startTime += addZ.invoke()
         w.duration += addDuration.invoke()
-
-
-
+    }
+    private fun fit(w: SpookyWall){
         if (fitX != null) {
             w.width = (w.startRow + (w.width.takeIf { i -> i > 0 } ?: 0.0)) - fitX!!.invoke()
             w.startRow = fitX!!.invoke()
@@ -422,8 +446,36 @@ abstract class WallStructure: Structure() {
     }
 
     private fun rotate(w: SpookyWall){
-        w.rotation = arrayOf(rotationX(), rotationY(), rotationZ())
-        w.localRotation = arrayOf(localRotX(), localRotY(), localRotZ())
+        w.rotation = listOf(rotationX(), rotationY(), rotationZ())
+        w.localRotation = listOf(localRotX(), localRotY(), localRotZ())
+    }
+
+    private fun color(w: SpookyWall){
+        if (color != null)
+            w.color = Color(color!!.r(), color!!.g(), color!!.b(), color!!.a())
+    }
+
+    protected fun noodle(w:SpookyWall){
+        w.track = track
+        w.noteJumpStartBeat = noteJumpMovementSpeed?.invoke()
+        w.noteJumpStartBeatOffset = noteJumpStartBeatOffset?.invoke()
+        // TODO Assign noodle Values
+    }
+
+    private fun mirror(w: SpookyWall): List<SpookyWall>{
+        val l = listOf(w)
+        return when(mirror()){
+            0-> listOf(w)
+            1-> mirrorX(l)
+            2-> l + mirrorX(l)
+            3-> mirrorY(l)
+            4-> l + mirrorY(l)
+            5-> mirrorY(mirrorX(l))
+            6-> l + mirrorY(mirrorX(l))
+            7-> mirrorX(l) + mirrorY(l)
+            8-> l + mirrorX(l) + mirrorY(l) + mirrorY(mirrorX(l))
+            else -> throw Exception("Not a valid mirror code")
+        }
     }
 
     private fun center(l: List<SpookyWall>): Point {
@@ -438,4 +490,56 @@ abstract class WallStructure: Structure() {
         val centerZ = minZ + ((maxZ-minZ )/ 2)
         return Point(centerX, centerY, centerZ)
     }
+
+    private fun mirrorX(list: List<SpookyWall>): List<SpookyWall> {
+        return list.map { wall ->
+            val rotation = if (mirrorRotation)
+                listOf(
+                    (wall.rotation.getOrNull(0)?: 0.0),
+                    - (wall.rotation.getOrNull(1)?: 0.0),
+                    - (wall.rotation.getOrNull(2)?: 0.0),
+                )
+            else wall.rotation
+            val localRotation = if (mirrorRotation)
+                listOf(
+                    (wall.localRotation.getOrNull(0)?: 0.0),
+                    - (wall.localRotation.getOrNull(1)?: 0.0),
+                    - (wall.localRotation.getOrNull(2)?: 0.0),
+                )
+            else wall.localRotation
+
+            wall.copy(
+                startRow = 2*mirrorX()-wall.startRow,
+                width = -wall.width,
+                rotation = rotation,
+                localRotation = localRotation
+
+            ) }
+    }
+    internal fun mirrorY(list: List<SpookyWall>): List<SpookyWall> {
+        return list.map { wall ->
+            val rotation = if (mirrorRotation)
+                listOf(
+                    - (wall.rotation.getOrNull(0)?: 0.0),
+                    (wall.rotation.getOrNull(1)?: 0.0),
+                    - (wall.rotation.getOrNull(2)?: 0.0),
+                )
+            else wall.rotation
+            val localRotation = if (mirrorRotation)
+                listOf(
+                    - (wall.localRotation.getOrNull(0)?: 0.0),
+                    (wall.localRotation.getOrNull(1)?: 0.0),
+                    - (wall.localRotation.getOrNull(2)?: 0.0),
+                )
+            else wall.localRotation
+            wall.copy(
+                startHeight = 2*mirrorY()-wall.startHeight,
+                height = -wall.height,
+                rotation = rotation,
+                localRotation = localRotation,
+            )
+        }
+    }
 }
+
+

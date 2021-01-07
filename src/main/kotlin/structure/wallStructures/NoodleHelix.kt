@@ -88,7 +88,7 @@ class NoodleHelix: WallStructure(){
                      height = height,
                      startHeight = startHeight,
                      startTime = startTime,
-                     localRotation = arrayOf<Double>(0.0, 0.0,lrz)
+                     localRotation = listOf(0.0, 0.0,lrz)
                  ))
              }
          }

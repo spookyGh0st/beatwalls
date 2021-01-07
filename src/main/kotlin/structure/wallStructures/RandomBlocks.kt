@@ -17,15 +17,13 @@ class RandomBlocks: WallStructure(){
     /**
      * generating the Walls
      */
-     override fun create()  = run()
-}
-
-fun RandomBlocks.run(): List<SpookyWall> {
-    val l= mutableListOf<SpookyWall>()
-    repeat(amount){
-        l.add(createBlock(it.toDouble()/amount*duration,wallDuration))
-    }
-    return l.toList()
+     override fun create(): List<SpookyWall> {
+        val l= mutableListOf<SpookyWall>()
+        repeat(amount){
+            l.add(createBlock(it.toDouble()/amount*duration,wallDuration))
+        }
+        return l.toList()
+     }
 }
 
 private fun RandomBlocks.createBlock(st:Double, d:Double): SpookyWall {

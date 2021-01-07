@@ -345,28 +345,26 @@ class ContinuousCurve : WallStructure(){
     /**
      * generating the Walls
      */
-     override fun create()  = run()
-}
-
-fun ContinuousCurve.run(): List<SpookyWall> {
-    val l= mutableListOf<SpookyWall>()
-    for(i in 1 until creationAmount){
-        val point = readPoint("p$i")
-        val controlPoint = readPoint("c$i")
-        val nextPoint = readPoint("p${i +1}")
-        val nextControlPoint = readPoint("c${i+1}")
-        val nextNextPoint = try { readPoint("p${i+2}") } catch (e:Exception){ null }
-        if(point!=null && nextPoint!=null && controlPoint!=null && nextControlPoint!= null) {
-            val tempP1 = point
-            val tempP2 = controlPoint.copy(z = point.z + (1/3.0) * (nextPoint.z - point.z))
-            val tempP3 =
-                calcP3(point, nextPoint, nextControlPoint, nextNextPoint)
-            val tempP4 = nextPoint
-            val amount = ((tempP4.z - tempP1.z) * amount).toInt()
-            l.addAll(curve(tempP1, tempP2, tempP3, tempP4, amount))
+     override fun create(): List<SpookyWall> {
+        val l= mutableListOf<SpookyWall>()
+        for(i in 1 until creationAmount){
+            val point = readPoint("p$i")
+            val controlPoint = readPoint("c$i")
+            val nextPoint = readPoint("p${i +1}")
+            val nextControlPoint = readPoint("c${i+1}")
+            val nextNextPoint = try { readPoint("p${i+2}") } catch (e:Exception){ null }
+            if(point!=null && nextPoint!=null && controlPoint!=null && nextControlPoint!= null) {
+                val tempP1 = point
+                val tempP2 = controlPoint.copy(z = point.z + (1/3.0) * (nextPoint.z - point.z))
+                val tempP3 =
+                    calcP3(point, nextPoint, nextControlPoint, nextNextPoint)
+                val tempP4 = nextPoint
+                val amount = ((tempP4.z - tempP1.z) * amount).toInt()
+                l.addAll(curve(tempP1, tempP2, tempP3, tempP4, amount))
+            }
         }
+        return l.toList()
     }
-    return l.toList()
 }
 
 fun calcP3(point: Point, nextPoint: Point, nextControlPoint: Point, nextNextPoint: Point?): Point {

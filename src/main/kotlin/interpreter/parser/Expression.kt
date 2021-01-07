@@ -1,11 +1,9 @@
 package interpreter.parser
 
 import assetFile.toPoint
-import assetFile.toRotationMode
 import structure.CustomStructInterface
 import structure.Structure
 import structure.helperClasses.Point
-import structure.helperClasses.RotationMode
 import types.*
 import kotlin.reflect.KMutableProperty
 import kotlin.reflect.KProperty1
@@ -36,7 +34,6 @@ fun Parser.parseStructureProperty(ws: Structure){
         typeOf<List<String>>()  -> currentTP.v.toLowerCase().replace(" ","").split(',')
         typeOf<Point>()         -> currentTP.v.toPoint() // todo remove
         typeOf<BwColor>()       -> bwColor(currentTP.v, ss)
-        typeOf<RotationMode>()  -> currentTP.v.toRotationMode()
         else -> errorTP("Unknown type: ${p.returnType}")
     }
     writeProb(ws, p, value)

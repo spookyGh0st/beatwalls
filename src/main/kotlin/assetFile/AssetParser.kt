@@ -4,7 +4,6 @@ import beatwalls.errorExit
 import mu.KotlinLogging
 import structure.*
 import structure.helperClasses.Point
-import structure.helperClasses.RotationMode
 import structure.wallStructures.Define
 import structure.wallStructures.EmptyWallStructure
 import structure.wallStructures.WallStructure
@@ -121,7 +120,6 @@ fun fillProperty(
         typeOf<()->Double>() -> value.toDoubleFunc()
         typeOf<String>() -> value
         typeOf<Point>() -> value.toPoint()
-        typeOf<RotationMode>() -> value.toRotationMode()
         typeOf<WallStructure>() -> value.toWallStructure(definedStructure)
         typeOf<List<WallStructure>>() -> value.toWallStructureList(definedStructure)
         else -> errorExit { "Unknown type: $returnType" }

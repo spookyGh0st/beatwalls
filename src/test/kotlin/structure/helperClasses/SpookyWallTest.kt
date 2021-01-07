@@ -37,8 +37,7 @@ class SpookyWallTest {
             startHeight = -1.0,
             startTime = 1.0,
             color = blue,
-            rotation = -180.0
-
+            rotation = listOf(-180.0)
         )
         val expected = SpookyWall(
             startRow = -2.0,
@@ -48,8 +47,7 @@ class SpookyWallTest {
             startHeight = -2.0,
             startTime = 1.0,
             color = blue,
-            rotation = -180.0 % 360
-
+            rotation = listOf(-180.0 % 360)
         )
         val actual = w.toValidWall()
         assertEquals(expected,actual)

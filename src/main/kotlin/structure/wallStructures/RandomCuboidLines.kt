@@ -1,15 +1,13 @@
 package structure.wallStructures
 
-import structure.helperClasses.CuboidConstrains
-import structure.helperClasses.Point
-import structure.helperClasses.SpookyWall
+import structure.helperClasses.*
 import kotlin.math.roundToInt
 import kotlin.random.Random
 
 /**
  * draws multiple lines around Sections of the cuboid.
  */
-class RandomCuboidLines : WallStructure() {
+class RandomCuboidLines : Wallpath() {
     /**
      * the first corner of the cuboid. Default is -2,0,0
      */
@@ -20,11 +18,6 @@ class RandomCuboidLines : WallStructure() {
      * the second corner of the cuboid. Default is 2,4,8
      */
     var p2: Point = Point(2, 4, 4)
-
-    /**
-     * The amount of walls per line. Default is 8
-     */
-    var amount: Int = 8
 
     /**
      * The amount of lines that will be created. Defaults to the duration
@@ -43,8 +36,8 @@ class RandomCuboidLines : WallStructure() {
     /**
      * generating the Walls
      */
-    override fun create(): List<SpookyWall> {
-        val l= mutableListOf<SpookyWall>()
+    override fun createWalls(): List<BwObstacle> {
+        val l= mutableListOf<BwObstacle>()
         val c = CuboidConstrains(p1, p2)
         val trueCount = count ?: c.duration.roundToInt()
         val r = Random(seed?.invoke()?: Random.nextInt())
@@ -60,11 +53,11 @@ class RandomCuboidLines : WallStructure() {
 
             // selects the first Point of the line
             val lineP1 = when (randomSide) {
-                0 -> Point(c.sx, randomY, z1)
-                1 -> Point(c.ex, randomY, z1)
-                2 -> Point(randomX, c.sy, z1)
-                3 -> Point(randomX, c.ey, z1)
-                else -> Point(0, 0, 0) // never happens
+                0 -> Vec3(c.sx, randomY, z1)
+                1 -> Vec3(c.ex, randomY, z1)
+                2 -> Vec3(randomX, c.sy, z1)
+                3 -> Vec3(randomX, c.ey, z1)
+                else -> Vec3(0, 0, 0) // never happens
             }
 
             // calculates the end X and Y
@@ -76,9 +69,9 @@ class RandomCuboidLines : WallStructure() {
                 1 -> lineP1.copy(y = randomEndY, z = z2)
                 2 -> lineP1.copy(x = randomEndX, z = z2)
                 3 -> lineP1.copy(x = randomEndX, z = z2)
-                else -> Point(0, 0, 0) // never happens
+                else -> Vec3()
             }
-            l.addAll(line(lineP1, lineP2, amount))
+            l.addAll(bwObstacleLine(lineP1, lineP2, amount(), type))
         }
         return l.toList()
     }

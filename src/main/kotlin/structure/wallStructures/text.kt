@@ -34,4 +34,4 @@ enum class Letters(val l: List<SpookyWall>){
 }
 
 
-typealias w = SpookyWall
+private typealias w = SpookyWall

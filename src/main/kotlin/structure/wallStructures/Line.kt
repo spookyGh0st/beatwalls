@@ -1,36 +1,29 @@
 package structure.wallStructures
 
-import structure.helperClasses.Point
-import structure.helperClasses.SpookyWall
+import structure.helperClasses.*
+import types.BwInt
 import kotlin.math.*
 
 /**
  * Draws a wall of line between the 2 provided Points
  */
-class Line: WallStructure(){
-
-    /**
-     * how many walls will be created. Default: 6 * duration
-     */
-    var amount: Int? = null
+class Line: Wallpath(){
 
     /**
      * The startPoint
      */
-    var p1 = Point(0, 0, 0)
+    var p0 = Vec3()
 
     /**
      * the End Point
      */
-    var p2 = Point(0, 0, 1)
+    var p1 = Vec3()
 
     /**
      * generating the Walls
      */
-    override fun create(): List<SpookyWall> {
-        if (amount == null)
-            amount = (6 * abs(p2.z - p1.z)).toInt()
-        return (line(p1, p2, amount)).toList()
+    override fun createWalls(): List<BwObstacle> {
+        return bwObstacleLine(p0, p1, amount(), type)
     }
 }
 
@@ -48,6 +41,18 @@ fun line(p0: Triple<Double, Double, Double>, p1: Triple<Double, Double, Double>,
         p1.first,
         amount
     )
+}
+
+fun bwObstacleLine(p0: Vec3, p1: Vec3, amount: Int, type: PointConnectionType): List<BwObstacle> {
+    val l = mutableListOf<BwObstacle>()
+    val vec = p1 - p0
+    for (i in 0 until amount){
+        val p = i.toDouble()/ amount
+        val t0 = p0 + (i+0.0)/amount * vec
+        val t1 = p0 + (i+1.0)/amount * vec
+        l.add(bwObstacleOfPoints(t0,t1,type))
+    }
+    return l.toList()
 }
 
 /** Draws a line between 2 coordinates */

@@ -5,7 +5,7 @@ clearNotes: true
 # Here comes the line
 line: # now comes my cool line
      beat : 10
-     p1   : 0,0,0
+     p0   : 0,0,0
 
 color mycolor:
     r: 0.3
@@ -21,15 +21,15 @@ Interface     foo:
 
 define IntroLine:
   structures: line
-  p1: 10,0,0
+  p0: 10,0,0
 
 IntroLine:
   beat: 20
-  p2: 20,0,8
+  p1: 20,0,8
 
 IntroLine:
   beat: 20
-  p2: 30,0,8
+  p1: 30,0,8
 
 include: Start.bw
 

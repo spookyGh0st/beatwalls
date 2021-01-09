@@ -1,12 +1,14 @@
 package structure.wallStructures
 
+import structure.helperClasses.BwObstacle
 import structure.helperClasses.Point
 import structure.helperClasses.SpookyWall
+import structure.helperClasses.Vec3
 
 /**
  * 3d Grid
  */
-class FurryGrid : WallStructure() {
+class Grid : WallStructure() {
     /**
      * the X-Size of one panel in the grid
      */
@@ -57,15 +59,15 @@ class FurryGrid : WallStructure() {
     /**
      * generating the Walls
      */
-    override fun create(): List<SpookyWall> {
-        val l = mutableListOf<SpookyWall>()
+    override fun createWalls(): List<BwObstacle> {
+        val l = mutableListOf<BwObstacle>()
         var x = p1.x
         var y = p1.y
         var z = p1.z
         repeat(gridX) { itX ->
             repeat(gridY) { itY ->
                 repeat(gridZ) { itZ ->
-                    val w =SpookyWall(startRow = x, duration = panelZ, width = panelX, height = panelY, startHeight = y, startTime = z)
+                    val w =BwObstacle(position = Vec3(x,y,z), scale = Vec3(panelX,panelY,panelZ))
                     if((itZ+itY+itX)%2==0 || mode == 0)
                         l.add(w)
                     z += panelZ

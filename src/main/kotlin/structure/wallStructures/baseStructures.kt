@@ -3,15 +3,13 @@ package structure.wallStructures
 import structure.baseStructs
 
 val baseStructures = baseStructs(
-    ContinuousCurve::class,
     Curve::class,
     EmptyWallStructure::class,
-    FurryGrid::class,
+    Grid::class,
     Helix::class,
     // HelixCurve::class,
     Line::class,
-    NoodleHelix::class,
-    RandomBlocks::class,
+    Helix::class,
     RandomCuboidLines::class,
     RandomCurve::class,
     RandomNoise::class,

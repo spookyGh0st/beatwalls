@@ -43,6 +43,6 @@ class HelixCurve: WallStructure() {
     /**
      * generating the Walls
      */
-     override fun create()  =
+     override fun createWalls()  =
          TODO()
 }

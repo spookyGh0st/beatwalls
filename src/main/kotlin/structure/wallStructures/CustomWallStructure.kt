@@ -1,6 +1,7 @@
 package structure.wallStructures
 
 import structure.CustomStructInterface
+import structure.helperClasses.BwObstacle
 import structure.helperClasses.SpookyWall
 
 /**
@@ -11,6 +12,6 @@ class CustomWallStructure(
     override val superStructure: WallStructure,
     override val structures: List<WallStructure>
 ) : WallStructure(), CustomStructInterface {
-        override fun create(): List<SpookyWall> =
-            superStructure.create() + structures.flatMap { it.create() }
+        override fun createWalls(): List<BwObstacle> =
+            superStructure.createWalls() + structures.flatMap { it.createWalls() }
 }

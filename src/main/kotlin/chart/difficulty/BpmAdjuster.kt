@@ -30,21 +30,22 @@ class BpmAdjuster(diff: Difficulty) {
     }
 
     fun generate(w: WallStructure): List<SpookyWall> {
-        val walls = w.create()
+        val walls = w.createWalls()
+        TODO()
 
         // adjusts the neccesary values
-        walls.forEach { it.startTime += w.beat() }
-        walls.forEach { it.adjustToBPM() }
-        walls.forEach { it.addOffset() }
+        //walls.forEach { it.startTime += w.beat() }
+        //walls.forEach { it.adjustToBPM() }
+        //walls.forEach { it.addOffset() }
 
-        // adds the njsOffset if time is true
-        if (w.time)
-            walls.forEach { it.startTime += GlobalConfig.hjsDuration }
+        //// adds the njsOffset if time is true
+        //if (w.time)
+        //    walls.forEach { it.startTime += GlobalConfig.hjsDuration }
 
-        if (w !is Define || w.isTopLevel)
-            logger.info { "Added ${w.name()} with ${walls.size} walls on beat ${w.beat}." }
-        // creates Obstacles
-        return walls
+        //if (w !is Define || w.isTopLevel)
+        //    logger.info { "Added ${w.name()} with ${walls.size} walls on beat ${w.beat}." }
+        //// creates Obstacles
+        //return walls
     }
 
     private fun SpookyWall.addOffset(){

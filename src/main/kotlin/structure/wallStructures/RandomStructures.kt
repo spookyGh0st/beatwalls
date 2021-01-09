@@ -1,9 +1,7 @@
 package structure.wallStructures
 
 import beatwalls.errorExit
-import structure.helperClasses.CuboidConstrains
-import structure.helperClasses.Point
-import structure.helperClasses.SpookyWall
+import structure.helperClasses.*
 import kotlin.random.Random
 
 /**
@@ -42,24 +40,25 @@ class RandomStructures: WallStructure() {
     /**
      * generating the Walls
      */
-    override fun create(): MutableList<SpookyWall> {
+    override fun createWalls(): List<BwObstacle> {
         when {
             structures.isEmpty() -> errorExit { "The structureList of this at beat $beat is empty, check if you have a typo " }
             structures.contains(this) -> errorExit { "NO RECURSION, BAD BOY" }
         }
-        val l= mutableListOf<SpookyWall>()
-        val cc = CuboidConstrains(p1, p2, seed?.invoke()?: Random.nextInt())
-        for(i in 0 until amount){
-            for(w in structures){
-                val t = w.create()
-                t.forEach { it.startTime += (w.beat()) }
-                val rp = cc.random(avoidCenter)
-                t.forEach { it.startRow += rp.x }
-                t.forEach { it.startHeight += rp.y }
-                t.forEach { it.startTime += i.toDouble()/ amount * cc.duration}
-                l.addAll(t)
-            }
-        }
-        return l
+        val l= mutableListOf<BwObstacle>()
+        TODO()
+        //val cc = CuboidConstrains(p1, p2, seed?.invoke()?: Random.nextInt())
+        //for(i in 0 until amount){
+        //    for(w in structures){
+        //        val t = w.createWalls()
+        //        t.forEach { it.startTime += (w.beat()) }
+        //        val rp = cc.random(avoidCenter)
+        //        t.forEach { it.startRow += rp.x }
+        //        t.forEach { it.startHeight += rp.y }
+        //        t.forEach { it.startTime += i.toDouble()/ amount * cc.duration}
+        //        l.addAll(t)
+        //    }
+        //}
+        return l.toList()
     }
 }

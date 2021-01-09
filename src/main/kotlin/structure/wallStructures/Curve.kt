@@ -1,44 +1,53 @@
 package structure.wallStructures
 
-import structure.helperClasses.Point
-import structure.helperClasses.SpookyWall
+import structure.helperClasses.*
+import types.BwInt
 import kotlin.math.abs
 import kotlin.math.min
 import kotlin.math.pow
 
 /**
- * Draw a curve of Walls. This uses BezierCurve. You can imagine it like a line between point 1 and point 4, that gets pulled upon by the controlpoints. Maybe this link can help (the dots are the Points) https://www.desmos.com/calculator/cahqdxeshd
+ * Draw a curve of Walls.
+ * It connects through each points starting at p0.
+ * Requires at least 2 Points
+ *
  */
-class Curve : WallStructure() {
-    /**
-     * the start Point of the Curve
-     */
-    var p1: Point = Point(0, 0, 0)
+open class Curve : Wallpath() {
+    /** the 0. Point of the Curve */
+    var p0: Vec3 = Vec3()
+    /** the 1. Point of the Curve */
+    var p1: Vec3 = Vec3()
+    /** the 2. Point of the Curve */
+    var p2: Vec3? = null
+    /** the 3. Point of the Curve */
+    var p3: Vec3? = null
+    /** the 4. Point of the Curve */
+    var p4: Vec3? = null
+    /** the 5. Point of the Curve */
+    var p5: Vec3? = null
+    /** the 6. Point of the Curve */
+    var p6: Vec3? = null
+    /** the 7. Point of the Curve */
+    var p7: Vec3? = null
 
-    /**
-     * the first Controllpoint, defaults to the startPoint
-     */
-    var p2: Point? = null
 
-    /**
-     * second ControlPoint, defaults to the end point
-     */
-    var p3: Point? = null
+    override fun createWalls(): List<BwObstacle> {
+        val l = mutableListOf<BwObstacle>()
+        val points = listOfNotNull(p0,p1,p2,p3,p4,p5,p6,p7)
+        val spline = CubicSpline(points)
+        val n = (points.size-1) * amount()
+        for (k in 0 until n){
+            structureState.progress = k.toDouble()/n
+            val t0 = (k+0.0)/amount()
+            val t1 = (k+1.0)/amount()
 
-    /**
-     * The EndPoint of the Curve
-     */
-    var p4: Point = Point(0, 0, 0)
+            val p0 = spline.splineAtTime(t0)
+            val p1 = spline.splineAtTime(t1)
 
-    /**
-     * amount of Walls
-     */
-    var amount: Int = 8
-
-    /**
-     * generating the Walls
-     */
-    override fun create() = curve(p1, p2 ?: p1, p3 ?: p4, p4, amount)
+            l.add(bwObstacleOfPoints(p0,p1,type))
+        }
+        return l.toList()
+    }
 }
 
 fun curve(startPoint: Point, p1: Point, p2: Point, endPoint: Point, amount: Int): List<SpookyWall> {

@@ -1,5 +1,6 @@
 package structure.wallStructures
 
+import structure.helperClasses.BwObstacle
 import structure.helperClasses.SpookyWall
 
 /**
@@ -7,7 +8,7 @@ import structure.helperClasses.SpookyWall
  * Why should you use it? idk, i need it for some internal stuff.
  */
 class EmptyWallStructure: WallStructure() {
-    override fun create() = emptyList<SpookyWall>()
+    override fun createWalls() = emptyList<BwObstacle>()
 }
 
 

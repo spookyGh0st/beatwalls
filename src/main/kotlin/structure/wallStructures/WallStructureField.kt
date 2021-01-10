@@ -1,0 +1,57 @@
+package structure.wallStructures
+
+import beatwalls.errorExit
+import structure.ObjectStructure
+import structure.StructureState
+import structure.helperClasses.*
+import types.BwInt
+import kotlin.math.abs
+import kotlin.math.roundToInt
+import kotlin.random.Random
+
+/**
+ * Define your own WallStructure from existing WallStructures.
+ */
+class WallStructureField: ObjectStructure() {
+    /**
+     * The name of the defined Structure you want to use Structure
+     */
+    var structure: ObjectStructure = EmptyWallStructure()
+
+    /**
+     * The first point of the area which your structures get placed into
+     */
+    var p0 = Vec3(-8, 0, 0)
+
+    /**
+     * The first point of the area which your structures get placed into
+     */
+    var p1 = Vec3(8, 0, 8)
+
+    /**
+     * How many structures you want to place. default: 4* p1.z-p0.z
+     */
+    var amount: BwInt = { (4* abs(p1.z -p0.z)).roundToInt() }
+
+    /**
+     * avoids spawning structures in the playspace. default: true
+     */
+    var avoidCenter: Boolean = true
+
+
+    override fun createObjects(): List<BwObject> {
+        val l= mutableListOf<BwObject>()
+        val cc = CuboidConstrains(p0, p1, structureState.R)
+        for(i in 0 until amount()) {
+            val t = structure.createElements()
+            val vec3 = cc.random(avoidCenter,0.0)
+            t.forEach {
+                it.position.x += vec3.x
+                it.position.y += vec3.y
+                it.position.z += p0.z + i.toDouble() / amount() * (p1.z-p0.z)
+            }
+            l.addAll(t)
+        }
+        return l.toList()
+    }
+}

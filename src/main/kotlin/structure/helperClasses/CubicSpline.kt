@@ -10,15 +10,21 @@ class CubicSpline(m_points: List<Vec3>) {
 
     init {
         val n = splinePoints-1
-        val a = mutableListOf<Vec3>()
+        for (i in 0..n){
+            mCoeffs.add(mutableListOf())
+            mLengths.add(0.0)
+            for (j in 0 until 4)
+                mCoeffs[i].add(Vec3(0,0,0))
+        }
+        val a = arrayOfNulls<Vec3>(splinePoints)
 
         for (i in 1 until n){
             a[i] = 3* ((m_points[i + 1] - 2* m_points[i] + m_points[i - 1]))
         }
 
-        val l = mutableListOf<Double>()
-        val mu = mutableListOf<Double>()
-        val z = mutableListOf<Vec3>()
+        val l = arrayOfNulls<Double>(splinePoints)
+        val mu = arrayOfNulls<Double>(splinePoints)
+        val z = arrayOfNulls<Vec3>(splinePoints)
 
         l[n] = 1.0
         l[0] = 1.0
@@ -28,17 +34,17 @@ class CubicSpline(m_points: List<Vec3>) {
         mCoeffs[n][2] = Vec3()
 
         for (i in 1 until n){
-            l[i] = 4-mu[i - 1]
-            mu[i] = 1/l[i]
-            z[i] = (a[i] - z[i - 1]) / l[i]
+            l[i] = 4.0-mu[i - 1]!!
+            mu[i] = 1.0/l[i]!!
+            z[i] = (a[i]!! - z[i - 1]!!) / l[i]!!
         }
 
         for (i in 0..n){
             mCoeffs[i][0] = m_points[i]
         }
 
-        for (j in (n-1)..0){
-            mCoeffs[j][2] = z[j] - mu[j] * mCoeffs[j + 1][2]
+        for (j in (n-1) downTo 0){
+            mCoeffs[j][2] = z[j]!! - mu[j]!! * mCoeffs[j + 1][2]
             mCoeffs[j][3] = (1.0 / 3.0)*(mCoeffs[j + 1][2] - mCoeffs[j][2])
             mCoeffs[j][1] = m_points[j + 1] - m_points[j] - mCoeffs[j][2] - mCoeffs[j][3]
         }
@@ -49,13 +55,13 @@ class CubicSpline(m_points: List<Vec3>) {
     }
 
     fun splineAtTime(time: Double): Vec3 {
-        var t = time
+        var t = time * (splinePoints-1)
         if(t>= splinePoints)
-            t = splinePoints.toDouble()
+            t = splinePoints.toDouble() - 0.000001
         var spline = t.toInt()
         val fractional = (t - spline)
 
-        spline %= (splinePoints - 1)
+        spline %= (splinePoints)
 
         val x = fractional
         val xx = x*x

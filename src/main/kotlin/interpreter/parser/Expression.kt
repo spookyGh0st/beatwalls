@@ -4,6 +4,7 @@ import assetFile.toPoint
 import structure.CustomStructInterface
 import structure.Structure
 import structure.helperClasses.Point
+import structure.helperClasses.Vec3
 import types.*
 import kotlin.reflect.KMutableProperty
 import kotlin.reflect.KProperty1
@@ -33,6 +34,7 @@ fun Parser.parseStructureProperty(ws: Structure){
         typeOf<String>()        -> currentTP.v
         typeOf<List<String>>()  -> currentTP.v.toLowerCase().replace(" ","").split(',')
         typeOf<Point>()         -> currentTP.v.toPoint() // todo remove
+        typeOf<Vec3>()         ->  parseVec3(currentTP.v, ss)
         typeOf<BwColor>()       -> bwColor(currentTP.v, ss)
         else -> errorTP("Unknown type: ${p.returnType}")
     }

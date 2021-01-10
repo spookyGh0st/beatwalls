@@ -10,10 +10,10 @@ val baseStructures = baseStructs(
     // HelixCurve::class,
     Line::class,
     Helix::class,
-    RandomCuboidLines::class,
+    RandomNoisePath::class,
     RandomCurve::class,
     RandomNoise::class,
-    RandomStructures::class,
+    WallStructureField::class,
     SteadyCurve::class,
     Wall::class,
 )

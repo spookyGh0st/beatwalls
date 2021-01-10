@@ -38,8 +38,8 @@ open class Curve : Wallpath() {
         val n = (points.size-1) * amount()
         for (k in 0 until n){
             structureState.progress = k.toDouble()/n
-            val t0 = (k+0.0)/amount()
-            val t1 = (k+1.0)/amount()
+            val t0 = (k+0.0)/n
+            val t1 = (k+1.0)/n
 
             val p0 = spline.splineAtTime(t0)
             val p1 = spline.splineAtTime(t1)

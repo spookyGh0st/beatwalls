@@ -1,7 +1,7 @@
 package interpreter.parser
 
 import structure.StructureState
-import structure.helperClasses.Vec3
+import structure.math.Vec3
 import types.bwDouble
 
 internal fun Parser.parseVec3(s: String, ss: StructureState): Vec3 {

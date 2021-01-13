@@ -1,9 +1,8 @@
 package assetFile
 
 import beatwalls.errorExit
-import mu.KotlinLogging
 import structure.*
-import structure.helperClasses.Point
+import structure.math.Point
 import structure.wallStructures.Define
 import structure.wallStructures.EmptyWallStructure
 import structure.wallStructures.WallStructure

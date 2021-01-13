@@ -1,5 +1,6 @@
 package structure.helperClasses
 
+import structure.math.Vec3
 import kotlin.math.PI
 import kotlin.math.atan
 import kotlin.math.pow

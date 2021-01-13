@@ -4,7 +4,7 @@ import beatwalls.errorExit
 import structure.wallStructures.Define
 import structure.wallStructures.EmptyWallStructure
 import structure.wallStructures.WallStructure
-import structure.helperClasses.*
+import structure.math.Point
 import java.lang.Double.parseDouble
 import java.lang.Integer.parseInt
 import java.lang.NumberFormatException

@@ -3,9 +3,12 @@
 package structure.wallStructures
 
 import structure.ObjectStructure
-import structure.helperClasses.*
-import types.*
-import java.lang.Exception
+import structure.helperClasses.BwObstacle
+import structure.math.Vec3
+import types.BwDouble
+import types.BwInt
+import types.bwDouble
+import types.bwInt
 import kotlin.math.pow
 
 /*

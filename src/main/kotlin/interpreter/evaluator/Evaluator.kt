@@ -7,8 +7,8 @@ import kotlinx.coroutines.runBlocking
 import structure.Structure
 import structure.helperClasses.BwElement
 import structure.helperClasses.BwObstacle
-import structure.helperClasses.Mat3
-import structure.helperClasses.Vec3
+import structure.math.Mat3
+import structure.math.Vec3
 import kotlin.math.*
 
 @Suppress("SimplifyBooleanWithConstants")
@@ -67,7 +67,7 @@ fun neRotation(vec: Vec3): List<Double>? {
         listOf(vec.x, vec.y, vec.z)
 }
 
-fun rotatePoint(point: Vec3, origin: Vec3, rot: Vec3): Vec3{
+fun rotatePoint(point: Vec3, origin: Vec3, rot: Vec3): Vec3 {
     val a = Mat3(
         Vec3(cos(rot.z), sin(rot.z), 0.0),
         Vec3(-sin(rot.z),cos(rot.z), 0.0),

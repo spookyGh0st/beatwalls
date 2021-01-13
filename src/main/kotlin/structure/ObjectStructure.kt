@@ -2,8 +2,7 @@ package structure
 
 import structure.helperClasses.BwObject
 import structure.helperClasses.Color
-import structure.helperClasses.SpookyWall
-import structure.helperClasses.Vec3
+import structure.math.Vec3
 import types.BwColor
 import types.BwDouble
 import types.bwDouble

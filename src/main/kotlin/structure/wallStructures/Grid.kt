@@ -1,9 +1,8 @@
 package structure.wallStructures
 
 import structure.helperClasses.BwObstacle
-import structure.helperClasses.Point
-import structure.helperClasses.SpookyWall
-import structure.helperClasses.Vec3
+import structure.math.Point
+import structure.math.Vec3
 
 /**
  * 3d Grid

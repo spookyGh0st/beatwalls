@@ -1,8 +1,7 @@
 package structure.wallStructures
 
-import structure.helperClasses.*
-import kotlin.math.roundToInt
-import kotlin.random.Random
+import structure.helperClasses.BwObstacle
+import structure.math.CubicSpline
 
 /**
  * Randomized spawns Walls along a Curve path

@@ -1,10 +1,9 @@
 package structure.wallStructures
 
-import structure.helperClasses.*
-import types.BwInt
-import kotlin.math.abs
-import kotlin.math.min
-import kotlin.math.pow
+import structure.helperClasses.BwObstacle
+import structure.helperClasses.bwObstacleOfPoints
+import structure.math.CubicSpline
+import structure.math.Vec3
 
 /**
  * Draw a curve of Walls.
@@ -50,18 +49,3 @@ open class Curve : Wallpath() {
     }
 }
 
-fun quadraticBezier(p0: Point, p1: Point, p2: Point, p3: Point, t:Double): Point {
-    val x =(1-t).pow(3)*p0.x +
-            (1-t).pow(2)*3*t*p1.x +
-            (1-t)*3*t*t*p2.x +
-            t*t*t*p3.x
-    val y =(1-t).pow(3)*p0.y +
-            (1-t).pow(2)*3*t*p1.y +
-            (1-t)*3*t*t*p2.y +
-            t*t*t*p3.y
-    val z =(1-t).pow(3)*p0.z +
-            (1-t).pow(2)*3*t*p1.z +
-            (1-t)*3*t*t*p2.z +
-            t*t*t*p3.z
-    return Point(x, y, z)
-}

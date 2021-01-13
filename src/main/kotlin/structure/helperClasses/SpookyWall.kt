@@ -7,6 +7,7 @@ import chart.difficulty._obstacleCustomData
 import chart.difficulty._obstacles
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
+import structure.math.Point
 import kotlin.math.max
 import kotlin.math.min
 

@@ -1,8 +1,6 @@
 package structure.wallStructures
 
 import structure.helperClasses.BwObstacle
-import structure.helperClasses.Point
-import structure.helperClasses.SpookyWall
 
 /**
  * Draw a steady curve of Walls. that is exactly 1 beat long

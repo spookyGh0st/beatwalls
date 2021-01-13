@@ -2,7 +2,8 @@ package structure.helperClasses
 
 import org.junit.Test
 
-import org.junit.Assert.*
+import structure.math.CubicSpline
+import structure.math.Vec3
 
 class CubicSplineTest {
 

@@ -1,6 +1,5 @@
 package structure.wallStructures
 
-import structure.helperClasses.BwObstacle
 import structure.helperClasses.PointConnectionType
 import types.BwInt
 

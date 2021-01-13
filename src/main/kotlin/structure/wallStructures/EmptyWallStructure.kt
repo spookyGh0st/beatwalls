@@ -1,7 +1,6 @@
 package structure.wallStructures
 
 import structure.helperClasses.BwObstacle
-import structure.helperClasses.SpookyWall
 
 /**
  * Creates no Elements at all.

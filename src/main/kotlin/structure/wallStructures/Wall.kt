@@ -1,6 +1,8 @@
 package structure.wallStructures
 
-import structure.helperClasses.*
+import structure.helperClasses.PointConnectionType
+import structure.helperClasses.bwObstacleOfPoints
+import structure.math.Vec3
 
 /**
  * create a single Wall

@@ -3,8 +3,8 @@ package interpreter.parser
 import assetFile.toPoint
 import structure.CustomStructInterface
 import structure.Structure
-import structure.helperClasses.Point
-import structure.helperClasses.Vec3
+import structure.math.Point
+import structure.math.Vec3
 import types.*
 import kotlin.reflect.KMutableProperty
 import kotlin.reflect.KProperty1

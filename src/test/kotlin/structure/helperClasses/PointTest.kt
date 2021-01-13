@@ -3,6 +3,7 @@ package structure.helperClasses
 import org.junit.Test
 
 import org.junit.Assert.*
+import structure.math.Point
 
 class PointTest {
 

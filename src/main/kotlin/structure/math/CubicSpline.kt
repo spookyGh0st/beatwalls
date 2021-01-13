@@ -1,4 +1,4 @@
-package structure.helperClasses
+package structure.math
 
 import kotlin.math.sqrt
 

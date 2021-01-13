@@ -1,13 +1,12 @@
 package structure.wallStructures
 
-import beatwalls.errorExit
 import structure.ObjectStructure
-import structure.StructureState
-import structure.helperClasses.*
+import structure.helperClasses.BwObject
+import structure.math.CuboidConstrains
+import structure.math.Vec3
 import types.BwInt
 import kotlin.math.abs
 import kotlin.math.roundToInt
-import kotlin.random.Random
 
 /**
  * Define your own WallStructure from existing WallStructures.

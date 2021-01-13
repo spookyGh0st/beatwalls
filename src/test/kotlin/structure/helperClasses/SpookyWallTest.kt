@@ -21,7 +21,7 @@ class SpookyWallTest {
             height = 1.0,
             startHeight = 1.0,
             startTime = 1.0,
-            color = red
+            color = Color(java.awt.Color.RED)
         )
         val actual = expected.toValidWall()
         assertEquals(expected,actual)
@@ -36,7 +36,7 @@ class SpookyWallTest {
             height = -1.0,
             startHeight = -1.0,
             startTime = 1.0,
-            color = blue,
+            color = Color(java.awt.Color.BLUE),
             rotation = listOf(-180.0)
         )
         val expected = SpookyWall(
@@ -46,7 +46,7 @@ class SpookyWallTest {
             height = 1.0,
             startHeight = -2.0,
             startTime = 1.0,
-            color = blue,
+            color = Color(java.awt.Color.BLUE),
             rotation = listOf(-180.0 % 360)
         )
         val actual = w.toValidWall()
@@ -61,7 +61,7 @@ class SpookyWallTest {
             height = 0.0,
             startHeight = 0.0,
             startTime = -1.0,
-            color = blue
+            color = Color(java.awt.Color.BLUE),
         )
         val expected = SpookyWall(
             startRow = 0.0,
@@ -70,7 +70,7 @@ class SpookyWallTest {
             height = minValue,
             startHeight = 0.0,
             startTime = minValue,
-            color = blue
+            color = Color(java.awt.Color.BLUE),
         )
         val actual = w.toValidWall()
         assertEquals(expected,actual)
@@ -141,7 +141,7 @@ class SpookyWallTest {
             height = 0.0,
             startHeight = 0.0,
             startTime = 1.0,
-            color = red
+            color = Color(java.awt.Color.RED)
 
         )
         val actual = w.to_obstacle()

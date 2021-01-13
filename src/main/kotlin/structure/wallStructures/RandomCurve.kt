@@ -1,15 +1,9 @@
 package structure.wallStructures
 
-import structure.StructureState
 import structure.helperClasses.BwObstacle
-import structure.helperClasses.Point
-import structure.helperClasses.SpookyWall
-import structure.helperClasses.Vec3
+import structure.math.Vec3
 import types.BwInt
 import kotlin.math.abs
-import kotlin.math.max
-import kotlin.math.min
-import kotlin.random.Random
 
 /**
  * random curves in a given cubic. Always starts at p1 and ends at p2.

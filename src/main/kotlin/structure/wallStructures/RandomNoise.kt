@@ -1,8 +1,8 @@
 package structure.wallStructures
 
 import structure.helperClasses.BwObstacle
-import structure.helperClasses.CuboidConstrains
-import structure.helperClasses.Vec3
+import structure.math.CuboidConstrains
+import structure.math.Vec3
 import types.BwInt
 import kotlin.math.abs
 

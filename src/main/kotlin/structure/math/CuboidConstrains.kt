@@ -1,10 +1,8 @@
-package structure.helperClasses
+package structure.math
 
-import kotlin.math.max
-import kotlin.math.min
 import kotlin.random.Random
 
-data class CuboidConstrains(val p0: Vec3, val p1: Vec3,var r: Random) {
+data class CuboidConstrains(val p0: Vec3, val p1: Vec3, var r: Random) {
     // The player space
     private val redP0 = Vec3(-2,0,0)
     private val redP1 = Vec3(2,3,0)

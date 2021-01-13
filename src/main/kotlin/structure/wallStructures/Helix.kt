@@ -1,11 +1,16 @@
 package structure.wallStructures
 
-import structure.helperClasses.*
+import structure.helperClasses.BwObstacle
+import structure.helperClasses.bwObstacleOfPoints
+import structure.math.Point
+import structure.math.Vec3
 import types.BwDouble
 import types.BwInt
 import types.bwDouble
 import types.bwInt
-import kotlin.math.*
+import kotlin.math.PI
+import kotlin.math.cos
+import kotlin.math.sin
 
 class Helix: Wallpath(){
     /**

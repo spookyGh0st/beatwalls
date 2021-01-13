@@ -91,10 +91,10 @@ class SpookyWallTest {
         )
         val actual = w.to_obstacle()
         val expected = _obstacles(
-            _time = 1.0F,
+            _time = 1.0,
             _lineIndex =  0,
             _type =0,
-            _duration = 1.0E-4F,
+            _duration = 1.0E-4,
             _width = 0,
             _obstacleCustomData = _obstacleCustomData(
                 _position = listOf(0.0, 0.0),
@@ -122,10 +122,10 @@ class SpookyWallTest {
         )
         val actual = w.to_obstacle()
         val expected = _obstacles(
-            _time = 1.0F,
+            _time = 1.0,
             _lineIndex =  3000,
             _type = 5001,
-            _duration = 1.0E-4F,
+            _duration = 1.0E-4,
             _width = 1005,
             _obstacleCustomData = null
         )
@@ -146,10 +146,10 @@ class SpookyWallTest {
         )
         val actual = w.to_obstacle()
         val expected = _obstacles(
-            _time = 1.0F,
+            _time = 1.0,
             _lineIndex =  3000,
             _type = 5001,
-            _duration = 1.0E-4F,
+            _duration = 1.0E-4,
             _width = 1005,
             _obstacleCustomData = _obstacleCustomData(_color = listOf(1.0,0.0,0.0))
         )

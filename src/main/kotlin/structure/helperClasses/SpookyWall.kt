@@ -35,7 +35,8 @@ data class SpookyWall(
     @Expose
     @SerializedName("noteJumpStartBeat") var noteJumpStartBeat: Double? = null,
     @Expose
-    @SerializedName("noteJumpStartBeatOffset") var noteJumpStartBeatOffset: Double? = null
+    @SerializedName("noteJumpStartBeatOffset") var noteJumpStartBeatOffset: Double? = null,
+    override var beat: Double =0.0
 // TODO add NE elements
 ): BwElement{
 
@@ -88,10 +89,10 @@ data class SpookyWall(
         val customData: _obstacleCustomData? = obs.customData()
 
         return _obstacles(
-            tempStartTime,
+            tempStartTime.toDouble(),
             tempLineIndex,
             tempType,
-            tempDuration,
+            tempDuration.toDouble(),
             tempWidth,
             customData
         )
@@ -113,7 +114,8 @@ data class SpookyWall(
             _position = listOf(x,y),
             _color = cd?._color,
             _rotation = cd?._rotation,
-            track = cd?._track)
+            _track = cd?._track
+        )
 
         return _notes(
             _time = tempStartTime.toDouble(),

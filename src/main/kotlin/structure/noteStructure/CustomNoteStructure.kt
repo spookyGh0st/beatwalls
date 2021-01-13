@@ -1,6 +1,7 @@
 package structure.noteStructure
 
 import structure.CustomStructInterface
+import structure.helperClasses.BwNote
 
 class CustomNoteStructure(
     override val name: String,

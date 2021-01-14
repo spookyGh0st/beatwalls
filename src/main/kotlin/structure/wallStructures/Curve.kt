@@ -1,7 +1,7 @@
 package structure.wallStructures
 
 import structure.helperClasses.BwObstacle
-import structure.helperClasses.bwObstacleOfPoints
+import structure.math.bwObstacleOf
 import structure.math.CubicSpline
 import structure.math.Vec3
 
@@ -11,7 +11,7 @@ import structure.math.Vec3
  * Requires at least 2 Points
  *
  */
-open class Curve : Wallpath() {
+open class Curve : WallPath() {
     /** the 0. Point of the Curve */
     var p0: Vec3 = Vec3()
     /** the 1. Point of the Curve */
@@ -43,7 +43,7 @@ open class Curve : Wallpath() {
             val p0 = spline.splineAtTime(t0)
             val p1 = spline.splineAtTime(t1)
 
-            l.add(bwObstacleOfPoints(p0,p1,type))
+            l.add(bwObstacleOf(p0,p1,type))
         }
         return l.toList()
     }

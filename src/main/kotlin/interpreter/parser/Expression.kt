@@ -1,9 +1,9 @@
 package interpreter.parser
 
-import assetFile.toPoint
 import structure.CustomStructInterface
 import structure.Structure
-import structure.math.Point
+import structure.StructureState
+import structure.math.PointConnectionType
 import structure.math.Vec3
 import types.*
 import kotlin.reflect.KMutableProperty
@@ -24,7 +24,7 @@ fun Parser.parseStructureProperty(ws: Structure){
     }
 
     val ss = ws.structureState
-    val value: Any? = when (p.returnType.withNullability(false)) {
+    val value: Any = when (p.returnType.withNullability(false)) {
         typeOf<Boolean>()       -> currentTP.v.toBoolean()
         typeOf<BwDouble>()      -> bwDouble(currentTP.v,ss)
         typeOf<BwPoint>()       -> bwPoint(currentTP.v, ss)
@@ -33,12 +33,17 @@ fun Parser.parseStructureProperty(ws: Structure){
         typeOf<Double>()        -> currentTP.v.toDoubleOrNull()
         typeOf<String>()        -> currentTP.v
         typeOf<List<String>>()  -> currentTP.v.toLowerCase().replace(" ","").split(',')
-        typeOf<Point>()         -> currentTP.v.toPoint() // todo remove
         typeOf<Vec3>()         ->  parseVec3(currentTP.v, ss)
+        typeOf<PointConnectionType>()         ->  parsePointConnectionType(currentTP.v, ss)
         typeOf<BwColor>()       -> bwColor(currentTP.v, ss)
         else -> errorTP("Unknown type: ${p.returnType}")
-    }
+    } ?: return
     writeProb(ws, p, value)
+}
+
+fun Parser.parsePointConnectionType(v: String, ss: StructureState): PointConnectionType? {
+    val types = PointConnectionType.values()
+    return types.find { it.name.equals(v.trim(), true) }
 }
 
 // wrapper of the property functions
@@ -51,7 +56,7 @@ private fun Parser.writeProb(struct: Structure, p: KProperty1<out Structure, *>,
 }
 
 // gets the property of a Structure of a given name
-private fun<T: Any> property (struct: T, name: String): KProperty1<out T, *>? {
+private fun property (struct: Structure, name: String): KProperty1<out Structure, *>? {
     val props = struct::class.memberProperties
-    return props.find { it.name.equals(name, ignoreCase = true) }?: return null
+    return props.find { it.name.equals(name, ignoreCase = true) }
 }

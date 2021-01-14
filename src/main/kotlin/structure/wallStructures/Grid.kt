@@ -1,7 +1,6 @@
 package structure.wallStructures
 
 import structure.helperClasses.BwObstacle
-import structure.math.Point
 import structure.math.Vec3
 
 /**
@@ -52,17 +51,17 @@ class Grid : WallStructure() {
     /**
      * the start Point of the grid
      */
-    var p1: Point =
-        Point(-4, 0, 0)
+    var p0: Vec3 =
+        Vec3(-4, 0, 0)
 
     /**
      * generating the Walls
      */
     override fun createWalls(): List<BwObstacle> {
         val l = mutableListOf<BwObstacle>()
-        var x = p1.x
-        var y = p1.y
-        var z = p1.z
+        var x = p0.x
+        var y = p0.y
+        var z = p0.z
         repeat(gridX) { itX ->
             repeat(gridY) { itY ->
                 repeat(gridZ) { itZ ->
@@ -71,13 +70,13 @@ class Grid : WallStructure() {
                         l.add(w)
                     z += panelZ
                 }
-                z = p1.z
+                z = p0.z
                 y += panelY
             }
-            y = p1.y
+            y = p0.y
             x += panelX
         }
-        x = p1.x
+        x = p0.x
         return l.toList()
     }
 }

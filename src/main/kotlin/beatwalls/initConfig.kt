@@ -1,30 +1,20 @@
 package beatwalls
 
-import com.google.gson.Gson
 import chart.song.Info
-import chart.song.isSongInfo
+import interpreter.MapLoader
 import java.io.File
 import java.lang.StringBuilder
 
 
-fun initConfig(wd: File){
-    val infoJson = File(wd,"Info.dat").readText()
-    val info = try {
-        Gson().fromJson(infoJson, Info::class.java)
-    }catch (e:Exception){
-        errorExit(e) { "Failed to parse Info.dat. Did you create it using an old editor??" }
-    }
+fun initialize(wd: File){
+    val ml = try { MapLoader(wd) }catch (e:Exception){ return }
+    val info = ml.loadInfo()
 
     val diff = pickDifficulty(info)
-    val diffOffset = diff.second
-
     val hjd = pickHjd()
-    val bpm = info._beatsPerMinute
-    val offset = info._songTimeOffset+diffOffset
 
     val modType = if (pickNe()) "NE" else "ME"
-
-    val text = exampleMainFile(diff.first,hjd,bpm,modType)
+    val text = exampleMainFile(diff.first,hjd,modType)
 
     val mainFile = File(wd, "main.bw")
     logInfo("Creating example File under $mainFile")
@@ -56,7 +46,7 @@ fun pickHjd(): Double {
     return readLine()?.toDoubleOrNull() ?: pickHjd()
 }
 
-private fun exampleMainFile(difficulty: String, hjd: Double, bpm: Double, Modtype: String): String {
+private fun exampleMainFile(difficulty: String, hjd: Double, Modtype: String): String {
     val s = StringBuilder()
     s.appendLine("# The first Section are global Options.\n")
     s.appendLine("# This sets the Mod Support. Remember to also set the Requirements in the Info.dat")
@@ -68,7 +58,7 @@ private fun exampleMainFile(difficulty: String, hjd: Double, bpm: Double, Modtyp
     s.appendLine("# This will tell Beatwalls to remove all existing Walls in the difficulty before creating new ones")
     s.appendLine("ClearWalls: true")
     s.appendLine("# This is the HJD. It allows Beatwalls to automatically time walls to the Beat")
-    s.appendLine("halfJumpDuration: 2.0")
+    s.appendLine("halfJumpDuration: $hjd")
     s.append(standardText)
     return s.toString()
 }

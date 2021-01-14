@@ -2,7 +2,7 @@ package structure.math
 
 import kotlin.math.pow
 
-fun quadraticBezier(p0: Point, p1: Point, p2: Point, p3: Point, t:Double): Point {
+fun quadraticBezier(p0: Vec3, p1: Vec3, p2: Vec3, p3: Vec3, t:Double): Vec3 {
     val x =(1-t).pow(3)*p0.x +
             (1-t).pow(2)*3*t*p1.x +
             (1-t)*3*t*t*p2.x +
@@ -15,5 +15,5 @@ fun quadraticBezier(p0: Point, p1: Point, p2: Point, p3: Point, t:Double): Point
             (1-t).pow(2)*3*t*p1.z +
             (1-t)*3*t*t*p2.z +
             t*t*t*p3.z
-    return Point(x, y, z)
+    return Vec3(x, y, z)
 }

@@ -31,7 +31,7 @@ __________  __      __
     println("local version: $currentVersion, latest version: $latestVersion")
 
     // breaks if up to date
-    if (currentVersion == latestVersion || currentVersion == "CyanIsAFurry" || GlobalConfig.noUpdate)
+    if (currentVersion == latestVersion || currentVersion == "CyanIsAFurry")
         return
 
     println("To update Beatwalls to the latest version go to https://github.com/spookyGh0st/beatwalls/releases/latest")

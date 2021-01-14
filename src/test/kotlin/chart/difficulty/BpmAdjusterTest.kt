@@ -1,6 +1,6 @@
 package chart.difficulty
 
-import beatwalls.GlobalConfig
+import interpreter.BpmAdjuster
 import model.difficulty._customData
 import org.junit.Assert.assertEquals
 import org.junit.Test
@@ -10,9 +10,6 @@ class BpmAdjusterTest {
     private val bpmAdjuster : BpmAdjuster
 
     init {
-        GlobalConfig.bpm = 120.0
-        GlobalConfig.hjsDuration = 2.0
-        GlobalConfig.offset = 0.0
         val c = _customData(1.0, arrayListOf(
             _BPMChanges(120.0, 3.0,4,4),
             _BPMChanges(130.0, 5.0,4,4),
@@ -24,12 +21,15 @@ class BpmAdjusterTest {
 
         val diff = Difficulty(
             _version = "2.0.0",
-            _notes = arrayListOf(),
-            _obstacles = arrayListOf(),
-            _events = arrayListOf(),
+            _notes = listOf(),
+            _obstacles = listOf(),
+            _events = listOf(),
             _customEvents = null,
-            _customData = c
+            _customData = c,
+            _waypoints = listOf(),
         )
+        diff.bpm = 120.0
+        diff.offset = 0.0
         bpmAdjuster = BpmAdjuster(diff)
     }
 
@@ -62,13 +62,5 @@ class BpmAdjusterTest {
         val expected = 8.1153841018676758
         val actual = bpmAdjuster.findTime(8.0)
         assertEquals(expected, actual,0.0)
-    }
-
-    @Test
-    fun mapChanges() {
-    }
-
-    @Test
-    fun findTime() {
     }
 }

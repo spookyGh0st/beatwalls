@@ -16,9 +16,6 @@ fun Parser.parseOption(){
 fun Parser.parseOptionProperty(){
     when(currentTP.k.toLowerCase().trim()) {
         "characteristic" -> bw.options.Characteristic = currentTP.v
-        "clearwalls" -> bw.options.clearWalls = currentTP.v.toLowerCase().toBoolean()
-        "clearnotes" -> bw.options.clearNotes = currentTP.v.toLowerCase().toBoolean()
-        "clearbombs" -> bw.options.clearWalls = currentTP.v.toLowerCase().toBoolean()
         "halfjumpduration" -> {
             val hjd = currentTP.v.toLowerCase().toDoubleOrNull()
             if (hjd != null) bw.options.halfJumpDuration = hjd

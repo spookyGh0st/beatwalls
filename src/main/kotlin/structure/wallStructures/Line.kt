@@ -1,14 +1,14 @@
 package structure.wallStructures
 
 import structure.helperClasses.BwObstacle
-import structure.helperClasses.PointConnectionType
-import structure.helperClasses.bwObstacleOfPoints
+import structure.math.PointConnectionType
+import structure.math.bwObstacleOf
 import structure.math.*
 
 /**
  * Draws a wall of line between the 2 provided Points
  */
-class Line: Wallpath(){
+class Line: WallPath(){
 
     /**
      * The startPoint
@@ -34,7 +34,7 @@ fun bwObstacleLine(p0: Vec3, p1: Vec3, amount: Int, type: PointConnectionType): 
     for (i in 0 until amount){
         val t0 = p0 + (i+0.0)/amount * vec
         val t1 = p0 + (i+1.0)/amount * vec
-        l.add(bwObstacleOfPoints(t0,t1,type))
+        l.add(bwObstacleOf(t0,t1,type))
     }
     return l.toList()
 }

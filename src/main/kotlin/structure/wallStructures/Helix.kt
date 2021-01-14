@@ -1,8 +1,7 @@
 package structure.wallStructures
 
 import structure.helperClasses.BwObstacle
-import structure.helperClasses.bwObstacleOfPoints
-import structure.math.Point
+import structure.math.bwObstacleOf
 import structure.math.Vec3
 import types.BwDouble
 import types.BwInt
@@ -12,7 +11,7 @@ import kotlin.math.PI
 import kotlin.math.cos
 import kotlin.math.sin
 
-class Helix: Wallpath(){
+class Helix: WallPath(){
     /**
      * how many spirals will be created
      */
@@ -46,7 +45,7 @@ class Helix: Wallpath(){
     /**
      * Point of the center, defaults to 0,2,0
      */
-    var center = Point(0, 2, 0)
+    var center = Vec3(0, 2, 0)
 
 
     /**
@@ -69,7 +68,7 @@ class Helix: Wallpath(){
              for(i in 0 until amount()){
                  val p1= points[i]
                  val p2= points[i+1]
-                 val ob = bwObstacleOfPoints(p1,p2, type);
+                 val ob = bwObstacleOf(p1,p2, type)
 
                  structureState.progress = p1.z
                  ob.rotation.z += localRotationOffset()

@@ -1,9 +1,9 @@
 package structure.wallStructures
 
-import structure.helperClasses.PointConnectionType
+import structure.math.PointConnectionType
 import types.BwInt
 
-abstract class Wallpath(): WallStructure() {
+abstract class WallPath: WallStructure() {
     open var amount: BwInt = { (4 * scale()).toInt() }
 
     /**

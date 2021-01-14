@@ -1,6 +1,6 @@
 package types
 
-import beatwalls.errorExit
+import beatwalls.logError
 import net.objecthunter.exp4j.ExpressionBuilder
 import structure.StructureState
 import kotlin.math.roundToInt
@@ -22,8 +22,11 @@ internal fun bwNumber(s: String, ss: StructureState):BwNumber{
         .build()
     e.setVariable(keyRepeatCount, 0.0)
     e.setVariables(ss.variables)
-    if (!e.validate().isValid)
-        errorExit { "The expression $s has errors:\n ${e.validate().errors}" }
+    if (!e.validate().isValid){
+        logError("The expression $s has errors:\n ${e.validate().errors}")
+        logError("Defaulting to 0.0")
+        return { 0.0 }
+    }
     return {
         e.setVariable(keyRepeatCount, ss.count.toDouble())
         e.evaluate()

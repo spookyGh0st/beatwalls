@@ -3,7 +3,6 @@ package structure.math
 import kotlin.math.sqrt
 
 class CubicSpline(m_points: List<Vec3>) {
-
     val splinePoints = m_points.size
     val mCoeffs = mutableListOf<MutableList<Vec3>>()
     val mLengths = mutableListOf<Double>()

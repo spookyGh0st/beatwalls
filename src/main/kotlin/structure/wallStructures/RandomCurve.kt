@@ -8,7 +8,7 @@ import kotlin.math.abs
 /**
  * random curves in a given cubic. Always starts at p1 and ends at p2.
  */
-class RandomCurve: Wallpath(){
+class RandomCurve: WallPath(){
     /**
      * first Point that controls the cubic, in which section walls are created. defaults to a random side
      */

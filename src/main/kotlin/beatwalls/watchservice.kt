@@ -2,7 +2,6 @@ package beatwalls
 
 import kotlinx.coroutines.*
 import kotlinx.coroutines.channels.*
-import mu.KotlinLogging
 import java.io.File
 import java.nio.file.*
 import java.nio.file.WatchKey
@@ -15,9 +14,9 @@ import java.nio.file.StandardWatchEventKinds.*
 // stolen from here: https://github.com/vishna/watchservice-ktx/blob/master/src/main/kotlin/dev/vishna/watchservice/watchservice.kt
 
 @ExperimentalCoroutinesApi
-suspend fun runOnChange(f: () -> Unit?){
+suspend fun runOnChange(wd: File, f: () -> Unit){
     logger.info("Keep this window open. it will run again if it detects changes")
-    val watchChannel = readPath().asWatchChannel()
+    val watchChannel = wd.asWatchChannel()
     watchChannel.consumeEach {
         if (it.kind == KWatchEvent.Kind.Modified){
             logger.info { "detected change, running..." }

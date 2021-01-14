@@ -8,6 +8,7 @@ import org.junit.Test
 import structure.wallStructures.CustomWallStructure
 import structure.wallStructures.Line
 import structure.Structure
+import structure.helperClasses.BwElement
 import structure.math.Vec3
 import java.io.File
 import kotlin.test.assertTrue
@@ -16,19 +17,24 @@ import kotlin.test.assertTrue
 class FullTest {
     lateinit var blocks:List<TokenBlock>
     lateinit var structs:List<Structure>
+    lateinit var elements:List<BwElement>
 
     @Before
     fun runTests() {
         val uri = this::class.java.getResource("/map").toURI()
-        val wd = File(uri)
-        val mainFile = File(wd,"main.bw")
-        val bw = Beatwalls(wd)
+        val bw = Beatwalls(File(uri))
 
-        val s = Scanner(mainFile.readText(), bw, mainFile)
+        val s = Scanner(bw.mainFile.readText(), bw, bw.mainFile)
         blocks = s.scan()
 
         val p = Parser(blocks, bw)
         structs = p.parse()
+
+        val ev = Evaluator(structs,bw)
+        elements = ev.evaluate()
+
+        val tr = Translator(elements,bw)
+        tr.translate()
 
         assertFalse("The run should not have any errors", bw.hadError)
     }
@@ -95,7 +101,7 @@ class FullTest {
 
     @Test
     fun `Test if the Properties have been set correctly`(){
-        val t = listOf<Pair<(Structure)-> Any, Any>>(
+        val t = listOf(
             {ws:Structure -> ws.beat()} to 10.0,
             {ws:Structure -> ws as CustomWallStructure; (ws.superStructure as Line).p1} to Vec3(20,0,8),
             {ws:Structure -> ws as CustomWallStructure; (ws.superStructure as Line).p1} to Vec3(30,0,8),
@@ -106,5 +112,8 @@ class FullTest {
         }
     }
 
-
+    @Test
+    fun `Test if the correct amount of elements were created`(){
+        assertEquals(14, elements.size)
+    }
 }

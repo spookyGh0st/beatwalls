@@ -64,11 +64,6 @@ abstract class WallStructure: ObjectStructure() {
     var mirrorY: BwDouble = bwDouble(2)
 
     /**
-     * makes the Wall appear right on the beat by adding the njsOffset, default: true
-     */
-    var time: Boolean = true
-
-    /**
      * change the Width of all Walls in the structure to the given Value. Random possible with random(min,max). Default: null
      */
     var changeWidth: BwDouble? = null

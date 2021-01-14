@@ -15,7 +15,6 @@ jobs:
       - name: Build Reference
         run: |
           mvn -B site --file pom.xml
-          mv target/dokka/beatwalls/structure docs/reference
       - name: Build Documentation
         run: |
           yarn install --frozen-lockfile

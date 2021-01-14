@@ -4,7 +4,14 @@ import structure.CustomStructInterface
 import structure.bwElements.BwObstacle
 
 /**
- * Cannot be directly called, but instead must be called using the Define: Parameter
+ * Create a custom Wallstructure by building on other Structures
+ *
+ * @sample
+ * ```yaml
+ * Define: MyLine
+ *   structures: Line
+ *   p0: 2,0,0
+ *   p1: 4,4,2
  */
 class CustomWallStructure(
     override val name: String,

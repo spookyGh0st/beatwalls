@@ -187,6 +187,7 @@
                 <configuration>
                     <outputDir>docs/reference</outputDir>
                     <reportUndocumented>false</reportUndocumented>
+                    <includeNonPublic>false</includeNonPublic>
                     <dokkaPlugins>
                         <plugin>
                             <groupId>org.jetbrains.dokka</groupId>

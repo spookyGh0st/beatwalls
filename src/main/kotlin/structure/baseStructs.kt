@@ -1,6 +1,6 @@
 package structure
 
-val baseStructures = (
+internal val baseStructures = (
                 structure.wallStructures.baseStructures +
                 structure.lightStructure.baseStructures +
                 structure.noteStructure.baseStructures

@@ -4,7 +4,7 @@ import structure.bwElements.BwObstacle
 import structure.math.Vec3
 
 /**
- * 3d Grid
+ * A 3d Grid
  */
 class Grid : WallStructure() {
     /**

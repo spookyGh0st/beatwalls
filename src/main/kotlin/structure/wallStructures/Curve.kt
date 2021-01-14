@@ -6,9 +6,15 @@ import structure.math.CubicSpline
 import structure.math.Vec3
 
 /**
- * Draw a curve of Walls.
- * It connects through each points starting at p0.
- * Requires at least 2 Points
+ * Draw a curve of Walls through the given points
+ *
+ * @sample
+ * ```yaml
+ * Curve:
+ *   p0: -10,0,0
+ *   p2: -5,2,1
+ *   p3: -10, 10,4
+ * ```
  *
  */
 open class Curve : WallPath() {

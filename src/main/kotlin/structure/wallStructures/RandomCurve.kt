@@ -6,7 +6,7 @@ import types.BwInt
 import kotlin.math.abs
 
 /**
- * random curves in a given cubic. Always starts at p1 and ends at p2.
+ * random curves in a given cubic. Always starts at p0 and ends at p1
  */
 class RandomCurve: WallPath(){
     /**

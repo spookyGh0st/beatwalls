@@ -2,7 +2,11 @@ package structure.wallStructures
 
 import structure.baseStructs
 
-val baseStructures = baseStructs(
+/**
+ * All available Structures
+ * If a Structure gets Added, it must be added here aswell
+ */
+internal val baseStructures = baseStructs(
     Curve::class,
     EmptyWallStructure::class,
     Grid::class,

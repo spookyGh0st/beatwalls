@@ -11,6 +11,15 @@ import kotlin.math.PI
 import kotlin.math.cos
 import kotlin.math.sin
 
+/**
+ * spins Walls around a center Point
+ *
+ * @sample
+ * ```yaml
+ * Helix:
+ *   TODO
+ * ```
+ */
 class Helix: WallPath(){
     /**
      * how many spirals will be created

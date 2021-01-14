@@ -11,45 +11,24 @@ import types.bwDouble
 import types.bwInt
 import kotlin.math.pow
 
-/*
-This is the relevant File for the creation of all WallStructures
-
-Structure of this Document
-sealed class to allow for save calls in the assetParser
-this file contains only documentation of the structures and calls run for each
-in the specialStructures Folder the run and relevant Functions are defined via extension Functions
-
-so how do i add a structure
-Define the parameters and documentation of the structure here as usual. You dont need to define the parameters already defined in the Wallstructure class
-add the run Function in the relevant file in the specialStructures folder You can create Walls with SpookyWall and add them with add(Wall) or add(Collection of walls).
-submit a pull request and wait for approval.
-
-To allow for stuff like easing you need to use the Types BwDouble/Int/Point/etc.
-To set them to a default single value use the functions below
-*/
-
+/**
+ * Superclass of all Wallstructures.
+ * To add a Structure visit the contributing page.
+ */
 
 abstract class WallStructure: ObjectStructure() {
     /**
-     * mirrors the SpookyWall. Default: 0. click me:
+     * mirrors the SpookyWall. Default: 0.
      *
-     *  0 -> dont mirror,
-     *
-     *  1-> mirror to the other side,
-     *
-     *  2-> mirror to the other side and duplicate,
-     *
-     *  3-> mirror horizontal on y=2
-     *
-     *  4-> mirror horizontal and duplicate
-     *
-     *  5-> mirror on the center of x=0, y=2
-     *
-     *  6-> mirror on the center and duplicate
-     *
-     *  7-> mirror 1 and 6
-     *
-     *  8-> mirror on the center and on the other side and duplicate all 4
+     *  - 0 -> dont mirror,
+     *  - 1-> mirror to the other side,
+     *  - 2-> mirror to the other side and duplicate,
+     *  - 3-> mirror horizontal on y=2
+     *  - 4-> mirror horizontal and duplicate
+     *  - 5-> mirror on the center of x=0, y=2
+     *  - 6-> mirror on the center and duplicate
+     *  - 7-> mirror 1 and 6
+     *  - 8-> mirror on the center and on the other side and duplicate all 4
      */
     var mirror: BwInt = bwInt(0)
 
@@ -156,9 +135,9 @@ abstract class WallStructure: ObjectStructure() {
     var seed: BwInt? = null
 
     /** returns the name of the structure */
-    open fun name() = this::class.simpleName ?: throw ClassNotFoundException("class does not have a name")
+    internal open fun name() = this::class.simpleName ?: throw ClassNotFoundException("class does not have a name")
 
-    abstract fun createWalls(): List<BwObstacle>
+    internal abstract fun createWalls(): List<BwObstacle>
 
     override fun createObjects(): List<BwObstacle> {
         val c = createWalls()

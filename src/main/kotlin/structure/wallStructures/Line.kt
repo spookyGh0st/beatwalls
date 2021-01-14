@@ -1,7 +1,6 @@
 package structure.wallStructures
 
 import structure.bwElements.BwObstacle
-import structure.math.PointConnectionType
 import structure.math.bwObstacleOf
 import structure.math.*
 
@@ -24,17 +23,15 @@ class Line: WallPath(){
      * generating the Walls
      */
     override fun createWalls(): List<BwObstacle> {
-        return bwObstacleLine(p0, p1, amount(), type)
+        val amount1 = amount()
+        val l = mutableListOf<BwObstacle>()
+        val vec = p1 - p0
+        for (i in 0 until amount1){
+            val t0 = p0 + (i+0.0)/ amount1 * vec
+            val t1 = p0 + (i+1.0)/ amount1 * vec
+            l.add(bwObstacleOf(t0,t1, type))
+        }
+        return l.toList()
     }
 }
 
-fun bwObstacleLine(p0: Vec3, p1: Vec3, amount: Int, type: PointConnectionType): List<BwObstacle> {
-    val l = mutableListOf<BwObstacle>()
-    val vec = p1 - p0
-    for (i in 0 until amount){
-        val t0 = p0 + (i+0.0)/amount * vec
-        val t1 = p0 + (i+1.0)/amount * vec
-        l.add(bwObstacleOf(t0,t1,type))
-    }
-    return l.toList()
-}

@@ -1,7 +1,7 @@
 package structure.wallStructures
 
 import structure.ObjectStructure
-import structure.helperClasses.BwObject
+import structure.bwElements.BwObject
 import structure.math.CuboidConstrains
 import structure.math.Vec3
 import types.BwInt

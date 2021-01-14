@@ -1,6 +1,6 @@
 package structure.wallStructures
 
-import structure.helperClasses.BwObstacle
+import structure.bwElements.BwObstacle
 import structure.math.Vec3
 import types.BwInt
 import kotlin.math.abs

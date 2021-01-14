@@ -1,7 +1,7 @@
 package structure
 
-import structure.helperClasses.BwObject
-import structure.helperClasses.Color
+import structure.bwElements.BwObject
+import structure.bwElements.Color
 import structure.math.Vec3
 import types.BwColor
 import types.BwDouble

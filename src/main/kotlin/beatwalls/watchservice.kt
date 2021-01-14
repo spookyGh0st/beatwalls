@@ -15,14 +15,14 @@ import java.nio.file.StandardWatchEventKinds.*
 
 @ExperimentalCoroutinesApi
 suspend fun runOnChange(wd: File, f: () -> Unit){
-    logger.info("Keep this window open. it will run again if it detects changes")
+    logInfo("Keep this window open. it will run again if it detects changes")
     val watchChannel = wd.asWatchChannel()
     watchChannel.consumeEach {
         if (it.kind == KWatchEvent.Kind.Modified){
-            logger.info { "detected change, running..." }
+            logInfo("detected change, running...")
             f()
             delay(1000)
-            logger.info{ "Waiting for changes to the file "}
+            logInfo("Waiting for changes to the file ")
         }
     }
     watchChannel.close()

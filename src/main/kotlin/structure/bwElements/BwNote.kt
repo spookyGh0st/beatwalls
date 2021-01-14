@@ -1,4 +1,4 @@
-package structure.helperClasses
+package structure.bwElements
 
 import structure.math.Vec3
 

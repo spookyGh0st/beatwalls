@@ -1,6 +1,6 @@
 package structure.math
 
-import structure.helperClasses.BwObstacle
+import structure.bwElements.BwObstacle
 import kotlin.math.PI
 import kotlin.math.atan
 import kotlin.math.pow

@@ -1,6 +1,6 @@
 package structure.wallStructures
 
-import structure.helperClasses.BwObstacle
+import structure.bwElements.BwObstacle
 
 /**
  * Creates no Elements at all.

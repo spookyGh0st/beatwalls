@@ -1,6 +1,6 @@
 package structure.wallStructures
 
-import structure.helperClasses.BwObstacle
+import structure.bwElements.BwObstacle
 
 /**
  * Draw a steady curve of Walls. that is exactly 1 beat long

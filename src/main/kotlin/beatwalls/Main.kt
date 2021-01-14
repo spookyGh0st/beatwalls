@@ -2,11 +2,8 @@ package beatwalls
 
 import interpreter.Beatwalls
 import kotlinx.coroutines.ExperimentalCoroutinesApi
-import mu.KotlinLogging
 import java.io.File
 import kotlin.system.exitProcess
-
-internal val logger = KotlinLogging.logger("beatwalls")
 
 @ExperimentalCoroutinesApi
 suspend fun main(args: Array<String>) {

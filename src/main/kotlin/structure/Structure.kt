@@ -1,7 +1,7 @@
 package structure
 
 import interpreter.parser.StructFactory
-import structure.helperClasses.BwElement
+import structure.bwElements.BwElement
 import types.BwDouble
 import types.BwInt
 import types.bwDouble

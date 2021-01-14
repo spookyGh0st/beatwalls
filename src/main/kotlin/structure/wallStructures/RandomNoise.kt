@@ -1,6 +1,6 @@
 package structure.wallStructures
 
-import structure.helperClasses.BwObstacle
+import structure.bwElements.BwObstacle
 import structure.math.CuboidConstrains
 import structure.math.Vec3
 import types.BwInt

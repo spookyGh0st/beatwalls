@@ -1,7 +1,7 @@
 package structure.lightStructure
 
 import structure.CustomStructInterface
-import structure.helperClasses.BwEvent
+import structure.bwElements.BwEvent
 
 class CustomLightStructure(
     override val name: String,

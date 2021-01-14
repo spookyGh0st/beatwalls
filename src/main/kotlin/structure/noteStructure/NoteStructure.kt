@@ -1,7 +1,7 @@
 package structure.noteStructure
 
 import structure.Structure
-import structure.helperClasses.BwNote
+import structure.bwElements.BwNote
 
 abstract class NoteStructure: Structure(){
     override fun createElements(): List<BwNote> {

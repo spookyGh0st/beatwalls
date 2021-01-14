@@ -1,10 +1,10 @@
 package interpreter
 
 import chart.difficulty.*
-import structure.helperClasses.BwElement
-import structure.helperClasses.BwEvent
-import structure.helperClasses.BwNote
-import structure.helperClasses.BwObstacle
+import structure.bwElements.BwElement
+import structure.bwElements.BwEvent
+import structure.bwElements.BwNote
+import structure.bwElements.BwObstacle
 import structure.math.Mat3
 import structure.math.Vec3
 import kotlin.math.*

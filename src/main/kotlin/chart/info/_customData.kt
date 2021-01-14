@@ -1,6 +1,6 @@
 @file:Suppress("ClassName")
 
-package chart.song
+package chart.info
 
 data class _customData(
     val _difficultyLabel: String?,

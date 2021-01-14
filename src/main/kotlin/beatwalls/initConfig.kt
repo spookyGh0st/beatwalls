@@ -1,6 +1,6 @@
 package beatwalls
 
-import chart.song.Info
+import chart.info.Info
 import interpreter.MapLoader
 import java.io.File
 import java.lang.StringBuilder

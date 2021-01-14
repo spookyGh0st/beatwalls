@@ -1,4 +1,4 @@
-package structure.helperClasses
+package structure.bwElements
 
 enum class NoteType(type: Int){
     Red(1),

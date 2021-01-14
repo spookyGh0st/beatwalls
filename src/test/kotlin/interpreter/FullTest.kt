@@ -8,7 +8,7 @@ import org.junit.Test
 import structure.wallStructures.CustomWallStructure
 import structure.wallStructures.Line
 import structure.Structure
-import structure.helperClasses.BwElement
+import structure.bwElements.BwElement
 import structure.math.Vec3
 import java.io.File
 import kotlin.test.assertTrue

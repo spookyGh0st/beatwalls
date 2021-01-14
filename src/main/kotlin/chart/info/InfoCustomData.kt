@@ -1,4 +1,4 @@
-package chart.song
+package chart.info
 
 data class InfoCustomData(
     val _contributors: List<_contributors>?,

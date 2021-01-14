@@ -1,7 +1,7 @@
 package structure.lightStructure
 
 import structure.Structure
-import structure.helperClasses.BwEvent
+import structure.bwElements.BwEvent
 
 abstract class LightStructure: Structure(){
     override fun createElements(): List<BwEvent> {

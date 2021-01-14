@@ -6,7 +6,7 @@ import chart.difficulty.Difficulty
 import chart.difficulty._events
 import chart.difficulty._notes
 import chart.difficulty._obstacles
-import chart.song.Info
+import chart.info.Info
 import com.google.gson.Gson
 import com.google.gson.JsonElement
 import com.google.gson.JsonObject

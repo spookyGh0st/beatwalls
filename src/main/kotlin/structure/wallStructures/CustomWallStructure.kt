@@ -1,7 +1,7 @@
 package structure.wallStructures
 
 import structure.CustomStructInterface
-import structure.helperClasses.BwObstacle
+import structure.bwElements.BwObstacle
 
 /**
  * Cannot be directly called, but instead must be called using the Define: Parameter

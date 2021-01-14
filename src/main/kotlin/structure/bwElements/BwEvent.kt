@@ -1,4 +1,4 @@
-package structure.helperClasses
+package structure.bwElements
 
 data class BwEvent(
     var type: Int,

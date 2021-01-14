@@ -1,4 +1,4 @@
-package chart.song
+package chart.info
 
 data class Info(
     val _version: String,

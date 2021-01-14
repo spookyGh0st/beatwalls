@@ -21,4 +21,4 @@ target/
 /node_modules/
 /website/
 /docs/.vuepress/dist/
-/docs/reference/
+/docs/reference/beatwalls/

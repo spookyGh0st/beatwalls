@@ -5,14 +5,24 @@ import kotlinx.coroutines.ExperimentalCoroutinesApi
 import java.io.File
 import kotlin.system.exitProcess
 
+const val mainFileSuffix = "main.bw"
+
 @ExperimentalCoroutinesApi
 suspend fun main(args: Array<String>) {
     hello()
     val d = loadDirectory(args)
-    val bw = Beatwalls(d)
+    val mainFile = File(d, mainFileSuffix)
     Beatwalls(d).run()
-    runOnChange(bw.mainFile) { Beatwalls(d).run() }
+
+    runOnChange(mainFile) {
+        runCount++
+        println()
+        logInfo("Starting $runCount. run of Beatwizard!")
+        Beatwalls(d).run()
+    }
 }
+
+var runCount = 1
 
 private fun loadDirectory(args: Array<String>): File {
     val dir = when (args.size) {
@@ -30,7 +40,7 @@ private fun loadDirectory(args: Array<String>): File {
         errorExit("The File ${dir.absolutePath} is not a Directory. Please drag in the whole map folder")
     if (dir.list()?.contains("Info.dat") == false)
         errorExit("The Directory is missing the Info.dat File. Are you using an outdated Editor?")
-    if (dir.list()?.contains("main.bw") == false)
+    if (dir.list()?.contains(mainFileSuffix) == false)
         initialize(dir)
 
     saveWorkingDirectory(dir)

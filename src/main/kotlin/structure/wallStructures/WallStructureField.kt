@@ -1,5 +1,6 @@
 package structure.wallStructures
 
+import beatwalls.logError
 import structure.ObjectStructure
 import structure.bwElements.BwObject
 import structure.math.CuboidConstrains
@@ -42,14 +43,19 @@ class WallStructureField: ObjectStructure() {
         val l= mutableListOf<BwObject>()
         val cc = CuboidConstrains(p0, p1, structureState.R)
         for(i in 0 until amount()) {
-            val t = structure.createElements()
+            val t = structure.run()
             val vec3 = cc.random(avoidCenter,0.0)
-            t.forEach {
+            if (t.any{ it !is BwObject }){
+                logError("A Wallstructurefield can only hold Structures that produce Walls or Notes")
+                return emptyList()
+            }
+            val objects = t.filterIsInstance<BwObject>()
+            objects.forEach {
                 it.position.x += vec3.x
                 it.position.y += vec3.y
                 it.position.z += p0.z + i.toDouble() / amount() * (p1.z-p0.z)
             }
-            l.addAll(t)
+            l.addAll(objects)
         }
         return l.toList()
     }

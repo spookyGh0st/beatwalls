@@ -17,11 +17,12 @@ import java.nio.file.StandardWatchEventKinds.*
 suspend fun runOnChange(wd: File, f: () -> Unit){
     logInfo("Keep this window open. it will run again if it detects changes")
     val watchChannel = wd.asWatchChannel()
+    var blocked = false
     watchChannel.consumeEach {
-        if (it.kind == KWatchEvent.Kind.Modified){
-            logInfo("detected change, running...")
+        if (it.kind == KWatchEvent.Kind.Modified && !blocked){
+            // This is horrible. Never do that! Too bad!
+            GlobalScope.launch { blocked= true; delay(1000); blocked = false }
             f()
-            delay(1000)
             logInfo("Waiting for changes to the file ")
         }
     }

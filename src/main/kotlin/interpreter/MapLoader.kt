@@ -10,6 +10,8 @@ import chart.info.Info
 import com.google.gson.Gson
 import com.google.gson.JsonElement
 import com.google.gson.JsonObject
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.runBlocking
 import java.io.File
 import java.util.*
 
@@ -52,8 +54,8 @@ class MapLoader(val workingDirectory: File) {
         for (bms in info._difficultyBeatmapSets){
             for (bm in bms._difficultyBeatmaps){
                 if (bms._beatmapCharacteristicName.equals(characteristic, ignoreCase = true) && bm._difficultyRank == difficultyType.rank){
-                    if (bm._customData?._requirements?.contains("Noodle Extensions") == false || bm._customData?._requirements?.contains("Mapping Extensions") == false)
-                        logWarning("The Difficulty does not have the requirements set. Please add Noodle/Mapping Extensions")
+                    if (bm._customData?._requirements?.contains("Noodle Extensions") == false && !bm._customData._requirements.contains("Mapping Extensions"))
+                        logWarning("The Difficulty does not have the requirements set. Please add Noodle Extensions or Mapping Extensions")
                     // load specific options
                     offset = (info._songTimeOffset + (bm._customData?._editorOffset?:0))
                     diffFile = File(workingDirectory, bm._beatmapFilename)
@@ -100,14 +102,20 @@ class MapLoader(val workingDirectory: File) {
             logWarning("Cannot write ${diffFile.name}, did not properly load difficulty")
             return
         }
-        val backupFile = File(autosaveDir,"${Calendar.getInstance().time.time}-${diffFile.name}")
-        val backupDiffJson = gson.toJson(diffJson)
-        logInfo("Creating backupfile under ${backupFile.name}")
-        backupFile.writeText(backupDiffJson)
 
-        val text = createDiff(diffJson, obstacles, notes, events)
-        diffFile.writeText(text)
-        logInfo("Successfully written new Difficulty to ${diffFile.name}")
+        runBlocking {
+            launch {
+                val backupFile = File(autosaveDir,"${Calendar.getInstance().time.time}-${diffFile.name}")
+                val backupDiffJson = gson.toJson(diffJson)
+                logInfo("Creating backupfile under ${backupFile.name}")
+                backupFile.writeText(backupDiffJson)
+            }
+            launch {
+                val text = createDiff(diffJson, obstacles, notes, events)
+                diffFile.writeText(text)
+                logInfo("Successfully written new Difficulty to ${diffFile.name}")
+            }
+        }
     }
 
     internal fun createDiff(diff: JsonElement, obstacles: List<_obstacles>, notes: List<_notes>, events: List<_events>): String {
@@ -124,6 +132,7 @@ class MapLoader(val workingDirectory: File) {
         d.asJsonObject.add("_notes", notesJson)
         d.asJsonObject.add("_events", eventsJson)
 
+        logInfo("Added ${obstacles.size} Walls, ${notes.size} notes and ${events.size} events.")
         return gson.toJson(d)
     }
 }

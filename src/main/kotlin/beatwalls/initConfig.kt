@@ -17,7 +17,7 @@ fun initialize(wd: File){
     val diffName = diff.first.removeSuffix(".dat")
     val text = exampleMainFile(diffName,hjd,modType)
 
-    val mainFile = File(wd, "main.bw")
+    val mainFile = File(wd, mainFileSuffix)
     logInfo("Creating example File under $mainFile")
     mainFile.writeText(text)
 }

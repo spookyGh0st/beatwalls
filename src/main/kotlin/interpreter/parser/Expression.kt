@@ -24,7 +24,7 @@ fun Parser.parseStructureProperty(ws: Structure){
     }
 
     val ss = ws.structureState
-    val value: Any = when (p.returnType.withNullability(false)) {
+    val value: Any? = when (p.returnType.withNullability(false)) {
         typeOf<Boolean>()       -> currentTP.v.toBoolean()
         typeOf<BwDouble>()      -> bwDouble(currentTP.v,ss)
         typeOf<BwPoint>()       -> bwPoint(currentTP.v, ss)
@@ -37,7 +37,11 @@ fun Parser.parseStructureProperty(ws: Structure){
         typeOf<PointConnectionType>()         ->  parsePointConnectionType(currentTP.v, ss)
         typeOf<BwColor>()       -> bwColor(currentTP.v, ss)
         else -> errorTP("Unknown type: ${p.returnType}")
-    } ?: return
+    }
+    if (value == null) {
+        errorTP("Failed to parse Property of ${currentTP.v} into a correct typ.")
+        return
+    }
     writeProb(ws, p, value)
 }
 

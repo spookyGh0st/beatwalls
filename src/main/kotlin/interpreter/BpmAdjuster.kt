@@ -8,6 +8,7 @@ import kotlin.math.ceil
 class BpmAdjuster(val diff: Difficulty) {
     private val baseBpm: Double = diff.bpm
     private val changes: ArrayList<Pair<_BPMChanges, Double>> = mapChangesToBeat(diff._customData?._BPMChange)
+    val offset = baseBpm / 60000 * diff.offset
 
     private fun mapChangesToBeat(changes: List<_BPMChanges>?): ArrayList<Pair<_BPMChanges, Double>> {
         val l = arrayListOf(_BPMChanges(baseBpm, 0.0, 4, 4) to 0.0)
@@ -37,7 +38,7 @@ class BpmAdjuster(val diff: Difficulty) {
         val c = lastChange(element._time)
         val time = c.first._time + (element._time-c.second) /baseBpm * c.first._BPM
 
-        element._time = time + diff.offset
+        element._time = time + offset
         if (element._duration > 0)
             element._duration / baseBpm *c.first._BPM
     }
@@ -46,14 +47,14 @@ class BpmAdjuster(val diff: Difficulty) {
         val c = lastChange(element._time)
         val time = c.first._time + (element._time-c.second) /baseBpm * c.first._BPM
 
-        element._time = time + diff.offset
+        element._time = time + offset
     }
 
     fun correctEvent(element: _events) {
         val c = lastChange(element._time)
         val time = c.first._time + (element._time-c.second) /baseBpm * c.first._BPM
 
-        element._time = time + diff.offset
+        element._time = time + offset
     }
 
     fun findTime(time:Double): Double {

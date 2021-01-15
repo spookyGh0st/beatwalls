@@ -57,6 +57,15 @@ data class Vec3(var x: Double = 0.0, var y: Double = 0.0, var z: Double = 0.0){
 
     fun toList(): List<Double> =
         listOf(x,y,z)
+
+    operator fun times(vec3: Vec3): Vec3 {
+        return Vec3(
+            vec3.x * x,
+            vec3.y * y,
+            vec3.z * z,
+        )
+
+    }
 }
 
 operator fun Double.times(vec3: Vec3): Vec3 {

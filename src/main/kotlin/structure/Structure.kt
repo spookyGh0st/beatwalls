@@ -39,14 +39,14 @@ abstract class Structure {
      */
     var repeat: BwInt = bwInt(0)
 
-    internal abstract fun createElements(): List<BwElement>
+    protected abstract fun createElements(): List<BwElement>
 
-    internal fun run(): MutableList<BwElement> {
+    internal fun run(): List<BwElement> {
         val l = mutableListOf<BwElement>()
         for (count in 0..repeat()){
             l.addAll(createElements())
         }
-        return l
+        return l.toList()
     }
 }
 
@@ -95,6 +95,6 @@ class CustomStructure(
     override val structures: List<Structure>
 ): Structure(), CustomStructInterface{
     override fun createElements(): List<BwElement> =
-        superStructure.createElements() + structures.flatMap { it.createElements() }
+        superStructure.run() + structures.flatMap { it.run() }
 }
 

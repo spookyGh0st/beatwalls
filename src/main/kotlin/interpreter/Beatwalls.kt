@@ -1,13 +1,14 @@
 package interpreter
 
-import beatwalls.logInfo
+import beatwalls.logError
+import beatwalls.mainFileSuffix
 import interpreter.parser.Parser
 import java.io.File
 
 class Beatwalls(val workingDirectory: File) {
     var hadError = false
     val options = Options(workingDirectory)
-    val mainFile = File(workingDirectory, "main.bw")
+    val mainFile = File(workingDirectory, mainFileSuffix)
 
     fun run(){
         hadError = false
@@ -20,7 +21,7 @@ class Beatwalls(val workingDirectory: File) {
         val structs = p.parse()
 
         if (hadError){
-            logInfo("Looks like you have some Errors. Come back if you fixed them")
+            logError("Looks like you have some Errors. Come back if you fixed them")
             return
         }
 
@@ -43,7 +44,7 @@ class Beatwalls(val workingDirectory: File) {
     }
 
     fun report(file: File, line: Int, where: String, message: String) {
-        println("[${file.name}: line $line] Error $where: $message")
+        logError("[${file.name}: line $line] Error $where: $message")
         hadError = true
     }
 }

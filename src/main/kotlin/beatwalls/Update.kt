@@ -34,7 +34,7 @@ __________  __      __
     if (currentVersion == latestVersion || currentVersion == "CyanIsAFurry")
         return
 
-    logInfo(    "To update Beatwalls to the latest version go to https://github.com/spookyGh0st/beatwalls/releases/latest")
+    logInfo("To update Beatwalls to the latest version go to https://github.com/spookyGh0st/beatwalls/releases/latest")
     logInfo("Press Enter to continue without updating")
     readLine()
 }

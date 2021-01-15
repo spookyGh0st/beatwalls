@@ -10,7 +10,7 @@ class Evaluator(val structs: List<Structure>, val bw: Beatwalls) {
     fun evaluate(): List<BwElement> {
         runBlocking {
             for (s in structs) {
-                launch { elements.addAll(s.createElements()) }
+                launch { elements.addAll(s.run()) }
             }
         }
         return elements.toList()

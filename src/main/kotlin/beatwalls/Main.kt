@@ -38,19 +38,21 @@ private fun loadDirectory(args: Array<String>): File {
     return dir
 }
 
-fun logInfo(msg: String){
-    println("[INFO]: $msg")
+fun logInfo(msg: String = ""){
+    println("[\uD83D\uDCA1 INFO]:    $msg")
 }
 
 fun logWarning(msg: String){
-    println("[WARNING]: $msg")
+    println("[⚠️ WARNING]: $msg")
 }
 fun logError(msg: String){
-    println("[Error]: $msg")
+    println("[❌ Error]:   $msg")
 }
 
 fun errorExit(msg: String): Nothing {
     logError(msg)
+    logError("Press enter to exit")
+    readLine()
     exitProcess(-1)
 }
 

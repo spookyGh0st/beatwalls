@@ -14,7 +14,8 @@ fun initialize(wd: File){
     val hjd = pickHjd()
 
     val modType = if (pickNe()) "NE" else "ME"
-    val text = exampleMainFile(diff.first,hjd,modType)
+    val diffName = diff.first.removeSuffix(".dat")
+    val text = exampleMainFile(diffName,hjd,modType)
 
     val mainFile = File(wd, "main.bw")
     logInfo("Creating example File under $mainFile")

@@ -31,5 +31,6 @@ fun Parser.parseOptionProperty(){
         } catch (e: IllegalArgumentException) {
             bw.error(currentTP.file, currentTP.line, "${currentTP.v} is not a supported Value. (only Easy, Normal, ....)")
         }
+        else -> errorTP("Invalid Option Property. Have you some old beat values left in?")
     }
 }

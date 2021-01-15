@@ -26,16 +26,16 @@ __________  __      __
     println()
 
     //retrieves the latest version
-    println("trying to retrieve latest version from github")
+    logInfo(    "trying to retrieve latest version from github")
     val latestVersion = getLatestVersion()
-    println("local version: $currentVersion, latest version: $latestVersion")
+    logInfo("local version: $currentVersion, latest version: $latestVersion")
 
     // breaks if up to date
     if (currentVersion == latestVersion || currentVersion == "CyanIsAFurry")
         return
 
-    println("To update Beatwalls to the latest version go to https://github.com/spookyGh0st/beatwalls/releases/latest")
-    println("Press Enter to continue without updating")
+    logInfo(    "To update Beatwalls to the latest version go to https://github.com/spookyGh0st/beatwalls/releases/latest")
+    logInfo("Press Enter to continue without updating")
     readLine()
 }
 
@@ -85,6 +85,11 @@ val loadingMessages = listOf(
     "Now with extra spice!",
     "DRINK MOAR WATA",
     "Random anime recommendation! Go watch Space Dandy",
-    "I'm sad about Facebook"
+    "I'm sad about Facebook",
+    "Remember when people where editing lightning events by hand?",
+    "If you ever come to germany, visit me and we will go on a roller coaster together!",
+    "Remember the human!",
+    "The first 90 percent of the code accounts for the first 90 percent of the development time. The remaining 10 percent of the code accounts for the other 90 percent of the development time - Tom Cargill, Bell Labs",
+    "XML is a classic political compromise: it balances the needs of man and machine by being equally unreadable to both. - Matthew Might",
 
 )

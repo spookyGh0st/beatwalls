@@ -11,6 +11,7 @@ import com.google.gson.Gson
 import com.google.gson.JsonElement
 import com.google.gson.JsonObject
 import java.io.File
+import java.util.*
 
 /**
  * I don't want to keep up with all possible changes in the Json Format.
@@ -22,6 +23,7 @@ class MapLoader(val workingDirectory: File) {
     private val infoJson: JsonElement
     private val diffs = mutableMapOf<File, JsonElement>()
     private val gson = Gson()
+    private val autosaveDir = File(workingDirectory,"autosaves")
 
     init {
         val infoPath = File(workingDirectory, "Info.dat")
@@ -33,6 +35,10 @@ class MapLoader(val workingDirectory: File) {
             logWarning("Failed to read in the song info.")
             logWarning("Exception message: ${e.message}")
             throw Exception(e)
+        }
+        if (!autosaveDir.isDirectory){
+            logInfo("Creating autosave Directory")
+            autosaveDir.mkdir()
         }
     }
 
@@ -46,6 +52,8 @@ class MapLoader(val workingDirectory: File) {
         for (bms in info._difficultyBeatmapSets){
             for (bm in bms._difficultyBeatmaps){
                 if (bms._beatmapCharacteristicName.equals(characteristic, ignoreCase = true) && bm._difficultyRank == difficultyType.rank){
+                    if (bm._customData?._requirements?.contains("Noodle Extensions") == false || bm._customData?._requirements?.contains("Mapping Extensions") == false)
+                        logWarning("The Difficulty does not have the requirements set. Please add Noodle/Mapping Extensions")
                     // load specific options
                     offset = (info._songTimeOffset + (bm._customData?._editorOffset?:0))
                     diffFile = File(workingDirectory, bm._beatmapFilename)
@@ -92,6 +100,11 @@ class MapLoader(val workingDirectory: File) {
             logWarning("Cannot write ${diffFile.name}, did not properly load difficulty")
             return
         }
+        val backupFile = File(autosaveDir,"${Calendar.getInstance().time.time}-${diffFile.name}")
+        val backupDiffJson = gson.toJson(diffJson)
+        logInfo("Creating backupfile under ${backupFile.name}")
+        backupFile.writeText(backupDiffJson)
+
         val text = createDiff(diffJson, obstacles, notes, events)
         diffFile.writeText(text)
         logInfo("Successfully written new Difficulty to ${diffFile.name}")

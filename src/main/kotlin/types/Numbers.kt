@@ -12,15 +12,15 @@ typealias BwNumber = () -> Number
 fun bwDouble(num: Number):BwDouble = { num.toDouble()}
 fun bwInt(num: Number):BwInt = { num.toInt()}
 
-const val keyRepeatCount: String = "count"
+const val keyRepeatCount: String = "c"
+const val keyProgress: String = "p"
+const val keyScale: String = "s"
 
 internal fun bwNumber(s: String, ss: StructureState):BwNumber{
     val e = ExpressionBuilder(s)
-        .functions(allFunctions(ss))
-        .variable(keyRepeatCount)
+        .functions(ss.functions)
         .variables(ss.variables.keys)
         .build()
-    e.setVariable(keyRepeatCount, 0.0)
     e.setVariables(ss.variables)
     if (!e.validate().isValid){
         logError("The expression $s has errors:\n ${e.validate().errors}")
@@ -28,7 +28,7 @@ internal fun bwNumber(s: String, ss: StructureState):BwNumber{
         return { 0.0 }
     }
     return {
-        e.setVariable(keyRepeatCount, ss.count.toDouble())
+        e.setVariables(ss.variables)
         e.evaluate()
     }
 }

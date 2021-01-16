@@ -140,14 +140,18 @@ abstract class WallStructure: ObjectStructure() {
     internal abstract fun createWalls(): List<BwObstacle>
 
     override fun createObjects(): List<BwObstacle> {
+        // first set the scale so custom amount stuff gets adjusted
+        structureState.scale = scale()
+
         val c = createWalls()
+        // needed because of mirror
         val l = mutableListOf<BwObstacle>()
 
         reverse(c)
         speedUp(c)
         for ((i, o) in c.withIndex()) {
             // Set the progress Variable so easing works
-            structureState.progress = i.toDouble() / c.size
+            setProgress(i.toDouble() / c.size)
 
             adjust(o)
             fit(o)

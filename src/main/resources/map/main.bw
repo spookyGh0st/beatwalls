@@ -1,6 +1,6 @@
 # some global options
 modtype: NE
-clearNotes: true
+Difficulty: Easy
 
 # Here comes the line
 line: # now comes my cool line

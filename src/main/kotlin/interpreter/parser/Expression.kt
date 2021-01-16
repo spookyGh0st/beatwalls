@@ -27,7 +27,6 @@ fun Parser.parseStructureProperty(ws: Structure){
     val value: Any? = when (p.returnType.withNullability(false)) {
         typeOf<Boolean>()       -> currentTP.v.toBoolean()
         typeOf<BwDouble>()      -> bwDouble(currentTP.v,ss)
-        typeOf<BwPoint>()       -> bwPoint(currentTP.v, ss)
         typeOf<BwInt>()         -> bwInt(currentTP.v,ss)
         typeOf<Int>()           -> currentTP.v.toIntOrNull()?:0.0
         typeOf<Double>()        -> currentTP.v.toDoubleOrNull()

@@ -13,7 +13,7 @@ class RandomNoisePath : Curve() {
         val spline = CubicSpline(points)
         val n = (points.size-1) * amount()
         for (k in 0 until n){
-            structureState.progress = k.toDouble()/n
+            setProgress(k.toDouble()/n)
             val p0 = spline.splineAtTime(k.toDouble()/n)
             l.add(BwObstacle(
                 position = p0

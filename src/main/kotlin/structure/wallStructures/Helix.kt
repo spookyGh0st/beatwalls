@@ -31,10 +31,6 @@ class Helix: WallPath(){
      */
     var radius: BwDouble = bwDouble(2)
 
-    /**
-     * the endradius. default: radius)
-     */
-    var endRadius:BwDouble = { radius() }
 
     /**
      * spins every wall additionally this amount
@@ -67,11 +63,11 @@ class Helix: WallPath(){
              val countOffset = ci.toDouble()/ spiralAmount() *2*PI
              for(i in 0..amount()){
                  val z = i.toDouble()/ amount()
-                 structureState.progress = z
+                 setProgress(z)
                  val currentRot = (z* rotationAmount() + startRotation())/360*2*PI + countOffset
                  val x = cos(currentRot)
                  val y = sin(currentRot)
-                 val r = radius() + endRadius() * (i.toDouble() / amount())
+                 val r = radius()
                  points[i] = Vec3(center.x +x*r,center.y +y*r,z)
              }
              for(i in 0 until amount()){
@@ -79,7 +75,7 @@ class Helix: WallPath(){
                  val p2= points[i+1]
                  val ob = bwObstacleOf(p1,p2, type)
 
-                 structureState.progress = p1.z
+                 setProgress(p1.z)
                  ob.rotation.z += localRotationOffset()
                  l.add(ob)
              }

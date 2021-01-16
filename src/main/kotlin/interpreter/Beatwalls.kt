@@ -5,6 +5,7 @@ import beatwalls.mainFileSuffix
 import interpreter.parser.Parser
 import java.io.File
 
+
 class Beatwalls(val workingDirectory: File) {
     var hadError = false
     val options = Options(workingDirectory)
@@ -13,11 +14,11 @@ class Beatwalls(val workingDirectory: File) {
     fun run(){
         hadError = false
 
-        val ml = try { MapLoader(workingDirectory) }catch (e:Exception){ return }
+        val ml = try { MapLoader(workingDirectory) }catch (e: Exception){ return }
         val s = Scanner(mainFile.readText(), this, mainFile)
         val blocks = s.scan()
 
-        val p = Parser(blocks,this)
+        val p = Parser(blocks, this)
         val structs = p.parse()
 
         if (hadError){
@@ -25,7 +26,7 @@ class Beatwalls(val workingDirectory: File) {
             return
         }
 
-        val ev = Evaluator(structs,this)
+        val ev = Evaluator(structs, this)
         val elements = ev.evaluate()
 
         val tr = Translator(elements, this)

@@ -166,7 +166,7 @@ abstract class ObjectStructure: Structure() {
         val bwObjects = createObjects()
         val l = mutableListOf<BwObject>()
         for ((i, o) in bwObjects.withIndex()){
-            structureState.progress = i.toDouble() / bwObjects.size
+            setProgress(i.toDouble() / bwObjects.size)
             adjust(o)
             rotate(o)
             color(o)

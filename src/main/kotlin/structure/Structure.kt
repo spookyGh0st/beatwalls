@@ -2,11 +2,7 @@ package structure
 
 import interpreter.parser.StructFactory
 import structure.bwElements.BwElement
-import types.BwDouble
-import types.BwInt
-import types.bwDouble
-import types.bwInt
-import kotlin.random.Random
+import types.*
 import kotlin.reflect.KClass
 import kotlin.reflect.full.createInstance
 import kotlin.reflect.jvm.jvmName
@@ -41,9 +37,15 @@ abstract class Structure {
 
     protected abstract fun createElements(): List<BwElement>
 
+    protected fun setProgress(p: Double){
+        structureState.progress = p
+    }
+
     internal fun run(): List<BwElement> {
         val l = mutableListOf<BwElement>()
+
         for (count in 0..repeat()){
+            structureState.count = count.toDouble()
             l.addAll(createElements())
         }
         return l.toList()
@@ -60,19 +62,6 @@ fun baseStructs(vararg structs: KClass<out Structure>): Map<String, StructFactor
     }
     return m.toMap()
 }
-
-/**
- * Each Structure owns one StructureState
- * It is the part the Structure shares with it's Expressions
- * Functions can access it's elements
- * It gets adjusted when looping through it's generated Elements
- */
-data class StructureState(
-    var progress: Double = 0.0,
-    var count: Int = 0,
-    var R: Random = Random,
-    var variables: Map<String,Double> = mapOf()
-)
 
 /**
  * Custom Structures must inherent from the specific Structuretypes (WS/LS) directly.

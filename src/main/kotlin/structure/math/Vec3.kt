@@ -15,12 +15,9 @@ data class Vec3(var x: Double = 0.0, var y: Double = 0.0, var z: Double = 0.0){
         val l = 1.0/ sqrt(x * x + y * y + z * z)
         x*=l; y*= l; z*=l
     }
-    fun matMul(vec3: Vec3): Vec3 {
-        return Vec3(
-            vec3.x * x,
-            vec3.y * y,
-            vec3.z * z,
-        )
+
+    fun toVec2(): Vec2 {
+        return Vec2(x,y)
     }
 
     operator fun plus(vec3: Vec3): Vec3 {

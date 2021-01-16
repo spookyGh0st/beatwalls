@@ -54,6 +54,7 @@ class CubicSpline(m_points: List<Vec3>) {
     }
 
     fun splineAtTime(time: Double): Vec3 {
+        //todo Bug here
         var t = time * (splinePoints-1)
         if(t>= splinePoints)
             t = splinePoints.toDouble() - 0.000001

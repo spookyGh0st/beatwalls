@@ -10,9 +10,7 @@ import structure.Structure
 fun Parser.parseInterface(){
     val p = currentBlock.properties
     val i = { s: Structure ->
-        p.forEach {
-            currentTP = it
-            parseStructureProperty(s) }
+        parseStructureProperties(s,p)
     }
     interfaces[currentBlock.name.toLowerCase()] = i
 }

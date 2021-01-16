@@ -2,8 +2,6 @@ package structure
 
 import net.objecthunter.exp4j.function.Function
 import types.baseFunctions
-import types.keyProgress
-import types.keyRepeatCount
 import kotlin.random.Random
 
 /**
@@ -12,22 +10,26 @@ import kotlin.random.Random
  * Functions can access it's elements
  * It gets adjusted when looping through it's generated Elements
  */
-data class StructureState(
-    var R: Random = Random,
-    var variables: MutableMap<String,Double> = mutableMapOf(
+class StructureState{
+    private val keyRepeatCount: String = "c"
+    private val keyProgress: String = "p"
+    private val keyDuration: String = "d"
+
+    var rand: Random = Random
+    val variables: MutableMap<String,Double> = mutableMapOf(
         keyRepeatCount to 0.0,
-        keyProgress to 0.0
-    ),
-){
+        keyProgress to 0.0,
+        keyDuration to 1.0,
+    )
     var progress: Double
         get() = variables[keyProgress]?: 0.0
         set(value) { variables[keyProgress] = value }
     var count: Double
-        get() = variables[keyProgress]?: 0.0
-        set(value) { variables[keyProgress] = value }
-    var scale: Double
-        get() = variables[keyProgress]?: 0.0
-        set(value) { variables[keyProgress] = value }
+        get() = variables[keyRepeatCount]?: 0.0
+        set(value) { variables[keyRepeatCount] = value }
+    var duration: Double
+        get() = variables[keyDuration]?: 1.0
+        set(value) { variables[keyDuration] = value }
 
     var functions: List<Function> = baseFunctions(this)
 }

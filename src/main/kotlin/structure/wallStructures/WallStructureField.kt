@@ -41,10 +41,10 @@ class WallStructureField: ObjectStructure() {
 
     override fun createObjects(): List<BwObject> {
         val l= mutableListOf<BwObject>()
-        val cc = CuboidConstrains(p0, p1, structureState.R)
+        val cc = CuboidConstrains(p0, p1, structureState.rand)
         for(i in 0 until amount()) {
             val t = structure.run()
-            val vec3 = cc.random(avoidCenter,0.0)
+            val vec3 = cc.randomVec3(avoidCenter,0.0)
             if (t.any{ it !is BwObject }){
                 logError("A Wallstructurefield can only hold Structures that produce Walls or Notes")
                 return emptyList()

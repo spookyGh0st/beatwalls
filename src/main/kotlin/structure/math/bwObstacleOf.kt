@@ -1,21 +1,19 @@
 package structure.math
 
 import structure.bwElements.BwObstacle
-import kotlin.math.PI
-import kotlin.math.atan
-import kotlin.math.pow
-import kotlin.math.sqrt
+import kotlin.math.*
 
 fun bwObstacleOf(p0: Vec3, p1: Vec3, type: PointConnectionType) = when(type){
     PointConnectionType.Cuboid -> BwObstacle(
-        scale = Vec3(p1.x - p0.x, p1.y - p0.y, p1.z - p0.z),
-        position = Vec3(middle(p0.x, p1.x), middle(p0.y, p1.y), middle(p0.z, p1.z)),
+        scale = p1-p0,
+        position = p0 + 0.5 * (p1-p0)
     )
     PointConnectionType.Rectangle -> {
-        val a = p1.x - p0.x
-        val b = p1.y - p1.y
+        val a = p1.y - p0.y
+        val b = p1.x - p0.x
         val c = sqrt(a.pow(2) + b.pow(2))
-        val localRotZ =  180 - atan(a / b) /(2* PI)*360
+        var localRotZ =  asin(a/c) / (2*PI) * 360
+        if (p0.x > p1.x) localRotZ*= -1
         BwObstacle(
             scale = Vec3(c, 0, p1.z - p0.z),
             position = Vec3(middle(p0.x, p1.x), middle(p0.y, p1.y), middle(p0.z, p1.z)),
@@ -24,16 +22,18 @@ fun bwObstacleOf(p0: Vec3, p1: Vec3, type: PointConnectionType) = when(type){
     }
     PointConnectionType.Line -> {
         val aForZ = p1.x - p0.x
-        val bForZ = p1.y - p1.y
+        val bForZ = p1.y - p0.y
         val cForZ = sqrt(aForZ.pow(2) + bForZ.pow(2))
-        val localRotZ = 180 - atan(aForZ / bForZ) / (2 * PI) * 360
+        val localRotZ = asin(bForZ / cForZ) / (2 * PI) * 360
 
         val aForX = p1.z - p0.z
-        val bForX = cForZ
-        val cForX = sqrt(aForX.pow(2) + bForX.pow(2))
-        val localRotX = 180 - atan(aForZ / bForZ) / (2 * PI) * 360
+        val bForX = p1.y - p0.y
+        val cForX = sqrt(aForX * aForX + bForX * bForX)
+
+        val scaleZ = sqrt(cForX * cForX +bForX * bForX)
+        val localRotX = acos(bForX/cForX)  / (2 * PI) * 360
         BwObstacle(
-            scale = Vec3(0, 0, cForX),
+            scale = Vec3(0, 0, scaleZ),
             position = Vec3(middle(p0.x, p1.x), middle(p0.y, p1.y), middle(p0.z, p1.z)),
             localRotation = Vec3(localRotX, 0, localRotZ)
         )

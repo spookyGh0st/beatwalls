@@ -56,6 +56,8 @@ class MapLoader(val workingDirectory: File) {
                 if (bms._beatmapCharacteristicName.equals(characteristic, ignoreCase = true) && bm._difficultyRank == difficultyType.rank){
                     if (bm._customData?._requirements?.contains("Noodle Extensions") == false && !bm._customData._requirements.contains("Mapping Extensions"))
                         logWarning("The Difficulty does not have the requirements set. Please add Noodle Extensions or Mapping Extensions")
+                    if (bm._customData?._requirements?.contains("Chroma") == false)
+                        logWarning("The Difficulty does not have the requirement Chroma set. Please add it to support colors.")
                     // load specific options
                     offset = (info._songTimeOffset + (bm._customData?._editorOffset?:0))
                     diffFile = File(workingDirectory, bm._beatmapFilename)

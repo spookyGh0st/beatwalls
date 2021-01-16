@@ -65,5 +65,5 @@ class BpmAdjuster(val diff: Difficulty) {
     }
 
     private fun lastChange(beat: Double) =
-         changes.last { it.second <= beat }
+         changes.lastOrNull { it.second <= beat }?: changes.last()
 }

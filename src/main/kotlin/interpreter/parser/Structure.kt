@@ -1,6 +1,7 @@
 package interpreter.parser
 
 import interpreter.TokenPair
+import structure.CustomStructInterface
 import structure.Structure
 
 /**
@@ -16,7 +17,11 @@ fun Parser.parseStructure(){
 }
 
 fun Parser.parseStructureProperties(struct: Structure, properties: List<TokenPair>){
-    struct.structureState.variables = variables
+    struct.structureState.variables += variables
+    // If we directly inherent from a basestructure, pass the Property below
+    // Otherwise, you could not access count or other variables in it.
+    if (struct is CustomStructInterface && struct.superStructure !is CustomStructInterface)
+        return parseStructureProperties(struct.superStructure, properties)
     for (tp in properties){
         currentTP = tp
         parseStructureProperty(struct)

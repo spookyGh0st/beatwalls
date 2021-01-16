@@ -43,6 +43,15 @@ abstract class WallStructure: ObjectStructure() {
     var mirrorY: BwDouble = bwDouble(2)
 
     /**
+     * Beatwalls differences the "Duration" and the "wallspeed".
+     * Duration changes the actual scale of the value in the z achsis.
+     * It is the same if it is -1 or 1.
+     * overriding wallspeed on the other hand makes hyper and fast walls.
+     * example: wallspeed: -2.
+     * TODO maybe this can abstract away the generel speed?
+     */
+    var wallSpeed: BwDouble? = null
+    /**
      * change the Width of all Walls in the structure to the given Value. Random possible with random(min,max). Default: null
      */
     var changeWidth: BwDouble? = null
@@ -103,12 +112,6 @@ abstract class WallStructure: ObjectStructure() {
     var fitZ: BwDouble? = null
 
     /**
-     * scales the Duration and startTime, (duration only for positive duration).
-     * This is useful for making a structure, that is one beat long longer or shorter
-     */
-    var scale: BwDouble = bwDouble(1)
-
-    /**
      * basically mirrors the Wallstructure in itself on the x-Achsis if set to true.
      */
     var reverseX: Boolean = false
@@ -140,8 +143,6 @@ abstract class WallStructure: ObjectStructure() {
     internal abstract fun createWalls(): List<BwObstacle>
 
     override fun createObjects(): List<BwObstacle> {
-        // first set the scale so custom amount stuff gets adjusted
-        structureState.scale = scale()
 
         val c = createWalls()
         // needed because of mirror
@@ -157,7 +158,7 @@ abstract class WallStructure: ObjectStructure() {
             fit(o)
             l.addAll(mirror(o))
         }
-        return l.toMutableList()
+        return l.toList()
     }
 
     private fun adjust(o: BwObstacle) {
@@ -165,13 +166,11 @@ abstract class WallStructure: ObjectStructure() {
         o.scale.y = changeHeight?.invoke() ?: o.scale.y
         o.scale.z = changeDuration?.invoke() ?: o.scale.z
 
+        o.speed = wallSpeed?.invoke() ?: o.speed
+
         o.scale.x *= scaleWidth.invoke()
         o.scale.y *= scaleHeight.invoke()
         o.scale.z *= scaleDuration.invoke()
-
-        o.position.z *= scale.invoke()
-        if (o.scale.z > 0)
-            o.scale.z *= scale.invoke()
 
         o.scale.x += addWidth.invoke()
         o.scale.y += addHeight.invoke()
@@ -256,7 +255,7 @@ abstract class WallStructure: ObjectStructure() {
         val mult = if (mirrorRotation) -1.0 else  1.0
         return list.map { wall ->
             val pos = wall.position.copy(x = 2*mirrorX() - wall.position.x)
-            val scale = wall.scale.copy(x = 2*mirrorX() - wall.position.x)
+            val scale = wall.scale.copy(x = -1*wall.scale.x)
             val rot = wall.rotation.copy(y =  mult *wall.rotation.y, z = mult * wall.rotation.z)
             val localRot = wall.localRotation.copy(y =  mult *wall.localRotation.y, z = mult * wall.localRotation.z)
 
@@ -273,9 +272,9 @@ abstract class WallStructure: ObjectStructure() {
         val mult = if (mirrorRotation) -1.0 else  1.0
         return list.map { wall ->
             val pos = wall.position.copy(y = 2*mirrorY() - wall.position.y)
-            val scale = wall.scale.copy(y = 2*mirrorY() - wall.position.y)
+            val scale = wall.scale.copy(y = -1 * wall.scale.y)
             val rot = wall.rotation.copy(x =  mult *wall.rotation.x, z = mult * wall.rotation.z)
-            val localRot = wall.localRotation.copy(x =  mult *wall.localRotation.z, z = mult * wall.localRotation.z)
+            val localRot = wall.localRotation.copy(x =  mult *wall.localRotation.x, z = mult * wall.localRotation.z)
 
             wall.copy(
                 position = pos,

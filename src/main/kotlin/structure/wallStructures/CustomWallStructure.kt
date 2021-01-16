@@ -19,5 +19,5 @@ class CustomWallStructure(
     override val structures: List<WallStructure>
 ) : WallStructure(), CustomStructInterface {
         override fun createWalls(): List<BwObstacle> =
-            superStructure.createWalls() + structures.flatMap { it.createWalls() }
+            (superStructure.run() + structures.flatMap { it.run() }).filterIsInstance<BwObstacle>()
 }

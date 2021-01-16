@@ -1,5 +1,7 @@
 package structure.math
 
+import beatwalls.logError
+import kotlin.math.min
 import kotlin.random.Random
 
 data class CuboidConstrains(val p0: Vec3, val p1: Vec3, var r: Random) {
@@ -17,25 +19,38 @@ data class CuboidConstrains(val p0: Vec3, val p1: Vec3, var r: Random) {
     val yMaxBlue = maxOf(p0.y, p1.y)
     val yMaxRed = maxOf(redP0.y, redP1.y)
 
-    fun random(avoidCenter: Boolean, z: Double): Vec3 {
+    fun randomVec3(avoidCenter: Boolean, z: Double): Vec3 {
+        return try {
+            val vec2 = random(avoidCenter)
+            vec2.toVec3(z)
+        } catch (e: Exception){
+            logError("Could not retrieve a random Vec3, continuing with Vec3(0,0,0)")
+            logError("Please check if your Cuboid is tall enough and consider turning off avoidCenter")
+            logError(e.message.toString())
+            Vec3()
+
+        }
+    }
+
+    private fun random(avoidCenter: Boolean): Vec2 {
+        val minAdd = 0.00001
         if (!avoidCenter){
-            return Vec3(
-                r.nextDouble(xMinBlue, xMaxBlue),
-                r.nextDouble(yMinBlue, yMaxBlue),
-                z
+            return Vec2(
+                r.nextDouble(xMinBlue, xMaxBlue + minAdd),
+                r.nextDouble(yMinBlue, yMaxBlue + minAdd),
             )
         } else{
             val x = if(r.nextDouble(1.0) < getRatio(xMinBlue-xMinRed, xMaxRed-xMaxBlue))
-                r.nextDouble(xMinBlue, xMinRed)
+                r.nextDouble(xMinBlue, xMinRed + minAdd)
             else
-                r.nextDouble(xMaxRed, xMaxBlue)
+                r.nextDouble(xMaxRed, xMaxBlue + minAdd)
 
             val y = if(r.nextDouble(1.0) < getRatio(yMinBlue-yMinRed, yMaxRed-yMaxBlue))
-                r.nextDouble(yMinBlue, yMinRed)
+                r.nextDouble(yMinBlue, yMinRed + minAdd)
             else
-                r.nextDouble(yMaxRed, yMaxBlue)
+                r.nextDouble(yMaxRed, yMaxBlue + minAdd)
 
-            return Vec3(x,y,z)
+            return Vec2(x,y)
         }
     }
     private fun getRatio(d1: Double, d2: Double) =

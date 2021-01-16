@@ -92,24 +92,36 @@ class Translator(val structs: List<BwElement>, val bw: Beatwalls) {
     }
 
     fun neObstacle(obs: BwObstacle): _obstacles {
-        val bwPos = Vec3(obs.position.x - obs.scale.x/2, obs.position.y -obs.scale.y/2,obs.position.z - obs.scale.z/2)
-        val localRot = obs.localRotation * ( 1/360*2*PI)
+        val bwPos = Vec3(
+            obs.position.x - obs.scale.x/2,
+            obs.position.y - obs.scale.y/2,
+            obs.position.z - obs.scale.z/2
+        )
+        val localRot = obs.localRotation * ( 1.0/360*2*PI)
 
-        val pivot_diff = obs.scale * Vec3(0,-1,0)
+        val scale = Vec3(
+            abs(obs.scale.x).coerceAtLeast(meMinValue),
+            abs(obs.scale.y.coerceAtLeast(meMinValue)),
+            abs(obs.scale.z.coerceAtLeast(meMinValue)),
+       )
+
+        val pivot_diff = scale * Vec3(0,-1,0)
         val correction = pivot_diff - (localRot * pivot_diff)
         val nePos = bwPos + (localRot * pivot_diff) + correction
 
         val beat = bwPos.z + obs.beat
+        val x = if(obs.scale.x < 0) nePos.x -scale.x else nePos.x
+        val y = if(obs.scale.y < 0) nePos.y -scale.y else nePos.y
 
         return _obstacles(
             _time = beat,
             _lineIndex = 0,
             _type = 0,
-            _duration = 0.0,
+            _duration = obs.speed?: obs.scale.z,
             _width = 0,
             _obstacleCustomData = _obstacleCustomData(
-                _position = listOf(nePos.x,nePos.y),
-                _scale = obs.scale.toList(),
+                _position = listOf(x,y),
+                _scale = scale.toVec2().toList(),
                 _color = obs.color?.toList(),
                 _rotation = neRotation(obs.rotation),
                 _localRotation = neRotation(obs.localRotation),

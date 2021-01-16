@@ -44,9 +44,12 @@ abstract class Structure {
     internal fun run(): List<BwElement> {
         val l = mutableListOf<BwElement>()
 
-        for (count in 0..repeat()){
+        val n = repeat()
+        for (count in 0..n){
             structureState.count = count.toDouble()
-            l.addAll(createElements())
+            val elements = createElements()
+            elements.forEach { it.beat += beat() }
+            l.addAll(elements)
         }
         return l.toList()
     }

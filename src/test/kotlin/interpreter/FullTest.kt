@@ -9,6 +9,7 @@ import structure.wallStructures.CustomWallStructure
 import structure.wallStructures.Line
 import structure.Structure
 import structure.bwElements.BwElement
+import structure.math.Vec2
 import structure.math.Vec3
 import java.io.File
 import kotlin.test.assertTrue
@@ -103,8 +104,8 @@ class FullTest {
     fun `Test if the Properties have been set correctly`(){
         val t = listOf(
             {ws:Structure -> ws.beat()} to 10.0,
-            {ws:Structure -> ws as CustomWallStructure; (ws.superStructure as Line).p1} to Vec3(20,0,8),
-            {ws:Structure -> ws as CustomWallStructure; (ws.superStructure as Line).p1} to Vec3(30,0,8),
+            {ws:Structure -> ws as CustomWallStructure; (ws.superStructure as Line).p1} to Vec2(20,0),
+            {ws:Structure -> ws as CustomWallStructure; (ws.superStructure as Line).p1} to Vec2(30,0),
             {ws:Structure -> ws.beat()} to 30.0,
         )
         for ((i, element) in t.withIndex()){
@@ -114,6 +115,6 @@ class FullTest {
 
     @Test
     fun `Test if the correct amount of elements were created`(){
-        assertEquals(14, elements.size)
+        assertEquals(20, elements.size)
     }
 }

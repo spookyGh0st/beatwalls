@@ -18,6 +18,5 @@ internal val baseStructures = baseStructs(
     RandomCurve::class,
     RandomNoise::class,
     WallStructureField::class,
-    SteadyCurve::class,
     Wall::class,
 )

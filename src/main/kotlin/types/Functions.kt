@@ -38,14 +38,14 @@ fun baseFunctions(ss: StructureState) = listOf(
 
 class Random(val ss: StructureState) : Function("random", 2 ) {
     override fun apply(vararg args: Double): Double =
-       ss.R.nextDouble(args[0],args[1])
+       ss.rand.nextDouble(args[0],args[1])
 }
 
 abstract class BwEasing(name: String, val fs: StructureState): Function(name,2) {
     override fun apply(vararg args: Double): Double {
         val start = args[0]
         val end = args[1]
-        val progress = fs.variables[keyProgress]?:0.0
+        val progress = fs.progress
         return start + (end - start) * invoke(progress)
     }
     abstract fun invoke(x: Double): Double

@@ -4,6 +4,8 @@ import structure.math.Vec3
 
 data class BwObstacle(
     var scale: Vec3 = Vec3(0,0,0),
+    // Beatwizard differents between duration an the scale
+    var speed: Double? = null,
     override var beat: Double = 0.0,
     override var position: Vec3 = Vec3(0,0,0),
     override var rotation: Vec3 = Vec3(0,0,0),

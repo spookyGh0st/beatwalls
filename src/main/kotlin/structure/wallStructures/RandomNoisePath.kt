@@ -9,7 +9,7 @@ import structure.math.CubicSpline
 class RandomNoisePath : Curve() {
     override fun createWalls(): List<BwObstacle> {
         val l = mutableListOf<BwObstacle>()
-        val points = listOfNotNull(p0,p1,p2,p3,p4,p5,p6,p7)
+        val points = vec3PointList(p0,p1,p2,p3,p4,p5,p6,p7)
         val spline = CubicSpline(points)
         val n = (points.size-1) * amount()
         for (k in 0 until n){

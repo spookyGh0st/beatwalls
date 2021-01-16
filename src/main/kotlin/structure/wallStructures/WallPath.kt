@@ -1,22 +1,43 @@
 package structure.wallStructures
 
+import structure.bwElements.BwObstacle
 import structure.math.PointConnectionType
+import structure.math.Vec2
+import structure.math.Vec3
+import structure.math.bwObstacleOf
 import types.BwInt
+import java.time.Duration
 
 /**
  * @suppress
  * All wallstructures creating Walls along a path
  */
-abstract class WallPath: WallStructure() {
-    /**
-     * TODO find good default
-     */
-    open var amount: BwInt = { (4 * scale()).toInt() }
+interface WallPath {
 
-    /**
-     * TODO Beschreibung
-     */
-    var type: PointConnectionType = PointConnectionType.Rectangle
+    var amount: BwInt
+    var duration: Double
+    var type: PointConnectionType
 
+    fun vec3PointList(vararg points: Vec2?): List<Vec3> {
+        val l = mutableListOf<Vec3>()
+        val pl = points.filterNotNull()
+        for ((i, p) in pl.withIndex()){
+            val z = i.toDouble()/(pl.size-1)
+            l.add(p.toVec3(z))
+        }
+        return l.toList()
+    }
 
+    fun createFromPointList(points: List<Vec3>): List<BwObstacle> {
+        val l = mutableListOf<BwObstacle>()
+        points[0].z *= duration
+        for (i in 0 until points.size-1){
+            val p0 = points[i]
+            val p1 = points[i+1]
+            p1.z *= duration
+            val obst = bwObstacleOf(p0,p1,type)
+            l.add(obst)
+        }
+        return l.toList()
+    }
 }

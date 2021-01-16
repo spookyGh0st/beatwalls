@@ -35,12 +35,12 @@ class RandomNoise: WallStructure(){
 
     override fun createWalls(): List<BwObstacle> {
         val l = mutableListOf<BwObstacle>()
-        val cc = CuboidConstrains(p0, p1, structureState.R)
+        val cc = CuboidConstrains(p0, p1, structureState.rand)
 
         for (i in 0 until amount()){
             val z = p0.z + ((i.toDouble()/amount())*(p1.z - p0.z))
             l.add(BwObstacle(
-                position = cc.random(avoidCenter, z)
+                position = cc.randomVec3(avoidCenter, z)
             ))
         }
         return l.toList()

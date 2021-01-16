@@ -200,8 +200,8 @@ abstract class ObjectStructure: Structure() {
     }
 
     private fun rotate(o: BwObject){
-        o.rotation = Vec3(rotationX(), rotationY(), rotationZ())
-        o.localRotation = Vec3(localRotX(), localRotY(), localRotZ())
+        o.rotation += Vec3(rotationX(), rotationY(), rotationZ())
+        o.localRotation += Vec3(localRotX(), localRotY(), localRotZ())
     }
 
     private fun color(o: BwObject){

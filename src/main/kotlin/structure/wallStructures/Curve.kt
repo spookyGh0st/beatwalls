@@ -1,57 +1,66 @@
 package structure.wallStructures
 
 import structure.bwElements.BwObstacle
-import structure.math.bwObstacleOf
-import structure.math.CubicSpline
-import structure.math.Vec3
+import structure.math.*
+import types.BwInt
+import kotlin.math.roundToInt
 
 /**
  * Draw a curve of Walls through the given points
- *
- * @sample
- * ```yaml
- * Curve:
- *   p0: -10,0,0
- *   p2: -5,2,1
- *   p3: -10, 10,4
- * ```
- *
  */
-open class Curve : WallPath() {
+open class Curve : WallStructure(), WallPath {
     /** the 0. Point of the Curve */
-    var p0: Vec3 = Vec3()
+    var p0: Vec2 = Vec2()
     /** the 1. Point of the Curve */
-    var p1: Vec3 = Vec3()
+    var p1: Vec2 = Vec2()
     /** the 2. Point of the Curve */
-    var p2: Vec3? = null
+    var p2: Vec2? = null
     /** the 3. Point of the Curve */
-    var p3: Vec3? = null
+    var p3: Vec2? = null
     /** the 4. Point of the Curve */
-    var p4: Vec3? = null
+    var p4: Vec2? = null
     /** the 5. Point of the Curve */
-    var p5: Vec3? = null
+    var p5: Vec2? = null
     /** the 6. Point of the Curve */
-    var p6: Vec3? = null
+    var p6: Vec2? = null
     /** the 7. Point of the Curve */
-    var p7: Vec3? = null
+    var p7: Vec2? = null
 
+    /**
+     * The amount of Walls Generated.
+     * It is recommended to link this to the duration
+     * Default: 6 * d
+     */
+    override var amount: BwInt = { (6 * duration ).roundToInt() }
+
+    /**
+     * The Duration of the Curve in Beats
+     * Default: 1.0
+     */
+    override var duration = 1.0
+
+    /**
+     * The type of Wall that will be created.
+     * ME does only support Cuboid, all other will look cooler B)
+     */
+    override var type: PointConnectionType = PointConnectionType.Cuboid
 
     override fun createWalls(): List<BwObstacle> {
-        val l = mutableListOf<BwObstacle>()
-        val points = listOfNotNull(p0,p1,p2,p3,p4,p5,p6,p7)
-        val spline = CubicSpline(points)
-        val n = (points.size-1) * amount()
-        for (k in 0 until n){
-            setProgress(k.toDouble()/n)
-            val t0 = (k+0.0)/n
-            val t1 = (k+1.0)/n
+        // Always must be before amount get's called
+        structureState.duration = duration
+        val n = amount()
 
-            val p0 = spline.splineAtTime(t0)
-            val p1 = spline.splineAtTime(t1)
+        val pathPoints = vec3PointList(p0,p1,p2,p3,p4,p5,p6,p7)
+        val spline = CubicSpline(pathPoints)
 
-            l.add(bwObstacleOf(p0,p1,type))
+        // Each Wall is defined from 2 Points
+        // So in total points.size -1 Walls will be created
+        val points = mutableListOf<Vec3>()
+        for (k in 0 .. n){
+            val p = k.toDouble()/n
+            points.add(spline.splineAtTime(p))
         }
-        return l.toList()
+        return createFromPointList(points)
     }
 }
 

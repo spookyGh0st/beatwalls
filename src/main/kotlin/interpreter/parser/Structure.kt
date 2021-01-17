@@ -12,6 +12,9 @@ fun Parser.parseStructure(){
     val func = structFactories[currentBlock.name]
     if (func == null) { errorBlock("Structure ${currentBlock.name} does not exist"); return }
     val struct = func()
+    for (i in struct.interfaces + "default" + currentBlock.name){
+        interfaces[i]?.invoke(struct)?: errorBlock("Interface $i does not exist")
+    }
     parseStructureProperties(struct, currentBlock.properties)
     structures.add(struct)
 }
@@ -25,9 +28,6 @@ fun Parser.parseStructureProperties(struct: Structure, properties: List<TokenPai
     for (tp in properties){
         currentTP = tp
         parseStructureProperty(struct)
-    }
-    for (i in struct.interfaces + "default"){
-        interfaces[i]?.invoke(struct)?: error("Interface $i does not exist")
     }
 }
 

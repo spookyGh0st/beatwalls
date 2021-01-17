@@ -13,7 +13,7 @@ typealias BwInterface   = (Structure) -> Unit
 typealias StructFactory = () -> Structure
 
 class Parser(val blocks: List<TokenBlock>, val bw: Beatwalls) {
-    val interfaces: MutableMap<String, BwInterface> = mutableMapOf("default" to {})
+    val interfaces: MutableMap<String, BwInterface> = baseInterfaces()
     val variables: MutableMap<String, Double> = mutableMapOf()
     val structFactories: MutableMap<String, StructFactory> = baseStructures.toMutableMap()
     val colors: MutableMap<String, BwColor> = baseColors()

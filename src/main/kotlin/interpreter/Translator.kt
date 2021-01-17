@@ -141,26 +141,4 @@ class Translator(val structs: List<BwElement>, val bw: Beatwalls) {
         else
             listOf(vec.x, vec.y, vec.z)
     }
-
-    private fun rotatePoint(point: Vec3, origin: Vec3, rot: Vec3): Vec3 {
-        val a = Mat3(
-            Vec3(cos(rot.z), sin(rot.z), 0.0),
-            Vec3(-sin(rot.z),cos(rot.z), 0.0),
-            Vec3(0.0,0.0,1.0),
-        )
-        val b = Mat3(
-            Vec3(cos(rot.y),0.0, sin(rot.y)),
-            Vec3(0.0, 1.0,0.0),
-            Vec3(-sin(rot.y),0.0, cos(rot.y))
-        )
-        val c = Mat3(
-            Vec3(1.0,0.0,0.0),
-            Vec3(0.0,cos(rot.x),sin(rot.x)),
-            Vec3(0.0, -sin(rot.x), cos(rot.x)),
-        )
-        val rotation = c*b*a
-
-        val rotatedPoint = point * rotation
-        return rotatedPoint + origin
-    }
 }

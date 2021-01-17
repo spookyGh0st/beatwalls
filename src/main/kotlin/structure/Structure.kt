@@ -33,7 +33,7 @@ abstract class Structure {
      *
      * beat: 10 + c
      */
-    var repeat: BwInt = bwInt(0)
+    var repeat: BwInt = bwInt(1)
 
     protected abstract fun createElements(): List<BwElement>
 
@@ -45,7 +45,7 @@ abstract class Structure {
         val l = mutableListOf<BwElement>()
 
         val n = repeat()
-        for (count in 0..n){
+        for (count in 0 until n){
             structureState.count = count.toDouble()
             val elements = createElements()
             elements.forEach { it.beat += beat() }

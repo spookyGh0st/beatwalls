@@ -52,5 +52,8 @@ fun Parser.parseCustomStructure(){
         parseStructureProperties(ws, properties)
         ws
     }
+
+    // Add the structure and the relevant Interface
     structFactories[name] = f
+    interfaces[name] = {}
 }

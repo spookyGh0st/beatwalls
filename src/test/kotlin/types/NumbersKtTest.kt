@@ -2,6 +2,7 @@ package types
 
 import interpreter.Beatwalls
 import interpreter.parser.Parser
+import interpreter.parser.TypeBuilder
 import org.junit.Test
 
 import org.junit.Assert.*
@@ -9,14 +10,14 @@ import structure.StructureState
 import java.io.File
 
 class NumbersKtTest {
-    val p = Parser(listOf(), Beatwalls(File("")))
 
     @Test
     fun `Test numbers only Expression`() {
         val ss = StructureState()
         val s = "5"
-        val e = p.bwNumber(s,ss)
-        assertEquals(5,e!!.invoke().toInt())
+        val p = TypeBuilder(s, ss, mapOf())
+        val e = p.buildBwInt()
+        assertEquals(5, e!!.invoke())
     }
 
     @Test
@@ -31,7 +32,8 @@ class NumbersKtTest {
             Pair(3125, "5^5")
         )
         table.forEach{
-            val e = p.bwInt(it.second, ss)
+            val p = TypeBuilder(it.second, ss, mapOf())
+            val e = p.buildBwInt()
             assertEquals("Expression: ${it.second}",it.first,e!!.invoke())
         }
     }
@@ -48,7 +50,8 @@ class NumbersKtTest {
             Pair(3125.0, "5^5")
         )
         table.forEach{
-            val e = p.bwDouble(it.second, ss)
+            val p = TypeBuilder(it.second, ss, mapOf())
+            val e = p.buildBwDouble()
             assertEquals(it.first,e!!.invoke(),0.0)
         }
     }
@@ -57,10 +60,11 @@ class NumbersKtTest {
     fun `Test linear easing`() {
         val ss = StructureState()
         val s = "linear(-5, 5)"
-        val e = p.bwInt(s,ss)
+        val p = TypeBuilder(s, ss, mapOf())
+        val e = p.buildBwInt()
         for (i in 0 until 10){
             ss.progress = i*0.1
-            assertEquals(i-5,e!!.invoke().toInt())
+            assertEquals(i-5, e!!.invoke())
         }
     }
 }

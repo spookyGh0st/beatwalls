@@ -11,7 +11,7 @@ import kotlin.random.Random
  * It gets adjusted when looping through it's generated Elements
  */
 class StructureState{
-    private val keyRepeatCount: String = "c"
+    private val keyRepeatCount: String = "r"
     private val keyProgress: String = "p"
     private val keyDuration: String = "d"
 

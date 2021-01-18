@@ -103,7 +103,7 @@ class Translator(val structs: List<BwElement>, val bw: Beatwalls) {
 
         val scale = Vec3(
             abs(obs.scale.x).coerceAtLeast(meMinValue),
-            abs(obs.scale.y.coerceAtLeast(meMinValue)),
+            abs(obs.scale.y).coerceAtLeast(meMinValue),
             abs(obs.scale.z.coerceAtLeast(meMinValue*0.01)),
        )
 

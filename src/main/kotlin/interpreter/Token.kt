@@ -23,7 +23,7 @@ enum class BlockType{
 
 data class TokenPair(
     val k: String,
-    val v: String,
+    var v: String,
     val file: File,
     val line: Int
 )

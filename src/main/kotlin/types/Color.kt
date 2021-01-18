@@ -1,5 +1,6 @@
 package types
 
+import beatwalls.logError
 import structure.StructureState
 import kotlin.math.PI
 import kotlin.math.sin
@@ -12,27 +13,38 @@ fun bwColor(color: java.awt.Color) =
     bwColor(color.red/255.0, color.green /255.0, color.blue/255,1.0 )
 
 
-internal fun gradient(ss:StructureState, start: BwColor, end: BwColor): BwColor{
-    val cr = end.r() - start.r()
-    val cg = end.g() - start.g()
-    val cb = end.b() - start.b()
-    val ca = end.a() - start.a()
-
-    val red =   { start.r() + cr*ss.progress }
-    val green = { start.g() + cg*ss.progress }
-    val blue =  { start.b() + cb*ss.progress }
-    val alpha =  { start.a() + ca*ss.progress }
-    return BwColor(red,green,blue,alpha)
+class GradientBuilder(val ss: StructureState, val colors: List<BwColor>){
+    fun build(): BwColor? {
+        if (colors.size < 2){
+            logError("Gradient can only use 2 or more Colors")
+            return null
+        }
+        val r = { gradientColor{ it.r() } }
+        val g = { gradientColor{ it.g() } }
+        val b = { gradientColor{ it.b() } }
+        val a = { gradientColor{ it.a() } }
+        return BwColor(r, g, b, a)
+    }
+    fun gradientColor(p: (BwColor) -> Double): Double{
+        val index = (ss.progress * colors.size).toInt()
+        val progress = ss.progress
+        val start = colors[index]
+        val end = colors.getOrElse(index+1){colors.last()}
+        val change = p(end) - p(start)
+        return p(start) + change * progress
+    }
 }
 
-internal fun rainbow(ss: StructureState, repetitions: Double, alpha: Double): BwColor {
+
+internal fun rainbow(ss: StructureState, repetitions: Double, alpha: BwDouble): BwColor {
     val r = { sin(ss.progress*2* PI * repetitions + 0.0/3.0 * PI) /2 + 0.5 }
     val g = { sin(ss.progress*2* PI * repetitions + 2.0/3.0 * PI) /2 + 0.5 }
     val b = { sin(ss.progress*2* PI * repetitions + 4.0/3.0 * PI) /2 + 0.5 }
-    return BwColor(r,g,b,{alpha})
+    return BwColor(r,g,b,alpha)
 }
 
 internal fun random(colors: List<BwColor>): BwColor {
+    // TODO FIND A DECENT WAY FOR THIS
     val r = { colors.random().r() }
     val g = { colors.random().a() }
     val b = { colors.random().b() }

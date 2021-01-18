@@ -1,6 +1,7 @@
 package structure.math
 
 import beatwalls.logError
+import kotlin.math.abs
 import kotlin.math.min
 import kotlin.random.Random
 
@@ -34,7 +35,7 @@ data class CuboidConstrains(val p0: Vec3, val p1: Vec3, var r: Random) {
 
     private fun random(avoidCenter: Boolean): Vec2 {
         val minAdd = 0.00001
-        if (!avoidCenter){
+        if (!avoidCenter || xMinBlue >= xMaxRed || yMinBlue >= yMaxRed || xMaxBlue <= xMinRed || yMaxBlue <= yMinRed){
             return Vec2(
                 r.nextDouble(xMinBlue, xMaxBlue + minAdd),
                 r.nextDouble(yMinBlue, yMaxBlue + minAdd),
@@ -54,5 +55,5 @@ data class CuboidConstrains(val p0: Vec3, val p1: Vec3, var r: Random) {
         }
     }
     private fun getRatio(d1: Double, d2: Double) =
-        d1/(d1+d2)
+        abs(d1/(d1+d2)) // abs required for - infinity
 }

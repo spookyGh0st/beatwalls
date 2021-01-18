@@ -95,24 +95,23 @@ class TypeBuilder(val s: String, val ss: StructureState, val colors: Map<String,
 
     fun colorFunc(s: String, ss: StructureState) : BwColor? {
         val head = s.substringBefore("(")
-        val args = s
+        val argsList = s
             .substringAfter(head)
             .removeSurrounding("(", ")")
-            .replace("(","")
-            .replace(")","")
-            .split(",")
-            .filter { it.isNotEmpty() }
+        val args = splitExpression(argsList)
 
         when (head){
             "gradient" -> {
                 val colorList: List<BwColor> = colorList(args)?: return null
-                if (colorList.size != 2) { logError("Only 2 values are allowed for the gradient"); return null }
-                return gradient(ss,colorList[0],colorList[1])
+                return GradientBuilder(ss,colorList).build()
             }
             "rainbow" -> {
-                val r = args.getOrNull(0)?.toDoubleOrNull()?: 1.0
-                val a = args.getOrNull(1)?.toDoubleOrNull()?: 1.0
-                return rainbow(ss,r,a)
+                val repString = args.getOrNull(0)?: "1.0"
+                val repetitions = TypeBuilder(repString,ss,colors).buildBwDouble()?.invoke()
+                val alphaString = args.getOrNull(1)?: "1.0"
+                val alpha = TypeBuilder(alphaString,ss,colors).buildBwDouble()
+                if (alpha == null || repetitions == null) return null
+                return rainbow(ss,repetitions, alpha)
             }
             "random" -> {
                 val colorList = colorList(args)?: return null

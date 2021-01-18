@@ -37,8 +37,11 @@ fun baseFunctions(ss: StructureState) = listOf(
 )
 
 class Random(val ss: StructureState) : Function("random", 2 ) {
-    override fun apply(vararg args: Double): Double =
-       ss.rand.nextDouble(args[0],args[1])
+    override fun apply(vararg args: Double): Double {
+        val min = minOf(args[0], args[1])
+        val max = maxOf(args[0], args[1]).coerceAtLeast(min +0.00001)
+        return ss.rand.nextDouble(min, max)
+    }
 }
 
 abstract class BwEasing(name: String, val fs: StructureState): Function(name,2) {

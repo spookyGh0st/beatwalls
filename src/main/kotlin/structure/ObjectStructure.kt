@@ -93,11 +93,13 @@ abstract class ObjectStructure: Structure() {
 
     /**
      * localRotX controls the rotation on the x-axis for each individual wall in degree. allows random. Default: 0
+     * NOTE: the position translation to NE is currently broken. Use with care
      */
     var localRotX: BwDouble = bwDouble(0)
 
     /**
      * localRotY controls the rotation on the y-axis for each individual Wall in degree. allows random. Default: 0
+     * NOTE: the position translation to NE is currently broken. Use with care
      */
     var localRotY: BwDouble = bwDouble(0)
 

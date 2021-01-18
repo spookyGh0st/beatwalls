@@ -7,6 +7,7 @@ import org.junit.Test
 
 import org.junit.Assert.*
 import structure.StructureState
+import java.awt.GraphicsEnvironment
 import java.io.File
 
 class NumbersKtTest {

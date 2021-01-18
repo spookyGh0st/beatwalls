@@ -1,14 +1,21 @@
 package interpreter.parser
 
+import beatwalls.logError
 import structure.Structure
 import kotlin.reflect.KMutableProperty
 import kotlin.reflect.KProperty1
+import kotlin.reflect.full.declaredMemberExtensionProperties
 import kotlin.reflect.full.memberProperties
+import kotlin.reflect.full.staticProperties
 import kotlin.reflect.full.withNullability
 
 fun Parser.parseStructureProperty(ws: Structure){
     val p: KProperty1<out Structure, *>? = property(ws, currentTP.k)
-    if (p == null){ errorTP("Property ${currentTP.k} does not exist"); return }
+    if (p == null){
+        errorTP("Property ${currentTP.k} does not exist. All available Properties:")
+        logError(ws::class.memberProperties.map { it.name }.toString())
+        return
+    }
 
     if (p.returnType.isMarkedNullable && currentTP.v == "null"){
         writeProb(ws,p,null)

@@ -45,8 +45,8 @@ fun getLatestVersion(): String {
         val json = url.readText()
         val latestVersion = Gson().fromJson(json, GithubApi::class.java)!!
         return latestVersion.tag_name
-    }catch (e: UnknownHostException){
-        logWarning("failed to retrieve new version")
+    }catch (e: Exception){
+        logWarning("failed to retrieve new version, ${e.message}")
         currentVersion
     }
 }

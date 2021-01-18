@@ -104,10 +104,10 @@ class Translator(val structs: List<BwElement>, val bw: Beatwalls) {
         val scale = Vec3(
             abs(obs.scale.x).coerceAtLeast(meMinValue),
             abs(obs.scale.y.coerceAtLeast(meMinValue)),
-            abs(obs.scale.z.coerceAtLeast(meMinValue)),
+            abs(obs.scale.z.coerceAtLeast(meMinValue*0.01)),
        )
 
-        val pivot_diff = scale * Vec3(0,-1,0)
+        val pivot_diff = scale * Vec3(0,-0,0)
         val correction = pivot_diff - (localRot * pivot_diff)
         val nePos = bwPos + (localRot * pivot_diff) + correction
 
@@ -119,7 +119,7 @@ class Translator(val structs: List<BwElement>, val bw: Beatwalls) {
             _time = beat,
             _lineIndex = 0,
             _type = 0,
-            _duration = obs.speed?: obs.scale.z,
+            _duration = obs.speed?: scale.z,
             _width = 0,
             _obstacleCustomData = _obstacleCustomData(
                 _position = listOf(x,y),

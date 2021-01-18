@@ -1,6 +1,7 @@
 package interpreter.parser
 
-import types.bwColor
+import structure.bwElements.Color
+
 
 fun Parser.parseColor(){
     var r = 0.0
@@ -8,9 +9,8 @@ fun Parser.parseColor(){
     var b = 0.0
     var a = 1.0
 
-    val errorMsg = { d:Double -> errorTP("Only direct Values are allowed. Sorry").let { d }}
     for (tp in currentBlock.properties){
-        currentTP = tp
+        val errorMsg = { d:Double -> bw.error(tp.file,tp.line, "Only direct Values are allowed. Sorry").let { d }}
         when (tp.k.toLowerCase()){
             "r"     -> r = tp.v.toDoubleOrNull()?: errorMsg(0.0)
             "red"   -> r = tp.v.toDoubleOrNull()?: errorMsg(0.0)
@@ -23,7 +23,7 @@ fun Parser.parseColor(){
         }
     }
 
-    val c = bwColor(r,g,b,a)
+    val c = Color(r,g,b,a)
     colors[currentBlock.name.toLowerCase()] = c
 
 }

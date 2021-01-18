@@ -9,12 +9,12 @@ import structure.math.Vec3
  */
 class Wall: WallStructure() {
     /** StartPoint */
-    val p0: Vec3 = Vec3()
+    var p0: Vec3 = Vec3()
     /** Endpoint */
-    val p1: Vec3 = Vec3()
+    var p1: Vec3 = Vec3()
 
     /** How the Points get connected */
-    val type: PointConnectionType = PointConnectionType.Cuboid
+    var type: PointConnectionType = PointConnectionType.Cuboid
 
     /**
      * generating the Walls

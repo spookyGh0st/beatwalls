@@ -10,7 +10,6 @@ import structure.wallStructures.Line
 import structure.Structure
 import structure.bwElements.BwElement
 import structure.math.Vec2
-import structure.math.Vec3
 import java.io.File
 import kotlin.test.assertTrue
 

@@ -13,7 +13,7 @@ class RandomNoise: WallStructure(){
     /**
      * the amount of the created Walls, if no value is given creates 8x the beatcount
      */
-    var amount: BwInt = { abs(p1.z - p0.z).toInt() }
+    var amount: BwInt = { (8*abs(p1.z - p0.z)).toInt() }
 
     /**
      * controls one corner of the Area
@@ -37,8 +37,9 @@ class RandomNoise: WallStructure(){
         val l = mutableListOf<BwObstacle>()
         val cc = CuboidConstrains(p0, p1, structureState.rand)
 
-        for (i in 0 until amount()){
-            val z = p0.z + ((i.toDouble()/amount())*(p1.z - p0.z))
+        val n = amount()
+        for (i in 0 until n){
+            val z = p0.z + ((i.toDouble()/n)*(p1.z - p0.z))
             l.add(BwObstacle(
                 position = cc.randomVec3(avoidCenter, z)
             ))

@@ -33,8 +33,18 @@ fun baseFunctions(ss: StructureState) = listOf(
     EaseInBounce(ss),
     EaseOutBounce(ss),
     EaseInOutBounce(ss),
-    Random(ss)
+    Random(ss),
+    Bell(ss),
 )
+
+class Bell(val ss: StructureState) : Function("bell", 2 ) {
+    override fun apply(vararg args: Double): Double {
+        val min = minOf(args[0], args[1])
+        val max = maxOf(args[0], args[1]).coerceAtLeast(min +0.00001)
+        val progress = ss.progress
+        return min + max* E.pow(-25.0*((progress-0.5).pow(2)))
+    }
+}
 
 class Random(val ss: StructureState) : Function("random", 2 ) {
     override fun apply(vararg args: Double): Double {

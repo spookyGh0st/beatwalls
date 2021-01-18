@@ -1,22 +1,20 @@
 package types
 
-import interpreter.Beatwalls
-import interpreter.parser.Parser
+import interpreter.parser.StructFactory
 import interpreter.parser.TypeBuilder
 import org.junit.Test
 
 import org.junit.Assert.*
 import structure.StructureState
-import java.awt.GraphicsEnvironment
-import java.io.File
 
 class NumbersKtTest {
 
+    val structFactories = mapOf<String, StructFactory>()
     @Test
     fun `Test numbers only Expression`() {
         val ss = StructureState()
         val s = "5"
-        val p = TypeBuilder(s, ss, mapOf())
+        val p = TypeBuilder(s, ss, mapOf(), structFactories)
         val e = p.buildBwInt()
         assertEquals(5, e!!.invoke())
     }
@@ -33,7 +31,7 @@ class NumbersKtTest {
             Pair(3125, "5^5")
         )
         table.forEach{
-            val p = TypeBuilder(it.second, ss, mapOf())
+            val p = TypeBuilder(it.second, ss, mapOf(), structFactories)
             val e = p.buildBwInt()
             assertEquals("Expression: ${it.second}",it.first,e!!.invoke())
         }
@@ -51,7 +49,7 @@ class NumbersKtTest {
             Pair(3125.0, "5^5")
         )
         table.forEach{
-            val p = TypeBuilder(it.second, ss, mapOf())
+            val p = TypeBuilder(it.second, ss, mapOf(), structFactories)
             val e = p.buildBwDouble()
             assertEquals(it.first,e!!.invoke(),0.0)
         }
@@ -61,7 +59,7 @@ class NumbersKtTest {
     fun `Test linear easing`() {
         val ss = StructureState()
         val s = "linear(-5, 5)"
-        val p = TypeBuilder(s, ss, mapOf())
+        val p = TypeBuilder(s, ss, mapOf(), structFactories)
         val e = p.buildBwInt()
         for (i in 0 until 10){
             ss.progress = i*0.1

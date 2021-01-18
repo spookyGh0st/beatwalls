@@ -2,7 +2,10 @@ package interpreter.parser
 
 import beatwalls.logError
 import net.objecthunter.exp4j.ExpressionBuilder
+import structure.ObjectStructure
+import structure.Structure
 import structure.StructureState
+import structure.bwElements.Color
 import structure.math.PointConnectionType
 import structure.math.Vec2
 import structure.math.Vec3
@@ -12,7 +15,12 @@ import kotlin.reflect.KType
 import kotlin.reflect.typeOf
 
 @OptIn(ExperimentalStdlibApi::class)
-class TypeBuilder(val s: String, val ss: StructureState, val colors: Map<String, BwColor>) {
+open class TypeBuilder(
+    val s: String,
+    val ss: StructureState,
+    val colors: Map<String, Color>,
+    val structFactories: Map<String, StructFactory>
+) {
     fun build(type: KType): Any? = when (type) {
         typeOf<List<String>>()          -> buildList<String>()
         typeOf<List<Vec2>>()            -> buildList<Vec2>()
@@ -27,8 +35,13 @@ class TypeBuilder(val s: String, val ss: StructureState, val colors: Map<String,
         typeOf<Vec2>()                  -> buildVec2()
         typeOf<Vec3>()                  -> buildVec3()
         typeOf<PointConnectionType>()   -> buildPointConnectionType()
-        typeOf<BwColor>()               -> buildBwColor()
+        typeOf<ObjectStructure>()             -> buildStructure()
+        typeOf<BwColor>()               -> ColorBuilder(s,ss,colors,structFactories).buildColor()
         else -> { logError("Unknown type: $type"); null }
+    }
+
+    fun buildStructure(): Structure? {
+        return structFactories[s.toLowerCase().trim()]?.invoke()
     }
 
     fun buildString() = s
@@ -83,61 +96,6 @@ class TypeBuilder(val s: String, val ss: StructureState, val colors: Map<String,
         }
     }
 
-    /**
-     * Translation from a string to the color
-     * This is a bit more difficult, since we can't use our cool framework directly.
-     * Instead we will do a bit of manual Parsing of the few functions we have
-     */
-    fun buildBwColor(): BwColor? {
-        val sanitizedString = s.toLowerCase().replace(" ", "")
-        return colors[sanitizedString]?: colorFunc(s, ss)
-    }
-
-    fun colorFunc(s: String, ss: StructureState) : BwColor? {
-        val head = s.substringBefore("(")
-        val argsList = s
-            .substringAfter(head)
-            .removeSurrounding("(", ")")
-        val args = splitExpression(argsList)
-
-        when (head){
-            "gradient" -> {
-                val colorList: List<BwColor> = colorList(args)?: return null
-                return GradientBuilder(ss,colorList).build()
-            }
-            "rainbow" -> {
-                val repString = args.getOrNull(0)?: "1.0"
-                val repetitions = TypeBuilder(repString,ss,colors).buildBwDouble()?.invoke()
-                val alphaString = args.getOrNull(1)?: "1.0"
-                val alpha = TypeBuilder(alphaString,ss,colors).buildBwDouble()
-                if (alpha == null || repetitions == null) return null
-                return rainbow(ss,repetitions, alpha)
-            }
-            "random" -> {
-                val colorList = colorList(args)?: return null
-                return random(colorList)
-            }
-            else -> {
-                logError("Color function $head is invalid. if you were looking for switch, it is now random()")
-                return null
-            }
-        }
-    }
-
-    fun colorList(args: List<String>): List<BwColor>? {
-        val l = mutableListOf<BwColor>()
-        args.forEach {
-            val c = colors[it.toLowerCase().trim()]
-            if (c != null)
-                l.add(c)
-            else{
-                logError("The Color $it does not exist. Available Colors:\n ${colors.keys}")
-                return null
-            }
-        }
-        return  l.toList()
-    }
-
     fun buildVec2(): Vec2? {
         val l = splitExpression(s).filter { it.isNotBlank() }
         val exprX = l.getOrNull(0)
@@ -147,8 +105,8 @@ class TypeBuilder(val s: String, val ss: StructureState, val colors: Map<String,
             return null
         }
 
-        val valX = TypeBuilder(exprX,ss,colors).buildBwDouble()?.invoke()
-        val valY = TypeBuilder(exprY,ss,colors).buildBwDouble()?.invoke()
+        val valX = TypeBuilder(exprX, ss, colors, structFactories).buildBwDouble()?.invoke()
+        val valY = TypeBuilder(exprY, ss, colors, structFactories).buildBwDouble()?.invoke()
 
         if (valX == null || valY == null){
             logError("One Expression is null")
@@ -168,9 +126,9 @@ class TypeBuilder(val s: String, val ss: StructureState, val colors: Map<String,
             return null
         }
 
-        val valX = TypeBuilder(exprX,ss,colors).buildBwDouble()?.invoke()
-        val valY = TypeBuilder(exprY,ss,colors).buildBwDouble()?.invoke()
-        val valZ = TypeBuilder(exprZ,ss,colors).buildBwDouble()?.invoke()
+        val valX = TypeBuilder(exprX, ss, colors, structFactories).buildBwDouble()?.invoke()
+        val valY = TypeBuilder(exprY, ss, colors, structFactories).buildBwDouble()?.invoke()
+        val valZ = TypeBuilder(exprZ, ss, colors, structFactories).buildBwDouble()?.invoke()
 
         if (valX == null || valY == null || valZ == null){
             logError("One Expression is null")
@@ -182,26 +140,6 @@ class TypeBuilder(val s: String, val ss: StructureState, val colors: Map<String,
 
     inline fun <reified T> buildList(): List<Any?> {
         val s = splitExpression(s)
-        return s.map { TypeBuilder(it,ss,colors).build(typeOf<T>()) }
+        return s.map { TypeBuilder(it, ss, colors, structFactories).build(typeOf<T>()) }
     }
-
-    fun splitExpression(s: String): List<String> {
-        var start = 0
-        var pCount = 0
-        val l = mutableListOf<String>()
-
-        for ((i, c) in s.withIndex()){
-            when(c){
-                ',' -> if (0 == pCount) {
-                    l.add(s.substring(start,i))
-                    start = i+1
-                }
-                '(' -> pCount++
-                ')' -> pCount--
-            }
-        }
-        l.add(s.substring(start).trim())
-        return l.toList()
-    }
-
 }

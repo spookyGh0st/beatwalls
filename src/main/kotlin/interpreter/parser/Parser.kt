@@ -5,7 +5,7 @@ import interpreter.TokenBlock
 import interpreter.TokenPair
 import structure.Structure
 import structure.baseStructures
-import types.BwColor
+import structure.bwElements.Color
 import types.baseColors
 
 
@@ -16,7 +16,7 @@ class Parser(val blocks: List<TokenBlock>, val bw: Beatwalls) {
     val interfaces: MutableMap<String, BwInterface> = baseInterfaces()
     val variables: MutableMap<String, Double> = mutableMapOf()
     val structFactories: MutableMap<String, StructFactory> = baseStructures.toMutableMap()
-    val colors: MutableMap<String, BwColor> = baseColors()
+    val colors: MutableMap<String, Color> = baseColors()
 
     lateinit var currentTP: TokenPair
     lateinit var currentBlock: TokenBlock

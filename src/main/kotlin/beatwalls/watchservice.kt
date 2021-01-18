@@ -21,7 +21,7 @@ suspend fun runOnChange(wd: File, f: () -> Unit){
     watchChannel.consumeEach {
         if (it.kind == KWatchEvent.Kind.Modified && !blocked){
             // This is horrible. Never do that! Too bad!
-            GlobalScope.launch { blocked= true; delay(1000); blocked = false }
+            GlobalScope.launch { blocked= true; delay(2000); blocked = false }
             f()
             logInfo("Waiting for changes to the file ")
         }

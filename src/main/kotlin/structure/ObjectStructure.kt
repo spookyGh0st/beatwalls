@@ -207,8 +207,7 @@ abstract class ObjectStructure: Structure() {
     }
 
     private fun color(o: BwObject){
-        if (color != null)
-            o.color = Color(color!!.r(), color!!.g(), color!!.b(), color!!.a())
+        o.color = color?.invoke()?: o.color
     }
 }
 

@@ -1,6 +1,8 @@
 package interpreter.parser
 
 import interpreter.TokenPair
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.runBlocking
 import structure.CustomStructInterface
 import structure.Structure
 
@@ -25,9 +27,11 @@ fun Parser.parseStructureProperties(struct: Structure, properties: List<TokenPai
     // Otherwise, you could not access count or other variables in it.
     if (struct is CustomStructInterface && struct.superStructure !is CustomStructInterface)
         return parseStructureProperties(struct.superStructure, properties)
-    for (tp in properties){
-        currentTP = tp
-        parseStructureProperty(struct)
+    runBlocking {
+        for (tp in properties) {
+            //todo make this save
+            launch { parseStructureProperty(struct, tp) }
+        }
     }
 }
 

@@ -60,29 +60,22 @@ abstract class ObjectStructure: Structure() {
     var addZ: BwDouble = bwDouble(0)
 
     /**
-     * The Color of the Wallstructure. Click me to see examples
+     * The Color of the Wallstructure. Supports various functions.
      *
      * ```yaml
-     * color: red
-     * # turns the entire Wallstructure red.
-     * All available colors are here: https://docs.oracle.com/javase/7/docs/api/java/awt/Color.html
+     * color: green # Turns the entire Structure green
+     * color: rainbow(2,0.5) # Creates a Rainbow with 2 repetitions and optimally set's alpha = 0.5
+     * color: gradient(red,blue,cyan)   # creates a gradient through the given colors
+     * color: random(yellow,green,pink) # Randomly picks a color for each walls
+     * color: between(blue,red)         # Picks a random color between blue and red
      *
-     * # creates a rainbow :)
-     * color: rainbow
-     *
-     * # also creates a rainbow :), but this one changes 1.5 times as fast as the default one
-     * color: rainbow(1.5)
-     *
-     * # Picks a random color for each wall
-     * color: random(blue,Green,cyan)
-     *
-     * # changes color in the order red, green, blue, yellow.
-     * color: flash(red, green, blue, yellow)
-     *
-     * # gradient from Red to Furry))
-     * color: gradient(Red,Cyan)
+     * # You can also create your own colors
+     * color myColor:
+     *   red:   0.2
+     *   green: 0.4
+     *   blue:  0,6
+     *   alpha: 0.8
      * ```
-     *
      */
     var color: BwColor? = null
 

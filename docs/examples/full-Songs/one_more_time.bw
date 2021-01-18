@@ -1,0 +1,304 @@
+# -----------------------------------
+# ONE MORE TIME
+# -----------------------------------
+
+# Get the map here:
+# https://git.bsmg.dev/bloodcloak/mapping-qstart
+
+# The first Section are global Options.
+
+# This sets the Mod Support. Remember to also set the Requirements in the Info.dat
+modtype: NE
+# This sets the target Difficulty.
+Difficulty: Easy
+# This sets the characteristic (The Tabs in a Map)
+characteristic: Standard
+# This is the HJD. It allows Beatwalls to automatically time walls to the Beat
+halfJumpDuration: 2.0
+
+# This is an example File of a .bw file. 
+# General Guide: https://github.com/spookyGh0st/beatwalls
+# documentation: https://spookygh0st.github.io/beatwalls/structure/-wall-structure/index.html
+
+# Lines starting with an # are Comments and will get ignored
+# Syntax Beat:Name
+# simple WallStructures of a single Wall
+
+
+# -----------------------------------
+# INTRO
+# ----------------------------------
+
+# We only use NE
+# so we can use the Rectangletype for all curves and helix
+interface Curve:
+    type: Rectangle
+
+RandomCurve:
+    beat: 1
+    duration: 16
+    amount: 12*d
+    p0: -8,6
+    p1: -2,0
+    mirror: 2
+    type: Rectangle
+    color: gradient(red,blue,red,cyan)
+    scaleWidth: linear(4,1)
+
+
+Curve:
+    beat: 1
+    scaleWidth: linear(8,0.5)
+    duration: 16
+    p0: 2,0
+    p1: 0.5,0,
+    p2: 4,0
+    p3: 2,0
+    mirror: 2
+    color: gradient(blue,red,blue, cyan)
+
+
+# -----------------------------------
+#  First Chorus
+# ----------------------------------
+
+Line:
+    beat: 17 
+    p0: 0,0
+    p1: 0,0
+    duration: 48
+    rotationY: random(-10,10) * (1-p)
+    changeX: random(-0.2,0.2)* (1.5-p)
+    changeWidth: random(0.5,2)* (1.2-p)
+    color: orange
+
+
+curve:
+    beat: 17 + r*d
+    repeat: 8
+    duration: 4
+    p0: 3,0
+    p1: 4,2 
+    p2: 3,0
+    mirror: 8
+    color: gradient(cyan, blue, white, blue, cyan)
+
+
+# -----------------------------------
+# Now we start Swinging!
+# ----------------------------------
+
+# Time for a more advanced Part
+# We create 4 helix each with mirror 6
+# and let them join in each other
+
+interface helix:
+    mirror: 6
+    type: Rectangle
+    beat: 49 + r*d
+    repeat: 4
+    duration: 4
+    addZ: random(0, 0.01) # To avoid lag, we offset the spawn a bit
+
+helix:
+    radius: easeInOutQuad(3,9)
+    color: gradient(white,cyan)
+    rotationZ: easeInOutQuad(0,180)
+
+helix:
+    radius: easeInOutQuad(9,3)
+    color: gradient(cyan,white)
+    rotationZ: easeInOutQuad(180,0)
+
+helix:
+    radius: easeInOutQuad(6,12)
+    color: gradient(cyan, blue)
+    rotationamount: -360
+    rotationZ: easeInOutQuad(0,-180)
+
+helix:
+    radius: easeInOutQuad(12,6)
+    color: gradient(blue,cyan)
+    rotationamount: -360
+    rotationZ: easeInOutQuad(-180,0)
+
+# Resetting the helix interface
+interface helix:
+
+# -----------------------------------
+# Here comes the rap part
+# ----------------------------------
+
+interface randomCurve:
+    type: rectangle
+    beat: 65
+    duration: 32
+    addZ: random(0, 0.01) # To avoid lag, we offset the spawn a bit
+    color: gradient(blue,magenta,blue,cyan,blue)
+    wallspeed: -3
+    amount: 8*d
+
+randomCurve:
+    p0: -2,-2
+    p1: -8,6
+    rotationY: easeOutQuad(0, -25)
+    rotationX: sin(8*pi*p) * 22
+
+randomCurve:
+    p0: 2,-2
+    p1: 8,6
+    rotationY: easeOutQuad(0,25)
+    rotationX: sin(8*pi*p) * -22
+
+randomCurve:
+    rotationY: 180 + sin(8*pi*p) * -4
+    p0: -4,4
+    p1: 4,6
+    color: orange
+
+helix:
+    beat: 65
+    type: rectangle
+    duration: 32
+    rotationAmount: 360 * (d/2)
+    radius: 20
+    wallspeed: -3
+    mirror: 6
+    color: gradient(blue,orange)
+
+helix:
+    color: gradient(orange,blue)
+    beat: 65
+    type: rectangle
+    duration: 32
+    startRotation: 90
+    rotationAmount: -360 * (d/2)
+    radius: 10
+    wallspeed: -3
+    mirror: 6
+
+line:
+    beat: 65
+    duration: 32
+    p0: 0,0
+    p1: 0,0
+    changeWidth: random(0.8, 1.2)
+    rotationY: 180
+    wallspeed: -3
+    localRotZ: random(-10,10)
+    color: orange
+
+# -----------------------------------
+# Relaxed
+# ----------------------------------
+
+
+RandomNoise:
+    beat: 99 # This need to be higher since we use njms
+    repeat: 4 # I NEED MOOOOOOOOORE
+    avoidCenter: false
+    color: random(blue, cyan, white)
+    p0: -10,0,0
+    p1:  10,8,60
+    rotationY: random(-10,10)
+    rotationX: random(-10,10)
+    rotationZ: random(-10,10)
+    noteJumpMoveMentSpeed: easeInCubic(1.5,10) * random(0.8, 1.2)
+
+## ss = stepping stones
+## we want to create small stepping stones the player can walk on
+define steppingStone:
+    structures: wall
+    p0: 0,0,0 
+    p1: 0,0,0
+    changeWidth:  random(0.2, 0.3)
+    changeHeight: random(0.0, 0.05)
+    changeDuration: random(0.05, 0.1)
+    changeX: random(-0.2,0)
+    localRotY: random(0,360)
+    repeat: random(2,4)
+
+color blackNoAlpha:
+    a: 0.2
+color blackHalphAlpha:
+    a: 0.6
+
+WallstructureField:
+    beat: 106
+    structure: steppingStone
+    avoidCenter: false
+    p0: -0.6,0,0
+    p1: 0.6,0,54
+    color: between(blackNoAlpha, blackHalphAlpha)
+    noteJumpMoveMentSpeed: easeInCubic(0.2,2)
+    noteJumpStartBeatOffset: 10
+
+
+# OOOOOOOOOOOOOOOOOH
+# Baby one more time 
+interface curve:
+    wallspeed: -3
+    amount: 16*d
+    mirror: 2
+    fitY: 0
+    color: gradient(blue, white,blue)
+
+curve:
+    beat: 153
+    duration: 2
+    p0: 4,0
+    p0: 4,0
+    p1: 4,1
+    p2: 4,4
+    p3: 3,5
+    p4: 3,5
+    p4: 3,0
+
+curve:
+    beat: 155 + r
+    repeat: 2
+    duration: 1
+    p0: 3,0
+    p1: 3,2
+    p2: 3,0
+
+curve:
+    beat: 157 + r/2
+    repeat: 2
+    duration: 0.5
+    p0: 3,0
+    p1: 3,1
+    p2: 3,0
+
+curve:
+    beat: 158 
+    color: gradient(blue, cyan)
+    changeWidth: 0
+    duration: 3
+    p0: 3,0
+    p1: 4,4
+    p2: 5,6
+    p3: 6,7
+    p4: 7,0
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

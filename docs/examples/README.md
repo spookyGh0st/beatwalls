@@ -3,23 +3,19 @@ sidebar: auto
 ---
 ### Example files
 
-here are some example files to get you started
 
-### Single WallStructures
+### full maps
 
-get inspiration from some examples for the most popular wallstructures.
+here are some maps files to learn and play around with.
+If you mad a map using beatwalls **PLEASE SEND IT TO ME** so i can add it to the list.
 
-- [Curve](./wallStructures/Curve.md)
-- [Line](./wallStructures/Line.md)
-- [RandomNoise](./wallStructures/RandomNoise.md)
-- [RandomCurve](./wallStructures/RandomCurve.md)
- 
-### full charts
-
-Check out finished charts and play around with them.
+- [One_more _time](./full-Songs/one_more_time.bw)
+by SpookyGhost |
+[video](https://youtu.be/CaqRc8XLyJI)
 
 ::: warning
-Those are written in an old format, handle with care.
+The maps below are written in an old format.
+They have some Properties named differently or
 :::
 
 - [Warzone](./full-Songs/boom-kitty_warzone.bw)

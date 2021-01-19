@@ -18,8 +18,9 @@ For support, please feel free to contact me at https://www.linkedin.com/in/syeda
 
 
 data class _customData (
-        @SerializedName("_time") val _time : Double?,
-        @SerializedName("_BPMChanges") val _BPMChange : List<_BPMChanges>?,
-        @SerializedName("_bookmarks") val _bookmarks : List<_bookmarks>?,
-        @SerializedName("_customEvents") var _customEvents: List<_customEvents>? = null
+        val _time : Double?,
+        val _BPMChange : List<_BPMChanges>?,
+        val _bookmarks : List<_bookmarks>?,
+        var _customEvents: List<_customEvents>? = null,
+        val _pointDefinitions: List<Any>? = null
 )

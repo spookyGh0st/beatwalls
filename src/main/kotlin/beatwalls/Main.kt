@@ -40,6 +40,8 @@ private fun loadDirectory(args: Array<String>): File {
         errorExit("The File ${dir.absolutePath} is not a Directory. Please drag in the whole map folder")
     if (dir.list()?.contains("Info.dat") == false)
         errorExit("The Directory is missing the Info.dat File. Are you using an outdated Editor?")
+    if (dir.list()?.contains(mainFileSuffix) == true && args.size == 1)
+        logWarning("Remember! After the initial setup, you don't need to drag in the map again. Beatwalls saves that for you!")
     if (dir.list()?.contains(mainFileSuffix) == false)
         initialize(dir)
 

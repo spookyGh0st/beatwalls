@@ -1,5 +1,6 @@
 package interpreter
 
+import beatwalls.logError
 import beatwalls.logInfo
 import beatwalls.logWarning
 import chart.difficulty.Difficulty
@@ -66,7 +67,15 @@ class MapLoader(val workingDirectory: File) {
         }
 
         if (diffFile == null) {
-            logWarning("The Difficulty $characteristic ${difficultyType.name} does not exist")
+            logError("The Difficulty $characteristic ${difficultyType.name} does not exist.")
+            var s = "All available Difficulties:"
+            for (d in info._difficultyBeatmapSets){
+                s+="\n              Characteristic: ${d._beatmapCharacteristicName}:"
+                for(m in d._difficultyBeatmaps){
+                    s += "\n               - ${m._difficulty}"
+                }
+            }
+            logError(s)
             return null
         }
 
@@ -83,7 +92,7 @@ class MapLoader(val workingDirectory: File) {
             gson.fromJson(diffText, Difficulty::class.java)
         }catch (e:Exception){
             logWarning("Failed to parse the difficulty to the model $diffFile.")
-            logWarning("Do you use an up to date Map Editor?")
+            logWarning("Do you use an up to date Map Editor? If yes, leave me a message")
             logWarning("Exception message: ${e.message}")
             return null
         }

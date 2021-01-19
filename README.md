@@ -2,9 +2,9 @@
 
 A separate tool to create awesome Wallshows in Beatsaber! Define entire Sections in a few lines and watch your maps get requested everywhere!
 
-[showcase](https://streamable.com/felde),
-[docs](https://spookygh0st.github.io/beatwalls/structure/-wall-structure/index.html), 
-[examples](https://github.com/spookyGh0st/beatwalls/tree/master/examples).
+[showcase](https://www.youtube.com/watch?v=t4bk8ym3fIQ),
+[docs](https://spooky.moe/beatwalls), 
+[examples](https://spooky.moe/beatwalls/examples/).
 
 NOTE: Beatwalls is currently in the transition to v1.0.0
 Go checkout the documentation at [spooky.moe](https:spooky.moe/beatwalls) 

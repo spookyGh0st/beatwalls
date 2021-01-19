@@ -7,7 +7,7 @@ A separate tool to create awesome Wallshows in Beatsaber! Define entire Sections
 [examples](https://spooky.moe/beatwalls/examples/).
 
 NOTE: Beatwalls is currently in the transition to v1.0.0
-Go checkout the documentation at [spooky.moe](https:spooky.moe/beatwalls) 
+Go checkout the documentation at [spooky.moe](https://spooky.moe/beatwalls) 
 and download the prerelease at  [latest release](https://github.com/spookyGh0st/beatwalls/releases)
 
 ## Prerequisites

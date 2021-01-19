@@ -65,96 +65,110 @@ private fun exampleMainFile(difficulty: String, hjd: Double, Modtype: String): S
 }
 
 const val standardText = """
+
 # This is an example File of a .bw file. 
-# General Guide: https://github.com/spookyGh0st/beatwalls
-# documentation: https://spookygh0st.github.io/beatwalls/structure/-wall-structure/index.html
+# Guide: https://spooky.moe/beatwalls
 
 # Lines starting with an # are Comments and will get ignored
-# Syntax Beat:Name
-# simple WallStructures of a single Wall
-10: Wall
-    StartRow: 2
-    height: 4
-    width: 2
-    duration: 8
+
+# -----------------------------------
+# INTRO
+# ----------------------------------
+
+# We only use NE
+# so we can use the Rectangletype for all curves and helix
+interface Curve:
+    type: Rectangle
+
+RandomCurve:
+    beat: 1
+    duration: 16
+    amount: 12*d
+    p0: -8,6
+    p1: -2,0
     mirror: 2
-    
-# Random Noise creates small particels in the given region
-# docu: https://spookygh0st.github.io/beatwalls/structure/-random-noise/index.html
-20.0: RandomNoise
-    p1: -4,0,0
-    p2: 4,4,8
-    # we dont want to many, how about 40 walls
-    amount: 40
-    
-#How about a curve at the same time as our randomNoise
-# docu: https://spookygh0st.github.io/beatwalls/structure/-steady-curve/index.html
-20.0: SteadyCurve
-    p1: 2,0
-    p2: 4,4
-    p3: 2,4
-    p4: 4,3
-    
-    # Stretch it out to 10 beats
-    scale: 10
-    # mirror it to the other side and to the top
+    type: Rectangle
+    color: gradient(red,blue,red,cyan)
+    scaleWidth: linear(4,1)
+
+
+Curve:
+    beat: 1
+    scaleWidth: linear(8,0.5)
+    duration: 16
+    p0: 2,0
+    p1: 0.5,0,
+    p2: 4,0
+    p3: 2,0
+    mirror: 2
+    color: gradient(blue,red,blue, cyan)
+
+
+# -----------------------------------
+#  First Chorus
+# ----------------------------------
+
+Line:
+    beat: 17 
+    p0: 0,0
+    p1: 0,0
+    duration: 48
+    rotationY: random(-10,10) * (1-p)
+    changeX: random(-0.2,0.2)* (1.5-p)
+    changeWidth: random(0.5,2)* (1.2-p)
+    color: orange
+
+
+curve:
+    beat: 17 + r*d
+    repeat: 8
+    duration: 4
+    p0: 3,0
+    p1: 4,2 
+    p2: 3,0
     mirror: 8
-    # we stretch the curve out over 8 beats, lets go with 6*8 walls
-    amount: 48
-    
-    
-# defining a wallstructures for multiple use
-define: upDownCurve
-    # what structure we are basing of
-    structures: curve
-    
-    # the 4 controlPoints we are basing of. These are Points in 3d-space. 
-    # Imagine a line between p1 and p4. The other 2 Points,  p2 and p3 are "pulling" on it
-    p1: 0,4,0
-    p2: 2,4,0.33
-    p3: 3,2,0.66
-    p4: 2,0,1
-    
-    # fit the startRow to 5. All Walls in the curve will get stretched in width until they reach that startRow
-    fitStartRow: 10
-    # same for startHeight. All walls will get stretched in height until they reach that startheight
-    # we also Want to change the height to something random
-    changeHeight: random(0,4)
-    
-    # mirrors the whole structure to the left side
-    mirror: 2
-    
-30: upDownCurve
-    # we repeat our structure 5 times, but only every second beat
-    repeat: 5
-    repeatAddZ: 2
-    
-31: upDownCurve
-    # we reverse the structure, the rest is same as 30
-    reverse: true
-    repeat: 5
-    repeatAddZ: 2
-    
-# Every Wallstructure below this will have changeDuration set to -3
-0.0: default
-    changeDuration: -3
-    
-# like in 30/31 but mirrored horizontally and with hyper walls
-40: upDownCurve
-    mirror: 3
-    changeDuration: -3
-    repeat: 5
-    repeatAddZ: 2
-    
-41: upDownCurve
-    mirror: 3
-    changeDuration: -3
-    reverse: true
-    repeat: 5
-    repeatAddZ: 2
-    
-# remember to reset changeDuration. This one is null, but the default for most is 0.0 or whatever makes sense
-# consult the documentation for this.
-0.0: default
-    changeDuration: null
+    color: gradient(cyan, blue, white, blue, cyan)
+
+
+# -----------------------------------
+# Now we start Swinging!
+# ----------------------------------
+
+# Time for a more advanced Part
+# We create 4 helix each with mirror 6
+# and let them join in each other
+
+interface helix:
+    mirror: 6
+    type: Rectangle
+    beat: 49 + r*d
+    repeat: 4
+    duration: 4
+    addZ: random(0, 0.01) # To avoid lag, we offset the spawn a bit
+
+helix:
+    radius: easeInOutQuad(3,9)
+    color: gradient(white,cyan)
+    rotationZ: easeInOutQuad(0,180)
+
+helix:
+    radius: easeInOutQuad(9,3)
+    color: gradient(cyan,white)
+    rotationZ: easeInOutQuad(180,0)
+
+helix:
+    radius: easeInOutQuad(6,12)
+    color: gradient(cyan, blue)
+    rotationamount: -360
+    rotationZ: easeInOutQuad(0,-180)
+
+helix:
+    radius: easeInOutQuad(12,6)
+    color: gradient(blue,cyan)
+    rotationamount: -360
+    rotationZ: easeInOutQuad(-180,0)
+
+# Resetting the helix interface
+interface helix:
+
     """

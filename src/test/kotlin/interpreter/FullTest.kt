@@ -21,8 +21,8 @@ class FullTest {
 
     @Before
     fun runTests() {
-        val uri = this::class.java.getResource("/map").toURI()
-        val bw = Beatwalls(File(uri))
+        val uri = File("src/main/resources/map")
+        val bw = Beatwalls(uri)
 
         val s = Scanner(bw.mainFile.readText(), bw, bw.mainFile)
         blocks = s.scan()

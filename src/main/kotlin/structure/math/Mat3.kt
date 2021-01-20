@@ -7,7 +7,7 @@ data class Mat3(
     ){
     operator fun get(index: Int) = when(index) {
         0 -> x; 1 -> y; 2 -> z
-        else -> throw IndexOutOfBoundsException(index)
+        else -> throw IndexOutOfBoundsException()
     }
 
     operator fun times(mat3: Mat3): Mat3 = Mat3(

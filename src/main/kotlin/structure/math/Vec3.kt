@@ -42,7 +42,7 @@ data class Vec3(var x: Double = 0.0, var y: Double = 0.0, var z: Double = 0.0){
     }
     operator fun get(index: Int) = when(index){
         0 -> x; 1 -> y; 2 -> z
-        else -> throw IndexOutOfBoundsException(index)
+        else -> throw IndexOutOfBoundsException()
     }
 
     operator fun times(mat3: Mat3): Vec3 =

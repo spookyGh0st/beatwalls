@@ -46,7 +46,7 @@ data class Vec4(var x: Double = 0.0, var y: Double = 0.0, var z: Double = 0.0,va
     }
     operator fun get(index: Int) = when(index){
         0 -> x; 1 -> y; 2 -> z; 3 -> w
-        else -> throw IndexOutOfBoundsException(index)
+        else -> throw IndexOutOfBoundsException()
     }
 
     operator fun times(mat4: Mat4): Vec4 =

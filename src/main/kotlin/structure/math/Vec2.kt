@@ -42,7 +42,7 @@ data class Vec2(var x: Double = 0.0, var y: Double = 0.0){
     }
     operator fun get(index: Int) = when(index){
         0 -> x; 1 -> y
-        else -> throw IndexOutOfBoundsException(index)
+        else -> throw IndexOutOfBoundsException()
     }
 
     fun toList(): List<Double> =

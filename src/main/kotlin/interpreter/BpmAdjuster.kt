@@ -10,14 +10,16 @@ class BpmAdjuster(val diff: Difficulty) {
     private val changes: ArrayList<Pair<_BPMChanges, Double>> = mapChangesToBeat(diff._customData?._BPMChange)
     val offset = baseBpm / 60000 * diff.offset
 
-    private fun mapChangesToBeat(changes: List<_BPMChanges>?): ArrayList<Pair<_BPMChanges, Double>> {
+    private fun mapChangesToBeat(bpmChanges: List<_BPMChanges>?): ArrayList<Pair<_BPMChanges, Double>> {
         val l = arrayListOf(_BPMChanges(baseBpm, 0.0, 4, 4) to 0.0)
         //if we have no bpm changes, we just use the default one
-        if(changes == null)
+        if(bpmChanges == null)
             return l
+        val sortedChanges = bpmChanges.sortedBy { it._time }
+
         var beat = 0.0
-        changes.forEach {
-            val c = l.last().first
+        sortedChanges.forEach {
+            val c = l.last().first // last bpm change
             val traversedBeats = (it._time - c._time) / baseBpm * c._BPM
             beat += ceil(traversedBeats-0.01)
             l.add(it to beat)

@@ -143,7 +143,7 @@ class MapLoader(val workingDirectory: File) {
         d.asJsonObject.add("_notes", notesJson)
         d.asJsonObject.add("_events", eventsJson)
 
-        logInfo("Added ${obstacles.size} Walls, ${notes.size} notes and ${events.size} events.")
+        logInfo("Added ${obstacles.size} Walls, ${notes.size} notes and ${events.size} events to difficulty.")
         return gson.toJson(d)
     }
 }

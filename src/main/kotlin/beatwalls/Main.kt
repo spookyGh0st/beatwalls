@@ -6,23 +6,49 @@ import java.io.File
 import kotlin.system.exitProcess
 
 const val mainFileSuffix = "main.bw"
+val includeRegex = Regex("include:.+")
 
 @ExperimentalCoroutinesApi
 suspend fun main(args: Array<String>) {
     hello()
     val d = loadDirectory(args)
-    val mainFile = File(d, mainFileSuffix)
-    Beatwalls(d).run()
+    val bwFiles = loadBwFiles(d).toMutableList()
 
-    runOnChange(mainFile) {
+    runOnChange(bwFiles) {
         runCount++
         println()
         logInfo("Starting $runCount. run of Beatwizard!")
-        Beatwalls(d).run()
+        Beatwalls(d,bwFiles).run()
     }
 }
 
-var runCount = 1
+var runCount = 0
+
+fun loadBwFiles(wd: File): List<File>{
+    val mainFile = File(wd, mainFileSuffix)
+    return loadIncludes(wd, mainFile)
+}
+
+private fun loadIncludes(wd: File, f: File): List<File> {
+    if (!f.isFile){
+        logError("The file ${f.name} does not exist. Full Path: ${f.absolutePath}")
+        return emptyList()
+    }
+
+    val l = mutableListOf<File>()
+    f.forEachLine {
+        if (includeRegex.matches(it)) {
+            val words = it.split(":")
+            if (words.size != 2) errorExit("Include must be the format `include: Filename` and is case sensitive")
+            val n = words[1].trim()
+            val nf = File(wd, n)
+            l.addAll(loadIncludes(wd, nf))
+        }
+        else { return@forEachLine }
+    }
+    l.add(f)
+    return l.toList()
+}
 
 private fun loadDirectory(args: Array<String>): File {
     val dir = when (args.size) {

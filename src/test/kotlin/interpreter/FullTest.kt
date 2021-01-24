@@ -1,5 +1,6 @@
 package interpreter
 
+import beatwalls.loadBwFiles
 import interpreter.parser.Parser
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse
@@ -21,10 +22,12 @@ class FullTest {
 
     @Before
     fun runTests() {
-        val uri = File("src/main/resources/map")
-        val bw = Beatwalls(uri)
+        val wd = File("src/main/resources/map")
+        val bwFiles = loadBwFiles(wd)
+        val bw = Beatwalls(wd, bwFiles)
+        val mainFile = bwFiles[1]
 
-        val s = Scanner(bw.mainFile.readText(), bw, bw.mainFile)
+        val s = Scanner(mainFile.readText(), bw, mainFile)
         blocks = s.scan()
 
         val p = Parser(blocks, bw)

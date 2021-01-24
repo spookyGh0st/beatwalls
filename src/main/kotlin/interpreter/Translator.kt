@@ -5,10 +5,7 @@ import structure.bwElements.BwElement
 import structure.bwElements.BwEvent
 import structure.bwElements.BwNote
 import structure.bwElements.BwObstacle
-import structure.math.Mat3
-import structure.math.Mat4
 import structure.math.Vec3
-import structure.math.Vec4
 import kotlin.math.*
 
 @Suppress("SimplifyBooleanWithConstants")

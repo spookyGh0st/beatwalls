@@ -1,16 +1,25 @@
 package interpreter
 
+import beatwalls.includeRegex
 import java.io.File
 
-class Scanner(val source: String, val bw: Beatwalls, val file: File) {
+class Scanner(private val source: String, val bw: Beatwalls, val file: File) {
     private val tokenBlocks = mutableListOf(TokenBlock(BlockType.Options,"global",file, 0))
     private var currentLine = 1
-    private val lines = source.lines()
+    private val lines = loadLines()
 
-    // mathces all comments
+    // matches all comments
     private val commentRegex = Regex("(#.*)")
     // Clears multiple whitespaces
     private val spaceRegex = Regex("(\\s+)")
+
+    private fun loadLines(): List<String> {
+        val lines = source.lines()
+        var s = 0
+        val e = lines.size
+        while (s<e && includeRegex.matches(lines[s])) { s++ }
+        return lines.subList(s,e)
+    }
 
     fun scan(): MutableList<TokenBlock> {
         lines.forEach { scanLine(it) }
@@ -71,6 +80,10 @@ class Scanner(val source: String, val bw: Beatwalls, val file: File) {
                     type = BlockType.Variable
                     name = w[1]
                 }
+                "struct" -> {
+                    type = BlockType.Structure
+                    name = w[1]
+                }
                 else -> {
                     bw.error(file, currentLine, "Unexpected Identifiere")
                     return
@@ -88,21 +101,9 @@ class Scanner(val source: String, val bw: Beatwalls, val file: File) {
 
     private fun scanTokenPair(k: String, v: String){
         val tp = TokenPair(k.trim(), v.trim(), file, currentLine)
-        if (tp.k.toLowerCase() == "include"){
-            includeFile(tp.v)
-        }else{
-            tokenBlocks.last().properties.add(tp)
-        }
+        tokenBlocks.last().properties.add(tp)
     }
 
-    private fun includeFile(fileName: String){
-        val f = File(bw.options.workingDir,fileName)
-        try {
-            val s = Scanner(f.readText(), bw, f)
-            tokenBlocks.addAll(s.scan().filterNot { it.type == BlockType.Options })
-        }catch (e:Error){
-            bw.error(file, currentLine, "Could not include File. Have you made a type?")
-        }
-    }
+
 }
 

@@ -1,14 +1,1 @@
-define _start1:
-    structures: wall
-    addY: 10
-
-define _start2:
-    structures: wall
-    addY: 20
-
-define start:
-    structures: _start1, _start2
-    addY: 10
-
-var bar:
-    value: 30
+# We will test other stuff here

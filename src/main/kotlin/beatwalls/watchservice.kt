@@ -14,19 +14,25 @@ import java.nio.file.StandardWatchEventKinds.*
 // stolen from here: https://github.com/vishna/watchservice-ktx/blob/master/src/main/kotlin/dev/vishna/watchservice/watchservice.kt
 
 @ExperimentalCoroutinesApi
-suspend fun runOnChange(wd: File, f: () -> Unit){
-    logInfo("Keep this window open. it will run again if it detects changes")
-    val watchChannel = wd.asWatchChannel()
+fun runOnChange(wd: List<File>, f: () -> Unit){
+    val watchChannel = wd.map { it.asWatchChannel() }
     var blocked = false
-    watchChannel.consumeEach {
-        if (it.kind == KWatchEvent.Kind.Modified && !blocked){
-            // This is horrible. Never do that! Too bad!
-            GlobalScope.launch { blocked= true; delay(2000); blocked = false }
-            f()
-            logInfo("Waiting for changes to the file ")
+    runBlocking {
+        for (wc in watchChannel){
+            launch {
+                wc.consumeEach {
+                    if (!blocked){
+                        blocked = true
+                        f()
+                        // Blocking the launch of another run for for 1 s
+                        GlobalScope.launch { delay(1000); blocked = false } // Block
+                        logInfo("Blocking for 1 second, then waiting for changes to the included files")
+                    }
+                }
+                wc.close()
+            }
         }
     }
-    watchChannel.close()
 }
 
 /**

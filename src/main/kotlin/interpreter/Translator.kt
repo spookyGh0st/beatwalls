@@ -46,7 +46,7 @@ class Translator(val structs: List<BwElement>, val bw: Beatwalls) {
     // jup this is ugly as hell. TOO BAD
     fun meObstacle(obs: BwObstacle): _obstacles {
         // The left down point of the obstacle
-        val x = obs.position.x - abs(obs.scale.x/2) + 2
+        val x = obs.translation.x - abs(obs.scale.x/2) + 2
         val lineIndex  = if (x >= 0.0)
             (x *1000 + 1000).toInt()
         else
@@ -56,7 +56,7 @@ class Translator(val structs: List<BwElement>, val bw: Beatwalls) {
         w = w.coerceAtLeast(meMinValue)
         val width = (w * 1000 + 1000).toInt()
 
-        var y = obs.position.y - abs(obs.scale.y/2)
+        var y = obs.translation.y - abs(obs.scale.y/2)
         y = (250 * (y * 0.6))
         val startHeight = when {
             y>999 -> 999
@@ -73,7 +73,7 @@ class Translator(val structs: List<BwElement>, val bw: Beatwalls) {
         }
         val type = (height * 1000 + startHeight+4001)
 
-        var time = obs.beat + (obs.position.z - obs.scale.z/2)
+        var time = obs.beat + (obs.translation.z - obs.scale.z/2)
         time = time.coerceAtLeast(meMinValue)
 
         var duration = obs.scale.z
@@ -92,11 +92,11 @@ class Translator(val structs: List<BwElement>, val bw: Beatwalls) {
 
     fun neObstacle(obs: BwObstacle): _obstacles {
         val bwPos = Vec3(
-            obs.position.x - obs.scale.x/2,
-            obs.position.y - obs.scale.y/2,
-            obs.position.z - obs.scale.z/2
+            obs.translation.x - obs.scale.x/2,
+            obs.translation.y - obs.scale.y/2,
+            obs.translation.z - obs.scale.z/2
         )
-        val localRot = obs.localRotation * ( 1.0/360*2*PI)
+        val localRot = obs.rotation * ( 1.0/360*2*PI)
 
         val scale = Vec3(
             abs(obs.scale.x).coerceAtLeast(meMinValue),
@@ -116,14 +116,14 @@ class Translator(val structs: List<BwElement>, val bw: Beatwalls) {
             _time = beat,
             _lineIndex = 0,
             _type = 0,
-            _duration = obs.speed?: scale.z,
+            _duration = obs.duration ?: scale.z,
             _width = 0,
             _obstacleCustomData = _obstacleCustomData(
                 _position = listOf(x,y),
                 _scale = scale.toVec2().toList(),
                 _color = obs.color?.toList(),
-                _rotation = neRotation(obs.rotation),
-                _localRotation = neRotation(obs.localRotation),
+                _rotation = neRotation(obs.globalRotation),
+                _localRotation = neRotation(obs.rotation),
                 _track = obs.track,
                 _noteJumpMovementSpeed = obs.noteJumpMovementSpeed,
                 _noteJumpStartBeatOffset = obs.noteJumpStartBeatOffset,

@@ -41,7 +41,7 @@ class RandomNoise: WallStructure(){
         for (i in 0 until n){
             val z = p0.z + ((i.toDouble()/n)*(p1.z - p0.z))
             l.add(BwObstacle(
-                position = cc.randomVec3(avoidCenter, z)
+                translation = cc.randomVec3(avoidCenter, z)
             ))
         }
         return l.toList()

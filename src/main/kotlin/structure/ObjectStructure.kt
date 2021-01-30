@@ -1,7 +1,6 @@
 package structure
 
 import structure.bwElements.BwObject
-import structure.bwElements.Color
 import structure.math.Vec3
 import types.BwColor
 import types.BwDouble
@@ -181,22 +180,22 @@ abstract class ObjectStructure: Structure() {
 
 
     private fun adjust(o: BwObject) {
-        o.position.x = changeX?.invoke() ?: o.position.x
-        o.position.y = changeY?.invoke() ?: o.position.y
-        o.position.z = changeZ?.invoke() ?: o.position.z
+        o.translation.x = changeX?.invoke() ?: o.translation.x
+        o.translation.y = changeY?.invoke() ?: o.translation.y
+        o.translation.z = changeZ?.invoke() ?: o.translation.z
 
-        o.position.x *= scaleX.invoke()
-        o.position.y *= scaleY.invoke()
-        o.position.z *= scaleZ.invoke()
+        o.translation.x *= scaleX.invoke()
+        o.translation.y *= scaleY.invoke()
+        o.translation.z *= scaleZ.invoke()
 
-        o.position.x += addX.invoke()
-        o.position.y += addY.invoke()
-        o.position.z += addZ.invoke()
+        o.translation.x += addX.invoke()
+        o.translation.y += addY.invoke()
+        o.translation.z += addZ.invoke()
     }
 
     private fun rotate(o: BwObject){
-        o.rotation += Vec3(rotationX(), rotationY(), rotationZ())
-        o.localRotation += Vec3(localRotX(), localRotY(), localRotZ())
+        o.globalRotation += Vec3(rotationX(), rotationY(), rotationZ())
+        o.rotation += Vec3(localRotX(), localRotY(), localRotZ())
     }
 
     private fun color(o: BwObject){

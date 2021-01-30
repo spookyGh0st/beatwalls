@@ -6,4 +6,5 @@ data class BwEvent(
     var propID: Int,
     var lightID: Int,
     override var beat: Double,
+    override var duration: Double? = null
 ): BwElement

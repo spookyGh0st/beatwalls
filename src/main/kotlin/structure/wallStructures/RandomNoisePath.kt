@@ -17,7 +17,7 @@ class RandomNoisePath : Curve() {
             val p0 = spline.splineAtTime(structureState.rand.nextDouble())
             p0.z = k.toDouble()/n*duration
             l.add(BwObstacle(
-                position = p0
+                translation = p0
             ))
         }
         return l.toList()

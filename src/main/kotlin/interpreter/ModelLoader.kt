@@ -37,7 +37,7 @@ class ModelLoader(val wd: File) {
             }
             val o = BwObstacle(
                 scale = n.scale.toVec3(),
-                position = n.translation.toVec3(),
+                translation = n.translation.toVec3(),
                 // todo localRotation = n.rotation.toVec4()
             )
             bwObstacles.add(o)

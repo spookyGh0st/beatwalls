@@ -3,9 +3,10 @@ package structure.bwElements
 import structure.math.Vec3
 
 interface BwObject: BwElement {
-    var position: Vec3
     var rotation: Vec3
-    var localRotation: Vec3
+    var scale: Vec3
+    var translation: Vec3
+    var globalRotation: Vec3
     var color: Color?
     var noteJumpMovementSpeed: Double?
     var noteJumpStartBeatOffset: Double?

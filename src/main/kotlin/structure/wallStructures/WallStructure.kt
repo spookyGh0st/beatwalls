@@ -166,7 +166,7 @@ abstract class WallStructure: ObjectStructure() {
         o.scale.y = changeHeight?.invoke() ?: o.scale.y
         o.scale.z = changeDuration?.invoke() ?: o.scale.z
 
-        o.speed = wallSpeed?.invoke() ?: o.speed
+        o.duration = wallSpeed?.invoke() ?: o.duration
 
         o.scale.x *= scaleWidth.invoke()
         o.scale.y *= scaleHeight.invoke()
@@ -178,16 +178,16 @@ abstract class WallStructure: ObjectStructure() {
     }
     private fun fit(o: BwObstacle){
         if (fitX != null) {
-            o.scale.x = fitScale(o.position.x, o.scale.x, fitX!!.invoke())
-            o.position.x = fitPos(fitX!!.invoke(), o.scale.x)
+            o.scale.x = fitScale(o.translation.x, o.scale.x, fitX!!.invoke())
+            o.translation.x = fitPos(fitX!!.invoke(), o.scale.x)
         }
         if (fitY != null) {
-            o.scale.y = fitScale(o.position.y, o.scale.y, fitY!!.invoke())
-            o.position.y = fitPos(fitY!!.invoke(), o.scale.y)
+            o.scale.y = fitScale(o.translation.y, o.scale.y, fitY!!.invoke())
+            o.translation.y = fitPos(fitY!!.invoke(), o.scale.y)
         }
         if (fitZ != null) {
-            o.scale.z = fitScale(o.position.z, o.scale.z, fitZ!!.invoke())
-            o.position.z = fitPos(fitZ!!.invoke(), o.scale.z)
+            o.scale.z = fitScale(o.translation.z, o.scale.z, fitZ!!.invoke())
+            o.translation.z = fitPos(fitZ!!.invoke(), o.scale.z)
         }
     }
     private fun fitScale(pos: Double, scale: Double, fit: Double) =
@@ -196,20 +196,20 @@ abstract class WallStructure: ObjectStructure() {
         fit + scale/2
 
     private fun reverse(list: List<BwObstacle>) {
-        val minX: Double = list.maxOfOrNull { it.position.x + it.scale.x / 2 } ?: 0.0
-        val maxX: Double = list.maxOfOrNull { it.position.x + it.scale.x / 2 } ?: 0.0
-        val minY: Double = list.maxOfOrNull { it.position.y + it.scale.y / 2 } ?: 0.0
-        val maxY: Double = list.maxOfOrNull { it.position.y + it.scale.y / 2 } ?: 0.0
-        val minZ: Double = list.maxOfOrNull { it.position.z + it.scale.z / 2 } ?: 0.0
-        val maxZ: Double = list.maxOfOrNull { it.position.z + it.scale.z / 2 } ?: 0.0
+        val minX: Double = list.maxOfOrNull { it.translation.x + it.scale.x / 2 } ?: 0.0
+        val maxX: Double = list.maxOfOrNull { it.translation.x + it.scale.x / 2 } ?: 0.0
+        val minY: Double = list.maxOfOrNull { it.translation.y + it.scale.y / 2 } ?: 0.0
+        val maxY: Double = list.maxOfOrNull { it.translation.y + it.scale.y / 2 } ?: 0.0
+        val minZ: Double = list.maxOfOrNull { it.translation.z + it.scale.z / 2 } ?: 0.0
+        val maxZ: Double = list.maxOfOrNull { it.translation.z + it.scale.z / 2 } ?: 0.0
         val center = Vec3(maxX - minX, maxY - minY, maxZ - minZ)
         for (o in list) {
             if (reverseX)
-                o.position.x = 2 * center.x - o.position.x
+                o.translation.x = 2 * center.x - o.translation.x
             if (reverseY)
-                o.position.y = 2 * center.y - o.position.y
+                o.translation.y = 2 * center.y - o.translation.y
             if (reverseX)
-                o.position.z = 2 * center.z - o.position.z
+                o.translation.z = 2 * center.z - o.translation.z
         }
     }
 
@@ -217,18 +217,18 @@ abstract class WallStructure: ObjectStructure() {
     // im not changing that, fuck you, math is hard.
     private fun speedUp(l: List<BwObstacle>){
         if(speeder != null){
-            val maxZ = l.maxOfOrNull { it.position.z + it.scale.z/2  }?: 0.0
+            val maxZ = l.maxOfOrNull { it.translation.z + it.scale.z/2  }?: 0.0
             val s = speeder?.invoke()?: 1.0
             l.forEach { wall ->
-                wall.position.z = wall.position.z.pow(s)
+                wall.translation.z = wall.translation.z.pow(s)
                 if (wall.scale.z > 0)
                     wall.scale.z = wall.scale.z.pow(s)
             }
 
-            val newMaxZ = l.maxOfOrNull { it.position.z + it.scale.z/2 }?: 0.0
+            val newMaxZ = l.maxOfOrNull { it.translation.z + it.scale.z/2 }?: 0.0
             val mult = 1/(newMaxZ)*maxZ
             l.forEach {
-                it.position.z *= mult
+                it.translation.z *= mult
                 if(it.scale.z > 0)
                     it.scale.z *= mult
             }
@@ -254,16 +254,16 @@ abstract class WallStructure: ObjectStructure() {
     private fun mirrorX(list: List<BwObstacle>): List<BwObstacle> {
         val mult = if (mirrorRotation) -1.0 else  1.0
         return list.map { wall ->
-            val pos = wall.position.copy(x = 2*mirrorX() - wall.position.x)
+            val pos = wall.translation.copy(x = 2*mirrorX() - wall.translation.x)
             val scale = wall.scale.copy(x = -1*wall.scale.x)
-            val rot = wall.rotation.copy(y =  mult *wall.rotation.y, z = mult * wall.rotation.z)
-            val localRot = wall.localRotation.copy(y =  mult *wall.localRotation.y, z = mult * wall.localRotation.z)
+            val rot = wall.globalRotation.copy(y =  mult *wall.globalRotation.y, z = mult * wall.globalRotation.z)
+            val localRot = wall.rotation.copy(y =  mult *wall.rotation.y, z = mult * wall.rotation.z)
 
             wall.copy(
-                position = pos,
+                translation = pos,
                 scale = scale,
-                rotation = rot,
-                localRotation = localRot
+                globalRotation = rot,
+                rotation = localRot
             )
         }
     }
@@ -271,16 +271,16 @@ abstract class WallStructure: ObjectStructure() {
     internal fun mirrorY(list: List<BwObstacle>): List<BwObstacle> {
         val mult = if (mirrorRotation) -1.0 else  1.0
         return list.map { wall ->
-            val pos = wall.position.copy(y = 2*mirrorY() - wall.position.y)
+            val pos = wall.translation.copy(y = 2*mirrorY() - wall.translation.y)
             val scale = wall.scale.copy(y = -1 * wall.scale.y)
-            val rot = wall.rotation.copy(x =  mult *wall.rotation.x, z = mult * wall.rotation.z)
-            val localRot = wall.localRotation.copy(x =  mult *wall.localRotation.x, z = mult * wall.localRotation.z)
+            val rot = wall.globalRotation.copy(x =  mult *wall.globalRotation.x, z = mult * wall.globalRotation.z)
+            val localRot = wall.rotation.copy(x =  mult *wall.rotation.x, z = mult * wall.rotation.z)
 
             wall.copy(
-                position = pos,
+                translation = pos,
                 scale = scale,
-                rotation = rot,
-                localRotation = localRot
+                globalRotation = rot,
+                rotation = localRot
             )
         }
     }

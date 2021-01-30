@@ -51,9 +51,9 @@ class WallStructureField: ObjectStructure() {
             }
             val objects = t.filterIsInstance<BwObject>()
             objects.forEach {
-                it.position.x += vec3.x
-                it.position.y += vec3.y
-                it.position.z += p0.z + i.toDouble() / amount() * (p1.z-p0.z)
+                it.translation.x += vec3.x
+                it.translation.y += vec3.y
+                it.translation.z += p0.z + i.toDouble() / amount() * (p1.z-p0.z)
             }
             l.addAll(objects)
         }

@@ -6,7 +6,7 @@ import kotlin.math.*
 fun bwObstacleOf(p0: Vec3, p1: Vec3, type: PointConnectionType) = when(type){
     PointConnectionType.Cuboid -> BwObstacle(
         scale = p1-p0,
-        position = p0 + 0.5 * (p1-p0)
+        translation = p0 + 0.5 * (p1-p0)
     )
     PointConnectionType.Rectangle -> {
         val a = p1.y - p0.y
@@ -15,9 +15,9 @@ fun bwObstacleOf(p0: Vec3, p1: Vec3, type: PointConnectionType) = when(type){
         var localRotZ =  asin(a/c) / (2*PI) * 360
         if (p0.x > p1.x) localRotZ*= -1
         BwObstacle(
+            rotation = Vec3(0, 0, localRotZ),
             scale = Vec3(c, 0, p1.z - p0.z),
-            position = Vec3(middle(p0.x, p1.x), middle(p0.y, p1.y), middle(p0.z, p1.z)),
-            localRotation = Vec3(0, 0, localRotZ)
+            translation = Vec3(middle(p0.x, p1.x), middle(p0.y, p1.y), middle(p0.z, p1.z))
         )
     }
     PointConnectionType.Line -> {
@@ -34,9 +34,9 @@ fun bwObstacleOf(p0: Vec3, p1: Vec3, type: PointConnectionType) = when(type){
         val pos = p0 + 0.5 * vBind
 
         BwObstacle(
+            rotation = rot,
             scale = Vec3(0, 0, scaleZ, ),
-            position = pos,
-            localRotation = rot
+            translation = pos
         )
     }
 }

@@ -65,7 +65,7 @@ class Grid : WallStructure() {
         repeat(gridX) { itX ->
             repeat(gridY) { itY ->
                 repeat(gridZ) { itZ ->
-                    val w =BwObstacle(position = Vec3(x,y,z), scale = Vec3(panelX,panelY,panelZ))
+                    val w =BwObstacle(scale = Vec3(panelX,panelY,panelZ), translation = Vec3(x,y,z))
                     if((itZ+itY+itX)%2==0 || mode == 0)
                         l.add(w)
                     z += panelZ

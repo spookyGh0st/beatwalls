@@ -93,8 +93,8 @@ class Helix:WallStructure(),  WallPath{
         }
         val l = createFromPointList(points)
         for(o in l){
-            setProgress(o.position.z)
-            o.rotation.z += localRotationOffset()
+            setProgress(o.translation.z)
+            o.globalRotation.z += localRotationOffset()
         }
         return l
     }

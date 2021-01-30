@@ -2,10 +2,7 @@ package interpreter
 
 import beatwalls.logError
 import beatwalls.logInfo
-import beatwalls.mainFileSuffix
 import interpreter.parser.Parser
-import kotlinx.coroutines.cancel
-import kotlinx.coroutines.runBlocking
 import structure.bwElements.BwElement
 import java.io.File
 

@@ -83,7 +83,7 @@ fun logInfo(msg: String = ""){
 fun logWarning(msg: String){
     println("[⚠️ WARNING]: $msg")
 }
-fun logError(msg: String){
+fun logError(msg: String?){
     println("[❌ Error]:   $msg")
 }
 

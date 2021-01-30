@@ -2,7 +2,6 @@ package structure.math
 
 import beatwalls.logError
 import kotlin.math.abs
-import kotlin.math.min
 import kotlin.random.Random
 
 data class CuboidConstrains(val p0: Vec3, val p1: Vec3, var r: Random) {

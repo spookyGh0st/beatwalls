@@ -59,6 +59,51 @@ abstract class ObjectStructure: Structure() {
     var addZ: BwDouble = bwDouble(0)
 
     /**
+     * change the Width of all Walls in the structure to the given Value. Random possible with random(min,max). Default: null
+     */
+    var changeWidth: BwDouble? = null
+
+    /**
+     * change The Height of all Walls in the structure to the given Value. Random possible with random(min,max). Default: null
+     */
+    var changeHeight: BwDouble? = null
+
+    /**
+     * change The Duration of all Walls in the structure to the given Value. Random possible with random(min,max). Default: null
+     */
+    var changeDuration: BwDouble? = null
+
+    /**
+     * multiplies the Width of all Walls in the structure by the given Value. Random possible with random(min,max). Default: null (does nothing)
+     */
+    var scaleWidth: BwDouble = bwDouble(1)
+
+    /**
+     * multiplies the Height of all Walls in the structure by the given Value. Random possible with random(min,max). Default: null (does nothing)
+     */
+    var scaleHeight: BwDouble = bwDouble(1)
+
+    /**
+     * multiplies the Duration of all Walls in the structure by the given Value. Random possible with random(min,max). Default: null (does nothing)
+     */
+    var scaleDuration: BwDouble = bwDouble(1)
+
+    /**
+     * adds the given Value. Random possible with random(min,max). Default: null (does nothing)
+     */
+    var addWidth: BwDouble = bwDouble(0)
+
+    /**
+     * adds the given Value. Random possible with random(min,max). Default: null (does nothing)
+     */
+    var addHeight: BwDouble = bwDouble(0)
+
+    /**
+     * adds the given Value. Random possible with random(min,max). Default: null (does nothing)
+     */
+    var addDuration: BwDouble = bwDouble(0)
+
+    /**
      * The Color of the Wallstructure. Supports various functions.
      *
      * ```yaml
@@ -161,8 +206,9 @@ abstract class ObjectStructure: Structure() {
         val l = mutableListOf<BwObject>()
         for ((i, o) in bwObjects.withIndex()){
             setProgress(i.toDouble() / bwObjects.size)
-            adjust(o)
+            translate(o)
             rotate(o)
+            scale(o)
             color(o)
             noodle(o)
             l.add(o)
@@ -178,8 +224,7 @@ abstract class ObjectStructure: Structure() {
         o.gravity = gravity
     }
 
-
-    private fun adjust(o: BwObject) {
+    private fun translate(o: BwObject) {
         o.translation.x = changeX?.invoke() ?: o.translation.x
         o.translation.y = changeY?.invoke() ?: o.translation.y
         o.translation.z = changeZ?.invoke() ?: o.translation.z
@@ -191,6 +236,21 @@ abstract class ObjectStructure: Structure() {
         o.translation.x += addX.invoke()
         o.translation.y += addY.invoke()
         o.translation.z += addZ.invoke()
+    }
+
+    private fun scale(o: BwObject){
+        o.scale.x = changeWidth?.invoke() ?: o.scale.x
+        o.scale.y = changeHeight?.invoke() ?: o.scale.y
+        o.scale.z = changeDuration?.invoke() ?: o.scale.z
+
+        o.scale.x *= scaleWidth.invoke()
+        o.scale.y *= scaleHeight.invoke()
+        o.scale.z *= scaleDuration.invoke()
+
+        o.scale.x += addWidth.invoke()
+        o.scale.y += addHeight.invoke()
+        o.scale.z += addDuration.invoke()
+
     }
 
     private fun rotate(o: BwObject){

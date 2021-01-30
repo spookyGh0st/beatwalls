@@ -51,50 +51,6 @@ abstract class WallStructure: ObjectStructure() {
      * TODO maybe this can abstract away the generel speed?
      */
     var wallSpeed: BwDouble? = null
-    /**
-     * change the Width of all Walls in the structure to the given Value. Random possible with random(min,max). Default: null
-     */
-    var changeWidth: BwDouble? = null
-
-    /**
-     * change The Height of all Walls in the structure to the given Value. Random possible with random(min,max). Default: null
-     */
-    var changeHeight: BwDouble? = null
-
-    /**
-     * change The Duration of all Walls in the structure to the given Value. Random possible with random(min,max). Default: null
-     */
-    var changeDuration: BwDouble? = null
-
-    /**
-     * multiplies the Width of all Walls in the structure by the given Value. Random possible with random(min,max). Default: null (does nothing)
-     */
-    var scaleWidth: BwDouble = bwDouble(1)
-
-    /**
-     * multiplies the Height of all Walls in the structure by the given Value. Random possible with random(min,max). Default: null (does nothing)
-     */
-    var scaleHeight: BwDouble = bwDouble(1)
-
-    /**
-     * multiplies the Duration of all Walls in the structure by the given Value. Random possible with random(min,max). Default: null (does nothing)
-     */
-    var scaleDuration: BwDouble = bwDouble(1)
-
-    /**
-     * adds the given Value. Random possible with random(min,max). Default: null (does nothing)
-     */
-    var addWidth: BwDouble = bwDouble(0)
-
-    /**
-     * adds the given Value. Random possible with random(min,max). Default: null (does nothing)
-     */
-    var addHeight: BwDouble = bwDouble(0)
-
-    /**
-     * adds the given Value. Random possible with random(min,max). Default: null (does nothing)
-     */
-    var addDuration: BwDouble = bwDouble(0)
 
     /**
      * increases or decreases the width of all walls until they have the the specific startTime. Random possible with random(min,max). default: null (does nothing)
@@ -154,28 +110,17 @@ abstract class WallStructure: ObjectStructure() {
             // Set the progress Variable so easing works
             setProgress(i.toDouble() / c.size)
 
-            adjust(o)
+            setDuration(o)
             fit(o)
             l.addAll(mirror(o))
         }
         return l.toList()
     }
 
-    private fun adjust(o: BwObstacle) {
-        o.scale.x = changeWidth?.invoke() ?: o.scale.x
-        o.scale.y = changeHeight?.invoke() ?: o.scale.y
-        o.scale.z = changeDuration?.invoke() ?: o.scale.z
-
+    private fun setDuration(o: BwObstacle) {
         o.duration = wallSpeed?.invoke() ?: o.duration
-
-        o.scale.x *= scaleWidth.invoke()
-        o.scale.y *= scaleHeight.invoke()
-        o.scale.z *= scaleDuration.invoke()
-
-        o.scale.x += addWidth.invoke()
-        o.scale.y += addHeight.invoke()
-        o.scale.z += addDuration.invoke()
     }
+
     private fun fit(o: BwObstacle){
         if (fitX != null) {
             o.scale.x = fitScale(o.translation.x, o.scale.x, fitX!!.invoke())

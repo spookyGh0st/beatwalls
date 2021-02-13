@@ -1,10 +1,12 @@
 package structure
 
 import structure.bwElements.BwObject
-import structure.math.Vec3
+import math.Quaternion
+import math.Vec3
 import types.BwColor
 import types.BwDouble
 import types.bwDouble
+import kotlin.math.PI
 
 /**
  * A Object Structure can be applied on Obstacles and Notes alike.
@@ -254,8 +256,14 @@ abstract class ObjectStructure: Structure() {
     }
 
     private fun rotate(o: BwObject){
-        o.globalRotation += Vec3(rotationX(), rotationY(), rotationZ())
-        o.rotation += Vec3(localRotX(), localRotY(), localRotZ())
+        val globalRotDegree = Vec3(rotationX(), rotationY(), rotationZ())
+        val globalRotRadian = globalRotDegree * (1.0/360.0 * 2 * PI)
+        o.globalRotation = o.globalRotation * Quaternion(globalRotRadian)
+
+        val rotEuler = Vec3(localRotX(), localRotY(), localRotZ())
+        val rotRadian = rotEuler * (1.0/360.0 * 2 * PI)
+        o.rotation = o.rotation * Quaternion(rotRadian)
+        // todo o.rotation *= quat(rotEuler)
     }
 
     private fun color(o: BwObject){

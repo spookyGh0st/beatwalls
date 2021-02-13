@@ -3,8 +3,8 @@ package structure.wallStructures
 import beatwalls.logError
 import structure.ObjectStructure
 import structure.bwElements.BwObject
-import structure.math.CuboidConstrains
-import structure.math.Vec3
+import math.CuboidConstrains
+import math.Vec3
 import types.BwInt
 import kotlin.math.abs
 import kotlin.math.roundToInt

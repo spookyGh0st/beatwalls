@@ -1,4 +1,4 @@
-package structure.math
+package math
 
 import kotlin.math.sqrt
 
@@ -48,13 +48,17 @@ data class Vec4(var x: Double = 0.0, var y: Double = 0.0, var z: Double = 0.0,va
         0 -> x; 1 -> y; 2 -> z; 3 -> w
         else -> throw IndexOutOfBoundsException()
     }
+    operator fun set(index: Int, value: Double) = when(index){
+        0 -> x = value; 1 -> y = value; 2 -> z = value; 3 -> w = value
+        else -> throw IndexOutOfBoundsException()
+    }
 
     operator fun times(mat4: Mat4): Vec4 =
         Vec4(
-            mat4.x.x * x + mat4.x.y * y + mat4.x.z * z + mat4.x.w * w,
-            mat4.y.x * x + mat4.y.y * y + mat4.y.z * z + mat4.y.w * w,
-            mat4.z.x * x + mat4.z.y * y + mat4.z.z * z + mat4.z.w * w,
-            mat4.w.x * x + mat4.w.y * y + mat4.w.z * z + mat4.w.w * w,
+            x=x*mat4.x.x + y*mat4.y.x + z* mat4.z.x + w * mat4.w.x,
+            y=x*mat4.x.y + y*mat4.y.y + z* mat4.z.y + w * mat4.w.y,
+            z=x*mat4.x.z + y*mat4.y.z + z* mat4.z.z + w * mat4.w.z,
+            w=x*mat4.x.w + y*mat4.y.w + z* mat4.z.w + w * mat4.w.w,
         )
 
     fun toList(): List<Double> =
@@ -67,14 +71,6 @@ data class Vec4(var x: Double = 0.0, var y: Double = 0.0, var z: Double = 0.0,va
             vec4.z * z,
             vec4.w * w,
         )
-
     }
 }
 
-operator fun Double.times(vec4: Vec4): Vec4 {
-    return Vec4(vec4.x*this, vec4.y*this, vec4.z*this, vec4.w * this)
-}
-
-operator fun Int.times(vec4: Vec4): Vec4 {
-    return Vec4(vec4.x*this, vec4.y*this, vec4.z*this, vec4.w * this)
-}

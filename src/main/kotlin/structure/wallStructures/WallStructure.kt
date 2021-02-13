@@ -4,7 +4,7 @@ package structure.wallStructures
 
 import structure.ObjectStructure
 import structure.bwElements.BwObstacle
-import structure.math.Vec3
+import math.Vec3
 import types.BwDouble
 import types.BwInt
 import types.bwDouble

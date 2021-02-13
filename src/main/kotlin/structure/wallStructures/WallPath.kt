@@ -1,12 +1,10 @@
 package structure.wallStructures
 
 import structure.bwElements.BwObstacle
-import structure.math.PointConnectionType
-import structure.math.Vec2
-import structure.math.Vec3
-import structure.math.bwObstacleOf
+import math.PointConnectionType
+import math.Vec2
+import math.Vec3
 import types.BwInt
-import java.time.Duration
 
 /**
  * @suppress
@@ -35,7 +33,7 @@ interface WallPath {
             val p0 = points[i]
             val p1 = points[i+1]
             p1.z *= duration
-            val obst = bwObstacleOf(p0,p1,type)
+            val obst = BwObstacle(p0,p1,type)
             l.add(obst)
         }
         return l.toList()

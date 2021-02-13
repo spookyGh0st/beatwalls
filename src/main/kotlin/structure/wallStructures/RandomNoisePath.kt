@@ -1,7 +1,7 @@
 package structure.wallStructures
 
 import structure.bwElements.BwObstacle
-import structure.math.CubicSpline
+import math.CubicSpline
 
 /**
  * Randomized spawns Walls along a Curve path

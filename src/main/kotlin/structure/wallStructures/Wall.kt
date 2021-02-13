@@ -1,8 +1,8 @@
 package structure.wallStructures
 
-import structure.math.PointConnectionType
-import structure.math.bwObstacleOf
-import structure.math.Vec3
+import structure.bwElements.BwObstacle
+import math.PointConnectionType
+import math.Vec3
 
 /**
  * create a single Wall
@@ -20,6 +20,6 @@ class Wall: WallStructure() {
      * generating the Walls
      */
      override fun createWalls()  = listOf(
-         bwObstacleOf(p0,p1,type)
+         BwObstacle(p0,p1,type)
      )
 }

@@ -1,4 +1,4 @@
-package structure.math
+package math
 
 import kotlin.math.sqrt
 
@@ -57,10 +57,3 @@ data class Vec2(var x: Double = 0.0, var y: Double = 0.0){
     }
 }
 
-operator fun Double.times(vec2: Vec2): Vec2 {
-    return Vec2(vec2.x*this, vec2.y*this )
-}
-
-operator fun Int.times(vec2: Vec2): Vec2 {
-    return Vec2(vec2.x*this, vec2.y*this)
-}

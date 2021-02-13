@@ -2,8 +2,8 @@ package structure.bwElements
 
 import org.junit.Test
 
-import structure.math.CubicSpline
-import structure.math.Vec3
+import math.CubicSpline
+import math.Vec3
 
 class CubicSplineTest {
 

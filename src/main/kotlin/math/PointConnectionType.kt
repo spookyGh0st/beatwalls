@@ -1,4 +1,4 @@
-package structure.math
+package math
 
 enum class PointConnectionType{
     Cuboid,

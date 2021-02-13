@@ -1,7 +1,7 @@
 package structure.wallStructures
 
 import structure.bwElements.BwObstacle
-import structure.math.*
+import math.*
 import types.BwInt
 import kotlin.math.roundToInt
 

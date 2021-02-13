@@ -5,9 +5,9 @@ import beatwalls.logWarning
 import de.javagl.jgltf.model.GltfModel
 import de.javagl.jgltf.model.io.GltfModelReader
 import structure.bwElements.BwObstacle
-import structure.math.Vec3
-import structure.math.Vec4
+import math.*
 import java.io.File
+import kotlin.math.PI
 
 const val cubeName = "Cube"
 class ModelLoader(val wd: File) {
@@ -36,9 +36,9 @@ class ModelLoader(val wd: File) {
                 logWarning("Found ${n.name} in Model, Non Cube Elements will look weird.")
             }
             val o = BwObstacle(
-                scale = n.scale.toVec3(),
-                translation = n.translation.toVec3(),
-                // todo localRotation = n.rotation.toVec4()
+                scale = n.scale?.toVec3()?: Vec3(1.0,1.0,1.0),
+                translation = n.translation?.toVec3()?: Vec3(),
+                rotation = n.rotation.toQuat()
             )
             bwObstacles.add(o)
         }
@@ -48,15 +48,25 @@ class ModelLoader(val wd: File) {
     private fun FloatArray.toVec3(): Vec3 =
         Vec3(getEl(0),getEl(1),getEl(2))
 
-    private fun FloatArray.toVec4(): Vec4 =
-        Vec4(getEl(0),getEl(1),getEl(2),getEl(3))
+    private fun FloatArray.toQuat(): Quaternion =
+        Quaternion(getEl(0),getEl(1),getEl(2),getEl(3))
 
-    private fun FloatArray.getEl(index: Int): Float =
-        elementAtOrElse(0) { logWarning("$this does not have enough values, using 0.0");0.0F }
+    private fun FloatArray.getEl(index: Int): Double =
+        elementAtOrElse(index) { logWarning("$this does not have enough values, using 0.0");0.0F }.toDouble()
 }
 
 
 fun main(){
     val f = File("C:\\Users\\user\\projects\\beatsaber\\beatwalls\\src\\main\\resources\\map\\assets")
-    ModelLoader(f).loadBwObst("testcube.glb")
+    val l = ModelLoader(f).loadBwObst("cubeRotY.gltf")
+    val bwEuler = Vec3(0.0, 0.25*PI)
+    val bwRotation = Quaternion(bwEuler)
+    val glRotation = l!![0].rotation
+    val glEuler = glRotation.toEuler()
+    println("------------------------------------------------")
+    println("GL: $glRotation")
+    println("BW: $bwRotation")
+    println("------------------------------------------------")
+    println("GLEuler: $glEuler")
+    println("BWEuler: $bwEuler")
 }

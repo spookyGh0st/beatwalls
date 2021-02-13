@@ -1,6 +1,7 @@
 package structure.bwElements
 
-import structure.math.Vec3
+import math.Quaternion
+import math.Vec3
 
 data class BwNote(
     var cutDirection: Double,
@@ -10,8 +11,8 @@ data class BwNote(
     override var color: Color?,
     override var beat: Double,
     override var translation: Vec3,
-    override var globalRotation: Vec3,
-    override var rotation: Vec3,
+    override var globalRotation: Quaternion,
+    override var rotation: Quaternion,
     override var noteJumpMovementSpeed: Double?,
     override var noteJumpStartBeatOffset: Double?,
     override var fake: Boolean,

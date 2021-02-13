@@ -1,4 +1,4 @@
-package structure.math
+package math
 
 import beatwalls.logError
 import kotlin.math.abs

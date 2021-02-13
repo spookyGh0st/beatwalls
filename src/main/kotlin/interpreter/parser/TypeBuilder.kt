@@ -6,9 +6,9 @@ import structure.ObjectStructure
 import structure.Structure
 import structure.StructureState
 import structure.bwElements.Color
-import structure.math.PointConnectionType
-import structure.math.Vec2
-import structure.math.Vec3
+import math.PointConnectionType
+import math.Vec2
+import math.Vec3
 import types.*
 import kotlin.math.roundToInt
 import kotlin.reflect.KType

@@ -1,4 +1,4 @@
-package structure.math
+package math
 
 import kotlin.math.sqrt
 
@@ -47,9 +47,9 @@ data class Vec3(var x: Double = 0.0, var y: Double = 0.0, var z: Double = 0.0){
 
     operator fun times(mat3: Mat3): Vec3 =
         Vec3(
-            mat3.x.x * x + mat3.x.y * y + mat3.x.z * z,
-            mat3.y.x * x + mat3.y.y * y + mat3.y.z * z,
-            mat3.z.x * x + mat3.z.y * y + mat3.z.z * z,
+            x*mat3.x.x + y*mat3.y.x + z*mat3.z.x,
+            x*mat3.x.y + y*mat3.y.y + z*mat3.z.y,
+            x*mat3.x.z + y*mat3.y.z + z*mat3.z.z,
         )
 
     fun toList(): List<Double> =
@@ -63,12 +63,22 @@ data class Vec3(var x: Double = 0.0, var y: Double = 0.0, var z: Double = 0.0){
         )
 
     }
+
+    fun toVec4(w: Double): Vec4 =
+        Vec4(x,y,z,w)
+
+    fun dot(v: Vec3): Double =
+        x*v.x + y*v.y + z*v.z
+
+    fun cross(b:Vec3): Vec3 {
+        val v = Vec3()
+
+        v.x = y * b.z - z * b.y
+        v.y = z * b.x - x * b.z
+        v.z = x * b.y - y * b.x
+
+        return v
+
+    }
 }
 
-operator fun Double.times(vec3: Vec3): Vec3 {
-    return Vec3(vec3.x*this, vec3.y*this, vec3.z*this)
-}
-
-operator fun Int.times(vec3: Vec3): Vec3 {
-    return Vec3(vec3.x*this, vec3.y*this, vec3.z*this)
-}

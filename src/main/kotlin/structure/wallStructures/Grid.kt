@@ -1,7 +1,7 @@
 package structure.wallStructures
 
 import structure.bwElements.BwObstacle
-import structure.math.Vec3
+import math.Vec3
 
 /**
  * A 3d Grid

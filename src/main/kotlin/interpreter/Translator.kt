@@ -5,7 +5,7 @@ import structure.bwElements.BwElement
 import structure.bwElements.BwEvent
 import structure.bwElements.BwNote
 import structure.bwElements.BwObstacle
-import structure.math.Vec3
+import math.*
 import kotlin.math.*
 
 @Suppress("SimplifyBooleanWithConstants")
@@ -90,40 +90,47 @@ class Translator(val structs: List<BwElement>, val bw: Beatwalls) {
         )
     }
 
-    fun neObstacle(obs: BwObstacle): _obstacles {
-        val bwPos = Vec3(
-            obs.translation.x - obs.scale.x/2,
-            obs.translation.y - obs.scale.y/2,
-            obs.translation.z - obs.scale.z/2
-        )
-        val localRot = obs.rotation * ( 1.0/360*2*PI)
-
-        val scale = Vec3(
+    fun minObstacle(obs: BwObstacle){
+        obs.scale = Vec3(
             abs(obs.scale.x).coerceAtLeast(meMinValue),
             abs(obs.scale.y).coerceAtLeast(meMinValue),
             abs(obs.scale.z.coerceAtLeast(meMinValue*0.01)),
-       )
+        )
+    }
 
-        val pivot_diff = scale * Vec3(0,-0,0)
-        val correction = pivot_diff - (localRot * pivot_diff)
-        val nePos = bwPos + (localRot * pivot_diff) + correction
+    fun neObstacle(obs: BwObstacle): _obstacles {
+        obs.scale = Vec3(
+            abs(obs.scale.x).coerceAtLeast(meMinValue),
+            abs(obs.scale.y).coerceAtLeast(meMinValue),
+            abs(obs.scale.z).coerceAtLeast(meMinValue*0.01),
+        )
 
-        val beat = bwPos.z + obs.beat
-        val x = if(obs.scale.x < 0) nePos.x -scale.x else nePos.x
-        val y = if(obs.scale.y < 0) nePos.y -scale.y else nePos.y
+        rabbitCorrect(obs)
+        // bwCorrect(obs)
+
+        val nePos = obs.translation
+        val neScale:List<Double>
+        val neLocalRot = neRotation(obs.rotation)
+        neScale = if (neLocalRot == null || (neLocalRot.getOrNull(0) == 0.0 && neLocalRot.getOrNull(1) ==0.0))
+            obs.scale.toVec2().toList()
+        else
+            obs.scale.toList()
+
+        val beat = obs.beat + nePos.z
+
 
         return _obstacles(
             _time = beat,
             _lineIndex = 0,
             _type = 0,
-            _duration = obs.duration ?: scale.z,
+            _duration = obs.duration ?: obs.scale.z,
             _width = 0,
             _obstacleCustomData = _obstacleCustomData(
-                _position = listOf(x,y),
-                _scale = scale.toVec2().toList(),
+                _position = nePos.toVec2().toList(),
+                _scale = neScale,
                 _color = obs.color?.toList(),
                 _rotation = neRotation(obs.globalRotation),
-                _localRotation = neRotation(obs.rotation),
+                _localRotation = neLocalRot,
                 _track = obs.track,
                 _noteJumpMovementSpeed = obs.noteJumpMovementSpeed,
                 _noteJumpStartBeatOffset = obs.noteJumpStartBeatOffset,
@@ -133,11 +140,41 @@ class Translator(val structs: List<BwElement>, val bw: Beatwalls) {
             )
         )
     }
+    // my own try on correcting the pos
+    fun bwCorrect(obs: BwObstacle) {
+        val transMat = translationMat4(obs.translation)
+        val scaleMat = scalingMat4(obs.scale)
 
-    private fun neRotation(vec: Vec3): List<Double>? {
+        val bwRot = obs.rotation.toRotationMat4()
+        val origin = Vec3(0.0, 0.5, -0.5) * obs.scale
+        val tToOrigin = translationMat4(origin)
+        val neRot = obs.rotation.inverse().toRotationMat4()
+        val tFromOrigin = translationMat4(-1.0 * origin)
+        val correction = bwRot * tToOrigin * neRot * tFromOrigin
+        val posCorrection = Vec4(correction.x.w, correction.y.w, correction.z.w, correction.w.w)
+        var pos = Vec4(-0.5,-0.5,-0.5,1.0)
+        pos = transMat *scaleMat *  pos  + posCorrection
+        obs.translation = pos.toVec3()
+    }
+
+    // correction of ne obst ~~based~~copied from rabbit's loader
+    val ingameObstacleScale = Vec3(1.02, 1.0, 1.0)
+    fun rabbitCorrect(obs: BwObstacle) {
+        val globalOffset = Vec3(-0.5 * obs.scale.x,0.0,0.0)
+        var offset = Vec3(0.0,-0.5*obs.scale.y, -0.5*obs.scale.z)
+        offset = obs.rotation.rotate(offset)
+        val pos = obs.translation + offset + globalOffset
+        obs.translation = pos
+        obs.scale *= ingameObstacleScale
+    }
+
+    private fun neRotation(quat: Quaternion): List<Double>? {
+        var vec = quat.toEuler()
         return if (vec.x == 0.0 && vec.y == 0.0 && vec.z == 0.0)
             null
-        else
+        else{
+            vec =  (1.0/(2* PI) * 360) * vec
             listOf(vec.x, vec.y, vec.z)
+        }
     }
 }

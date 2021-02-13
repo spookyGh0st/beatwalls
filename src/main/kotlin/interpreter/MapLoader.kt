@@ -31,7 +31,9 @@ class MapLoader(val workingDirectory: File) {
     init {
         val infoPath = File(workingDirectory, "Info.dat")
         try {
-            val json = infoPath.readText()
+            var json = infoPath.readText()
+            if (!json.startsWith("{"))
+                json = infoPath.readText(charset("UTF16"))
             info = gson.fromJson(json, Info::class.java)
             infoJson = gson.toJsonTree(json)
         }catch (e:Exception){

@@ -2,5 +2,7 @@
 You can learn more [here](https://spooky.moe/beatwalls).
 
 Change Log:
-- Update Include Syntax: They must be at the top of a file
-- Update Include Scope: Custom Structures and Interfaces are now **private** per file
+- Fixed the position when working with rotation on the x or y axis
+- Fixed a scaling error, where the width of the wall was not properly set
+- Fixed utf-16 loading
+- Added featured maps to the docs, add your own!

@@ -9,7 +9,7 @@ const val mainFileSuffix = "main.bw"
 val includeRegex = Regex("include:.+")
 
 @ExperimentalCoroutinesApi
-suspend fun main(args: Array<String>) {
+fun main(args: Array<String>) {
     hello()
     val d = loadDirectory(args)
     val bwFiles = loadBwFiles(d).toMutableList()

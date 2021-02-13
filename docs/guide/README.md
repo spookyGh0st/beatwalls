@@ -16,6 +16,7 @@ While i have your full attention, I want to thank these people:
 - Aero, who wrote Noodle Extensions and 
 - CheckThePan and nyri0, who helped me with a lot of math
 - Reaxt and CyanSnow who showed us what can be possible with modcharts
+- +1Rabbit, who is really nice and helped me a ton with his code :)
 
 ## Installation
 

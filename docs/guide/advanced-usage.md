@@ -1,4 +1,4 @@
-# Advanced Usage
+# Advanced Topics
 
 ## Includes
 
@@ -29,3 +29,11 @@ etc.
 Imported files are **locally scoped**.
 Interfaces, Custom Structures, etc are **private per file** and will not be shared.
 :::
+
+## Where to go now
+
+On this site you can find the [Reference page](../reference/),
+which lists all available Structures and Properties.
+
+You can also find the [example page](../examples/),
+to get some inspiration

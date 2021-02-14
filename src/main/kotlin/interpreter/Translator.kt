@@ -1,11 +1,8 @@
 package interpreter
 
 import chart.difficulty.*
-import structure.bwElements.BwElement
-import structure.bwElements.BwEvent
-import structure.bwElements.BwNote
-import structure.bwElements.BwObstacle
 import math.*
+import structure.bwElements.*
 import kotlin.math.*
 
 @Suppress("SimplifyBooleanWithConstants")
@@ -118,6 +115,8 @@ class Translator(val structs: List<BwElement>, val bw: Beatwalls) {
 
         val beat = obs.beat + nePos.z
 
+        val neAnimation = obs.animation?.toNeAnimation()
+
 
         return _obstacles(
             _time = beat,
@@ -137,6 +136,7 @@ class Translator(val structs: List<BwElement>, val bw: Beatwalls) {
                 _fake = obs.fake.takeIf { it == true },
                 _interactable = obs.interactable.takeIf { it == false },
                 _disableNoteGravity = (!obs.gravity).takeIf { it == true },
+                _animation = neAnimation
             )
         )
     }
@@ -177,4 +177,20 @@ class Translator(val structs: List<BwElement>, val bw: Beatwalls) {
             listOf(vec.x, vec.y, vec.z)
         }
     }
+
+    private fun BwAnimation.toNeAnimation(): _Animation =
+        _Animation(
+            _position           = this.position?.toPointDef { it.toList() },
+            _definitePosition   = this.definitePosition?.toPointDef { it.toList() },
+            _rotation           = this.globalRotation?.toPointDef { it.toEuler().toList() },
+            _localRotation      = this.rotation?.toPointDef { it.toEuler().toList() },
+            _scale              = this.scale?.toPointDef { it.toList() },
+            _dissolve           = this.dissolve?.toPointDef { listOf(it) },
+            _dissolveArrow      = this.dissolveArrow?.toPointDef { listOf(it) },
+            _color              = this.color?.toPointDef { it.toList() },
+            _interactable       = this.interactable?.toPointDef { if (it) listOf(1.0) else listOf(0.0) }
+        )
+
+    fun <T: Any> List<Waypoint<T>>.toPointDef(f: (T)-> List<Double>) =
+        this.map { waypoint: Waypoint<T> -> waypoint.toList(f) }
 }

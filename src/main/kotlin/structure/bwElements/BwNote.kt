@@ -20,5 +20,6 @@ data class BwNote(
     override var gravity: Boolean,
     override var track: String?,
     override var scale: Vec3,
-    override var duration: Double? = null
+    override var duration: Double? = null,
+    override var animation: BwAnimation? = null,
 ): BwObject

@@ -1,7 +1,6 @@
 package chart.difficulty
 
 import interpreter.BpmAdjuster
-import model.difficulty._customData
 import org.junit.Assert.assertEquals
 import org.junit.Test
 

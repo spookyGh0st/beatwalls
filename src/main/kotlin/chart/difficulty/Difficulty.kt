@@ -1,7 +1,5 @@
 package chart.difficulty
 
-import model.difficulty._customData
-import model.difficulty._customEvents
 import java.io.File
 
 data class Difficulty(

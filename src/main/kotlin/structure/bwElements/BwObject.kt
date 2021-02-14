@@ -4,10 +4,7 @@ import beatwalls.logWarning
 import math.*
 import kotlin.math.*
 
-interface BwObject: BwElement {
-    var rotation: Quaternion
-    var scale: Vec3
-    var translation: Vec3
+interface BwObject: BwElement, BwNode {
     var globalRotation: Quaternion
     var color: Color?
     var noteJumpMovementSpeed: Double?
@@ -16,6 +13,7 @@ interface BwObject: BwElement {
     var interactable: Boolean
     var gravity: Boolean
     var track: String?
+    var animation: BwAnimation?
 
     fun setTo(p0: Vec3, p1: Vec3, type: PointConnectionType) {
         when(type) {

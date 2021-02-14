@@ -1,7 +1,5 @@
-package model.difficulty
+package chart.difficulty
 
-import chart.difficulty._BPMChanges
-import chart.difficulty._bookmarks
 import com.google.gson.annotations.SerializedName
 
 
@@ -18,9 +16,10 @@ For support, please feel free to contact me at https://www.linkedin.com/in/syeda
 
 
 data class _customData (
-        val _time : Double?,
-        @SerializedName(value = "_BPMChange", alternate = ["_bpmChanges"]) val _BPMChange : List<_BPMChanges>?,
-        val _bookmarks : List<_bookmarks>?,
+        val _time : Double? = null,
+        @SerializedName(value = "_BPMChange", alternate = ["_bpmChanges"])
+        val _BPMChange : List<_BPMChanges>?     = null,
+        val _bookmarks : List<_bookmarks>?      = null,
         var _customEvents: List<_customEvents>? = null,
-        val _pointDefinitions: List<Any>? = null
+        val _pointDefinitions: List<Any>?       = null
 )

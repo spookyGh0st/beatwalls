@@ -29,14 +29,16 @@ class MapLoaderTest {
         val oDiff = ml.loadDifficulty("Standard", Options.DifficultyType.Easy)
 
         assertNotNull(oDiff)
-        ml.writeDiff(oDiff!!, listOf(_obstacles(
-            _time = 0.0,
-            _lineIndex = 1,
-            _duration = 1.0,
-            _type = 1,
-            _width = 1,
-            _obstacleCustomData = null
-        )), listOf(), listOf())
+        ml.writeDiff(
+            oDiff!!, listOf(_obstacles(
+                _time = 0.0,
+                _lineIndex = 1,
+                _duration = 1.0,
+                _type = 1,
+                _width = 1,
+                _obstacleCustomData = null
+            )), listOf(), listOf()
+        )
 
         val nDiff = ml.loadDifficulty("Standard", Options.DifficultyType.Easy)
         oDiff.file.writeText(Gson().toJson(oDiff))

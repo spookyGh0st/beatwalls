@@ -3,10 +3,7 @@ package interpreter
 import beatwalls.logError
 import beatwalls.logInfo
 import beatwalls.logWarning
-import chart.difficulty.Difficulty
-import chart.difficulty._events
-import chart.difficulty._notes
-import chart.difficulty._obstacles
+import chart.difficulty.*
 import chart.info.Info
 import com.google.gson.Gson
 import com.google.gson.JsonElement
@@ -132,20 +129,20 @@ class MapLoader(val workingDirectory: File) {
     }
 
     internal fun createDiff(diff: JsonElement, obstacles: List<_obstacles>, notes: List<_notes>, events: List<_events>): String {
-        val d = diff
-        val obsJson = gson.toJsonTree(obstacles)
-        val notesJson = gson.toJsonTree(notes)
-        val eventsJson = gson.toJsonTree(events)
-
-        // d = d.asJsonObject.remove("_obstacles")
-        // d = d.asJsonObject.remove("_notes")
-        // d = d.asJsonObject.remove("_events")
-
-        d.asJsonObject.add("_obstacles", obsJson)
-        d.asJsonObject.add("_notes", notesJson)
-        d.asJsonObject.add("_events", eventsJson)
+        if (obstacles.isNotEmpty()){
+            val json = gson.toJsonTree(obstacles)
+            diff.asJsonObject.add("_obstacles", json)
+        }
+        if (notes.isNotEmpty()){
+            val json = gson.toJsonTree(notes)
+            diff.asJsonObject.add("_notes", json)
+        }
+        if (events.isNotEmpty()){
+            val json = gson.toJsonTree(events)
+            diff.asJsonObject.add("_events", json)
+        }
 
         logInfo("Added ${obstacles.size} Walls, ${notes.size} notes and ${events.size} events to difficulty.")
-        return gson.toJson(d)
+        return gson.toJson(diff)
     }
 }

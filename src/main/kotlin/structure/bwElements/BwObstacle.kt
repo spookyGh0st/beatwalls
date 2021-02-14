@@ -19,6 +19,7 @@ data class BwObstacle(
     override var interactable: Boolean              = true,
     override var gravity: Boolean                   = true,
     override var track: String?                     = null,
+    override var animation: BwAnimation?            = null,
 ): BwObject{
     constructor(v0: Vec3, v1: Vec3, type: PointConnectionType): this(){
         setTo(v0,v1,type)

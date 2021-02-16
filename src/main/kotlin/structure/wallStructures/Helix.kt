@@ -7,24 +7,21 @@ import math.Vec3
 import types.BwDouble
 import types.BwInt
 import types.bwDouble
-import kotlin.math.PI
-import kotlin.math.cos
-import kotlin.math.roundToInt
-import kotlin.math.sin
+import kotlin.math.*
 
 /**
  * spins Walls around a center Point
  * Can make heavy use of easing to create cool effects
  * You can Create multiple helixes around the same Point by using the c - Variable
  */
-class Helix:WallStructure(),  WallPath{
+class Helix:WallStructure(),  WallPath {
 
     /**
      * The amount of Walls Generated **PER SPIRAL**
      * It is recommended to link this to the duration
      * Default: 6 * d
      */
-    override var amount: BwInt = { (6 * duration ).roundToInt() }
+    override var amount: BwInt = { (6 * duration).roundToInt() }
 
     /**
      * The Duration of the Curve in Beats
@@ -37,6 +34,13 @@ class Helix:WallStructure(),  WallPath{
      * ME does only support Cuboid, all other will look cooler B)
      */
     override var type: PointConnectionType = PointConnectionType.Cuboid
+
+    /**
+     * How many splines are created per helix.
+     * Also known as how many spiiiiiiuuuuuuuuiiiiiiiins
+     * default: 2
+     */
+    var splineAmount: Int = 2
 
     /**
      * The radius of the Helix.
@@ -80,21 +84,26 @@ class Helix:WallStructure(),  WallPath{
         // Always must be set before amount get's called
         structureState.duration = duration
         val n = amount()
+        val l = mutableListOf<BwObstacle>()
 
-        val points = mutableListOf<Vec3>()
-        for(i in 0..n){
-            val z = i.toDouble()/ n
-            setProgress(z)
-            val currentRot = (z* rotationAmount() + startRotation())/360*2*PI
-            val x = cos(currentRot)
-            val y = sin(currentRot)
-            val r = radius()
-            points.add(Vec3(p0.x +x*r,p0.y +y*r,z))
-        }
-        val l = createFromPointList(points)
-        for(o in l){
-            setProgress(o.translation.z)
-            o.globalRotation.z += localRotationOffset()
+        for (sa in 0 until splineAmount) {
+            val points = mutableListOf<Vec3>()
+            val offset = round(sa * 360.0 / splineAmount)
+
+            for (i in 0..n) {
+                val z = i.toDouble() / n
+                setProgress(z)
+                val currentRot = (z * rotationAmount() + offset + startRotation()) / 360 * 2 * PI
+                val x = cos(currentRot)
+                val y = sin(currentRot)
+                val r = radius()
+                points.add(Vec3(p0.x + x * r, p0.y + y * r, z))
+            }
+            for (o in createFromPointList(points)) {
+                setProgress(o.translation.z)
+                o.globalRotation.z += localRotationOffset()
+                l.add(o)
+            }
         }
         return l
     }

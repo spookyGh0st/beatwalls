@@ -1,8 +1,11 @@
-👻 Beatwalls is a Tool to ease the pain of creating Wallmaps for Beatsaber.
-You can learn more [here](https://spooky.moe/beatwalls).
+A tool to create [wallmaps](https://www.youtube.com/watch?v=t4bk8ym3fIQ) for Beat Saber.
+Check out the docs under https://spooky.moe/beatwalls.
+
+Created with <3 by your friendly ghost.
 
 Change Log:
-- Fixed the position when working with rotation on the x or y axis
-- Fixed a scaling error, where the width of the wall was not properly set
-- Fixed utf-16 loading
-- Added featured maps to the docs, add your own!
+- **BREAKING:** Switch from 0-1 values for colors to 0-255 since it's more used on color pickers.
+- Add Property `colorAlpha` to overwrite the alpha values of colors in a structure.
+- Reintroduce Property `splineAmount` to ease the creation of helixes. (in some versions called `count`)
+- Add alias `b` for `beat` since i hate typing.
+- fixed a bug that didn't allow rainbows without repetitions number (defaults to 1 now)

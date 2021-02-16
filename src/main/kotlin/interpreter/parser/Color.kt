@@ -7,7 +7,7 @@ fun Parser.parseColor(){
     var r = 0.0
     var g = 0.0
     var b = 0.0
-    var a = 1.0
+    var a = 255.0
 
     for (tp in currentBlock.properties){
         val errorMsg = { d:Double -> bw.error(tp.file,tp.line, "Only direct Values are allowed. Sorry").let { d }}

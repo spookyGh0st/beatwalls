@@ -49,7 +49,7 @@ fun splitExpression(s: String): List<String> {
         }
     }
     l.add(s.substring(start).trim())
-    return l.toList()
+    return l.filterNot { it.isBlank() }.toList()
 }
 
 

@@ -107,6 +107,7 @@ abstract class ObjectStructure: Structure() {
 
     /**
      * The Color of the Wallstructure. Supports various functions.
+     * @see colorAlpha
      *
      * ```yaml
      * color: green # Turns the entire Structure green
@@ -115,15 +116,21 @@ abstract class ObjectStructure: Structure() {
      * color: random(yellow,green,pink) # Randomly picks a color for each walls
      * color: between(blue,red)         # Picks a random color between blue and red
      *
-     * # You can also create your own colors
+     * # You can also create your own colors using values in the range from 0-255
      * color myColor:
-     *   red:   0.2
-     *   green: 0.4
-     *   blue:  0,6
-     *   alpha: 0.8
+     *   red:   100
+     *   green: 255
+     *   blue:  120
+     *   alpha: 5
      * ```
      */
     var color: BwColor? = null
+
+    /**
+     * overwrites the alpha values of the colors.
+     * applied after the normal color property
+     */
+    var colorAlpha: BwDouble? = null
 
     /**
      * Defines, if mirror also effects the rotation. Can be true or false. Default: true
@@ -268,6 +275,10 @@ abstract class ObjectStructure: Structure() {
 
     private fun color(o: BwObject){
         o.color = color?.invoke()?: o.color
+        if (o.color != null && colorAlpha != null){
+            // unnecessary complicated, but i don't want any race conditions
+            o.color?.alpha = colorAlpha?.invoke()?: o.color?.alpha?: 255.0
+        }
     }
 }
 

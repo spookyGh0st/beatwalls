@@ -22,7 +22,7 @@ fun Parser.parseStructure(){
 }
 
 fun Parser.parseStructureProperties(struct: Structure, properties: List<TokenPair>){
-    struct.structureState.variables += variables
+    struct.structureState.variables.plusAssign(variables)
     // If we directly inherent from a basestructure, pass the Property below
     // Otherwise, you could not access count or other variables in it.
     if (struct is CustomStructInterface && struct.superStructure !is CustomStructInterface)

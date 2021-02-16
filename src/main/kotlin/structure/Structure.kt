@@ -24,8 +24,23 @@ abstract class Structure {
     /**
      * Beat the of the structure in the map.
      * This takes BPM changes into account
+     * example:
+     *
+     * ```
+     * beat = 10
+     * # alias:
+     * b = 10
+     * ```
      */
     var beat: BwDouble = bwDouble(0)
+
+    /**
+     * alias for beat, since i hate typing
+     */
+    var b: BwDouble
+        get() = beat
+        set(value) { beat = value }
+
 
     /**
      * Repeats the Structure c times.

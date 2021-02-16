@@ -58,14 +58,15 @@ class ColorBuilder(s: String, ss: StructureState, colors: Map<String, Color>, st
     private fun buildRainbow(args: List<String>): BwColor? {
         val repString = args.getOrNull(0)?: "1.0"
         val repetitions = TypeBuilder(repString, ss, colors, structFactories).buildBwDouble()?.invoke()
-        val alphaString = args.getOrNull(1)?: "1.0"
+        val alphaString = args.getOrNull(1)?: "255.0"
         val alpha = TypeBuilder(alphaString, ss, colors, structFactories).buildBwDouble()
         if (alpha == null || repetitions == null) return null
         return {
-            val r =  sin(ss.progress*2* PI * repetitions + 0.0/3.0 * PI) /2 + 0.5
-            val g =  sin(ss.progress*2* PI * repetitions + 2.0/3.0 * PI) /2 + 0.5
-            val b =  sin(ss.progress*2* PI * repetitions + 4.0/3.0 * PI) /2 + 0.5
-            Color(r,g,b)
+            val r =  255 * sin(ss.progress*2* PI * repetitions + 0.0/3.0 * PI) /2
+            val g =  255 * sin(ss.progress*2* PI * repetitions + 2.0/3.0 * PI) /2
+            val b =  255 * sin(ss.progress*2* PI * repetitions + 4.0/3.0 * PI) /2
+            val a = alpha.invoke()
+            Color(r,g,b,a)
         }
     }
 

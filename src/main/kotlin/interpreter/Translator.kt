@@ -127,7 +127,7 @@ class Translator(val structs: List<BwElement>, val bw: Beatwalls) {
             _obstacleCustomData = _obstacleCustomData(
                 _position = nePos.toVec2().toList(),
                 _scale = neScale,
-                _color = obs.color?.toList(),
+                _color = obs.color?.toNeList(),
                 _rotation = neRotation(obs.globalRotation),
                 _localRotation = neLocalRot,
                 _track = obs.track,
@@ -187,7 +187,7 @@ class Translator(val structs: List<BwElement>, val bw: Beatwalls) {
             _scale              = this.scale?.toPointDef { it.toList() },
             _dissolve           = this.dissolve?.toPointDef { listOf(it) },
             _dissolveArrow      = this.dissolveArrow?.toPointDef { listOf(it) },
-            _color              = this.color?.toPointDef { it.toList() },
+            _color              = this.color?.toPointDef { it.toNeList() },
             _interactable       = this.interactable?.toPointDef { if (it) listOf(1.0) else listOf(0.0) }
         )
 

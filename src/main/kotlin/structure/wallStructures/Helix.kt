@@ -105,6 +105,7 @@ class Helix:WallStructure(),  WallPath {
                 l.add(o)
             }
         }
+        l.sortBy { it.translation.z }
         return l
     }
 }

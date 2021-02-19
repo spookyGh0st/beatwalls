@@ -8,6 +8,8 @@ import structure.baseStructs
  */
 internal val baseStructures = baseStructs(
     Curve::class,
+    BezierCurve::class,
+    ExpCurve::class,
     EmptyWallStructure::class,
     Grid::class,
     Helix::class,

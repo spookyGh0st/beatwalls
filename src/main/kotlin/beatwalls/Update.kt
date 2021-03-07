@@ -91,5 +91,6 @@ val loadingMessages = listOf(
     "Remember the human!",
     "The first 90 percent of the code accounts for the first 90 percent of the development time. The remaining 10 percent of the code accounts for the other 90 percent of the development time - Tom Cargill, Bell Labs",
     "XML is a classic political compromise: it balances the needs of man and machine by being equally unreadable to both. - Matthew Might",
-
+    "Komm heute nacht ins Internet\nich warte schon auf dich\nMensch, sei ein User, geh online\nim E-Mail triffst du mich",
+    "Okay, kids, you wanna have some fun?\nGet your computer and turn it on\nAt the speed of light, you can enter a place\nIt's the groovy highway of cyberspace "
 )

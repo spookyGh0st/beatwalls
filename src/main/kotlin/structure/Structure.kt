@@ -46,7 +46,7 @@ abstract class Structure {
      * Repeats the Structure c times.
      * You can change variables supporting repeat by using the variable 'c' in your expressions
      *
-     * beat: 10 + c
+     * beat: 10 + r
      */
     var repeat: BwInt = bwInt(1)
 

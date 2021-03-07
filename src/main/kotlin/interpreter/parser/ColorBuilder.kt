@@ -16,7 +16,8 @@ class ColorBuilder(s: String, ss: StructureState, colors: Map<String, Color>, st
     fun buildColor(): BwColor? {
         val sanitizedString = s.toLowerCase().replace(" ", "")
         val c = colors[sanitizedString]
-        if (c != null) return { c } else return buildColorFunction()
+        // TODO this is bad with the copy and should be done with a proper factory maybe?
+        if (c != null) return { c.copy() } else return buildColorFunction()
     }
 
     fun buildColorFunction() : BwColor? {
